@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>SERAPH — Systemic Risk Console</title>
+<!--
+  ============================================================================
+   ##  DEMO SCAFFOLDING — DELETE BEFORE ANY REAL USE  ##
+   Every number in this file is FABRICATED. Nothing is derived from the
+   pipeline, from E6/E7/E8, or from any market. See DEMO-DELETE-ME.md.
+   Kept self-contained (no CDN, no fetch) so it renders anywhere as a design
+   reference for the eventual C12 build.
+  ============================================================================
+-->
+<style>
+:root{
+  --bg:#030304; --panel:#0a0a0b; --panel2:#0d0d0f; --line:#1f1f21; --line2:#161617;
+  --txt:#cfcdc8; --dim:#78746c; --dim2:#4d4b46;
+  --amber:#c9a63a; --amber2:#e3c76a; --green:#4a9d7e; --red:#b7362a;
+  --blue:#5b9dd9;
+  --mono:ui-monospace,SFMono-Regular,Menlo,"Cascadia Mono",monospace;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{background:var(--bg);color:var(--txt);
+  font:13px/1.45 ui-sans-serif,system-ui,-apple-system,sans-serif;overflow:hidden}
+#shell{display:grid;grid-template-rows:auto auto auto 1fr auto;height:100%}
+
+/* ---------- header ---------- */
+header{display:flex;align-items:center;gap:22px;padding:9px 14px;
+  border-bottom:1px solid var(--line);background:var(--panel)}
+.brand{font-family:var(--mono);font-size:16px;letter-spacing:.34em;font-weight:600}
+.brand i{color:var(--amber);font-style:normal}
+nav{display:flex;gap:16px;font-family:var(--mono);font-size:10.5px;
+  letter-spacing:.14em;color:var(--dim)}
+nav a{cursor:pointer;padding-bottom:2px;border-bottom:1px solid transparent}
+nav a.on{color:var(--txt);border-bottom-color:var(--amber)}
+nav a:hover{color:var(--txt)}
+.hgap{margin-left:auto;display:flex;align-items:center;gap:14px;
+  font-family:var(--mono);font-size:10.5px;color:var(--dim)}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--green);
+  display:inline-block;margin-right:5px;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+
+/* ---------- role switcher (the requested buttons) ---------- */
+#roles{display:flex;gap:0;border:1px solid var(--line);border-radius:3px;
+  overflow:hidden}
+#roles button{background:transparent;border:0;border-right:1px solid var(--line);
+  color:var(--dim);font-family:var(--mono);font-size:10px;letter-spacing:.14em;
+  padding:5px 13px;cursor:pointer;transition:background .12s,color .12s}
+#roles button:last-child{border-right:0}
+#roles button:hover{color:var(--txt);background:#141416}
+#roles button.on{background:var(--amber);color:#0b0b0c;font-weight:600}
+
+/* ---------- banners / ticker ---------- */
+.banner{font-family:var(--mono);font-size:10.5px;padding:6px 14px;
+  background:#b7362a22;border-bottom:1px solid #b7362a55;color:#e0a89f}
+.ticker{display:flex;gap:26px;padding:7px 14px;overflow-x:auto;white-space:nowrap;
+  font-family:var(--mono);font-size:11px;background:#08080a;
+  border-bottom:1px solid var(--line)}
+.ticker b{font-weight:500;color:var(--dim2);margin-right:7px}
+.ticker .up{color:var(--green)} .ticker .dn{color:var(--red)}
+
+/* ---------- layout ---------- */
+main{display:grid;grid-template-columns:300px 1fr 300px;gap:10px;padding:10px;
+  min-height:0;overflow:hidden}
+.rail{display:flex;flex-direction:column;gap:10px;min-height:0;overflow-y:auto}
+.mid{display:flex;flex-direction:column;gap:10px;min-height:0;overflow-y:auto}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:4px}
+.card h3{margin:0;padding:7px 11px;border-bottom:1px solid var(--line2);
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;color:var(--dim);
+  font-weight:500;text-transform:uppercase;display:flex;justify-content:space-between}
+.card h3 span{color:var(--dim2)}
+.body{padding:10px 11px}
+
+/* ---------- CSRS hero ---------- */
+.hero{position:relative;border:1px solid var(--line);border-radius:5px;
+  background:#08080a;padding:16px 18px;overflow:hidden}
+.hero .glow{position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(120% 140% at 18% 0%,#c9a63a26,transparent 70%);
+  filter:blur(4px)}
+.hero .val{position:relative;font-family:var(--mono);font-size:52px;font-weight:600;
+  line-height:1;letter-spacing:-.01em}
+.hero .meta{position:relative;font-family:var(--mono);font-size:10.5px;
+  color:var(--dim);margin-top:7px;display:flex;align-items:center;gap:10px;
+  flex-wrap:wrap}
+.band{position:relative;height:7px;border-radius:4px;background:#17171a;margin-top:12px}
+.band .fill{position:absolute;top:0;bottom:0;border-radius:4px;background:#c9a63acc}
+.band .tick{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--txt)}
+.chip{display:inline-block;font-family:var(--mono);font-size:9px;letter-spacing:.1em;
+  padding:2px 7px;border-radius:2px;border:1px solid;white-space:nowrap}
+
+/* ---------- misc widgets ---------- */
+.kv{display:flex;justify-content:space-between;font-family:var(--mono);
+  font-size:10.5px;padding:4px 0;border-bottom:1px solid var(--line2)}
+.kv:last-child{border-bottom:0}
+.kv span:first-child{color:var(--dim)}
+.stack{display:flex;height:22px;border-radius:3px;overflow:hidden;background:#17171a}
+.slabels{display:flex;justify-content:space-between;margin-top:6px;
+  font-family:var(--mono);font-size:10px}
+.bar{height:4px;background:#17171a;border-radius:2px;margin-top:4px}
+.bar i{display:block;height:100%;border-radius:2px}
+.spark{display:block;width:100%;height:34px}
+.trend{flex:1;min-width:130px}
+.trend .lbl{font-family:var(--mono);font-size:9px;letter-spacing:.12em;
+  color:var(--dim2);display:flex;justify-content:space-between}
+.sig{padding:7px 0;border-bottom:1px solid var(--line2)}
+.sig:last-child{border-bottom:0}
+.sig p{margin:5px 0 0;font-size:12px;color:var(--txt)}
+.spectrum{display:flex;align-items:flex-end;height:88px;gap:1px}
+.spectrum i{flex:1;background:var(--dim2);display:block}
+.spectrum i.out{background:var(--red)}
+.note{font-family:var(--mono);font-size:9.5px;color:var(--dim2);margin-top:7px}
+.locked{opacity:.32;filter:grayscale(1)}
+.lockmsg{font-family:var(--mono);font-size:10px;color:var(--dim2);
+  border-left:2px solid var(--line);padding-left:8px}
+footer{font-family:var(--mono);font-size:10px;color:var(--dim2);
+  padding:6px 14px;border-top:1px solid var(--line);display:flex;
+  justify-content:space-between;background:var(--panel)}
+::-webkit-scrollbar{width:7px;height:7px}
+::-webkit-scrollbar-thumb{background:#24242a;border-radius:4px}
+::-webkit-scrollbar-track{background:transparent}
+@media(max-width:1180px){main{grid-template-columns:1fr;overflow:auto}
+  body{overflow:auto} #shell{height:auto;min-height:100%}}
+</style>
+</head>
+<body>
+<div id="shell">
+
+<header>
+  <div class="brand">SER<i>APH</i></div>
+  <nav>
+    <a class="on">CONSOLE</a><a>SIGNAL FEED</a><a>PILLARS</a><a>METHOD</a>
+  </nav>
+  <div class="hgap">
+    <div id="roles">
+      <button data-role="regulator" class="on">REGULATOR</button>
+      <button data-role="institutional">INSTITUTIONAL</button>
+      <button data-role="retail">RETAIL</button>
+    </div>
+    <span><span class="dot"></span>LIVE — <span id="clock">--:--:--</span> IST</span>
+  </div>
+</header>
+
+<div class="banner">
+  <b>DEMO MODE</b> — every value on this page is synthetic. Not a market reading.
+  No CSRS has been computed from real data.
+</div>
+
+<div class="ticker" id="ticker"></div>
+
+<main>
+  <!-- ============ LEFT RAIL ============ -->
+  <div class="rail">
+    <div class="card">
+      <h3>Signals <span id="sigcount"></span></h3>
+      <div class="body" id="signals"></div>
+    </div>
+    <div class="card" data-field="pillars">
+      <h3>Pillar sub-scores <span>RAW</span></h3>
+      <div class="body" id="pillars"></div>
+    </div>
+    <div class="card" data-field="mask">
+      <h3>Availability mask <span>D2</span></h3>
+      <div class="body" id="mask"></div>
+    </div>
+  </div>
+
+  <!-- ============ CENTRE ============ -->
+  <div class="mid">
+    <div class="hero">
+      <div class="glow"></div>
+      <div class="val" id="csrs">0.625</div>
+      <div class="meta">
+        <span>COMPOSITE SYSTEMIC RISK SCORE</span>
+        <span data-field="ci">· 95% CI <b id="ci"></b></span>
+        <span class="chip" id="level"></span>
+        <span class="chip" data-field="mode" id="mode"></span>
+      </div>
+      <div class="band"><div class="fill" id="bandfill"></div>
+        <div class="tick" id="bandtick"></div></div>
+    </div>
+
+    <div class="card">
+      <h3>Trend <span>180 SESSIONS</span></h3>
+      <div class="body" style="display:flex;gap:14px" id="trends"></div>
+    </div>
+
+    <div class="card">
+      <h3>Regime probabilities <span data-field="xi_src">HAMILTON ξ</span></h3>
+      <div class="body">
+        <div class="stack" id="stack"></div>
+        <div class="slabels" id="slabels"></div>
+      </div>
+    </div>
+
+    <div class="card" data-field="spectrum">
+      <h3>Marchenko–Pastur spectrum <span>PILLAR 2</span></h3>
+      <div class="body">
+        <div class="spectrum" id="spectrum"></div>
+        <div class="note" id="spectrumnote"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ RIGHT RAIL ============ -->
+  <div class="rail">
+    <div class="card" data-field="shapley">
+      <h3>Pillar decomposition <span>SHAPLEY</span></h3>
+      <div class="body" id="shapley"></div>
+    </div>
+    <div class="card" data-field="sectors">
+      <h3>Sector stress</h3>
+      <div class="body" id="sectors"></div>
+    </div>
+    <div class="card">
+      <h3>What this means</h3>
+      <div class="body" id="plain" style="font-size:12.5px;line-height:1.5"></div>
+    </div>
+    <div class="card">
+      <h3>Access</h3>
+      <div class="body"><div class="lockmsg" id="access"></div></div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <span id="rolefoot"></span>
+  <span>Local/demo only — intraday data is Kite-derived and may not be
+    redistributed (SPEC §7.14)</span>
+</footer>
+</div>
+
+<script>
+// ===========================================================================
+//  FABRICATED STATE. Mirrors the shapes C9/C12 will eventually produce so the
+//  layout is a usable reference, but none of it is real.
+// ===========================================================================
+const S = {
+  csrs:0.625, ci:[0.439,0.811], level:"AMBER", mode:"KALMAN",
+  pillars:{
+    hawkes:{label:"MARKET TOXICITY", short:"MTS", raw:0.121,
+            note:"n/(1-n) at n≈0.108 · contagion state"},
+    rmt:{label:"SYSTEMIC COUPLING", short:"λ1/N", raw:0.2535,
+         note:"leading variance share · 1000d window"},
+    hamilton:{label:"LIQUIDITY STRESS", short:"LSD", raw:1.420,
+              note:"ξ₂+2ξ₃ on [0,3] · TVTP regime"}
+  },
+  mask:[true,true,true],
+  shapley:{hawkes:0.388, rmt:0.113, hamilton:0.150},
+  xi:[0.21,0.46,0.33],
+  spectral:{n_t:496,q_t:2.02,lm:0.142,lp:2.634,f_t:0.0206},
+  sectors:[["Solar",0.87,"amber"],["Steel",0.81,"amber"],
+           ["Auto Components",0.79,"amber"],["Pharma",0.74,"amber"],
+           ["Energy",0.33,"clear"],["Banking",0.21,"clear"]],
+  signals:[
+    ["AMBER","Elevated systemic risk (0.63, 95% CI 0.44–0.81), driven mainly by self-reinforcing sell-side pressure."],
+    ["SECTOR","steel: jump intensity above baseline"],
+    ["SECTOR","aluminium: jump intensity above baseline"],
+    ["WATCH","RBI flags concentration risk in tariff-exposed lending books"]
+  ],
+  plain:"Systemic risk is elevated but not extreme. The main driver is contagion — shocks are propagating between names rather than hitting them independently. Coupling and liquidity stress are both mid-range.",
+  ticker:[["NIFTY 50","24,812.30",-0.34],["BANK NIFTY","52,406.85",0.21],
+          ["NIFTY METAL","9,140.20",-1.86],["INDIA VIX","13.82",1.10],
+          ["USD/INR","83.41",0.08]]
+};
+
+// RBAC: which fields each role receives AT THE TRANSPORT LAYER (CT-8).
+// Hiding here is illustrative only — the real gateway omits them upstream.
+const ROLES = {
+  regulator:    {fields:22, allow:"*",
+    note:"Full field set. Institution-level detail and model internals included."},
+  institutional:{fields:14,
+    allow:["pillars","shapley","spectrum","ci","sectors","xi_src","mask"],
+    note:"Model internals included; peer-institution detail withheld."},
+  retail:       {fields:9, allow:["ci"],
+    note:"Institution-level and model-internal fields are absent from this payload at the transport layer (CT-8), not merely hidden in the view."}
+};
+let role = "regulator";
+
+const $ = s => document.querySelector(s);
+const el = (t,c,h) => {const e=document.createElement(t);
+  if(c)e.className=c; if(h!==undefined)e.innerHTML=h; return e;};
+const LEVEL_COLOUR = {AMBER:"var(--amber)",RED:"var(--red)",GREEN:"var(--green)"};
+
+function sparkline(vals, colour){
+  const lo=Math.min(...vals), hi=Math.max(...vals), span=(hi-lo)||1e-9;
+  const pts = vals.map((v,i)=>{
+    const x=(i/(vals.length-1))*240, y=32-((v-lo)/span)*28;
+    return x.toFixed(1)+","+y.toFixed(1);}).join(" ");
+  return `<svg class="spark" viewBox="0 0 240 34" preserveAspectRatio="none">
+    <polyline points="${pts}" fill="none" stroke="${colour}" stroke-width="1.4"
+      vector-effect="non-scaling-stroke"/></svg>`;
+}
+// Bounded walk pinned to end at the headline value, so a strip never
+// contradicts the number printed beside it.
+function walk(n, end, vol, lo, hi){
+  let x=[], acc=0;
+  for(let i=0;i<n;i++){acc += (Math.random()-0.5)*2*vol; x.push(acc);}
+  const shift = end - x[n-1];
+  return x.map(v=>Math.min(hi,Math.max(lo,v+shift)));
+}
+
+function render(){
+  const R = ROLES[role];
+  const can = f => R.allow==="*" || R.allow.includes(f);
+
+  // header / footer
+  document.querySelectorAll("#roles button").forEach(b=>
+    b.classList.toggle("on", b.dataset.role===role));
+  $("#rolefoot").textContent =
+    `ROLE: ${role.toUpperCase()} · ${R.fields} FIELDS AT TRANSPORT`;
+  $("#access").textContent = R.note;
+
+  // ticker
+  $("#ticker").innerHTML = S.ticker.map(([k,v,d])=>
+    `<span><b>${k}</b>${v} <em class="${d<0?'dn':'up'}" style="font-style:normal">
+     ${d<0?'▾':'▴'}${Math.abs(d).toFixed(2)}%</em></span>`).join("")
+    + `<span><b>CSRS</b>${S.csrs.toFixed(3)}</span>`
+    + (can("ci")?`<span><b>CI</b>${S.ci[0].toFixed(3)}–${S.ci[1].toFixed(3)}</span>`:"")
+    + Object.entries(S.pillars).map(([k,p])=>
+        can("pillars")?`<span><b>${p.short}</b>${p.raw.toFixed(3)}</span>`:"").join("");
+
+  // hero
+  $("#csrs").textContent = S.csrs.toFixed(3);
+  $("#csrs").style.color = "var(--txt)";
+  $("#ci").textContent = `${S.ci[0].toFixed(3)}–${S.ci[1].toFixed(3)}`;
+  const lv=$("#level"); lv.textContent=S.level;
+  lv.style.color=LEVEL_COLOUR[S.level]; lv.style.borderColor=LEVEL_COLOUR[S.level]+"77";
+  $("#mode").textContent = "RECONCILED · "+S.mode;
+  $("#mode").style.color="var(--dim)"; $("#mode").style.borderColor="var(--line)";
+  $("#bandfill").style.left=(S.ci[0]*100)+"%";
+  $("#bandfill").style.width=((S.ci[1]-S.ci[0])*100)+"%";
+  $("#bandtick").style.left=(S.csrs*100)+"%";
+
+  // trends
+  $("#trends").innerHTML = [
+    ["CSRS", S.csrs, 0.012, 0.05, 0.95, "var(--amber)"],
+    ["λ1/N COUPLING", S.pillars.rmt.raw, 0.0035, 0.15, 0.40, "var(--blue)"],
+    ["MTS CONTAGION", S.pillars.hawkes.raw, 0.005, 0.0, 0.45, "var(--green)"],
+    ["LSD LIQUIDITY", S.pillars.hamilton.raw, 0.045, 0.0, 3.0, "var(--red)"]
+  ].map(([lbl,end,vol,lo,hi,c])=>
+    `<div class="trend"><div class="lbl"><span>${lbl}</span>
+      <span style="color:${c}">${end.toFixed(3)}</span></div>
+      ${sparkline(walk(180,end,vol,lo,hi), c)}</div>`).join("");
+
+  // signals
+  $("#sigcount").textContent = S.signals.length + " ACTIVE";
+  $("#signals").innerHTML = S.signals.map(([tag,txt])=>{
+    const c = tag==="AMBER"?"var(--amber)":tag==="WATCH"?"var(--dim)":"var(--amber)";
+    return `<div class="sig"><span class="chip" style="color:${c};border-color:${c}77">
+      ${tag}</span><p>${txt}</p></div>`;}).join("");
+
+  // pillars
+  $("#pillars").innerHTML = Object.entries(S.pillars).map(([k,p],i)=>
+    `<div style="padding:6px 0;border-bottom:1px solid var(--line2)">
+      <div class="kv" style="border:0;padding:0">
+        <span>${p.label}</span><span style="color:var(--txt)">${p.raw.toFixed(4)}</span></div>
+      <div class="note" style="margin-top:2px">${p.note}</div></div>`).join("");
+
+  // mask
+  $("#mask").innerHTML = ["hawkes","rmt","hamilton"].map((p,i)=>
+    `<div class="kv"><span>${p}</span><span style="color:${
+      S.mask[i]?"var(--green)":"var(--red)"}">${S.mask[i]?"AVAILABLE":"ABSENT"}</span></div>`
+    ).join("") + `<div class="note">PILLAR_ORDER is fixed:
+      hawkes → rmt → hamilton</div>`;
+
+  // shapley
+  const tot = Object.values(S.shapley).reduce((a,b)=>a+Math.abs(b),0)||1;
+  $("#shapley").innerHTML = Object.entries(S.shapley).map(([k,v])=>
+    `<div style="margin-bottom:8px"><div class="kv" style="border:0;padding:0">
+      <span>${S.pillars[k].label}</span><span>+${v.toFixed(3)}</span></div>
+      <div class="bar"><i style="width:${(100*Math.abs(v)/tot).toFixed(1)}%;
+        background:var(--blue)"></i></div></div>`).join("");
+
+  // regime stack
+  const names=["Tranquil","Stressed","Crisis"], cols=["var(--green)","var(--amber)","var(--red)"];
+  $("#stack").innerHTML = S.xi.map((p,i)=>
+    `<div style="width:${p*100}%;background:${cols[i]}"></div>`).join("");
+  $("#slabels").innerHTML = S.xi.map((p,i)=>
+    `<span style="color:${cols[i]}">${names[i]} ${Math.round(p*100)}%</span>`).join("");
+
+  // spectrum
+  const nb=64, bars=[];
+  for(let i=0;i<nb;i++){
+    const x=S.spectral.lm+(i/(nb-1))*(S.spectral.lp-S.spectral.lm);
+    const h=Math.max(2, 100*Math.sqrt(Math.max(0,(S.spectral.lp-x)*(x-S.spectral.lm)))/x/1.6);
+    bars.push(`<i style="height:${h.toFixed(1)}%"></i>`);
+  }
+  for(let i=0;i<10;i++) bars.push(`<i class="out" style="height:3%"></i>`);
+  $("#spectrum").innerHTML = bars.join("");
+  $("#spectrumnote").textContent =
+    `N_t=${S.spectral.n_t} · Q_t=${S.spectral.q_t} · λ±=[${S.spectral.lm}, ${S.spectral.lp}] · F_t=${S.spectral.f_t}`;
+
+  // sectors
+  $("#sectors").innerHTML = S.sectors.map(([n,v,f])=>
+    `<div style="margin-bottom:7px"><div class="kv" style="border:0;padding:0">
+      <span>${n}</span><span class="chip" style="color:${
+        f==='amber'?'var(--amber)':'var(--green)'};border-color:${
+        f==='amber'?'var(--amber)':'var(--green)'}55">${f.toUpperCase()}</span></div>
+      <div class="bar"><i style="width:${v*100}%;background:${
+        f==='amber'?'var(--amber)':'var(--green)'}"></i></div></div>`).join("");
+
+  $("#plain").textContent = S.plain;
+
+  // RBAC: dim + annotate anything this role does not receive
+  document.querySelectorAll("[data-field]").forEach(node=>{
+    const ok = can(node.dataset.field);
+    node.classList.toggle("locked", !ok);
+    node.title = ok ? "" : "withheld from this role at the transport layer (CT-8)";
+  });
+}
+
+document.querySelectorAll("#roles button").forEach(b=>
+  b.addEventListener("click",()=>{role=b.dataset.role; render();}));
+
+setInterval(()=>{
+  const d=new Date();
+  $("#clock").textContent = d.toLocaleTimeString("en-GB",{hour12:false});
+},1000);
+
+render();
+</script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "seraph"
+version = "0.1.0"
+description = "SERAPH — Systemic Early-Risk Alert for Portfolio Health (NSE composite early-warning system)"
+readme = "README-AI-SETUP.md"
+requires-python = ">=3.12"
+dependencies = [
+    "numpy>=1.26",
+    "scipy>=1.11",
+    "polars>=0.20",
+    "pandas>=2.0",
+    "statsmodels>=0.14",
+    "pydantic>=2.5",
+    "asyncpg>=0.29",
+    "streamlit>=1.30",
+    "requests>=2.31",
+]
+
+[project.optional-dependencies]
+# `tick` (X-DataInitiative) is the C5 Hawkes MLE baseline per AGENTS.md §2, but it
+# has no wheels for Python 3.12 / Windows and needs a C++ toolchain to build.
+# It is only required once C5 (L4, built last of the pillars) starts — keep it out
+# of the core install so the rest of the system doesn't block on it.
+hawkes = ["tick"]
+dev = [
+    "pytest>=8.0",
+    "hypothesis>=6.0",
+]
+
+[tool.setuptools.packages.find]
+include = ["seraph*", "fixtures*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"

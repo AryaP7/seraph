@@ -1,0 +1,14 @@
+.venv/
+__pycache__/
+*.pyc
+*.egg-info/
+.pytest_cache/
+.hypothesis/
+build/
+dist/
+.env
+*.secret
+kite_credentials*
+vendor/
+kite_credentials.tokens.json
+*.checkpoint.json
