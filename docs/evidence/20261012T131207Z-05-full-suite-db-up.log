@@ -1,0 +1,185 @@
+SERAPH evidence â€” full pytest suite WITH database reachable
+generated_utc : 2026-10-12T13:13:56Z
+git_commit    : f79299dfcaba20c7f3ae88a437a9cb9f2e57cf58
+command       : pytest tests/ -v
+note          : prior baseline (134 passed / 6 skipped) was measured with the DB DOWN,
+                so CT-1 and CT-3 were skipped. This run exercises them for real.
+=======================================================================
+
+============================= test session starts =============================
+collecting ... collected 140 items
+
+tests/contract/test_ct10_rotation_artefact.py::test_ct10_omega_does_not_spike_at_a_rebalance PASSED [  0%]
+tests/contract/test_ct10_rotation_artefact.py::test_ct10_low_common_support_warns_but_still_emits PASSED [  1%]
+tests/contract/test_ct10_rotation_artefact.py::test_ct10_zero_common_support_is_an_error_not_a_silent_zero PASSED [  2%]
+tests/contract/test_ct10_rotation_artefact.py::test_ct10_q_and_mp_bounds_follow_the_realised_n PASSED [  2%]
+tests/contract/test_ct10_rotation_artefact.py::test_ct10_bootstrap_gives_a_pvalue PASSED [  3%]
+tests/contract/test_ct1_ingestion_idempotency.py::test_ct1_write_batch_is_idempotent_and_watermark_advances_once PASSED [  4%]
+tests/contract/test_ct1_ingestion_idempotency.py::test_ct1_negative_legacy_schema_is_ok_with_warning_not_err PASSED [  5%]
+tests/contract/test_ct2_universe_cardinality.py::test_ct2_exactly_500_members_and_filter_precedes_rank PASSED [  5%]
+tests/contract/test_ct2_universe_cardinality.py::test_ct2_negative_underfilled_universe_warns_never_silent PASSED [  6%]
+tests/contract/test_ct2_universe_cardinality.py::test_ct2_buffer_rule_reduces_churn PASSED [  7%]
+tests/contract/test_ct2_universe_cardinality.py::test_ct2_churn_bookkeeping_is_consistent PASSED [  7%]
+tests/contract/test_ct2_universe_cardinality.py::test_ct2_negative_empty_panel_is_an_error PASSED [  8%]
+tests/contract/test_ct2_universe_cardinality.py::test_ct2_etfs_are_excluded_from_an_equity_universe PASSED [  9%]
+tests/contract/test_ct3_jump_sufficiency.py::test_ct3_negative_jump_density_supports_a_one_day_window FAILED [ 10%]
+tests/contract/test_ct3_jump_sufficiency.py::test_ct3_events_populate_at_least_two_states PASSED [ 10%]
+tests/contract/test_ct3_jump_sufficiency.py::test_ct3_state_and_sign_invariants_hold_on_real_data PASSED [ 11%]
+tests/contract/test_ct3_jump_sufficiency.py::test_ct3_negative_a_flat_series_yields_no_jumps_not_an_error PASSED [ 12%]
+tests/contract/test_ct4_structural_absence.py::test_ct4_structural_absence_saturates_and_recovers PASSED [ 12%]
+tests/contract/test_ct4_structural_absence.py::test_ct4_transient_absence_keeps_pillar_in_mask PASSED [ 13%]
+tests/contract/test_ct4_structural_absence.py::test_ct4_negative_tau_after_ts_is_a_contract_violation PASSED [ 14%]
+tests/contract/test_ct4_structural_absence.py::test_ct4_stream_shape_structural_then_observed PASSED [ 15%]
+tests/contract/test_ct5_covariance_propagation.py::test_ct5_variance_tracks_p PASSED [ 15%]
+tests/contract/test_ct5_covariance_propagation.py::test_ct5_negative_non_psd_p_is_rejected PASSED [ 16%]
+tests/contract/test_ct5_covariance_propagation.py::test_ct5_negative_asymmetric_p_is_rejected PASSED [ 17%]
+tests/contract/test_ct6_purity_leakage.py::test_ct6_score_is_pure_100_of_100 PASSED [ 17%]
+tests/contract/test_ct6_purity_leakage.py::test_ct6_leakage_overlap_is_flagged PASSED [ 18%]
+tests/contract/test_ct6_purity_leakage.py::test_ct6_negative_weights_off_simplex_rejected_before_scoring PASSED [ 19%]
+tests/contract/test_ct6_purity_leakage.py::test_ct6_negative_negative_weight_rejected PASSED [ 20%]
+tests/contract/test_ct7_simulator_consistency.py::test_ct7_zero_shock_reproduces_the_unperturbed_series_exactly PASSED [ 20%]
+tests/contract/test_ct7_simulator_consistency.py::test_ct7_positive_shock_raises_risk_and_decays PASSED [ 21%]
+tests/contract/test_ct7_simulator_consistency.py::test_ct7_negative_unknown_pillar_is_rejected PASSED [ 22%]
+tests/contract/test_ct7_simulator_consistency.py::test_fr44_explanation_never_attributes_to_a_masked_pillar PASSED [ 22%]
+tests/contract/test_ct7_simulator_consistency.py::test_fr43_portfolio_overlay_sizes_the_exposure PASSED [ 23%]
+tests/contract/test_ct7_simulator_consistency.py::test_fr46_playbook_does_not_invent_a_drawdown_number PASSED [ 24%]
+tests/contract/test_ct7_simulator_consistency.py::test_fr48_policy_path_routes_through_the_fitted_regime_model PASSED [ 25%]
+tests/contract/test_ct7_simulator_consistency.py::test_fr48_negative_missing_projector_is_rejected PASSED [ 25%]
+tests/contract/test_ct8_rbac.py::test_ct8_retail_payload_omits_institutional_fields_entirely PASSED [ 26%]
+tests/contract/test_ct8_rbac.py::test_ct8_roles_are_strictly_cumulative PASSED [ 27%]
+tests/contract/test_ct8_rbac.py::test_ct8_institutional_sees_decomposition_but_not_regulator_fields PASSED [ 27%]
+tests/contract/test_ct8_rbac.py::test_ct8_regulator_sees_the_audit_trail PASSED [ 28%]
+tests/contract/test_ct8_rbac.py::test_ct8_every_role_is_told_when_the_reading_is_degraded PASSED [ 29%]
+tests/contract/test_ct8_rbac.py::test_ct8_negative_unknown_role_is_rejected PASSED [ 30%]
+tests/contract/test_ct8_rbac.py::test_ct8_new_fields_default_to_invisible PASSED [ 30%]
+tests/contract/test_ct9_mask_renormalization.py::test_ct9_masked_scoring_renormalises_and_zeroes_shapley PASSED [ 31%]
+tests/contract/test_ct9_mask_renormalization.py::test_ct9_masked_result_equals_ablation_subset_row PASSED [ 32%]
+tests/contract/test_ct9_mask_renormalization.py::test_ct9_negative_empty_mask_is_an_error PASSED [ 32%]
+tests/contract/test_ct9_mask_renormalization.py::test_ct9_negative_all_mass_on_masked_pillar_falls_back_uniform PASSED [ 33%]
+tests/test_c10_harness.py::test_auc_is_correct_on_a_known_ordering PASSED [ 34%]
+tests/test_c10_harness.py::test_auc_is_nan_on_a_single_class_fold PASSED [ 35%]
+tests/test_c10_harness.py::test_mean_lead_time_counts_days_before_onset PASSED [ 35%]
+tests/test_c10_harness.py::test_missed_warning_is_nan_not_zero_lead_time PASSED [ 36%]
+tests/test_c10_harness.py::test_fr30_loss_is_asymmetric_towards_misses PASSED [ 37%]
+tests/test_c10_harness.py::test_precision_at_recall_runs PASSED          [ 37%]
+tests/test_c10_harness.py::test_calibrate_produces_one_artefact_with_nine_valid_weights PASSED [ 38%]
+tests/test_c10_harness.py::test_calibrate_rejects_misaligned_inputs PASSED [ 39%]
+tests/test_c10_harness.py::test_d5_leakage_check_is_a_set_intersection PASSED [ 40%]
+tests/test_c10_harness.py::test_fr35_configuration_counts_match_the_spec PASSED [ 40%]
+tests/test_c10_harness.py::test_r5_table_b_rows_carry_a_uniform_xi_control PASSED [ 41%]
+tests/test_c10_harness.py::test_d5_preregistration_hash_is_content_bound PASSED [ 42%]
+tests/test_c10_harness.py::test_d5_preregistration_refuses_to_be_rewritten PASSED [ 42%]
+tests/test_c10_harness.py::test_d5_design_states_table_incomparability PASSED [ 43%]
+tests/test_c12_dashboard.py::test_signature_blur_and_opacity_track_variance PASSED [ 44%]
+tests/test_c12_dashboard.py::test_signature_numerals_are_never_blurred PASSED [ 45%]
+tests/test_c12_dashboard.py::test_signature_band_width_carries_uncertainty_independently PASSED [ 45%]
+tests/test_c12_dashboard.py::test_degraded_mask_is_stated_on_the_face_of_the_panel PASSED [ 46%]
+tests/test_c12_dashboard.py::test_regime_stack_encodes_regime_more_than_once PASSED [ 47%]
+tests/test_c12_dashboard.py::test_regime_stack_shows_a_gap_when_unfitted PASSED [ 47%]
+tests/test_c12_dashboard.py::test_shapley_masked_pillar_drawn_as_noise_not_hidden PASSED [ 48%]
+tests/test_c12_dashboard.py::test_ticker_shows_dashes_for_absent_pillars PASSED [ 49%]
+tests/test_c12_dashboard.py::test_signals_feed_invents_nothing_when_quiet PASSED [ 50%]
+tests/test_c12_dashboard.py::test_signals_feed_surfaces_amber_sectors PASSED [ 50%]
+tests/test_c12_dashboard.py::test_mp_density_labels_the_q_actually_in_force PASSED [ 51%]
+tests/test_c12_dashboard.py::test_mp_density_shows_a_gap_before_the_pillar_runs PASSED [ 52%]
+tests/test_c4_cross_sectional.py::test_yang_zhang_recovers_known_volatility PASSED [ 52%]
+tests/test_c4_cross_sectional.py::test_yang_zhang_orders_two_volatility_levels PASSED [ 53%]
+tests/test_c4_cross_sectional.py::test_yang_zhang_needs_enough_data PASSED [ 54%]
+tests/test_c4_cross_sectional.py::test_absorption_ratio_rises_as_variance_concentrates PASSED [ 55%]
+tests/test_c4_cross_sectional.py::test_absorption_ratio_is_bounded_and_handles_degenerate_input PASSED [ 55%]
+tests/test_c4_cross_sectional.py::test_spread_estimators_are_non_negative_and_increase_with_spread PASSED [ 56%]
+tests/test_c4_cross_sectional.py::test_corwin_schultz_is_a_usable_cross_check PASSED [ 57%]
+tests/test_c4_cross_sectional.py::test_fr53_estimator_agreement_reports_correlation_and_overlap PASSED [ 57%]
+tests/test_c4_cross_sectional.py::test_fr53_agreement_degrades_gracefully_without_overlap PASSED [ 58%]
+tests/test_c5_hawkes.py::test_c5_recovers_a_known_branching_ratio PASSED [ 59%]
+tests/test_c5_hawkes.py::test_c5_orders_two_contagion_levels PASSED      [ 60%]
+tests/test_c5_hawkes.py::test_c5_fr11_branching_ratio_always_below_one PASSED [ 60%]
+tests/test_c5_hawkes.py::test_c5_thin_state_is_not_estimated PASSED      [ 61%]
+tests/test_c5_hawkes.py::test_c5_pooled_fit_reports_thin_states PASSED   [ 62%]
+tests/test_c5_hawkes.py::test_c5_pooled_fit_needs_a_minimum_sample PASSED [ 62%]
+tests/test_c5_hawkes.py::test_fr13_gate_tests_against_the_market_baseline_not_symmetry PASSED [ 63%]
+tests/test_c5_hawkes.py::test_fr13_gate_is_not_degenerate_in_either_direction PASSED [ 64%]
+tests/test_c5_hawkes.py::test_c5_mts_is_monotone_in_contagion PASSED     [ 65%]
+tests/test_c5_hawkes.py::test_c5_sector_flags_use_intensity_over_baseline PASSED [ 65%]
+tests/test_c5_hawkes.py::test_c5_detail_satisfies_the_s5_contract PASSED [ 66%]
+tests/test_c5_hawkes.py::test_amendment03_branching_ratio_is_not_identifiable_on_tied_data PASSED [ 67%]
+tests/test_c5_hawkes.py::test_amendment03_beta_is_bounded_so_a_fit_cannot_diverge PASSED [ 67%]
+tests/test_c5_hawkes.py::test_amendment03_asymmetry_gate_is_uninformative_on_real_base_rates PASSED [ 68%]
+tests/test_c5_hawkes.py::test_discrete_hawkes_recovers_a_known_kernel PASSED [ 69%]
+tests/test_c5_hawkes.py::test_discrete_hawkes_returns_none_rather_than_a_zero_reading PASSED [ 70%]
+tests/test_c5_hawkes.py::test_production_path_never_uses_the_rejected_continuous_estimator PASSED [ 70%]
+tests/test_c5_hawkes.py::test_estimate_state_emits_the_unchanged_s5_contract PASSED [ 71%]
+tests/test_c5_hawkes.py::test_gate_suppression_is_warned_not_silent PASSED [ 72%]
+tests/test_c5_hawkes.py::test_unidentifiable_window_is_an_error_not_a_zero PASSED [ 72%]
+tests/test_c6_rmt.py::test_amendment04_trace_equals_n_exactly[1000-499] PASSED [ 73%]
+tests/test_c6_rmt.py::test_amendment04_trace_equals_n_exactly[1000-122] PASSED [ 74%]
+tests/test_c6_rmt.py::test_amendment04_trace_equals_n_exactly[1000-500] PASSED [ 75%]
+tests/test_c6_rmt.py::test_amendment04_trace_equals_n_exactly[400-120] PASSED [ 75%]
+tests/test_c6_rmt.py::test_amendment04_trace_equals_n_exactly[250-125] PASSED [ 76%]
+tests/test_c6_rmt.py::test_amendment04_matches_numpy_corrcoef PASSED     [ 77%]
+tests/test_c6_rmt.py::test_amendment04_constant_column_becomes_an_isolated_unit_mode PASSED [ 77%]
+tests/test_c6_rmt.py::test_amendment04_degenerate_column_is_announced_not_absorbed PASSED [ 78%]
+tests/test_c6_rmt.py::test_amendment04_eigenvalues_sum_to_n_so_the_variance_share_is_exact PASSED [ 79%]
+tests/test_c7_hamilton.py::test_c7_recovers_ordered_regimes PASSED       [ 80%]
+tests/test_c7_hamilton.py::test_c7_regime_probabilities_are_a_valid_simplex_every_day PASSED [ 80%]
+tests/test_c7_hamilton.py::test_c7_identifies_the_crisis_block PASSED    [ 81%]
+tests/test_c7_hamilton.py::test_c7_emits_lsd_in_range_with_uncertainty PASSED [ 82%]
+tests/test_c7_hamilton.py::test_c7_half_lives_are_positive_and_finite PASSED [ 82%]
+tests/test_c7_hamilton.py::test_c7_date_outside_sample_is_structural_absence_not_error PASSED [ 83%]
+tests/test_c7_hamilton.py::test_c7_too_short_a_sample_is_insufficient_history PASSED [ 84%]
+tests/test_c7_hamilton.py::test_c7_tvtp_covariates_are_accepted PASSED   [ 85%]
+tests/test_c7_hamilton_causal.py::test_multistart_returns_a_converged_fit PASSED [ 85%]
+tests/test_c7_hamilton_causal.py::test_fitted_solution_is_a_local_maximum PASSED [ 86%]
+tests/test_c7_hamilton_causal.py::test_nesting_invariant_full_tvtp_beats_its_own_restriction PASSED [ 87%]
+tests/test_c7_hamilton_causal.py::test_boundary_transitions_are_detectable PASSED [ 87%]
+tests/test_c7_hamilton_causal.py::test_production_path_uses_filtered_not_smoothed PASSED [ 88%]
+tests/test_c7_hamilton_causal.py::test_future_observations_cannot_enter_a_refit_window PASSED [ 89%]
+tests/test_c7_hamilton_causal.py::test_causal_exog_uses_no_future_moments PASSED [ 90%]
+tests/test_t0_mock_conformance.py::test_pillar_order_is_the_fixed_global_order PASSED [ 90%]
+tests/test_t0_mock_conformance.py::test_tick_stream_shape_and_order PASSED [ 91%]
+tests/test_t0_mock_conformance.py::test_structural_and_transient_absence_both_present PASSED [ 92%]
+tests/test_t0_mock_conformance.py::test_emission_union_round_trips_through_camel_case_json PASSED [ 92%]
+tests/test_t0_mock_conformance.py::test_observation_tau_never_after_ts PASSED [ 93%]
+tests/test_t0_mock_conformance.py::test_reconciled_stream_is_psd_and_aliased PASSED [ 94%]
+tests/test_t0_mock_conformance.py::test_csrs_stream_bounds_and_audit_trail PASSED [ 95%]
+tests/test_t0_mock_conformance.py::test_degraded_mask_zeroes_masked_columns PASSED [ 95%]
+tests/test_t0_mock_conformance.py::test_fusion_weights_artefact_id_is_content_bound PASSED [ 96%]
+tests/test_t0_mock_conformance.py::test_frozen_models_reject_mutation PASSED [ 97%]
+tests/test_t0_mock_conformance.py::test_naive_datetime_rejected PASSED   [ 97%]
+tests/test_t0_mock_conformance.py::test_non_ist_string_rejected_at_the_seam PASSED [ 98%]
+tests/test_t0_mock_conformance.py::test_jump_sign_iff_is_jump PASSED     [ 99%]
+tests/test_t0_mock_conformance.py::test_csrs_out_of_bounds_rejected PASSED [100%]
+
+================================== FAILURES ===================================
+__________ test_ct3_negative_jump_density_supports_a_one_day_window ___________
+
+    def test_ct3_negative_jump_density_supports_a_one_day_window():
+        out, st, days = _jump_frame()
+        neg = int((out["jump_sign"] == -1).sum())
+        pos = int((out["jump_sign"] == 1).sum())
+        per_day = neg / days
+        print(
+            f"\n[CT-3] symbol={_SYMBOL}  bars={len(_ROWS)}  ~{days:.1f} trading days"
+            f"\n[CT-3] negative jumps={neg} ({per_day:.2f}/day)  positive jumps={pos}"
+            f"\n[CT-3] asymmetry neg/pos={neg / max(pos, 1):.2f}"
+        )
+>       assert per_day >= MIN_NEG_JUMPS_PER_DAY, (
+            f"only {per_day:.2f} negative jumps per symbol-day — below the "
+            f"structural floor of {MIN_NEG_JUMPS_PER_DAY}. Apply the R2 mitigation "
+            f"ladder: 1-minute bars, then coarsen S_t, then pool by sector."
+        )
+E       AssertionError: only 0.09 negative jumps per symbol-day — below the structural floor of 1.0. Apply the R2 mitigation ladder: 1-minute bars, then coarsen S_t, then pool by sector.
+E       assert 0.09090909090909091 >= 1.0
+
+tests\contract\test_ct3_jump_sufficiency.py:97: AssertionError
+---------------------------- Captured stdout call -----------------------------
+
+[CT-3] symbol=EXIDEIND  bars=2475  ~33.0 trading days
+[CT-3] negative jumps=3 (0.09/day)  positive jumps=7
+[CT-3] asymmetry neg/pos=0.43
+=========================== short test summary info ===========================
+FAILED tests/contract/test_ct3_jump_sufficiency.py::test_ct3_negative_jump_density_supports_a_one_day_window
+================== 1 failed, 139 passed in 473.58s (0:07:53) ==================
+
+exit_code     : 1
+finished_utc  : 2026-10-12T13:21:51Z

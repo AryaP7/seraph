@@ -1,0 +1,92 @@
+SERAPH evidence - STAGE 2: nesting, truncation invariance, transition movement
+generated_utc : 2026-10-12T15:36:35Z
+git_commit    : f79299dfcaba20c7f3ae88a437a9cb9f2e57cf58
+command       : .venv/Scripts/python.exe docs/evidence/20261012T134047Z-hamilton-causal-REAL/stage2_nesting_and_truncation.py
+writes        : NOTHING to production tables. stage2_results.json beside harness.
+===========================================================================
+
+INPUT : 5365 obs 2005-01-03 .. 2026-08-21
+
+======================================================================
+2a  DOES THE TVTP TRANSITION BLOCK MOVE OFF ITS INITIAL VALUE?
+======================================================================
+  tvtp flag on model            : True
+  transition slice size         : 12 params
+  start_params transition block : max|.| = 0.000e+00
+  _em_iteration probe failed: TypeError("float() argument must be a string or a real number, not 'KimSmootherResults'")
+
+  fitting with restarts=0 (default all-zeros start is the ONLY start) ...
+  restarts=0 : llf=16677.67  transition max|.|=4.423e+01  (85s)
+  multi-start (stage 1 block 0): llf=16677.67  -> gain 0.00 llf
+
+======================================================================
+2b  NESTING: LL(full) >= LL(intercept-only), same sample, df=6
+======================================================================
+blk  train_n   train_last       llf_full llf_restricted         LR   p(chi2,6)     ok
+-------------------------------------------------------------------------------------
+  0     2000   2013-01-11       16677.67       16667.45      20.45      0.0023   True
+  1     2252   2014-01-15       19189.77       19181.52      16.50      0.0113   True
+  2     2504   2015-01-28       21669.40       21664.78       9.24        0.16   True
+  3     2756   2016-02-03       23983.18       23966.42      33.52    8.31e-06   True
+  4     3008   2017-02-09       25786.67       25769.04      35.27    3.82e-06   True
+  5     3260   2018-02-15       27757.84       27746.24      23.19    0.000734   True
+  6     3512   2019-02-21       30017.71       30306.30    -577.17         nan  False
+  7     3764   2020-03-05       32373.24       32969.61   -1192.73         nan  False
+  8     4016   2021-03-10       34044.69       34682.70   -1276.01         nan  False
+  9     4268   2022-03-17       36454.76       37117.61   -1325.70         nan  False
+ 10     4520   2023-03-23       38518.56       39352.76   -1668.39         nan  False
+ 11     4772   2024-04-01       40705.24       41866.68   -2322.88         nan  False
+ 12     5024   2025-04-04       44257.07       44242.52      29.11    5.81e-05   True
+ 13     5276   2026-04-15       45430.56       45416.64      27.84    0.000101   True
+
+  nesting violations (LR < 0, impossible at a true maximum): 6/14
+    block 6 (train<=2019-02-21): LR=-577.17
+    block 7 (train<=2020-03-05): LR=-1192.73
+    block 8 (train<=2021-03-10): LR=-1276.01
+    block 9 (train<=2022-03-17): LR=-1325.70
+    block 10 (train<=2023-03-23): LR=-1668.39
+    block 11 (train<=2024-04-01): LR=-2322.88
+
+======================================================================
+2c  TRUNCATION INVARIANCE at K=3008 (2017-02-09)
+======================================================================
+  exog(y[:K]) == exog_full[:K] ? True
+  [wf] block 0: train<=2013-01-11 (2000 obs) -> emit 2013-01-14..2014-01-15
+  [wf] block 1: train<=2014-01-15 (2252 obs) -> emit 2014-01-16..2015-01-28
+  [wf] block 2: train<=2015-01-28 (2504 obs) -> emit 2015-01-29..2016-02-03
+  [wf] block 3: train<=2016-02-03 (2756 obs) -> emit 2016-02-04..2017-02-09
+  truncated run: 4 blocks in 9.6 min
+  overlapping finite cells compared : 3024
+  max |xi_full - xi_truncated|      : 0.000e+00
+  NaN masks identical               : True
+  VERDICT: bitwise identical=True   within 1e-10=True
+  per-block llf (full vs truncated):
+    block 0: 16677.6702 vs 16677.6702  delta=0.000e+00
+    block 1: 19189.7739 vs 19189.7739  delta=0.000e+00
+    block 2: 21669.3981 vs 21669.3981  delta=0.000e+00
+    block 3: 23983.1849 vs 23983.1849  delta=0.000e+00
+
+======================================================================
+2d  TRANSITION-MATRIX DISTRIBUTION OVER TIME (absorbing or not?)
+======================================================================
+  full-sample fit: llf=46327.14 (428s)
+  regime_transition shape: (3, 3, 5365)
+  min off-diagonal transition probability, percentiles over t:
+    p0   = 1.059e-27
+    p1   = 4.742e-21
+    p5   = 3.791e-10
+    p25  = 2.810e-08
+    p50  = 6.905e-07
+    p75  = 6.923e-05
+    p100 = 1.795e-03
+  fraction of dates with min off-diag < 1e-6 : 0.5299
+  (isolated extremes => small fraction; genuinely absorbing => near 1)
+    regime 0 self-persistence p_ii: median=0.998129 max=0.999893
+    regime 1 self-persistence p_ii: median=0.995492 max=0.999435
+    regime 2 self-persistence p_ii: median=0.994323 max=0.999300
+  fitted transition params max|.| = 13.226596
+
+wrote C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\docs\evidence\20261012T134047Z-hamilton-causal-REAL\stage2_results.json
+
+exit_code     : 0
+finished_utc  : 2026-10-12T16:35:16Z

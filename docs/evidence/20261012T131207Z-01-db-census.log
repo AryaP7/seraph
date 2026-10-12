@@ -1,0 +1,49 @@
+SERAPH evidence capture — database census (READ-ONLY)
+generated_utc   : 2026-10-12T13:12:07Z
+generated_local : 2026-10-12T18:42:07+05:30
+git_commit      : f79299dfcaba20c7f3ae88a437a9cb9f2e57cf58
+git_dirty       :  M .claude/settings.json;?? docs/evidence/;
+python          : Python 3.12.14
+container       : /seraph-timescaledb running health=healthy started=2026-10-12T13:10:32.913128535Z
+image           : timescale/timescaledb:latest-pg16 (sha256:289d55704b1b3ee8263cd3805c6930f9cd54506835a8f19f9b85dad17d5c5a8a)
+volume          : seraphvarya_seraph_pgdata (preserved, not recreated)
+command         : python census.py  [SELECT-only]
+========================================================================
+
+DSN                : postgresql://seraph:seraph@localhost:5433/seraph
+server_version     : 16.15
+timescaledb ext    : 2.29.2
+database size      : 8582 MB
+
+table                               rows  range
+------------------------------------------------------------------------------
+daily_prices                   8,023,206  date: 1995-01-02 .. 2026-08-21
+intraday_bars                 18,781,302  ts: 2015-02-02 03:45:00+00:00 .. 2026-08-21 09:55:00+00:00
+microstructure_state                   0  
+macro_covariates                       0  
+tariff_events                          0  
+hawkes_output                          0  
+rmt_output                         5,363  date: 2005-01-03 .. 2026-08-21
+hamilton_output                    5,365  date: 2005-01-03 .. 2026-08-21
+reconciled_state                       0  
+csrs                                   0  
+universe_snapshots                    44  rebalance_date: 2005-01-01 .. 2026-07-01
+ingestion_watermarks                   1  
+flow_aggregates                        0  
+user_portfolio                         0  
+regulatory_action_log                  0  
+validation_results                     0  
+
+=== ingestion_watermarks (full) ===
+   {'source': 'kite', 'entity': 'E1', 'watermark': datetime.datetime(2026, 8, 21, 9, 55, tzinfo=datetime.timezone.utc), 'updated_at': datetime.datetime(2026, 8, 23, 9, 55, 5, 826771, tzinfo=datetime.timezone.utc)}
+
+=== rmt_output integrity (resolves 374 vs 5,363) ===
+  rows                       : 5,363
+  distinct dates             : 5,363
+  empty eigenvalue arrays    : 0
+  rows with v1 populated     : 5,363
+  FR16 max|trace - N_t|      : 1.364e-12   (guard: must be ~0)
+  FR16 mean|trace - N_t|     : 2.216e-13
+  N_t range                  : 122 .. 499
+
+exit_code       : 0

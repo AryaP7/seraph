@@ -1,0 +1,14 @@
+SERAPH evidence — scripts/check_invariants.py (mechanical AGENTS.md §5 subset)
+generated_utc : 2026-10-12T13:13:56Z
+git_commit    : f79299dfcaba20c7f3ae88a437a9cb9f2e57cf58
+command       : .venv/Scripts/python.exe scripts/check_invariants.py
+=======================================================================
+
+[ok] PILLAR_ORDER consistency
+[ok] C9 fusion purity (no validation/ import, no DB driver)
+[ok] AR_t placement (C4, not C6)
+[ok] Explicit IST timestamps
+[ok] shared_types frozen= audit (info only)
+    [info] shared_types/: 1 BaseModel class(es) found, 2 frozen=True usage(s). Cross-check against everything ARCHITECTURE.md marks `readonly` � this check can't do that part.
+
+exit_code     : 0

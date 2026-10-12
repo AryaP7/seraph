@@ -1,0 +1,243 @@
+{
+  "generated_utc": "2026-10-12T15:36:43Z",
+  "stage1_ref": "2026-10-12T15:36:28Z",
+  "stage2a_transition_movement": {
+    "start_transition_absmax": 0.0,
+    "em_probe_error": "TypeError(\"float() argument must be a string or a real number, not 'KimSmootherResults'\")",
+    "restarts0_llf": 16677.670226274997,
+    "restarts0_transition_absmax": 44.2305774115029,
+    "restarts0_transition_exactly_zero": false,
+    "multistart_llf_block0": 16677.670226275113,
+    "multistart_gain_over_restarts0": 1.1641532182693481e-10
+  },
+  "stage2b_nesting": [
+    {
+      "index": 0,
+      "train_end": 2000,
+      "train_last_date": "2013-01-11",
+      "llf_full": 16677.670226275113,
+      "llf_restricted": 16667.446151909513,
+      "lr": 20.44814873120049,
+      "p_chi2_df6": 0.0023038050113678094,
+      "nesting_ok": true
+    },
+    {
+      "index": 1,
+      "train_end": 2252,
+      "train_last_date": "2014-01-15",
+      "llf_full": 19189.77389228665,
+      "llf_restricted": 19181.523484876212,
+      "lr": 16.50081482087262,
+      "p_chi2_df6": 0.011303975224185282,
+      "nesting_ok": true
+    },
+    {
+      "index": 2,
+      "train_end": 2504,
+      "train_last_date": "2015-01-28",
+      "llf_full": 21669.398082525055,
+      "llf_restricted": 21664.777661506778,
+      "lr": 9.240842036553659,
+      "p_chi2_df6": 0.16047945877568368,
+      "nesting_ok": true
+    },
+    {
+      "index": 3,
+      "train_end": 2756,
+      "train_last_date": "2016-02-03",
+      "llf_full": 23983.184853299055,
+      "llf_restricted": 23966.42257521353,
+      "lr": 33.52455617104715,
+      "p_chi2_df6": 8.30953679064602e-06,
+      "nesting_ok": true
+    },
+    {
+      "index": 4,
+      "train_end": 3008,
+      "train_last_date": "2017-02-09",
+      "llf_full": 25786.67480321921,
+      "llf_restricted": 25769.039710835597,
+      "lr": 35.270184767228784,
+      "p_chi2_df6": 3.819958153171162e-06,
+      "nesting_ok": true
+    },
+    {
+      "index": 5,
+      "train_end": 3260,
+      "train_last_date": "2018-02-15",
+      "llf_full": 27757.8359201859,
+      "llf_restricted": 27746.239113259897,
+      "lr": 23.193613852003182,
+      "p_chi2_df6": 0.0007341588431977096,
+      "nesting_ok": true
+    },
+    {
+      "index": 6,
+      "train_end": 3512,
+      "train_last_date": "2019-02-21",
+      "llf_full": 30017.712796053747,
+      "llf_restricted": 30306.298841321404,
+      "lr": -577.172090535314,
+      "p_chi2_df6": NaN,
+      "nesting_ok": false
+    },
+    {
+      "index": 7,
+      "train_end": 3764,
+      "train_last_date": "2020-03-05",
+      "llf_full": 32373.24306466881,
+      "llf_restricted": 32969.60862189306,
+      "lr": -1192.731114448492,
+      "p_chi2_df6": NaN,
+      "nesting_ok": false
+    },
+    {
+      "index": 8,
+      "train_end": 4016,
+      "train_last_date": "2021-03-10",
+      "llf_full": 34044.69221393733,
+      "llf_restricted": 34682.69627567812,
+      "lr": -1276.008123481588,
+      "p_chi2_df6": NaN,
+      "nesting_ok": false
+    },
+    {
+      "index": 9,
+      "train_end": 4268,
+      "train_last_date": "2022-03-17",
+      "llf_full": 36454.76495532159,
+      "llf_restricted": 37117.614937892715,
+      "lr": -1325.699965142252,
+      "p_chi2_df6": NaN,
+      "nesting_ok": false
+    },
+    {
+      "index": 10,
+      "train_end": 4520,
+      "train_last_date": "2023-03-23",
+      "llf_full": 38518.56499439335,
+      "llf_restricted": 39352.760443503896,
+      "lr": -1668.390898221085,
+      "p_chi2_df6": NaN,
+      "nesting_ok": false
+    },
+    {
+      "index": 11,
+      "train_end": 4772,
+      "train_last_date": "2024-04-01",
+      "llf_full": 40705.241452906324,
+      "llf_restricted": 41866.679884168916,
+      "lr": -2322.8768625251832,
+      "p_chi2_df6": NaN,
+      "nesting_ok": false
+    },
+    {
+      "index": 12,
+      "train_end": 5024,
+      "train_last_date": "2025-04-04",
+      "llf_full": 44257.072690102825,
+      "llf_restricted": 44242.52006582518,
+      "lr": 29.105248555293656,
+      "p_chi2_df6": 5.8109174771514435e-05,
+      "nesting_ok": true
+    },
+    {
+      "index": 13,
+      "train_end": 5276,
+      "train_last_date": "2026-04-15",
+      "llf_full": 45430.56024755484,
+      "llf_restricted": 45416.63925880866,
+      "lr": 27.84197749235318,
+      "p_chi2_df6": 0.00010062431590660009,
+      "nesting_ok": true
+    }
+  ],
+  "stage2b_violations": 6,
+  "stage2c_truncation": {
+    "K": 3008,
+    "K_date": "2017-02-09",
+    "exog_prefix_identical": true,
+    "cells_compared": 3024,
+    "max_abs_xi_diff": 0.0,
+    "nan_masks_identical": true,
+    "bitwise_identical": true,
+    "within_1e-10": true,
+    "blocks_truncated": 4,
+    "per_block_llf": [
+      {
+        "block": 0,
+        "llf_full": 16677.670226275113,
+        "llf_trunc": 16677.670226275113,
+        "delta": 0.0
+      },
+      {
+        "block": 1,
+        "llf_full": 19189.77389228665,
+        "llf_trunc": 19189.77389228665,
+        "delta": 0.0
+      },
+      {
+        "block": 2,
+        "llf_full": 21669.398082525055,
+        "llf_trunc": 21669.398082525055,
+        "delta": 0.0
+      },
+      {
+        "block": 3,
+        "llf_full": 23983.184853299055,
+        "llf_trunc": 23983.184853299055,
+        "delta": 0.0
+      }
+    ]
+  },
+  "stage2d_transition_distribution": {
+    "full_sample_llf": 46327.14326730842,
+    "shape": [
+      3,
+      3,
+      5365
+    ],
+    "percentiles_q": [
+      0,
+      1,
+      5,
+      25,
+      50,
+      75,
+      100
+    ],
+    "min_offdiag_percentiles": [
+      1.058835676083952e-27,
+      4.741703465421689e-21,
+      3.7912464279088456e-10,
+      2.809543908632861e-08,
+      6.904975312638229e-07,
+      6.923457520369158e-05,
+      0.0017950302576598192
+    ],
+    "fraction_dates_below_1e-6": 0.5299161230195713,
+    "p00_median": 0.9981288255747186,
+    "p11_median": 0.9954919278293693,
+    "p22_median": 0.994323237960114,
+    "fitted_transition_absmax": 13.226596177837418,
+    "fitted_transition_params": [
+      2.775959,
+      1.691285,
+      -6.024668,
+      -13.226596,
+      0.009507,
+      -0.243817,
+      -1.932598,
+      6.116207,
+      -6.407781,
+      -11.222693,
+      -1.447394,
+      -0.666636
+    ],
+    "order": [
+      0,
+      1,
+      2
+    ]
+  }
+}

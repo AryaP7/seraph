@@ -1,0 +1,26 @@
+SERAPH evidence — scripts/verify_hawkes_production.py (PRODUCTION discrete-time Hawkes)
+generated_utc : 2026-10-12T13:20:11Z
+git_commit    : f79299dfcaba20c7f3ae88a437a9cb9f2e57cf58
+command       : .venv/Scripts/python.exe scripts/verify_hawkes_production.py
+input         : C:/Users/.../Temp/p1_data.pkl, REGENERATED today from the live DB by
+                scripts/diagnose_inar_session_handling.py (see evidence file 06).
+input check   : bars=213,751  neg_events=21,180  sessions=2,862  max_simultaneous=89
+                events sharing a bar = 16,056/21,180 = 75.8%  (all match AMENDMENT-03)
+targets       : alpha~0.0557  phi~0.4837  n~0.1079  CV 2-4.1%  n<1 every fold
+=======================================================================
+
+ fold    alpha      phi        n        k
+    1   0.0568   0.4853   0.1104   0.4019
+    2   0.0560   0.4978   0.1116   0.3661
+    3   0.0542   0.4679   0.1018   0.3794
+
+mean alpha=0.0557 (validated ~0.055)  phi=0.4837 (~0.50)  n=0.1079 (~0.11)
+parameter CV: alpha=0.020 phi=0.025 n=0.041
+FR11 stationarity n<1 on every fold: True
+
+[production] status=ok n=0.1018 MTS=0.0000 warnings=['LOW_EVENT_COUNT']
+[C8] status=ok mask=[True, False, False] xHat[hawkes]=0.4810
+[C8] emission contract unchanged: PillarEmission accepted without modification
+
+exit_code     : 0
+finished_utc  : 2026-10-12T13:25:16Z

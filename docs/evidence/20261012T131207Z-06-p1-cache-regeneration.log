@@ -1,0 +1,27 @@
+SERAPH evidence — regenerating the Pillar 1 data cache (p1_data.pkl)
+generated_utc : 2026-10-12T13:15:16Z
+git_commit    : f79299dfcaba20c7f3ae88a437a9cb9f2e57cf58
+command       : .venv/Scripts/python.exe scripts/diagnose_inar_session_handling.py
+why           : 5 Pillar-1 validators depend on C:/Users/.../Temp/p1_data.pkl, which the
+                OS cleaned since the Aug session. This script is its PRODUCER and is
+                DB-read-only (SELECT on universe_snapshots + intraday_bars).
+safety        : writes one temp cache file that does not currently exist (no overwrite).
+=======================================================================
+
+bars=213,751 events=21,180 sessions=2,862 symbols/bar median=88
+
+[b-profile] fixing b, refitting mu and a (session reset -> mu):
+       b         mu        a      a+b            nll
+    0.00    0.07977   0.1484   0.1484       17321.85
+    0.05    0.07552   0.1363   0.1863       17347.75
+    0.20    0.06342   0.0999   0.2999       17530.68
+    0.50    0.03990   0.0496   0.5496       18405.08
+    0.80    0.01670   0.0160   0.8160       20805.89
+    0.95    0.00534   0.0031   0.9531       24574.43
+
+[reset handling] free fit under two session-reset conventions:
+  reset=     mu: mu=0.07977 a=0.1484 b=0.0000 a+b=0.1484 session-start lambda=0.0798  nll=17321.85   (data mean=0.0860)
+  reset= uncond: mu=0.02366 a=0.9347 b=0.0588 a+b=0.9935 session-start lambda=3.6234  nll=10829.89   (data mean=0.0860)
+
+exit_code     : 0
+finished_utc  : 2026-10-12T13:20:56Z
