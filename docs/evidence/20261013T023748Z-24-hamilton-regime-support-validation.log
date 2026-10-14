@@ -1,0 +1,102 @@
+real corpus: 5,365 days  2005-01-03 .. 2026-08-21
+
+=== STAGE 1 - R1 PROCEDURE VALIDITY (known ground truth) ===
+                          case  k        llf    sep            occupancy       half-lives (d) medrun        BIC   3458  c
+--------------------------------------------------------------------------------------------------------------------------------
+             SYN-K2 fitted k=2  2    51637.5   5.52              65%/35%                33/17     23    -103155   ....  T  occ_dev=0.000 diag_dev=0.001 path=1.0000
+             SYN-K3 fitted k=3  3    53166.0   9.01          52%/32%/16%             32/14/15     20    -106126   ....  T  occ_dev=0.000 diag_dev=0.003 path=1.0000
+
+  BIC on SYN-K2 (true k=2): k2=-103,155  k3=-103,080  -> picks k=2
+  BIC on SYN-K3 (true k=3): k2=-93,106  k3=-106,126  -> picks k=3
+
+  R1 PROCEDURE VALIDITY: PASS   (recovery k2=True k3=True, BIC picks true K=True)
+
+=== STAGE 2 - R2 NEGATIVE CONTROLS (must be rejected) ===
+  real lag-1 autocorr    : [0.9973 0.9983 0.9965]
+  NEG-ar1 achieved       : [0.9972 0.999  0.996 ]
+                          case  k        llf    sep            occupancy       half-lives (d) medrun        BIC   3458  c
+--------------------------------------------------------------------------------------------------------------------------------
+                       NEG-iid  2    36238.9   0.22               4%/96%                 6/38     17     -72358   X.X.  T
+                       NEG-iid  3    36246.4   0.16           21%/3%/77%                9/1/5      3     -72287   XXXX  T
+    NEG-ar1 (smooth, 1 regime)  2    39145.1   0.97              66%/34%              617/313    286     -78170   ..X.  T
+    NEG-ar1 (smooth, 1 regime)  3    42090.4   1.45          44%/22%/33%          382/196/312    288     -83975   ..X.  T
+
+  R2 NEGATIVE CONTROL: FAIL
+                         NEG-iid k=2  rejected=True  (R3=False R4=True R8=True sep=0.22)
+                         NEG-iid k=3  rejected=True  (R3=False R4=False R8=False sep=0.16)
+      NEG-ar1 (smooth, 1 regime) k=2  rejected=False  (R3=True R4=True R8=True sep=0.97)
+      NEG-ar1 (smooth, 1 regime) k=3  rejected=False  (R3=True R4=True R8=True sep=1.45)
+
+=== STAGE 3 - real corpus, full sample, R3/R4/R5/R8/R9 ===
+                          case  k        llf    sep            occupancy       half-lives (d) medrun        BIC   3458  c
+--------------------------------------------------------------------------------------------------------------------------------
+                real RV+AR+BAS  2    43347.9   1.64              68%/32%              496/191    296     -86576   ..X.  T
+                real RV+AR+BAS  3    46313.5   2.02          43%/25%/32%          177/134/169    116     -92421   ..X.  T
+                real RV+AR+BAS  4    47500.0   2.26      28%/27%/22%/22%         131/68/34/97     66     -94691   ..X.  T
+
+  BIC: k2=-86,576  k3=-92,421  k4=-94,691   -> R9 prefers k=4
+    k=2: R3=PASS R4=PASS R5=FAIL (sep 1.64s) R8=PASS (medrun 296d)
+    k=3: R3=PASS R4=PASS R5=FAIL (sep 2.02s) R8=PASS (medrun 116d)
+    k=4: R3=PASS R4=PASS R5=FAIL (sep 2.26s) R8=PASS (medrun 66d)
+
+=== STAGE 4 - R6 FOLD STABILITY (6 chronological blocks) ===
+
+  k=2
+                          case  k        llf    sep            occupancy       half-lives (d) medrun        BIC   3458  c
+--------------------------------------------------------------------------------------------------------------------------------
+        fold0 2005-01..2008-07  2     7442.3   1.63              59%/41%              121/127    106     -14790   ..X.  T
+        fold1 2008-07..2012-03  2     7576.5   1.83              56%/44%             BOUNDARY    447     -15058   .XX.  T
+        fold2 2012-03..2015-10  2     9649.7   0.89              33%/67%               68/104     77     -19204   ..X.  T
+        fold3 2015-10..2019-05  2     9386.3   1.04              60%/40%               185/83    132     -18677   ..X.  T
+        fold4 2019-05..2023-01  2     8484.1   0.92              68%/32%              278/129    192     -16873   ..X.  T
+        fold5 2023-01..2026-08  2     8787.8   2.62              61%/39%                76/48     65     -17481   ..X.  T
+    R6 k=2: 5/6 folds satisfy R3+R4 - PASS
+
+  k=3
+                          case  k        llf    sep            occupancy       half-lives (d) medrun        BIC   3458  c
+--------------------------------------------------------------------------------------------------------------------------------
+        fold0 2005-01..2008-07  3     7967.8   2.65          32%/36%/32%            66/113/98    103     -15772   ..X.  T
+        fold1 2008-07..2012-03  3     8100.5   2.44          48%/19%/33%             BOUNDARY    292     -16038   .XX.  T
+        fold2 2012-03..2015-10  3    10169.8   1.58          34%/26%/40%             70/79/60     74     -20177   ..X.  T
+        fold3 2015-10..2019-05  3     9998.2   3.86          61%/24%/14%            189/77/22     62     -19833   ....  T
+        fold4 2019-05..2023-01  3     9061.8   1.96           68%/22%/9%           421/138/58    196     -17960   X.X.  T
+        fold5 2023-01..2026-08  3     9787.7   3.46          18%/41%/41%            112/82/61     71     -19412   ....  T
+    R6 k=3: 4/6 folds satisfy R3+R4 - FAIL
+
+=== STAGE 5 - R7 INIT ROBUSTNESS (8 seeds, k=3) ===
+    seed 0: llf=   46313.5 sep= 2.02 occ=       43%/25%/32% medrun= 116d conv=True
+    seed 1: llf=   46313.5 sep= 2.02 occ=       43%/25%/32% medrun= 116d conv=True
+    seed 2: llf=   46313.5 sep= 2.02 occ=       43%/25%/32% medrun= 116d conv=True
+    seed 3: llf=   46313.5 sep= 2.02 occ=       43%/25%/32% medrun= 116d conv=True
+    seed 4: llf=   46313.5 sep= 2.02 occ=       43%/25%/32% medrun= 116d conv=True
+    seed 5: llf=   46313.5 sep= 2.02 occ=       43%/25%/32% medrun= 116d conv=True
+    seed 6: llf=   46313.5 sep= 2.02 occ=       43%/25%/32% medrun= 116d conv=True
+    seed 7: llf=   46313.5 sep= 2.02 occ=       43%/25%/32% medrun= 116d conv=True
+
+    best llf 46313.5;  8/8 starts reproduce its occupancy within 5pp;  llf spread 0.00
+    R7 INIT ROBUSTNESS: PASS
+
+=== STAGE 6 - economic interpretation (IN-SAMPLE, descriptive) ===
+  fitted RV means by state: [0.389  0.4893 0.6639]
+  state occupancy overall : 43.0%/25.2%/31.8%
+
+               epoch        break  state at break  crisis share, 30d after
+            gfc_2008   2008-09-15               2                  100.0%
+          taper_2013   2013-05-22               1                    0.0%
+           ilfs_2018   2018-09-21               0                   76.7%
+          covid_2020   2020-02-20               0                   66.7%
+     tightening_2022   2022-01-05               0                    0.0%
+         tariff_2026   2026-04-02               0                    0.0%
+
+  unconditional crisis-state share: 31.8%
+  NOTE: in-sample smoothed labels. Descriptive only - not a
+        detection claim, and not evidence of advance warning.
+
+=== PRE-REGISTERED CRITERIA SUMMARY ===
+            R1 = True
+            R2 = False
+     R9_best_k = 4
+         R6_k2 = 5/6
+         R6_k3 = 4/6
+            R7 = True
+     R7_detail = 8/8 within 5pp; llf spread 0.00

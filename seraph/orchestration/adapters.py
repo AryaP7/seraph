@@ -25,6 +25,8 @@ from __future__ import annotations
 
 from typing import Literal, Sequence
 
+import numpy as np
+
 from seraph.orchestration.standardize import standardise
 from seraph.shared_types import (
     ObservedEmission,
@@ -117,6 +119,112 @@ def hamilton_emission(
         float(lsd), window=window, raw_variance=raw_variance, pillar="hamilton")
     return ObservedEmission(obs=PillarObservation(
         pillar="hamilton", ts=ts, tau=ts, value=value,
+        estimation_variance=variance,
+    )), warns
+
+
+def stress_emission(
+    *,
+    ts: str,
+    tau: str,
+    semivariance: float | None,
+    window: Sequence[float],
+    absence: Absence = "transient",
+    reason: Reason = "estimation_failed",
+) -> tuple[PillarEmission, tuple[SeraphWarning, ...]]:
+    """Downside-semivariance stress state, occupying PILLAR_ORDER slot 3.
+
+    **PROVENANCE WARNING, read before using any output of this.** Slot 3 of
+    `PILLAR_ORDER` is named `"hamilton"`, so a `CsrsPoint` whose `mask[2]` is
+    `True` because of THIS adapter does **not** mean the Hamilton regime filter
+    was available. Distinguishing them properly needs a `PILLAR_ORDER` change in
+    `seraph/shared_types/`, which is ask-gated; until that is agreed, callers
+    must separate the two by `weights_artefact_id`, and any run using this
+    adapter must say so explicitly. Nothing here renames a pillar.
+
+    **Why this replaces Hamilton rather than supplementing it.** Hamilton's
+    real-data causal run is unidentified (6/14 nesting violations to
+    LR = -2,322.88, 3/14 non-converged folds, 53% near-absorbing dates, NFR17
+    0.269 sigma), so slot 3 is empty in practice. A pre-registered study of nine
+    candidates over six epochs found downside semivariance the strongest
+    contemporaneous detector and nearly orthogonal to the two live pillars:
+
+        T1 detection AUC   semivar 0.7832 | rv_accel 0.7706 | rv_level 0.6098
+                           hawkes  0.5933 | CSRS     0.5372 | rmt      0.4283
+        correlation        vs rmt 0.06, vs CSRS 0.13, vs hawkes 0.21
+
+    **What it is blind to, stated up front.** It carries NO advance warning:
+    its T3 (crisis begins within 15 days, in-crisis days excluded) AUC is
+    **0.4928**, i.e. chance, and it led 0 of 6 epochs. It is a *detector* of
+    realised downside dispersion. It cannot see stress that has not yet moved
+    prices, it says nothing about regime persistence or liquidity recovery
+    half-life (which is what Hamilton was for), and it is partly tautological
+    against crisis labels because crisis windows are high-volatility windows.
+
+    `estimation_variance` is `None`: this estimator publishes no per-date
+    sampling variance and one is not invented. C8 falls back to its own prior.
+
+    Evidence: `docs/evidence/*-17-stress-candidate-study.log`.
+    """
+    if semivariance is None or not np.isfinite(semivariance):
+        return _unavailable("hamilton", ts, absence, reason), ()
+    value, variance, warns = standardise(
+        float(semivariance), window=window, raw_variance=None, pillar="hamilton")
+    return ObservedEmission(obs=PillarObservation(
+        pillar="hamilton", ts=ts, tau=tau, value=value,
+        estimation_variance=variance,
+    )), warns
+
+
+def hawkes_contagion_emission(
+    *,
+    ts: str,
+    tau: str,
+    branching_ratio: float | None,
+    window: Sequence[float],
+    absence: Absence = "structural",
+    reason: Reason = "no_data_coverage",
+) -> tuple[PillarEmission, tuple[SeraphWarning, ...]]:
+    """C5 → S5 carrying the **UNGATED** contagion state `n/(1−n)`, not FR13-gated MTS.
+
+    **Why this exists, measured not assumed.** `hawkes_emission` below carries
+    `MTS_t`, which FR13 sets to exactly 0 whenever the downside-asymmetry test is
+    not significant. On the real E6 series that gate is closed on **352 of 473
+    windows (74.4%)**. Pushing that through FR28's rolling ECDF is not merely
+    lossy, it **inverts the pillar**: because ~70% of any trailing window is
+    zeros, a zero maps to the ~68th percentile, so
+
+        gate CLOSED (MTS=0, n=352) -> standardised rank mean 0.6791
+        gate OPEN   (MTS>0, n=121) -> standardised rank mean 0.6778
+        corr(rank, branching ratio) = -0.4027      <-- DIRECTIONALLY INVERTED
+
+    i.e. "downside pressure is not significantly elevated" would read as
+    moderately elevated systemic risk, and higher measured contagion would lower
+    the score. The same measurement on the ungated statistic gives
+    `corr(rank, n) = +0.5419` (attenuated from 1.0 only by the rolling window's
+    intended adaptivity).
+
+    This is not a redefinition of MTS and it does not weaken FR13. C5's own
+    engine docstring is explicit that a closed gate is "a normal-mix state, not
+    an absence of contagion — the branching ratio is still reported in detail".
+    This adapter emits that branching-ratio state and leaves the gate to travel
+    as provenance (the `LOW_EVENT_COUNT` warning C5 already raises), rather than
+    letting it zero the pillar.
+
+    `estimation_variance` is `None` for the same reason as `hawkes_emission`:
+    C5 publishes no per-window variance for `n` and one is not invented here.
+
+    Evidence: `docs/evidence/*-15-csrs-research-*.log`.
+    """
+    if branching_ratio is None:
+        return _unavailable("hawkes", ts, absence, reason), ()
+    n = float(branching_ratio)
+    if not (0.0 <= n < 1.0):                      # FR11; never emit a bad state
+        return _unavailable("hawkes", ts, "transient", "estimation_failed"), ()
+    value, variance, warns = standardise(
+        n / (1.0 - n), window=window, raw_variance=None, pillar="hawkes")
+    return ObservedEmission(obs=PillarObservation(
+        pillar="hawkes", ts=ts, tau=tau, value=value,
         estimation_variance=variance,
     )), warns
 

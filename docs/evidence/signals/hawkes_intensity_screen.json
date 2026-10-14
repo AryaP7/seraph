@@ -1,0 +1,48 @@
+{
+  "generated_utc": "2026-10-14T02:38:30Z",
+  "status": "EXPLORATORY screen; establishes nothing on its own",
+  "alpha": 0.055,
+  "phi": 0.5,
+  "alpha_phi_source": "SPEC FR11 [v4] measured values, quoted not fitted",
+  "grid": {
+    "n": 2862,
+    "first": "2015-02-02",
+    "last": "2026-08-21"
+  },
+  "epochs_covered": [
+    "ilfs_2018",
+    "covid_2020",
+    "tightening_2022",
+    "tariff_2026"
+  ],
+  "epochs_not_covered": [
+    "gfc_2008",
+    "taper_2013"
+  ],
+  "series": {
+    "lambda_t (reconstructed)": {
+      "before_15": 0.0452,
+      "during": 1.0172,
+      "after": 0.4847,
+      "classification": "DURING",
+      "epochs_with_positive_before": 2,
+      "t3_auc": 0.5496,
+      "p_shift": 0.11944,
+      "p_aaft": 0.12144,
+      "null_p95": 0.5697,
+      "verdict": "below null"
+    },
+    "neg jumps / active sym": {
+      "before_15": 0.045,
+      "during": 1.0235,
+      "after": 0.4715,
+      "classification": "DURING",
+      "epochs_with_positive_before": 2,
+      "t3_auc": 0.5376,
+      "p_shift": 0.17741,
+      "p_aaft": 0.1984,
+      "null_p95": 0.5687,
+      "verdict": "below null"
+    }
+  }
+}

@@ -10,9 +10,11 @@ from seraph.orchestration.adapters import (
     IST_CLOSE,
     close_ts,
     hamilton_emission,
+    hawkes_contagion_emission,
     hawkes_emission,
     lam1_share,
     rmt_emission,
+    stress_emission,
 )
 from seraph.orchestration.standardize import (
     MIN_WINDOW_OBS,
@@ -28,9 +30,11 @@ __all__ = [
     "IST_CLOSE",
     "close_ts",
     "hamilton_emission",
+    "hawkes_contagion_emission",
     "hawkes_emission",
     "lam1_share",
     "rmt_emission",
+    "stress_emission",
     "MIN_WINDOW_OBS",
     "R_STD_CEIL",
     "R_STD_FLOOR",

@@ -1,0 +1,45 @@
+[replay] grid        : 5,363 daily ticks 2005-01-03 .. 2026-08-21
+[replay] P1 hawkes   : 473 refits 2017-02-09 .. 2026-08-20 (refit_every=5 sessions)
+[replay] P2 rmt      : 5,363 daily rows, quantity = lambda1/N (shipped)
+[replay] P3 hamilton : 3,365 CAUSAL rows 2013-01-14 .. 2026-08-21  [EXPLORATORY]
+[replay] rule A      : CSRS >= 0.5 (C9 frozen constant)
+[replay] rule B      : > trailing-5y 95% quantile, min 250 obs, index i excluded from its own threshold
+[replay] PILLAR_ORDER= ['hawkes', 'rmt', 'hamilton']
+[replay]   subset hawkes                 468 pts  4895 failures  mean=0.3103
+[replay]   subset rmt                    5,363 pts  0 failures  mean=0.5771
+[replay]   subset hamilton               3,365 pts  1998 failures  mean=0.5689
+[replay]   subset hawkes+rmt             5,363 pts  0 failures  mean=0.5623
+[replay]   subset hawkes+hamilton        3,365 pts  1998 failures  mean=0.5558
+[replay]   subset rmt+hamilton           5,363 pts  0 failures  mean=0.5973
+[replay]   subset hawkes+rmt+hamilton    5,363 pts  0 failures  mean=0.5897
+[replay]   baseline BASE[rv_20]          5,358 finite pts
+[replay]   baseline BASE[drawdown]       5,363 finite pts
+[replay]   baseline BASE[semivar_20]     5,358 finite pts
+[replay]   baseline BASE[rv_accel_5]     5,353 finite pts
+[replay]   baseline BASE[dd_accel_5]     5,358 finite pts
+
+[op] FR32 crisis label: 180 crisis days of 5,363 (3.36%), window = [onset, onset+30]
+[op] calibration is measured against the CONTEMPORANEOUS label — it says nothing about advance warning
+
+signal                     brier     BSS    ECE  ep.prec  FA/yr  FA/TA  %alert
+------------------------------------------------------------------------------
+CSRS[hawkes]                                          only 0 usable days
+CSRS[rmt]                 0.4701 -12.841  0.572    0.062   2.78   15.0   11.7%
+CSRS[hamilton]            0.3934  -9.620  0.520    0.091   2.21   10.0    3.7%
+CSRS[hawkes+rmt]          0.4483 -12.198  0.556    0.098   5.10    9.2   11.4%
+CSRS[hawkes+hamilton]     0.3754  -9.135  0.506    0.188   2.87    4.3    3.5%
+CSRS[rmt+hamilton]        0.4390 -11.925  0.583    0.071   2.41   13.0    9.5%
+CSRS[hawkes+rmt+hamilton]  0.4292 -11.637  0.575    0.112   3.66    7.9    9.4%
+BASE[rv_20]               0.0342  -0.006  0.023    0.179   1.07    4.6    5.4%
+BASE[drawdown]            0.0942  -1.774  0.184    0.133   0.60    6.5   11.2%
+BASE[semivar_20]          0.0342  -0.006  0.026    0.222   0.65    3.5    5.1%
+BASE[rv_accel_5]          0.0352  -0.033  0.024    0.140   3.43    6.2    5.5%
+BASE[dd_accel_5]          0.0346  -0.018  0.018    0.086   3.94   10.6    4.6%
+
+BSS = Brier skill score vs the base rate. BSS <= 0 means the score
+carries no probabilistic information beyond the unconditional rate.
+ECE = occupancy-weighted |mean score - realised frequency|; 0 is
+calibrated. ep.prec = fraction of alert EPISODES touching a crisis
+window. FA/TA = false-alarm episodes per true-alarm episode.
+
+[op] wrote docs\evidence\replay\operational_value.json

@@ -1,0 +1,24 @@
+============================= test session starts =============================
+platform win32 -- Python 3.12.14, pytest-9.1.1, pluggy-1.6.0 -- C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\.venv\Scripts\python.exe
+cachedir: .pytest_cache
+hypothesis profile 'default'
+rootdir: C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya
+configfile: pyproject.toml
+plugins: anyio-4.14.2, hypothesis-6.165.10
+collecting ... collected 13 items
+
+tests/test_fusion_learning_leakage.py::test_fuse_renormalises_over_available_pillars PASSED [  7%]
+tests/test_fusion_learning_leakage.py::test_fuse_is_nan_when_no_pillar_is_available PASSED [ 15%]
+tests/test_fusion_learning_leakage.py::test_learned_weights_ignore_data_outside_the_training_mask PASSED [ 23%]
+tests/test_fusion_learning_leakage.py::test_learned_weights_stay_on_the_simplex PASSED [ 30%]
+tests/test_fusion_learning_leakage.py::test_shrinkage_moves_weights_toward_equal PASSED [ 38%]
+tests/test_fusion_learning_leakage.py::test_threshold_ignores_the_test_period PASSED [ 46%]
+tests/test_fusion_learning_leakage.py::test_threshold_respects_the_budget_on_training_data PASSED [ 53%]
+tests/test_fusion_learning_leakage.py::test_threshold_returns_inf_when_no_level_respects_the_budget PASSED [ 61%]
+tests/test_fusion_learning_leakage.py::test_episodes_counts_rising_edges_not_days PASSED [ 69%]
+tests/test_fusion_learning_leakage.py::test_logistic_coefficients_ignore_the_test_period PASSED [ 76%]
+tests/test_fusion_learning_leakage.py::test_logistic_refuses_to_fit_on_too_few_positives PASSED [ 84%]
+tests/test_fusion_learning_leakage.py::test_auc_uses_average_ranks_for_ties PASSED [ 92%]
+tests/test_fusion_learning_leakage.py::test_auc_is_one_for_a_perfect_ranking PASSED [100%]
+
+============================= 13 passed in 1.51s ==============================

@@ -1,0 +1,372 @@
+# D-4 - data-integrity and reproducibility sweep (Workstream D)
+# READ-ONLY on the database: only SELECT / SHOW / information_schema.
+# 2026-10-13T13:09:09Z  git f3eaac8  branch evidence/pre-arya-experimentation
+
+## PART 1 - timestamp / timezone audit
+$ .venv/Scripts/python.exe -I <scratchpad>/tz_audit.py
+server TimeZone: UTC
+server now():   2026-10-13 13:09:10.539846+00:00
+
+--- column types on the timestamp axis -------------------------
+                      csrs.ts                     timestamp with time zone
+                      csrs.shapley                ARRAY
+                      csrs.mask                   ARRAY
+              daily_prices.date                   date
+           flow_aggregates.date                   date
+           hamilton_output.date                   date
+             hawkes_output.ts                     timestamp with time zone
+      ingestion_watermarks.watermark              timestamp with time zone
+      ingestion_watermarks.updated_at             timestamp with time zone
+             intraday_bars.ts                     timestamp with time zone
+          macro_covariates.date                   date
+      microstructure_state.ts                     timestamp with time zone
+          reconciled_state.ts                     timestamp with time zone
+          reconciled_state.x_hat                  ARRAY
+          reconciled_state.p_matrix               ARRAY
+          reconciled_state.tau_last_update        ARRAY
+          reconciled_state.mask                   ARRAY
+          reconciled_state.noise_saturated        ARRAY
+     regulatory_action_log.ts                     timestamp with time zone
+     regulatory_action_log.pillar_decomposition_snapshot ARRAY
+                rmt_output.date                   date
+                rmt_output.eigenvalues            ARRAY
+                rmt_output.v1                     ARRAY
+             tariff_events.tau_k                  date
+             tariff_events.sectors_affected       ARRAY
+        universe_snapshots.rebalance_date         date
+        universe_snapshots.members                ARRAY
+        universe_snapshots.entrants               ARRAY
+        universe_snapshots.leavers                ARRAY
+
+naive (timestamp WITHOUT time zone) columns: 0 []
+
+--- stored values rendered in IST (+05:30) ---------------------
+             intraday_bars: rows=18781302     2015-02-02 03:45:00+00:00 .. 2026-08-21 09:55:00+00:00  IST time-of-day span 09:15:00..19:25:00 (115 distinct)
+             hawkes_output: rows=473          2017-02-09 09:55:00+00:00 .. 2026-08-20 09:55:00+00:00  IST time-of-day span 12:25:00..18:55:00 (5 distinct)
+                rmt_output: rows=5363         2005-01-03 .. 2026-08-21
+           hamilton_output: rows=5365         2005-01-03 .. 2026-08-21
+                      csrs: rows=4714         2017-02-09 10:00:00+00:00 .. 2026-08-20 10:00:00+00:00  IST time-of-day span 15:30:00..15:30:00 (1 distinct)
+      reconciliation_state: (table absent)
+              daily_prices: rows=8023206      1995-01-02 .. 2026-08-21
+      ingestion_watermarks: rows=3            2026-08-21 09:55:00+00:00 .. 2026-10-12 14:30:00+00:00
+
+--- NSE session sanity: bars must sit inside 09:15-15:30 IST ---
+  bars outside 09:15-15:30 IST: 10,368 / 18,781,302  (0.0552%)
+  (a silent UTC coercion would put ~100% of bars at 14:45-21:00 IST)
+
+--- reconciliation_state.tau_last_update element type ----------
+  absent   (_timestamptz = tz-aware array OK)
+PART1_EXIT=0
+
+## PART 2 - off-session bars and pillar emission times
+$ .venv/Scripts/python.exe -I <scratchpad>/offsession.py
+=== off-session intraday_bars, grouped by IST date ===
+  distinct dates carrying off-session bars: 11
+          date    bars  symbols             IST window
+    2015-11-11    1100       79   17:35:00..18:45:00
+    2016-10-30     792       79   18:30:00..19:25:00
+    2017-10-19     814       81   18:30:00..19:25:00
+    2018-11-07    1032       86   17:30:00..18:25:00
+    2019-10-27    1044       87   18:15:00..19:10:00
+    2020-11-14    1080       90   18:15:00..19:10:00
+    2021-02-24      30        2   15:45:00..16:55:00
+    2021-11-04    1092       91   18:15:00..19:10:00
+    2022-10-24    1128       94   18:15:00..19:10:00
+    2023-11-12    1128       94   18:15:00..19:10:00
+    2024-11-01    1128       94   18:00:00..18:55:00
+
+  Do these dates ALSO carry a regular 09:15-15:30 session?
+    2015-11-11: off-session= 1100  in-session=    0
+    2016-10-30: off-session=  792  in-session=    0
+    2017-10-19: off-session=  814  in-session=    0
+    2018-11-07: off-session= 1032  in-session=    0
+    2019-10-27: off-session= 1044  in-session=    0
+    2020-11-14: off-session= 1080  in-session=    0
+    2021-02-24: off-session=   30  in-session= 2699
+    2021-11-04: off-session= 1092  in-session=    0
+    2022-10-24: off-session= 1128  in-session=    0
+    2023-11-12: off-session= 1128  in-session=    0
+    2024-11-01: off-session= 1128  in-session=    0
+
+=== hawkes_output emission times (IST) ===
+  15:25:00  n= 468   2017-02-09 .. 2026-08-20
+  12:25:00  n=   2   2024-03-02 .. 2024-05-18
+  15:30:00  n=   1   2020-04-27 .. 2020-04-27
+  14:40:00  n=   1   2025-10-21 .. 2025-10-21
+  18:55:00  n=   1   2024-11-01 .. 2024-11-01
+
+=== csrs emission times (IST) ===
+  15:30:00  n=4714
+
+=== distinct intraday bar times per session, histogram ===
+    75 distinct bar-times  ->  2840 sessions
+    12 distinct bar-times  ->    10 sessions
+    21 distinct bar-times  ->     2 sessions
+    64 distinct bar-times  ->     2 sessions
+    71 distinct bar-times  ->     1 sessions
+    72 distinct bar-times  ->     1 sessions
+    73 distinct bar-times  ->     1 sessions
+    74 distinct bar-times  ->     1 sessions
+    76 distinct bar-times  ->     1 sessions
+    14 distinct bar-times  ->     1 sessions
+    36 distinct bar-times  ->     1 sessions
+    45 distinct bar-times  ->     1 sessions
+PART2_EXIT=0
+
+================================================================================
+
+PART 3 - writeBatch idempotency: VERIFIED READ-ONLY (no write performed)
+
+================================================================================
+
+AGENTS.md section 5 / CT-1. The mandate forbids testing this with a write, so
+
+this is an SQL + schema inspection plus the existing production evidence.
+
+
+
+(a) seraph/store/writer.py:121-125 - the upsert emitted for every entity:
+
+      INSERT INTO <table> (<cols>) VALUES (<$n>)
+
+      ON CONFLICT (<natural key>) DO UPDATE SET <col> = EXCLUDED.<col>, ...
+
+      RETURNING (xmax = 0) AS inserted
+
+    'xmax = 0' is true only for a genuine insert, so a re-run of identical
+
+    rows reports inserted: 0. This is the CT-1 contract.
+
+
+
+(b) natural keys vs AGENTS.md section 5, and the PRIMARY KEY backing each:
+
+      E1  intraday_bars    ON CONFLICT (symbol, ts)              PK (symbol, ts)             schema.sql:21
+
+      E3  daily_prices     ON CONFLICT (symbol, date)            PK (symbol, date)           schema.sql:55
+
+      E4  macro_covariates ON CONFLICT (date)                    PK (date)                   schema.sql:70
+
+      E5  tariff_events    ON CONFLICT (event_id)                PK (event_id)               schema.sql:82
+
+      E14 flow_aggregates  ON CONFLICT (date)                    PK (date)                   schema.sql:216
+
+      E6  hawkes_output    ON CONFLICT (scope, scope_id, ts)     PK (scope, scope_id, ts)    schema.sql:98
+
+          (E6 via scripts/write_hawkes_production.py:265 - pillar outputs are
+
+           not IngestBatch entities, so they do not go through _REGISTRY)
+
+      watermarks           ON CONFLICT (source, entity)          PK (source, entity)         schema.sql:238
+
+    Every ON CONFLICT target is backed by a declared PRIMARY KEY. No target
+
+    lacks a unique index, so no upsert can silently degrade to an insert.
+
+
+
+(c) the watermark cannot regress on a re-run (writer.py:202-205, :279-282):
+
+      ON CONFLICT (source, entity) DO UPDATE SET
+
+        watermark = GREATEST(ingestion_watermarks.watermark, EXCLUDED.watermark)
+
+
+
+(d) the bulk COPY path (writer.py:264-273) stages into a temp table and runs
+
+    the SAME ON CONFLICT upsert with SELECT DISTINCT ON (key), so
+
+    within-batch duplicates cannot double-insert either.
+
+
+
+(e) empirical confirmation already on record, on production data -
+
+    docs/evidence/20261012T223359Z-14-hawkes-E6-idempotency.log:
+
+      pre-run count : 473
+
+      [hawkes] E6 rows: 473 -> 473 (inserted 0, updated 10)
+
+      exit_code     : 0
+
+    10 real E6 keys re-written; row count unchanged; inserted 0. CT-1 semantics.
+
+
+
+(f) note on tests/contract/test_ct1_ingestion_idempotency.py: it DOES write,
+
+    but only to the namespaced synthetic symbols CT1TESTA/B/C in daily_prices.
+
+    Workstream D did not invoke it in isolation; it ran only as part of the
+
+    mandated full-suite run, and it touches no real market data.
+
+
+
+================================================================================
+
+APPENDIX A - tz_audit.py, verbatim
+
+================================================================================
+"""D-4: READ-ONLY audit of stored timestamps for IST correctness / silent UTC.
+
+Issues only SELECT and SHOW. No INSERT/UPDATE/DELETE/DDL.
+"""
+import asyncio, sys
+import asyncpg
+sys.path.insert(0, r"C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya")
+from seraph.store.bootstrap import resolve_dsn  # noqa: E402
+
+TABLES = ["intraday_bars", "hawkes_output", "rmt_output", "hamilton_output",
+          "csrs", "reconciliation_state", "daily_prices", "ingestion_watermarks"]
+
+
+async def main():
+    pool = await asyncpg.create_pool(resolve_dsn(), min_size=1, max_size=2)
+    try:
+        print("server TimeZone:", await pool.fetchval("SHOW TimeZone"))
+        print("server now():  ", await pool.fetchval("SELECT now()"))
+        print()
+        print("--- column types on the timestamp axis -------------------------")
+        rows = await pool.fetch("""
+            SELECT table_name, column_name, data_type
+            FROM information_schema.columns
+            WHERE table_schema='public'
+              AND (data_type LIKE 'timestamp%' OR data_type='date'
+                   OR data_type LIKE 'ARRAY')
+            ORDER BY table_name, ordinal_position""")
+        bad = []
+        for r in rows:
+            flag = ""
+            if r["data_type"] == "timestamp without time zone":
+                flag = "   <<< NAIVE COLUMN"
+                bad.append((r["table_name"], r["column_name"]))
+            print(f"  {r['table_name']:>24}.{r['column_name']:<22} {r['data_type']}{flag}")
+        print(f"\nnaive (timestamp WITHOUT time zone) columns: {len(bad)} {bad}")
+
+        print("\n--- stored values rendered in IST (+05:30) ---------------------")
+        for t in TABLES:
+            exists = await pool.fetchval(
+                "SELECT to_regclass($1) IS NOT NULL", f"public.{t}")
+            if not exists:
+                print(f"  {t:>24}: (table absent)")
+                continue
+            cols = {r["column_name"] for r in await pool.fetch(
+                "SELECT column_name FROM information_schema.columns "
+                "WHERE table_schema='public' AND table_name=$1", t)}
+            tscol = "ts" if "ts" in cols else ("date" if "date" in cols else
+                     ("watermark" if "watermark" in cols else None))
+            n = await pool.fetchval(f"SELECT count(*) FROM {t}")
+            if tscol is None or n == 0:
+                print(f"  {t:>24}: rows={n:<12} (no ts column)" if tscol is None
+                      else f"  {t:>24}: rows=0")
+                continue
+            q = (f"SELECT min({tscol}) lo, max({tscol}) hi FROM {t}")
+            r = await pool.fetchrow(q)
+            extra = ""
+            if tscol == "ts":
+                dt = await pool.fetchval(
+                    f"SELECT data_type FROM information_schema.columns "
+                    f"WHERE table_schema='public' AND table_name='{t}' "
+                    f"AND column_name='ts'")
+                if dt == "timestamp with time zone":
+                    h = await pool.fetch(
+                        f"SELECT min(({tscol} AT TIME ZONE 'Asia/Kolkata')::time) a,"
+                        f"       max(({tscol} AT TIME ZONE 'Asia/Kolkata')::time) b,"
+                        f"       count(DISTINCT ({tscol} AT TIME ZONE 'Asia/Kolkata')::time) c"
+                        f" FROM {t}")
+                    extra = (f"  IST time-of-day span {h[0]['a']}..{h[0]['b']} "
+                             f"({h[0]['c']} distinct)")
+            print(f"  {t:>24}: rows={n:<12} {r['lo']} .. {r['hi']}{extra}")
+
+        print("\n--- NSE session sanity: bars must sit inside 09:15-15:30 IST ---")
+        oob = await pool.fetchval(
+            "SELECT count(*) FROM intraday_bars "
+            "WHERE (ts AT TIME ZONE 'Asia/Kolkata')::time < '09:15'::time "
+            "   OR (ts AT TIME ZONE 'Asia/Kolkata')::time > '15:30'::time")
+        tot = await pool.fetchval("SELECT count(*) FROM intraday_bars")
+        print(f"  bars outside 09:15-15:30 IST: {oob:,} / {tot:,}"
+              f"  ({100.0*oob/max(tot,1):.4f}%)")
+        print("  (a silent UTC coercion would put ~100% of bars at 14:45-21:00 IST)")
+
+        print("\n--- reconciliation_state.tau_last_update element type ----------")
+        r = await pool.fetchrow(
+            "SELECT data_type, udt_name FROM information_schema.columns "
+            "WHERE table_schema='public' AND table_name='reconciliation_state' "
+            "AND column_name='tau_last_update'")
+        print(f"  {dict(r) if r else 'absent'}   (_timestamptz = tz-aware array OK)")
+    finally:
+        await pool.close()
+
+asyncio.run(main())
+
+================================================================================
+
+APPENDIX B - offsession.py, verbatim
+
+================================================================================
+"""D-4: READ-ONLY characterisation of off-session intraday bars and hawkes_output
+emission times."""
+import asyncio, sys
+import asyncpg
+sys.path.insert(0, r"C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya")
+from seraph.store.bootstrap import resolve_dsn  # noqa: E402
+
+async def main():
+    pool = await asyncpg.create_pool(resolve_dsn(), min_size=1, max_size=2)
+    try:
+        print("=== off-session intraday_bars, grouped by IST date ===")
+        rows = await pool.fetch("""
+            SELECT (ts AT TIME ZONE 'Asia/Kolkata')::date AS d,
+                   count(*) AS n,
+                   count(DISTINCT symbol) AS syms,
+                   min((ts AT TIME ZONE 'Asia/Kolkata')::time) AS lo,
+                   max((ts AT TIME ZONE 'Asia/Kolkata')::time) AS hi
+            FROM intraday_bars
+            WHERE (ts AT TIME ZONE 'Asia/Kolkata')::time < '09:15'::time
+               OR (ts AT TIME ZONE 'Asia/Kolkata')::time > '15:30'::time
+            GROUP BY 1 ORDER BY 1""")
+        print(f"  distinct dates carrying off-session bars: {len(rows)}")
+        print(f"  {'date':>12} {'bars':>7} {'symbols':>8} {'IST window':>22}")
+        for r in rows:
+            print(f"  {str(r['d']):>12} {r['n']:>7} {r['syms']:>8}   {r['lo']}..{r['hi']}")
+        print("\n  Do these dates ALSO carry a regular 09:15-15:30 session?")
+        for r in rows:
+            n_reg = await pool.fetchval("""
+                SELECT count(*) FROM intraday_bars
+                WHERE (ts AT TIME ZONE 'Asia/Kolkata')::date = $1
+                  AND (ts AT TIME ZONE 'Asia/Kolkata')::time BETWEEN '09:15' AND '15:30'
+                """, r["d"])
+            print(f"    {r['d']}: off-session={r['n']:>5}  in-session={n_reg:>5}")
+
+        print("\n=== hawkes_output emission times (IST) ===")
+        rows = await pool.fetch("""
+            SELECT (ts AT TIME ZONE 'Asia/Kolkata')::time AS t, count(*) AS n,
+                   min((ts AT TIME ZONE 'Asia/Kolkata')::date) AS first_d,
+                   max((ts AT TIME ZONE 'Asia/Kolkata')::date) AS last_d
+            FROM hawkes_output GROUP BY 1 ORDER BY 2 DESC""")
+        for r in rows:
+            print(f"  {r['t']}  n={r['n']:>4}   {r['first_d']} .. {r['last_d']}")
+
+        print("\n=== csrs emission times (IST) ===")
+        rows = await pool.fetch("""
+            SELECT (ts AT TIME ZONE 'Asia/Kolkata')::time AS t, count(*) AS n
+            FROM csrs GROUP BY 1 ORDER BY 2 DESC""")
+        for r in rows:
+            print(f"  {r['t']}  n={r['n']}")
+
+        print("\n=== distinct intraday bar times per session, histogram ===")
+        rows = await pool.fetch("""
+            SELECT k, count(*) AS sessions FROM (
+              SELECT (ts AT TIME ZONE 'Asia/Kolkata')::date AS d,
+                     count(DISTINCT (ts AT TIME ZONE 'Asia/Kolkata')::time) AS k
+              FROM intraday_bars GROUP BY 1) s
+            GROUP BY k ORDER BY sessions DESC LIMIT 12""")
+        for r in rows:
+            print(f"  {r['k']:>4} distinct bar-times  -> {r['sessions']:>5} sessions")
+    finally:
+        await pool.close()
+
+asyncio.run(main())

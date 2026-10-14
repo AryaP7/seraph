@@ -1,0 +1,59 @@
+grid: 5,362 days 2005-01-04 .. 2026-08-21
+onsets: 6 at [924, 2085, 3404, 3751, 4215, 5224]  min spacing 347 days
+T3 positives: 90 days from 6 independent events
+
+=== 1. OBSERVED CANDIDATES vs THE RELOCATION NULL ===
+     candidate   T3 AUC  shiftmean  shiftsd    p_shift   aaftmean     p_aaft    verdict
+--------------------------------------------------------------------------------------------
+      drawdown   0.6735     0.5059   0.0960     0.0424     0.5022     0.0547    not sig
+      dd_accel   0.5924     0.5036   0.0671     0.0798     0.4923     0.0846    not sig
+   jump_int_20   0.5349     0.5021   0.1063     0.3641     0.5247     0.5075    not sig
+    semivar_20   0.4928     0.5062   0.1089     0.5786     0.4926     0.4826    not sig
+      rv_accel   0.4229     0.4958   0.0923     0.7830     0.5071     0.8259    not sig
+    vol_of_vol   0.5098     0.4921   0.0972     0.3940     0.5054     0.4826    not sig
+      rv_level   0.3722     0.4941   0.0857     0.9077     0.5167     0.9453    not sig
+          ar_t   0.4036     0.5063   0.1015     0.8529     0.5064     0.8209    not sig
+         bas_t   0.3356     0.4971   0.0903     0.9850     0.4961     0.9453    not sig
+
+  The relocation null is centred near 0.5 only if the lead window
+  carries no information wherever it is placed. A null mean far from
+  0.5 means the feature's own trend, not the events, drives the AUC.
+
+=== 2. POWER CURVE (60 draws/delta, 200 perms/draw, alpha=0.05) ===
+  background: AR(1) with phi = 0.9973 (real rv_t_yz lag-1 autocorrelation)
+  signal: step of delta x sd over the 15 days before each of the 6 real onsets
+
+ delta (sd)  mean T3 AUC      sd   mean p  POWER at 0.05
+----------------------------------------------------------
+        0.0       0.4915  0.1068   0.5324            8%
+        0.5       0.6376  0.1024   0.1788           47%
+        1.0       0.7680  0.0791   0.0222           85%
+        1.5       0.8379  0.0758   0.0103           98%
+        2.0       0.9165  0.0480   0.0052          100%
+        3.0       0.9841  0.0154   0.0050          100%
+        4.0       0.9985  0.0031   0.0050          100%
+
+=== 3. INTERPRETATION ===
+  ACTUAL type-I error at nominal alpha=0.05: 8% (aaft null, 60 draws)
+  Six onsets on a 21-year grid admit only ~10-15 effectively
+  independent event configurations, so the permutation p-value is
+  granular and its tails are heavy. Nominal p-values from this
+  test are therefore optimistic by roughly a factor of two, and
+  the comparison below is used instead of them.
+
+  CALIBRATED comparison — T3 AUC under NO signal (delta=0):
+    mean 0.4915  sd 0.1077  median 0.4741  95th pct 0.6774  max 0.6911
+    candidates at or above the 95th percentile (0.6774): NONE
+
+  MINIMUM DETECTABLE EFFECT at 80% power: delta = 1.0 sd (nominal; ~1.5 sd once the type-I inflation above is allowed for).
+  So the test DOES have power against a clean, strong lead
+  signal. A step of >= 1.0 sd over the 15 days before
+  each onset would have been found. Nothing in the corpus
+  produces one. Effects below ~0.5 sd remain genuinely untested.
+
+  best observed: drawdown AUC 0.6735, p_shift = 0.0424, p_aaft = 0.0547 (NOT significant)
+  9 candidates were screened, so even a p near 0.05 would still need
+  a multiplicity correction before it counted as a finding.
+
+  No advance-warning capability is claimed by this script. It
+  measures what the existing evaluation can and cannot establish.

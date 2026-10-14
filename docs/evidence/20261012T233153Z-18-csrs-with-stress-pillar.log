@@ -1,0 +1,42 @@
+SERAPH evidence - CSRS with downside-semivariance in PILLAR_ORDER slot 3
+generated_utc : 2026-10-12T23:31:53Z
+git_commit    : f3eaac8b25f3fe3c47f4734b6b841e5e93f41cd1
+command       : .venv/Scripts/python.exe scripts/run_csrs_research.py --stress-slot --write
+decision      : mandate section 5 P3 - Hamilton is unsuitable (unidentified), so slot 3
+                is replaced by a simpler defensible stress estimator rather than forced.
+candidate     : downside semivariance 20d, selected from 9 candidates over 6 epochs:
+                T1 detection AUC 0.7832 (best); nearly orthogonal to live pillars
+                (corr rmt 0.06, CSRS 0.13, hawkes 0.21)
+NOT CLAIMED   : advance warning. Its T3 AUC is 0.4928 (chance) and it led 0/6 epochs.
+PROVENANCE    : slot 3 is NAMED 'hamilton' in PILLAR_ORDER; a clean fix needs an
+                ask-gated shared_types change. The two configurations are kept apart
+                by distinct weights_artefact_id (2-pillar 349a6874, 3-pillar 36b6f9bb),
+                which is part of the csrs primary key.
+===========================================================================
+
+[csrs] pillar 2 (E7): 5,363 daily rows 2005-01-03 .. 2026-08-21
+[csrs] pillar 1 (E6): 473 refits 2017-02-09 .. 2026-08-20
+[csrs] pillar 3     : EXCLUDED as a STRUCTURAL absence (causal run unidentified - see docs/evidence/20261012T134047Z-hamilton-causal-REAL/REPORT.md)
+[csrs] decision grid: 2,357 daily ticks 2017-02-09 .. 2026-08-20
+[csrs] pillar 3 slot : downside semivariance (20d, causal) over 5,358 days 2005-01-10 .. 2026-08-21
+[csrs]   PROVENANCE  : slot 3 is NAMED 'hamilton' in PILLAR_ORDER. mask[2]=True here means STRESS, not Hamilton.
+[csrs]   NOT an early-warning signal: T3 AUC 0.4928 (chance), led 0/6 epochs
+[csrs] weights      : equal-weight RESEARCH BASELINE, artefact 36b6f9bb7977e544... (epochs=() -> trained on nothing)
+[csrs] xi_mode      : uniform (1/3,1/3,1/3) - Hamilton xi not used
+[csrs] thresholds   : amber=0.5 red=0.75 (C9 provisional, FR30 not run)
+
+[csrs] 2,357 CSRS points, 0 failures in 1.8s
+[csrs] warning PARTIAL_COVERAGE: 2357
+[csrs] warning NOISE_SATURATED: 1889
+[csrs] warning MASK_DEGRADED: 1889
+
+[csrs] CSRS  : mean=0.5563 sd=0.2043 range=[0.0536, 0.9984]
+[csrs] var    : mean=0.007169 max=0.029784
+[csrs] masks  : {'(True, True, True)', '(False, True, True)'}  (PILLAR_ORDER=['hawkes', 'rmt', 'hamilton'])
+[csrs] alerts : {'green': 1041, 'amber': 861, 'red': 455}  (PROVISIONAL thresholds, not calibrated)
+[csrs] shapley mean by pillar: {'hawkes': np.float64(0.0059), 'rmt': np.float64(0.3444), 'hamilton': np.float64(0.206)}
+[csrs] effective weights seen: ['((0.0, 0.5, 0.5), (0.0, 0.5, 0.5), (0.0, 0.5, 0.5))', '((0.3333333333333333, 0.3333333333333333, 0.3333333333333333), (0.3333333333333333, 0.3333333333333333, 0.3333333333333333), (0.3333333333333333, 0.3333333333333333, 0.3333333333333333))']
+
+[csrs] wrote weights artefact C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\artefacts\fusion_weights.36b6f9bb7977e544.json
+[csrs] E10 rows: 2,357 -> 4,714 (inserted 2,357, updated 0)
+exit_code     : 0

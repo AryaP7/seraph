@@ -1,0 +1,16 @@
+
+[p2] T1 label: 180 crisis days of 5,363
+[p2] T3 label: 90 pre-onset days, 180 in-crisis days dropped
+
+statistic                T1 AUC   T3 AUC
+----------------------------------------
+lambda1/N  (USED)        0.4282   0.4340
+F_t (FR17)               0.3969   0.3791
+V_t^eig (FR17)           0.5305   0.5205
+Omega_t (FR17)           0.7354   0.5934
+SCA_t (FR18 SPEC)        0.6623   0.5324
+
+T1 = contemporaneous crisis detection; T3 = 15-day pre-onset.
+0.50 is chance. Values materially BELOW 0.50 are anti-predictive.
+Omega_t is a best-of-five with no null attached — see the module
+docstring. The reportable comparison is aggregate vs component.

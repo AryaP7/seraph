@@ -1,0 +1,1571 @@
+{
+  "generated_utc": "2026-10-13T21:22:16Z",
+  "status": "EXPLORATORY screen over existing inputs; any positive result is a hypothesis requiring fresh pre-registration against an untouched period before it counts as evidence",
+  "grid": {
+    "n": 5363,
+    "first": "2005-01-03",
+    "last": "2026-08-21"
+  },
+  "n_features": 19,
+  "n_onsets": 6,
+  "features": {
+    "P1 hawkes n/(1-n)": {
+      "onsets_covered": 4,
+      "mean_before_15": -0.1281,
+      "mean_during": 0.4057,
+      "mean_after": -0.1485,
+      "classification": "DURING",
+      "epochs_with_positive_before": 1,
+      "per_epoch": {
+        "gfc_2008": {
+          "before_by_horizon": {
+            "5": null,
+            "10": null,
+            "15": null,
+            "20": null,
+            "30": null
+          },
+          "before_15": null,
+          "during": null,
+          "after": null
+        },
+        "taper_2013": {
+          "before_by_horizon": {
+            "5": null,
+            "10": null,
+            "15": null,
+            "20": null,
+            "30": null
+          },
+          "before_15": null,
+          "during": null,
+          "after": null
+        },
+        "ilfs_2018": {
+          "before_by_horizon": {
+            "5": -0.5381,
+            "10": -0.435,
+            "15": -0.4138,
+            "20": -0.4461,
+            "30": -0.5244
+          },
+          "before_15": -0.4138,
+          "during": 0.9234,
+          "after": -0.2934
+        },
+        "covid_2020": {
+          "before_by_horizon": {
+            "5": -0.5989,
+            "10": -0.5839,
+            "15": -0.6489,
+            "20": -0.7599,
+            "30": -0.7985
+          },
+          "before_15": -0.6489,
+          "during": -0.2182,
+          "after": -0.0395
+        },
+        "tightening_2022": {
+          "before_by_horizon": {
+            "5": 1.1474,
+            "10": 1.1577,
+            "15": 1.2063,
+            "20": 1.2149,
+            "30": 1.1813
+          },
+          "before_15": 1.2063,
+          "during": 1.1781,
+          "after": 0.2181
+        },
+        "tariff_2026": {
+          "before_by_horizon": {
+            "5": -0.6811,
+            "10": -0.6736,
+            "15": -0.656,
+            "20": -0.6649,
+            "30": -0.6162
+          },
+          "before_15": -0.656,
+          "during": -0.2605,
+          "after": -0.4791
+        }
+      }
+    },
+    "P2 rmt lambda1/N": {
+      "onsets_covered": 6,
+      "mean_before_15": -0.6196,
+      "mean_during": -0.4014,
+      "mean_after": 0.1977,
+      "classification": "AFTER",
+      "epochs_with_positive_before": 1,
+      "per_epoch": {
+        "gfc_2008": {
+          "before_by_horizon": {
+            "5": -0.754,
+            "10": -0.7553,
+            "15": -0.7543,
+            "20": -0.7652,
+            "30": -0.78
+          },
+          "before_15": -0.7543,
+          "during": -0.5021,
+          "after": -0.0425
+        },
+        "taper_2013": {
+          "before_by_horizon": {
+            "5": -0.2192,
+            "10": 0.0477,
+            "15": 0.1343,
+            "20": 0.1889,
+            "30": 0.254
+          },
+          "before_15": 0.1343,
+          "during": -0.5949,
+          "after": -0.7708
+        },
+        "ilfs_2018": {
+          "before_by_horizon": {
+            "5": -0.0439,
+            "10": -0.1389,
+            "15": -0.1941,
+            "20": -0.1741,
+            "30": -0.1153
+          },
+          "before_15": -0.1941,
+          "during": 0.7208,
+          "after": 0.9301
+        },
+        "covid_2020": {
+          "before_by_horizon": {
+            "5": -2.2228,
+            "10": -2.1923,
+            "15": -2.0909,
+            "20": -2.0274,
+            "30": -1.9373
+          },
+          "before_15": -2.0909,
+          "during": -0.9393,
+          "after": 1.0484
+        },
+        "tightening_2022": {
+          "before_by_horizon": {
+            "5": -0.3581,
+            "10": -0.3236,
+            "15": -0.3683,
+            "20": -0.4221,
+            "30": -0.5057
+          },
+          "before_15": -0.3683,
+          "during": -0.3202,
+          "after": 0.4612
+        },
+        "tariff_2026": {
+          "before_by_horizon": {
+            "5": -0.2384,
+            "10": -0.3622,
+            "15": -0.4442,
+            "20": -0.5072,
+            "30": -0.0051
+          },
+          "before_15": -0.4442,
+          "during": -0.7724,
+          "after": -0.4401
+        }
+      }
+    },
+    "P2 rmt SCA_t": {
+      "onsets_covered": 6,
+      "mean_before_15": -0.0769,
+      "mean_during": 0.5345,
+      "mean_after": 0.3818,
+      "classification": "DURING",
+      "epochs_with_positive_before": 3,
+      "per_epoch": {
+        "gfc_2008": {
+          "before_by_horizon": {
+            "5": -0.4422,
+            "10": -0.3761,
+            "15": -0.3149,
+            "20": -0.2747,
+            "30": -0.34
+          },
+          "before_15": -0.3149,
+          "during": 0.518,
+          "after": -0.1568
+        },
+        "taper_2013": {
+          "before_by_horizon": {
+            "5": 0.0816,
+            "10": 0.2798,
+            "15": 0.1454,
+            "20": 0.3739,
+            "30": 0.568
+          },
+          "before_15": 0.1454,
+          "during": -0.2347,
+          "after": -0.0308
+        },
+        "ilfs_2018": {
+          "before_by_horizon": {
+            "5": 0.5155,
+            "10": 0.5284,
+            "15": 0.4083,
+            "20": 0.2248,
+            "30": 0.165
+          },
+          "before_15": 0.4083,
+          "during": 0.9731,
+          "after": 0.1243
+        },
+        "covid_2020": {
+          "before_by_horizon": {
+            "5": -0.1514,
+            "10": -0.4631,
+            "15": -0.4101,
+            "20": -0.6636,
+            "30": -0.8999
+          },
+          "before_15": -0.4101,
+          "during": 1.2392,
+          "after": 0.7873
+        },
+        "tightening_2022": {
+          "before_by_horizon": {
+            "5": -0.8924,
+            "10": -0.7016,
+            "15": -0.346,
+            "20": -0.4488,
+            "30": -0.2458
+          },
+          "before_15": -0.346,
+          "during": 0.1699,
+          "after": 0.017
+        },
+        "tariff_2026": {
+          "before_by_horizon": {
+            "5": 0.2379,
+            "10": 0.2536,
+            "15": 0.0563,
+            "20": -0.1479,
+            "30": -0.2891
+          },
+          "before_15": 0.0563,
+          "during": 0.5411,
+          "after": 1.5498
+        }
+      }
+    },
+    "P2 rmt F_t": {
+      "onsets_covered": 6,
+      "mean_before_15": -0.3042,
+      "mean_during": -0.0591,
+      "mean_after": 0.0362,
+      "classification": "AFTER",
+      "epochs_with_positive_before": 2,
+      "per_epoch": {
+        "gfc_2008": {
+          "before_by_horizon": {
+            "5": -0.187,
+            "10": -0.187,
+            "15": -0.1767,
+            "20": -0.2175,
+            "30": -0.4526
+          },
+          "before_15": -0.1767,
+          "during": -0.4814,
+          "after": -0.9061
+        },
+        "taper_2013": {
+          "before_by_horizon": {
+            "5": 0.2779,
+            "10": 0.205,
+            "15": 0.1807,
+            "20": 0.3356,
+            "30": 0.5463
+          },
+          "before_15": 0.1807,
+          "during": -0.829,
+          "after": -0.8338
+        },
+        "ilfs_2018": {
+          "before_by_horizon": {
+            "5": 0.2394,
+            "10": 0.2394,
+            "15": 0.2394,
+            "20": 0.2453,
+            "30": 0.2617
+          },
+          "before_15": 0.2394,
+          "during": 0.2394,
+          "after": 0.1664
+        },
+        "covid_2020": {
+          "before_by_horizon": {
+            "5": -1.4061,
+            "10": -1.2441,
+            "15": -1.2999,
+            "20": -1.3297,
+            "30": -1.3596
+          },
+          "before_15": -1.2999,
+          "during": -0.1103,
+          "after": 1.014
+        },
+        "tightening_2022": {
+          "before_by_horizon": {
+            "5": 0.4506,
+            "10": -0.0553,
+            "15": -0.2239,
+            "20": -0.3082,
+            "30": -0.3925
+          },
+          "before_15": -0.2239,
+          "during": 0.6483,
+          "after": -0.5066
+        },
+        "tariff_2026": {
+          "before_by_horizon": {
+            "5": -0.5449,
+            "10": -0.5449,
+            "15": -0.5449,
+            "20": -0.5449,
+            "30": -0.5364
+          },
+          "before_15": -0.5449,
+          "during": 0.1785,
+          "after": 1.2836
+        }
+      }
+    },
+    "P2 rmt V_eig": {
+      "onsets_covered": 6,
+      "mean_before_15": -0.5785,
+      "mean_during": 0.3528,
+      "mean_after": 0.2001,
+      "classification": "DURING",
+      "epochs_with_positive_before": 3,
+      "per_epoch": {
+        "gfc_2008": {
+          "before_by_horizon": {
+            "5": -0.0604,
+            "10": -0.0573,
+            "15": -0.033,
+            "20": -0.0228,
+            "30": -0.0521
+          },
+          "before_15": -0.033,
+          "during": 0.3083,
+          "after": -0.006
+        },
+        "taper_2013": {
+          "before_by_horizon": {
+            "5": -11.48,
+            "10": -5.4726,
+            "15": -3.7216,
+            "20": -2.8176,
+            "30": -2.0605
+          },
+          "before_15": -3.7216,
+          "during": -0.1087,
+          "after": -0.2194
+        },
+        "ilfs_2018": {
+          "before_by_horizon": {
+            "5": 0.1425,
+            "10": 0.1999,
+            "15": 0.1413,
+            "20": 0.0436,
+            "30": 0.0342
+          },
+          "before_15": 0.1413,
+          "during": 0.2005,
+          "after": 0.1608
+        },
+        "covid_2020": {
+          "before_by_horizon": {
+            "5": 0.1609,
+            "10": -0.4256,
+            "15": -0.3113,
+            "20": -0.3394,
+            "30": -0.2142
+          },
+          "before_15": -0.3113,
+          "during": 2.0141,
+          "after": 0.1682
+        },
+        "tightening_2022": {
+          "before_by_horizon": {
+            "5": -0.9989,
+            "10": -0.4178,
+            "15": 0.1781,
+            "20": 0.1706,
+            "30": 0.2605
+          },
+          "before_15": 0.1781,
+          "during": 0.4021,
+          "after": 0.4243
+        },
+        "tariff_2026": {
+          "before_by_horizon": {
+            "5": 0.2354,
+            "10": 0.3615,
+            "15": 0.2753,
+            "20": -0.5581,
+            "30": -0.538
+          },
+          "before_15": 0.2753,
+          "during": -0.6995,
+          "after": 0.6725
+        }
+      }
+    },
+    "P2 rmt Omega_t": {
+      "onsets_covered": 6,
+      "mean_before_15": 0.1706,
+      "mean_during": 0.3322,
+      "mean_after": 0.0951,
+      "classification": "DURING",
+      "epochs_with_positive_before": 3,
+      "per_epoch": {
+        "gfc_2008": {
+          "before_by_horizon": {
+            "5": -0.2603,
+            "10": -0.2598,
+            "15": 0.0607,
+            "20": -0.0194,
+            "30": -0.0081
+          },
+          "before_15": 0.0607,
+          "during": -0.1999,
+          "after": -0.1968
+        },
+        "taper_2013": {
+          "before_by_horizon": {
+            "5": 4.2126,
+            "10": 2.0361,
+            "15": 1.3562,
+            "20": 1.008,
+            "30": 0.7339
+          },
+          "before_15": 1.3562,
+          "during": 0.1089,
+          "after": 0.309
+        },
+        "ilfs_2018": {
+          "before_by_horizon": {
+            "5": -0.159,
+            "10": -0.1656,
+            "15": -0.1468,
+            "20": -0.1511,
+            "30": -0.1548
+          },
+          "before_15": -0.1468,
+          "during": 0.0155,
+          "after": 0.103
+        },
+        "covid_2020": {
+          "before_by_horizon": {
+            "5": -0.1022,
+            "10": -0.0128,
+            "15": 0.0239,
+            "20": -0.0104,
+            "30": 0.2907
+          },
+          "before_15": 0.0239,
+          "during": 2.0019,
+          "after": -0.0767
+        },
+        "tightening_2022": {
+          "before_by_horizon": {
+            "5": -0.1755,
+            "10": -0.1945,
+            "15": -0.1281,
+            "20": -0.1631,
+            "30": -0.0873
+          },
+          "before_15": -0.1281,
+          "during": 0.0052,
+          "after": 0.1672
+        },
+        "tariff_2026": {
+          "before_by_horizon": {
+            "5": -0.0734,
+            "10": -0.1157,
+            "15": -0.1424,
+            "20": -0.1322,
+            "30": -0.1425
+          },
+          "before_15": -0.1424,
+          "during": 0.0615,
+          "after": 0.265
+        }
+      }
+    },
+    "P3 hamilton LSD": {
+      "onsets_covered": 5,
+      "mean_before_15": -0.392,
+      "mean_during": 0.6919,
+      "mean_after": 0.0792,
+      "classification": "DURING",
+      "epochs_with_positive_before": 1,
+      "per_epoch": {
+        "gfc_2008": {
+          "before_by_horizon": {
+            "5": null,
+            "10": null,
+            "15": null,
+            "20": null,
+            "30": null
+          },
+          "before_15": null,
+          "during": null,
+          "after": null
+        },
+        "taper_2013": {
+          "before_by_horizon": {
+            "5": -0.439,
+            "10": -0.4391,
+            "15": -0.4358,
+            "20": -0.4267,
+            "30": -0.4084
+          },
+          "before_15": -0.4358,
+          "during": -0.43,
+          "after": -0.2535
+        },
+        "ilfs_2018": {
+          "before_by_horizon": {
+            "5": -0.3779,
+            "10": -0.3779,
+            "15": -0.3779,
+            "20": -0.3779,
+            "30": -0.3779
+          },
+          "before_15": -0.3779,
+          "during": 3.697,
+          "after": 0.1221
+        },
+        "covid_2020": {
+          "before_by_horizon": {
+            "5": -1.1113,
+            "10": -1.1145,
+            "15": -1.1159,
+            "20": -1.1167,
+            "30": -1.1176
+          },
+          "before_15": -1.1159,
+          "during": 0.2221,
+          "after": 0.9697
+        },
+        "tightening_2022": {
+          "before_by_horizon": {
+            "5": -0.8845,
+            "10": -0.8844,
+            "15": -0.8843,
+            "20": -0.8842,
+            "30": -0.8842
+          },
+          "before_15": -0.8843,
+          "during": -0.8837,
+          "after": 0.0953
+        },
+        "tariff_2026": {
+          "before_by_horizon": {
+            "5": 0.8538,
+            "10": 0.8539,
+            "15": 0.8539,
+            "20": 0.8539,
+            "30": 0.854
+          },
+          "before_15": 0.8539,
+          "during": 0.8539,
+          "after": -0.5376
+        }
+      }
+    },
+    "B rv_20": {
+      "onsets_covered": 6,
+      "mean_before_15": -0.0279,
+      "mean_during": 1.4985,
+      "mean_after": 1.7772,
+      "classification": "AFTER",
+      "epochs_with_positive_before": 3,
+      "per_epoch": {
+        "gfc_2008": {
+          "before_by_horizon": {
+            "5": -1.0465,
+            "10": -1.0124,
+            "15": -0.9685,
+            "20": -0.8614,
+            "30": -0.6391
+          },
+          "before_15": -0.9685,
+          "during": 0.6509,
+          "after": 1.4405
+        },
+        "taper_2013": {
+          "before_by_horizon": {
+            "5": -0.8546,
+            "10": -1.0239,
+            "15": -0.9386,
+            "20": -0.6129,
+            "30": -0.0413
+          },
+          "before_15": -0.9386,
+          "during": 0.1784,
+          "after": 0.9693
+        },
+        "ilfs_2018": {
+          "before_by_horizon": {
+            "5": -0.6738,
+            "10": -0.8637,
+            "15": -1.0993,
+            "20": -1.175,
+            "30": -0.8719
+          },
+          "before_15": -1.0993,
+          "during": 1.8254,
+          "after": -0.384
+        },
+        "covid_2020": {
+          "before_by_horizon": {
+            "5": 0.0034,
+            "10": 0.0347,
+            "15": 0.0063,
+            "20": -0.0778,
+            "30": -0.2348
+          },
+          "before_15": 0.0063,
+          "during": 4.7529,
+          "after": 4.5269
+        },
+        "tightening_2022": {
+          "before_by_horizon": {
+            "5": 1.0735,
+            "10": 0.9681,
+            "15": 0.9511,
+            "20": 0.9056,
+            "30": 0.7567
+          },
+          "before_15": 0.9511,
+          "during": 1.2082,
+          "after": 2.2356
+        },
+        "tariff_2026": {
+          "before_by_horizon": {
+            "5": 2.1568,
+            "10": 1.9928,
+            "15": 1.8817,
+            "20": 1.7983,
+            "30": 0.9393
+          },
+          "before_15": 1.8817,
+          "during": 0.3751,
+          "after": 1.8748
+        }
+      }
+    },
+    "B drawdown": {
+      "onsets_covered": 6,
+      "mean_before_15": -0.0184,
+      "mean_during": 0.5083,
+      "mean_after": 0.94,
+      "classification": "AFTER",
+      "epochs_with_positive_before": 3,
+      "per_epoch": {
+        "gfc_2008": {
+          "before_by_horizon": {
+            "5": 0.2891,
+            "10": 0.2817,
+            "15": 0.2872,
+            "20": 0.2772,
+            "30": 0.2576
+          },
+          "before_15": 0.2872,
+          "during": 0.8535,
+          "after": 1.3256
+        },
+        "taper_2013": {
+          "before_by_horizon": {
+            "5": 0.359,
+            "10": 0.3845,
+            "15": 0.4105,
+            "20": 0.4477,
+            "30": 0.5437
+          },
+          "before_15": 0.4105,
+          "during": 0.8322,
+          "after": 1.278
+        },
+        "ilfs_2018": {
+          "before_by_horizon": {
+            "5": -0.1252,
+            "10": -0.1533,
+            "15": -0.1969,
+            "20": -0.2117,
+            "30": -0.2148
+          },
+          "before_15": -0.1969,
+          "during": 0.5442,
+          "after": 0.5087
+        },
+        "covid_2020": {
+          "before_by_horizon": {
+            "5": 0.3713,
+            "10": 0.2895,
+            "15": 0.2864,
+            "20": 0.2243,
+            "30": 0.1756
+          },
+          "before_15": 0.2864,
+          "during": 2.0237,
+          "after": 2.4588
+        },
+        "tightening_2022": {
+          "before_by_horizon": {
+            "5": -0.8543,
+            "10": -0.6383,
+            "15": -0.5628,
+            "20": -0.6084,
+            "30": -0.548
+          },
+          "before_15": -0.5628,
+          "during": -0.9066,
+          "after": 0.019
+        },
+        "tariff_2026": {
+          "before_by_horizon": {
+            "5": -0.0753,
+            "10": -0.1631,
+            "15": -0.3344,
+            "20": -0.5404,
+            "30": -0.2995
+          },
+          "before_15": -0.3344,
+          "during": -0.2972,
+          "after": 0.0501
+        }
+      }
+    },
+    "B semivar_20": {
+      "onsets_covered": 6,
+      "mean_before_15": -0.1181,
+      "mean_during": 2.1376,
+      "mean_after": 1.6432,
+      "classification": "DURING",
+      "epochs_with_positive_before": 3,
+      "per_epoch": {
+        "gfc_2008": {
+          "before_by_horizon": {
+            "5": -0.606,
+            "10": -0.6471,
+            "15": -0.6659,
+            "20": -0.7184,
+            "30": -0.6694
+          },
+          "before_15": -0.6659,
+          "during": 1.5829,
+          "after": 1.4996
+        },
+        "taper_2013": {
+          "before_by_horizon": {
+            "5": -0.7006,
+            "10": -0.8969,
+            "15": -0.8,
+            "20": -0.6566,
+            "30": -0.0654
+          },
+          "before_15": -0.8,
+          "during": 0.984,
+          "after": 1.3177
+        },
+        "ilfs_2018": {
+          "before_by_horizon": {
+            "5": -0.2105,
+            "10": -0.3245,
+            "15": -0.6392,
+            "20": -0.8444,
+            "30": -0.7691
+          },
+          "before_15": -0.6392,
+          "during": 2.4214,
+          "after": -0.4434
+        },
+        "covid_2020": {
+          "before_by_horizon": {
+            "5": 0.612,
+            "10": 0.5373,
+            "15": 0.4323,
+            "20": 0.2314,
+            "30": -0.0334
+          },
+          "before_15": 0.4323,
+          "during": 6.6488,
+          "after": 3.6591
+        },
+        "tightening_2022": {
+          "before_by_horizon": {
+            "5": 0.6166,
+            "10": 0.7888,
+            "15": 0.9063,
+            "20": 0.9244,
+            "30": 0.8926
+          },
+          "before_15": 0.9063,
+          "during": 0.7156,
+          "after": 2.1336
+        },
+        "tariff_2026": {
+          "before_by_horizon": {
+            "5": 0.633,
+            "10": 0.3228,
+            "15": 0.0581,
+            "20": -0.1586,
+            "30": -0.231
+          },
+          "before_15": 0.0581,
+          "during": 0.4725,
+          "after": 1.6926
+        }
+      }
+    },
+    "B rv_accel_5": {
+      "onsets_covered": 6,
+      "mean_before_15": 0.0039,
+      "mean_during": 0.7395,
+      "mean_after": -0.5413,
+      "classification": "DURING",
+      "epochs_with_positive_before": 4,
+      "per_epoch": {
+        "gfc_2008": {
+          "before_by_horizon": {
+            "5": -0.142,
+            "10": -0.1692,
+            "15": -0.3296,
+            "20": -0.3397,
+            "30": -0.4816
+          },
+          "before_15": -0.3296,
+          "during": 0.9181,
+          "after": -0.6848
+        },
+        "taper_2013": {
+          "before_by_horizon": {
+            "5": 0.7498,
+            "10": -0.1407,
+            "15": -0.9869,
+            "20": -1.1542,
+            "30": -0.8718
+          },
+          "before_15": -0.9869,
+          "during": 0.6115,
+          "after": 0.1163
+        },
+        "ilfs_2018": {
+          "before_by_horizon": {
+            "5": 0.5191,
+            "10": 0.6136,
+            "15": 0.3308,
+            "20": 0.0143,
+            "30": -0.2364
+          },
+          "before_15": 0.3308,
+          "during": 0.7012,
+          "after": -0.5162
+        },
+        "covid_2020": {
+          "before_by_horizon": {
+            "5": -0.0862,
+            "10": 0.0542,
+            "15": 0.1863,
+            "20": 0.2103,
+            "30": 0.2123
+          },
+          "before_15": 0.1863,
+          "during": 2.6528,
+          "after": -2.291
+        },
+        "tightening_2022": {
+          "before_by_horizon": {
+            "5": 0.3784,
+            "10": 0.1581,
+            "15": 0.1966,
+            "20": 0.2571,
+            "30": 0.3236
+          },
+          "before_15": 0.1966,
+          "during": 0.0621,
+          "after": -0.3346
+        },
+        "tariff_2026": {
+          "before_by_horizon": {
+            "5": 0.8962,
+            "10": 0.725,
+            "15": 0.6261,
+            "20": 1.7815,
+            "30": 1.2659
+          },
+          "before_15": 0.6261,
+          "during": -0.5087,
+          "after": 0.4628
+        }
+      }
+    },
+    "B dd_accel_5": {
+      "onsets_covered": 6,
+      "mean_before_15": 0.2863,
+      "mean_during": 0.8593,
+      "mean_after": -0.0067,
+      "classification": "DURING",
+      "epochs_with_positive_before": 5,
+      "per_epoch": {
+        "gfc_2008": {
+          "before_by_horizon": {
+            "5": 0.0641,
+            "10": -0.0627,
+            "15": 0.0582,
+            "20": 0.142,
+            "30": -0.0925
+          },
+          "before_15": 0.0582,
+          "during": 1.046,
+          "after": -0.023
+        },
+        "taper_2013": {
+          "before_by_horizon": {
+            "5": 0.0146,
+            "10": 0.0118,
+            "15": -0.06,
+            "20": -0.1303,
+            "30": -0.0041
+          },
+          "before_15": -0.06,
+          "during": 0.8529,
+          "after": 0.6517
+        },
+        "ilfs_2018": {
+          "before_by_horizon": {
+            "5": 0.2202,
+            "10": 0.382,
+            "15": 0.1322,
+            "20": -0.061,
+            "30": -0.1093
+          },
+          "before_15": 0.1322,
+          "during": 0.5724,
+          "after": -0.196
+        },
+        "covid_2020": {
+          "before_by_horizon": {
+            "5": 0.8656,
+            "10": 0.3613,
+            "15": 0.6413,
+            "20": 0.5395,
+            "30": 0.2075
+          },
+          "before_15": 0.6413,
+          "during": 2.0621,
+          "after": -0.0929
+        },
+        "tightening_2022": {
+          "before_by_horizon": {
+            "5": -1.503,
+            "10": -0.6988,
+            "15": 0.0063,
+            "20": -0.2688,
+            "30": 0.0358
+          },
+          "before_15": 0.0063,
+          "during": 0.4088,
+          "after": 0.1915
+        },
+        "tariff_2026": {
+          "before_by_horizon": {
+            "5": 0.4613,
+            "10": 0.7849,
+            "15": 0.94,
+            "20": -0.1205,
+            "30": -0.1543
+          },
+          "before_15": 0.94,
+          "during": 0.2138,
+          "after": -0.5714
+        }
+      }
+    },
+    "V india_vix": {
+      "onsets_covered": 4,
+      "mean_before_15": -0.6132,
+      "mean_during": 1.7771,
+      "mean_after": 2.5443,
+      "classification": "AFTER",
+      "epochs_with_positive_before": 0,
+      "per_epoch": {
+        "gfc_2008": {
+          "before_by_horizon": {
+            "5": null,
+            "10": null,
+            "15": null,
+            "20": null,
+            "30": null
+          },
+          "before_15": null,
+          "during": null,
+          "after": null
+        },
+        "taper_2013": {
+          "before_by_horizon": {
+            "5": null,
+            "10": null,
+            "15": null,
+            "20": null,
+            "30": null
+          },
+          "before_15": null,
+          "during": null,
+          "after": null
+        },
+        "ilfs_2018": {
+          "before_by_horizon": {
+            "5": -0.272,
+            "10": -0.3404,
+            "15": -0.5146,
+            "20": -0.6006,
+            "30": -0.6637
+          },
+          "before_15": -0.5146,
+          "during": 1.0343,
+          "after": 0.8899
+        },
+        "covid_2020": {
+          "before_by_horizon": {
+            "5": -1.2144,
+            "10": -1.2092,
+            "15": -1.0527,
+            "20": -0.9594,
+            "30": -0.9986
+          },
+          "before_15": -1.0527,
+          "during": 5.327,
+          "after": 4.4302
+        },
+        "tightening_2022": {
+          "before_by_horizon": {
+            "5": -0.444,
+            "10": -0.4085,
+            "15": -0.3561,
+            "20": -0.3358,
+            "30": -0.1207
+          },
+          "before_15": -0.3561,
+          "during": 0.2641,
+          "after": 1.9884
+        },
+        "tariff_2026": {
+          "before_by_horizon": {
+            "5": 0.0464,
+            "10": -0.2526,
+            "15": -0.5293,
+            "20": -0.7796,
+            "30": -1.0349
+          },
+          "before_15": -0.5293,
+          "during": 0.4829,
+          "after": 2.8688
+        }
+      }
+    },
+    "V vix_accel_5": {
+      "onsets_covered": 4,
+      "mean_before_15": 0.241,
+      "mean_during": 1.4666,
+      "mean_after": -0.5738,
+      "classification": "DURING",
+      "epochs_with_positive_before": 2,
+      "per_epoch": {
+        "gfc_2008": {
+          "before_by_horizon": {
+            "5": null,
+            "10": null,
+            "15": null,
+            "20": null,
+            "30": null
+          },
+          "before_15": null,
+          "during": null,
+          "after": null
+        },
+        "taper_2013": {
+          "before_by_horizon": {
+            "5": null,
+            "10": null,
+            "15": null,
+            "20": null,
+            "30": null
+          },
+          "before_15": null,
+          "during": null,
+          "after": null
+        },
+        "ilfs_2018": {
+          "before_by_horizon": {
+            "5": 0.2286,
+            "10": 0.5014,
+            "15": 0.3294,
+            "20": 0.1614,
+            "30": 0.1776
+          },
+          "before_15": 0.3294,
+          "during": 0.4641,
+          "after": -0.4307
+        },
+        "covid_2020": {
+          "before_by_horizon": {
+            "5": 0.0772,
+            "10": -0.437,
+            "15": -0.3031,
+            "20": 0.0019,
+            "30": 0.1703
+          },
+          "before_15": -0.3031,
+          "during": 4.1119,
+          "after": -1.8353
+        },
+        "tightening_2022": {
+          "before_by_horizon": {
+            "5": -0.0647,
+            "10": -0.1205,
+            "15": -0.0325,
+            "20": -0.3823,
+            "30": 0.1725
+          },
+          "before_15": -0.0325,
+          "during": 0.4338,
+          "after": 0.1523
+        },
+        "tariff_2026": {
+          "before_by_horizon": {
+            "5": 1.0856,
+            "10": 1.0322,
+            "15": 0.9703,
+            "20": 0.7921,
+            "30": 0.4607
+          },
+          "before_15": 0.9703,
+          "during": 0.8566,
+          "after": -0.1813
+        }
+      }
+    },
+    "V vix_ratio_60": {
+      "onsets_covered": 4,
+      "mean_before_15": 0.4321,
+      "mean_during": 4.1866,
+      "mean_after": 2.1672,
+      "classification": "DURING",
+      "epochs_with_positive_before": 4,
+      "per_epoch": {
+        "gfc_2008": {
+          "before_by_horizon": {
+            "5": null,
+            "10": null,
+            "15": null,
+            "20": null,
+            "30": null
+          },
+          "before_15": null,
+          "during": null,
+          "after": null
+        },
+        "taper_2013": {
+          "before_by_horizon": {
+            "5": null,
+            "10": null,
+            "15": null,
+            "20": null,
+            "30": null
+          },
+          "before_15": null,
+          "during": null,
+          "after": null
+        },
+        "ilfs_2018": {
+          "before_by_horizon": {
+            "5": 0.7477,
+            "10": 0.6736,
+            "15": 0.4147,
+            "20": 0.2768,
+            "30": 0.1692
+          },
+          "before_15": 0.4147,
+          "during": 2.2308,
+          "after": -0.0515
+        },
+        "covid_2020": {
+          "before_by_horizon": {
+            "5": 0.0727,
+            "10": 0.0609,
+            "15": 0.3392,
+            "20": 0.5066,
+            "30": 0.3865
+          },
+          "before_15": 0.3392,
+          "during": 11.3391,
+          "after": 2.8514
+        },
+        "tightening_2022": {
+          "before_by_horizon": {
+            "5": 0.0573,
+            "10": 0.0603,
+            "15": 0.1315,
+            "20": 0.1696,
+            "30": 0.5634
+          },
+          "before_15": 0.1315,
+          "during": 0.9659,
+          "after": 2.5166
+        },
+        "tariff_2026": {
+          "before_by_horizon": {
+            "5": 1.6908,
+            "10": 1.2473,
+            "15": 0.8428,
+            "20": 0.4732,
+            "30": 0.0838
+          },
+          "before_15": 0.8428,
+          "during": 2.2105,
+          "after": 3.3525
+        }
+      }
+    },
+    "M dispersion": {
+      "onsets_covered": 6,
+      "mean_before_15": -0.1462,
+      "mean_during": 0.452,
+      "mean_after": 0.3158,
+      "classification": "DURING",
+      "epochs_with_positive_before": 2,
+      "per_epoch": {
+        "gfc_2008": {
+          "before_by_horizon": {
+            "5": -1.1467,
+            "10": -1.2144,
+            "15": -1.2372,
+            "20": -1.2261,
+            "30": -0.9835
+          },
+          "before_15": -1.2372,
+          "during": 1.4878,
+          "after": 1.3339
+        },
+        "taper_2013": {
+          "before_by_horizon": {
+            "5": 0.2052,
+            "10": -0.1052,
+            "15": -0.0971,
+            "20": -0.1398,
+            "30": -0.1706
+          },
+          "before_15": -0.0971,
+          "during": 0.2465,
+          "after": 0.5342
+        },
+        "ilfs_2018": {
+          "before_by_horizon": {
+            "5": 0.0126,
+            "10": -0.0764,
+            "15": -0.1149,
+            "20": -0.1324,
+            "30": -0.1126
+          },
+          "before_15": -0.1149,
+          "during": 0.1724,
+          "after": -0.1552
+        },
+        "covid_2020": {
+          "before_by_horizon": {
+            "5": -0.0259,
+            "10": -0.0157,
+            "15": 0.0232,
+            "20": -0.0648,
+            "30": 0.1012
+          },
+          "before_15": 0.0232,
+          "during": 0.9145,
+          "after": 0.2381
+        },
+        "tightening_2022": {
+          "before_by_horizon": {
+            "5": 2.2507,
+            "10": 0.9928,
+            "15": 0.577,
+            "20": 0.4085,
+            "30": 0.2486
+          },
+          "before_15": 0.577,
+          "during": -0.0837,
+          "after": -0.0407
+        },
+        "tariff_2026": {
+          "before_by_horizon": {
+            "5": 0.1342,
+            "10": 0.039,
+            "15": -0.0281,
+            "20": 0.6669,
+            "30": 0.3762
+          },
+          "before_15": -0.0281,
+          "during": -0.0254,
+          "after": -0.0158
+        }
+      }
+    },
+    "M frac_down": {
+      "onsets_covered": 6,
+      "mean_before_15": 0.1607,
+      "mean_during": 0.332,
+      "mean_after": -0.0731,
+      "classification": "DURING",
+      "epochs_with_positive_before": 4,
+      "per_epoch": {
+        "gfc_2008": {
+          "before_by_horizon": {
+            "5": 0.5964,
+            "10": 0.1176,
+            "15": 0.1967,
+            "20": 0.3062,
+            "30": 0.0919
+          },
+          "before_15": 0.1967,
+          "during": 0.6933,
+          "after": -0.0684
+        },
+        "taper_2013": {
+          "before_by_horizon": {
+            "5": 0.0442,
+            "10": 0.1527,
+            "15": -0.0485,
+            "20": -0.0532,
+            "30": -0.1265
+          },
+          "before_15": -0.0485,
+          "during": 0.3709,
+          "after": 0.2892
+        },
+        "ilfs_2018": {
+          "before_by_horizon": {
+            "5": 0.1673,
+            "10": 0.2445,
+            "15": 0.2299,
+            "20": 0.1584,
+            "30": 0.0811
+          },
+          "before_15": 0.2299,
+          "during": 0.0824,
+          "after": -0.1259
+        },
+        "covid_2020": {
+          "before_by_horizon": {
+            "5": 0.4384,
+            "10": 0.3175,
+            "15": 0.3101,
+            "20": 0.2009,
+            "30": 0.0088
+          },
+          "before_15": 0.3101,
+          "during": 0.603,
+          "after": -0.0347
+        },
+        "tightening_2022": {
+          "before_by_horizon": {
+            "5": -0.5323,
+            "10": -0.6127,
+            "15": -0.1108,
+            "20": -0.2143,
+            "30": -0.1472
+          },
+          "before_15": -0.1108,
+          "during": 0.088,
+          "after": -0.0936
+        },
+        "tariff_2026": {
+          "before_by_horizon": {
+            "5": -0.1246,
+            "10": 0.2313,
+            "15": 0.3867,
+            "20": 0.2356,
+            "30": 0.1268
+          },
+          "before_15": 0.3867,
+          "during": 0.1547,
+          "after": -0.4053
+        }
+      }
+    },
+    "M frac_down_3pct": {
+      "onsets_covered": 6,
+      "mean_before_15": 0.0739,
+      "mean_during": 0.9803,
+      "mean_after": 0.3723,
+      "classification": "DURING",
+      "epochs_with_positive_before": 4,
+      "per_epoch": {
+        "gfc_2008": {
+          "before_by_horizon": {
+            "5": -0.2737,
+            "10": -0.452,
+            "15": -0.4413,
+            "20": -0.3166,
+            "30": -0.3775
+          },
+          "before_15": -0.4413,
+          "during": 1.2082,
+          "after": 0.2435
+        },
+        "taper_2013": {
+          "before_by_horizon": {
+            "5": -0.1348,
+            "10": -0.0292,
+            "15": -0.1493,
+            "20": -0.1628,
+            "30": -0.2009
+          },
+          "before_15": -0.1493,
+          "during": 0.5339,
+          "after": 0.8885
+        },
+        "ilfs_2018": {
+          "before_by_horizon": {
+            "5": 0.1912,
+            "10": 0.1346,
+            "15": 0.1184,
+            "20": -0.016,
+            "30": -0.0574
+          },
+          "before_15": 0.1184,
+          "during": 1.0495,
+          "after": -0.1565
+        },
+        "covid_2020": {
+          "before_by_horizon": {
+            "5": 0.3426,
+            "10": 0.1305,
+            "15": 0.3421,
+            "20": 0.2027,
+            "30": 0.0028
+          },
+          "before_15": 0.3421,
+          "during": 2.3224,
+          "after": 0.671
+        },
+        "tightening_2022": {
+          "before_by_horizon": {
+            "5": -0.5108,
+            "10": -0.5167,
+            "15": 0.1036,
+            "20": -0.0401,
+            "30": 0.1084
+          },
+          "before_15": 0.1036,
+          "during": 0.3245,
+          "after": 0.2638
+        },
+        "tariff_2026": {
+          "before_by_horizon": {
+            "5": 0.3528,
+            "10": 0.5438,
+            "15": 0.4696,
+            "20": 0.2518,
+            "30": 0.0309
+          },
+          "before_15": 0.4696,
+          "during": 0.4434,
+          "after": 0.3234
+        }
+      }
+    },
+    "M turnover_ratio_60": {
+      "onsets_covered": 6,
+      "mean_before_15": -0.0305,
+      "mean_during": 0.2045,
+      "mean_after": -0.0364,
+      "classification": "DURING",
+      "epochs_with_positive_before": 3,
+      "per_epoch": {
+        "gfc_2008": {
+          "before_by_horizon": {
+            "5": -0.3913,
+            "10": -0.463,
+            "15": -0.6047,
+            "20": -0.637,
+            "30": -0.3136
+          },
+          "before_15": -0.6047,
+          "during": -0.3896,
+          "after": -0.6006
+        },
+        "taper_2013": {
+          "before_by_horizon": {
+            "5": 0.1494,
+            "10": -0.5528,
+            "15": -0.403,
+            "20": -0.2692,
+            "30": -0.3692
+          },
+          "before_15": -0.403,
+          "during": -0.1966,
+          "after": -0.0907
+        },
+        "ilfs_2018": {
+          "before_by_horizon": {
+            "5": -0.1136,
+            "10": 0.1799,
+            "15": 0.4898,
+            "20": 0.4387,
+            "30": 0.4108
+          },
+          "before_15": 0.4898,
+          "during": 0.1292,
+          "after": -0.7975
+        },
+        "covid_2020": {
+          "before_by_horizon": {
+            "5": -0.2077,
+            "10": -0.1505,
+            "15": 0.0792,
+            "20": 0.0533,
+            "30": -0.064
+          },
+          "before_15": 0.0792,
+          "during": 0.6697,
+          "after": 0.3417
+        },
+        "tightening_2022": {
+          "before_by_horizon": {
+            "5": -1.2506,
+            "10": -1.4887,
+            "15": -1.3334,
+            "20": -1.2603,
+            "30": -0.9655
+          },
+          "before_15": -1.3334,
+          "during": 0.1835,
+          "after": 0.3184
+        },
+        "tariff_2026": {
+          "before_by_horizon": {
+            "5": 2.6293,
+            "10": 1.9733,
+            "15": 1.5893,
+            "20": 1.339,
+            "30": 0.93
+          },
+          "before_15": 1.5893,
+          "during": 0.8306,
+          "after": 0.6106
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,245 @@
+### command: .venv/Scripts/python.exe -I scripts/audit_event_coverage.py --bootstrap-only --pillar2 lam1 sca --boot-draws 2000
+### started: 2026-10-13T13:49:06Z
+### HEAD: f3eaac8
+### block length 770 sessions = rv_t_yz integral timescale measured in log 34
+### deconflict: Workstream C ran ONSET-CLUSTERED bootstrap on acceleration signals;
+###            this is a BLOCK bootstrap on the pillar/CSRS series. Different unit.
+
+
+==============================================================================
+ARM 6 — EVENT-CLUSTERED BLOCK BOOTSTRAP on the pillar and CSRS series
+==============================================================================
+  build_signals() imported from scripts/replay_crisis_warnings.py —
+  the replayed series are NOT rebuilt here, so the bootstrap cannot
+  be computed on a different construction path than the replay.
+
+  block lengths swept: (1, 21, 63, 252, 423, 770) trading days
+  L=1 is the naive i.i.d. bootstrap — the implicit basis of any
+  interval that treats 5,363 daily rows as independent observations.
+  L=423 and L=770 are arm 3b's MEASURED rv_t_yz decorrelation scales.
+  2000 resamples per (signal, target, L).
+
+==============================================================================
+ARM 6 — Pillar 2 quantity = lambda_1/N  [as shipped in adapters.rmt_emission]
+==============================================================================
+[replay] grid        : 5,363 daily ticks 2005-01-03 .. 2026-08-21
+[replay] P1 hawkes   : 473 refits 2017-02-09 .. 2026-08-20 (refit_every=5 sessions)
+[replay] P2 rmt      : 5,363 daily rows, quantity = lambda1/N (shipped)
+[replay] P3 hamilton : 3,365 CAUSAL rows 2013-01-14 .. 2026-08-21  [EXPLORATORY]
+[replay] rule A      : CSRS >= 0.5 (C9 frozen constant)
+[replay] rule B      : > trailing-5y 95% quantile, min 250 obs, index i excluded from its own threshold
+[replay] PILLAR_ORDER= ['hawkes', 'rmt', 'hamilton']
+[replay]   subset hawkes                 468 pts  4895 failures  mean=0.3103
+[replay]   subset rmt                    5,363 pts  0 failures  mean=0.5771
+[replay]   subset hamilton               3,365 pts  1998 failures  mean=0.5689
+[replay]   subset hawkes+rmt             5,363 pts  0 failures  mean=0.5623
+[replay]   subset hawkes+hamilton        3,365 pts  1998 failures  mean=0.5558
+[replay]   subset rmt+hamilton           5,363 pts  0 failures  mean=0.5973
+[replay]   subset hawkes+rmt+hamilton    5,363 pts  0 failures  mean=0.5897
+[replay]   baseline BASE[rv_20]          5,358 finite pts
+[replay]   baseline BASE[drawdown]       5,363 finite pts
+[replay]   baseline BASE[rv_accel_5]     5,353 finite pts
+[replay]   baseline BASE[dd_accel_5]     5,358 finite pts
+
+  grid 5,363 sessions 2005-01-03 .. 2026-08-21; 6 onsets
+  T1 positives 180d   T3 positives 90d (in-crisis days dropped: 180)
+
+  --- T1 crisis detection ---
+  signal                       AUC               L=1              L=21              L=63             L=252             L=423             L=770
+  --------------------------------------------------------------------------------------------------------------------------------------------
+  CSRS[hawkes]              0.6464 [0.550,0.747]   [0.465,0.815]   [0.425,0.858]   [0.414,0.876]   [0.411,0.892]   [0.462,0.917]   
+  CSRS[rmt]                 0.5292 [0.470,0.582]   [0.311,0.719]   [0.274,0.779]   [0.254,0.791]   [0.288,0.770]   [0.289,0.717]   
+  CSRS[hamilton]            0.6350 [0.592,0.676]   [0.487,0.768]   [0.451,0.806]   [0.395,0.821]   [0.383,0.833]   [0.366,0.835]   
+  CSRS[hawkes+rmt]          0.5218 [0.466,0.573]   [0.309,0.710]   [0.266,0.769]   [0.246,0.777]   [0.285,0.761]   [0.286,0.710]   
+  CSRS[hawkes+hamilton]     0.6239 [0.584,0.662]   [0.498,0.741]   [0.467,0.772]   [0.412,0.795]   [0.393,0.809]   [0.368,0.815]   
+  CSRS[rmt+hamilton]        0.5778 [0.532,0.622]   [0.404,0.732]   [0.377,0.773]   [0.363,0.783]   [0.388,0.777]   [0.372,0.757]   
+  CSRS[hawkes+rmt+hamilton]  0.5733 [0.529,0.617]   [0.400,0.725]   [0.373,0.770]   [0.356,0.780]   [0.382,0.764]   [0.370,0.748]   
+  BASE[rv_20]               0.7347 [0.702,0.766]   [0.612,0.839]   [0.592,0.857]   [0.587,0.858]   [0.599,0.854]   [0.578,0.849]   
+  BASE[drawdown]            0.6713 [0.624,0.716]   [0.474,0.852]   [0.407,0.898]   [0.442,0.914]   [0.411,0.901]   [0.469,0.884]   
+  BASE[rv_accel_5]          0.6622 [0.618,0.707]   [0.540,0.781]   [0.512,0.797]   [0.512,0.811]   [0.505,0.805]   [0.502,0.784]   
+  BASE[dd_accel_5]          0.7015 [0.656,0.743]   [0.594,0.800]   [0.598,0.800]   [0.609,0.804]   [0.610,0.802]   [0.609,0.793]   
+
+  CI WIDTH by block length, and the overstatement factor:
+  signal                         L=1      L=21      L=63     L=252     L=423     L=770   w770/w1
+  CSRS[hawkes]                0.1975   0.3496   0.4339   0.4621   0.4819   0.4548      2.30x
+  CSRS[rmt]                   0.1113   0.4076   0.5051   0.5373   0.4828   0.4283      3.85x
+  CSRS[hamilton]              0.0837   0.2809   0.3552   0.4262   0.4500   0.4692      5.61x
+  CSRS[hawkes+rmt]            0.1068   0.4012   0.5030   0.5307   0.4763   0.4238      3.97x
+  CSRS[hawkes+hamilton]       0.0785   0.2426   0.3048   0.3837   0.4165   0.4470      5.70x
+  CSRS[rmt+hamilton]          0.0894   0.3282   0.3965   0.4205   0.3891   0.3853      4.31x
+  CSRS[hawkes+rmt+hamilton]    0.0879   0.3254   0.3973   0.4242   0.3822   0.3779      4.30x
+  BASE[rv_20]                 0.0639   0.2271   0.2644   0.2713   0.2550   0.2708      4.24x
+  BASE[drawdown]              0.0921   0.3780   0.4912   0.4717   0.4899   0.4149      4.50x
+  BASE[rv_accel_5]            0.0887   0.2410   0.2851   0.2993   0.3001   0.2823      3.18x
+  BASE[dd_accel_5]            0.0865   0.2057   0.2021   0.1943   0.1927   0.1842      2.13x
+  '*' = >5% of resamples were degenerate (could not define an
+  AUC). 'w770/w1' is how much the naive i.i.d. interval
+  UNDERSTATES the width once the measured dependence is used.
+
+  --- T3 advance warning ---
+  signal                       AUC               L=1              L=21              L=63             L=252             L=423             L=770
+  --------------------------------------------------------------------------------------------------------------------------------------------
+  CSRS[hawkes]              0.5335 [0.361,0.707]   [0.296,0.799]*  [0.287,0.823]*  [0.283,0.803]*  [0.301,0.814]*  [0.299,0.797]*  
+  CSRS[rmt]                 0.4148 [0.350,0.481]   [0.188,0.654]   [0.157,0.687]   [0.164,0.689]   [0.185,0.667]   [0.260,0.627]   
+  CSRS[hamilton]            0.4458 [0.393,0.498]   [0.254,0.644]   [0.227,0.656]   [0.226,0.672]   [0.256,0.679]   [0.247,0.738]   
+  CSRS[hawkes+rmt]          0.4174 [0.354,0.484]   [0.190,0.662]   [0.161,0.690]   [0.168,0.686]   [0.197,0.666]   [0.265,0.625]   
+  CSRS[hawkes+hamilton]     0.4445 [0.391,0.497]   [0.254,0.628]   [0.231,0.640]   [0.227,0.658]   [0.260,0.661]   [0.248,0.716]   
+  CSRS[rmt+hamilton]        0.4188 [0.369,0.470]   [0.239,0.614]   [0.225,0.649]   [0.216,0.643]   [0.212,0.620]   [0.234,0.623]   
+  CSRS[hawkes+rmt+hamilton]  0.4178 [0.366,0.472]   [0.233,0.623]   [0.222,0.656]   [0.211,0.646]   [0.211,0.621]   [0.232,0.623]   
+  BASE[rv_20]               0.4951 [0.434,0.554]   [0.284,0.712]   [0.262,0.725]   [0.253,0.731]   [0.275,0.733]   [0.260,0.733]   
+  BASE[drawdown]            0.6322 [0.581,0.683]   [0.436,0.808]   [0.420,0.854]   [0.445,0.835]   [0.453,0.807]   [0.496,0.796]   
+  BASE[rv_accel_5]          0.5288 [0.470,0.586]   [0.392,0.650]   [0.398,0.658]   [0.393,0.657]   [0.392,0.656]   [0.374,0.649]   
+  BASE[dd_accel_5]          0.6009 [0.547,0.655]   [0.494,0.702]   [0.487,0.704]   [0.494,0.699]   [0.491,0.699]   [0.493,0.687]   
+
+  CI WIDTH by block length, and the overstatement factor:
+  signal                         L=1      L=21      L=63     L=252     L=423     L=770   w770/w1
+  CSRS[hawkes]                0.3457   0.5024   0.5359   0.5197   0.5122   0.4978      1.44x
+  CSRS[rmt]                   0.1303   0.4661   0.5303   0.5250   0.4814   0.3663      2.81x
+  CSRS[hamilton]              0.1052   0.3894   0.4290   0.4462   0.4233   0.4906      4.66x
+  CSRS[hawkes+rmt]            0.1299   0.4711   0.5295   0.5175   0.4690   0.3607      2.78x
+  CSRS[hawkes+hamilton]       0.1052   0.3739   0.4091   0.4309   0.4008   0.4684      4.45x
+  CSRS[rmt+hamilton]          0.1010   0.3752   0.4244   0.4269   0.4074   0.3885      3.85x
+  CSRS[hawkes+rmt+hamilton]    0.1066   0.3903   0.4341   0.4351   0.4101   0.3906      3.66x
+  BASE[rv_20]                 0.1201   0.4274   0.4631   0.4788   0.4575   0.4731      3.94x
+  BASE[drawdown]              0.1026   0.3724   0.4337   0.3902   0.3536   0.2998      2.92x
+  BASE[rv_accel_5]            0.1162   0.2577   0.2608   0.2632   0.2641   0.2752      2.37x
+  BASE[dd_accel_5]            0.1088   0.2087   0.2173   0.2049   0.2083   0.1948      1.79x
+  '*' = >5% of resamples were degenerate (could not define an
+  AUC). 'w770/w1' is how much the naive i.i.d. interval
+  UNDERSTATES the width once the measured dependence is used.
+
+  --- mean lead time, ONSET-CLUSTERED bootstrap (h=15d, Rule-B style) ---
+  Block bootstrap is structurally incapable of this statistic;
+  see _onset_cluster_lead.__doc__. Same resampling unit as
+  Workstream C used on its acceleration signals.
+  signal                    warned/testable          rate 95% CI  mean lead          lead 95% CI
+  CSRS[hawkes]                          0/0                  n/a       none                  n/a
+  CSRS[rmt]                             0/6                  n/a       none                  n/a
+  CSRS[hamilton]                        1/4        [0.000,0.500]      15.0d          [15.0,15.0]
+  CSRS[hawkes+rmt]                      0/6                  n/a       none                  n/a
+  CSRS[hawkes+hamilton]                 1/4        [0.000,0.500]      15.0d          [15.0,15.0]
+  CSRS[rmt+hamilton]                    0/6                  n/a       none                  n/a
+  CSRS[hawkes+rmt+hamilton]              0/6                  n/a       none                  n/a
+  BASE[rv_20]                           1/6        [0.000,0.500]       8.0d            [8.0,8.0]
+  BASE[drawdown]                        1/6        [0.000,0.500]      15.0d          [15.0,15.0]
+  BASE[rv_accel_5]                      1/6        [0.000,0.500]       2.0d            [2.0,2.0]
+  BASE[dd_accel_5]                      2/6        [0.000,0.667]       8.5d           [5.0,12.0]
+
+  A warned count of 0 gives a degenerate interval [0,0]: the
+  onset-clustered bootstrap of an all-zero vector is all zero.
+  That is exactly why arm 5 uses an exact binomial bound instead
+  of a bootstrap for the 0/N case.
+
+==============================================================================
+ARM 6 — Pillar 2 quantity = SCA_t  [SPEC FR18 conformant]
+==============================================================================
+[replay] grid        : 5,363 daily ticks 2005-01-03 .. 2026-08-21
+[replay] P1 hawkes   : 473 refits 2017-02-09 .. 2026-08-20 (refit_every=5 sessions)
+[replay] P2 rmt      : 5,363 daily rows, quantity = SCA_t (FR18 SPEC)  [EXPERIMENT - seraph/ unchanged]
+[replay] P3 hamilton : 3,365 CAUSAL rows 2013-01-14 .. 2026-08-21  [EXPLORATORY]
+[replay] rule A      : CSRS >= 0.5 (C9 frozen constant)
+[replay] rule B      : > trailing-5y 95% quantile, min 250 obs, index i excluded from its own threshold
+[replay] PILLAR_ORDER= ['hawkes', 'rmt', 'hamilton']
+[replay]   subset hawkes                 468 pts  4895 failures  mean=0.3103
+[replay]   subset rmt                    5,363 pts  0 failures  mean=0.5157
+[replay]   subset hamilton               3,365 pts  1998 failures  mean=0.5689
+[replay]   subset hawkes+rmt             5,363 pts  0 failures  mean=0.5050
+[replay]   subset hawkes+hamilton        3,365 pts  1998 failures  mean=0.5558
+[replay]   subset rmt+hamilton           5,363 pts  0 failures  mean=0.5340
+[replay]   subset hawkes+rmt+hamilton    5,363 pts  0 failures  mean=0.5276
+[replay]   baseline BASE[rv_20]          5,358 finite pts
+[replay]   baseline BASE[drawdown]       5,363 finite pts
+[replay]   baseline BASE[rv_accel_5]     5,353 finite pts
+[replay]   baseline BASE[dd_accel_5]     5,358 finite pts
+
+  grid 5,363 sessions 2005-01-03 .. 2026-08-21; 6 onsets
+  T1 positives 180d   T3 positives 90d (in-crisis days dropped: 180)
+
+  --- T1 crisis detection ---
+  signal                       AUC               L=1              L=21              L=63             L=252             L=423             L=770
+  --------------------------------------------------------------------------------------------------------------------------------------------
+  CSRS[hawkes]              0.6464 [0.550,0.747]   [0.465,0.815]   [0.425,0.858]   [0.414,0.876]   [0.411,0.892]   [0.462,0.917]   
+  CSRS[rmt]                 0.6289 [0.584,0.675]   [0.503,0.751]   [0.484,0.773]   [0.472,0.791]   [0.479,0.781]   [0.470,0.757]   
+  CSRS[hamilton]            0.6350 [0.592,0.676]   [0.487,0.768]   [0.451,0.806]   [0.395,0.821]   [0.383,0.833]   [0.366,0.835]   
+  CSRS[hawkes+rmt]          0.6209 [0.578,0.667]   [0.506,0.730]   [0.485,0.751]   [0.477,0.763]   [0.484,0.753]   [0.475,0.735]   
+  CSRS[hawkes+hamilton]     0.6239 [0.584,0.662]   [0.498,0.741]   [0.467,0.772]   [0.412,0.795]   [0.393,0.809]   [0.368,0.815]   
+  CSRS[rmt+hamilton]        0.6679 [0.625,0.714]   [0.532,0.797]   [0.497,0.822]   [0.474,0.844]   [0.478,0.842]   [0.458,0.838]   
+  CSRS[hawkes+rmt+hamilton]  0.6632 [0.622,0.707]   [0.537,0.785]   [0.504,0.805]   [0.485,0.823]   [0.486,0.823]   [0.466,0.819]   
+  BASE[rv_20]               0.7347 [0.702,0.766]   [0.612,0.839]   [0.592,0.857]   [0.587,0.858]   [0.599,0.854]   [0.578,0.849]   
+  BASE[drawdown]            0.6713 [0.624,0.716]   [0.474,0.852]   [0.407,0.898]   [0.442,0.914]   [0.411,0.901]   [0.469,0.884]   
+  BASE[rv_accel_5]          0.6622 [0.618,0.707]   [0.540,0.781]   [0.512,0.797]   [0.512,0.811]   [0.505,0.805]   [0.502,0.784]   
+  BASE[dd_accel_5]          0.7015 [0.656,0.743]   [0.594,0.800]   [0.598,0.800]   [0.609,0.804]   [0.610,0.802]   [0.609,0.793]   
+
+  CI WIDTH by block length, and the overstatement factor:
+  signal                         L=1      L=21      L=63     L=252     L=423     L=770   w770/w1
+  CSRS[hawkes]                0.1975   0.3496   0.4339   0.4621   0.4819   0.4548      2.30x
+  CSRS[rmt]                   0.0909   0.2471   0.2889   0.3194   0.3014   0.2870      3.16x
+  CSRS[hamilton]              0.0837   0.2809   0.3552   0.4262   0.4500   0.4692      5.61x
+  CSRS[hawkes+rmt]            0.0884   0.2237   0.2654   0.2860   0.2685   0.2592      2.93x
+  CSRS[hawkes+hamilton]       0.0785   0.2426   0.3048   0.3837   0.4165   0.4470      5.70x
+  CSRS[rmt+hamilton]          0.0887   0.2655   0.3248   0.3708   0.3643   0.3797      4.28x
+  CSRS[hawkes+rmt+hamilton]    0.0846   0.2476   0.3009   0.3381   0.3373   0.3532      4.17x
+  BASE[rv_20]                 0.0639   0.2271   0.2644   0.2713   0.2550   0.2708      4.24x
+  BASE[drawdown]              0.0921   0.3780   0.4912   0.4717   0.4899   0.4149      4.50x
+  BASE[rv_accel_5]            0.0887   0.2410   0.2851   0.2993   0.3001   0.2823      3.18x
+  BASE[dd_accel_5]            0.0865   0.2057   0.2021   0.1943   0.1927   0.1842      2.13x
+  '*' = >5% of resamples were degenerate (could not define an
+  AUC). 'w770/w1' is how much the naive i.i.d. interval
+  UNDERSTATES the width once the measured dependence is used.
+
+  --- T3 advance warning ---
+  signal                       AUC               L=1              L=21              L=63             L=252             L=423             L=770
+  --------------------------------------------------------------------------------------------------------------------------------------------
+  CSRS[hawkes]              0.5335 [0.361,0.707]   [0.296,0.799]*  [0.287,0.823]*  [0.283,0.803]*  [0.301,0.814]*  [0.299,0.797]*  
+  CSRS[rmt]                 0.5055 [0.450,0.561]   [0.411,0.627]   [0.404,0.648]   [0.404,0.640]   [0.404,0.611]   [0.411,0.588]   
+  CSRS[hamilton]            0.4458 [0.393,0.498]   [0.254,0.644]   [0.227,0.656]   [0.226,0.672]   [0.256,0.679]   [0.247,0.738]   
+  CSRS[hawkes+rmt]          0.5084 [0.453,0.566]   [0.427,0.613]   [0.425,0.627]   [0.423,0.622]   [0.424,0.596]   [0.429,0.581]   
+  CSRS[hawkes+hamilton]     0.4445 [0.391,0.497]   [0.254,0.628]   [0.231,0.640]   [0.227,0.658]   [0.260,0.661]   [0.248,0.716]   
+  CSRS[rmt+hamilton]        0.4748 [0.426,0.526]   [0.379,0.577]   [0.368,0.586]   [0.364,0.592]   [0.358,0.616]   [0.353,0.621]   
+  CSRS[hawkes+rmt+hamilton]  0.4756 [0.426,0.527]   [0.390,0.568]   [0.381,0.573]   [0.373,0.583]   [0.370,0.604]   [0.361,0.616]   
+  BASE[rv_20]               0.4951 [0.434,0.554]   [0.284,0.712]   [0.262,0.725]   [0.253,0.731]   [0.275,0.733]   [0.260,0.733]   
+  BASE[drawdown]            0.6322 [0.581,0.683]   [0.436,0.808]   [0.420,0.854]   [0.445,0.835]   [0.453,0.807]   [0.496,0.796]   
+  BASE[rv_accel_5]          0.5288 [0.470,0.586]   [0.392,0.650]   [0.398,0.658]   [0.393,0.657]   [0.392,0.656]   [0.374,0.649]   
+  BASE[dd_accel_5]          0.6009 [0.547,0.655]   [0.494,0.702]   [0.487,0.704]   [0.494,0.699]   [0.491,0.699]   [0.493,0.687]   
+
+  CI WIDTH by block length, and the overstatement factor:
+  signal                         L=1      L=21      L=63     L=252     L=423     L=770   w770/w1
+  CSRS[hawkes]                0.3457   0.5024   0.5359   0.5197   0.5122   0.4978      1.44x
+  CSRS[rmt]                   0.1109   0.2165   0.2440   0.2366   0.2067   0.1771      1.60x
+  CSRS[hamilton]              0.1052   0.3894   0.4290   0.4462   0.4233   0.4906      4.66x
+  CSRS[hawkes+rmt]            0.1124   0.1856   0.2019   0.1993   0.1724   0.1521      1.35x
+  CSRS[hawkes+hamilton]       0.1052   0.3739   0.4091   0.4309   0.4008   0.4684      4.45x
+  CSRS[rmt+hamilton]          0.1001   0.1977   0.2171   0.2286   0.2573   0.2684      2.68x
+  CSRS[hawkes+rmt+hamilton]    0.1004   0.1786   0.1914   0.2101   0.2344   0.2551      2.54x
+  BASE[rv_20]                 0.1201   0.4274   0.4631   0.4788   0.4575   0.4731      3.94x
+  BASE[drawdown]              0.1026   0.3724   0.4337   0.3902   0.3536   0.2998      2.92x
+  BASE[rv_accel_5]            0.1162   0.2577   0.2608   0.2632   0.2641   0.2752      2.37x
+  BASE[dd_accel_5]            0.1088   0.2087   0.2173   0.2049   0.2083   0.1948      1.79x
+  '*' = >5% of resamples were degenerate (could not define an
+  AUC). 'w770/w1' is how much the naive i.i.d. interval
+  UNDERSTATES the width once the measured dependence is used.
+
+  --- mean lead time, ONSET-CLUSTERED bootstrap (h=15d, Rule-B style) ---
+  Block bootstrap is structurally incapable of this statistic;
+  see _onset_cluster_lead.__doc__. Same resampling unit as
+  Workstream C used on its acceleration signals.
+  signal                    warned/testable          rate 95% CI  mean lead          lead 95% CI
+  CSRS[hawkes]                          0/0                  n/a       none                  n/a
+  CSRS[rmt]                             2/6        [0.000,0.667]      13.0d          [11.0,15.0]
+  CSRS[hamilton]                        1/4        [0.000,0.500]      15.0d          [15.0,15.0]
+  CSRS[hawkes+rmt]                      2/6        [0.000,0.667]      13.0d          [11.0,15.0]
+  CSRS[hawkes+hamilton]                 1/4        [0.000,0.500]      15.0d          [15.0,15.0]
+  CSRS[rmt+hamilton]                    2/6        [0.000,0.667]      15.0d          [15.0,15.0]
+  CSRS[hawkes+rmt+hamilton]              2/6        [0.000,0.667]      15.0d          [15.0,15.0]
+  BASE[rv_20]                           1/6        [0.000,0.500]       8.0d            [8.0,8.0]
+  BASE[drawdown]                        1/6        [0.000,0.500]      15.0d          [15.0,15.0]
+  BASE[rv_accel_5]                      1/6        [0.000,0.500]       2.0d            [2.0,2.0]
+  BASE[dd_accel_5]                      2/6        [0.000,0.667]       8.5d           [5.0,12.0]
+
+  A warned count of 0 gives a degenerate interval [0,0]: the
+  onset-clustered bootstrap of an all-zero vector is all zero.
+  That is exactly why arm 5 uses an exact binomial bound instead
+  of a bootstrap for the 0/N case.
+
+### finished: 2026-10-13T13:57:45Z
+### exit code: 0

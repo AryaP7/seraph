@@ -1,0 +1,906 @@
+# D-3 - Hamilton converged-optimum diagnostics, causal blocks 10 and 11
+# Workstream D. READ-ONLY: one SELECT on hamilton_output; nothing persisted.
+# seraph/pillars/hamilton/engine.py UNCHANGED - this reproduces fit()'s start
+# enumeration and keeps the parameters of the candidate fit() discards.
+# 2026-10-13T13:02:02Z  git f3eaac8  branch evidence/pre-arya-experimentation
+
+INPUT : 5365 obs  2005-01-03 .. 2026-08-21
+CONFIG: initial_train=2000 refit_every=252 K=3 exog=(5365, 2)
+BLOCKS: [10, 11]
+
+==============================================================================
+BLOCK 10:  train_n=4520  train_last=2023-03-23
+==============================================================================
+  start enumeration: 7 candidates (1055s incl. nested restricted fits)
+           statsmodels_default: llf=    38518.59 conv=True  iter=  -1 warnflag=0 |gopt|=1.1089e-05  (73s)
+                      random_0: llf=    38518.59 conv=True  iter=  -1 warnflag=0 |gopt|=7.4402e-06  (72s)
+                      random_1: llf=    38518.59 conv=True  iter=  -1 warnflag=0 |gopt|=9.2863e-06  (75s)
+                      random_2: llf=    39367.84 conv=False iter=  -1 warnflag=1 |gopt|=4.7775e-01  (86s)
+                      random_3: llf=    38518.59 conv=True  iter=  -1 warnflag=0 |gopt|=1.0435e-05  (76s)
+            warm_from_constant: llf=    39392.03 conv=False iter=  -1 warnflag=1 |gopt|=8.4178e-04  (88s)
+      warm_from_intercept_only: llf=    39392.03 conv=False iter=  -1 warnflag=1 |gopt|=8.4178e-04  (89s)
+
+  SELECTED (best converged)      : statsmodels_default  llf=38518.59197282403
+  DISCARDED (best non-converged) : warm_from_constant  llf=39392.03191787262
+  gap (discarded - selected)     : +873.44 llf
+
+  --- diagnostics at SELECTED_converged (statsmodels_default) ---
+      llf                                  38518.6
+      n_params                             30
+      scipy_warnflag                       0
+      scipy_iterations                     -1
+      scipy_gopt_norm                      1.10887e-05
+      grad_norm_constrained                2.71148e+08
+      grad_max_abs_constrained             2.635e+08
+      grad_norm_unconstrained              58101.5
+      grad_max_abs_unconstrained           51610.4
+      hessian_eig_min                      -1.16935e+10
+      hessian_eig_max                      1.39275e-06
+      hessian_n_positive                   3
+      hessian_n_negative                   27
+      hessian_cond_number                  7.91641e+16
+      hessian_n_near_zero_rel_1e6          12
+      hessian_n_near_zero_rel_1e8          12
+      verdict_curvature                    indefinite -> SADDLE (3 ascent direction(s) remain)
+      transition_params_absmax             29.9447
+      min_offdiag_transition_prob          -3.55271e-15
+      max_selfpersistence_prob             0.99999
+      frac_dates_offdiag_below_1e6         1
+      variance_min                         0.00264322
+      3 most negative Hessian eigenvalues : [-1.16935387e+10 -4.87734442e+09 -1.41770706e+09]
+      3 smallest |eigenvalue|             : [ 1.47712708e-07  5.83717301e-07 -1.30625243e-06]
+      (7s)
+
+  --- diagnostics at DISCARDED_nonconverged (warm_from_constant) ---
+      llf                                  39392
+      n_params                             30
+      scipy_warnflag                       1
+      scipy_iterations                     -1
+      scipy_gopt_norm                      0.000841783
+      grad_norm_constrained                3.09073e+08
+      grad_max_abs_constrained             2.45741e+08
+      grad_norm_unconstrained              143380
+      grad_max_abs_unconstrained           97648.7
+      hessian_eig_min                      -2.89048e+10
+      hessian_eig_max                      4.73085e-07
+      hessian_n_positive                   1
+      hessian_n_negative                   29
+      hessian_cond_number                  6.10987e+16
+      hessian_n_near_zero_rel_1e6          12
+      hessian_n_near_zero_rel_1e8          12
+      verdict_curvature                    indefinite -> SADDLE (1 ascent direction(s) remain)
+      transition_params_absmax             434.324
+      min_offdiag_transition_prob          -5.68434e-14
+      max_selfpersistence_prob             0.999583
+      frac_dates_offdiag_below_1e6         0.992035
+      variance_min                         0.00241682
+      3 most negative Hessian eigenvalues : [-2.89048465e+10 -2.19247014e+10 -9.92935134e+09]
+      3 smallest |eigenvalue|             : [ 4.73084701e-07 -3.24022644e-04 -4.41928443e-02]
+      (7s)
+
+==============================================================================
+BLOCK 11:  train_n=4772  train_last=2024-04-01
+==============================================================================
+  start enumeration: 7 candidates (611s incl. nested restricted fits)
+           statsmodels_default: llf=    41882.55 conv=False iter=  -1 warnflag=1 |gopt|=8.8652e-02  (116s)
+                      random_0: llf=    40705.23 conv=True  iter=  -1 warnflag=0 |gopt|=1.2810e-05  (103s)
+                      random_1: llf=    41882.30 conv=False iter=  -1 warnflag=1 |gopt|=1.8829e-02  (162s)
+                      random_2: llf=    41883.32 conv=False iter=  -1 warnflag=1 |gopt|=9.8724e-02  (193s)
+                      random_3: llf=    40705.23 conv=True  iter=  -1 warnflag=0 |gopt|=1.6216e-05  (175s)
+            warm_from_constant: llf=    41883.80 conv=False iter=  -1 warnflag=1 |gopt|=6.0348e-01  (137s)
+      warm_from_intercept_only: llf=    41883.88 conv=False iter=  -1 warnflag=1 |gopt|=2.6525e-01  (116s)
+
+  SELECTED (best converged)      : random_0  llf=40705.23091143383
+  DISCARDED (best non-converged) : warm_from_intercept_only  llf=41883.87908412638
+  gap (discarded - selected)     : +1178.65 llf
+
+  --- diagnostics at SELECTED_converged (random_0) ---
+      llf                                  40705.2
+      n_params                             30
+      scipy_warnflag                       0
+      scipy_iterations                     -1
+      scipy_gopt_norm                      1.28097e-05
+      grad_norm_constrained                2.95098e+08
+      grad_max_abs_constrained             2.87178e+08
+      grad_norm_unconstrained              63999.5
+      grad_max_abs_unconstrained           56406.8
+      hessian_eig_min                      -1.15789e+10
+      hessian_eig_max                      2.86294e-06
+      hessian_n_positive                   3
+      hessian_n_negative                   27
+      hessian_cond_number                  3.18516e+16
+      hessian_n_near_zero_rel_1e6          12
+      hessian_n_near_zero_rel_1e8          12
+      verdict_curvature                    indefinite -> SADDLE (3 ascent direction(s) remain)
+      transition_params_absmax             26.3725
+      min_offdiag_transition_prob          -3.55271e-15
+      max_selfpersistence_prob             0.99999
+      frac_dates_offdiag_below_1e6         1
+      variance_min                         0.00299145
+      3 most negative Hessian eigenvalues : [-1.15788891e+10 -5.22780312e+09 -1.56285716e+09]
+      3 smallest |eigenvalue|             : [ 3.63526022e-07  1.82014417e-06 -2.41501139e-06]
+      (8s)
+
+  --- diagnostics at DISCARDED_nonconverged (warm_from_intercept_only) ---
+      llf                                  41883.9
+      n_params                             30
+      scipy_warnflag                       1
+      scipy_iterations                     -1
+      scipy_gopt_norm                      0.26525
+      grad_norm_constrained                3.57061e+08
+      grad_max_abs_constrained             2.83893e+08
+      grad_norm_unconstrained              174100
+      grad_max_abs_unconstrained           139324
+      hessian_eig_min                      -2.34281e+10
+      hessian_eig_max                      -5.01902e-05
+      hessian_n_positive                   0
+      hessian_n_negative                   30
+      hessian_cond_number                  4.66786e+14
+      hessian_n_near_zero_rel_1e6          12
+      hessian_n_near_zero_rel_1e8          12
+      verdict_curvature                    negative definite -> genuine local MAXIMUM
+      transition_params_absmax             95.209
+      min_offdiag_transition_prob          -1.39888e-14
+      max_selfpersistence_prob             1
+      frac_dates_offdiag_below_1e6         0.931685
+      variance_min                         0.00262376
+      3 most negative Hessian eigenvalues : [-2.34280818e+10 -2.08652643e+10 -1.05584089e+10]
+      3 smallest |eigenvalue|             : [-5.01901556e-05 -1.42819465e-01 -1.83843270e-01]
+      (8s)
+
+==============================================================================
+MACHINE-READABLE SUMMARY
+==============================================================================
+{
+  "10": {
+    "train_n": 4520,
+    "train_last": "2023-03-23",
+    "candidates": [
+      {
+        "start": "statsmodels_default",
+        "llf": 38518.59197282403,
+        "converged": true,
+        "iterations": -1,
+        "warnflag": 0,
+        "scipy_gopt_norm": 1.1088654404472978e-05
+      },
+      {
+        "start": "random_0",
+        "llf": 38518.59197282,
+        "converged": true,
+        "iterations": -1,
+        "warnflag": 0,
+        "scipy_gopt_norm": 7.440232211247956e-06
+      },
+      {
+        "start": "random_1",
+        "llf": 38518.59197282017,
+        "converged": true,
+        "iterations": -1,
+        "warnflag": 0,
+        "scipy_gopt_norm": 9.286309803430641e-06
+      },
+      {
+        "start": "random_2",
+        "llf": 39367.83791235158,
+        "converged": false,
+        "iterations": -1,
+        "warnflag": 1,
+        "scipy_gopt_norm": 0.4777535170485079
+      },
+      {
+        "start": "random_3",
+        "llf": 38518.59197282127,
+        "converged": true,
+        "iterations": -1,
+        "warnflag": 0,
+        "scipy_gopt_norm": 1.043503702167597e-05
+      },
+      {
+        "start": "warm_from_constant",
+        "llf": 39392.03191787262,
+        "converged": false,
+        "iterations": -1,
+        "warnflag": 1,
+        "scipy_gopt_norm": 0.000841783057681991
+      },
+      {
+        "start": "warm_from_intercept_only",
+        "llf": 39392.03191787262,
+        "converged": false,
+        "iterations": -1,
+        "warnflag": 1,
+        "scipy_gopt_norm": 0.000841783057681991
+      }
+    ],
+    "diagnostics": [
+      {
+        "label": "SELECTED_converged:statsmodels_default",
+        "llf": 38518.59197282403,
+        "grad_norm_constrained": 271148320.6028134,
+        "grad_max_abs_constrained": 263500117.77297112,
+        "grad_norm_unconstrained": 58101.54245249074,
+        "grad_max_abs_unconstrained": 51610.39389422499,
+        "n_params": 30,
+        "hessian_eigenvalues_sorted": [
+          -11693538706.541222,
+          -4877344421.373266,
+          -1417707060.6286187,
+          -651270779.4752215,
+          -182058286.26517004,
+          -88738090.84816939,
+          -4293438.686752178,
+          -2053848.164569099,
+          -1604641.0071885216,
+          -780626.6473746527,
+          -712167.2350809071,
+          -659917.3039128629,
+          -592239.819160693,
+          -354720.53411562904,
+          -310781.6210324141,
+          -170893.38487024355,
+          -40301.05699606663,
+          -16882.21447060334,
+          -33.922008972028344,
+          -26.367122995688423,
+          -12.167784475760971,
+          -8.25769872104543,
+          -3.695513565444078,
+          -2.087425578444152,
+          -1.4225991393609458,
+          -1.0796309641311137,
+          -1.3062524300984747e-06,
+          1.4771270791708248e-07,
+          5.837173009212936e-07,
+          1.3927488931688946e-06
+        ],
+        "hessian_eig_min": -11693538706.541222,
+        "hessian_eig_max": 1.3927488931688946e-06,
+        "hessian_n_positive": 3,
+        "hessian_n_negative": 27,
+        "hessian_cond_number": 7.916406700163746e+16,
+        "hessian_n_near_zero_rel_1e6": 12,
+        "hessian_n_near_zero_rel_1e8": 12,
+        "verdict_curvature": "indefinite -> SADDLE (3 ascent direction(s) remain)",
+        "transition_params_absmax": 29.944659662011837,
+        "transition_params": [
+          25.719,
+          0.3718,
+          -29.9447,
+          -15.1725,
+          -2.676,
+          -3.9744,
+          23.2545,
+          5.3226,
+          -3.6064,
+          -11.0883,
+          -2.1904,
+          -1.1383
+        ],
+        "min_offdiag_transition_prob": -3.552713678800501e-15,
+        "max_selfpersistence_prob": 0.9999899629102218,
+        "frac_dates_offdiag_below_1e6": 1.0,
+        "variances": [
+          0.0026432247449524084,
+          0.004254910926276312,
+          0.031220393897732672
+        ],
+        "variance_min": 0.0026432247449524084,
+        "scipy_warnflag": 0,
+        "scipy_gopt_norm": 1.1088654404472978e-05,
+        "scipy_iterations": -1
+      },
+      {
+        "label": "DISCARDED_nonconverged:warm_from_constant",
+        "llf": 39392.03191787262,
+        "grad_norm_constrained": 309072548.53918135,
+        "grad_max_abs_constrained": 245740960.40669245,
+        "grad_norm_unconstrained": 143380.2214598124,
+        "grad_max_abs_unconstrained": 97648.68207275841,
+        "n_params": 30,
+        "hessian_eigenvalues_sorted": [
+          -28904846496.951187,
+          -21924701356.88213,
+          -9929351336.046726,
+          -8293337117.770772,
+          -823444182.8208387,
+          -401930727.574639,
+          -2711569.756033785,
+          -2618946.337373776,
+          -1445219.437412977,
+          -1372612.1216005464,
+          -1306201.3488134278,
+          -1247158.360134234,
+          -722468.5227506675,
+          -628866.0677642014,
+          -599580.944682285,
+          -298978.27797825134,
+          -98123.68726023125,
+          -48989.6026136064,
+          -12.872877180212125,
+          -7.965388190367966,
+          -4.1756738173772,
+          -3.4684610426116396,
+          -2.9643486237654897,
+          -1.4229761170790314,
+          -0.9463602390565731,
+          -0.75186658616319,
+          -0.12384697184581119,
+          -0.04419284432372475,
+          -0.0003240226437435048,
+          4.7308470057210516e-07
+        ],
+        "hessian_eig_min": -28904846496.951187,
+        "hessian_eig_max": 4.7308470057210516e-07,
+        "hessian_n_positive": 1,
+        "hessian_n_negative": 29,
+        "hessian_cond_number": 6.1098671045578776e+16,
+        "hessian_n_near_zero_rel_1e6": 12,
+        "hessian_n_near_zero_rel_1e8": 12,
+        "verdict_curvature": "indefinite -> SADDLE (1 ascent direction(s) remain)",
+        "transition_params_absmax": 434.32409560328335,
+        "transition_params": [
+          30.4051,
+          1.6552,
+          -6.3003,
+          -433.1578,
+          0.3997,
+          -0.186,
+          22.6656,
+          6.754,
+          -6.4297,
+          -434.3241,
+          -0.4999,
+          -0.7395
+        ],
+        "min_offdiag_transition_prob": -5.684341886080802e-14,
+        "max_selfpersistence_prob": 0.9995827981626311,
+        "frac_dates_offdiag_below_1e6": 0.9920353982300885,
+        "variances": [
+          0.0024168206808379005,
+          0.0041940612107567625,
+          0.03427983004863403
+        ],
+        "variance_min": 0.0024168206808379005,
+        "scipy_warnflag": 1,
+        "scipy_gopt_norm": 0.000841783057681991,
+        "scipy_iterations": -1
+      }
+    ]
+  },
+  "11": {
+    "train_n": 4772,
+    "train_last": "2024-04-01",
+    "candidates": [
+      {
+        "start": "statsmodels_default",
+        "llf": 41882.54913485944,
+        "converged": false,
+        "iterations": -1,
+        "warnflag": 1,
+        "scipy_gopt_norm": 0.08865151201094193
+      },
+      {
+        "start": "random_0",
+        "llf": 40705.23091143383,
+        "converged": true,
+        "iterations": -1,
+        "warnflag": 0,
+        "scipy_gopt_norm": 1.2809724209957988e-05
+      },
+      {
+        "start": "random_1",
+        "llf": 41882.29688578071,
+        "converged": false,
+        "iterations": -1,
+        "warnflag": 1,
+        "scipy_gopt_norm": 0.018828898490745642
+      },
+      {
+        "start": "random_2",
+        "llf": 41883.315694422665,
+        "converged": false,
+        "iterations": -1,
+        "warnflag": 1,
+        "scipy_gopt_norm": 0.09872432896048146
+      },
+      {
+        "start": "random_3",
+        "llf": 40705.230911432285,
+        "converged": true,
+        "iterations": -1,
+        "warnflag": 0,
+        "scipy_gopt_norm": 1.621637141933893e-05
+      },
+      {
+        "start": "warm_from_constant",
+        "llf": 41883.80375502883,
+        "converged": false,
+        "iterations": -1,
+        "warnflag": 1,
+        "scipy_gopt_norm": 0.6034832414734458
+      },
+      {
+        "start": "warm_from_intercept_only",
+        "llf": 41883.87908412638,
+        "converged": false,
+        "iterations": -1,
+        "warnflag": 1,
+        "scipy_gopt_norm": 0.2652501725193993
+      }
+    ],
+    "diagnostics": [
+      {
+        "label": "SELECTED_converged:random_0",
+        "llf": 40705.23091143383,
+        "grad_norm_constrained": 295098310.4261112,
+        "grad_max_abs_constrained": 287178471.26253396,
+        "grad_norm_unconstrained": 63999.48491577471,
+        "grad_max_abs_unconstrained": 56406.840468116425,
+        "n_params": 30,
+        "hessian_eigenvalues_sorted": [
+          -11578889144.65993,
+          -5227803115.540164,
+          -1562857157.5173807,
+          -757425269.6391675,
+          -188256817.02964783,
+          -90154978.11952658,
+          -4629204.824509601,
+          -2278512.5576484953,
+          -1627084.216646971,
+          -833063.8970614679,
+          -766186.6287549422,
+          -675806.4475096295,
+          -623356.7443899694,
+          -376395.13512225647,
+          -323789.0349561845,
+          -265455.1852172711,
+          -40749.43505198793,
+          -18199.691186411666,
+          -31.702264086183927,
+          -24.248092771285084,
+          -11.652140676286773,
+          -8.024551489380162,
+          -3.603656511529802,
+          -1.8812953321105463,
+          -1.2556346982607323,
+          -1.0617951916952388,
+          -2.4150113858160517e-06,
+          3.635260218329366e-07,
+          1.8201441674283562e-06,
+          2.862938028900858e-06
+        ],
+        "hessian_eig_min": -11578889144.65993,
+        "hessian_eig_max": 2.862938028900858e-06,
+        "hessian_n_positive": 3,
+        "hessian_n_negative": 27,
+        "hessian_cond_number": 3.1851610199121224e+16,
+        "hessian_n_near_zero_rel_1e6": 12,
+        "hessian_n_near_zero_rel_1e8": 12,
+        "verdict_curvature": "indefinite -> SADDLE (3 ascent direction(s) remain)",
+        "transition_params_absmax": 26.3725301015122,
+        "transition_params": [
+          21.8891,
+          0.3113,
+          -26.3725,
+          -12.3402,
+          -2.7528,
+          -2.6141,
+          19.2948,
+          5.399,
+          -3.6393,
+          -8.2989,
+          -2.2666,
+          -1.1939
+        ],
+        "min_offdiag_transition_prob": -3.552713678800501e-15,
+        "max_selfpersistence_prob": 0.9999903073369796,
+        "frac_dates_offdiag_below_1e6": 1.0,
+        "variances": [
+          0.0029914541313070257,
+          0.0042134164064710315,
+          0.03140038408100166
+        ],
+        "variance_min": 0.0029914541313070257,
+        "scipy_warnflag": 0,
+        "scipy_gopt_norm": 1.2809724209957988e-05,
+        "scipy_iterations": -1
+      },
+      {
+        "label": "DISCARDED_nonconverged:warm_from_intercept_only",
+        "llf": 41883.87908412638,
+        "grad_norm_constrained": 357060506.39709353,
+        "grad_max_abs_constrained": 283893147.69969714,
+        "grad_norm_unconstrained": 174099.73237917866,
+        "grad_max_abs_unconstrained": 139324.4411898191,
+        "n_params": 30,
+        "hessian_eigenvalues_sorted": [
+          -23428081780.747093,
+          -20865264338.18004,
+          -10558408915.788822,
+          -4282266550.15307,
+          -816721487.1204464,
+          -396116316.68176925,
+          -3135139.3378175823,
+          -2309892.819045131,
+          -1533223.8705965048,
+          -1436652.3421111174,
+          -1076538.0387627059,
+          -984525.7316238335,
+          -716506.887201117,
+          -579644.0211292872,
+          -497975.6104247728,
+          -283659.7730203912,
+          -97322.34567634464,
+          -48657.7398162686,
+          -10.207969927252334,
+          -5.49530308285456,
+          -4.40582216891774,
+          -2.941595846178669,
+          -2.1560227493276582,
+          -1.5791567119378047,
+          -1.5286386222918262,
+          -1.1494458800777645,
+          -0.2230898417348216,
+          -0.18384326980075533,
+          -0.1428194648028766,
+          -5.019015557289973e-05
+        ],
+        "hessian_eig_min": -23428081780.747093,
+        "hessian_eig_max": -5.019015557289973e-05,
+        "hessian_n_positive": 0,
+        "hessian_n_negative": 30,
+        "hessian_cond_number": 466786394927955.4,
+        "hessian_n_near_zero_rel_1e6": 12,
+        "hessian_n_near_zero_rel_1e8": 12,
+        "verdict_curvature": "negative definite -> genuine local MAXIMUM",
+        "transition_params_absmax": 95.20898985572316,
+        "transition_params": [
+          -1.987,
+          -0.2613,
+          -6.8413,
+          -95.209,
+          -0.6841,
+          -0.0142,
+          -4.3891,
+          4.5284,
+          -6.0735,
+          -88.276,
+          -2.7819,
+          -0.6588
+        ],
+        "min_offdiag_transition_prob": -1.3988810110276972e-14,
+        "max_selfpersistence_prob": 0.9999999805610573,
+        "frac_dates_offdiag_below_1e6": 0.9316848281642917,
+        "variances": [
+          0.0026237621065843667,
+          0.004429949836426615,
+          0.034326083066298266
+        ],
+        "variance_min": 0.0026237621065843667,
+        "scipy_warnflag": 1,
+        "scipy_gopt_norm": 0.2652501725193993,
+        "scipy_iterations": -1
+      }
+    ]
+  }
+}
+D3_EXIT=0
+
+================================================================================
+
+APPENDIX - d3_opt.py, verbatim (the script that produced everything above)
+
+================================================================================
+#!/usr/bin/env python3
+"""D-3 - is the DISCARDED higher-llf candidate a statistically valid optimum?
+
+Workstream D diagnostic for docs/evidence/HAMILTON-CAUSAL-POSTFIX.md section 5.
+Causal walk-forward blocks 10 and 11 are the surviving 2/14 nesting violations:
+fit() selected a CONVERGED candidate whose llf sits BELOW its own nested
+restriction, discarding a NON-CONVERGED candidate that sits above it.
+
+This script changes nothing. It re-runs the exact start enumeration fit() uses,
+keeps the parameters of the discarded candidate (which fit() throws away), and
+measures at BOTH points:
+
+  * gradient norm (scipy's own 'gopt' from the BFGS retvals, plus an
+    independent numerical gradient of the log-likelihood)
+  * numerical Hessian eigenvalues / condition number -> genuine local maximum
+    (all eigenvalues < 0), saddle (mixed signs), or ridge (eigenvalues ~ 0)
+  * distance to the parameter-space boundary: implied transition probabilities
+    (logit saturation) and regime variances (positivity)
+  * scipy's warnflag, which says WHY the convergence test failed
+
+READ-ONLY on the database (one SELECT). Persists nothing.
+"""
+import asyncio
+import json
+import os
+import sys
+import time
+import warnings
+
+import numpy as np
+
+REPO = r"C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya"
+sys.path.insert(0, REPO)
+
+import asyncpg                                              # noqa: E402
+from scipy.optimize import approx_fprime                    # noqa: E402
+
+from seraph.store.bootstrap import resolve_dsn              # noqa: E402
+from seraph.orchestration.hamilton_causal import (          # noqa: E402
+    DEFAULT_INITIAL_TRAIN,
+    DEFAULT_REFIT_EVERY,
+    causal_tvtp_exog,
+)
+from seraph.pillars.hamilton.engine import (                # noqa: E402
+    K_REGIMES,
+    MultivariateTVTPHamilton,
+    _tvtp_start_from_constant,
+    _tvtp_start_from_intercept_only,
+)
+
+BLOCKS = [int(b) for b in os.environ.get("D3_BLOCKS", "10,11").split(",")]
+MAXITER, RESTARTS, SEED = 200, 4, 0
+
+REPORT_KEYS = (
+    "llf", "n_params", "scipy_warnflag", "scipy_iterations", "scipy_gopt_norm",
+    "grad_norm_constrained", "grad_max_abs_constrained",
+    "grad_norm_unconstrained", "grad_max_abs_unconstrained",
+    "hessian_eig_min", "hessian_eig_max",
+    "hessian_n_positive", "hessian_n_negative", "hessian_cond_number",
+    "hessian_n_near_zero_rel_1e6", "hessian_n_near_zero_rel_1e8",
+    "verdict_curvature", "transition_params_absmax",
+    "min_offdiag_transition_prob", "max_selfpersistence_prob",
+    "frac_dates_offdiag_below_1e6", "variance_min",
+)
+
+
+async def load():
+    conn = await asyncpg.connect(resolve_dsn(), timeout=30)
+    rows = await conn.fetch(
+        "SELECT date, rv_t_yz, ar_t, bas_t FROM hamilton_output ORDER BY date")
+    await conn.close()
+    return rows
+
+
+def enumerate_starts(model, y):
+    """Exactly fit()'s start list, in fit()'s order."""
+    sp0 = np.asarray(model.start_params, dtype=float)
+    tr = model.parameters["regime_transition"]
+    starts = [("statsmodels_default", None)]
+    rng = np.random.default_rng(SEED)
+    for k in range(RESTARTS):
+        sp = sp0.copy()
+        sp[tr] = rng.uniform(-2.0, 2.0, size=np.asarray(sp0)[tr].size)
+        starts.append(("random_%d" % k, sp))
+    if model.tvtp:
+        w = _tvtp_start_from_constant(
+            model, y, k_regimes=K_REGIMES, maxiter=MAXITER,
+            restarts=RESTARTS, seed=SEED)
+        if w is not None:
+            starts.append(("warm_from_constant", w))
+        if model.k_tvtp > 1:
+            w2 = _tvtp_start_from_intercept_only(
+                model, y, k_regimes=K_REGIMES, maxiter=MAXITER,
+                restarts=RESTARTS, seed=SEED)
+            if w2 is not None:
+                starts.append(("warm_from_intercept_only", w2))
+    return starts
+
+
+def diagnose(model, params, label):
+    """Gradient, Hessian and boundary diagnostics at `params` (constrained)."""
+    out = {"label": label}
+    p = np.asarray(params, dtype=float)
+    nobs = float(model.nobs)
+
+    def ll_t(x):
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore")
+            try:
+                return float(model.loglike(x, transformed=True))
+            except Exception:
+                return -1e18
+
+    def ll_u(x):
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore")
+            try:
+                return float(model.loglike(x, transformed=False))
+            except Exception:
+                return -1e18
+
+    try:
+        u = np.asarray(model.untransform_params(p), dtype=float)
+    except Exception:
+        u = None
+
+    out["llf"] = ll_t(p)
+    step = 1e-5
+    g_t = approx_fprime(p, ll_t, step)
+    out["grad_norm_constrained"] = float(np.linalg.norm(g_t))
+    out["grad_max_abs_constrained"] = float(np.max(np.abs(g_t)))
+    if u is not None:
+        g_u = approx_fprime(u, ll_u, step)
+        out["grad_norm_unconstrained"] = float(np.linalg.norm(g_u))
+        out["grad_max_abs_unconstrained"] = float(np.max(np.abs(g_u)))
+
+    base = u if u is not None else p
+    fn = ll_u if u is not None else ll_t
+    k = int(base.size)
+    h = 1e-4 * np.maximum(np.abs(base), 1.0)
+    H = np.zeros((k, k))
+    for i in range(k):
+        for j in range(i, k):
+            ei = np.zeros(k)
+            ei[i] = h[i]
+            ej = np.zeros(k)
+            ej[j] = h[j]
+            fpp = fn(base + ei + ej)
+            fpm = fn(base + ei - ej)
+            fmp = fn(base - ei + ej)
+            fmm = fn(base - ei - ej)
+            H[i, j] = H[j, i] = (fpp - fpm - fmp + fmm) / (4.0 * h[i] * h[j])
+    H = 0.5 * (H + H.T)
+    ev = np.linalg.eigvalsh(H)
+    nz = np.abs(ev)
+    out["n_params"] = k
+    out["hessian_eigenvalues_sorted"] = [float(v) for v in ev]
+    out["hessian_eig_min"] = float(ev.min())
+    out["hessian_eig_max"] = float(ev.max())
+    out["hessian_n_positive"] = int((ev > 0).sum())
+    out["hessian_n_negative"] = int((ev < 0).sum())
+    out["hessian_cond_number"] = float(nz.max() / max(nz.min(), 1e-300))
+    out["hessian_n_near_zero_rel_1e6"] = int((nz < 1e-6 * nz.max()).sum())
+    out["hessian_n_near_zero_rel_1e8"] = int((nz < 1e-8 * nz.max()).sum())
+    if ev.max() < 0:
+        out["verdict_curvature"] = "negative definite -> genuine local MAXIMUM"
+    elif ev.min() > 0:
+        out["verdict_curvature"] = "positive definite -> local MINIMUM (!)"
+    else:
+        out["verdict_curvature"] = (
+            "indefinite -> SADDLE (%d ascent direction(s) remain)"
+            % out["hessian_n_positive"])
+
+    try:
+        sl = model.parameters["regime_transition"]
+        tp = np.ravel(p[sl])
+        out["transition_params_absmax"] = float(np.max(np.abs(tp)))
+        out["transition_params"] = [round(float(v), 4) for v in tp]
+    except Exception as exc:
+        out["transition_params_error"] = repr(exc)
+    try:
+        rt = np.asarray(model.regime_transition_matrix(p), dtype=float)
+        off = rt.copy()
+        for i in range(min(rt.shape[0], rt.shape[1])):
+            off[i, i, ...] = np.nan
+        flat = off.reshape(-1, off.shape[-1]) if off.ndim == 3 else off.reshape(-1, 1)
+        out["min_offdiag_transition_prob"] = float(np.nanmin(off))
+        out["max_selfpersistence_prob"] = float(np.nanmax(
+            np.array([rt[i, i, ...] for i in range(rt.shape[0])])))
+        out["frac_dates_offdiag_below_1e6"] = float(
+            np.mean(np.nanmin(flat, axis=0) < 1e-6))
+    except Exception as exc:
+        out["transition_matrix_error"] = repr(exc)
+    try:
+        vs = [float(p[model.parameters[j, "variances"]][0])
+              for j in range(K_REGIMES)]
+        out["variances"] = vs
+        out["variance_min"] = min(vs)
+    except Exception as exc:
+        out["variances_error"] = repr(exc)
+    return out
+
+
+def main():
+    rows = asyncio.run(load())
+    dates = [str(r["date"]) for r in rows]
+    y = np.array([[float(r["rv_t_yz"]), float(r["ar_t"]), float(r["bas_t"])]
+                  for r in rows])
+    exog = causal_tvtp_exog(y[:, 0])
+    print("INPUT : %d obs  %s .. %s" % (len(dates), dates[0], dates[-1]))
+    print("CONFIG: initial_train=%d refit_every=%d K=%d exog=%s"
+          % (DEFAULT_INITIAL_TRAIN, DEFAULT_REFIT_EVERY, K_REGIMES, exog.shape))
+    print("BLOCKS: %s\n" % BLOCKS)
+
+    results = {}
+    for b in BLOCKS:
+        t_k = DEFAULT_INITIAL_TRAIN + DEFAULT_REFIT_EVERY * b
+        y_tr, x_tr = y[:t_k], exog[:t_k]
+        print("=" * 78)
+        print("BLOCK %d:  train_n=%d  train_last=%s" % (b, t_k, dates[t_k - 1]))
+        print("=" * 78)
+        sys.stdout.flush()
+        model = MultivariateTVTPHamilton(y_tr, exog_tvtp=x_tr,
+                                         k_regimes=K_REGIMES)
+        t0 = time.time()
+        starts = enumerate_starts(model, y_tr)
+        print("  start enumeration: %d candidates (%.0fs incl. nested "
+              "restricted fits)" % (len(starts), time.time() - t0))
+        sys.stdout.flush()
+
+        cands = []
+        for name, sp in starts:
+            t1 = time.time()
+            try:
+                with warnings.catch_warnings():
+                    warnings.simplefilter("ignore")
+                    r = model.fit(start_params=sp, maxiter=MAXITER, disp=False)
+            except Exception as exc:
+                print("    %26s: FAILED %r" % (name, exc))
+                sys.stdout.flush()
+                continue
+            rv = getattr(r, "mle_retvals", {}) or {}
+            conv = bool(rv.get("converged", True)) if isinstance(rv, dict) else True
+            gopt = rv.get("gopt")
+            gn = (float(np.linalg.norm(np.asarray(gopt, dtype=float)))
+                  if gopt is not None else float("nan"))
+            cands.append({
+                "start": name, "llf": float(r.llf), "converged": conv,
+                "iterations": int(rv.get("iterations", -1)),
+                "warnflag": int(rv.get("warnflag", -1)),
+                "scipy_gopt_norm": gn,
+                "params": np.asarray(r.params, dtype=float).copy(),
+            })
+            print("    %26s: llf=%12.2f conv=%-5s iter=%4s warnflag=%s "
+                  "|gopt|=%.4e  (%.0fs)"
+                  % (name, r.llf, conv, rv.get("iterations", -1),
+                     rv.get("warnflag", -1), gn, time.time() - t1))
+            sys.stdout.flush()
+
+        conv_c = [c for c in cands if c["converged"]]
+        nonc_c = [c for c in cands if not c["converged"]]
+        sel = max(conv_c, key=lambda c: c["llf"]) if conv_c else None
+        dis = max(nonc_c, key=lambda c: c["llf"]) if nonc_c else None
+        print("\n  SELECTED (best converged)      : %s  llf=%s"
+              % (sel["start"] if sel else None, sel["llf"] if sel else None))
+        print("  DISCARDED (best non-converged) : %s  llf=%s"
+              % (dis["start"] if dis else None, dis["llf"] if dis else None))
+        if sel and dis:
+            print("  gap (discarded - selected)     : %+.2f llf"
+                  % (dis["llf"] - sel["llf"]))
+        sys.stdout.flush()
+
+        diags = []
+        for tag, c in (("SELECTED_converged", sel),
+                       ("DISCARDED_nonconverged", dis)):
+            if c is None:
+                continue
+            print("\n  --- diagnostics at %s (%s) ---" % (tag, c["start"]))
+            sys.stdout.flush()
+            t1 = time.time()
+            d = diagnose(model, c["params"], "%s:%s" % (tag, c["start"]))
+            d["scipy_warnflag"] = c["warnflag"]
+            d["scipy_gopt_norm"] = c["scipy_gopt_norm"]
+            d["scipy_iterations"] = c["iterations"]
+            diags.append(d)
+            for key in REPORT_KEYS:
+                if key in d:
+                    v = d[key]
+                    txt = v if isinstance(v, str) else ("%.6g" % v)
+                    print("      %-36s %s" % (key, txt))
+            ev = np.array(d["hessian_eigenvalues_sorted"])
+            print("      3 most negative Hessian eigenvalues : %s" % ev[:3])
+            print("      3 smallest |eigenvalue|             : %s"
+                  % ev[np.argsort(np.abs(ev))][:3])
+            print("      (%.0fs)" % (time.time() - t1))
+            sys.stdout.flush()
+        results[str(b)] = {
+            "train_n": t_k, "train_last": dates[t_k - 1],
+            "candidates": [{k: v for k, v in c.items() if k != "params"}
+                           for c in cands],
+            "diagnostics": diags,
+        }
+        print()
+        sys.stdout.flush()
+
+    print("=" * 78)
+    print("MACHINE-READABLE SUMMARY")
+    print("=" * 78)
+    print(json.dumps(results, indent=2, default=str))
+
+
+main()

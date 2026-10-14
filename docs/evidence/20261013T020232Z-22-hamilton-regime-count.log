@@ -1,0 +1,26 @@
+observations: 5365 days
+
+=== 1. FEATURE INFORMATION ===
+    RV  mean=  0.5017 sd=  0.1643 cv= 0.327 range=  1.1339 p5-p95=  0.5220
+    AR  mean=  0.4028 sd=  0.0557 cv= 0.138 range=  0.2615 p5-p95=  0.1821
+   BAS  mean=  0.0048 sd=  0.0018 cv= 0.377 range=  0.0104 p5-p95=  0.0055
+
+  correlations  RV-AR=+0.400  RV-BAS=+0.563  AR-BAS=+0.337
+  PCA on standardised features: variance shares 62.5%/23.2%/14.4%
+
+  separation between high-RV and low-RV quintiles (in sd units):
+      RV  +2.543 sd  -> informative
+      AR  +0.935 sd  -> informative
+     BAS  +1.694 sd  -> informative
+
+=== 2. REGIME COUNT ===
+                     model  sep_sd              occupancy             half-lives         BIC         AIC
+--------------------------------------------------------------------------------------------------------
+     CONTROL synth 3-state    5.80       66.7%/0.0%/33.3%           693d/1d/346d      -13394      -13538
+     CONTROL synth 2-state    1.38            0.0%/100.0%                1d/967d        4262        4177
+    real RV+AR+BAS 2-state    0.94            0.0%/100.0%               BOUNDARY      -72326      -72418
+    real RV only   2-state    0.92            0.0%/100.0%               BOUNDARY       -4101       -4141
+    real RV+AR     2-state    0.86            0.0%/100.0%               BOUNDARY      -19827      -19893
+    real RV+AR+BAS 3-state    1.12       0.0%/0.0%/100.0%               BOUNDARY      -72240      -72398
+    real RV only   3-state    1.15       0.0%/0.0%/100.0%               BOUNDARY       -4050       -4129
+    real RV+AR     3-state    1.15       0.0%/0.0%/100.0%               BOUNDARY      -19759      -19877

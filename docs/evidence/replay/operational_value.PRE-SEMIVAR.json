@@ -1,0 +1,1053 @@
+{
+  "generated_utc": "2026-10-13T12:56:54Z",
+  "crisis_label": {
+    "definition": "[onset, onset+30] trading days, FR32",
+    "crisis_days": 180,
+    "total_days": 5363,
+    "base_rate": 0.0336
+  },
+  "economic_claim": "NONE. No position model, execution assumption or cost model exists in this repository, so no drawdown-avoided or risk-reduction figure is computable and none is stated.",
+  "signals": {
+    "CSRS[hawkes]": {
+      "reliability": {
+        "error": "only 0 usable days"
+      },
+      "precision_recall": {
+        "day_level": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "tn": 468,
+          "precision": null,
+          "recall": null,
+          "f1": null
+        },
+        "episode_level": {
+          "n_episodes": 0,
+          "n_hitting_a_crisis_window": 0,
+          "precision": null,
+          "median_duration_days": null,
+          "max_duration_days": null
+        },
+        "share_of_assessable_days_under_alert": 0.0
+      },
+      "actionability": {
+        "alert_episodes_per_year": 0.0,
+        "false_alarm_episodes_per_year": 0.0,
+        "false_alarms_per_true_alarm": null,
+        "n_true_alarm_episodes": 0,
+        "span_years": 9.5
+      },
+      "assessable_days": 0
+    },
+    "CSRS[rmt]": {
+      "reliability": {
+        "usable_days": 5113,
+        "crisis_base_rate": 0.0352,
+        "brier": 0.4701,
+        "brier_at_base_rate": 0.03397,
+        "brier_skill_score": -12.8408,
+        "ece": 0.5721,
+        "table": [
+          {
+            "bin": "[0.0,0.1)",
+            "n": 598,
+            "mean_score": 0.0271,
+            "realised_crisis_freq": 0.0719,
+            "gap": -0.0448
+          },
+          {
+            "bin": "[0.1,0.2)",
+            "n": 608,
+            "mean_score": 0.1628,
+            "realised_crisis_freq": 0.0197,
+            "gap": 0.1431
+          },
+          {
+            "bin": "[0.2,0.3)",
+            "n": 238,
+            "mean_score": 0.2369,
+            "realised_crisis_freq": 0.0756,
+            "gap": 0.1612
+          },
+          {
+            "bin": "[0.3,0.4)",
+            "n": 223,
+            "mean_score": 0.3439,
+            "realised_crisis_freq": 0.0179,
+            "gap": 0.3259
+          },
+          {
+            "bin": "[0.4,0.5)",
+            "n": 165,
+            "mean_score": 0.4554,
+            "realised_crisis_freq": 0.0,
+            "gap": 0.4554
+          },
+          {
+            "bin": "[0.5,0.6)",
+            "n": 383,
+            "mean_score": 0.5503,
+            "realised_crisis_freq": 0.0026,
+            "gap": 0.5477
+          },
+          {
+            "bin": "[0.6,0.7)",
+            "n": 321,
+            "mean_score": 0.6544,
+            "realised_crisis_freq": 0.0031,
+            "gap": 0.6513
+          },
+          {
+            "bin": "[0.7,0.8)",
+            "n": 514,
+            "mean_score": 0.7546,
+            "realised_crisis_freq": 0.0039,
+            "gap": 0.7507
+          },
+          {
+            "bin": "[0.8,0.9)",
+            "n": 644,
+            "mean_score": 0.8503,
+            "realised_crisis_freq": 0.0124,
+            "gap": 0.8379
+          },
+          {
+            "bin": "[0.9,1.0)",
+            "n": 1419,
+            "mean_score": 0.9669,
+            "realised_crisis_freq": 0.0641,
+            "gap": 0.9028
+          }
+        ]
+      },
+      "precision_recall": {
+        "day_level": {
+          "tp": 24,
+          "fp": 575,
+          "fn": 156,
+          "tn": 4608,
+          "precision": 0.0401,
+          "recall": 0.1333,
+          "f1": 0.0616
+        },
+        "episode_level": {
+          "n_episodes": 64,
+          "n_hitting_a_crisis_window": 4,
+          "precision": 0.0625,
+          "median_duration_days": 3,
+          "max_duration_days": 101
+        },
+        "share_of_assessable_days_under_alert": 0.1172
+      },
+      "actionability": {
+        "alert_episodes_per_year": 2.965,
+        "false_alarm_episodes_per_year": 2.78,
+        "false_alarms_per_true_alarm": 15.0,
+        "n_true_alarm_episodes": 4,
+        "span_years": 21.58
+      },
+      "assessable_days": 5113
+    },
+    "CSRS[hamilton]": {
+      "reliability": {
+        "usable_days": 3115,
+        "crisis_base_rate": 0.0385,
+        "brier": 0.39337,
+        "brier_at_base_rate": 0.03704,
+        "brier_skill_score": -9.6202,
+        "ece": 0.5202,
+        "table": [
+          {
+            "bin": "[0.0,0.1)",
+            "n": 296,
+            "mean_score": 0.045,
+            "realised_crisis_freq": 0.0101,
+            "gap": 0.0348
+          },
+          {
+            "bin": "[0.1,0.2)",
+            "n": 299,
+            "mean_score": 0.1501,
+            "realised_crisis_freq": 0.0,
+            "gap": 0.1501
+          },
+          {
+            "bin": "[0.2,0.3)",
+            "n": 259,
+            "mean_score": 0.2487,
+            "realised_crisis_freq": 0.0154,
+            "gap": 0.2332
+          },
+          {
+            "bin": "[0.3,0.4)",
+            "n": 273,
+            "mean_score": 0.3487,
+            "realised_crisis_freq": 0.0403,
+            "gap": 0.3084
+          },
+          {
+            "bin": "[0.4,0.5)",
+            "n": 202,
+            "mean_score": 0.4482,
+            "realised_crisis_freq": 0.0099,
+            "gap": 0.4383
+          },
+          {
+            "bin": "[0.5,0.6)",
+            "n": 263,
+            "mean_score": 0.5536,
+            "realised_crisis_freq": 0.038,
+            "gap": 0.5156
+          },
+          {
+            "bin": "[0.6,0.7)",
+            "n": 234,
+            "mean_score": 0.6486,
+            "realised_crisis_freq": 0.0171,
+            "gap": 0.6315
+          },
+          {
+            "bin": "[0.7,0.8)",
+            "n": 291,
+            "mean_score": 0.7506,
+            "realised_crisis_freq": 0.0309,
+            "gap": 0.7196
+          },
+          {
+            "bin": "[0.8,0.9)",
+            "n": 374,
+            "mean_score": 0.8449,
+            "realised_crisis_freq": 0.0642,
+            "gap": 0.7808
+          },
+          {
+            "bin": "[0.9,1.0)",
+            "n": 624,
+            "mean_score": 0.962,
+            "realised_crisis_freq": 0.0849,
+            "gap": 0.8771
+          }
+        ]
+      },
+      "precision_recall": {
+        "day_level": {
+          "tp": 32,
+          "fp": 84,
+          "fn": 88,
+          "tn": 3161,
+          "precision": 0.2759,
+          "recall": 0.2667,
+          "f1": 0.2712
+        },
+        "episode_level": {
+          "n_episodes": 33,
+          "n_hitting_a_crisis_window": 3,
+          "precision": 0.0909,
+          "median_duration_days": 1,
+          "max_duration_days": 29
+        },
+        "share_of_assessable_days_under_alert": 0.0372
+      },
+      "actionability": {
+        "alert_episodes_per_year": 2.429,
+        "false_alarm_episodes_per_year": 2.209,
+        "false_alarms_per_true_alarm": 10.0,
+        "n_true_alarm_episodes": 3,
+        "span_years": 13.58
+      },
+      "assessable_days": 3115
+    },
+    "CSRS[hawkes+rmt]": {
+      "reliability": {
+        "usable_days": 5113,
+        "crisis_base_rate": 0.0352,
+        "brier": 0.44827,
+        "brier_at_base_rate": 0.03397,
+        "brier_skill_score": -12.1979,
+        "ece": 0.5564,
+        "table": [
+          {
+            "bin": "[0.0,0.1)",
+            "n": 604,
+            "mean_score": 0.0275,
+            "realised_crisis_freq": 0.0712,
+            "gap": -0.0437
+          },
+          {
+            "bin": "[0.1,0.2)",
+            "n": 560,
+            "mean_score": 0.1617,
+            "realised_crisis_freq": 0.0179,
+            "gap": 0.1438
+          },
+          {
+            "bin": "[0.2,0.3)",
+            "n": 245,
+            "mean_score": 0.2392,
+            "realised_crisis_freq": 0.0857,
+            "gap": 0.1535
+          },
+          {
+            "bin": "[0.3,0.4)",
+            "n": 289,
+            "mean_score": 0.3484,
+            "realised_crisis_freq": 0.0104,
+            "gap": 0.338
+          },
+          {
+            "bin": "[0.4,0.5)",
+            "n": 265,
+            "mean_score": 0.457,
+            "realised_crisis_freq": 0.0,
+            "gap": 0.457
+          },
+          {
+            "bin": "[0.5,0.6)",
+            "n": 436,
+            "mean_score": 0.549,
+            "realised_crisis_freq": 0.0069,
+            "gap": 0.5421
+          },
+          {
+            "bin": "[0.6,0.7)",
+            "n": 335,
+            "mean_score": 0.6524,
+            "realised_crisis_freq": 0.0149,
+            "gap": 0.6374
+          },
+          {
+            "bin": "[0.7,0.8)",
+            "n": 485,
+            "mean_score": 0.7534,
+            "realised_crisis_freq": 0.0041,
+            "gap": 0.7493
+          },
+          {
+            "bin": "[0.8,0.9)",
+            "n": 606,
+            "mean_score": 0.8501,
+            "realised_crisis_freq": 0.0215,
+            "gap": 0.8287
+          },
+          {
+            "bin": "[0.9,1.0)",
+            "n": 1288,
+            "mean_score": 0.9676,
+            "realised_crisis_freq": 0.0621,
+            "gap": 0.9055
+          }
+        ]
+      },
+      "precision_recall": {
+        "day_level": {
+          "tp": 33,
+          "fp": 551,
+          "fn": 147,
+          "tn": 4632,
+          "precision": 0.0565,
+          "recall": 0.1833,
+          "f1": 0.0864
+        },
+        "episode_level": {
+          "n_episodes": 122,
+          "n_hitting_a_crisis_window": 12,
+          "precision": 0.0984,
+          "median_duration_days": 4,
+          "max_duration_days": 74
+        },
+        "share_of_assessable_days_under_alert": 0.1142
+      },
+      "actionability": {
+        "alert_episodes_per_year": 5.653,
+        "false_alarm_episodes_per_year": 5.097,
+        "false_alarms_per_true_alarm": 9.17,
+        "n_true_alarm_episodes": 12,
+        "span_years": 21.58
+      },
+      "assessable_days": 5113
+    },
+    "CSRS[hawkes+hamilton]": {
+      "reliability": {
+        "usable_days": 3115,
+        "crisis_base_rate": 0.0385,
+        "brier": 0.37539,
+        "brier_at_base_rate": 0.03704,
+        "brier_skill_score": -9.1349,
+        "ece": 0.506,
+        "table": [
+          {
+            "bin": "[0.0,0.1)",
+            "n": 290,
+            "mean_score": 0.0482,
+            "realised_crisis_freq": 0.0103,
+            "gap": 0.0378
+          },
+          {
+            "bin": "[0.1,0.2)",
+            "n": 309,
+            "mean_score": 0.1504,
+            "realised_crisis_freq": 0.0,
+            "gap": 0.1504
+          },
+          {
+            "bin": "[0.2,0.3)",
+            "n": 267,
+            "mean_score": 0.2485,
+            "realised_crisis_freq": 0.0112,
+            "gap": 0.2373
+          },
+          {
+            "bin": "[0.3,0.4)",
+            "n": 280,
+            "mean_score": 0.3495,
+            "realised_crisis_freq": 0.0321,
+            "gap": 0.3174
+          },
+          {
+            "bin": "[0.4,0.5)",
+            "n": 218,
+            "mean_score": 0.4484,
+            "realised_crisis_freq": 0.0138,
+            "gap": 0.4347
+          },
+          {
+            "bin": "[0.5,0.6)",
+            "n": 309,
+            "mean_score": 0.5541,
+            "realised_crisis_freq": 0.055,
+            "gap": 0.4991
+          },
+          {
+            "bin": "[0.6,0.7)",
+            "n": 287,
+            "mean_score": 0.647,
+            "realised_crisis_freq": 0.0453,
+            "gap": 0.6018
+          },
+          {
+            "bin": "[0.7,0.8)",
+            "n": 260,
+            "mean_score": 0.7491,
+            "realised_crisis_freq": 0.0308,
+            "gap": 0.7183
+          },
+          {
+            "bin": "[0.8,0.9)",
+            "n": 333,
+            "mean_score": 0.8453,
+            "realised_crisis_freq": 0.0631,
+            "gap": 0.7822
+          },
+          {
+            "bin": "[0.9,1.0)",
+            "n": 562,
+            "mean_score": 0.9621,
+            "realised_crisis_freq": 0.0765,
+            "gap": 0.8856
+          }
+        ]
+      },
+      "precision_recall": {
+        "day_level": {
+          "tp": 27,
+          "fp": 83,
+          "fn": 93,
+          "tn": 3162,
+          "precision": 0.2455,
+          "recall": 0.225,
+          "f1": 0.2348
+        },
+        "episode_level": {
+          "n_episodes": 48,
+          "n_hitting_a_crisis_window": 9,
+          "precision": 0.1875,
+          "median_duration_days": 2,
+          "max_duration_days": 7
+        },
+        "share_of_assessable_days_under_alert": 0.0353
+      },
+      "actionability": {
+        "alert_episodes_per_year": 3.534,
+        "false_alarm_episodes_per_year": 2.871,
+        "false_alarms_per_true_alarm": 4.33,
+        "n_true_alarm_episodes": 9,
+        "span_years": 13.58
+      },
+      "assessable_days": 3115
+    },
+    "CSRS[rmt+hamilton]": {
+      "reliability": {
+        "usable_days": 5113,
+        "crisis_base_rate": 0.0352,
+        "brier": 0.439,
+        "brier_at_base_rate": 0.03397,
+        "brier_skill_score": -11.9251,
+        "ece": 0.5829,
+        "table": [
+          {
+            "bin": "[0.0,0.1)",
+            "n": 91,
+            "mean_score": 0.0506,
+            "realised_crisis_freq": 0.033,
+            "gap": 0.0176
+          },
+          {
+            "bin": "[0.1,0.2)",
+            "n": 230,
+            "mean_score": 0.1617,
+            "realised_crisis_freq": 0.0348,
+            "gap": 0.1269
+          },
+          {
+            "bin": "[0.2,0.3)",
+            "n": 346,
+            "mean_score": 0.2578,
+            "realised_crisis_freq": 0.0434,
+            "gap": 0.2144
+          },
+          {
+            "bin": "[0.3,0.4)",
+            "n": 550,
+            "mean_score": 0.3502,
+            "realised_crisis_freq": 0.0255,
+            "gap": 0.3248
+          },
+          {
+            "bin": "[0.4,0.5)",
+            "n": 612,
+            "mean_score": 0.4483,
+            "realised_crisis_freq": 0.0049,
+            "gap": 0.4434
+          },
+          {
+            "bin": "[0.5,0.6)",
+            "n": 579,
+            "mean_score": 0.544,
+            "realised_crisis_freq": 0.0518,
+            "gap": 0.4922
+          },
+          {
+            "bin": "[0.6,0.7)",
+            "n": 604,
+            "mean_score": 0.651,
+            "realised_crisis_freq": 0.0315,
+            "gap": 0.6195
+          },
+          {
+            "bin": "[0.7,0.8)",
+            "n": 476,
+            "mean_score": 0.7476,
+            "realised_crisis_freq": 0.0294,
+            "gap": 0.7182
+          },
+          {
+            "bin": "[0.8,0.9)",
+            "n": 631,
+            "mean_score": 0.8468,
+            "realised_crisis_freq": 0.0238,
+            "gap": 0.823
+          },
+          {
+            "bin": "[0.9,1.0)",
+            "n": 994,
+            "mean_score": 0.9699,
+            "realised_crisis_freq": 0.0594,
+            "gap": 0.9105
+          }
+        ]
+      },
+      "precision_recall": {
+        "day_level": {
+          "tp": 51,
+          "fp": 436,
+          "fn": 129,
+          "tn": 4747,
+          "precision": 0.1047,
+          "recall": 0.2833,
+          "f1": 0.1529
+        },
+        "episode_level": {
+          "n_episodes": 56,
+          "n_hitting_a_crisis_window": 4,
+          "precision": 0.0714,
+          "median_duration_days": 3,
+          "max_duration_days": 66
+        },
+        "share_of_assessable_days_under_alert": 0.0952
+      },
+      "actionability": {
+        "alert_episodes_per_year": 2.595,
+        "false_alarm_episodes_per_year": 2.409,
+        "false_alarms_per_true_alarm": 13.0,
+        "n_true_alarm_episodes": 4,
+        "span_years": 21.58
+      },
+      "assessable_days": 5113
+    },
+    "CSRS[hawkes+rmt+hamilton]": {
+      "reliability": {
+        "usable_days": 5113,
+        "crisis_base_rate": 0.0352,
+        "brier": 0.42921,
+        "brier_at_base_rate": 0.03397,
+        "brier_skill_score": -11.6369,
+        "ece": 0.5748,
+        "table": [
+          {
+            "bin": "[0.0,0.1)",
+            "n": 95,
+            "mean_score": 0.0525,
+            "realised_crisis_freq": 0.0316,
+            "gap": 0.0209
+          },
+          {
+            "bin": "[0.1,0.2)",
+            "n": 224,
+            "mean_score": 0.1618,
+            "realised_crisis_freq": 0.0357,
+            "gap": 0.126
+          },
+          {
+            "bin": "[0.2,0.3)",
+            "n": 370,
+            "mean_score": 0.2582,
+            "realised_crisis_freq": 0.0432,
+            "gap": 0.215
+          },
+          {
+            "bin": "[0.3,0.4)",
+            "n": 570,
+            "mean_score": 0.3497,
+            "realised_crisis_freq": 0.0228,
+            "gap": 0.3269
+          },
+          {
+            "bin": "[0.4,0.5)",
+            "n": 630,
+            "mean_score": 0.4495,
+            "realised_crisis_freq": 0.0159,
+            "gap": 0.4337
+          },
+          {
+            "bin": "[0.5,0.6)",
+            "n": 589,
+            "mean_score": 0.5454,
+            "realised_crisis_freq": 0.0407,
+            "gap": 0.5047
+          },
+          {
+            "bin": "[0.6,0.7)",
+            "n": 619,
+            "mean_score": 0.6505,
+            "realised_crisis_freq": 0.0307,
+            "gap": 0.6198
+          },
+          {
+            "bin": "[0.7,0.8)",
+            "n": 488,
+            "mean_score": 0.7473,
+            "realised_crisis_freq": 0.0369,
+            "gap": 0.7104
+          },
+          {
+            "bin": "[0.8,0.9)",
+            "n": 579,
+            "mean_score": 0.8473,
+            "realised_crisis_freq": 0.0259,
+            "gap": 0.8214
+          },
+          {
+            "bin": "[0.9,1.0)",
+            "n": 949,
+            "mean_score": 0.9702,
+            "realised_crisis_freq": 0.0569,
+            "gap": 0.9133
+          }
+        ]
+      },
+      "precision_recall": {
+        "day_level": {
+          "tp": 46,
+          "fp": 436,
+          "fn": 134,
+          "tn": 4747,
+          "precision": 0.0954,
+          "recall": 0.2556,
+          "f1": 0.139
+        },
+        "episode_level": {
+          "n_episodes": 89,
+          "n_hitting_a_crisis_window": 10,
+          "precision": 0.1124,
+          "median_duration_days": 4,
+          "max_duration_days": 62
+        },
+        "share_of_assessable_days_under_alert": 0.0943
+      },
+      "actionability": {
+        "alert_episodes_per_year": 4.124,
+        "false_alarm_episodes_per_year": 3.66,
+        "false_alarms_per_true_alarm": 7.9,
+        "n_true_alarm_episodes": 10,
+        "span_years": 21.58
+      },
+      "assessable_days": 5113
+    },
+    "BASE[rv_20]": {
+      "reliability": {
+        "usable_days": 5108,
+        "crisis_base_rate": 0.0352,
+        "brier": 0.03419,
+        "brier_at_base_rate": 0.034,
+        "brier_skill_score": -0.0057,
+        "ece": 0.0229,
+        "table": [
+          {
+            "bin": "[0.0,0.1)",
+            "n": 5108,
+            "mean_score": 0.0124,
+            "realised_crisis_freq": 0.0352,
+            "gap": -0.0229
+          },
+          {
+            "bin": "[0.1,0.2)",
+            "n": 0
+          },
+          {
+            "bin": "[0.2,0.3)",
+            "n": 0
+          },
+          {
+            "bin": "[0.3,0.4)",
+            "n": 0
+          },
+          {
+            "bin": "[0.4,0.5)",
+            "n": 0
+          },
+          {
+            "bin": "[0.5,0.6)",
+            "n": 0
+          },
+          {
+            "bin": "[0.6,0.7)",
+            "n": 0
+          },
+          {
+            "bin": "[0.7,0.8)",
+            "n": 0
+          },
+          {
+            "bin": "[0.8,0.9)",
+            "n": 0
+          },
+          {
+            "bin": "[0.9,1.0)",
+            "n": 0
+          }
+        ]
+      },
+      "precision_recall": {
+        "day_level": {
+          "tp": 31,
+          "fp": 247,
+          "fn": 149,
+          "tn": 4936,
+          "precision": 0.1115,
+          "recall": 0.1722,
+          "f1": 0.1354
+        },
+        "episode_level": {
+          "n_episodes": 28,
+          "n_hitting_a_crisis_window": 5,
+          "precision": 0.1786,
+          "median_duration_days": 5,
+          "max_duration_days": 39
+        },
+        "share_of_assessable_days_under_alert": 0.0544
+      },
+      "actionability": {
+        "alert_episodes_per_year": 1.297,
+        "false_alarm_episodes_per_year": 1.066,
+        "false_alarms_per_true_alarm": 4.6,
+        "n_true_alarm_episodes": 5,
+        "span_years": 21.58
+      },
+      "assessable_days": 5108
+    },
+    "BASE[drawdown]": {
+      "reliability": {
+        "usable_days": 5113,
+        "crisis_base_rate": 0.0352,
+        "brier": 0.09423,
+        "brier_at_base_rate": 0.03397,
+        "brier_skill_score": -1.7743,
+        "ece": 0.1837,
+        "table": [
+          {
+            "bin": "[0.0,0.1)",
+            "n": 1987,
+            "mean_score": 0.0389,
+            "realised_crisis_freq": 0.0287,
+            "gap": 0.0102
+          },
+          {
+            "bin": "[0.1,0.2)",
+            "n": 781,
+            "mean_score": 0.1417,
+            "realised_crisis_freq": 0.0038,
+            "gap": 0.1378
+          },
+          {
+            "bin": "[0.2,0.3)",
+            "n": 531,
+            "mean_score": 0.2499,
+            "realised_crisis_freq": 0.0094,
+            "gap": 0.2405
+          },
+          {
+            "bin": "[0.3,0.4)",
+            "n": 700,
+            "mean_score": 0.35,
+            "realised_crisis_freq": 0.0357,
+            "gap": 0.3143
+          },
+          {
+            "bin": "[0.4,0.5)",
+            "n": 758,
+            "mean_score": 0.4457,
+            "realised_crisis_freq": 0.0488,
+            "gap": 0.3969
+          },
+          {
+            "bin": "[0.5,0.6)",
+            "n": 173,
+            "mean_score": 0.5293,
+            "realised_crisis_freq": 0.1445,
+            "gap": 0.3848
+          },
+          {
+            "bin": "[0.6,0.7)",
+            "n": 113,
+            "mean_score": 0.6512,
+            "realised_crisis_freq": 0.2389,
+            "gap": 0.4122
+          },
+          {
+            "bin": "[0.7,0.8)",
+            "n": 70,
+            "mean_score": 0.72,
+            "realised_crisis_freq": 0.0143,
+            "gap": 0.7057
+          },
+          {
+            "bin": "[0.8,0.9)",
+            "n": 0
+          },
+          {
+            "bin": "[0.9,1.0)",
+            "n": 0
+          }
+        ]
+      },
+      "precision_recall": {
+        "day_level": {
+          "tp": 58,
+          "fp": 515,
+          "fn": 122,
+          "tn": 4668,
+          "precision": 0.1012,
+          "recall": 0.3222,
+          "f1": 0.1541
+        },
+        "episode_level": {
+          "n_episodes": 15,
+          "n_hitting_a_crisis_window": 2,
+          "precision": 0.1333,
+          "median_duration_days": 19,
+          "max_duration_days": 152
+        },
+        "share_of_assessable_days_under_alert": 0.1121
+      },
+      "actionability": {
+        "alert_episodes_per_year": 0.695,
+        "false_alarm_episodes_per_year": 0.602,
+        "false_alarms_per_true_alarm": 6.5,
+        "n_true_alarm_episodes": 2,
+        "span_years": 21.58
+      },
+      "assessable_days": 5113
+    },
+    "BASE[rv_accel_5]": {
+      "reliability": {
+        "usable_days": 5103,
+        "crisis_base_rate": 0.0353,
+        "brier": 0.03516,
+        "brier_at_base_rate": 0.03403,
+        "brier_skill_score": -0.0333,
+        "ece": 0.024,
+        "table": [
+          {
+            "bin": "[0.0,0.1)",
+            "n": 2578,
+            "mean_score": 0.0017,
+            "realised_crisis_freq": 0.0493,
+            "gap": -0.0475
+          },
+          {
+            "bin": "[0.1,0.2)",
+            "n": 0
+          },
+          {
+            "bin": "[0.2,0.3)",
+            "n": 0
+          },
+          {
+            "bin": "[0.3,0.4)",
+            "n": 0
+          },
+          {
+            "bin": "[0.4,0.5)",
+            "n": 0
+          },
+          {
+            "bin": "[0.5,0.6)",
+            "n": 0
+          },
+          {
+            "bin": "[0.6,0.7)",
+            "n": 0
+          },
+          {
+            "bin": "[0.7,0.8)",
+            "n": 0
+          },
+          {
+            "bin": "[0.8,0.9)",
+            "n": 0
+          },
+          {
+            "bin": "[0.9,1.0)",
+            "n": 0
+          }
+        ]
+      },
+      "precision_recall": {
+        "day_level": {
+          "tp": 33,
+          "fp": 248,
+          "fn": 147,
+          "tn": 4935,
+          "precision": 0.1174,
+          "recall": 0.1833,
+          "f1": 0.1432
+        },
+        "episode_level": {
+          "n_episodes": 86,
+          "n_hitting_a_crisis_window": 12,
+          "precision": 0.1395,
+          "median_duration_days": 3,
+          "max_duration_days": 8
+        },
+        "share_of_assessable_days_under_alert": 0.0551
+      },
+      "actionability": {
+        "alert_episodes_per_year": 3.985,
+        "false_alarm_episodes_per_year": 3.429,
+        "false_alarms_per_true_alarm": 6.17,
+        "n_true_alarm_episodes": 12,
+        "span_years": 21.58
+      },
+      "assessable_days": 5103
+    },
+    "BASE[dd_accel_5]": {
+      "reliability": {
+        "usable_days": 5108,
+        "crisis_base_rate": 0.0352,
+        "brier": 0.03461,
+        "brier_at_base_rate": 0.034,
+        "brier_skill_score": -0.018,
+        "ece": 0.0178,
+        "table": [
+          {
+            "bin": "[0.0,0.1)",
+            "n": 2389,
+            "mean_score": 0.0195,
+            "realised_crisis_freq": 0.0565,
+            "gap": -0.037
+          },
+          {
+            "bin": "[0.1,0.2)",
+            "n": 18,
+            "mean_score": 0.125,
+            "realised_crisis_freq": 0.0,
+            "gap": 0.125
+          },
+          {
+            "bin": "[0.2,0.3)",
+            "n": 1,
+            "mean_score": 0.2,
+            "realised_crisis_freq": 0.0,
+            "gap": 0.2
+          },
+          {
+            "bin": "[0.3,0.4)",
+            "n": 0
+          },
+          {
+            "bin": "[0.4,0.5)",
+            "n": 0
+          },
+          {
+            "bin": "[0.5,0.6)",
+            "n": 0
+          },
+          {
+            "bin": "[0.6,0.7)",
+            "n": 0
+          },
+          {
+            "bin": "[0.7,0.8)",
+            "n": 0
+          },
+          {
+            "bin": "[0.8,0.9)",
+            "n": 0
+          },
+          {
+            "bin": "[0.9,1.0)",
+            "n": 0
+          }
+        ]
+      },
+      "precision_recall": {
+        "day_level": {
+          "tp": 27,
+          "fp": 210,
+          "fn": 153,
+          "tn": 4973,
+          "precision": 0.1139,
+          "recall": 0.15,
+          "f1": 0.1295
+        },
+        "episode_level": {
+          "n_episodes": 93,
+          "n_hitting_a_crisis_window": 8,
+          "precision": 0.086,
+          "median_duration_days": 2,
+          "max_duration_days": 10
+        },
+        "share_of_assessable_days_under_alert": 0.0464
+      },
+      "actionability": {
+        "alert_episodes_per_year": 4.309,
+        "false_alarm_episodes_per_year": 3.938,
+        "false_alarms_per_true_alarm": 10.62,
+        "n_true_alarm_episodes": 8,
+        "span_years": 21.58
+      },
+      "assessable_days": 5108
+    }
+  }
+}

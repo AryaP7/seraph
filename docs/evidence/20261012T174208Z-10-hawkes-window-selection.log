@@ -20,3 +20,33 @@ C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\seraph\pillars\hawkes\engine.
 
 [cmp]   60d window: 24 fits, 0 unidentifiable, 1.79 s/fit
 [cmp]  250d window: 24 fits, 0 unidentifiable, 8.45 s/fit
+[cmp]  500d window: 24 fits, 0 unidentifiable, 17.14 s/fit
+
+================================================================================================
+HAWKES PRODUCTION WINDOW COMPARISON
+================================================================================================
+  window  fits  unident   n mean     n sd    n CV    a CV   phi CV  OOS NLL/bar   s/fit
+     60d    24        0   0.0739   0.0527   0.714   0.858    0.842      0.23221    1.79
+    250d    24        0   0.0847   0.0292   0.344   0.459    0.299      0.17622    8.45
+    500d    24        0   0.0948   0.0193   0.204   0.255    0.231      0.13253   17.14
+
+  window    n min    n max   n range  stationary  converged  |dn| boundary
+     60d   0.0057   0.2034    0.1976       100%24/       24         0.0090
+    250d   0.0346   0.1332    0.0986       100%24/       24         0.0018
+    500d   0.0494   0.1241    0.0748       100%24/       24         0.0012
+
+  window   MTS mean    MTS sd   MTS min   MTS max   (ungated n/(1-n); FR13 gate applied per-window in production)
+     60d     0.0835    0.0657    0.0058    0.2553
+    250d     0.0937    0.0348    0.0358    0.1536
+    500d     0.1052    0.0232    0.0519    0.1417
+
+------------------------------------------------------------------------------------------------
+Daily-refit cost over the 2,862-session corpus, at the measured s/fit:
+     60d window:    85.3 min
+    250d window:   403.1 min
+    500d window:   817.8 min
+
+Reference (NOT a target): the large-sample validation result is
+alpha~0.0557, phi~0.4837, n~0.1079 on chronological folds of 85k-171k
+bars. That is a different object from a rolling production estimate and
+the window is not selected for proximity to it.

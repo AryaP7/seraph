@@ -1,0 +1,45 @@
+[replay] grid        : 5,363 daily ticks 2005-01-03 .. 2026-08-21
+[replay] P1 hawkes   : 473 refits 2017-02-09 .. 2026-08-20 (refit_every=5 sessions)
+[replay] P2 rmt      : 5,363 daily rows
+[replay] P3 hamilton : 3,365 CAUSAL rows 2013-01-14 .. 2026-08-21  [EXPLORATORY]
+[replay] rule A      : CSRS >= 0.5 (C9 frozen constant)
+[replay] rule B      : > trailing-5y 95% quantile, min 250 obs, index i excluded from its own threshold
+[replay] PILLAR_ORDER= ['hawkes', 'rmt', 'hamilton']
+[replay]   subset hawkes                 468 pts  4895 failures  mean=0.3103
+[replay]   subset rmt                    5,363 pts  0 failures  mean=0.5771
+[replay]   subset hamilton               3,365 pts  1998 failures  mean=0.5689
+[replay]   subset hawkes+rmt             5,363 pts  0 failures  mean=0.5623
+[replay]   subset hawkes+hamilton        3,365 pts  1998 failures  mean=0.5558
+[replay]   subset rmt+hamilton           5,363 pts  0 failures  mean=0.5973
+[replay]   subset hawkes+rmt+hamilton    5,363 pts  0 failures  mean=0.5897
+[replay]   baseline BASE[rv_20]          5,358 finite pts
+[replay]   baseline BASE[drawdown]       5,363 finite pts
+[replay]   baseline BASE[rv_accel_5]     5,353 finite pts
+[replay]   baseline BASE[dd_accel_5]     5,358 finite pts
+
+[sens] horizon 15d, 600 relocation draws per cell
+[sens] quantiles tested: (0.8, 0.85, 0.9, 0.95, 0.99)
+[sens] ALL levels reported; none is selected. The null is recomputed
+[sens] at each level, because a looser rule also raises the no-skill
+[sens] warned-rate.
+
+signal                              q=0.80            q=0.85            q=0.90            q=0.95            q=0.99
+------------------------------------------------------------------------------------------------------------------
+CSRS[hawkes]                    untestable        untestable        untestable        untestable        untestable
+CSRS[rmt]               1/6 n=0.09 p=0.4413/6 n=0.12 p=0.0251/6 n=0.11 p=0.5060/6 n=0.12 p=1.0000/6 n=0.11 p=1.000
+CSRS[hamilton]          0/4 n=0.08 p=1.0001/4 n=0.11 p=0.2161/4 n=0.08 p=0.1431/4 n=0.07 p=0.1020/4 n=0.02 p=1.000
+CSRS[hawkes+rmt]        2/6 n=0.27 p=0.4943/6 n=0.26 p=0.1482/6 n=0.22 p=0.3780/6 n=0.19 p=1.0000/6 n=0.14 p=1.000
+CSRS[hawkes+hamilton]   1/4 n=0.17 p=0.3211/4 n=0.16 p=0.3161/4 n=0.11 p=0.2001/4 n=0.08 p=0.1380/4 n=0.02 p=1.000
+CSRS[rmt+hamilton]      0/6 n=0.11 p=1.0001/6 n=0.11 p=0.4810/6 n=0.12 p=1.0000/6 n=0.10 p=1.0000/6 n=0.07 p=1.000
+CSRS[hawkes+rmt+hamilton]0/6 n=0.21 p=1.0001/6 n=0.19 p=0.7270/6 n=0.17 p=1.0000/6 n=0.14 p=1.0000/6 n=0.06 p=1.000
+BASE[rv_20]             1/6 n=0.18 p=0.6611/6 n=0.13 p=0.5642/6 n=0.07 p=0.0621/6 n=0.04 p=0.2310/6 n=0.02 p=1.000
+BASE[drawdown]          1/6 n=0.04 p=0.2230/6 n=0.05 p=1.0000/6 n=0.04 p=1.0000/6 n=0.04 p=1.0000/6 n=0.05 p=1.000
+BASE[rv_accel_5]        5/6 n=0.53 p=0.1133/6 n=0.41 p=0.4161/6 n=0.30 p=0.9051/6 n=0.18 p=0.7010/6 n=0.03 p=1.000
+BASE[dd_accel_5]        4/6 n=0.58 p=0.4483/6 n=0.50 p=0.6093/6 n=0.36 p=0.3232/6 n=0.21 p=0.3360/6 n=0.05 p=1.000
+
+cell = warned/testable, n = no-skill null rate, p = relocation p-value
+A result is only interesting where the observed rate exceeds n AND p is
+small. Loosening the threshold raises both together.
+
+[sens] full three-pillar system warned at ANY quantile in (0.8, 0.85, 0.9, 0.95, 0.99): ['0.85']
+[sens] wrote docs\evidence\replay\threshold_sensitivity_h15.json

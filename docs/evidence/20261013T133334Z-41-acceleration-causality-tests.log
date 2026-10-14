@@ -1,0 +1,69 @@
+# cmd 1: .venv/Scripts/python.exe -I -m pytest tests/test_acceleration_signal_causality.py -v
+# cmd 2: mutation check — swap dd_accel/rv_accel for each leaky form, confirm the suite FAILS
+# git: f3eaac8b25f3fe3c47f4734b6b841e5e93f41cd1 branch evidence/pre-arya-experimentation
+# utc: 20261013T133334Z
+
+=== 1. CAUSALITY SUITE (no database, deterministic) ===
+============================= test session starts =============================
+collecting ... collected 21 items
+
+tests/test_acceleration_signal_causality.py::test_dd_accel_is_a_backward_five_day_difference PASSED [  4%]
+tests/test_acceleration_signal_causality.py::test_rv_accel_is_a_trailing_ratio PASSED [  9%]
+tests/test_acceleration_signal_causality.py::test_roll_window_ends_at_the_index_and_is_not_centred PASSED [ 14%]
+tests/test_acceleration_signal_causality.py::test_drawdown_price_path_accumulates_forward PASSED [ 19%]
+tests/test_acceleration_signal_causality.py::test_truncation_invariance[dd_accel] PASSED [ 23%]
+tests/test_acceleration_signal_causality.py::test_truncation_invariance[rv_accel] PASSED [ 28%]
+tests/test_acceleration_signal_causality.py::test_future_perturbation_leaves_the_past_bit_identical[dd_accel] PASSED [ 33%]
+tests/test_acceleration_signal_causality.py::test_future_perturbation_leaves_the_past_bit_identical[rv_accel] PASSED [ 38%]
+tests/test_acceleration_signal_causality.py::test_negative_control_fails_truncation_invariance[LEAK centred-window] PASSED [ 42%]
+tests/test_acceleration_signal_causality.py::test_negative_control_fails_truncation_invariance[LEAK forward-difference] PASSED [ 47%]
+tests/test_acceleration_signal_causality.py::test_negative_control_fails_truncation_invariance[LEAK full-sample-norm] PASSED [ 52%]
+tests/test_acceleration_signal_causality.py::test_negative_control_fails_truncation_invariance[LEAK reversed-cumulative] PASSED [ 57%]
+tests/test_acceleration_signal_causality.py::test_negative_control_fails_truncation_invariance[LEAK future-peak-drawdown] PASSED [ 61%]
+tests/test_acceleration_signal_causality.py::test_the_one_form_these_tests_cannot_see PASSED [ 66%]
+tests/test_acceleration_signal_causality.py::test_t1_label_depends_only_on_breaks_at_or_before_t PASSED [ 71%]
+tests/test_acceleration_signal_causality.py::test_t1_label_wraps_the_grid_when_an_onset_sits_at_the_end PASSED [ 76%]
+tests/test_acceleration_signal_causality.py::test_trailing_percentile_window_is_causal PASSED [ 80%]
+tests/test_acceleration_signal_causality.py::test_fr28_ecdf_window_excludes_the_future PASSED [ 85%]
+tests/test_acceleration_signal_causality.py::test_causal_residual_matches_an_explicit_backward_ols PASSED [ 90%]
+tests/test_acceleration_signal_causality.py::test_causal_residual_truncation_invariant PASSED [ 95%]
+tests/test_acceleration_signal_causality.py::test_causal_residual_ignores_a_relationship_change_in_the_future PASSED [100%]
+
+============================= 21 passed in 2.46s ==============================
+pytest exit=0
+
+=== 2. MUTATION CHECK — do these tests have teeth? ===
+Each row replaces one signal with a deliberately non-causal form and re-runs
+the real check functions imported from the test module. 'FAILED (correct)'
+means the mutation was caught. A check only applies to its own signal, so a
+PASSED row for the OTHER signal's identity test is correct behaviour.
+
+mutation                            check                                               outcome
+--------------------------------------------------------------------------------------------------------------
+dd_accel <- centred window          test_dd_accel_is_a_backward_five_day_difference     FAILED (correct) :: Arrays are not equal
+dd_accel <- centred window          test_rv_accel_is_a_trailing_ratio                   PASSED  <-- test is blind to this mutation
+dd_accel <- centred window          test_truncation_invariance                          FAILED (correct) :: dd_accel: finiteness at t=120 depends on data after t
+dd_accel <- centred window          test_future_perturbation_leaves_the_past_bit_identicalFAILED (correct) :: Arrays are not equal
+
+dd_accel <- forward difference      test_dd_accel_is_a_backward_five_day_difference     FAILED (correct) :: Arrays are not equal
+dd_accel <- forward difference      test_rv_accel_is_a_trailing_ratio                   PASSED  <-- test is blind to this mutation
+dd_accel <- forward difference      test_truncation_invariance                          FAILED (correct) :: dd_accel: finiteness at t=120 depends on data after t
+dd_accel <- forward difference      test_future_perturbation_leaves_the_past_bit_identicalFAILED (correct) :: Arrays are not equal
+
+dd_accel <- future-peak drawdown    test_dd_accel_is_a_backward_five_day_difference     FAILED (correct) :: Arrays are not equal
+dd_accel <- future-peak drawdown    test_rv_accel_is_a_trailing_ratio                   PASSED  <-- test is blind to this mutation
+dd_accel <- future-peak drawdown    test_truncation_invariance                          FAILED (correct) :: dd_accel: finiteness at t=120 depends on data after t
+dd_accel <- future-peak drawdown    test_future_perturbation_leaves_the_past_bit_identicalFAILED (correct) :: Arrays are not equal
+
+dd_accel <- reversed cumulative     test_dd_accel_is_a_backward_five_day_difference     FAILED (correct) :: Arrays are not equal
+dd_accel <- reversed cumulative     test_rv_accel_is_a_trailing_ratio                   PASSED  <-- test is blind to this mutation
+dd_accel <- reversed cumulative     test_truncation_invariance                          FAILED (correct) :: dd_accel[120] changed when future data was withheld: np.floa
+dd_accel <- reversed cumulative     test_future_perturbation_leaves_the_past_bit_identicalFAILED (correct) :: Arrays are not equal
+
+rv_accel <- full-sample norm        test_dd_accel_is_a_backward_five_day_difference     PASSED  <-- test is blind to this mutation
+rv_accel <- full-sample norm        test_rv_accel_is_a_trailing_ratio                   FAILED (correct) :: Arrays are not equal
+rv_accel <- full-sample norm        test_truncation_invariance                          FAILED (correct) :: rv_accel[120] changed when future data was withheld: np.floa
+rv_accel <- full-sample norm        test_future_perturbation_leaves_the_past_bit_identicalFAILED (correct) :: Arrays are not equal
+
+every mutation was caught by at least one check: see per-row outcomes above
+mutation exit=0

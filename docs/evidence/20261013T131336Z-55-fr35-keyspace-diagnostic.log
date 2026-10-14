@@ -1,0 +1,138 @@
+# D-2 read-only diagnostic - does the FR35 ablation fit validation_results' key?
+# No database access, no file written. Pure enumeration over configuration_list().
+# 2026-10-13T13:13:36Z  git f3eaac8  branch evidence/pre-arya-experimentation
+
+$ .venv/Scripts/python.exe -I <scratchpad>/d2_keyspace.py
+validation_results PRIMARY KEY (schema.sql:206):
+  (pillar_subset, reconciliation_mode, xi_mode, epoch)   <- no table_id
+  pre_registration_hash is a NOT NULL column but is NOT in the key
+
+HAWKES_EPOCHS     = ('ilfs_2018', 'covid_2020', 'tightening_2022', 'tariff_2026')
+PRE_HAWKES_EPOCHS = ('gfc_2008', 'taper_2013')
+EPOCHS            = ('gfc_2008', 'taper_2013', 'ilfs_2018', 'covid_2020', 'tightening_2022', 'tariff_2026')
+
+--- Table B on all 6 epochs - ARCHITECTURE D5(b), CURRENT CODE (6 folds) ---
+  configurations                       : 20
+  EvaluationRows the ablation produces : 128
+  distinct keys under schema.sql's PK  : 104
+  distinct keys if table_id were in PK : 128
+  ROWS SILENTLY OVERWRITTEN            : 24
+  colliding keys                       : 24  (of which cross-table: 24)
+  examples:
+    ('hamilton', 'forward_fill', 'hamilton', 'covid_2020')  <- tables ['A', 'B']
+    ('hamilton', 'forward_fill', 'hamilton', 'ilfs_2018')  <- tables ['A', 'B']
+    ('hamilton', 'forward_fill', 'hamilton', 'tariff_2026')  <- tables ['A', 'B']
+    ('hamilton', 'forward_fill', 'hamilton', 'tightening_2022')  <- tables ['A', 'B']
+
+--- Table B on the 2 pre-2015 epochs - SPEC FR35 literal (2 folds) ---
+  configurations                       : 20
+  EvaluationRows the ablation produces : 80
+  distinct keys under schema.sql's PK  : 80
+  distinct keys if table_id were in PK : 80
+  ROWS SILENTLY OVERWRITTEN            : 0
+  colliding keys                       : 0  (no loss)
+
+=== CONSEQUENCE ===
+  Under the current code (D5(b)): 24 EvaluationRows are lost to
+    ON CONFLICT DO UPDATE the moment an ablation is persisted, because
+    Table A and Table B share both subsets and epochs and table_id is
+    not part of the key.
+  Under SPEC FR35's literal Table B scope: 0 rows lost - the
+    epoch sets are disjoint, so the key happens to be sufficient.
+  Either way the PK should carry table_id (and arguably
+  pre_registration_hash, so two pre-registered designs can coexist
+  rather than the second silently overwriting the first).
+
+  No writer for validation_results exists yet:
+    $ grep -rn validation_results --include=*.py seraph/ scripts/  -> no hits
+  so this is latent, and cheapest to fix before that writer is built.
+EXIT=0
+
+================================================================================
+
+APPENDIX - script, verbatim
+
+================================================================================
+"""D-2 read-only diagnostic: does the FR35 ablation fit validation_results' key?
+
+schema.sql:206  PRIMARY KEY (pillar_subset, reconciliation_mode, xi_mode, epoch)
+...which omits table_id. SPEC FR35 puts (rmt), (hamilton) and (rmt,hamilton) in
+BOTH tables, so whether those rows collide depends entirely on whether Table B's
+epoch set overlaps Table A's - i.e. on the open question in BLOCKER-TRIAGE.md
+section D-2.
+
+Touches no database and no file. Pure enumeration over configuration_list().
+"""
+import sys
+from collections import Counter
+
+sys.path.insert(0, r"C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya")
+
+from seraph.validation.preregistration import (  # noqa: E402
+    EPOCHS, HAWKES_EPOCHS, PRE_HAWKES_EPOCHS, configuration_list,
+)
+
+
+def keyspace(table_b_epochs):
+    """Every validation_results PK the 20 configurations would write."""
+    rows = []
+    for c in configuration_list():
+        epochs = c["epochs"] if c["table"] == "A" else list(table_b_epochs)
+        xi_modes = c.get("xiModes", ["hamilton"])
+        for xi in xi_modes:
+            for ep in epochs:
+                rows.append((
+                    "+".join(c["pillarSubset"]), c["reconciliationMode"],
+                    xi, ep, c["table"],
+                ))
+    return rows
+
+
+def report(label, table_b_epochs):
+    rows = keyspace(table_b_epochs)
+    pk = [r[:4] for r in rows]                 # schema.sql's actual PK
+    pk_plus = [r[:5] for r in rows]            # PK + table_id
+    dup = {k: n for k, n in Counter(pk).items() if n > 1}
+    lost = len(pk) - len(set(pk))
+    print(f"\n--- Table B on {label} ({len(table_b_epochs)} folds) ---")
+    print(f"  configurations                       : {len(configuration_list())}")
+    print(f"  EvaluationRows the ablation produces : {len(rows)}")
+    print(f"  distinct keys under schema.sql's PK  : {len(set(pk))}")
+    print(f"  distinct keys if table_id were in PK : {len(set(pk_plus))}")
+    print(f"  ROWS SILENTLY OVERWRITTEN            : {lost}")
+    if dup:
+        cross = [k for k in dup if len({r[4] for r in rows if r[:4] == k}) > 1]
+        print(f"  colliding keys                       : {len(dup)}"
+              f"  (of which cross-table: {len(cross)})")
+        print("  examples:")
+        for k in sorted(dup)[:4]:
+            tabs = sorted({r[4] for r in rows if r[:4] == k})
+            print(f"    {k}  <- tables {tabs}")
+    else:
+        print("  colliding keys                       : 0  (no loss)")
+    return lost
+
+
+print("validation_results PRIMARY KEY (schema.sql:206):")
+print("  (pillar_subset, reconciliation_mode, xi_mode, epoch)   <- no table_id")
+print("  pre_registration_hash is a NOT NULL column but is NOT in the key")
+print(f"\nHAWKES_EPOCHS     = {HAWKES_EPOCHS}")
+print(f"PRE_HAWKES_EPOCHS = {PRE_HAWKES_EPOCHS}")
+print(f"EPOCHS            = {EPOCHS}")
+
+lost_d5b = report("all 6 epochs - ARCHITECTURE D5(b), CURRENT CODE", EPOCHS)
+lost_spec = report("the 2 pre-2015 epochs - SPEC FR35 literal", PRE_HAWKES_EPOCHS)
+
+print("\n=== CONSEQUENCE ===")
+print(f"  Under the current code (D5(b)): {lost_d5b} EvaluationRows are lost to")
+print("    ON CONFLICT DO UPDATE the moment an ablation is persisted, because")
+print("    Table A and Table B share both subsets and epochs and table_id is")
+print("    not part of the key.")
+print(f"  Under SPEC FR35's literal Table B scope: {lost_spec} rows lost - the")
+print("    epoch sets are disjoint, so the key happens to be sufficient.")
+print("  Either way the PK should carry table_id (and arguably")
+print("  pre_registration_hash, so two pre-registered designs can coexist")
+print("  rather than the second silently overwriting the first).")
+print("\n  No writer for validation_results exists yet:")
+print("    $ grep -rn validation_results --include=*.py seraph/ scripts/  -> no hits")
+print("  so this is latent, and cheapest to fix before that writer is built.")

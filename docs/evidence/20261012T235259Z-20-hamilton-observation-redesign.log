@@ -1,0 +1,24 @@
+SERAPH evidence - C7 observation-design comparison: can a better y_t rescue Hamilton?
+generated_utc : 2026-10-12T23:52:59Z
+git_commit    : f3eaac8b25f3fe3c47f4734b6b841e5e93f41cd1
+command       : .venv/Scripts/python.exe scripts/compare_hamilton_features.py
+why           : AMENDMENT-05 chased the OPTIMISER (multi-start, nesting, absorption).
+                This script's own diagnosis is that the OBSERVATIONS cannot move:
+                RV 21d / AR 250d / BAS 290d overlapping windows give lag-1
+                autocorrelation 0.997-0.998. A series that cannot move cannot switch.
+corroboration : independently measured this session - ar_t crisis-detection AUC 0.4453,
+                bas_t 0.3799 (both below chance), ranges 0.295-0.556 and 0.0018-0.0122.
+objective     : repair Hamilton's intended role (regime dynamics / stress persistence)
+                per mandate section 2, NOT replace it.
+controls      : a synthetic series with KNOWN switches is fitted alongside, so a null
+                result is attributable to the features rather than the estimator.
+===========================================================================
+
+[build] assembling candidate feature sets ...
+
+                design   ac_RV   ac_AR  ac_BAS |  tranq stress crisis |  sep_s |   tau_half |        BIC
+--------------------------------------------------------------------------------------------------------
+     CONTROL synthetic  0.9650  0.9295  0.9572 |  66.7%   0.0%  33.3% |   5.80 |      346.4 |     -13396
+ CURRENT (overlapping)  0.9973  0.9983  0.9965 |   0.0%   0.0% 100.0% |   1.12 | 34657344.0 |     -72240
+   A short/non-overlap  0.7812  0.9919  0.9603 |   0.0%   0.0% 100.0% |   0.99 | 34657281.1 |     -63633
+         C innovations  0.4240  0.0928 -0.1922 |  78.3%  11.1%  10.6% |   0.14 |        1.5 |    -173260

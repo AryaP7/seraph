@@ -1,0 +1,320 @@
+{
+  "generated_utc": "2026-10-13T13:56:00Z",
+  "horizon_days": 15,
+  "draws_requested": 2000,
+  "pillar2_quantity": "lam1",
+  "min_separation_days": 45,
+  "null": "common-offset circular relocation of the six onsets",
+  "calibration": "actual type-I 8% at nominal 5% (docs/evidence/EARLY-WARNING-POWER.md)",
+  "signals": {
+    "CSRS[hawkes]": {
+      "horizon_days": 15,
+      "observed": {
+        "n_warned": 0,
+        "n_testable": 0,
+        "rate": null,
+        "mean_lead_days": null
+      },
+      "null_draws_used": 0,
+      "resolution_floor": null
+    },
+    "CSRS[rmt]": {
+      "horizon_days": 15,
+      "observed": {
+        "n_warned": 0,
+        "n_testable": 6,
+        "rate": 0.0,
+        "mean_lead_days": null
+      },
+      "null_draws_used": 2000,
+      "resolution_floor": 0.0005,
+      "null_rate": {
+        "mean": 0.1298,
+        "sd": 0.137,
+        "p50": 0.1667,
+        "p95": 0.4
+      },
+      "p_rate": 1.0,
+      "observed_vs_null_sd": -0.947
+    },
+    "CSRS[hamilton]": {
+      "horizon_days": 15,
+      "observed": {
+        "n_warned": 1,
+        "n_testable": 4,
+        "rate": 0.25,
+        "mean_lead_days": 12.0
+      },
+      "null_draws_used": 1596,
+      "resolution_floor": 0.00063,
+      "null_rate": {
+        "mean": 0.0779,
+        "sd": 0.1174,
+        "p50": 0.0,
+        "p95": 0.3333
+      },
+      "p_rate": 0.11083,
+      "observed_vs_null_sd": 1.466,
+      "null_mean_lead": {
+        "mean": 9.691,
+        "sd": 4.087,
+        "p95": 15.0
+      },
+      "p_mean_lead": 0.41255
+    },
+    "CSRS[hawkes+rmt]": {
+      "horizon_days": 15,
+      "observed": {
+        "n_warned": 0,
+        "n_testable": 6,
+        "rate": 0.0,
+        "mean_lead_days": null
+      },
+      "null_draws_used": 2000,
+      "resolution_floor": 0.0005,
+      "null_rate": {
+        "mean": 0.1895,
+        "sd": 0.1608,
+        "p50": 0.1667,
+        "p95": 0.5
+      },
+      "p_rate": 1.0,
+      "observed_vs_null_sd": -1.179
+    },
+    "CSRS[hawkes+hamilton]": {
+      "horizon_days": 15,
+      "observed": {
+        "n_warned": 1,
+        "n_testable": 4,
+        "rate": 0.25,
+        "mean_lead_days": 12.0
+      },
+      "null_draws_used": 1596,
+      "resolution_floor": 0.00063,
+      "null_rate": {
+        "mean": 0.0918,
+        "sd": 0.1246,
+        "p50": 0.0,
+        "p95": 0.3333
+      },
+      "p_rate": 0.14966,
+      "observed_vs_null_sd": 1.27,
+      "null_mean_lead": {
+        "mean": 10.171,
+        "sd": 3.986,
+        "p95": 15.0
+      },
+      "p_mean_lead": 0.46205
+    },
+    "CSRS[rmt+hamilton]": {
+      "horizon_days": 15,
+      "observed": {
+        "n_warned": 0,
+        "n_testable": 6,
+        "rate": 0.0,
+        "mean_lead_days": null
+      },
+      "null_draws_used": 2000,
+      "resolution_floor": 0.0005,
+      "null_rate": {
+        "mean": 0.1079,
+        "sd": 0.1207,
+        "p50": 0.1667,
+        "p95": 0.3333
+      },
+      "p_rate": 1.0,
+      "observed_vs_null_sd": -0.894
+    },
+    "CSRS[hawkes+rmt+hamilton]": {
+      "horizon_days": 15,
+      "observed": {
+        "n_warned": 0,
+        "n_testable": 6,
+        "rate": 0.0,
+        "mean_lead_days": null
+      },
+      "null_draws_used": 2000,
+      "resolution_floor": 0.0005,
+      "null_rate": {
+        "mean": 0.1393,
+        "sd": 0.1347,
+        "p50": 0.1667,
+        "p95": 0.3333
+      },
+      "p_rate": 1.0,
+      "observed_vs_null_sd": -1.035
+    },
+    "BASE[rv_20]": {
+      "horizon_days": 15,
+      "observed": {
+        "n_warned": 1,
+        "n_testable": 6,
+        "rate": 0.1667,
+        "mean_lead_days": 8.0
+      },
+      "null_draws_used": 2000,
+      "resolution_floor": 0.0005,
+      "null_rate": {
+        "mean": 0.0462,
+        "sd": 0.0858,
+        "p50": 0.0,
+        "p95": 0.2
+      },
+      "p_rate": 0.24338,
+      "observed_vs_null_sd": 1.404,
+      "null_mean_lead": {
+        "mean": 8.395,
+        "sd": 4.294,
+        "p95": 15.0
+      },
+      "p_mean_lead": 0.56879
+    },
+    "BASE[drawdown]": {
+      "horizon_days": 15,
+      "observed": {
+        "n_warned": 0,
+        "n_testable": 6,
+        "rate": 0.0,
+        "mean_lead_days": null
+      },
+      "null_draws_used": 2000,
+      "resolution_floor": 0.0005,
+      "null_rate": {
+        "mean": 0.0373,
+        "sd": 0.0741,
+        "p50": 0.0,
+        "p95": 0.2
+      },
+      "p_rate": 1.0,
+      "observed_vs_null_sd": -0.504
+    },
+    "BASE[semivar_20]": {
+      "horizon_days": 15,
+      "observed": {
+        "n_warned": 0,
+        "n_testable": 6,
+        "rate": 0.0,
+        "mean_lead_days": null
+      },
+      "null_draws_used": 2000,
+      "resolution_floor": 0.0005,
+      "null_rate": {
+        "mean": 0.0378,
+        "sd": 0.0819,
+        "p50": 0.0,
+        "p95": 0.2
+      },
+      "p_rate": 1.0,
+      "observed_vs_null_sd": -0.462
+    },
+    "BASE[rv_accel_5]": {
+      "horizon_days": 15,
+      "observed": {
+        "n_warned": 1,
+        "n_testable": 6,
+        "rate": 0.1667,
+        "mean_lead_days": 2.0
+      },
+      "null_draws_used": 2000,
+      "resolution_floor": 0.0005,
+      "null_rate": {
+        "mean": 0.1944,
+        "sd": 0.1645,
+        "p50": 0.1667,
+        "p95": 0.5
+      },
+      "p_rate": 0.71114,
+      "observed_vs_null_sd": -0.169,
+      "null_mean_lead": {
+        "mean": 8.473,
+        "sd": 3.773,
+        "p95": 14.5
+      },
+      "p_mean_lead": 0.96486
+    },
+    "BASE[dd_accel_5]": {
+      "horizon_days": 15,
+      "observed": {
+        "n_warned": 2,
+        "n_testable": 6,
+        "rate": 0.3333,
+        "mean_lead_days": 8.5
+      },
+      "null_draws_used": 2000,
+      "resolution_floor": 0.0005,
+      "null_rate": {
+        "mean": 0.2096,
+        "sd": 0.166,
+        "p50": 0.1667,
+        "p95": 0.5
+      },
+      "p_rate": 0.33983,
+      "observed_vs_null_sd": 0.745,
+      "null_mean_lead": {
+        "mean": 8.69,
+        "sd": 3.717,
+        "p95": 14.5
+      },
+      "p_mean_lead": 0.54533
+    }
+  },
+  "holm_over_warned_rate": {
+    "CSRS[hamilton]": {
+      "p": 0.11083,
+      "holm_threshold": 0.004545,
+      "survives_holm": false
+    },
+    "CSRS[hawkes+hamilton]": {
+      "p": 0.14966,
+      "holm_threshold": 0.005,
+      "survives_holm": false
+    },
+    "BASE[rv_20]": {
+      "p": 0.24338,
+      "holm_threshold": 0.005556,
+      "survives_holm": false
+    },
+    "BASE[dd_accel_5]": {
+      "p": 0.33983,
+      "holm_threshold": 0.00625,
+      "survives_holm": false
+    },
+    "BASE[rv_accel_5]": {
+      "p": 0.71114,
+      "holm_threshold": 0.007143,
+      "survives_holm": false
+    },
+    "CSRS[rmt]": {
+      "p": 1.0,
+      "holm_threshold": 0.008333,
+      "survives_holm": false
+    },
+    "CSRS[hawkes+rmt]": {
+      "p": 1.0,
+      "holm_threshold": 0.01,
+      "survives_holm": false
+    },
+    "CSRS[rmt+hamilton]": {
+      "p": 1.0,
+      "holm_threshold": 0.0125,
+      "survives_holm": false
+    },
+    "CSRS[hawkes+rmt+hamilton]": {
+      "p": 1.0,
+      "holm_threshold": 0.016667,
+      "survives_holm": false
+    },
+    "BASE[drawdown]": {
+      "p": 1.0,
+      "holm_threshold": 0.025,
+      "survives_holm": false
+    },
+    "BASE[semivar_20]": {
+      "p": 1.0,
+      "holm_threshold": 0.05,
+      "survives_holm": false
+    }
+  },
+  "n_comparisons": 11,
+  "resolution_floor": 0.0005
+}

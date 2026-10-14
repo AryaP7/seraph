@@ -1,0 +1,31 @@
+[screen] building the market-wide jump stream (reads intraday_bars; read-only) ...
+[screen]   20/94 symbols, 4,613 neg jumps
+[screen]   40/94 symbols, 9,209 neg jumps
+[screen]   60/94 symbols, 13,951 neg jumps
+[screen]   80/94 symbols, 18,007 neg jumps
+[screen] stream: 213,751 bars, 94 symbols used, 3,558 non-positive closes dropped, 22,114 negative jumps
+
+[screen] daily grid: 2,862 days 2015-02-02 .. 2026-08-21
+[screen] epochs covered: 4/6 -> ['ilfs_2018', 'covid_2020', 'tightening_2022', 'tariff_2026']
+[screen] NOT covered (intraday_bars starts 2015-02-02): ['gfc_2008', 'taper_2013']
+
+=== timing classification (local +-1y baseline, as in the audit) ===
+series                      BEFORE15   DURING   AFTER    class
+--------------------------------------------------------------
+lambda_t (reconstructed)      +0.045   +1.017  +0.485   DURING
+neg jumps / active sym        +0.045   +1.024  +0.471   DURING
+
+=== T3 advance-warning AUC, two calibrated nulls, 2000 perms ===
+series                       T3 AUC  p_shift   p_aaft  null p95     verdict
+---------------------------------------------------------------------------
+lambda_t (reconstructed)     0.5496   0.1194   0.1214    0.5697  below null
+neg jumps / active sym       0.5376   0.1774   0.1984    0.5687  below null
+
+Holm over 2 comparisons -> tightest threshold 0.02500
+resolution floor 0.00050
+
+COVERAGE BOUND: this screen can speak to 4 of 6 epochs.
+`intraday_bars` starts 2015-02-02, so the two pre-2015 epochs are
+out of reach for lambda_t at any refit cadence or emission frequency.
+
+[screen] wrote docs\evidence\signals\hawkes_intensity_screen.json

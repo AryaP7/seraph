@@ -1,0 +1,48 @@
+.............F.......................................................... [ 34%]
+.................................x...................................... [ 68%]
+......................................x...........................       [100%]
+================================== FAILURES ===================================
+__________ test_ct3_negative_jump_density_supports_a_one_day_window ___________
+
+    def test_ct3_negative_jump_density_supports_a_one_day_window():
+        """EXPECTED TO FAIL — R2 is realised; see the module docstring.
+    
+        Corpus-wide density is 0.0865 negative jumps per symbol-day against this
+        1.0 floor, and SPEC FR10 `[v4]` cites that very number when superseding the
+        per-symbol one-trading-day window this floor was the precondition for. The
+        assertion is kept unmodified and failing so the finding stays visible;
+        whether to retire the gate is the C4/C5 owner's decision
+        (`docs/evidence/BLOCKER-TRIAGE.md` §D-1).
+    
+        The single-symbol number printed below is noisy (3 events on ~33 days); the
+        authoritative figure is the full-universe measurement in
+        `docs/evidence/20261013T124930Z-51-ct3-jump-density-and-lm-calibration.log`.
+        """
+        out, st, days = _jump_frame()
+        neg = int((out["jump_sign"] == -1).sum())
+        pos = int((out["jump_sign"] == 1).sum())
+        per_day = neg / days
+        print(
+            f"\n[CT-3] symbol={_SYMBOL}  bars={len(_ROWS)}  ~{days:.1f} trading days"
+            f"\n[CT-3] negative jumps={neg} ({per_day:.2f}/day)  positive jumps={pos}"
+            f"\n[CT-3] asymmetry neg/pos={neg / max(pos, 1):.2f}"
+        )
+>       assert per_day >= MIN_NEG_JUMPS_PER_DAY, (
+            f"only {per_day:.2f} negative jumps per symbol-day — below the "
+            f"structural floor of {MIN_NEG_JUMPS_PER_DAY}. Apply the R2 mitigation "
+            f"ladder: 1-minute bars, then coarsen S_t, then pool by sector."
+        )
+E       AssertionError: only 0.09 negative jumps per symbol-day — below the structural floor of 1.0. Apply the R2 mitigation ladder: 1-minute bars, then coarsen S_t, then pool by sector.
+E       assert 0.09090909090909091 >= 1.0
+
+tests\contract\test_ct3_jump_sufficiency.py:168: AssertionError
+---------------------------- Captured stdout call -----------------------------
+
+[CT-3] symbol=EXIDEIND  bars=2475  ~33.0 trading days
+[CT-3] negative jumps=3 (0.09/day)  positive jumps=7
+[CT-3] asymmetry neg/pos=0.43
+=========================== short test summary info ===========================
+XFAIL tests/test_c4_lee_mykland_calibration.py::test_threshold_matches_the_statistic_extract_jumps_actually_feeds_it - OPEN QUESTION, not a bug to patch silently — see BLOCKER-TRIAGE.md §D-1b. extract_jumps feeds a mu_1-CORRECTED statistic to the UNCORRECTED-sigma-hat critical value, so the rejection threshold is 1/c = 1.2533x too strict and the test's realised size is ~0 against a nominal alpha of 0.01. Correcting it moves negative-jump density 0.0865 -> 0.1478 per symbol-day, and 0.087 is quoted verbatim in SPEC FR10 [v4]. Fixing the code without amending SPEC FR10 and re-deriving AMENDMENT-03 would put code and spec in contradiction (AGENTS.md §1). XPASS here is a FAILURE on purpose: it means someone corrected the calibration, and the spec work must follow.
+XFAIL tests/test_fr35_ablation_design_pins.py::test_fr35_table_b_fold_count_is_the_open_question - PINS AN OPEN QUESTION — see BLOCKER-TRIAGE.md §D-2. SPEC FR35 [v2] puts Table B 'on the 2 pre-2015 epochs' (2 folds); ARCHITECTURE D5(b) says Table B 'use all 6 -> 6 folds'. configuration_list() implements D5(b)'s 6, while preregistration.PRE_HAWKES_EPOCHS encodes SPEC's reading and is never used. This needs an explicit owner decision BEFORE preregistration.json is committed and hashed (D5(d)): the fold count is inside the hash and a mismatched hash is not reportable. Not decided by Workstream D - C10 is another owner's component.
+FAILED tests/contract/test_ct3_jump_sufficiency.py::test_ct3_negative_jump_density_supports_a_one_day_window
+1 failed, 207 passed, 2 xfailed in 1097.52s (0:18:17)

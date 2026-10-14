@@ -1,0 +1,46 @@
+
+[fusion] pre-registration sha256 3d8e8de372e328444d9711fcb531c41deb8e91bac17100c0d19ff295abb4848d
+[fusion] false-alarm budget 2.0 episodes/year (PRIMARY=2.0)
+[fusion] pillar 2 quantity: lam1
+[fusion] dev epochs      : ('gfc_2008', 'taper_2013', 'ilfs_2018', 'covid_2020')
+[fusion] CONFIRM epochs  : ('tightening_2022', 'tariff_2026')  (touched ONCE, at the end)
+[fusion] building reconciled state ...
+[fusion] grid 5,363 days 2005-01-03 .. 2026-08-21
+[fusion] pre-onset positives 90, in-crisis dropped 180
+[fusion] mask coverage: hawkes=468, rmt=5,363, hamilton=3,365
+[fusion] all-three available on 468 days
+[replay] grid        : 5,363 daily ticks 2005-01-03 .. 2026-08-21
+[replay] P1 hawkes   : 473 refits 2017-02-09 .. 2026-08-20 (refit_every=5 sessions)
+[replay] P2 rmt      : 5,363 daily rows, quantity = lambda1/N (shipped)
+[replay] P3 hamilton : 3,365 CAUSAL rows 2013-01-14 .. 2026-08-21  [EXPLORATORY]
+[replay] rule A      : CSRS >= 0.5 (C9 frozen constant)
+[replay] rule B      : > trailing-5y 95% quantile, min 250 obs, index i excluded from its own threshold
+[replay] PILLAR_ORDER= ['hawkes', 'rmt', 'hamilton']
+[replay]   subset hawkes                 468 pts  4895 failures  mean=0.3103
+[replay]   subset rmt                    5,363 pts  0 failures  mean=0.5771
+[replay]   subset hamilton               3,365 pts  1998 failures  mean=0.5689
+[replay]   subset hawkes+rmt             5,363 pts  0 failures  mean=0.5623
+[replay]   subset hawkes+hamilton        3,365 pts  1998 failures  mean=0.5558
+[replay]   subset rmt+hamilton           5,363 pts  0 failures  mean=0.5973
+[replay]   subset hawkes+rmt+hamilton    5,363 pts  0 failures  mean=0.5897
+[replay]   baseline BASE[rv_20]          5,358 finite pts
+[replay]   baseline BASE[drawdown]       5,363 finite pts
+[replay]   baseline BASE[semivar_20]     5,358 finite pts
+[replay]   baseline BASE[rv_accel_5]     5,353 finite pts
+[replay]   baseline BASE[dd_accel_5]     5,358 finite pts
+
+[fusion] CHECK candidate A vs shipped CSRS over 5,363 days: max|delta| = 2.220e-16
+[fusion] harness check PASSED
+
+=== candidate B: learned convex weights, per development fold ===
+fold / test epoch    train days train pos    w_hawkes  w_rmt  w_ham  train AUC
+------------------------------------------------------------------------------
+gfc_2008                    910         0  UNTRAINABLE (<5 positives)
+taper_2013                2,041        15       0.00   0.15   0.85     0.6585
+ilfs_2018                 3,330        30       0.65   0.05   0.30     0.5032
+covid_2020                3,647        45       0.10   0.90   0.00     0.4905
+
+[fusion] H2 weight stability: max pairwise L1 distance across folds = 1.700  (H2 predicts > 0.33 = UNSTABLE)
+[fusion] H2 verdict: UNSTABLE as predicted
+
+[fusion] wrote docs\evidence\fusion\fusion_search_lam1_b2.json

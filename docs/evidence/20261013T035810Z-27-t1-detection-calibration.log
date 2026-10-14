@@ -1,0 +1,33 @@
+grid: 5,362 days 2005-01-04 .. 2026-08-21
+perms: 400 shift / 200 aaft
+
+          series    span  ons   T1 AUC  shiftmu  p_shift   aaftmu   p_aaft  null p95   verdict
+--------------------------------------------------------------------------------------------------------
+        rv_level 2005+    6   0.6098   0.5041   0.1047   0.5003   0.1095    0.6357   not sig
+        rv_accel 2005+    6   0.7706   0.5002   0.0025   0.5048   0.0050    0.6231       SIG
+      semivar_20 2005+    6   0.7832   0.4984   0.0025   0.4970   0.0050    0.6522       SIG
+     jump_int_20 2005+    6   0.7515   0.5045   0.0075   0.4904   0.0050    0.6400       SIG
+        drawdown 2005+    6   0.7185   0.4947   0.0224   0.5032   0.0100    0.6475       SIG
+        dd_accel 2005+    6   0.7064   0.5016   0.0025   0.4967   0.0050    0.5819       SIG
+      vol_of_vol 2005+    6   0.7278   0.4948   0.0150   0.4991   0.0050    0.6465       SIG
+            ar_t 2005+    6   0.4453   0.5077   0.7357   0.4975   0.7164    0.6799   not sig
+           bas_t 2005+    6   0.3799   0.4948   0.8678   0.5108   0.9204    0.6546   not sig
+   CSRS 2-pillar 2017+    4   0.5372   0.4858   0.4112   0.4994   0.3731    0.7380   not sig
+   CSRS 3-pillar 2017+    4   0.6743   0.4933   0.1662   0.4934   0.0647    0.7784   not sig
+        hawkes n 2017+    4   0.5937   0.5014   0.3236   0.5047   0.2189    0.8879   not sig
+      rmt lam1/N 2005+    6   0.4283   0.5036   0.8130   0.5113   0.8358    0.6398   not sig
+
+=== THE CLAIM UNDER TEST ===
+  STRESS-PILLAR-DECISION.md reports T1 0.5372 -> 0.6743 (+0.137) for the stress slot.
+  measured here: 0.5372 -> 0.6743 (+0.1371) on 4 onsets
+     CSRS 2-pillar: AUC 0.5372  p_shift 0.4112  p_aaft 0.3731  no-signal 95th pct 0.7380  -> NOT SIGNIFICANT
+     CSRS 3-pillar: AUC 0.6743  p_shift 0.1662  p_aaft 0.0647  no-signal 95th pct 0.7784  -> NOT SIGNIFICANT
+
+  A per-configuration AUC can only be called an improvement if
+  the higher value clears its own null. Reporting a difference
+  between two numbers that both sit inside their nulls is not a
+  detection result.
+
+  Onset counts differ by span, so AUCs across rows are NOT
+  comparable (ARCHITECTURE D5(b)). Each row is judged only against
+  its own null.

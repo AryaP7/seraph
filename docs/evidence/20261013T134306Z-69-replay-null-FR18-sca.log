@@ -1,0 +1,49 @@
+[replay] grid        : 5,363 daily ticks 2005-01-03 .. 2026-08-21
+[replay] P1 hawkes   : 473 refits 2017-02-09 .. 2026-08-20 (refit_every=5 sessions)
+[replay] P2 rmt      : 5,363 daily rows, quantity = SCA_t (FR18 SPEC)  [EXPERIMENT - seraph/ unchanged]
+[replay] P3 hamilton : 3,365 CAUSAL rows 2013-01-14 .. 2026-08-21  [EXPLORATORY]
+[replay] rule A      : CSRS >= 0.5 (C9 frozen constant)
+[replay] rule B      : > trailing-5y 95% quantile, min 250 obs, index i excluded from its own threshold
+[replay] PILLAR_ORDER= ['hawkes', 'rmt', 'hamilton']
+[replay]   subset hawkes                 468 pts  4895 failures  mean=0.3103
+[replay]   subset rmt                    5,363 pts  0 failures  mean=0.5157
+[replay]   subset hamilton               3,365 pts  1998 failures  mean=0.5689
+[replay]   subset hawkes+rmt             5,363 pts  0 failures  mean=0.5050
+[replay]   subset hawkes+hamilton        3,365 pts  1998 failures  mean=0.5558
+[replay]   subset rmt+hamilton           5,363 pts  0 failures  mean=0.5340
+[replay]   subset hawkes+rmt+hamilton    5,363 pts  0 failures  mean=0.5276
+[replay]   baseline BASE[rv_20]          5,358 finite pts
+[replay]   baseline BASE[drawdown]       5,363 finite pts
+[replay]   baseline BASE[rv_accel_5]     5,353 finite pts
+[replay]   baseline BASE[dd_accel_5]     5,358 finite pts
+[null] horizon 15d, up to 2000 relocation draws, min separation 45d from any real onset
+[null] statistic 1: warned-rate over testable epochs
+[null] statistic 2: mean lead over epochs that warned
+
+signal                     warned   rate          null  p_rate   lead  p_lead
+-----------------------------------------------------------------------------
+CSRS[hawkes]                                           (no testable onset)
+CSRS[rmt]               2/6         0.33    0.36+-0.18  0.6737   13.0  0.1951
+CSRS[hamilton]          1/4         0.25    0.08+-0.12  0.1108   12.0  0.4125
+CSRS[hawkes+rmt]        2/6         0.33    0.37+-0.18  0.7111   13.0  0.1843
+CSRS[hawkes+hamilton]   1/4         0.25    0.09+-0.12  0.1497   12.0  0.4621
+CSRS[rmt+hamilton]      2/6         0.33    0.26+-0.17  0.4993   15.0  0.0590
+CSRS[hawkes+rmt+hamilton]2/6         0.33    0.26+-0.17  0.4993   15.0  0.0591
+BASE[rv_20]             1/6         0.17    0.05+-0.09  0.2434    8.0  0.5688
+BASE[drawdown]          0/6         0.00    0.04+-0.07  1.0000    nan     nan
+BASE[rv_accel_5]        1/6         0.17    0.19+-0.16  0.7111    2.0  0.9649
+BASE[dd_accel_5]        2/6         0.33    0.21+-0.17  0.3398    8.5  0.5453
+
+[null] Holm over 10 comparisons (tightest threshold 0.00500); permutation floor 0.0005
+       CSRS[hamilton]           p=0.1108 thr=0.00500 no
+       CSRS[hawkes+hamilton]    p=0.1497 thr=0.00556 no
+       BASE[rv_20]              p=0.2434 thr=0.00625 no
+       BASE[dd_accel_5]         p=0.3398 thr=0.00714 no
+       CSRS[rmt+hamilton]       p=0.4993 thr=0.00833 no
+       CSRS[hawkes+rmt+hamilton] p=0.4993 thr=0.01000 no
+       CSRS[rmt]                p=0.6737 thr=0.01250 no
+       CSRS[hawkes+rmt]         p=0.7111 thr=0.01667 no
+       BASE[rv_accel_5]         p=0.7111 thr=0.02500 no
+       BASE[drawdown]           p=1.0000 thr=0.05000 no
+
+[null] wrote docs\evidence\replay\warning_null_h15_sca.json

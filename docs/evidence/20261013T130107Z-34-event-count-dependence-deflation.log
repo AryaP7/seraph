@@ -1,0 +1,35 @@
+### command: .venv/Scripts/python.exe -I scripts/audit_event_coverage.py --dependence-only
+### started: 2026-10-13T13:01:07Z
+### HEAD: f3eaac8
+
+
+==============================================================================
+ARM 3b — NOMINAL N vs EFFECTIVE N: the measured dependence deflation
+==============================================================================
+
+  autocorrelation of the Hamilton observables over 5,365 sessions
+     series    phi1  1/(1-phi)  lag@1/e  zerocross  tau_int  indep blocks
+    rv_t_yz  0.9973      374.9      423       1508    770.0           7.0
+       ar_t  0.9981      532.5      209       1214    495.4          10.8
+      bas_t  0.9964      275.4      222       1214    616.3           8.7
+
+  'indep blocks' = grid length / integral timescale: the number of
+  effectively independent realisations the whole grid can hold. It is
+  a property of the DATA, not of FR32.
+
+  deflating each design by the rv_t_yz scales (1/e = 423, integral = 770 sessions)
+                      design   N  gaps<1/e  gaps<tau  N_eff@1/e  N_eff@tau
+                    FR32 six   6         1         2          5          5
+               FR32 + tier-1  12         6        11          7          5
+      FR32 + tier-1 + tier-2  15        10        14          9          6
+
+  N=15 adjacent gaps (sessions): 588, 388, 328, 445, 549, 214, 92, 307, 157, 347, 464, 262, 334, 413
+  N=6  adjacent gaps (sessions): 1161, 1319, 347, 464, 1009
+
+  Read: if N_eff@tau barely moves as N rises, the extra onsets are
+  re-observations of the same few independent states, and the power
+  gain in arm 4 — which assumes independent signal per onset — is an
+  UPPER BOUND that the real series cannot deliver.
+
+### finished: 2026-10-13T13:01:09Z
+### exit code: 0

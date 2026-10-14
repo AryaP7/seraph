@@ -1,0 +1,283 @@
+# cmd: .venv/Scripts/python.exe -I scripts/t3_power_persistent_alternatives.py --draws 60 --perms 200 --obs-perms 1000
+# cwd: /c/Users/Arlop/Downloads/SERAPH VARYA/SERAPH Varya
+# git: f3eaac8b25f3fe3c47f4734b6b841e5e93f41cd1 branch evidence/pre-arya-experimentation
+# utc: 20261013T134402Z
+
+====================================================================================================
+T3 POWER AGAINST PERSISTENT ALTERNATIVES — is the advance-warning negative informative?
+====================================================================================================
+Does the T3 advance-warning test have power against the signal shape a
+systemic-risk thesis actually predicts?
+
+### The claim under test, and whose claim it is
+
+`EARLY-WARNING-POWER.md` §3 reports 85% power at delta = 1.0 sd and 98% at 1.5,
+and concludes the T3 negative is informative rather than underpowered.
+`CRISIS-REPLAY.md` rests its "bounded, not absolute" advance-warning negative on
+that number.
+
+But the injected signal there is a **rectangular step of delta sd confined to
+exactly the LEAD_H = 15 days that T3 labels positive**. That is the single most
+favourable alternative the test can face: the signal is on precisely where the
+label is on, and off precisely where it is off. A systemic-risk thesis does not
+predict that. It predicts a **build-up** — stress accumulating over weeks or
+months before the break. Under a build-up, most of the injected signal falls on
+days T3 labels NEGATIVE, which actively works against the AUC.
+
+So the existing power curve may bound the wrong thing, and both reports' bounds
+may be weaker than stated. This script settles it.
+
+### The three injected shapes, stated precisely
+
+All three are added to the same AR(1) background (`ar1_stationary`, phi measured
+from real `rv_t_yz`), standardised to zero mean and unit variance first, so
+`delta` is in within-series sd units for all three. All three are normalised to
+the **same peak amplitude** `delta`, so the sweep varies shape at fixed peak and
+cannot be confounded with amplitude. The mean amplitude *inside the T3 positive
+window* differs between shapes, is reported, and is the mechanism by which power
+differs.
+
+Let `i` be an onset index, `h` the T3 lead horizon (label is 1 on `[i-h, i)`),
+`L` the build-up length, and `D = CRISIS_WINDOW_DAYS = 30` the decay length.
+
+1. **step** (reference, as in `early_warning_power.py`)
+   `a[u] = delta` for `u` in `[i-h, i)`, else 0.
+   Peak `delta`. Confined to the labelled window by construction.
+
+2. **ramp** — linear build-up, then fall back
+   `a[u] = delta * (u - (i-L) + 1) / L` for `u` in `[i-L, i)`
+   `a[u] = delta * (1 - (u - i + 1) / D)` for `u` in `[i, i+D)`   (fall back)
+   else 0. Peak `delta` at `u = i-1`. Rises from `delta/L` at the start of the
+   build-up. The decay sits entirely inside the FR32 crisis window, which T3
+   excludes from the sample, so it is present for realism and has no effect on
+   the statistic — stated so no one mistakes it for a tuning knob.
+
+3. **ar1drift** — AR(1)-persistent drift switched on `L` sessions early
+   `s[i-L-1] = 0`;  `s[u] = phi_d * s[u-1] + (1 - phi_d) * A` for `u` in `[i-L, i)`
+   with `A = delta / (1 - phi_d**L)` so that `max(s) = delta` exactly.
+   `phi_d` is the measured lag-1 autocorrelation of real `rv_t_yz`. Same linear
+   fall-back over `[i, i+D)`. This is a concave approach to `delta` with the
+   corpus's own persistence, rather than the ramp's linear one.
+
+`delta` sweeps `early_warning_power.DELTAS` unchanged: 0, 0.5, 1.0, 1.5, 2.0,
+3.0, 4.0. `delta = 0` is the negative control for all three shapes and must
+reject near alpha or nothing else here means anything.
+
+### Two horizons, because the mismatch is the point
+
+* `h = 15` — the project's own LEAD_H, and the horizon both existing reports'
+  claims rest on. With `L = 75` only the last 15 of 75 build-up days are labelled
+  positive; the other 60 are labelled negative while carrying signal.
+* `h = L` — the horizon matched to the build-up. If a ramp is detectable here but
+  not at `h = 15`, the problem is horizon mis-specification, not absent signal,
+  and that is a different and more actionable finding.
+
+### Nulls, and why their nominal resolution overstates what they can resolve
+
+Both null families are kept, imported not copied: `relocation_null` (circular
+shift of the whole onset set) and `aaft_null` (onsets fixed, series
+phase-randomised). Power is reported under each separately and under the
+**conjunction** `max(p_shift, p_aaft) <= 0.05`, which is the rule the rest of the
+project uses for a verdict.
+
+The permutation-resolution floor `1/(1+perms)` is printed. It is an upper bound
+on precision, not a description of it: Workstream B measured the integral
+timescale of `rv_t_yz` at ~770 sessions, so a 5,362-session grid holds only
+~7 effectively independent circular shifts. This script measures that timescale
+itself and prints the implied **effective** shift-null resolution alongside the
+nominal one. A 60-90 session build-up is well inside one decorrelation length,
+which is exactly why the shift null is the weaker of the two here and why the
+AAFT null — which regenerates the series rather than moving the events — carries
+the weight.
+
+### Pre-registered decision rule
+(set by the coordinator before this was run)
+
+If power against a 60-90 session ramp at `delta = 1.0` sd is **below ~50%**, then
+"SERAPH shows no advance warning" is NOT supportable and must be downgraded to
+"advance warning is untestable at six onsets against the signal shape a
+systemic-risk thesis predicts". The number is reported either way. Nothing about
+the injection is tuned to reach any particular answer: the shapes, the
+normalisation, the delta grid, the horizons and the build-up lengths were all
+fixed in this docstring before the first run.
+====================================================================================================
+
+grid    : 5,362 days 2005-01-04 .. 2026-08-21
+onsets  : 6 at [924, 2085, 3404, 3751, 4215, 5224], min spacing 347
+phi     : 0.9973 (real rv_t_yz lag-1 autocorrelation); used for both the AR(1) background and ar1drift
+deltas  : [0.0, 0.5, 1.0, 1.5, 2.0, 3.0, 4.0]  (unchanged from early_warning_power.py)
+build-up: L = 75 primary, (60, 90) as the stated 60-90 range's endpoints; decay 30 days
+
+====================================================================================================
+0. WHAT THESE NULLS CAN AND CANNOT RESOLVE
+====================================================================================================
+nominal permutation-resolution floor: 1/(1+200) = 0.00498 for the power sweep,
+                                      1/(1+1000) = 0.000999 for the observed signals.
+
+  series          integral timescale tau  lags used  n/tau = N_eff  eff. shift resolution
+  ---------------------------------------------------------------------------------------
+  rv_t_yz                          707.3      1,507            7.6                  0.132
+  dd_accel                           6.5         18          821.9                  0.001
+  rv_accel                          16.8         15          318.8                  0.003
+  AR(1) background                   566.5        931            9.5                  0.106
+
+  The circular-shift null prints a p-value to 1/(1+perms) but its
+  draws are not independent: shifts closer together than one
+  decorrelation length give almost the same statistic. The effective
+  resolution column is the honest granularity of p_shift. A 60-90
+  session build-up is well inside one decorrelation length, so the
+  AAFT null — which regenerates the series instead of moving the
+  events — is the one that carries weight here, and power is also
+  reported under it separately for that reason.
+  CONSEQUENCE: Holm's threshold at 6 comparisons is 0.00833. If the
+  effective shift resolution is coarser than that, no p_shift can
+  reach it however many permutations are drawn — a resolution limit,
+  not evidence.
+
+====================================================================================================
+1. THE THREE SHAPES, AT PEAK AMPLITUDE delta = 1.0
+====================================================================================================
+Same peak for all three, so the sweep varies SHAPE at fixed amplitude. What
+differs is how much of the injected signal lands on days T3 labels positive.
+
+  horizon h=15, build-up L=75
+  shape        peak   mean on positive days   days carrying signal   of which labelled NEG
+  ----------------------------------------------------------------------------------------
+  step        1.000                  1.0000                     90                       0
+  ramp        1.000                  0.9067                    450                     360
+  ar1drift    1.000                  0.9147                    450                     360
+
+  horizon h=75, build-up L=75
+  shape        peak   mean on positive days   days carrying signal   of which labelled NEG
+  ----------------------------------------------------------------------------------------
+  step        1.000                  1.0000                    450                       0
+  ramp        1.000                  0.5067                    450                       0
+  ar1drift    1.000                  0.5235                    450                       0
+
+  This table is the whole mechanism. At h=15 the step puts its full
+  amplitude on every labelled day and nothing anywhere else. The ramp
+  and the drift put most of their signal on days T3 labels NEGATIVE,
+  which pushes the AUC DOWN, not up.
+
+====================================================================================================
+2a. POWER SWEEP — PROJECT HORIZON: h=15, L=75, 60 draws/cell, 200 perms/null, alpha=0.05
+====================================================================================================
+  shape     deltamean T3 AUC      sd  p_shift   p_aaft  POW shift  POW aaft   POW conj
+  ------------------------------------------------------------------------------------
+  step        0.0     0.4768  0.0969   0.5660   0.5693         3%        3%         3%
+  step        0.5     0.6127  0.0978   0.2111   0.2169        32%       30%        30%
+  step        1.0     0.7561  0.0876   0.0336   0.0313        83%       85%        80%
+  step        1.5     0.8595  0.0686   0.0060   0.0062       100%      100%       100%
+  step        2.0     0.9145  0.0436   0.0050   0.0051       100%      100%       100%
+  step        3.0     0.9854  0.0139   0.0050   0.0050       100%      100%       100%
+  step        4.0     0.9990  0.0020   0.0050   0.0050       100%      100%       100%
+  ramp        0.0     0.5183  0.1021   0.4553   0.4447         8%        7%         7%
+  ramp        0.5     0.6491  0.0949   0.1501   0.1526        48%       50%        47%
+  ramp        1.0     0.7215  0.0749   0.0461   0.0448        77%       77%        75%
+  ramp        1.5     0.8233  0.0690   0.0095   0.0085        98%       97%        97%
+  ramp        2.0     0.8815  0.0560   0.0065   0.0055       100%      100%       100%
+  ramp        3.0     0.9643  0.0206   0.0059   0.0050       100%      100%       100%
+  ramp        4.0     0.9886  0.0072   0.0058   0.0050       100%      100%       100%
+  ar1drift    0.0     0.5097  0.0762   0.4704   0.4712         3%        2%         2%
+  ar1drift    0.5     0.6186  0.1014   0.2060   0.2084        37%       37%        35%
+  ar1drift    1.0     0.7419  0.0762   0.0308   0.0308        80%       78%        78%
+  ar1drift    1.5     0.8188  0.0772   0.0122   0.0118        97%       97%        95%
+  ar1drift    2.0     0.8927  0.0495   0.0061   0.0051       100%      100%       100%
+  ar1drift    3.0     0.9657  0.0174   0.0056   0.0050       100%      100%       100%
+  ar1drift    4.0     0.9877  0.0082   0.0053   0.0050       100%      100%       100%
+
+====================================================================================================
+2b. POWER SWEEP — MATCHED HORIZON: h=75, L=75, 60 draws/cell, 200 perms/null, alpha=0.05
+====================================================================================================
+  shape     deltamean T3 AUC      sd  p_shift   p_aaft  POW shift  POW aaft   POW conj
+  ------------------------------------------------------------------------------------
+  step        0.0     0.5130  0.1144   0.4792   0.4835        10%       12%        10%
+  step        0.5     0.6278  0.0913   0.1692   0.1726        33%       35%        32%
+  step        1.0     0.7669  0.0781   0.0238   0.0259        88%       90%        88%
+  step        1.5     0.8553  0.0523   0.0051   0.0051       100%      100%       100%
+  step        2.0     0.9161  0.0432   0.0050   0.0050       100%      100%       100%
+  step        3.0     0.9820  0.0161   0.0050   0.0050       100%      100%       100%
+  step        4.0     0.9985  0.0032   0.0050   0.0050       100%      100%       100%
+  ramp        0.0     0.5017  0.0974   0.5141   0.5078         8%        3%         3%
+  ramp        0.5     0.5615  0.1265   0.3463   0.3506        18%       20%        15%
+  ramp        1.0     0.6387  0.0912   0.1624   0.1614        43%       37%        37%
+  ramp        1.5     0.6932  0.0804   0.0748   0.0688        65%       70%        63%
+  ramp        2.0     0.7432  0.0767   0.0411   0.0374        80%       82%        75%
+  ramp        3.0     0.8199  0.0551   0.0125   0.0076       100%      100%       100%
+  ramp        4.0     0.8571  0.0463   0.0129   0.0056       100%      100%       100%
+  ar1drift    0.0     0.5100  0.1054   0.4856   0.4874        10%       10%         8%
+  ar1drift    0.5     0.5701  0.0924   0.3100   0.3066        20%       22%        20%
+  ar1drift    1.0     0.6468  0.0913   0.1412   0.1446        40%       42%        35%
+  ar1drift    1.5     0.7179  0.0798   0.0541   0.0527        70%       75%        70%
+  ar1drift    2.0     0.7492  0.0696   0.0288   0.0231        83%       87%        83%
+  ar1drift    3.0     0.8160  0.0543   0.0150   0.0084        97%       98%        97%
+  ar1drift    4.0     0.8618  0.0421   0.0123   0.0059       100%      100%       100%
+
+====================================================================================================
+3. BUILD-UP LENGTH SENSITIVITY at delta = 1.0 (the decision rule's amplitude)
+====================================================================================================
+  shape         L    h mean T3 AUC  POW shift  POW aaft   POW conj
+  ----------------------------------------------------------------
+  ramp         60   15      0.7447        83%       85%        82%
+  ar1drift     60   15      0.7369        82%       83%        80%
+  ramp         60   60      0.6382        37%       37%        32%
+  ar1drift     60   60      0.6437        40%       40%        37%
+  ramp         90   15      0.7342        80%       83%        80%
+  ar1drift     90   15      0.7349        82%       85%        82%
+  ramp         90   90      0.6174        33%       35%        32%
+  ar1drift     90   90      0.6210        35%       37%        33%
+
+====================================================================================================
+4. THE REAL SIGNALS AT THE MATCHED HORIZONS (60/75/90) — never tested before
+====================================================================================================
+If a build-up is the hypothesised shape, the matched horizon is where
+it should be looked for. Log 40 only reached h=30.
+
+  series        h   T3 AUC  shiftmu  p_shift   aaftmu   p_aaft  null p95  d=0 p95  verdict
+  ----------------------------------------------------------------------------------------
+  dd_accel     60   0.5415   0.5005   0.1119   0.5008   0.1349    0.5589   0.6543  not sig
+  rv_accel     60   0.5281   0.4987   0.2607   0.4993   0.2777    0.5746   0.6543  not sig
+  dd_accel     75   0.5561   0.4984   0.0280   0.5003   0.0549    0.5531   0.6343  not sig
+  rv_accel     75   0.5330   0.5008   0.2328   0.5011   0.2148    0.5671   0.6343  not sig
+  dd_accel     90   0.5534   0.4998   0.0280   0.5000   0.0330    0.5459   0.6360  not sig
+  rv_accel     90   0.5168   0.5003   0.3077   0.5003   0.3217    0.5575   0.6360  not sig
+
+  Holm over 6 comparisons (2 signals x 3 matched horizons); tightest threshold 0.05/6 = 0.00833
+     1. dd_accel h=90            p=0.0330  thr=0.00833  does NOT survive — step-down stops here
+  survives Holm over all 6: NONE
+
+====================================================================================================
+5. VERDICT AGAINST THE PRE-REGISTERED RULE
+====================================================================================================
+Rule: if power against a 60-90 session ramp at delta = 1.0 sd is
+below ~50%, 'SERAPH shows no advance warning' is NOT supportable and
+must be downgraded to 'advance warning is untestable at six onsets
+against the signal shape a systemic-risk thesis predicts'.
+
+  shape         h  power(shift)  power(aaft)  power(conj)
+  -------------------------------------------------------
+  step         15           83%          85%          80%
+  ramp         15           77%          77%          75%
+  ar1drift     15           80%          78%          78%
+  step         75           88%          90%          88%
+  ramp         75           43%          37%          37%
+  ar1drift     75           40%          42%          35%
+
+  negative controls (delta=0, must sit near 0.05): {('step', 15): '3%', ('step', 75): '10%', ('ramp', 15): '7%', ('ramp', 75): '3%', ('ar1drift', 15): '2%', ('ar1drift', 75): '8%'}
+
+  REFERENCE  step at h=15, delta=1.0 : power(conj) = 80%  (this is what EARLY-WARNING-POWER.md reported)
+  TESTED     ramp L=75 at h=15, delta=1.0: power(conj) = 75%
+  TESTED     ramp L=75 at h=75 (matched)   : power(conj) = 37%
+
+  >>> ramp power at the PROJECT horizon is AT OR ABOVE 50%.
+  >>> The rule licenses the existing conclusion: the test retains
+  >>> real power against a build-up, so the T3 negative is
+  >>> informative and 'no advance warning' stands as stated.
+
+  Reported either way, as pre-registered. Nothing about the
+  injection was tuned: shapes, peak normalisation, delta grid,
+  horizons and build-up lengths were all fixed in the docstring
+  before the first run.
+
+[done in 1588s. Nothing written to the database or to any existing file.]
+exit=0

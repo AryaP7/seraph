@@ -1,0 +1,79 @@
+SERAPH evidence - chronological evaluation of the research CSRS vs baselines
+generated_utc : 2026-10-12T22:46:10Z
+git_commit    : f3eaac8b25f3fe3c47f4734b6b841e5e93f41cd1
+command       : .venv/Scripts/python.exe scripts/evaluate_csrs_research.py
+pre-registered: labels from seraph/validation/epochs.py; FR32 horizons (crisis 30d,
+                lead 5-15d); threshold = top decile of own trailing 2y, computed
+                causally and applied IDENTICALLY to every series; AUC also reported
+                because it is threshold-free. Nothing is fitted to any epoch.
+===========================================================================
+
+span            : 2017-02-09 .. 2026-08-20  (2,357 trading days)
+evaluable epochs: ['ilfs_2018', 'covid_2020', 'tightening_2022', 'tariff_2026']
+excluded epochs : ['gfc_2008', 'taper_2013'] (outside the Hawkes corpus)
+crisis days     : 120 of 2357 (5.1%)
+threshold rule  : top decile of own trailing 2y (causal), identical for every series
+
+============================================================================================
+A. DETECTION over the whole span (threshold-free AUC + top-decile alert behaviour)
+============================================================================================
+series                         AUC   alerts  alert%  precision   recall
+-----------------------------------------------------------------------
+CSRS (composite)            0.5372      208    8.8%     0.0529   0.0917
+RMT alone (lam1/N)          0.4226      396   16.8%     0.0682   0.2250
+Hawkes alone (n/(1-n))      0.5931      346   14.7%     0.1040   0.3000
+Realised vol (baseline)     0.7698      268   11.4%     0.1978   0.4417
+
+  AUC 0.5 = no discrimination. A high alert% with low precision is a
+  permanently-on alarm, which is worse than useless operationally.
+
+============================================================================================
+B. PER-EPOCH: advance warning vs post-onset detection, reported separately
+============================================================================================
+
+  ilfs_2018  break=2018-09-21
+    series                      lead t-15..t-5  crisis t..t+30  pre-break rank
+    CSRS (composite)                       0%             0%           0.479
+    RMT alone (lam1/N)                     0%             0%           0.364
+    Hawkes alone (n/(1-n))                 0%            33%           0.089
+    Realised vol (baseline)                0%           100%           0.448
+
+  covid_2020  break=2020-02-20
+    series                      lead t-15..t-5  crisis t..t+30  pre-break rank
+    CSRS (composite)                       0%            27%           0.014
+    RMT alone (lam1/N)                     0%            33%           0.004
+    Hawkes alone (n/(1-n))                 0%             0%           0.060
+    Realised vol (baseline)                0%            77%           0.606
+
+  tightening_2022  break=2022-01-05
+    series                      lead t-15..t-5  crisis t..t+30  pre-break rank
+    CSRS (composite)                       0%            10%           0.790
+    RMT alone (lam1/N)                    73%            57%           0.892
+    Hawkes alone (n/(1-n))               100%            87%           0.972
+    Realised vol (baseline)                0%             0%           0.289
+
+  tariff_2026  break=2026-02-01   [PROVISIONAL - SPEC OQ3 open]
+    series                      lead t-15..t-5  crisis t..t+30  pre-break rank
+    CSRS (composite)                       0%             0%           0.440
+    RMT alone (lam1/N)                     0%             0%           0.514
+    Hawkes alone (n/(1-n))                 0%             0%           0.220
+    Realised vol (baseline)                0%             0%           0.172
+
+  'lead' = share of the 5-15-day pre-break window already alerting
+  'crisis' = share of the 30 post-break days alerting.
+  High crisis with low lead = a DETECTOR, not an early-warning system.
+
+============================================================================================
+C. INCREMENTAL VALUE of the composite
+============================================================================================
+  corr(CSRS, RMT alone (lam1/N)        ) = +0.7765
+  corr(CSRS, Hawkes alone (n/(1-n))    ) = +0.0692
+  corr(CSRS, Realised vol (baseline)   ) = -0.0058
+
+  A composite that correlates ~1.0 with one pillar is that pillar
+  wearing a different label.
+
+LIMITATION: 4 events, one with a provisional date. No pooled significance
+claim is made and none should be read into the per-epoch table.
+
+exit_code     : 0

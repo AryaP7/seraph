@@ -1,0 +1,168 @@
+
+[fusion] pre-registration sha256 3d8e8de372e328444d9711fcb531c41deb8e91bac17100c0d19ff295abb4848d
+[fusion] false-alarm budget 2.0 episodes/year (PRIMARY=2.0)
+[fusion] pillar 2 quantity: lam1
+[fusion] dev epochs      : ('gfc_2008', 'taper_2013', 'ilfs_2018', 'covid_2020')
+[fusion] CONFIRM epochs  : ('tightening_2022', 'tariff_2026')  (touched ONCE, at the end)
+[fusion] building reconciled state ...
+[fusion] grid 5,363 days 2005-01-03 .. 2026-08-21
+[fusion] pre-onset positives 90, in-crisis dropped 180
+[fusion] mask coverage: hawkes=468, rmt=5,363, hamilton=3,365
+[fusion] all-three available on 468 days
+[replay] grid        : 5,363 daily ticks 2005-01-03 .. 2026-08-21
+[replay] P1 hawkes   : 473 refits 2017-02-09 .. 2026-08-20 (refit_every=5 sessions)
+[replay] P2 rmt      : 5,363 daily rows, quantity = lambda1/N (shipped)
+[replay] P3 hamilton : 3,365 CAUSAL rows 2013-01-14 .. 2026-08-21  [EXPLORATORY]
+[replay] rule A      : CSRS >= 0.5 (C9 frozen constant)
+[replay] rule B      : > trailing-5y 95% quantile, min 250 obs, index i excluded from its own threshold
+[replay] PILLAR_ORDER= ['hawkes', 'rmt', 'hamilton']
+[replay]   subset hawkes                 468 pts  4895 failures  mean=0.3103
+[replay]   subset rmt                    5,363 pts  0 failures  mean=0.5771
+[replay]   subset hamilton               3,365 pts  1998 failures  mean=0.5689
+[replay]   subset hawkes+rmt             5,363 pts  0 failures  mean=0.5623
+[replay]   subset hawkes+hamilton        3,365 pts  1998 failures  mean=0.5558
+[replay]   subset rmt+hamilton           5,363 pts  0 failures  mean=0.5973
+[replay]   subset hawkes+rmt+hamilton    5,363 pts  0 failures  mean=0.5897
+[replay]   baseline BASE[rv_20]          5,358 finite pts
+[replay]   baseline BASE[drawdown]       5,363 finite pts
+[replay]   baseline BASE[semivar_20]     5,358 finite pts
+[replay]   baseline BASE[rv_accel_5]     5,353 finite pts
+[replay]   baseline BASE[dd_accel_5]     5,358 finite pts
+
+[fusion] CHECK candidate A vs shipped CSRS over 5,363 days: max|delta| = 2.220e-16
+[fusion] harness check PASSED
+
+=== candidate B: learned convex weights, per development fold ===
+fold / test epoch    train days train pos    w_hawkes  w_rmt  w_ham  train AUC
+------------------------------------------------------------------------------
+gfc_2008                    910         0  UNTRAINABLE (<5 positives)
+taper_2013                2,041        15       0.00   0.15   0.85     0.6585
+ilfs_2018                 3,330        30       0.65   0.05   0.30     0.5032
+covid_2020                3,647        45       0.10   0.90   0.00     0.4905
+
+[fusion] H2 weight stability: max pairwise L1 distance across folds = 1.700  (H2 predicts > 0.33 = UNSTABLE)
+[fusion] H2 verdict: UNSTABLE as predicted
+
+[fusion] baselines on grid: semivar_20=5,358, rv_20=5,358, drawdown=5,363, rv_accel_5=5,353, dd_accel_5=5,358, india_vix=3,034
+
+[fusion] candidate D diagnostic: the composite arm's fitted
+[fusion] threshold is >= 0.999 on 3 of 3 folds
+[fusion] (taper_2013, ilfs_2018, covid_2020), and several pillar arms sit at
+[fusion] exactly 1.0. Holding a rank-scale score to 2 FA/yr needs
+[fusion] a threshold above the 99.9th percentile, and a rank has
+[fusion] nothing above 1.0 - so the escalation DEGENERATES rather
+[fusion] than being tested as designed. Same root cause as the
+[fusion] alert-scale gate in CRISIS-REPLAY.md.
+
+=== candidate C: L2 logistic coefficients per fold ===
+ train days      C  intercept     hawkes        rmt   hamilton
+---------------------------------------------------------------
+      3,647      1     -2.682     -1.025     -0.231     -2.443
+All-negative loadings mean a HIGHER pillar score implies a LOWER
+pre-onset probability, consistent with the measured negative
+pre-onset separations. Where inner CV picks C=0.01 the
+coefficients collapse toward 0: the regulariser is concluding
+there is no signal to fit.
+
+=== DEVELOPMENT evaluation at 2.0 FA/yr ===
+A and E: threshold fitted on all data before 2022-01-05.
+B, C and D: weights AND threshold refitted per fold on that fold's
+own training period (rolling origin), test epoch never seen.
+candidate                  warned   rate   FA/yr  median lead   %days
+---------------------------------------------------------------------
+A:equal_weight          0/4         0.00    1.44            -    1.9%
+B:convex_shrink0        0/3         0.00    1.16            -    1.6%
+B:convex_shrink0.25     0/3         0.00    1.08            -    1.5%
+B:convex_shrink0.5      0/3         0.00    1.08            -    1.5%
+B:convex_shrink0.75     0/3         0.00    1.08            -    1.5%
+C:logistic_L2           0/1         0.00    1.81            -   24.9%
+D:composite+escalation  0/3         0.00    3.13            -    5.1%
+E:pillar_hawkes         untestable
+E:pillar_rmt            0/4         0.00    1.71            -    2.1%
+E:pillar_hamilton       0/3         0.00    1.57            -    6.7%
+E:semivar_20            0/4         0.00    2.18            -   13.5%
+E:rv_20                 0/4         0.00    1.85            -   12.1%
+E:drawdown              1/4         0.25    1.11            6   38.2%
+E:rv_accel_5            0/4         0.00    2.08            -    3.0%
+E:dd_accel_5            0/4         0.00    2.08            -    1.7%
+E:india_vix             0/2         0.00    2.69            -   10.8%
+
+%days is the share of assessable days under alert. A candidate can
+respect an EPISODE budget while alerting most of the time, because a
+standing alert is one episode however long it lasts. That is a blind
+spot in the pre-registered budget and is reported, not retro-fixed.
+
+[fusion] H1: does any learned candidate beat the best single pillar or baseline on development?
+[fusion]   best learned (B/C) warned: 0
+[fusion]   best single input   warned: 1
+[fusion]   baseline A          warned: 0
+[fusion] H1 verdict: H1 CONFIRMED - learned fusion does not beat its inputs
+
+=== relocation null on the development results ===
+candidate                  warned   rate       null rate        p
+-----------------------------------------------------------------
+A:equal_weight          0/4         0.00      0.07+-0.12   1.0000
+E:pillar_rmt            0/4         0.00      0.09+-0.13   1.0000
+E:pillar_hamilton       0/3         0.00      0.11+-0.19   1.0000
+E:semivar_20            0/4         0.00      0.12+-0.16   1.0000
+E:rv_20                 0/4         0.00      0.12+-0.16   1.0000
+E:drawdown              1/4         0.25      0.05+-0.11   0.1785
+E:rv_accel_5            0/4         0.00      0.13+-0.17   1.0000
+E:dd_accel_5            0/4         0.00      0.12+-0.16   1.0000
+E:india_vix             0/2         0.00      0.21+-0.28   1.0000
+
+[fusion] Holm over 9 comparisons; survivors: NONE
+
+======================================================================
+D-PRIME (addendum D2) - escalation on RAW magnitude, not rank
+Reported OUTSIDE the pre-registered A-E comparison.
+======================================================================
+  taper_2013         [    DEV] warned=0 lead=- q=0.9490 FA/yr=3.95 days=40.5%
+  ilfs_2018          [    DEV] warned=0 lead=- q=0.9620 FA/yr=2.14 days=14.3%
+  covid_2020         [    DEV] warned=0 lead=- q=0.9695 FA/yr=2.14 days=14.0%
+  tightening_2022    [CONFIRM] warned=0 lead=- q=0.9745 FA/yr=2.00 days=5.3%
+  tariff_2026        [CONFIRM] warned=0 lead=- q=0.9795 FA/yr=1.90 days=5.6%
+
+  D-prime total: 0/5 warned, mean FA/yr 2.43, p0/event 0.1346, P(>=0) = 1.0000
+  H5 verdict: CONFIRMED - D-prime does not beat its own no-skill rate
+
+======================================================================
+CONFIRMATION on ('tightening_2022', 'tariff_2026') - evaluated ONCE
+======================================================================
+Pre-registration rule 4: no candidate cleared the development
+selection bar, so baseline A is RETAINED and nothing was selected on
+the strength of a point estimate. A is evaluated here as the retained
+architecture; B (most-shrunk) and D are reported alongside it for
+completeness and were NOT selected.
+NOTE: tariff_2026's label is PROVISIONAL (SPEC OQ3 open), so the
+confirmation rests materially on tightening_2022 alone.
+
+candidate                  warned   rate   FA/yr    lead   %days
+----------------------------------------------------------------
+A:equal_weight          0/2         0.00    1.44       -    1.9%
+B:convex_shrink0.75     0/2         0.00    1.67       -    2.1%
+D:composite+escalation  1/2         0.50    2.05      14    2.1%
+E:pillar_rmt            0/2         0.00    1.71       -    2.1%
+E:pillar_hamilton       0/2         0.00    1.57       -    6.7%
+E:drawdown              0/2         0.00    1.11       -   38.2%
+E:semivar_20            0/2         0.00    2.18       -   13.5%
+E:dd_accel_5            1/2         0.50    2.08      12    1.7%
+
+=== H4: is any confirmation result above its own no-skill rate? ===
+candidate                  warned   FA/yr  p0/event   P(>=k)
+------------------------------------------------------------
+A:equal_weight          0/2          1.44    0.0819   1.0000
+B:convex_shrink0.75     0/2          1.67    0.0945   1.0000
+D:composite+escalation  1/2          2.05    0.1148   0.2164
+E:pillar_rmt            0/2          1.71    0.0970   1.0000
+E:pillar_hamilton       0/2          1.57    0.0895   1.0000
+E:drawdown              0/2          1.11    0.0640   1.0000
+E:semivar_20            0/2          2.18    0.1216   1.0000
+E:dd_accel_5            1/2          2.08    0.1167   0.2198
+
+[fusion] H4 verdict: CONFIRMED - no candidate beat its own no-skill rate
+[fusion] Two confirmation epochs make this test coarse: with
+[fusion] n=2 even 2-of-2 reaches only p~0.013 at these alert rates,
+[fusion] and 1-of-2 cannot reach 0.05 for any candidate here.
+
+[fusion] wrote docs\evidence\fusion\fusion_search_lam1_b2.json

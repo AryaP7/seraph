@@ -1,0 +1,65 @@
+[replay] grid        : 5,363 daily ticks 2005-01-03 .. 2026-08-21
+[replay] P1 hawkes   : 473 refits 2017-02-09 .. 2026-08-20 (refit_every=5 sessions)
+[replay] P2 rmt      : 5,363 daily rows
+[replay] P3 hamilton : 3,365 CAUSAL rows 2013-01-14 .. 2026-08-21  [EXPLORATORY]
+[replay] rule A      : CSRS >= 0.5 (C9 frozen constant)
+[replay] rule B      : > trailing-5y 95% quantile, min 250 obs, index i excluded from its own threshold
+[replay] PILLAR_ORDER= ['hawkes', 'rmt', 'hamilton']
+[replay]   subset hawkes                 468 pts  4895 failures  mean=0.3103
+[replay]   subset rmt                    5,363 pts  0 failures  mean=0.5771
+[replay]   subset hamilton               3,365 pts  1998 failures  mean=0.5689
+[replay]   subset hawkes+rmt             5,363 pts  0 failures  mean=0.5623
+[replay]   subset hawkes+hamilton        3,365 pts  1998 failures  mean=0.5558
+[replay]   subset rmt+hamilton           5,363 pts  0 failures  mean=0.5973
+[replay]   subset hawkes+rmt+hamilton    5,363 pts  0 failures  mean=0.5897
+[replay]   baseline BASE[rv_20]          5,358 finite pts
+[replay]   baseline BASE[drawdown]       5,363 finite pts
+[replay]   baseline BASE[rv_accel_5]     5,353 finite pts
+[replay]   baseline BASE[dd_accel_5]     5,358 finite pts
+
+[red] FR32 label on the DAILY grid: 180 crisis days of 5,363 (3.36%)
+
+=== 1. redundancy, on 468 days where all three exist ===
+
+Pearson:
+                hawkes        rmt   hamilton
+     hawkes     1.0000    -0.1223     0.1091
+        rmt    -0.1223     1.0000     0.1337
+   hamilton     0.1091     0.1337     1.0000
+
+Spearman:
+                hawkes        rmt   hamilton
+     hawkes     1.0000    -0.0792     0.1533
+        rmt    -0.0792     1.0000     0.2090
+   hamilton     0.1533     0.2090     1.0000
+
+var(equal-weight mean)     = 0.030957
+var if fully independent   = 0.028371
+ratio (1.0 = independent)  = 1.0912
+effective independent pillars = 2.75 of 3
+
+=== 2. incremental information on the FR32 crisis label ===
+
+=== all three (Hawkes-refit days only): 468 days 2017-02-09..2026-08-20, 24 crisis days (5.13%) ===
+  CSRS[hawkes]         alone   R2=+0.01114
+  CSRS[rmt]            alone   R2=+0.00059
+  CSRS[hamilton]       alone   R2=+0.03126
+  ALL                          R2=+0.04012
+  drop CSRS[hawkes]      R2=+0.03359  incremental +0.00653
+  drop CSRS[rmt]         R2=+0.03878  incremental +0.00134
+  drop CSRS[hamilton]    R2=+0.01127  incremental +0.02885
+
+=== RMT+Hamilton (daily, 2013-01-14+): 3,365 days 2013-01-14..2026-08-21, 150 crisis days (4.46%) ===
+  CSRS[rmt]            alone   R2=+0.00000
+  CSRS[hamilton]       alone   R2=+0.00925
+  ALL                          R2=+0.00936
+  drop CSRS[rmt]         R2=+0.00925  incremental +0.00011
+  drop CSRS[hamilton]    R2=+0.00000  incremental +0.00936
+
+=== RMT alone (daily, full 2005+ span): 5,363 days 2005-01-03..2026-08-21, 180 crisis days (3.36%) ===
+  CSRS[rmt]            alone   R2=+0.00001
+  ALL                          R2=+0.00001
+
+All R2 values are IN-SAMPLE and unpenalised; out-of-sample values
+are no larger. The label is contemporaneous, so this measures
+detection information, not advance warning.
