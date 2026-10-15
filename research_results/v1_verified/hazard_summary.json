@@ -1,0 +1,316 @@
+{
+  "protocol": {
+    "duration_sessions": 20,
+    "availability": "strictly next observed session after published date",
+    "rule": "each new WHO PHEIC declaration, irrespective of subsequent market outcome",
+    "established_after": "v1 market-model results observed; hypothesis is hindsight-informed",
+    "score_interpretation": "binary contextual watch, never a calibrated probability"
+  },
+  "source_events": [
+    {
+      "event": "H1N1_2009",
+      "title": "WHO initial H1N1 emergency decision",
+      "published_date": "2009-04-25",
+      "publication_timestamp": null,
+      "source_url": "https://www.who.int/news/item/25-04-2009-first-meeting-of-the-ihr-emergency-committee",
+      "evidence_excerpt": "the Director-General has determined that the current events constitute a public health emergency of international concern",
+      "category": "WHO_PHEIC_NEW_DECLARATION",
+      "first_session": "2009-04-27",
+      "last_session": "2009-05-26",
+      "observed_sessions": 20,
+      "expired_in_sample": true,
+      "matched_project_events": "",
+      "unmatched_under_project_labels": true
+    },
+    {
+      "event": "POLIO_2014",
+      "title": "WHO polio international-spread emergency decision",
+      "published_date": "2014-05-05",
+      "publication_timestamp": null,
+      "source_url": "https://www.who.int/news/item/05-05-2014-who-statement-on-the-meeting-of-the-international-health-regulations-emergency-committee-concerning-the-international-spread-of-wild-poliovirus",
+      "evidence_excerpt": "on 5 May 2014 declared the international spread of wild poliovirus in 2014 a Public Health Emergency of International Concern (PHEIC).",
+      "category": "WHO_PHEIC_NEW_DECLARATION",
+      "first_session": "2014-05-06",
+      "last_session": "2014-06-02",
+      "observed_sessions": 20,
+      "expired_in_sample": true,
+      "matched_project_events": "",
+      "unmatched_under_project_labels": true
+    },
+    {
+      "event": "EBOLA_WEST_AFRICA_2014",
+      "title": "WHO West African Ebola emergency decision",
+      "published_date": "2014-08-08",
+      "publication_timestamp": null,
+      "source_url": "https://www.who.int/news/item/08-08-2014-statement-on-the-1st-meeting-of-the-ihr-emergency-committee-on-the-2014-ebola-outbreak-in-west-africa",
+      "evidence_excerpt": "on 8 August 2014 declared the Ebola outbreak in West Africa a Public Health Emergency of International Concern (PHEIC).",
+      "category": "WHO_PHEIC_NEW_DECLARATION",
+      "first_session": "2014-08-11",
+      "last_session": "2014-09-09",
+      "observed_sessions": 20,
+      "expired_in_sample": true,
+      "matched_project_events": "",
+      "unmatched_under_project_labels": true
+    },
+    {
+      "event": "ZIKA_NEUROLOGICAL_CLUSTERS_2016",
+      "title": "WHO neurological-cluster emergency associated with Zika",
+      "published_date": "2016-02-01",
+      "publication_timestamp": null,
+      "source_url": "https://www.who.int/news-room/detail/01-02-2016-who-director-general-summarizes-the-outcome-of-the-emergency-committee-regarding-clusters-of-microcephaly-and-guillain-barr%C3%A9-syndrome",
+      "evidence_excerpt": "constitutes a Public Health Emergency of International Concern.",
+      "category": "WHO_PHEIC_NEW_DECLARATION",
+      "source_context": "The declared event was the cluster of microcephaly and other neurological disorders, associated with Zika; not an assertion that every Zika infection is a PHEIC.",
+      "first_session": "2016-02-02",
+      "last_session": "2016-02-29",
+      "observed_sessions": 20,
+      "expired_in_sample": true,
+      "matched_project_events": "",
+      "unmatched_under_project_labels": true
+    },
+    {
+      "event": "EBOLA_DRC_KIVU_ITURI_2019",
+      "title": "WHO eastern DRC Ebola emergency decision",
+      "published_date": "2019-07-17",
+      "publication_timestamp": null,
+      "source_url": "https://www.who.int/news-room/detail/17-07-2019-ebola-outbreak-in-the-democratic-republic-of-the-congo-declared-a-public-health-emergency-of-international-concern",
+      "evidence_excerpt": "outbreak in the Democratic Republic of the Congo (DRC) a Public Health Emergency of International Concern (PHEIC).",
+      "category": "WHO_PHEIC_NEW_DECLARATION",
+      "first_session": "2019-07-18",
+      "last_session": "2019-08-16",
+      "observed_sessions": 20,
+      "expired_in_sample": true,
+      "matched_project_events": "",
+      "unmatched_under_project_labels": true
+    },
+    {
+      "event": "NOVEL_CORONAVIRUS_2020",
+      "title": "WHO novel-coronavirus emergency decision",
+      "published_date": "2020-01-30",
+      "publication_timestamp": null,
+      "source_url": "https://www.who.int/news/item/30-01-2020-statement-on-the-second-meeting-of-the-international-health-regulations-(2005)-emergency-committee-regarding-the-outbreak-of-novel-coronavirus-(2019-ncov)",
+      "evidence_excerpt": "The Director-General declared that the outbreak of 2019-nCoV constitutes a PHEIC",
+      "category": "WHO_PHEIC_NEW_DECLARATION",
+      "source_context": "This is the January PHEIC decision, not the later March pandemic characterization. Meeting hours are reported, but an exact first-publication timestamp is not established here.",
+      "first_session": "2020-01-31",
+      "last_session": "2020-02-28",
+      "observed_sessions": 20,
+      "expired_in_sample": true,
+      "matched_project_events": "covid_2020",
+      "unmatched_under_project_labels": false
+    },
+    {
+      "event": "MPOX_MULTICOUNTRY_2022",
+      "title": "WHO first mpox emergency decision",
+      "published_date": "2022-07-23",
+      "publication_timestamp": null,
+      "source_url": "https://www.who.int/news-room/speeches/item/who-director-general-s-statement-on-the-press-conference-following-IHR-emergency-committee-regarding-the-multi--country-outbreak-of-monkeypox--23-july-2022",
+      "evidence_excerpt": "I have decided that the global monkeypox outbreak represents a public health emergency of international concern.",
+      "category": "WHO_PHEIC_NEW_DECLARATION",
+      "first_session": "2022-07-25",
+      "last_session": "2022-08-23",
+      "observed_sessions": 20,
+      "expired_in_sample": true,
+      "matched_project_events": "",
+      "unmatched_under_project_labels": true
+    },
+    {
+      "event": "MPOX_UPSURGE_2024",
+      "title": "WHO renewed mpox emergency decision",
+      "published_date": "2024-08-14",
+      "publication_timestamp": null,
+      "source_url": "https://www.who.int/news/item/14-08-2024-who-director-general-declares-mpox-outbreak-a-public-health-emergency-of-international-concern",
+      "evidence_excerpt": "This PHEIC determination is the second in two years relating to mpox.",
+      "category": "WHO_PHEIC_NEW_DECLARATION",
+      "first_session": "2024-08-16",
+      "last_session": "2024-09-12",
+      "observed_sessions": 20,
+      "expired_in_sample": true,
+      "matched_project_events": "",
+      "unmatched_under_project_labels": true
+    },
+    {
+      "event": "EBOLA_BUNDIBUGYO_DRC_UGANDA_2026",
+      "title": "WHO Bundibugyo Ebola emergency decision",
+      "published_date": "2026-05-17",
+      "publication_timestamp": null,
+      "source_url": "https://www.who.int/news/item/17-05-2026-epidemic-of-ebola-disease-in-the-democratic-republic-of-the-congo-and-uganda-determined-a-public-health-emergency-of-international-concern",
+      "evidence_excerpt": "constitutes a public health emergency of international concern (PHEIC), but does not meet the criteria of pandemic emergency",
+      "category": "WHO_PHEIC_NEW_DECLARATION",
+      "source_context": "The WHO page records a later correction to a reported Kinshasa case. Only the declaration and displayed date are used; case counts are not reconstructed from the revised page.",
+      "first_session": "2026-05-18",
+      "last_session": "2026-06-15",
+      "observed_sessions": 20,
+      "expired_in_sample": true,
+      "matched_project_events": "",
+      "unmatched_under_project_labels": true
+    }
+  ],
+  "evaluation": {
+    "external": {
+      "alarm_stats": {
+        "evaluated_sessions": 4277,
+        "alarm_sessions": 180,
+        "alarm_fraction": 0.04208557400046762,
+        "episodes": 9,
+        "false_episodes": 8,
+        "false_episodes_per_year": 0.4713584288052373
+      },
+      "events": [
+        {
+          "event": "gfc_2008",
+          "label_date": "2008-09-15",
+          "session_date": "2008-09-15",
+          "label_status": "provisional_project_label",
+          "provenance": "Lehman Brothers bankruptcy; the global transmission date. Alternative: 2008-01-21, the Indian market's own crash, which precedes the global event by eight months and would test a different phenomenon.",
+          "available_sessions": 0,
+          "status": "unassessable",
+          "first_warning": null,
+          "lead_sessions": null
+        },
+        {
+          "event": "taper_2013",
+          "label_date": "2013-05-22",
+          "session_date": "2013-05-22",
+          "label_status": "provisional_project_label",
+          "provenance": "Bernanke's taper testimony; the trigger for the emerging-market outflow episode that hit the rupee and Indian equities.",
+          "available_sessions": 15,
+          "status": "missed",
+          "first_warning": null,
+          "lead_sessions": null
+        },
+        {
+          "event": "ilfs_2018",
+          "label_date": "2018-09-21",
+          "session_date": "2018-09-21",
+          "label_status": "provisional_project_label",
+          "provenance": "IL&FS default cascade and the single-day NBFC selloff; the domestic shadow-banking shock.",
+          "available_sessions": 15,
+          "status": "missed",
+          "first_warning": null,
+          "lead_sessions": null
+        },
+        {
+          "event": "covid_2020",
+          "label_date": "2020-02-20",
+          "session_date": "2020-02-20",
+          "label_status": "provisional_project_label",
+          "provenance": "Onset of the global COVID selloff, chosen so the 30-day window covers the drawdown. Alternative: 2020-03-23, the Indian market bottom, which would place the window over the recovery instead.",
+          "available_sessions": 15,
+          "status": "warned",
+          "first_warning": "2020-01-31",
+          "lead_sessions": 14
+        },
+        {
+          "event": "tightening_2022",
+          "label_date": "2022-01-05",
+          "session_date": "2022-01-05",
+          "label_status": "provisional_project_label",
+          "provenance": "Start of the 2022 global tightening drawdown. Alternative: 2022-06-16, the peak-hawkishness repricing.",
+          "available_sessions": 15,
+          "status": "missed",
+          "first_warning": null,
+          "lead_sessions": null
+        },
+        {
+          "event": "tariff_2026",
+          "label_date": "2026-02-01",
+          "session_date": "2026-02-01",
+          "label_status": "explicitly_unresolved",
+          "provenance": "PROVISIONAL - SPEC OQ3 is explicitly open. Placeholder for the Feb-2026 interim framework; the 50% peak and the solar CVD single-day drop are the other candidates. MUST be resolved before Epoch 6 results are reported.",
+          "available_sessions": 15,
+          "status": "missed",
+          "first_warning": null,
+          "lead_sessions": null
+        }
+      ]
+    },
+    "combined": {
+      "alarm_stats": {
+        "evaluated_sessions": 4277,
+        "alarm_sessions": 713,
+        "alarm_fraction": 0.1667056347907412,
+        "episodes": 54,
+        "false_episodes": 53,
+        "false_episodes_per_year": 3.1227495908346974
+      },
+      "events": [
+        {
+          "event": "gfc_2008",
+          "label_date": "2008-09-15",
+          "session_date": "2008-09-15",
+          "label_status": "provisional_project_label",
+          "provenance": "Lehman Brothers bankruptcy; the global transmission date. Alternative: 2008-01-21, the Indian market's own crash, which precedes the global event by eight months and would test a different phenomenon.",
+          "available_sessions": 0,
+          "status": "unassessable",
+          "first_warning": null,
+          "lead_sessions": null
+        },
+        {
+          "event": "taper_2013",
+          "label_date": "2013-05-22",
+          "session_date": "2013-05-22",
+          "label_status": "provisional_project_label",
+          "provenance": "Bernanke's taper testimony; the trigger for the emerging-market outflow episode that hit the rupee and Indian equities.",
+          "available_sessions": 15,
+          "status": "missed",
+          "first_warning": null,
+          "lead_sessions": null
+        },
+        {
+          "event": "ilfs_2018",
+          "label_date": "2018-09-21",
+          "session_date": "2018-09-21",
+          "label_status": "provisional_project_label",
+          "provenance": "IL&FS default cascade and the single-day NBFC selloff; the domestic shadow-banking shock.",
+          "available_sessions": 15,
+          "status": "missed",
+          "first_warning": null,
+          "lead_sessions": null
+        },
+        {
+          "event": "covid_2020",
+          "label_date": "2020-02-20",
+          "session_date": "2020-02-20",
+          "label_status": "provisional_project_label",
+          "provenance": "Onset of the global COVID selloff, chosen so the 30-day window covers the drawdown. Alternative: 2020-03-23, the Indian market bottom, which would place the window over the recovery instead.",
+          "available_sessions": 15,
+          "status": "warned",
+          "first_warning": "2020-01-31",
+          "lead_sessions": 14
+        },
+        {
+          "event": "tightening_2022",
+          "label_date": "2022-01-05",
+          "session_date": "2022-01-05",
+          "label_status": "provisional_project_label",
+          "provenance": "Start of the 2022 global tightening drawdown. Alternative: 2022-06-16, the peak-hawkishness repricing.",
+          "available_sessions": 15,
+          "status": "missed",
+          "first_warning": null,
+          "lead_sessions": null
+        },
+        {
+          "event": "tariff_2026",
+          "label_date": "2026-02-01",
+          "session_date": "2026-02-01",
+          "label_status": "explicitly_unresolved",
+          "provenance": "PROVISIONAL - SPEC OQ3 is explicitly open. Placeholder for the Feb-2026 interim framework; the 50% peak and the solar CVD single-day drop are the other candidates. MUST be resolved before Epoch 6 results are reported.",
+          "available_sessions": 15,
+          "status": "missed",
+          "first_warning": null,
+          "lead_sessions": null
+        }
+      ]
+    }
+  },
+  "source_hash": "aaa1a077ad65f8bd923843419be63a5b4df63a5245263ea68c622fed156163a6",
+  "limitations": [
+    "Historical counterfactual scenario, not evidence that this policy existed or was chosen before COVID.",
+    "The public announcement identifies a health emergency. It does not establish an impending financial crisis, causal market effect, or probability of loss.",
+    "The 20-session watch duration was chosen after seeing market-only results; sensitivity and prospective validation remain required. All declarations stay in the audit.",
+    "Next-session availability from a page date approximates dissemination; publication timestamps and immutable as-of archives are incomplete.",
+    "Unmatched health watches are labelled false only relative to the six provisional project market-event labels; these are not a universal inventory of financial crises.",
+    "The external watch is additional context. It does not repair or validate the market-only three-pillar onset model."
+  ]
+}

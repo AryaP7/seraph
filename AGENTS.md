@@ -1,5 +1,14 @@
 # SERAPH — Tech Stack & Coding Context
 
+> **Experimental-copy notice (2026-10-14):** this checkout is SERAPH-Research,
+> created with the owner's explicit authorization to revise models and code
+> while retaining Hawkes, RMT and Hamilton. Read `README-RESEARCH.md` and
+> `EXPERIMENT.md` first. Their documented experimental amendments supersede
+> incompatible historical requirements below in this copy. Preserve original
+> evidence, do not claim unmeasured predictive success, and never use the
+> Downloads original as a working directory. Historical ownership approval
+> gates are not new permission requirements for this authorized experiment.
+
 **This is the canonical rules file.** AGENTS.md is read natively by most coding
 agents (Cursor, Windsurf/Devin, Copilot, Codex, Gemini CLI, and others). Claude
 Code is the one exception — it reads `CLAUDE.md`, which imports this file as

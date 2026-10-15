@@ -1,0 +1,18 @@
+{
+  "status": "passed",
+  "supervised_refits": 876,
+  "alert_refits": 977,
+  "unchanged_original_files": null,
+  "original_preservation_check": "not_requested",
+  "exact_replication": [
+    "predictions.parquet",
+    "features.parquet"
+  ],
+  "data_hashes": "verified",
+  "code_hashes": "verified",
+  "output_hashes": "verified",
+  "covid_external_watch": {
+    "date": "2020-01-31",
+    "lead_sessions": 14
+  }
+}

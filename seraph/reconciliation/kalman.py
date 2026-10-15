@@ -1,11 +1,16 @@
 # C8 — Reconciliation Layer (FR25–FR27): hand-rolled NumPy Kalman (AGENTS.md §2).
 """Predict: random-walk transition, P += Q_proc·Δ at every tick (FR25).
-Update: EVERY pillar gets an update at every tick — a pillar with no fresh
-emission is 'observed' at its own prior mean with age-inflated, BOUNDED noise
-R^(p)(Δ) (FR26 + D4). That is exactly SPEC O6's "an absent pillar is the
-limiting case R → ∞" argument with D4 keeping R finite: the mean never
-collapses toward zero, trace(P) grows to a Riccati fixed point and saturates
-instead of diverging, and the first genuine emission snaps P down (CT-4).
+Update: only genuinely new observations supply information. Missing, repeated,
+and older observations do not reduce covariance. Under an unobserved random
+walk P may grow without bound; the structural mask excludes that coordinate
+from CSRS. A virtual observation cannot legitimately cap that uncertainty.
+These mathematical corrections supersede historical D4/CT-4 wording; see
+docs/EXPERIMENT-MATH.md for the experimental specification amendment.
+
+The default clock counts weekday NSE 09:15–15:30 time, not overnight or
+weekend wall time. Supply session_dates for an exact regular-session replay.
+Without that list it is explicitly a weekday approximation, not a holiday
+calendar. time_basis='calendar' opts into wall-time diffusion instead.
 
 D2 mask rules (AGENTS.md §5):
   observed                        → mask true
@@ -16,12 +21,14 @@ Forward-fill is retained only as the FR27/FR36 ablation baseline.
 """
 from __future__ import annotations
 
-from datetime import datetime
+from collections.abc import Iterable
+from datetime import date, datetime
 from math import inf
 
 import numpy as np
 
 from seraph.reconciliation.noise_model import SaturatingNoise
+from seraph.reconciliation.time_clock import BAR_SECONDS, ReconciliationClock
 from seraph.shared_types import (
     ContractViolation,
     Err,
@@ -35,7 +42,6 @@ from seraph.shared_types import (
     ok,
 )
 
-BAR_SECONDS = 300.0
 #: Native cadences per D4 — Hawkes: one 5-min bar; RMT/Hamilton: one trading
 #: day (~75 five-minute bars in an NSE session).
 DEFAULT_H_BARS = (1.0, 75.0, 75.0)
@@ -62,11 +68,21 @@ class KalmanReconciler:
         x0: tuple[float, float, float] = (0.5, 0.5, 0.5),
         p0: float = 1e-3,
         mode: str = "kalman",
+        time_basis: str = "trading",
+        session_dates: Iterable[date] | None = None,
     ):
         if mode not in ("kalman", "forward_fill"):
             raise ValueError(f"mode must be 'kalman' or 'forward_fill', got {mode!r}")
+        if not np.isfinite(q_proc) or q_proc < 0 or not np.isfinite(p0) or p0 < 0:
+            raise ValueError("q_proc and p0 must be finite and nonnegative")
+        if len(h_bars) != 3 or len(x0) != 3 or not np.isfinite(x0).all():
+            raise ValueError("h_bars and finite x0 must have three entries in PILLAR_ORDER")
         self._q = float(q_proc)
         self._mode = mode
+        self._clock = ReconciliationClock(
+            time_basis=time_basis,
+            session_dates=frozenset(session_dates) if session_dates is not None else None,
+        )
         self._noise = tuple(
             SaturatingNoise(r0_default=r0_default, r_max_ratio=r_max_ratio, h_bars=h)
             for h in h_bars
@@ -93,8 +109,12 @@ class KalmanReconciler:
         return ok(self._snapshot())
 
     def update(self, emissions: "list[PillarEmission]") -> Ok[ReconciledState] | Err:
-        """FR26 — one update tick. Pillars without an emission this tick get
-        the virtual (age-inflated) update."""
+        """FR26 — assimilate fresh observations once, after one predict step.
+
+        tau identifies an observation's information vintage, not the request
+        timestamp. A carried-forward value with the same tau is not new data.
+        The complete batch is validated before changing any filter state.
+        """
         if not emissions:
             return err(ContractViolation(field="emissions", detail="empty update batch"))
 
@@ -102,10 +122,25 @@ class KalmanReconciler:
         latest: datetime | None = None
         for em in emissions:
             pillar = em.obs.pillar if em.kind == "observed" else em.pillar
+            if pillar in by_pillar:
+                return err(ContractViolation(
+                    field="emissions", detail=f"duplicate pillar {pillar} in one update batch"
+                ))
             by_pillar[pillar] = em
             t = self._parse(em.obs.ts if em.kind == "observed" else em.ts)
             if t is None:
                 return err(ContractViolation(field="ts", detail="unparseable emission ts"))
+            if em.kind == "observed":
+                tau = self._parse(em.obs.tau)
+                variance = em.obs.estimation_variance
+                if tau is None or tau > t:
+                    return err(ContractViolation(field="tau", detail="invalid observation vintage"))
+                if not np.isfinite(em.obs.value) or (variance is not None and (
+                    not np.isfinite(variance) or variance < 0
+                )):
+                    return err(ContractViolation(
+                        field="observation", detail="value must be finite; variance finite and nonnegative"
+                    ))
             latest = t if latest is None or t > latest else latest
 
         if self._ts is not None and latest < self._ts:
@@ -139,7 +174,9 @@ class KalmanReconciler:
     @staticmethod
     def _parse(ts: str) -> datetime | None:
         try:
-            return datetime.fromisoformat(ts)
+            t = datetime.fromisoformat(ts)
+            # predict/state_at do not pass through the Pydantic timestamp seam.
+            return t if t.tzinfo is not None and ist_timestamp(t) == ts else None
         except (ValueError, TypeError):
             return None
 
@@ -147,7 +184,7 @@ class KalmanReconciler:
         if self._ts is None:
             self._ts = t
             return
-        delta_bars = (t - self._ts).total_seconds() / BAR_SECONDS
+        delta_bars = self._clock.elapsed_bars(self._ts, t)
         if delta_bars > 0 and self._mode == "kalman":
             self._P = self._P + self._q * delta_bars * np.eye(3)
         self._ts = t
@@ -155,7 +192,7 @@ class KalmanReconciler:
     def _staleness_bars(self, i: int) -> float:
         if self._tau[i] is None or self._ts is None:
             return inf
-        return max(0.0, (self._ts - self._tau[i]).total_seconds() / BAR_SECONDS)
+        return self._clock.elapsed_bars(self._tau[i], self._ts)
 
     def _update_pillar(self, i: int, em: PillarEmission | None, warnings: list) -> None:
         noise = self._noise[i]
@@ -163,20 +200,23 @@ class KalmanReconciler:
         if em is not None and em.kind == "observed":
             obs = em.obs
             tau = self._parse(obs.tau)
-            if tau is None:
+            # Batch validation already established a valid tau. A correction
+            # to an already assimilated vintage needs an explicit replay, not
+            # another independent likelihood factor in this online filter.
+            if self._tau[i] is not None and tau <= self._tau[i]:
                 warnings.append(SeraphWarning(
                     code="STALE_OBSERVATION",
-                    message=f"{PILLAR_ORDER[i]}: unparseable tau, treated as transient",
+                    message=f"{PILLAR_ORDER[i]}: repeated or older observation ignored; "
+                            "no new information to assimilate",
                     context={"pillar": PILLAR_ORDER[i]},
                 ))
-                self._virtual_update(i)
                 return
             r0 = obs.estimation_variance
-            self._r0[i] = r0
-            delta_bars = max(0.0, (self._ts - tau).total_seconds() / BAR_SECONDS)
+            delta_bars = self._clock.elapsed_bars(tau, self._ts)
             r_val = noise.r(delta_bars, r0)
             if noise.saturated(r_val, r0):
-                # D2 row 4: real but so stale it contributes ~nothing.
+                # Saturation is an explicit exclusion policy, not zero gain.
+                # Do not reduce P using an observation declared unusable.
                 self._status[i] = "saturated"
                 warnings.append(SeraphWarning(
                     code="NOISE_SATURATED",
@@ -184,25 +224,21 @@ class KalmanReconciler:
                             "R at ceiling — excluded from the mask",
                     context={"pillar": PILLAR_ORDER[i], "deltaBars": delta_bars},
                 ))
-            else:
-                self._status[i] = "observed"
+                return
+            self._status[i] = "observed"
             self._scalar_update(i, float(obs.value), r_val)
             self._tau[i] = tau
+            self._r0[i] = r0
             return
 
         if em is not None and em.absence == "structural":
             self._status[i] = "structural"
         elif em is not None:  # transient
-            self._status[i] = "transient"
+            # A failed first observation must not promote an uninformative
+            # prior into an available pillar. Retain a previously seen pillar.
+            if self._tau[i] is not None:
+                self._status[i] = "transient"
         # em is None → pillar simply not in this batch: keep prior status.
-        self._virtual_update(i)
-
-    def _virtual_update(self, i: int) -> None:
-        """Observe the pillar at its own prior mean with age-inflated noise:
-        innovation is exactly zero (the mean never drifts toward 0), and the
-        bounded R caps P at the Riccati fixed point instead of ∞."""
-        r_val = self._noise[i].r(self._staleness_bars(i), self._r0[i])
-        self._scalar_update(i, float(self._x[i]), r_val)
 
     def _scalar_update(self, i: int, z: float, r_val: float) -> None:
         if self._mode == "forward_fill":
@@ -232,7 +268,8 @@ class KalmanReconciler:
             tau_last_update=tuple(
                 ist_timestamp(t) if t is not None else None for t in self._tau
             ),
-            mask=tuple(bool(_STATUS_MASK[s]) for s in self._status),
+            mask=tuple(bool(_STATUS_MASK[s] and not (s == "observed" and saturated[i]))
+                       for i, s in enumerate(self._status)),
             noise_saturated=saturated,
             mode=self._mode,
         )

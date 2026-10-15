@@ -1,0 +1,22 @@
+{
+  "created_utc": "2026-10-14T05:28:42.837504+00:00",
+  "python": "3.12.14 (main, Aug 14 2026, 15:40:22) [MSC v.1944 64 bit (AMD64)]",
+  "code_hashes": {
+    "scripts\\run_prediction_experiment.py": "36f515a4c7855df2bfbe425c02196397a4c4ed64b087b5f6d4db73b8cb281c25",
+    "EXPERIMENT.md": "9c78d1b24c5aed5d03a8bb01014f85ab36c510bee7f828001788041df08de922",
+    "seraph\\prediction\\__init__.py": "330c1dd7a77925282ea6430a92b5d2a1a63430d3df2ea4b6633254f64fa53de9",
+    "seraph\\prediction\\app.py": "0dc0a45f7a785d50863f2d6eb8acbf9156b98dd2e611b7af9ee0459b9e987fa9",
+    "seraph\\prediction\\evaluation.py": "687ab987b59f2a645be644690ae759705a49c3926c01580dfb21dd2e68e36578",
+    "seraph\\prediction\\models.py": "6a81b50794209c32eb3af95d91f33687d1c1f4ba2760189f1fe59070f675c802",
+    "seraph\\prediction\\pillars.py": "2ba7f87fd4c0b6d734b4bac8f477cdd8bdc8b674a4e3bd64593ec4c9bb25b06a"
+  },
+  "data_hash": "0f004e2cb91a35bc11c218e5aa2e27c8d86deebae403d3c92ca655f6f9ece36f",
+  "outputs": {
+    "alert_episodes.csv": "5c7f407e0fd4178175301321e22effca8cf600c5ab7050e0bb63321f505dbd34",
+    "event_warnings.csv": "8ad362e7d371a272dc80c0b724e3c01d11067536ab054140203c7d173a07ab20",
+    "features.parquet": "47ef8097c5f9028e6132d7e92b05ce527f053ca5e1174d40a6f2a4b13ea44310",
+    "fit_audit.json": "990f2f1fd64e6c55e2bed92c7411cd32a4dc28db71997389ac3a176c34468339",
+    "predictions.parquet": "dde5efbe3e70845d3a920f09bcd81225417edab328808f064af9fe95f06d7fab",
+    "summary.json": "da16d8e77a620df545f43a9e8b35efed480e44fc408789a7fe934dfbd87efe84"
+  }
+}

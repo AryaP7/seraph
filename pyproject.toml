@@ -21,6 +21,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+research = ["arch>=8.0", "pyarrow>=20.0"]
 # `tick` (X-DataInitiative) is the C5 Hawkes MLE baseline per AGENTS.md §2, but it
 # has no wheels for Python 3.12 / Windows and needs a C++ toolchain to build.
 # It is only required once C5 (L4, built last of the pillars) starts — keep it out

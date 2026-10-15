@@ -1,0 +1,21 @@
+{
+  "created_utc": "2026-10-14T05:17:33.212725+00:00",
+  "source": "existing local SERAPH PostgreSQL; read-only repeatable-read",
+  "rows": 5361,
+  "from": "2005-01-03",
+  "to": "2026-08-21",
+  "market_definition": "equal-weight average log return of available point-in-time universe members; research index, not an executable portfolio",
+  "return_correction": "lag computed before universe filter; only consecutive global sessions admitted; re-entry gaps not mistaken for daily returns",
+  "factors": "ten deterministic MD5 symbol buckets of the contemporaneous eligible universe; fixed grouping rule, not sectors or licensed indices",
+  "limitations": [
+    "underlying adjusted EOD2 snapshot is not an as-first-published vintage archive",
+    "source universe construction inherited; turnover proxy and survivorship coverage caveats remain",
+    "persisted original pillars retain prior research-selection history"
+  ],
+  "files": {
+    "market_snapshot.parquet": "0f004e2cb91a35bc11c218e5aa2e27c8d86deebae403d3c92ca655f6f9ece36f",
+    "original_hawkes.parquet": "6a0b76ad69f2f73e1cefa17670e041cee66e7e4d5309ec4f1f3ef763900aa58a",
+    "original_rmt.parquet": "162174485ee9e35c027a7ecc29e11e4ed859816357a6fa53814fd77633433e84",
+    "original_vix.parquet": "7839fefe4af9fbebcb73315d2d241b2602d8f6ed93c422d4e55b7d303b76f04a"
+  }
+}
