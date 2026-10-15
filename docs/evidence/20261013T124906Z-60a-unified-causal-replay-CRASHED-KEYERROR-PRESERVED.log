@@ -1,0 +1,43 @@
+[replay] grid        : 5,363 daily ticks 2005-01-03 .. 2026-08-21
+[replay] P1 hawkes   : 473 refits 2017-02-09 .. 2026-08-20 (refit_every=5 sessions)
+[replay] P2 rmt      : 5,363 daily rows
+[replay] P3 hamilton : 3,365 CAUSAL rows 2013-01-14 .. 2026-08-21  [EXPLORATORY]
+[replay] rule A      : CSRS >= 0.5 (C9 frozen constant)
+[replay] rule B      : > trailing-5y 95% quantile, min 250 obs, index i excluded from its own threshold
+[replay] PILLAR_ORDER= ['hawkes', 'rmt', 'hamilton']
+[replay]   subset hawkes                 468 pts  4895 failures  mean=0.3103
+[replay]   subset rmt                    5,363 pts  0 failures  mean=0.5771
+[replay]   subset hamilton               3,365 pts  1998 failures  mean=0.5689
+[replay]   subset hawkes+rmt             5,363 pts  0 failures  mean=0.5623
+[replay]   subset hawkes+hamilton        3,365 pts  1998 failures  mean=0.5558
+[replay]   subset rmt+hamilton           5,363 pts  0 failures  mean=0.5973
+[replay]   subset hawkes+rmt+hamilton    5,363 pts  0 failures  mean=0.5897
+[replay]   baseline BASE[rv_20]          5,358 finite pts
+[replay]   baseline BASE[drawdown]       5,363 finite pts
+[replay]   baseline BASE[rv_accel_5]     5,353 finite pts
+[replay]   baseline BASE[dd_accel_5]     5,358 finite pts
+C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\replay_crisis_warnings.py:506: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  "generated_utc": datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ"),
+
+[replay] wrote docs\evidence\replay\replay_results.json
+
+=== Rule B, horizon 15d (FR32 upper lead bound) ===
+signal                     gfc_2008  taper_201  ilfs_2018  covid_202  tightenin  tariff_20   FA/yr   prec
+---------------------------------------------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\replay_crisis_warnings.py", line 576, in <module>
+    raise SystemExit(asyncio.run(main(a.out)))
+                     ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\AppData\Roaming\uv\python\cpython-3.12.14-windows-x86_64-none\Lib\asyncio\runners.py", line 195, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\AppData\Roaming\uv\python\cpython-3.12.14-windows-x86_64-none\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\AppData\Roaming\uv\python\cpython-3.12.14-windows-x86_64-none\Lib\asyncio\base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\replay_crisis_warnings.py", line 554, in main
+    r = entry["rule_B"]["epochs"][e]["15"]
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+KeyError: '15'

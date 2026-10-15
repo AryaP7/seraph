@@ -1,0 +1,79 @@
+# D-4 BASELINE (before any D workstream change)
+# 2026-10-13T12:52:34Z  git f3eaac8  branch evidence/pre-arya-experimentation
+
+$ .venv/Scripts/python.exe scripts/check_invariants.py
+[ok] PILLAR_ORDER consistency
+[ok] C9 fusion purity (no validation/ import, no DB driver)
+[ok] AR_t placement (C4, not C6)
+[ok] Explicit IST timestamps
+[ok] shared_types frozen= audit (info only)
+    [info] shared_types/: 1 BaseModel class(es) found, 2 frozen=True usage(s). Cross-check against everything ARCHITECTURE.md marks `readonly` — this check can't do that part.
+INVARIANTS_EXIT=0
+
+$ .venv/Scripts/python.exe -m pytest tests/ -q
+.............F.......................................................... [ 39%]
+.................................................................
+
+
+[CANCELLED BY WORKSTREAM D - deliberately, and here is why]
+
+
+
+The check_invariants.py run above COMPLETED: exit 0, all five checks [ok].
+
+
+
+The pytest run below it was stopped at ~137 of ~185 collected tests, for two
+
+reasons:
+
+
+
+ 1. It was NOT a clean 'before' snapshot. Two other workstreams added test
+
+    files to tests/ during this run - test_replay_causality.py (mtime 18:22
+
+    IST, i.e. the minute this job launched) and
+
+    test_acceleration_signal_converge/causality.py (mtime 18:28 IST, after
+
+    collection). The suite is a moving target across concurrent workstreams,
+
+    so this run is neither reproducible nor attributable.
+
+
+
+ 2. The authoritative pre-change baseline already exists and is the one the
+
+    Workstream D mandate designates:
+
+      docs/evidence/20261013T072658Z-30-final-full-suite.log
+
+      -> 1 failed, 170 passed in 950.29s (0:15:50)
+
+      -> the single failure is CT-3's jump-density check, at that revision
+
+         tests/contract/test_ct3_jump_sufficiency.py:97
+
+
+
+ 3. It was starving the critical-path D-3 job (blocks 10/11 BFGS refits) of
+
+    CPU, roughly tripling that job's runtime.
+
+
+
+The POST-change full suite was run instead, serially and without contention:
+
+  docs/evidence/<TS>-56-post-change-full-suite.log
+
+
+
+No result was concealed by this cancellation: the pre-change failure set is on
+
+record in the -30- log, and the post-change failure set is in the -56- log.
+
+[correction, appended] the post-change full-suite log referenced above as
+'<TS>-56-post-change-full-suite.log' was actually written as:
+    docs/evidence/20261013T134259Z-57-post-change-invariants-and-full-suite.log
+(-56- went to the off-session session-calendar analysis instead.)

@@ -1,0 +1,33 @@
+.............F.......................................................... [ 42%]
+........................................................................ [ 84%]
+...........................                                              [100%]
+================================== FAILURES ===================================
+__________ test_ct3_negative_jump_density_supports_a_one_day_window ___________
+
+    def test_ct3_negative_jump_density_supports_a_one_day_window():
+        out, st, days = _jump_frame()
+        neg = int((out["jump_sign"] == -1).sum())
+        pos = int((out["jump_sign"] == 1).sum())
+        per_day = neg / days
+        print(
+            f"\n[CT-3] symbol={_SYMBOL}  bars={len(_ROWS)}  ~{days:.1f} trading days"
+            f"\n[CT-3] negative jumps={neg} ({per_day:.2f}/day)  positive jumps={pos}"
+            f"\n[CT-3] asymmetry neg/pos={neg / max(pos, 1):.2f}"
+        )
+>       assert per_day >= MIN_NEG_JUMPS_PER_DAY, (
+            f"only {per_day:.2f} negative jumps per symbol-day — below the "
+            f"structural floor of {MIN_NEG_JUMPS_PER_DAY}. Apply the R2 mitigation "
+            f"ladder: 1-minute bars, then coarsen S_t, then pool by sector."
+        )
+E       AssertionError: only 0.09 negative jumps per symbol-day — below the structural floor of 1.0. Apply the R2 mitigation ladder: 1-minute bars, then coarsen S_t, then pool by sector.
+E       assert 0.09090909090909091 >= 1.0
+
+tests\contract\test_ct3_jump_sufficiency.py:97: AssertionError
+---------------------------- Captured stdout call -----------------------------
+
+[CT-3] symbol=EXIDEIND  bars=2475  ~33.0 trading days
+[CT-3] negative jumps=3 (0.09/day)  positive jumps=7
+[CT-3] asymmetry neg/pos=0.43
+=========================== short test summary info ===========================
+FAILED tests/contract/test_ct3_jump_sufficiency.py::test_ct3_negative_jump_density_supports_a_one_day_window
+1 failed, 170 passed in 950.29s (0:15:50)

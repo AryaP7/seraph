@@ -1,0 +1,87 @@
+================================================================================
+PRE-REGISTRATION — Workstream B: event-count limitation audit
+Written 2026-10-13T12:43:58Z, BEFORE any coverage query or power run was executed.
+Repo: SERAPH Varya, branch evidence/pre-arya-experimentation, HEAD f3eaac8
+================================================================================
+
+HYPOTHESIS UNDER TEST
+---------------------
+H_B: "The six-event limit is imposed by FR32's specification, not by data
+availability — i.e. the corpus contains materially more independently-datable
+Indian systemic-stress episodes with full RMT+Hamilton coverage than the six
+FR32 names."
+
+H_0 (the complement): the limit is substantially data-bound — either the pillar
+span is too short to contain materially more episodes, or additional episodes
+lack the RMT+Hamilton coverage needed to score them.
+
+PRE-REGISTERED DECISION RULE
+----------------------------
+H_B is ACCEPTED iff ALL THREE of the following hold:
+
+  (B1) COUNT. >= 4 candidate episodes exist inside the *pillar-covered* span
+       that are (i) not among FR32's six, (ii) datable from a public record
+       exogenous to any SERAPH output, and (iii) not a re-slicing of an FR32
+       episode. Operational non-overlap test, fixed now: a candidate's onset
+       must be >= 60 trading days from every FR32 onset AND from every other
+       accepted candidate onset. 60 = CRISIS_WINDOW_DAYS(30) + LEAD_WINDOW
+       upper(15), rounded up, so that no two accepted events share a crisis
+       window or a lead window.
+
+  (B2) COVERAGE. For each accepted candidate, >= 95% of the trading days in
+       [onset - 15, onset + 30] have non-null RMT output AND non-null Hamilton
+       output in the DB. A candidate below 95% is counted as data-blocked, not
+       as evidence for H_B.
+
+  (B3) SPEC-BOUND, NOT DATA-BOUND. The number "6" must be traceable to a
+       specification artefact (FR32 text, the EpochId Literal, EPOCH_BREAKS,
+       preregistration.EPOCHS, D5 fold counts) and NOT to a data-availability
+       boundary. Concretely: if the pillar span start (2005) is itself forced by
+       an irreducible data limit AND >= 2 of the FR32-excluded candidates fall
+       before that start, then the limit is at least partly data-bound and (B3)
+       fails for those candidates.
+
+H_B is REJECTED if (B1) fails. H_B is PARTIALLY SUPPORTED (reported as such, not
+as acceptance) if (B1) and (B3) hold but (B2) fails for enough candidates to
+bring the covered count below 4.
+
+PRE-REGISTERED SOURCE RULE FOR CANDIDATE DATING
+-----------------------------------------------
+A candidate onset date is admissible ONLY if it is fixed by an event exogenous to
+Indian equity prices and to every SERAPH signal:
+  - a dated policy/administrative action (RBI/SEBI/Govt notification, PBoC fix,
+    Fed statement, election result declaration), OR
+  - a dated foreign/global event with an unambiguous calendar date.
+INADMISSIBLE, declared now: any date chosen because the Indian market fell that
+day, any date chosen by inspecting rmt_output / hamilton_output / csrs /
+hawkes_output, any date chosen to maximise a drawdown or an AUC. Where the
+exogenous date is a non-trading day in India, the onset is moved forward to the
+next NSE trading day and that adjustment is recorded. The candidate list is
+fixed BEFORE coverage is measured; coverage can only remove candidates, never
+add them.
+
+PRE-REGISTERED POWER PROTOCOL
+-----------------------------
+Extend scripts/early_warning_power.py's measured design (circular-shift
+relocation null + AAFT surrogate null, AR(1) stationary-init background at the
+real rv_t_yz lag-1 autocorrelation) to N in {6, 10, 15, 20} synthetic onsets on
+the SAME real trading-day grid, with the real minimum onset spacing respected.
+Reported per N: mean T3 AUC by injected effect delta in {0, 0.5, 1.0, 1.5, 2.0},
+the delta=0 type-I error (the negative control — if it is not near 0.05 the row
+is void and will be labelled void), and the MDE = smallest tested delta reaching
+>= 80% power. Power is computed against the null, not against nominal 0.5.
+Pass/fail is not applicable here; this arm is descriptive.
+
+WHAT WOULD FALSIFY MY OWN CONCLUSION
+------------------------------------
+If the delta=0 negative control at N=10/15/20 does not land near 0.05, the
+power-gain numbers are void and I must say so rather than reporting a curve.
+If candidate coverage is high but the onsets cluster (fail the 60-day test),
+the apparent gain in N is spurious dependence and I must report the effective,
+not nominal, event count.
+
+CONSTRAINTS ACKNOWLEDGED
+------------------------
+Read-only DB. No FR32 amendment will be made — an approval request only.
+No commit, no push. No existing file edited. docs/archive/SPEC-DELTA-01.md not read.
+================================================================================

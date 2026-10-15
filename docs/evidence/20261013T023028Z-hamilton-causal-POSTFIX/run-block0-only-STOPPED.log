@@ -1,0 +1,82 @@
+INPUT  : 5365 obs  2005-01-03 .. 2026-08-21  cols=(rv_t_yz, ar_t, bas_t)
+         finite=True   (leaky xi columns NOT read)
+CONFIG : initial_train=2000 refit_every=252 K=3 exog=(5365, 2)
+
+CHECK A  causal exog is not the full-sample z-score
+  max|causal_z - full_sample_z[:-1]| = 2.645324
+  prefix stability: exog(y[:3000]) == exog_full[:3000] ? True
+
+RUN    : walk_forward (existing code, unmodified; fit wrapped for diagnostics)
+    [fit] n=2000 llf=16677.68 conv=True min_offdiag=-7.105e-15 (179s)
+  [wf] block 0: train<=2013-01-11 (2000 obs) -> emit 2013-01-14..2014-01-15
+    [fit] n=2252 llf=19189.79 conv=True min_offdiag=-3.553e-15 (178s)
+  [wf] block 1: train<=2014-01-15 (2252 obs) -> emit 2014-01-16..2015-01-28
+    [fit] n=2504 llf=21669.41 conv=True min_offdiag=-3.553e-15 (225s)
+  [wf] block 2: train<=2015-01-28 (2504 obs) -> emit 2015-01-29..2016-02-03
+    [fit] n=2756 llf=23983.18 conv=True min_offdiag=-3.553e-15 (219s)
+  [wf] block 3: train<=2016-02-03 (2756 obs) -> emit 2016-02-04..2017-02-09
+    [fit] n=3008 llf=25786.67 conv=True min_offdiag=-6.883e-15 (253s)
+  [wf] block 4: train<=2017-02-09 (3008 obs) -> emit 2017-02-10..2018-02-15
+    [fit] n=3260 llf=27757.83 conv=True min_offdiag=-3.553e-15 (288s)
+  [wf] block 5: train<=2018-02-15 (3260 obs) -> emit 2018-02-16..2019-02-21
+    [fit] n=3512 llf=29988.87 conv=True min_offdiag=-3.553e-15 (325s)
+  [wf] block 6: train<=2019-02-21 (3512 obs) -> emit 2019-02-22..2020-03-05
+    [fit] n=3764 llf=32373.24 conv=False min_offdiag=8.560e-15 (441s)
+  [wf] block 7: train<=2020-03-05 (3764 obs) -> emit 2020-03-06..2021-03-10
+    [fit] n=4016 llf=34044.69 conv=True min_offdiag=1.072e-26 (392s)
+  [wf] block 8: train<=2021-03-10 (4016 obs) -> emit 2021-03-12..2022-03-17
+    [fit] n=4268 llf=36454.76 conv=True min_offdiag=-1.110e-15 (376s)
+  [wf] block 9: train<=2022-03-17 (4268 obs) -> emit 2022-03-21..2023-03-23
+    [fit] n=4520 llf=38518.59 conv=True min_offdiag=-3.553e-15 (375s)
+  [wf] block 10: train<=2023-03-23 (4520 obs) -> emit 2023-03-24..2024-04-01
+    [fit] n=4772 llf=40705.23 conv=True min_offdiag=-3.553e-15 (410s)
+  [wf] block 11: train<=2024-04-01 (4772 obs) -> emit 2024-04-02..2025-04-04
+    [fit] n=5024 llf=44257.11 conv=False min_offdiag=2.230e-10 (535s)
+  [wf] block 12: train<=2025-04-04 (5024 obs) -> emit 2025-04-07..2026-04-15
+    [fit] n=5276 llf=45430.61 conv=False min_offdiag=2.527e-26 (556s)
+  [wf] block 13: train<=2026-04-15 (5276 obs) -> emit 2026-04-16..2026-08-21
+
+walk_forward completed in 78.8 min, 14 blocks
+
+CHECK B  assert_causal (module's own invariant)
+  PASS - no block's parameters saw its own emission window
+
+CHECK C  warm-up emits absence (NaN), never a prior
+  all NaN before index 2000 : True
+  any NaN at/after  2000    : False
+
+CHECK D  xi is a valid simplex on the causal span
+  max|sum-1| = 1.554e-15   min=0.000000 max=1.000000
+
+BLOCK SCHEDULE AND FIT DIAGNOSTICS
+blk  train_n   train_last   emit_first    emit_last          llf  conv     order  min_offdiag
+---------------------------------------------------------------------------------------------
+  0     2000   2013-01-11   2013-01-14   2014-01-15     16677.68  True (0, 1, 2)   -7.105e-15
+  1     2252   2014-01-15   2014-01-16   2015-01-28     19189.79  True (0, 1, 2)   -3.553e-15
+  2     2504   2015-01-28   2015-01-29   2016-02-03     21669.41  True (0, 1, 2)   -3.553e-15
+  3     2756   2016-02-03   2016-02-04   2017-02-09     23983.18  True (0, 1, 2)   -3.553e-15
+  4     3008   2017-02-09   2017-02-10   2018-02-15     25786.67  True (0, 1, 2)   -6.883e-15
+  5     3260   2018-02-15   2018-02-16   2019-02-21     27757.83  True (0, 1, 2)   -3.553e-15
+  6     3512   2019-02-21   2019-02-22   2020-03-05     29988.87  True (0, 1, 2)   -3.553e-15
+  7     3764   2020-03-05   2020-03-06   2021-03-10     32373.24 False (0, 1, 2)    8.560e-15
+  8     4016   2021-03-10   2021-03-12   2022-03-17     34044.69  True (0, 1, 2)    1.072e-26
+  9     4268   2022-03-17   2022-03-21   2023-03-23     36454.76  True (0, 1, 2)   -1.110e-15
+ 10     4520   2023-03-23   2023-03-24   2024-04-01     38518.59  True (0, 1, 2)   -3.553e-15
+ 11     4772   2024-04-01   2024-04-02   2025-04-04     40705.23  True (0, 1, 2)   -3.553e-15
+ 12     5024   2025-04-04   2025-04-07   2026-04-15     44257.11 False (0, 1, 2)    2.230e-10
+ 13     5276   2026-04-15   2026-04-16   2026-08-21     45430.61 False (0, 1, 2)    2.527e-26
+
+converged blocks                                  : 11/14
+blocks with a transition prob < 1e-6 (near-absorbing): 14/14
+blocks whose transition block stayed EXACTLY zero    : 0/14   <- AMENDMENT-05 2.1 defect signature
+
+CAUSAL RESULTS (new object - NOT comparable to the smoothed figures)
+  causal span      : 2013-01-14 .. 2026-08-21  (3365 of 5365 days)
+  occupancy        : 74.4% / 6.9% / 18.7%
+  (smoothed in-sample was 43.0/25.2/31.8 - DIFFERENT OBJECT, not a target)
+  LSD_t            : mean=0.4442 sd=0.7804 range=[0.0000, 2.0000]
+  FR23 variance    : mean=0.0133 max=0.9998
+  NFR17 separation : 0.268 sigma  (requires >= 3; NOT tuned)
+    crisis RV mean=0.4478 (n=630)   tranquil RV mean=0.4118 (n=2503)
+
+wrote causal_run.json and causal_xi_NOT_PRODUCTION.npz (diagnostic only)

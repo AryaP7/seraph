@@ -1,0 +1,38 @@
+
+[audit] grid 5,363 days 2005-01-03 .. 2026-08-21
+[audit] 19 features, 6 onsets
+[audit] separations are in LOCAL sd (+-1y around each onset, all three event windows excluded)
+[audit] *** EXPLORATORY SCREEN - not confirmatory evidence ***
+
+feature                 cover  BEFORE15   DURING   AFTER    class  epochs+
+--------------------------------------------------------------------------
+P1 hawkes n/(1-n)        4/6     -0.128   +0.406  -0.148   DURING    1/4  
+P2 rmt lambda1/N         6/6     -0.620   -0.401  +0.198    AFTER    1/6  
+P2 rmt SCA_t             6/6     -0.077   +0.534  +0.382   DURING    3/6  
+P2 rmt F_t               6/6     -0.304   -0.059  +0.036    AFTER    2/6  
+P2 rmt V_eig             6/6     -0.579   +0.353  +0.200   DURING    3/6  
+P2 rmt Omega_t           6/6     +0.171   +0.332  +0.095   DURING    3/6  
+P3 hamilton LSD          5/6     -0.392   +0.692  +0.079   DURING    1/5  
+B rv_20                  6/6     -0.028   +1.499  +1.777    AFTER    3/6  
+B drawdown               6/6     -0.018   +0.508  +0.940    AFTER    3/6  
+B semivar_20             6/6     -0.118   +2.138  +1.643   DURING    3/6  
+B rv_accel_5             6/6     +0.004   +0.740  -0.541   DURING    4/6  
+B dd_accel_5             6/6     +0.286   +0.859  -0.007   DURING    5/6  
+V india_vix              4/6     -0.613   +1.777  +2.544    AFTER    0/4  
+V vix_accel_5            4/6     +0.241   +1.467  -0.574   DURING    2/4  
+V vix_ratio_60           4/6     +0.432   +4.187  +2.167   DURING    4/4  
+M dispersion             6/6     -0.146   +0.452  +0.316   DURING    2/6  
+M frac_down              6/6     +0.161   +0.332  -0.073   DURING    4/6  
+M frac_down_3pct         6/6     +0.074   +0.980  +0.372   DURING    4/6  
+M turnover_ratio_60      6/6     -0.030   +0.204  -0.036   DURING    3/6  
+
+BEFORE15 = mean separation over [onset-15, onset-1] in local sd.
+DURING   = [onset, onset+30].   AFTER = [onset+31, onset+60].
+class    = which window holds the LARGEST POSITIVE separation;
+           'none(+)' means no window is positive on average.
+epochs+  = onsets where BEFORE15 > 0, out of those covered.
+
+Only a BEFORE classification can support advance warning. A DURING
+classification is contemporaneous detection, however large.
+
+[audit] wrote docs\evidence\signals\predictive_information_audit.json

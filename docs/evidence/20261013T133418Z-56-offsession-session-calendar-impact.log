@@ -1,0 +1,299 @@
+# D-4 - off-session / short-session bars: full characterisation and evaluation impact
+# READ-ONLY on the database (SELECT only). Nothing written, no schema change.
+# 2026-10-13T13:34:18Z  git f3eaac8  branch evidence/pre-arya-experimentation
+
+$ .venv/Scripts/python.exe -I <scratchpad>/offsession_impact.py
+off-session dates                 : 11
+short sessions (<70 bar-times)    : 17
+union of non-standard session dates: 17
+    2015-11-11  bar-times= 14  off_session=yes
+    2016-10-30  bar-times= 12  off_session=yes
+    2017-07-10  bar-times= 36  off_session=no
+    2017-10-19  bar-times= 12  off_session=yes
+    2018-11-07  bar-times= 12  off_session=yes
+    2019-10-27  bar-times= 12  off_session=yes
+    2020-03-13  bar-times= 64  off_session=no
+    2020-03-23  bar-times= 64  off_session=no
+    2020-11-14  bar-times= 12  off_session=yes
+    2021-02-24  bar-times= 45  off_session=yes
+    2021-11-04  bar-times= 12  off_session=yes
+    2022-10-24  bar-times= 12  off_session=yes
+    2023-11-12  bar-times= 12  off_session=yes
+    2024-03-02  bar-times= 21  off_session=no
+    2024-05-18  bar-times= 21  off_session=no
+    2024-11-01  bar-times= 12  off_session=yes
+    2025-10-21  bar-times= 12  off_session=no
+
+daily_prices trading calendar     : 7825 sessions 1995-01-02 .. 2026-08-21
+
+--- are these real trading days in the DAILY pillars? -------
+    2015-11-11  daily_prices=1134  rmt_output=1  hamilton_output=1
+    2016-10-30  daily_prices=1262  rmt_output=1  hamilton_output=1
+    2017-07-10  daily_prices=1330  rmt_output=1  hamilton_output=1
+    2017-10-19  daily_prices=1375  rmt_output=1  hamilton_output=1
+    2018-11-07  daily_prices=1454  rmt_output=1  hamilton_output=1
+    2019-10-27  daily_prices=   0  rmt_output=0  hamilton_output=0
+    2020-03-13  daily_prices=1578  rmt_output=1  hamilton_output=1
+    2020-03-23  daily_prices=1545  rmt_output=1  hamilton_output=1
+    2020-11-14  daily_prices=   0  rmt_output=0  hamilton_output=0
+    2021-02-24  daily_prices=1643  rmt_output=1  hamilton_output=1
+    2021-11-04  daily_prices=1769  rmt_output=1  hamilton_output=1
+    2022-10-24  daily_prices=1991  rmt_output=1  hamilton_output=1
+    2023-11-12  daily_prices=2249  rmt_output=1  hamilton_output=1
+    2024-03-02  daily_prices=2283  rmt_output=1  hamilton_output=1
+    2024-05-18  daily_prices=2358  rmt_output=1  hamilton_output=1
+    2024-11-01  daily_prices=2572  rmt_output=1  hamilton_output=1
+    2025-10-21  daily_prices=2842  rmt_output=1  hamilton_output=1
+
+--- FR32 windows (break + 30 trading days; lead 5-15 before) 
+            gfc_2008 break 2008-09-15 -> crisis 2008-09-15..2008-10-29   lead 2008-08-22..2008-09-08
+          taper_2013 break 2013-05-22 -> crisis 2013-05-22..2013-07-03   lead 2013-05-02..2013-05-15
+           ilfs_2018 break 2018-09-21 -> crisis 2018-09-21..2018-11-06   lead 2018-08-29..2018-09-12
+          covid_2020 break 2020-02-20 -> crisis 2020-02-20..2020-04-08   lead 2020-01-30..2020-02-13
+     tightening_2022 break 2022-01-05 -> crisis 2022-01-05..2022-02-17   lead 2021-12-15..2021-12-29
+         tariff_2026 break 2026-02-01 -> crisis 2026-02-01..2026-03-16   lead 2026-01-08..2026-01-23
+
+--- does any non-standard session date land in a window? ----
+    2015-11-11  outside every window
+    2016-10-30  outside every window
+    2017-07-10  outside every window
+    2017-10-19  outside every window
+    2018-11-07  outside every window
+    2019-10-27  outside every window
+    2020-03-13  covid_2020:CRISIS
+    2020-03-23  covid_2020:CRISIS
+    2020-11-14  outside every window
+    2021-02-24  outside every window
+    2021-11-04  outside every window
+    2022-10-24  outside every window
+    2023-11-12  outside every window
+    2024-03-02  outside every window
+    2024-05-18  outside every window
+    2024-11-01  outside every window
+    2025-10-21  outside every window
+  -> 2 of 17 non-standard session dates fall in an FR32 crisis or lead window
+
+--- the 5 non-standard hawkes_output emission dates ---------
+    2020-04-27  csrs_rows=2  outside every FR32 window
+    2024-03-02  csrs_rows=2  outside every FR32 window
+    2024-05-18  csrs_rows=2  outside every FR32 window
+    2024-11-01  csrs_rows=2  outside every FR32 window
+    2025-10-21  csrs_rows=2  outside every FR32 window
+
+csrs rows on an OFF-SESSION date  : 14 / 4714
+EXIT=0
+
+## PART 2 - per-date characterisation (weekday, window, daily-corpus presence)
+$ .venv/Scripts/python.exe -I <scratchpad>/odd2.py
+        date   wd     bars  syms             IST window  daily_px
+2015-11-11  Wed     1100    79  17:35:00..18:45:00      1134
+2016-10-30  Sun      792    79  18:30:00..19:25:00      1262
+2017-07-10  Mon     2879    80  12:30:00..15:25:00      1330
+2017-10-19  Thu      814    81  18:30:00..19:25:00      1375
+2018-11-07  Wed     1032    86  17:30:00..18:25:00      1454
+2019-10-27  Sun     1044    87  18:15:00..19:10:00         0
+2020-03-13  Fri     5567    87  09:15:00..15:25:00      1578
+2020-03-23  Mon     5558    87  09:15:00..15:25:00      1545
+2020-11-14  Sat     1080    90  18:15:00..19:10:00         0
+2021-02-24  Wed     2729    90  09:15:00..16:55:00      1643
+2021-11-04  Thu     1092    91  18:15:00..19:10:00      1769
+2022-10-24  Mon     1128    94  18:15:00..19:10:00      1991
+2023-11-12  Sun     1128    94  18:15:00..19:10:00      2249
+2024-03-02  Sat     1974    94  09:15:00..12:25:00      2283
+2024-05-18  Sat     1974    94  09:15:00..12:25:00      2358
+2024-11-01  Fri     1128    94  18:00:00..18:55:00      2572
+2025-10-21  Tue     1128    94  13:45:00..14:40:00      2842
+
+--- 2021-02-24: post-close bars, by symbol ---
+             LUPIN bars= 15  15:45:00..16:55:00
+              NTPC bars= 15  15:45:00..16:55:00
+
+--- 2020-03-13 / 2020-03-23: missing bar-times (circuit breaker?) ---
+    2020-03-13: 64/76 present; missing 12 -> 09:25:00 .. 15:30:00 (contiguous=False)
+    2020-03-23: 64/76 present; missing 12 -> 10:00:00 .. 15:30:00 (contiguous=False)
+PART2_EXIT=0
+
+================================================================================
+
+APPENDIX A - offsession_impact.py, verbatim
+
+================================================================================
+"""D-4: does the off-session / short-session bar population affect any pillar
+output used in evaluation?
+
+Answers, read-only (SELECT only):
+  1. which dates carry off-session or short intraday sessions
+  2. whether those dates also exist as DAILY observations in daily_prices,
+     rmt_output, hamilton_output (they are real trading days, so they should)
+  3. whether any of them falls inside an FR32 crisis window (break + 30 trading
+     days) or lead window (5-15 trading days before the break)
+  4. which hawkes_output / csrs rows sit on such a date
+"""
+import asyncio
+import sys
+
+import asyncpg
+
+sys.path.insert(0, r"C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya")
+from seraph.store.bootstrap import resolve_dsn                      # noqa: E402
+from seraph.validation.epochs import (                              # noqa: E402
+    CRISIS_WINDOW_DAYS, EPOCH_BREAKS, LEAD_WINDOW_DAYS,
+)
+
+# the five non-standard hawkes_output emission dates found in the -54- log
+HAWKES_ODD = ["2020-04-27", "2024-03-02", "2024-05-18", "2024-11-01",
+              "2025-10-21"]
+
+
+async def main():
+    pool = await asyncpg.create_pool(resolve_dsn(), min_size=1, max_size=2)
+    try:
+        # ---- 1. off-session + short-session intraday dates ------------------
+        off = [r["d"] for r in await pool.fetch("""
+            SELECT DISTINCT (ts AT TIME ZONE 'Asia/Kolkata')::date AS d
+            FROM intraday_bars
+            WHERE (ts AT TIME ZONE 'Asia/Kolkata')::time < '09:15'::time
+               OR (ts AT TIME ZONE 'Asia/Kolkata')::time > '15:30'::time
+            ORDER BY 1""")]
+        short = [(r["d"], r["k"]) for r in await pool.fetch("""
+            SELECT d, k FROM (
+              SELECT (ts AT TIME ZONE 'Asia/Kolkata')::date AS d,
+                     count(DISTINCT (ts AT TIME ZONE 'Asia/Kolkata')::time) AS k
+              FROM intraday_bars GROUP BY 1) s
+            WHERE k < 70 ORDER BY d""")]
+        print(f"off-session dates                 : {len(off)}")
+        print(f"short sessions (<70 bar-times)    : {len(short)}")
+        suspect = sorted({*off, *[d for d, _ in short]})
+        print(f"union of non-standard session dates: {len(suspect)}")
+        kmap = dict(short)
+        for d in suspect:
+            print(f"    {d}  bar-times={kmap.get(d, 75):>3}"
+                  f"  off_session={'yes' if d in off else 'no'}")
+
+        # ---- 2. the NSE trading calendar, from daily_prices -----------------
+        cal = [r["date"] for r in await pool.fetch(
+            "SELECT DISTINCT date FROM daily_prices ORDER BY date")]
+        cal_idx = {d: i for i, d in enumerate(cal)}
+        print(f"\ndaily_prices trading calendar     : {len(cal)} sessions "
+              f"{cal[0]} .. {cal[-1]}")
+
+        print("\n--- are these real trading days in the DAILY pillars? -------")
+        for d in suspect:
+            dp = await pool.fetchval(
+                "SELECT count(*) FROM daily_prices WHERE date=$1", d)
+            rm = await pool.fetchval(
+                "SELECT count(*) FROM rmt_output WHERE date=$1", d)
+            hm = await pool.fetchval(
+                "SELECT count(*) FROM hamilton_output WHERE date=$1", d)
+            print(f"    {d}  daily_prices={dp:>4}  rmt_output={rm}  "
+                  f"hamilton_output={hm}")
+
+        # ---- 3. FR32 window membership --------------------------------------
+        print("\n--- FR32 windows (break + 30 trading days; lead 5-15 before) ")
+        windows = {}
+        for ep, (bd, _) in EPOCH_BREAKS.items():
+            import datetime as _dt
+            b = _dt.date.fromisoformat(bd)
+            # first calendar session on/after the break
+            i = next((j for j, d in enumerate(cal) if d >= b), None)
+            if i is None:
+                print(f"    {ep:>16} break {bd}: beyond the calendar")
+                continue
+            crisis = cal[i: i + CRISIS_WINDOW_DAYS + 1]
+            lo, hi = LEAD_WINDOW_DAYS
+            lead = cal[max(0, i - hi): max(0, i - lo) + 1]
+            windows[ep] = (set(crisis), set(lead))
+            print(f"    {ep:>16} break {bd} -> crisis {crisis[0]}..{crisis[-1]}"
+                  f"   lead {lead[0] if lead else '-'}..{lead[-1] if lead else '-'}")
+
+        print("\n--- does any non-standard session date land in a window? ----")
+        hits = 0
+        for d in suspect:
+            where = [f"{ep}:CRISIS" for ep, (c, _) in windows.items() if d in c]
+            where += [f"{ep}:LEAD" for ep, (_, l) in windows.items() if d in l]
+            if where:
+                hits += 1
+            print(f"    {d}  {'  '.join(where) if where else 'outside every window'}")
+        print(f"  -> {hits} of {len(suspect)} non-standard session dates fall "
+              f"in an FR32 crisis or lead window")
+
+        # ---- 4. the 5 odd hawkes_output rows --------------------------------
+        print("\n--- the 5 non-standard hawkes_output emission dates ---------")
+        for ds in HAWKES_ODD:
+            import datetime as _dt
+            d = _dt.date.fromisoformat(ds)
+            where = [f"{ep}:CRISIS" for ep, (c, _) in windows.items() if d in c]
+            where += [f"{ep}:LEAD" for ep, (_, l) in windows.items() if d in l]
+            n_csrs = await pool.fetchval(
+                "SELECT count(*) FROM csrs WHERE (ts AT TIME ZONE "
+                "'Asia/Kolkata')::date = $1", d)
+            print(f"    {ds}  csrs_rows={n_csrs}  "
+                  f"{'  '.join(where) if where else 'outside every FR32 window'}")
+
+        # ---- 5. how many csrs rows sit on a non-standard session date -------
+        n = await pool.fetchval("""
+            SELECT count(*) FROM csrs c WHERE (c.ts AT TIME ZONE
+              'Asia/Kolkata')::date IN (
+                SELECT DISTINCT (ts AT TIME ZONE 'Asia/Kolkata')::date
+                FROM intraday_bars
+                WHERE (ts AT TIME ZONE 'Asia/Kolkata')::time < '09:15'::time
+                   OR (ts AT TIME ZONE 'Asia/Kolkata')::time > '15:30'::time)""")
+        tot = await pool.fetchval("SELECT count(*) FROM csrs")
+        print(f"\ncsrs rows on an OFF-SESSION date  : {n} / {tot}")
+    finally:
+        await pool.close()
+
+asyncio.run(main())
+
+================================================================================
+
+APPENDIX B - odd2.py, verbatim
+
+================================================================================
+import asyncio, sys, datetime as dt
+import asyncpg
+sys.path.insert(0, r"C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya")
+from seraph.store.bootstrap import resolve_dsn
+
+D = [dt.date.fromisoformat(s) for s in
+     ["2015-11-11","2016-10-30","2017-07-10","2017-10-19","2018-11-07",
+      "2019-10-27","2020-03-13","2020-03-23","2020-11-14","2021-02-24",
+      "2021-11-04","2022-10-24","2023-11-12","2024-03-02","2024-05-18",
+      "2024-11-01","2025-10-21"]]
+
+async def main():
+    p = await asyncpg.create_pool(resolve_dsn(), min_size=1, max_size=2)
+    try:
+        print(f"{'date':>12} {'wd':>4} {'bars':>8} {'syms':>5}  {'IST window':>21} {'daily_px':>9}")
+        for d in D:
+            r = await p.fetchrow("""
+                SELECT count(*) n, count(DISTINCT symbol) s,
+                       min((ts AT TIME ZONE 'Asia/Kolkata')::time) lo,
+                       max((ts AT TIME ZONE 'Asia/Kolkata')::time) hi
+                FROM intraday_bars
+                WHERE (ts AT TIME ZONE 'Asia/Kolkata')::date = $1""", d)
+            dp = await p.fetchval("SELECT count(*) FROM daily_prices WHERE date=$1", d)
+            print(f"{d} {d.strftime('%a'):>4} {r['n']:>8} {r['s']:>5}  {r['lo']}..{r['hi']} {dp:>9}")
+        print("\n--- 2021-02-24: post-close bars, by symbol ---")
+        for r in await p.fetch("""
+            SELECT symbol, count(*) n,
+                   min((ts AT TIME ZONE 'Asia/Kolkata')::time) lo,
+                   max((ts AT TIME ZONE 'Asia/Kolkata')::time) hi
+            FROM intraday_bars
+            WHERE (ts AT TIME ZONE 'Asia/Kolkata')::date=$1
+              AND (ts AT TIME ZONE 'Asia/Kolkata')::time > '15:30'
+            GROUP BY 1 ORDER BY 1""", dt.date(2021,2,24)):
+            print(f"    {r['symbol']:>14} bars={r['n']:>3}  {r['lo']}..{r['hi']}")
+        print("\n--- 2020-03-13 / 2020-03-23: missing bar-times (circuit breaker?) ---")
+        full = sorted({f"{h:02d}:{m:02d}:00" for h in range(9,16)
+                       for m in range(0,60,5) if (9,15) <= (h,m) <= (15,30)})
+        for d in (dt.date(2020,3,13), dt.date(2020,3,23)):
+            have = {str(r['t']) for r in await p.fetch("""
+                SELECT DISTINCT (ts AT TIME ZONE 'Asia/Kolkata')::time t
+                FROM intraday_bars WHERE (ts AT TIME ZONE 'Asia/Kolkata')::date=$1""", d)}
+            miss = sorted(set(full) - have)
+            print(f"    {d}: {len(have)}/{len(full)} present; missing {len(miss)}"
+                  + (f" -> {miss[0]} .. {miss[-1]} (contiguous={len(miss)==1+full.index(miss[-1])-full.index(miss[0])})" if miss else ""))
+    finally:
+        await p.close()
+asyncio.run(main())

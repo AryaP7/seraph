@@ -1,0 +1,95 @@
+{
+  "generated_utc": "2026-10-13T19:41:00Z",
+  "pillar2_quantity": "lam1",
+  "reps": 150,
+  "training_days": 4081,
+  "training_positives": 60,
+  "point_estimate": {
+    "hawkes": 0.15,
+    "rmt": 0.1,
+    "hamilton": 0.75
+  },
+  "point_train_auc": 0.3771,
+  "by_block_length": {
+    "21": {
+      "replicates": 148,
+      "q05": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "q50": [
+        0.175,
+        0.1,
+        0.3
+      ],
+      "q95": [
+        1.0,
+        0.9,
+        1.0
+      ],
+      "mean_interval_width": 0.9667,
+      "frac_replicates_at_a_corner": 0.1486
+    },
+    "63": {
+      "replicates": 150,
+      "q05": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "q50": [
+        0.45,
+        0.1,
+        0.2
+      ],
+      "q95": [
+        1.0,
+        0.9,
+        0.85
+      ],
+      "mean_interval_width": 0.9167,
+      "frac_replicates_at_a_corner": 0.18
+    },
+    "252": {
+      "replicates": 150,
+      "q05": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "q50": [
+        0.45,
+        0.05,
+        0.25
+      ],
+      "q95": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "mean_interval_width": 1.0,
+      "frac_replicates_at_a_corner": 0.2733
+    },
+    "770": {
+      "replicates": 150,
+      "q05": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "q50": [
+        0.15,
+        0.05,
+        0.3
+      ],
+      "q95": [
+        1.0,
+        1.0,
+        0.95
+      ],
+      "mean_interval_width": 0.9833,
+      "frac_replicates_at_a_corner": 0.2133
+    }
+  }
+}

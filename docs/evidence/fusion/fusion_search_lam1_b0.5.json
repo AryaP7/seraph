@@ -1,0 +1,768 @@
+{
+  "generated_utc": "2026-10-13T19:29:52Z",
+  "preregistration_sha256": "3d8e8de372e328444d9711fcb531c41deb8e91bac17100c0d19ff295abb4848d",
+  "budget_fa_per_year": 0.5,
+  "pillar2_quantity": "lam1",
+  "dev_epochs": [
+    "gfc_2008",
+    "taper_2013",
+    "ilfs_2018",
+    "covid_2020"
+  ],
+  "confirm_epochs": [
+    "tightening_2022",
+    "tariff_2026"
+  ],
+  "grid": {
+    "n": 5363,
+    "first": "2005-01-03",
+    "last": "2026-08-21"
+  },
+  "mask_coverage": {
+    "hawkes": 468,
+    "rmt": 5363,
+    "hamilton": 3365
+  },
+  "all_three_days": 468,
+  "folds": {
+    "taper_2013": {
+      "train_days": 2041,
+      "train_pos": 15,
+      "w": [
+        0.0,
+        0.15,
+        0.85
+      ],
+      "train_auc": 0.6585
+    },
+    "ilfs_2018": {
+      "train_days": 3330,
+      "train_pos": 30,
+      "w": [
+        0.65,
+        0.05,
+        0.3
+      ],
+      "train_auc": 0.5032
+    },
+    "covid_2020": {
+      "train_days": 3647,
+      "train_pos": 45,
+      "w": [
+        0.1,
+        0.9,
+        0.0
+      ],
+      "train_auc": 0.4905
+    }
+  },
+  "candidates": {},
+  "harness_check_max_abs_delta": 2.220446049250313e-16,
+  "harness_check": "PASSED",
+  "h2_weight_l1_span": 1.7,
+  "h2_verdict": "UNSTABLE",
+  "candidate_D_detail": {
+    "gfc_2008": "untrainable (<5 training positives)",
+    "taper_2013": {
+      "warned": 0,
+      "lead": null,
+      "composite_thr": 1.0,
+      "pillar_thrs": [
+        null,
+        null,
+        1.0
+      ],
+      "fa_per_year": 1.095
+    },
+    "ilfs_2018": {
+      "warned": 0,
+      "lead": null,
+      "composite_thr": 1.0,
+      "pillar_thrs": [
+        0.952939,
+        null,
+        null
+      ],
+      "fa_per_year": 0.286
+    },
+    "covid_2020": {
+      "warned": 0,
+      "lead": null,
+      "composite_thr": 1.0,
+      "pillar_thrs": [
+        0.95314,
+        null,
+        null
+      ],
+      "fa_per_year": 0.286
+    }
+  },
+  "candidate_D_saturated_folds": [
+    "taper_2013",
+    "ilfs_2018",
+    "covid_2020"
+  ],
+  "candidate_B_weights_by_train_size": {
+    "shrink0": {
+      "2041": [
+        0.0,
+        0.15,
+        0.85
+      ],
+      "3330": [
+        0.65,
+        0.05,
+        0.3
+      ],
+      "3647": [
+        0.1,
+        0.9,
+        0.0
+      ]
+    },
+    "shrink0.25": {
+      "2041": [
+        0.0833,
+        0.1958,
+        0.7208
+      ],
+      "3330": [
+        0.5708,
+        0.1208,
+        0.3083
+      ],
+      "3647": [
+        0.1583,
+        0.7583,
+        0.0833
+      ]
+    },
+    "shrink0.5": {
+      "2041": [
+        0.1667,
+        0.2417,
+        0.5917
+      ],
+      "3330": [
+        0.4917,
+        0.1917,
+        0.3167
+      ],
+      "3647": [
+        0.2167,
+        0.6167,
+        0.1667
+      ]
+    },
+    "shrink0.75": {
+      "2041": [
+        0.25,
+        0.2875,
+        0.4625
+      ],
+      "3330": [
+        0.4125,
+        0.2625,
+        0.325
+      ],
+      "3647": [
+        0.275,
+        0.475,
+        0.25
+      ]
+    }
+  },
+  "candidate_C": {
+    "chosen_C": {
+      "3647": 1.0
+    },
+    "coefficients_intercept_then_pillars": {
+      "3647": [
+        -2.6824,
+        -1.0251,
+        -0.2311,
+        -2.4432
+      ]
+    }
+  },
+  "development": {
+    "A:equal_weight": {
+      "threshold": 1.0,
+      "warned": 0,
+      "testable": 4,
+      "leads": [],
+      "fa_per_year": 0.324,
+      "n_episodes": 7,
+      "frac_days": 0.0054
+    },
+    "E:pillar_hawkes": {
+      "threshold": 0.756288,
+      "warned": 0,
+      "testable": 0,
+      "leads": [],
+      "fa_per_year": 1.205,
+      "n_episodes": 30,
+      "frac_days": 0.0056
+    },
+    "E:pillar_rmt": {
+      "threshold": 1.0,
+      "warned": 0,
+      "testable": 4,
+      "leads": [],
+      "fa_per_year": 0.324,
+      "n_episodes": 7,
+      "frac_days": 0.0054
+    },
+    "E:pillar_hamilton": {
+      "threshold": 1.0,
+      "warned": 0,
+      "testable": 3,
+      "leads": [],
+      "fa_per_year": 0.371,
+      "n_episodes": 8,
+      "frac_days": 0.0048
+    },
+    "E:semivar_20": {
+      "threshold": 0.022975,
+      "warned": 0,
+      "testable": 4,
+      "leads": [],
+      "fa_per_year": 0.324,
+      "n_episodes": 7,
+      "frac_days": 0.0222
+    },
+    "E:rv_20": {
+      "threshold": 0.028802,
+      "warned": 0,
+      "testable": 4,
+      "leads": [],
+      "fa_per_year": 0.371,
+      "n_episodes": 8,
+      "frac_days": 0.019
+    },
+    "E:drawdown": {
+      "threshold": 0.548376,
+      "warned": 0,
+      "testable": 4,
+      "leads": [],
+      "fa_per_year": 0.324,
+      "n_episodes": 7,
+      "frac_days": 0.0343
+    },
+    "E:rv_accel_5": {
+      "threshold": 0.009484,
+      "warned": 0,
+      "testable": 4,
+      "leads": [],
+      "fa_per_year": 0.371,
+      "n_episodes": 9,
+      "frac_days": 0.0071
+    },
+    "E:dd_accel_5": {
+      "threshold": 0.090869,
+      "warned": 0,
+      "testable": 4,
+      "leads": [],
+      "fa_per_year": 0.417,
+      "n_episodes": 9,
+      "frac_days": 0.0048
+    },
+    "E:india_vix": {
+      "threshold": 26.4968,
+      "warned": 0,
+      "testable": 2,
+      "leads": [],
+      "fa_per_year": 0.649,
+      "n_episodes": 14,
+      "frac_days": 0.0164
+    },
+    "B:convex_shrink0": {
+      "warned": 0,
+      "testable": 3,
+      "leads": [],
+      "fa_per_year": 0.262,
+      "frac_days": 0.0039,
+      "per_fold_thresholds": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "skipped_folds": [
+        "gfc_2008"
+      ]
+    },
+    "B:convex_shrink0.25": {
+      "warned": 0,
+      "testable": 3,
+      "leads": [],
+      "fa_per_year": 0.262,
+      "frac_days": 0.0039,
+      "per_fold_thresholds": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "skipped_folds": [
+        "gfc_2008"
+      ]
+    },
+    "B:convex_shrink0.5": {
+      "warned": 0,
+      "testable": 3,
+      "leads": [],
+      "fa_per_year": 0.262,
+      "frac_days": 0.0039,
+      "per_fold_thresholds": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "skipped_folds": [
+        "gfc_2008"
+      ]
+    },
+    "B:convex_shrink0.75": {
+      "warned": 0,
+      "testable": 3,
+      "leads": [],
+      "fa_per_year": 0.262,
+      "frac_days": 0.0039,
+      "per_fold_thresholds": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "skipped_folds": [
+        "gfc_2008"
+      ]
+    },
+    "C:logistic_L2": {
+      "warned": 0,
+      "testable": 1,
+      "leads": [],
+      "fa_per_year": 0.602,
+      "frac_days": 0.0226,
+      "per_fold_thresholds": [
+        0.044618
+      ],
+      "skipped_folds": [
+        "gfc_2008",
+        "taper_2013",
+        "ilfs_2018"
+      ]
+    },
+    "D:composite+escalation": {
+      "warned": 0,
+      "testable": 3,
+      "leads": [],
+      "fa_per_year": 0.556,
+      "frac_days": 0.0053,
+      "per_fold": {
+        "gfc_2008": "untrainable (<5 training positives)",
+        "taper_2013": {
+          "warned": 0,
+          "lead": null,
+          "composite_thr": 1.0,
+          "pillar_thrs": [
+            null,
+            null,
+            1.0
+          ],
+          "fa_per_year": 1.095
+        },
+        "ilfs_2018": {
+          "warned": 0,
+          "lead": null,
+          "composite_thr": 1.0,
+          "pillar_thrs": [
+            0.952939,
+            null,
+            null
+          ],
+          "fa_per_year": 0.286
+        },
+        "covid_2020": {
+          "warned": 0,
+          "lead": null,
+          "composite_thr": 1.0,
+          "pillar_thrs": [
+            0.95314,
+            null,
+            null
+          ],
+          "fa_per_year": 0.286
+        }
+      }
+    }
+  },
+  "h1": {
+    "best_learned": 0,
+    "best_single": 0,
+    "baseline_A": 0,
+    "verdict": "CONFIRMED"
+  },
+  "development_nulls": {
+    "A:equal_weight": {
+      "horizon_days": 15,
+      "observed": {
+        "n_warned": 0,
+        "n_testable": 4,
+        "rate": 0.0,
+        "mean_lead_days": null
+      },
+      "null_draws_used": 1500,
+      "resolution_floor": 0.00067,
+      "null_rate": {
+        "mean": 0.0048,
+        "sd": 0.0344,
+        "p50": 0.0,
+        "p95": 0.0
+      },
+      "p_rate": 1.0,
+      "observed_vs_null_sd": -0.14
+    },
+    "E:pillar_rmt": {
+      "horizon_days": 15,
+      "observed": {
+        "n_warned": 0,
+        "n_testable": 4,
+        "rate": 0.0,
+        "mean_lead_days": null
+      },
+      "null_draws_used": 1500,
+      "resolution_floor": 0.00067,
+      "null_rate": {
+        "mean": 0.0048,
+        "sd": 0.0344,
+        "p50": 0.0,
+        "p95": 0.0
+      },
+      "p_rate": 1.0,
+      "observed_vs_null_sd": -0.14
+    },
+    "E:pillar_hamilton": {
+      "horizon_days": 15,
+      "observed": {
+        "n_warned": 0,
+        "n_testable": 3,
+        "rate": 0.0,
+        "mean_lead_days": null
+      },
+      "null_draws_used": 1490,
+      "resolution_floor": 0.00067,
+      "null_rate": {
+        "mean": 0.0173,
+        "sd": 0.0843,
+        "p50": 0.0,
+        "p95": 0.0
+      },
+      "p_rate": 1.0,
+      "observed_vs_null_sd": -0.206
+    },
+    "E:semivar_20": {
+      "horizon_days": 15,
+      "observed": {
+        "n_warned": 0,
+        "n_testable": 4,
+        "rate": 0.0,
+        "mean_lead_days": null
+      },
+      "null_draws_used": 1500,
+      "resolution_floor": 0.00067,
+      "null_rate": {
+        "mean": 0.015,
+        "sd": 0.0605,
+        "p50": 0.0,
+        "p95": 0.25
+      },
+      "p_rate": 1.0,
+      "observed_vs_null_sd": -0.248
+    },
+    "E:rv_20": {
+      "horizon_days": 15,
+      "observed": {
+        "n_warned": 0,
+        "n_testable": 4,
+        "rate": 0.0,
+        "mean_lead_days": null
+      },
+      "null_draws_used": 1500,
+      "resolution_floor": 0.00067,
+      "null_rate": {
+        "mean": 0.0156,
+        "sd": 0.0645,
+        "p50": 0.0,
+        "p95": 0.25
+      },
+      "p_rate": 1.0,
+      "observed_vs_null_sd": -0.241
+    },
+    "E:drawdown": {
+      "horizon_days": 15,
+      "observed": {
+        "n_warned": 0,
+        "n_testable": 4,
+        "rate": 0.0,
+        "mean_lead_days": null
+      },
+      "null_draws_used": 1500,
+      "resolution_floor": 0.00067,
+      "null_rate": {
+        "mean": 0.0122,
+        "sd": 0.0538,
+        "p50": 0.0,
+        "p95": 0.0
+      },
+      "p_rate": 1.0,
+      "observed_vs_null_sd": -0.226
+    },
+    "E:rv_accel_5": {
+      "horizon_days": 15,
+      "observed": {
+        "n_warned": 0,
+        "n_testable": 4,
+        "rate": 0.0,
+        "mean_lead_days": null
+      },
+      "null_draws_used": 1500,
+      "resolution_floor": 0.00067,
+      "null_rate": {
+        "mean": 0.0274,
+        "sd": 0.0873,
+        "p50": 0.0,
+        "p95": 0.25
+      },
+      "p_rate": 1.0,
+      "observed_vs_null_sd": -0.314
+    },
+    "E:dd_accel_5": {
+      "horizon_days": 15,
+      "observed": {
+        "n_warned": 0,
+        "n_testable": 4,
+        "rate": 0.0,
+        "mean_lead_days": null
+      },
+      "null_draws_used": 1500,
+      "resolution_floor": 0.00067,
+      "null_rate": {
+        "mean": 0.0269,
+        "sd": 0.0811,
+        "p50": 0.0,
+        "p95": 0.25
+      },
+      "p_rate": 1.0,
+      "observed_vs_null_sd": -0.332
+    },
+    "E:india_vix": {
+      "horizon_days": 15,
+      "observed": {
+        "n_warned": 0,
+        "n_testable": 2,
+        "rate": 0.0,
+        "mean_lead_days": null
+      },
+      "null_draws_used": 1490,
+      "resolution_floor": 0.00067,
+      "null_rate": {
+        "mean": 0.056,
+        "sd": 0.1584,
+        "p50": 0.0,
+        "p95": 0.5
+      },
+      "p_rate": 1.0,
+      "observed_vs_null_sd": -0.354
+    }
+  },
+  "development_holm": {
+    "A:equal_weight": {
+      "p": 1.0,
+      "holm_threshold": 0.005556,
+      "survives_holm": false
+    },
+    "E:pillar_rmt": {
+      "p": 1.0,
+      "holm_threshold": 0.00625,
+      "survives_holm": false
+    },
+    "E:pillar_hamilton": {
+      "p": 1.0,
+      "holm_threshold": 0.007143,
+      "survives_holm": false
+    },
+    "E:semivar_20": {
+      "p": 1.0,
+      "holm_threshold": 0.008333,
+      "survives_holm": false
+    },
+    "E:rv_20": {
+      "p": 1.0,
+      "holm_threshold": 0.01,
+      "survives_holm": false
+    },
+    "E:drawdown": {
+      "p": 1.0,
+      "holm_threshold": 0.0125,
+      "survives_holm": false
+    },
+    "E:rv_accel_5": {
+      "p": 1.0,
+      "holm_threshold": 0.016667,
+      "survives_holm": false
+    },
+    "E:dd_accel_5": {
+      "p": 1.0,
+      "holm_threshold": 0.025,
+      "survives_holm": false
+    },
+    "E:india_vix": {
+      "p": 1.0,
+      "holm_threshold": 0.05,
+      "survives_holm": false
+    }
+  },
+  "confirmation": {
+    "A:equal_weight": {
+      "threshold": 1.0,
+      "warned": 0,
+      "testable": 2,
+      "leads": [],
+      "fa_per_year": 0.324,
+      "n_episodes": 7,
+      "frac_days": 0.0054
+    },
+    "B:convex_shrink0.75": {
+      "warned": 0,
+      "testable": 2,
+      "leads": [],
+      "fa_per_year": 0.394,
+      "frac_days": 0.0065,
+      "per_fold_thresholds": [
+        1.0,
+        1.0
+      ],
+      "skipped_folds": []
+    },
+    "D:composite+escalation": {
+      "warned": 0,
+      "testable": 2,
+      "leads": [],
+      "fa_per_year": 0.214,
+      "frac_days": 0.0024,
+      "per_fold": {
+        "tightening_2022": {
+          "warned": 0,
+          "lead": null
+        },
+        "tariff_2026": {
+          "warned": 0,
+          "lead": null
+        }
+      }
+    },
+    "E:pillar_rmt": {
+      "threshold": 1.0,
+      "warned": 0,
+      "testable": 2,
+      "leads": [],
+      "fa_per_year": 0.324,
+      "n_episodes": 7,
+      "frac_days": 0.0054
+    },
+    "E:pillar_hamilton": {
+      "threshold": 1.0,
+      "warned": 0,
+      "testable": 2,
+      "leads": [],
+      "fa_per_year": 0.371,
+      "n_episodes": 8,
+      "frac_days": 0.0048
+    },
+    "E:drawdown": {
+      "threshold": 0.548376,
+      "warned": 0,
+      "testable": 2,
+      "leads": [],
+      "fa_per_year": 0.324,
+      "n_episodes": 7,
+      "frac_days": 0.0343
+    },
+    "E:semivar_20": {
+      "threshold": 0.022975,
+      "warned": 0,
+      "testable": 2,
+      "leads": [],
+      "fa_per_year": 0.324,
+      "n_episodes": 7,
+      "frac_days": 0.0222
+    },
+    "E:dd_accel_5": {
+      "threshold": 0.090869,
+      "warned": 0,
+      "testable": 2,
+      "leads": [],
+      "fa_per_year": 0.417,
+      "n_episodes": 9,
+      "frac_days": 0.0048
+    }
+  },
+  "h4_binomial": {
+    "A:equal_weight": {
+      "warned": 0,
+      "testable": 2,
+      "fa_per_year": 0.324,
+      "p0_per_event": 0.0191,
+      "p_binomial": 1.0
+    },
+    "B:convex_shrink0.75": {
+      "warned": 0,
+      "testable": 2,
+      "fa_per_year": 0.394,
+      "p0_per_event": 0.0232,
+      "p_binomial": 1.0
+    },
+    "D:composite+escalation": {
+      "warned": 0,
+      "testable": 2,
+      "fa_per_year": 0.214,
+      "p0_per_event": 0.0127,
+      "p_binomial": 1.0
+    },
+    "E:pillar_rmt": {
+      "warned": 0,
+      "testable": 2,
+      "fa_per_year": 0.324,
+      "p0_per_event": 0.0191,
+      "p_binomial": 1.0
+    },
+    "E:pillar_hamilton": {
+      "warned": 0,
+      "testable": 2,
+      "fa_per_year": 0.371,
+      "p0_per_event": 0.0218,
+      "p_binomial": 1.0
+    },
+    "E:drawdown": {
+      "warned": 0,
+      "testable": 2,
+      "fa_per_year": 0.324,
+      "p0_per_event": 0.0191,
+      "p_binomial": 1.0
+    },
+    "E:semivar_20": {
+      "warned": 0,
+      "testable": 2,
+      "fa_per_year": 0.324,
+      "p0_per_event": 0.0191,
+      "p_binomial": 1.0
+    },
+    "E:dd_accel_5": {
+      "warned": 0,
+      "testable": 2,
+      "fa_per_year": 0.417,
+      "p0_per_event": 0.0245,
+      "p_binomial": 1.0
+    }
+  },
+  "h4_verdict": "CONFIRMED"
+}

@@ -1,0 +1,96 @@
+### command: .venv/Scripts/python.exe -I scripts/audit_event_coverage.py --warned-rate-only
+### started: 2026-10-13T13:50:24Z
+### HEAD: f3eaac8
+### reads docs/evidence/replay/replay_results.json and replay_results_sca.json (read-only)
+### purpose: does the FR18 SCA variant's 2/6 survive a false-alarm-matched null?
+
+
+==============================================================================
+ARM 5 — CAN MORE ONSETS CHANGE AN OBSERVED 0/N? (warned-rate metric)
+==============================================================================
+
+  observed warned rate: 0.00 over 6 onsets (unified causal replay)
+  no-skill relocation expectation: 0.14 +/- 0.13
+  alpha = 0.05, one-sided, exact binomial
+
+  (a) SHARPNESS OF THE NEGATIVE CLAIM, given k = 0 warnings:
+     N   95% upper bound on p   < no-skill 0.14?
+  ------------------------------------------------
+     6                 0.3930                 no
+    10                 0.2589                 no
+    12                 0.2209                 no
+    15                 0.1810                 no
+    20                 0.1391                YES
+    25                 0.1129                YES
+    30                 0.0950                YES
+
+  Read: 0 warnings out of 6 is consistent with a true per-event
+  warning probability as high as 0.39 — i.e. it does not even
+  establish sub-chance performance. The upper bound first falls
+  below the 0.14 no-skill rate at N = 20, which is the point a
+  continued zero-warning record becomes evidence of WORSE than
+  chance rather than mere absence of evidence.
+
+  (b) SIZE A POSITIVE RESULT WOULD NEED, to reject p <= 0.14:
+     N  min warned k  = warned rate   deficit vs observed 0.00
+  ------------------------------------------------------------
+     6             3          0.500                      0.500
+    10             4          0.400                      0.400
+    12             5          0.417                      0.417
+    15             5          0.333                      0.333
+    20             7          0.350                      0.350
+    25             8          0.320                      0.320
+    30             8          0.267                      0.267
+
+  Read: the minimum detectable warned RATE falls only from ~0.50
+  at N=6 to ~0.30 at N=20. The system sits at 0.00. The deficit is
+  0.30-0.50 in warned rate; more onsets close none of it.
+
+  (b2) FALSE-ALARM-MATCHED NULL — the comparison that decides
+       whether a NON-ZERO warned count is skill or just a looser
+       trigger. A signal that alerts more often warns more often
+       by chance. Matching on the signal's OWN alert frequency:
+         p0 = 1 - exp(-(FA/yr) * 15/252)
+       i.e. the chance of >=1 alert episode landing in the 15-day
+       pre-onset window if alert timing were unrelated to onsets.
+
+  signal                        P2   FA/yr     p0   warned   rate  P(X>=k|p0)      verdict
+  --------------------------------------------------------------------------------------------
+  CSRS[rmt]                   lam1    2.78  0.153      0/6  0.000      1.0000   BELOW null
+  CSRS[hamilton]              lam1    2.06  0.115      1/4  0.250      0.3878      not sig
+  CSRS[hawkes+rmt]            lam1    5.10  0.262      0/6  0.000      1.0000   BELOW null
+  CSRS[hawkes+hamilton]       lam1    2.43  0.135      1/4  0.250      0.4392      not sig
+  CSRS[rmt+hamilton]          lam1    2.41  0.134      0/6  0.000      1.0000   BELOW null
+  CSRS[hawkes+rmt+hamilton]   lam1    3.66  0.196      0/6  0.000      1.0000   BELOW null
+  BASE[rv_20]                 lam1    1.02  0.059      1/6  0.167      0.3051      not sig
+  BASE[drawdown]              lam1    0.60  0.035      0/6  0.000      1.0000   BELOW null
+  BASE[rv_accel_5]            lam1    3.34  0.180      1/6  0.167      0.6962   BELOW null
+  BASE[dd_accel_5]            lam1    3.85  0.205      2/6  0.333      0.3560      not sig
+  CSRS[rmt]                    sca    8.94  0.413      2/6  0.333      0.7860   BELOW null
+  CSRS[hamilton]               sca    2.06  0.115      1/4  0.250      0.3878      not sig
+  CSRS[hawkes+rmt]             sca    9.13  0.419      2/6  0.333      0.7953   BELOW null
+  CSRS[hawkes+hamilton]        sca    2.43  0.135      1/4  0.250      0.4392      not sig
+  CSRS[rmt+hamilton]           sca    6.76  0.331      2/6  0.333      0.6451      not sig
+  CSRS[hawkes+rmt+hamilton]    sca    6.90  0.337      2/6  0.333      0.6559   BELOW null
+  BASE[rv_20]                  sca    1.02  0.059      1/6  0.167      0.3051      not sig
+  BASE[drawdown]               sca    0.60  0.035      0/6  0.000      1.0000   BELOW null
+  BASE[rv_accel_5]             sca    3.34  0.180      1/6  0.167      0.6962   BELOW null
+  BASE[dd_accel_5]             sca    3.85  0.205      2/6  0.333      0.3560      not sig
+
+  This Poisson matching slightly OVERSTATES p0 because alert
+  episodes cluster; where a measured relocation null exists it is
+  the better number (warning_null_h15.json gives 0.1298 for
+  CSRS[rmt] vs 0.153 here). It is used for the SCA variant only
+  because that variant's relocation null does not exist yet.
+
+  (c) VERDICT ON SAMPLE SIZE vs EFFECT SIZE
+  A detector that warns on 0 of 6 onsets warns on ~0 of 15 and ~0 of
+  20 unless its per-event warn probability is actually non-zero.
+  Sample size governs how PRECISELY a null result is stated; only
+  effect size governs whether the result is null. At a warned rate
+  of 0.00 against a 0.14 no-skill rate, the binding constraint is
+  EFFECT SIZE, unambiguously. More onsets would sharpen the negative
+  finding — they could not plausibly convert 0/6 into a detection.
+
+### finished: 2026-10-13T13:50:28Z
+### exit code: 0

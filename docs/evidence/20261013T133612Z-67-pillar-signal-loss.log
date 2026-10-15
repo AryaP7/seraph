@@ -1,0 +1,39 @@
+[replay] grid        : 5,363 daily ticks 2005-01-03 .. 2026-08-21
+[replay] P1 hawkes   : 473 refits 2017-02-09 .. 2026-08-20 (refit_every=5 sessions)
+[replay] P2 rmt      : 5,363 daily rows
+[replay] P3 hamilton : 3,365 CAUSAL rows 2013-01-14 .. 2026-08-21  [EXPLORATORY]
+[replay] rule A      : CSRS >= 0.5 (C9 frozen constant)
+[replay] rule B      : > trailing-5y 95% quantile, min 250 obs, index i excluded from its own threshold
+[replay] PILLAR_ORDER= ['hawkes', 'rmt', 'hamilton']
+[replay]   subset hawkes                 468 pts  4895 failures  mean=0.3103
+[replay]   subset rmt                    5,363 pts  0 failures  mean=0.5771
+[replay]   subset hamilton               3,365 pts  1998 failures  mean=0.5689
+[replay]   subset hawkes+rmt             5,363 pts  0 failures  mean=0.5623
+[replay]   subset hawkes+hamilton        3,365 pts  1998 failures  mean=0.5558
+[replay]   subset rmt+hamilton           5,363 pts  0 failures  mean=0.5973
+[replay]   subset hawkes+rmt+hamilton    5,363 pts  0 failures  mean=0.5897
+[replay]   baseline BASE[rv_20]          5,358 finite pts
+[replay]   baseline BASE[drawdown]       5,363 finite pts
+[replay]   baseline BASE[rv_accel_5]     5,353 finite pts
+[replay]   baseline BASE[dd_accel_5]     5,358 finite pts
+
+[loss] FR32 crisis window : 180 days
+[loss] 15-day PRE-onset   : 90 days
+[loss] raw units differ per pillar; separation is in sigma of the
+[loss] NON-crisis distribution, so the two scales are comparable.
+
+pillar         n   RAW crisis   STD crisis    RAW pre    STD pre  rho(raw,std)
+------------------------------------------------------------------------------
+hawkes       468       0.3916       0.4809     0.1271     0.0623        0.5752
+rmt         5363      -0.3951       0.0177    -0.3518    -0.2925        0.6451
+hamilton    3365       0.5753       0.4643    -0.1068    -0.1769        0.8451
+
+RAW/STD crisis = crisis-vs-tranquil separation in sigma.
+RAW/STD pre    = the same on the 15-day PRE-onset window.
+rho            = Spearman(raw, standardised); 1.0 would mean the
+                 transform is exactly monotone over the whole span
+                 and destroys no ordering information at all.
+
+A pillar with a large RAW crisis separation and a negligible STD one
+would indicate cause (b), the transform flattening signal. A pillar
+small on BOTH indicates cause (a), the input carrying little.

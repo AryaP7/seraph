@@ -1,0 +1,54 @@
+name: Astra verification
+on:
+  push:
+    branches: [main, astra-version-codebase]
+  pull_request:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  tests:
+    name: ${{ matrix.suite }}
+    runs-on: windows-latest
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - suite: core
+            args: >-
+              tests --ignore=tests/test_c7_hamilton.py
+              --ignore=tests/test_c7_hamilton_causal.py
+              --ignore=tests/test_c7_hamilton_regime_recovery.py
+              --ignore=tests/contract/test_ct7_simulator_consistency.py
+          - suite: hamilton
+            args: tests/test_c7_hamilton.py
+          - suite: hamilton-causal
+            args: tests/test_c7_hamilton_causal.py
+          - suite: hamilton-regimes
+            args: tests/test_c7_hamilton_regime_recovery.py
+          - suite: policy
+            args: tests/contract/test_ct7_simulator_consistency.py
+    env:
+      SERAPH_DB_DSN: postgresql://disabled:disabled@127.0.0.1:1/disabled
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
+      MKL_NUM_THREADS: '1'
+      PYTHONIOENCODING: utf-8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: requirements-research.lock.txt
+      - run: python -m pip install -r requirements-research.lock.txt
+      - run: python scripts/check_invariants.py
+      - if: matrix.suite == 'core'
+        run: python scripts/verify_research_artifacts.py
+      - run: python -m pytest ${{ matrix.args }} -q --junitxml=test-results/${{ matrix.suite }}.xml
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: astra-${{ matrix.suite }}
+          path: test-results/*.xml

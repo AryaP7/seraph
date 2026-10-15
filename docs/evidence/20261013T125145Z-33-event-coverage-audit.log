@@ -1,0 +1,262 @@
+### command: .venv/Scripts/python.exe -I scripts/audit_event_coverage.py --power --draws 60 --perms 400
+### started: 2026-10-13T12:51:45Z
+### HEAD: f3eaac8
+
+
+==============================================================================
+ARM 1 — SPECIFICATION TRACE: where the number six is load-bearing
+==============================================================================
+  docs/SPEC.md:240  FR32 [v2]                     names SIX epochs by name + the 30-day crisis window and 5-15d lead
+                                                  -> NORMATIVE SOURCE. Everything below derives from this line.
+  docs/SPEC.md:102  O5 [v2]                       'Six epochs, corpus 2005-2026'
+                                                  -> ties the event count to the CORPUS BOUND — the two are stated together
+  docs/SPEC.md:243  FR35 [v2]                     Table A = 7 subsets x 2 modes on 4 Hawkes epochs; Table B = 3 x 2 on 2 pre-2015
+                                                  -> the 4/2 split of the six; changes the CONFIG COUNT (14)
+  docs/ARCHITECTURE.md:756 D5(a,b)                LOEO; Table A 4 folds, Table B 6 folds; tables not comparable
+                                                  -> FOLD COUNTS are literally the event counts
+  docs/ARCHITECTURE.md:645 R4                     'Six positive events, 14 configurations, one calibration step'
+                                                  -> the risk register's justification for pre-registration existing at all
+  seraph/shared_types/fusion.py:27 EpochId        Literal of exactly 6 string ids
+                                                  -> TYPE-LEVEL CLOSED SET. A 7th epoch is a type error until edited; shared_types is approval-gated, so this is the hardest gate.
+  seraph/validation/epochs.py:23 EPOCH_BREAKS     6 (date, provenance) pairs; HAWKES_COVERED 4 / PRE_HAWKES 2
+                                                  -> the only place dates live; OQ13 + OQ3 both flagged OPEN here
+  seraph/validation/preregistration.py:24 EPOCHS  6-tuple duplicated from epochs.py; folds=len(EPOCHS)
+                                                  -> feeds configuration_list() -> content_hash() -> the PRE-REG HASH
+
+  MECHANICAL CONSEQUENCE of changing the count, in dependency order:
+   1. EpochId Literal (approval-gated shared_types) must gain members
+   2. EPOCH_BREAKS gains (date, provenance) rows -> OQ13 must close
+   3. preregistration.EPOCHS changes -> configuration_list() changes
+      -> content_hash() changes -> EVERY existing EvaluationRow's
+         preRegistrationHash stops matching -> by D5(d) every existing
+         result becomes NON-REPORTABLE until re-run.
+   4. D5(b) fold counts change (Table B 6 -> N; Table A only if the
+      new epoch has Hawkes coverage, i.e. onset >= 2017-02-09)
+   5. FR35's '7 subsets x 2' / '3 subsets x 2' are unaffected — the
+      CONFIG count is independent of the EVENT count.
+
+  So the '6' controls: fold counts (D5b), a closed type (EpochId),
+  the pre-registration hash (D5d), and the Table A/B partition.
+  It does NOT control the 14 configurations.
+
+==============================================================================
+ARM 2 — DATA OR DEFINITION? where the 2005 pillar boundary comes from
+==============================================================================
+
+-- 2a. raw corpus reach in daily_prices (the data we actually hold) --
+    year       rows   symbols  universe_member rows
+    1995     27,780       217                     0
+    1996     46,736       241                     0
+    1997     54,384       257                     0
+    1998     56,237       267                     0
+    1999     63,632       277                     0
+    2000     64,813       306                     0
+    2001     67,546       320                     0
+    2002     76,524       332                     0
+    2003     83,290       364                     0
+    2004     96,958       415                     0
+    2005    112,991       494                74,059
+    2006    136,083       616                78,083
+    2007    171,410       754                82,844
+    2008    194,401       828                90,477
+    2009    201,474       873               101,115
+    2010    233,240       984               123,290
+
+  pre-2005 rows held: 637,900   of which flagged universe members: 0
+
+-- 2b. FR52 eligibility: how many symbols clear the 1000-day filter --
+  (listing_days_to_date counts from the symbol's true first row, 1995+,
+   per eod2_client.py — so this is real listing age, not age-in-corpus)
+    probe date   symbols with >=1000 listing days
+    1998-01-01                                  0
+    2000-01-01                                142
+    2002-01-01                                209
+    2004-01-01                                260
+    2005-01-03                                292
+    2006-01-02                                310
+    2008-01-01                                361
+    2009-01-01                                405
+    2010-07-01                                537
+    2011-01-03                                594
+
+-- 2c. universe_snapshots: the realised point-in-time universe --
+  44 snapshots, 2005-01-01 .. 2026-07-01; first 14:
+     rebalance  eligible  N_members    churn
+    2005-01-01       292        292   1.0000
+    2005-07-01       299        299   0.0234
+    2006-01-01       310        310   0.0355
+    2006-07-01       318        318   0.0252
+    2007-01-01       327        327   0.0275
+    2007-07-01       341        341   0.0411
+    2008-01-01       358        358   0.0475
+    2008-07-01       387        387   0.0749
+    2009-01-01       409        409   0.0538
+    2009-07-01       436        436   0.0619
+    2010-01-01       481        481   0.0936
+    2010-07-01       535        500   0.0840
+    2011-01-01       592        500   0.0880
+    2011-07-01       677        500   0.0820
+
+-- 2d. macro_covariates: Hamilton's exog_tvtp input span --
+  rows 5,363  span 2005-01-03 .. 2026-08-21
+  g_t non-null      0 from None
+  vix_available     3,034 from 2014-05-15
+  rbi_repo non-null 0 from None
+
+-- 2e. pillar output spans and the trading-day grid --
+  rmt_output          5,363 rows  2005-01-03 .. 2026-08-21
+  hamilton_output     5,365 rows  2005-01-03 .. 2026-08-21
+  hawkes_output         473 rows  2017-02-09 .. 2026-08-20
+  csrs                4,714 rows  2017-02-09 .. 2026-08-20
+
+  trading-day grid (universe members, 2005+): 5,363 sessions 2005-01-03 .. 2026-08-21
+  trading-day grid (all rows, 1995+):          7,825 sessions 1995-01-02 .. 2026-08-21
+
+  VERDICT INPUTS for the 2005 boundary — three candidate causes:
+   (i)  FR52 1000-listing-day filter: see 2b. If eligibility is
+        non-trivial well before 2005, the filter is NOT what binds.
+   (ii) EOD2 pre-2005 adjustment caveat: eod2_client.py:8 states
+        'pre-2005 rows may not be fully adjusted - the corpus starts
+        2005', and CORPUS_START = '2005-01-01' is a literal constant.
+        This is a DATA-QUALITY decision recorded in code.
+   (iii) macro_covariates span: see 2d. Hamilton's TVTP exog cannot
+        start before g_t does.
+
+==============================================================================
+ARM 3 — CANDIDATE EPISODES: separation test, then coverage test
+==============================================================================
+
+-- FR32 reference onsets on the 2005+ grid --
+  gfc_2008         2008-09-15  grid idx 925  (session 2008-09-15)
+  taper_2013       2013-05-22  grid idx 2086  (session 2013-05-22)
+  ilfs_2018        2018-09-21  grid idx 3405  (session 2018-09-21)
+  covid_2020       2020-02-20  grid idx 3752  (session 2020-02-20)
+  tightening_2022  2022-01-05  grid idx 4216  (session 2022-01-05)
+  tariff_2026      2026-02-01  grid idx 5225  (session 2026-02-01)
+
+-- separation test: >= 60 trading days from every FR32 onset and every accepted candidate --
+   (pre-registered; greedy in chronological order, so the rule is
+    mechanical and the tie-break is date priority, not judgement)
+                 candidate       onset     session  tier  gap(d)             status
+  ----------------------------------------------------------------------------------
+             fomc_may_2006  2006-05-11  2006-05-11     2     588   ACCEPTED_SPACING
+    bnp_credit_crunch_2007  2007-08-09           -     X       -     REJECTED_SPLIT
+      india_crash_jan_2008  2008-01-21           -     X       -     REJECTED_SPLIT
+       greece_bailout_2010  2010-04-23  2010-04-23     1     388   ACCEPTED_SPACING
+         us_downgrade_2011  2011-08-08  2011-08-08     1     328   ACCEPTED_SPACING
+         rupee_crisis_2013  2013-08-28           -     X       -     REJECTED_SPLIT
+             pboc_cny_2015  2015-08-11  2015-08-11     1     549   ACCEPTED_SPACING
+          brexit_vote_2016  2016-06-24  2016-06-24     1     214   ACCEPTED_SPACING
+       demonetisation_2016  2016-11-09  2016-11-09     1      92   ACCEPTED_SPACING
+          ltcg_budget_2018  2018-02-01  2018-02-01     2     157   ACCEPTED_SPACING
+         covid_bottom_2020  2020-03-23           -     X       -     REJECTED_SPLIT
+     adani_hindenburg_2023  2023-01-25  2023-01-25     2     262   ACCEPTED_SPACING
+               svb_cs_2023  2023-03-13  2023-03-13     1      31   REJECTED_SPACING  <- 2023-01-25
+      loksabha_result_2024  2024-06-04  2024-06-04     1     334   ACCEPTED_SPACING
+            boj_carry_2024  2024-07-31  2024-07-31     2      39   REJECTED_SPACING  <- 2024-06-04
+    reciprocal_tariff_2025  2025-04-03           -     X       -     REJECTED_SPLIT
+
+-- coverage test: >= 95% of sessions in [onset-15, onset+30] have RMT *and* Hamilton --
+                 candidate                  window  sess   rmt   ham   both%     B2
+  ----------------------------------------------------------------------------------
+             fomc_may_2006 2006-04-20..2006-06-22    46    46    46 100.0%   PASS
+       greece_bailout_2010 2010-03-31..2010-06-04    46    46    46 100.0%   PASS
+         us_downgrade_2011 2011-07-18..2011-09-22    46    46    46 100.0%   PASS
+             pboc_cny_2015 2015-07-21..2015-09-23    46    46    46 100.0%   PASS
+          brexit_vote_2016 2016-06-03..2016-08-08    46    46    46 100.0%   PASS
+       demonetisation_2016 2016-10-19..2016-12-22    46    46    46 100.0%   PASS
+          ltcg_budget_2018 2018-01-10..2018-03-19    46    46    46 100.0%   PASS
+     adani_hindenburg_2023 2023-01-04..2023-03-10    46    46    46 100.0%   PASS
+      loksabha_result_2024 2024-05-14..2024-07-18    46    46    46 100.0%   PASS
+               svb_cs_2023 2023-02-17..2023-04-28    46    46    46 100.0%   PASS   (spacing-rejected)
+            boj_carry_2024 2024-07-09..2024-09-12    46    46    46 100.0%   PASS   (spacing-rejected)
+
+  candidates passing BOTH separation and coverage: 9
+    fomc_may_2006            2006-05-11  tier 2
+    greece_bailout_2010      2010-04-23  tier 1
+    us_downgrade_2011        2011-08-08  tier 1
+    pboc_cny_2015            2015-08-11  tier 1
+    brexit_vote_2016         2016-06-24  tier 1
+    demonetisation_2016      2016-11-09  tier 1
+    ltcg_budget_2018         2018-02-01  tier 2
+    adani_hindenburg_2023    2023-01-25  tier 2
+    loksabha_result_2024     2024-06-04  tier 1
+
+-- combined design: FR32 six + accepted candidates --
+  FR32 + tier-1 only         N = 12  min gap   92d  median gap  413d  T3 positives 180d / 5,363 sessions (3.4%)
+                             onset sessions: 2008-09-15, 2010-04-23, 2011-08-08, 2013-05-22, 2015-08-11, 2016-06-24, 2016-11-09, 2018-09-21, 2020-02-20, 2022-01-05, 2024-06-04, 2026-02-01
+  FR32 + tier-1 + tier-2     N = 15  min gap   92d  median gap  340d  T3 positives 225d / 5,363 sessions (4.2%)
+                             onset sessions: 2006-05-11, 2008-09-15, 2010-04-23, 2011-08-08, 2013-05-22, 2015-08-11, 2016-06-24, 2016-11-09, 2018-02-01, 2018-09-21, 2020-02-20, 2022-01-05, 2023-01-25, 2024-06-04, 2026-02-01
+
+  Ceiling check: with the 60-session separation rule and 5,363 sessions on the
+  grid, the ARITHMETIC maximum number of non-overlapping onsets is 89.
+  So separation is nowhere near binding — the binding constraint is
+  how many episodes the exogenous public record actually supports.
+
+==============================================================================
+ARM 4 — STATISTICAL POWER at N = 6, 10, 15, 20 onsets
+==============================================================================
+  machinery imported from scripts/early_warning_power.py:
+    t3_auc, relocation_null (circular shift), aaft_null (surrogate),
+    ar1_stationary — NOT reimplemented, so the null cannot drift.
+
+  grid 5,365 sessions 2005-01-03..2026-08-21
+  AR(1) background phi = 0.9973 (real rv_t_yz lag-1 autocorr)
+  real onsets: 6, min spacing 347 trading days
+  synthetic onset sets keep that minimum spacing; 60 draws, 400 perms/draw, alpha = 0.05
+
+     N  delta  meanAUC   sdAUC  power@.05                   note
+  ----------------------------------------------------------------
+    6*    0.0   0.4974  0.0966        5%            NEG CONTROL
+    6*    0.5   0.6357  0.1000       43%                       
+    6*    1.0   0.7708  0.0713       93%                       
+    6*    1.5   0.8485  0.0759       97%                       
+    6*    2.0   0.9208  0.0418      100%                       
+       -> N=6*: type-I at nominal 5% = 5%; MDE@80% = 1.0 sd
+          (6* = the REAL FR32 onset dates, fixed — the anchor row)
+     6    0.0   0.5063  0.0880        8%            NEG CONTROL
+     6    0.5   0.6157  0.0901       38%                       
+     6    1.0   0.7727  0.0738       92%                       
+     6    1.5   0.8542  0.0574      100%                       
+     6    2.0   0.9103  0.0469      100%                       
+       -> N=6: type-I at nominal 5% = 8%; MDE@80% = 1.0 sd
+  ----------------------------------------------------------------
+    10    0.0   0.5031  0.0584        3%            NEG CONTROL
+    10    0.5   0.6343  0.0500       70%                       
+    10    1.0   0.7604  0.0490      100%                       
+    10    1.5   0.8530  0.0490      100%                       
+    10    2.0   0.9125  0.0241      100%                       
+       -> N=10: type-I at nominal 5% = 3%; MDE@80% = 1.0 sd
+  ----------------------------------------------------------------
+    15    0.0   0.4955  0.0463        5%            NEG CONTROL
+    15    0.5   0.6449  0.0338       97%                       
+    15    1.0   0.7602  0.0316      100%                       
+    15    1.5   0.8505  0.0295      100%                       
+    15    2.0   0.9164  0.0190      100%                       
+       -> N=15: type-I at nominal 5% = 5%; MDE@80% = 0.5 sd
+  ----------------------------------------------------------------
+    20    0.0   0.4997  0.0273        2%            NEG CONTROL
+    20    0.5   0.6400  0.0254      100%                       
+    20    1.0   0.7605  0.0223      100%                       
+    20    1.5   0.8549  0.0229      100%                       
+    20    2.0   0.9191  0.0151      100%                       
+       -> N=20: type-I at nominal 5% = 2%; MDE@80% = 0.5 sd
+  ----------------------------------------------------------------
+
+  READ THIS BEFORE QUOTING THE ROWS ABOVE:
+   * N here is the number of ONSETS, i.e. independent events. The
+     positive-day count 15N is NOT the sample size — days inside one
+     lead window are near-perfectly correlated (phi ~ 0.997).
+   * Power rises with N only if the added onsets are independent. Two
+     onsets 30 days apart add ~1 event's worth of information, not 2.
+   * The AAFT null is used for the curve because the circular-shift
+     null is miscalibrated on a near-unit-root series — that is the
+     measured finding in docs/evidence/EARLY-WARNING-POWER.md, not an
+     assumption made here.
+
+==============================================================================
+DONE — read-only. No row was written by this script.
+==============================================================================
+
+### finished: 2026-10-13T13:18:02Z
+### exit code: 0

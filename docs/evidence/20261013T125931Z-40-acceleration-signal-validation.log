@@ -1,0 +1,493 @@
+# cmd: .venv/Scripts/python.exe -I scripts/validate_acceleration_signals.py --perms 3000 --t3-perms 1000 --t3-draws 60 --boots 5000
+# cwd: /c/Users/Arlop/Downloads/SERAPH VARYA/SERAPH Varya
+# git: f3eaac8b25f3fe3c47f4734b6b841e5e93f41cd1 branch evidence/pre-arya-experimentation
+# utc: 20261013T125931Z
+
+====================================================================================================
+VALIDATION OF dd_accel AND rv_accel — leakage, out-of-sample, incremental value
+====================================================================================================
+Are `dd_accel` and `rv_accel` genuine signals, or artefacts?
+
+`DETECTION-CALIBRATION.md` reports that out of 15 screened series only two
+survive Holm correction on the T1 contemporaneous-detection objective:
+`dd_accel` (p = 0.0007) and `rv_accel` (p = 0.0020). SERAPH's own headline CSRS
+claim does not. Three things were never checked, and any one of them could
+reduce both survivors to artefacts.
+
+================================================================================
+PRE-REGISTRATION — written and committed to this file before any result below
+was computed. Acceptance criteria are stated first so they cannot be moved.
+================================================================================
+
+H_C1  LEAKAGE.  `dd_accel` and `rv_accel` are computable strictly from
+      information available at or before time t.
+
+      ACCEPT iff all five hold:
+        (a) TRUNCATION INVARIANCE. Rebuilding the whole feature pipeline from
+            inputs restricted to indices [0 .. t*] reproduces the full-sample
+            value at index t* to within 1e-12 relative, at every tested cut t*.
+        (b) FUTURE PERTURBATION. Replacing every input at index > t* with
+            different numbers leaves values at indices [0 .. t*] bit-identical.
+        (c) TEETH. Four deliberately non-causal variants — a centred window, a
+            forward difference, a full-sample normalisation, and a reversed
+            cumulative — each FAIL (a) or (b). A test that passes everything
+            proves nothing.
+        (d) LABELS. The T1 label at index t is a function only of breaks at
+            indices <= t, and no observed crisis window wraps the grid.
+        (e) STANDARDISATION. Every standardisation on the path to a reported
+            number is causal (FR28's rolling five-year ECDF included), or is
+            provably absent from it.
+      REJECT if (a), (b) or (d) fails anywhere, or if (c) shows no teeth.
+
+H_C2  OUT OF SAMPLE.  The detection advantage survives chronological
+      evaluation on a span the signals were not selected on.
+
+      Splits are fixed here, before running:
+        SPLIT-B (PRIMARY) — equal onset counts, 3 and 3.
+            select  : grid start .. 2018-12-31   (gfc_2008, taper_2013, ilfs_2018)
+            evaluate: 2019-01-01 .. grid end     (covid_2020, tightening_2022,
+                                                  tariff_2026)
+        SPLIT-A (SECONDARY) — the span boundary the project already uses.
+            select  : grid start .. 2016-12-31   (2 onsets)
+            evaluate: 2017-01-01 .. grid end     (4 onsets)
+        SPLIT-C (SECONDARY) — leave-one-epoch-out. For each epoch, screen on the
+            other five and evaluate the winner on the held-out epoch alone.
+
+      ACCEPT iff, on SPLIT-B's evaluation span, the signal's T1 AUC exceeds the
+        95th percentile of BOTH its nulls on that span AND
+        max(p_shift, p_aaft) <= 0.05.
+      PARTIAL if it clears nominal 0.05 but not the 95th percentile, or clears
+        on one split and not the other.
+      REJECT if the out-of-sample AUC falls inside its own null.
+      Multiplicity here is 2 pre-specified signals, not 15 — Holm over 2 is also
+      reported. Nothing is tuned on any evaluation span; no parameter is fitted
+      at all, which is what makes a pure re-measurement the right OOS test.
+
+H_C3  INCREMENTAL VALUE.  They add information beyond trivially simpler
+      alternatives and beyond the existing pillars.
+
+      Comparators, fixed here: raw daily return (sign-flipped), absolute return,
+        realised-volatility level, its 20-day trailing mean, drawdown level, and
+        the plain 1-day difference of realised volatility and of drawdown; plus
+        the existing pillar scores (RMT lambda1/N, Hawkes n) and both full-span
+        CSRS configurations.
+      ACCEPT iff (a) both signals survive Holm over the FULL expanded primary
+        family, whose size is reported and is larger than the original 15 — so
+        the correction gets strictly stricter, not looser; AND (b) each signal,
+        after causal orthogonalisation against each comparator, still clears its
+        own null at nominal 0.05.
+      PARTIAL if (a) holds and (b) fails against some comparator.
+      REJECT if (a) fails.
+
+SIGN CONVENTIONS are fixed by economics, never by the observed AUC: higher
+volatility, wider spreads, higher absorption, deeper drawdown and *lower*
+returns all mean more risk, so the raw return enters as `-lr`. AUC is one-sided
+throughout, exactly as in the original screen.
+
+T1 AND T3 ARE REPORTED SEPARATELY AND ARE NOT TRADED OFF. T1 asks "is the engine
+lit while the crisis is happening". Only T3 can support an advance-warning claim.
+A T1 pass is NOT evidence of T3 capability. T3 is evaluated at lead horizons of
+5, 10, 20 and 30 trading days against `early_warning_power.py`'s own calibrated
+no-signal distribution, re-derived per horizon because the horizon changes the
+null's width.
+====================================================================================================
+
+grid       : 5,362 trading days 2005-01-04 .. 2026-08-21
+onsets     : 6 at [924, 2085, 3404, 3751, 4215, 5224] -> ['gfc_2008', 'taper_2013', 'ilfs_2018', 'covid_2020', 'tightening_2022', 'tariff_2026']
+csrs dumps : 2p 5,362/5,362 days, 3p 5,362/5,362 days
+perms      : 3000 per null; smallest resolvable p = 1/3001 = 0.000333
+
+====================================================================================================
+H_C1 — LEAKAGE AUDIT (highest priority: this one can invalidate everything else)
+====================================================================================================
+cuts tested: 17 indices [300, 700, 924, 934, 2085, 2095, 2681, 3404, 3414, 3751, 3761, 4215, 4225, 4962, 5224, 5234, 5361]
+(audit took 15.9s)
+
+series                         max rel |delta| at t*   max rel |delta| on past  verdict
+----------------------------------------------------------------------------------------------------
+dd_accel                                   0.000e+00                 0.000e+00  CAUSAL
+rv_accel                                   0.000e+00                 0.000e+00  CAUSAL
+rv_level                                   0.000e+00                 0.000e+00  CAUSAL
+semivar_20                                 0.000e+00                 0.000e+00  CAUSAL
+jump_int_20                                0.000e+00                 0.000e+00  CAUSAL
+drawdown                                   0.000e+00                 0.000e+00  CAUSAL
+vol_of_vol                                 0.000e+00                 0.000e+00  CAUSAL
+ar_t                                       0.000e+00                 0.000e+00  CAUSAL
+bas_t                                      0.000e+00                 0.000e+00  CAUSAL
+neg_return                                 0.000e+00                 0.000e+00  CAUSAL
+abs_return                                 0.000e+00                 0.000e+00  CAUSAL
+rv_ma20                                    0.000e+00                 0.000e+00  CAUSAL
+rv_diff1                                   0.000e+00                 0.000e+00  CAUSAL
+dd_diff1                                   0.000e+00                 0.000e+00  CAUSAL
+LEAK centred-window                 inf (finiteness)                 8.957e-01  NON-CAUSAL *** LEAK ***
+LEAK forward-difference             inf (finiteness)                 1.971e+00  NON-CAUSAL *** LEAK ***
+LEAK full-sample-norm                      2.380e-01                 9.185e-01  NON-CAUSAL *** LEAK ***
+LEAK reversed-cumulative                   1.181e+00                 3.331e+01  NON-CAUSAL *** LEAK ***
+LEAK future-peak-drawdown           inf (finiteness)                 5.072e+00  NON-CAUSAL *** LEAK ***
+BLINDSPOT scale-inv-reversal               1.137e-13                 4.116e-13  GREY ZONE — below 1e-6
+dd_accel |_ drawdown                       0.000e+00                 0.000e+00  CAUSAL
+dd_accel |_ dd_diff1                       0.000e+00                 0.000e+00  CAUSAL
+dd_accel |_ rv_level                       0.000e+00                 0.000e+00  CAUSAL
+rv_accel |_ rv_level                       0.000e+00                 0.000e+00  CAUSAL
+rv_accel |_ rv_ma20                        0.000e+00                 0.000e+00  CAUSAL
+rv_accel |_ rv_diff1                       0.000e+00                 0.000e+00  CAUSAL
+
+  (a) truncation invariance : rebuild from inputs [0..t*] only, compare the value AT t*
+  (b) future perturbation   : corrupt every input after t*, compare all values up to t* (must be bit-identical, 0.000e+00)
+
+  (c) TEETH: 5/5 deliberately non-causal variants were flagged clearly (> 1e-6). The audit has teeth.
+        LEAK centred-window            FLAGGED (correct)
+        LEAK forward-difference        FLAGGED (correct)
+        LEAK full-sample-norm          FLAGGED (correct)
+        LEAK reversed-cumulative       FLAGGED (correct)
+        LEAK future-peak-drawdown      FLAGGED (correct)
+
+  (c') MEASURED BLIND SPOT — BLINDSPOT scale-inv-reversal
+        truncation 1.137e-13, perturbation 4.116e-13: both at float-rounding scale, so NEITHER test sees it.
+        Cause: `drawdown = 1 - px/peak` is invariant to a constant multiple of px,
+        and truncating a reversed cumsum rescales px by exactly such a constant.
+        This is a real limit of the method, stated rather than hidden. It does not
+        affect the verdict on dd_accel — the arithmetic identities below show its
+        cumulative runs forward — but it does mean these two tests alone could not
+        have refuted a scale-invariantly-reversed implementation, so the forward
+        direction of `np.cumsum` is checked directly instead.
+
+  (d) LABELS
+        observed crisis windows that wrap the grid: 0 (none — label is purely backward)
+        y[t] reproduced from breaks at indices <= t only: IDENTICAL (0 cells differ)
+        T1 positives: 180 days from 6 onsets (30 per onset, FR32)
+
+  (e) STANDARDISATION
+        window_from(as_of=2020-06-15, years=5) -> [15.0, 16.0, 17.0, 18.0, 19.0, 20.0]; admits any value dated after as_of: no
+        ecdf_transform(0.5, [0,1]) = 0.5 (ranks against the supplied window only; the window is the caller's, and the only caller is window_from)
+        trailing_pct on a strictly INCREASING series: last value's percentile = 1.0000 (must be 1.0000 — a causal window ending at t contains its own maximum at t)
+        trailing_pct on a strictly DECREASING series: last value's percentile = 0.0014 (must be the window minimum's rank; a centred or full-sample window would not give this)
+        NOT ON THE PATH: t1_auc scores the RAW series. AUC is rank-based (Mann-Whitney U), so no standardisation of any kind enters any AUC reported here. trailing_pct feeds only the alert/precision/recall columns of study_stress_candidates.py, which this report does not use.
+
+  ARITHMETIC IDENTITIES (the definitions, checked against the arrays rather than read)
+        dd_accel[t] == drawdown[t] - drawdown[t-5]  : max|delta| = 0.000e+00 over 5,295 cells  (a BACKWARD 5-day difference)
+        rv_accel[t] == rv[t] / mean(rv[t-19..t])    : max|delta| = 0.000e+00 over 5,358 cells  (a TRAILING ratio)
+        roll(a,w,f)[i] == f(a[i-w+1..i])            : max|delta| = 0.000e+00  (window ENDS at i, never centred on it)
+        drawdown uses px = exp(cumsum(lr)) forward  : px[0] == exp(lr[0]) -> 1.0041807746 vs 1.0041807746  (a reversed cumulative would not match)
+
+  >>> H_C1 VERDICT: ACCEPTED — dd_accel and rv_accel are strictly causal
+
+  RESIDUAL CAVEAT, not resolved by the above: `daily_prices.adj_close`
+  carries split/dividend adjustment factors that are applied
+  retroactively, so the price level at t embeds corporate actions
+  announced after t. Log returns are invariant to a constant factor,
+  so this perturbs only the handful of days on which an adjustment
+  lands; it is a real but small look-ahead that lives in the data,
+  not in the feature code, and these tests cannot see it.
+
+====================================================================================================
+REFERENCE — FULL-SPAN T1 (reproducing DETECTION-CALIBRATION.md §2 at higher permutation count)
+====================================================================================================
+series                     AUC  shiftmu  p_shift   aaftmu   p_aaft  null p95  ons  verdict
+------------------------------------------------------------------------------------------
+dd_accel                0.7064   0.5003   0.0003   0.4989   0.0003    0.5806    6      SIG
+rv_accel                0.7706   0.4997   0.0017   0.4999   0.0003    0.6223    6      SIG
+rv_level                0.6098   0.5011   0.1073   0.4989   0.1050    0.6412    6  not sig
+semivar_20              0.7832   0.4993   0.0067   0.5007   0.0007    0.6554    6      SIG
+jump_int_20             0.7515   0.5011   0.0040   0.4998   0.0013    0.6379    6      SIG
+drawdown                0.7185   0.5006   0.0277   0.4983   0.0083    0.6562    6      SIG
+vol_of_vol              0.7278   0.5002   0.0133   0.5002   0.0020    0.6450    6      SIG
+ar_t                    0.4453   0.5003   0.7038   0.5003   0.7021    0.6693    6  not sig
+bas_t                   0.3799   0.4989   0.9080   0.5016   0.8980    0.6545    6  not sig
+neg_return              0.6133   0.4998   0.0020   0.5000   0.0003    0.5492    6      SIG
+abs_return              0.6392   0.4997   0.0037   0.5001   0.0003    0.5665    6      SIG
+rv_ma20                 0.5172   0.5008   0.4092   0.5028   0.4362    0.6484    6  not sig
+rv_diff1                0.6947   0.5003   0.0010   0.5004   0.0003    0.5726    6      SIG
+dd_diff1                0.6050   0.5001   0.0017   0.4998   0.0003    0.5453    6      SIG
+rmt lam1/N              0.4283   0.4988   0.8001   0.4989   0.7924    0.6336    6  not sig
+hawkes n                0.5937   0.4988   0.2536   0.5002   0.2086    0.7525    6  not sig
+CSRS 2p fullspan        0.5218   0.5004   0.4072   0.4994   0.3989    0.6326    6  not sig
+CSRS 3p fullspan        0.6573   0.4979   0.0333   0.5015   0.0407    0.6459    6      SIG
+
+====================================================================================================
+H_C2 — OUT-OF-SAMPLE CHRONOLOGICAL EVALUATION
+====================================================================================================
+
+--- SPLIT-B (primary) ---
+  selection  : 2005-01-04 .. 2018-12-31  (3,471 days, onsets ['gfc_2008', 'taper_2013', 'ilfs_2018'])
+  evaluation : 2019-01-01 .. 2026-08-21  (1,891 days, onsets ['covid_2020', 'tightening_2022', 'tariff_2026'])
+  series                             IN-SAMPLE                 OUT-OF-SAMPLE
+                             AUC      p    p95       AUC   p_sh   p_aa    p95  verdict
+  -------------------------------------------------------------------------------
+  dd_accel                0.7467 0.0023 0.6197    0.6666 0.0153 0.0060 0.6165      SIG <<<
+  rv_accel                0.7912 0.0060 0.6914    0.7534 0.0095 0.0087 0.6775      SIG <<<
+  rv_level                0.6566 0.0813 0.6773    0.6937 0.1111 0.0860 0.7409  not sig
+  semivar_20              0.8086 0.0107 0.7206    0.7629 0.0307 0.0217 0.7264      SIG
+  jump_int_20             0.8189 0.0050 0.6902    0.6872 0.0661 0.0470 0.6914  not sig
+  drawdown                0.8681 0.0267 0.7433    0.5940 0.2073 0.2076 0.6775  not sig
+  vol_of_vol              0.6943 0.0720 0.7114    0.7908 0.0175 0.0073 0.7201      SIG
+  ar_t                    0.4204 0.7001 0.7225    0.4481 0.5981 0.6438 0.6979  not sig
+  bas_t                   0.4698 0.5925 0.7091    0.3163 0.8720 0.8637 0.7634  not sig
+  neg_return              0.6376 0.0040 0.5772    0.5900 0.0185 0.0080 0.5649      SIG
+  abs_return              0.6704 0.0013 0.5904    0.6173 0.0206 0.0197 0.5932      SIG
+  rv_ma20                 0.5557 0.2989 0.6797    0.5957 0.2359 0.2546 0.7487  not sig
+  rv_diff1                0.7101 0.0010 0.6136    0.6780 0.0016 0.0030 0.6070      SIG
+  dd_diff1                0.6217 0.0040 0.5672    0.5900 0.0069 0.0137 0.5648      SIG
+  rmt lam1/N              0.4785 0.6681 0.6172    0.3821 0.8408 0.8377 0.7247  not sig
+  hawkes n                                 n/a    0.5887 0.2311 0.2329 0.6924  not sig
+  CSRS 2p fullspan        0.5462 0.3569 0.6468    0.4745 0.5664 0.5575 0.7233  not sig
+  CSRS 3p fullspan        0.7004 0.0423 0.6843    0.5872 0.2729 0.2746 0.7351  not sig
+
+  in-sample  top 5 by AUC: [('drawdown', 0.8681), ('jump_int_20', 0.8189), ('semivar_20', 0.8086), ('rv_accel', 0.7912), ('dd_accel', 0.7467)]
+  out-of-sample top 5    : [('vol_of_vol', 0.7908), ('semivar_20', 0.7629), ('rv_accel', 0.7534), ('rv_level', 0.6937), ('jump_int_20', 0.6872)]
+    dd_accel: rank 5/17 in-sample, 7/18 out-of-sample
+    rv_accel: rank 4/17 in-sample, 3/18 out-of-sample
+
+--- SPLIT-A (secondary) ---
+  selection  : 2005-01-04 .. 2016-12-30  (2,977 days, onsets ['gfc_2008', 'taper_2013'])
+  evaluation : 2017-01-02 .. 2026-08-21  (2,385 days, onsets ['ilfs_2018', 'covid_2020', 'tightening_2022', 'tariff_2026'])
+  series                             IN-SAMPLE                 OUT-OF-SAMPLE
+                             AUC      p    p95       AUC   p_sh   p_aa    p95  verdict
+  -------------------------------------------------------------------------------
+  dd_accel                0.7971 0.0010 0.6565    0.6602 0.0034 0.0050 0.5984      SIG <<<
+  rv_accel                0.7904 0.0235 0.7364    0.7660 0.0008 0.0010 0.6412      SIG <<<
+  rv_level                0.5683 0.3231 0.7327    0.7722 0.0164 0.0147 0.6854      SIG
+  semivar_20              0.7594 0.0752 0.7819    0.8180 0.0113 0.0030 0.6944      SIG
+  jump_int_20             0.7741 0.0480 0.7629    0.7527 0.0126 0.0017 0.6646      SIG
+  drawdown                0.8504 0.0427 0.8308    0.6908 0.0382 0.0340 0.6749      SIG
+  vol_of_vol              0.5987 0.2845 0.7801    0.8269 0.0055 0.0003 0.6687      SIG
+  ar_t                    0.4050 0.7687 0.7275    0.4685 0.6034 0.5961 0.6811  not sig
+  bas_t                   0.6252 0.3262 0.8185    0.3247 0.9145 0.9167 0.7033  not sig
+  neg_return              0.6645 0.0050 0.5948    0.5873 0.0088 0.0043 0.5556      SIG
+  abs_return              0.6592 0.0228 0.6219    0.6424 0.0075 0.0007 0.5716      SIG
+  rv_ma20                 0.5115 0.4884 0.7455    0.6665 0.0709 0.0920 0.6979  not sig
+  rv_diff1                0.7358 0.0060 0.6388    0.6757 0.0042 0.0007 0.5885      SIG
+  dd_diff1                0.6447 0.0094 0.5881    0.5847 0.0088 0.0037 0.5546      SIG
+  rmt lam1/N              0.4708 0.5865 0.7120    0.4260 0.7191 0.7351 0.6763  not sig
+  hawkes n                                 n/a    0.5937 0.1518 0.2133 0.6768  not sig
+  CSRS 2p fullspan        0.4478 0.6748 0.7181    0.5373 0.2939 0.3832 0.6795  not sig
+  CSRS 3p fullspan        0.5939 0.2617 0.7548    0.6750 0.0574 0.0570 0.6840  not sig
+
+  in-sample  top 5 by AUC: [('drawdown', 0.8504), ('dd_accel', 0.7971), ('rv_accel', 0.7904), ('jump_int_20', 0.7741), ('semivar_20', 0.7594)]
+  out-of-sample top 5    : [('vol_of_vol', 0.8269), ('semivar_20', 0.818), ('rv_level', 0.7722), ('rv_accel', 0.766), ('jump_int_20', 0.7527)]
+    dd_accel: rank 2/17 in-sample, 10/18 out-of-sample
+    rv_accel: rank 3/17 in-sample, 4/18 out-of-sample
+
+  Holm over 2 comparisons (H_C2: the 2 pre-specified signals on SPLIT-B's evaluation span); tightest threshold 0.05/2 = 0.02500
+     1. rv_accel                   p=0.0095  thr=0.02500  survives
+     2. dd_accel                   p=0.0153  thr=0.05000  survives
+  survives Holm over all 2: ['rv_accel', 'dd_accel']
+
+--- SPLIT-C — leave-one-epoch-out ---
+  For each epoch: screen the primary family on the other five onsets, then
+  evaluate on the held-out epoch alone (1 onset, so the null is at its widest).
+  held out          screen winner           win AUC  held-out AUC of winner  dd_accel  rv_accel
+  ---------------------------------------------------------------------------------------------
+  gfc_2008          semivar_20               0.7467                  0.9456    0.8757    0.9315
+  taper_2013        semivar_20               0.8185                  0.5951    0.7199    0.6324
+  ilfs_2018         rv_accel                 0.7637                  0.7892    0.6433    0.7892
+  covid_2020        semivar_20               0.7515                  0.9223    0.8113    0.9572
+  tightening_2022   rv_accel                 0.8041                  0.5916    0.5851    0.5916
+  tariff_2026       jump_int_20              0.8147                  0.4287    0.5678    0.6759
+  dd_accel: held-out AUCs [0.8757, 0.7199, 0.6433, 0.8113, 0.5851, 0.5678]  mean 0.7005  min 0.5678  ranks [10, 2, 12, 9, 9, 5] of 18
+  rv_accel: held-out AUCs [0.9315, 0.6324, 0.7892, 0.9572, 0.5916, 0.6759]  mean 0.7630  min 0.5916  ranks [6, 4, 8, 1, 8, 2] of 18
+
+====================================================================================================
+H_C3 — INCREMENTAL VALUE OVER SIMPLER ALTERNATIVES AND OVER THE PILLARS
+====================================================================================================
+
+(a) MARGINAL screen. Every comparator scored on the same full span with the
+    same two nulls. The family is LARGER than the original 15, so Holm is
+    strictly stricter here than in DETECTION-CALIBRATION.md — adding
+    comparisons cannot make a claim easier to pass.
+
+  series                     AUC  p_shift   p_aaft   max p  null p95  >=p95
+  -------------------------------------------------------------------------
+  dd_accel                0.7064   0.0003   0.0003  0.0003    0.5806    yes
+  rv_accel                0.7706   0.0017   0.0003  0.0017    0.6223    yes
+  rv_level                0.6098   0.1073   0.1050  0.1073    0.6412     no
+  semivar_20              0.7832   0.0067   0.0007  0.0067    0.6554    yes
+  jump_int_20             0.7515   0.0040   0.0013  0.0040    0.6379    yes
+  drawdown                0.7185   0.0277   0.0083  0.0277    0.6562    yes
+  vol_of_vol              0.7278   0.0133   0.0020  0.0133    0.6450    yes
+  ar_t                    0.4453   0.7038   0.7021  0.7038    0.6693     no
+  bas_t                   0.3799   0.9080   0.8980  0.9080    0.6545     no
+  neg_return              0.6133   0.0020   0.0003  0.0020    0.5492    yes
+  abs_return              0.6392   0.0037   0.0003  0.0037    0.5665    yes
+  rv_ma20                 0.5172   0.4092   0.4362  0.4362    0.6484     no
+  rv_diff1                0.6947   0.0010   0.0003  0.0010    0.5726    yes
+  dd_diff1                0.6050   0.0017   0.0003  0.0017    0.5453    yes
+  rmt lam1/N              0.4283   0.8001   0.7924  0.8001    0.6336     no
+  hawkes n                0.5937   0.2536   0.2086  0.2536    0.7525     no
+  CSRS 2p fullspan        0.5218   0.4072   0.3989  0.4072    0.6326     no
+  CSRS 3p fullspan        0.6573   0.0333   0.0407  0.0407    0.6459    yes
+
+  Holm over 18 comparisons (H_C3(a) primary family — the original 9 candidates, 5 simpler alternatives, 2 pillars, 2 CSRS configs); tightest threshold 0.05/18 = 0.00278
+     1. dd_accel                   p=0.0003  thr=0.00278  survives
+     2. rv_diff1                   p=0.0010  thr=0.00294  survives
+     3. dd_diff1                   p=0.0017  thr=0.00313  survives
+     4. rv_accel                   p=0.0017  thr=0.00333  survives
+     5. neg_return                 p=0.0020  thr=0.00357  survives
+     6. abs_return                 p=0.0037  thr=0.00385  survives
+     7. jump_int_20                p=0.0040  thr=0.00417  survives
+     8. semivar_20                 p=0.0067  thr=0.00455  does NOT survive — step-down stops here
+  survives Holm over all 18: ['dd_accel', 'rv_diff1', 'dd_diff1', 'rv_accel', 'neg_return', 'abs_return', 'jump_int_20']
+
+(b) CONDITIONAL screen. Each signal orthogonalised against each comparator by
+    a strictly backward-looking OLS fitted on indices [t-1260, t-1] (min 250 obs).
+    The fit never sees index t. If the signal's detection is just a repackaging
+    of the comparator, the residual carries nothing.
+
+  residual                         AUC  p_shift   p_aaft   max p  null p95  verdict
+  ---------------------------------------------------------------------------------
+  dd_accel |_ drawdown          0.6601   0.0003   0.0027  0.0027    0.5871      SIG
+  dd_accel |_ dd_diff1          0.6745   0.0007   0.0003  0.0007    0.5702      SIG
+  dd_accel |_ rv_level          0.6451   0.0040   0.0020  0.0040    0.5832      SIG
+  dd_accel |_ rmt lam1/N        0.6754   0.0003   0.0003  0.0003    0.5826      SIG
+  rv_accel |_ rv_level          0.6726   0.0087   0.0173  0.0173    0.6319      SIG
+  rv_accel |_ rv_ma20           0.7888   0.0013   0.0003  0.0013    0.6281      SIG
+  rv_accel |_ rv_diff1          0.7355   0.0017   0.0003  0.0017    0.6121      SIG
+  rv_accel |_ rmt lam1/N        0.7519   0.0007   0.0003  0.0007    0.6178      SIG
+
+  Holm over 8 comparisons (H_C3(b) orthogonalised family); tightest threshold 0.05/8 = 0.00625
+     1. dd_accel |_ rmt lam1/N     p=0.0003  thr=0.00625  survives
+     2. dd_accel |_ dd_diff1       p=0.0007  thr=0.00714  survives
+     3. rv_accel |_ rmt lam1/N     p=0.0007  thr=0.00833  survives
+     4. rv_accel |_ rv_ma20        p=0.0013  thr=0.01000  survives
+     5. rv_accel |_ rv_diff1       p=0.0017  thr=0.01250  survives
+     6. dd_accel |_ drawdown       p=0.0027  thr=0.01667  survives
+     7. dd_accel |_ rv_level       p=0.0040  thr=0.02500  survives
+     8. rv_accel |_ rv_level       p=0.0173  thr=0.05000  survives
+  survives Holm over all 8: ['dd_accel |_ rmt lam1/N', 'dd_accel |_ dd_diff1', 'rv_accel |_ rmt lam1/N', 'rv_accel |_ rv_ma20', 'rv_accel |_ rv_diff1', 'dd_accel |_ drawdown', 'dd_accel |_ rv_level', 'rv_accel |_ rv_level']
+
+  Holm over 26 comparisons (CONSERVATIVE: every T1 comparison in this study pooled into one family); tightest threshold 0.05/26 = 0.00192
+     1. dd_accel                   p=0.0003  thr=0.00192  survives
+     2. dd_accel |_ rmt lam1/N     p=0.0003  thr=0.00200  survives
+     3. dd_accel |_ dd_diff1       p=0.0007  thr=0.00208  survives
+     4. rv_accel |_ rmt lam1/N     p=0.0007  thr=0.00217  survives
+     5. rv_diff1                   p=0.0010  thr=0.00227  survives
+     6. rv_accel |_ rv_ma20        p=0.0013  thr=0.00238  survives
+     7. dd_diff1                   p=0.0017  thr=0.00250  survives
+     8. rv_accel                   p=0.0017  thr=0.00263  survives
+     9. rv_accel |_ rv_diff1       p=0.0017  thr=0.00278  survives
+    10. neg_return                 p=0.0020  thr=0.00294  survives
+    11. dd_accel |_ drawdown       p=0.0027  thr=0.00313  survives
+    12. abs_return                 p=0.0037  thr=0.00333  does NOT survive — step-down stops here
+  survives Holm over all 26: ['dd_accel', 'dd_accel |_ rmt lam1/N', 'dd_accel |_ dd_diff1', 'rv_accel |_ rmt lam1/N', 'rv_diff1', 'rv_accel |_ rv_ma20', 'dd_diff1', 'rv_accel', 'rv_accel |_ rv_diff1', 'neg_return', 'dd_accel |_ drawdown']
+
+====================================================================================================
+T3 — ADVANCE WARNING. REPORTED SEPARATELY AND DELIBERATELY NOT MIXED WITH T1.
+====================================================================================================
+A T1 pass says the signal is lit DURING a crisis. It is not evidence of any
+ability to warn BEFORE one. T3 drops every in-crisis day from the sample, so a
+model cannot 'predict' a crisis from inside it.
+
+No-signal distribution is re-derived per horizon (60 draws of an AR(1)
+background at the stationary variance, delta=0), because the null's width
+depends on the horizon. delta=1.0 sd is also run as the power check.
+background phi = 0.9973 (real rv_t_yz lag-1 autocorrelation)
+
+self-check at h=15 against EARLY-WARNING-POWER.md §4: dd_accel 0.5924, rv_accel 0.4229, no-signal p95 0.6774
+  reproduced: dd_accel T3 AUC = 0.5924
+  reproduced: rv_accel T3 AUC = 0.4229
+
+     h series        T3 AUC  shiftmu  p_shift   aaftmu   p_aaft  null p95  d=0 p95  pow d=1  verdict
+  ---------------------------------------------------------------------------------------------------
+     5 dd_accel      0.5340   0.4994   0.3387   0.4957   0.3497    0.6618   0.6418      92%  not sig
+     5 rv_accel      0.4523   0.5007   0.6613   0.5044   0.6713    0.6825   0.6418      92%  not sig
+    10 dd_accel      0.5514   0.5014   0.2557   0.4960   0.2378    0.6374   0.6308      83%  not sig
+    10 rv_accel      0.4318   0.4968   0.7253   0.5030   0.7353    0.6672   0.6308      83%  not sig
+    20 dd_accel      0.5296   0.4994   0.2777   0.5014   0.3357    0.6022   0.6359      93%  not sig
+    20 rv_accel      0.4218   0.5012   0.8072   0.4971   0.7982    0.6355   0.6359      93%  not sig
+    30 dd_accel      0.5018   0.5015   0.5125   0.5002   0.4785    0.5837   0.6911      82%  not sig
+    30 rv_accel      0.4491   0.5002   0.7483   0.4978   0.7313    0.6191   0.6911      82%  not sig
+
+  Holm over 8 comparisons (T3: 2 signals x 4 horizons); tightest threshold 0.05/8 = 0.00625
+     1. dd_accel T3 h=10           p=0.2557  thr=0.00625  does NOT survive — step-down stops here
+  survives Holm over all 8: NONE
+  'pow d=1' is the test's power at this horizon against a clean 1-sd step
+  over the h days before every onset — i.e. what T3 could have found had it
+  been there. A low number there means a T3 null is uninformative, not that
+  the signal is flat.
+
+====================================================================================================
+STABILITY AND SENSITIVITY — EXPLORATORY. No variant below is selected, and
+no claim is made from this section; the Holm families above are fixed and
+deliberately exclude these, because screening windows and then reporting the
+best one is exactly the error this whole study exists to catch.
+====================================================================================================
+
+--- acceleration window (dd_accel is k=5; k=1 is a plain 1-day difference) ---
+     k   T1 AUC  p_shift   p_aaft  null p95  T3 h=15
+  --------------------------------------------------
+     1   0.6050   0.0017   0.0003    0.5450   0.5437
+     2   0.6383   0.0020   0.0003    0.5557   0.5527
+     3   0.6686   0.0007   0.0003    0.5649   0.5648
+     5   0.7064   0.0003   0.0003    0.5806   0.5924
+    10   0.7614   0.0003   0.0003    0.6116   0.5794
+    20   0.7740   0.0040   0.0010    0.6424   0.4713
+
+--- rv_accel denominator window (rv_accel is w=20) ---
+     w   T1 AUC  p_shift   p_aaft  null p95  T3 h=15
+  --------------------------------------------------
+     5   0.7263   0.0003   0.0003    0.5916   0.4858
+    10   0.7524   0.0003   0.0003    0.6057   0.4517
+    20   0.7706   0.0003   0.0003    0.6201   0.4229
+    40   0.7830   0.0043   0.0010    0.6433   0.4322
+    60   0.7646   0.0047   0.0017    0.6509   0.4748
+
+--- causal trailing-mean smoothing of each signal ---
+  series         m   T1 AUC  p_shift   p_aaft  null p95
+  -----------------------------------------------------
+  dd_accel       1   0.7064   0.0003   0.0007    0.5822
+  dd_accel       3   0.7181   0.0003   0.0003    0.5862
+  dd_accel       5   0.7324   0.0003   0.0003    0.5955
+  dd_accel      10   0.7625   0.0013   0.0007    0.6195
+  rv_accel       1   0.7706   0.0013   0.0003    0.6223
+  rv_accel       3   0.7666   0.0017   0.0003    0.6228
+  rv_accel       5   0.7627   0.0017   0.0013    0.6236
+  rv_accel      10   0.7538   0.0027   0.0003    0.6266
+
+--- per sub-period (grid split into thirds) ---
+  series      period                     ons   T1 AUC  p_shift   p_aaft  null p95
+  -------------------------------------------------------------------------------
+  dd_accel    2005-01-04..2012-03-12       1   0.8627   0.0006   0.0027    0.7206
+  dd_accel    2012-03-13..2019-05-31       2   0.6910   0.0218   0.0053    0.6315
+  dd_accel    2019-06-03..2026-08-21       3   0.6643   0.0078   0.0053    0.6045
+  rv_accel    2005-01-04..2012-03-12       1   0.9341   0.0067   0.0037    0.8213
+  rv_accel    2012-03-13..2019-05-31       2   0.7229   0.0173   0.0320    0.6925
+  rv_accel    2019-06-03..2026-08-21       3   0.7549   0.0062   0.0040    0.6689
+
+====================================================================================================
+UNCERTAINTY — event-level, because the effective sample size is the number of
+onsets, not the number of positive days
+====================================================================================================
+permutation-resolution floor: smallest p this study can report is 1/3001 = 0.000333.
+Any p quoted at that value is censored, not measured: it means 'no permutation
+out of this many reached the observed statistic', and the true p could be smaller.
+
+  series                 pooled AUC  wmean per-onset  boot 2.5%  boot 50%  boot 97.5%
+  -----------------------------------------------------------------------------------
+  dd_accel                   0.7064           0.7064     0.6205    0.7064      0.7968
+  rv_accel                   0.7706           0.7706     0.6614    0.7710      0.8877
+  drawdown                   0.7185           0.7185     0.4975    0.7242      0.9160
+  rv_level                   0.6098           0.6098     0.4037    0.6085      0.8078
+  semivar_20                 0.7832           0.7832     0.6736    0.7832      0.8917
+  CSRS 2p fullspan           0.5218           0.5218     0.2614    0.5243      0.7606
+
+  The cluster bootstrap resamples the 6 ONSETS with replacement, not the
+  positive days. With 6 clusters the interval is wide by construction — that is
+  the honest width, and the reason a single pooled AUC overstates precision.
+  'wmean per-onset' is the positive-day-weighted mean of the per-onset AUCs; it
+  equals the pooled AUC exactly when the negative set is shared, which is the
+  arithmetic that licenses the bootstrap.
+
+  series                     gfc_2008   taper_2013    ilfs_2018   covid_2020  tightening_  tariff_2026
+  ----------------------------------------------------------------------------------------------------
+  dd_accel                     0.8814       0.7283       0.6478       0.8143       0.5914       0.5752
+  rv_accel                     0.9379       0.6437       0.7952       0.9619       0.6012       0.6836
+  drawdown                     0.9841       0.7734       0.9145       0.9199       0.3105       0.4087
+  rv_level                     0.9572       0.4591       0.8123       0.8286       0.2837       0.3181
+  semivar_20                   0.9488       0.6081       0.8991       0.9254       0.6794       0.6385
+  CSRS 2p fullspan             0.8855       0.0199       0.7463       0.3906       0.8277       0.2607
+
+  Per-epoch AUCs are the stability evidence that matters: a signal driven by one
+  episode and flat on the rest is not a detector, whatever its pooled number.
+
+[done in 1248s. Nothing was written to the database or to any existing file.]
+exit=0

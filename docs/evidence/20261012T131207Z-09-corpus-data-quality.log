@@ -1,0 +1,89 @@
+SERAPH evidence โ€” corpus data quality + AMENDMENT-04 ยง2.2 reproduction (READ-ONLY)
+generated_utc : 2026-10-12T13:26:17Z
+git_commit    : f79299dfcaba20c7f3ae88a437a9cb9f2e57cf58
+=======================================================================
+
+=== 1. DUPLICATES on natural keys (writeBatch idempotency, CT-1 invariant) ===
+  daily_prices           dup symbol, date       = 0
+  intraday_bars          dup symbol, ts         = 0
+  rmt_output             dup date               = 0
+  hamilton_output        dup date               = 0
+  universe_snapshots     dup rebalance_date     = 0
+
+=== 2. NULLs / sanity in price columns ===
+  daily_prices  null close=0  close<=0=14  high<low=0  null tottrdval=0
+  intraday_bars null close=0  close<=0=3558  high<low=0
+
+=== 3. AMENDMENT-04 ง2.2: are 2010-05-16 / 2012-11-11 gold-ETF-only sessions? ===
+
+=== AMENDMENT-04 ง2.2: are 2010-05-16 / 2012-11-11 gold-ETF-only sessions? ===
+  2010-05-16: 6 rows -> ['GOLD1', 'GOLDBEES', 'GOLDBETA', 'IVZINGOLD', 'QGOLDHALF', 'SETFGOLD']
+  2012-11-11: 11 rows -> ['BSLGOLDETF', 'GOLD1', 'GOLDAXIS', 'GOLDBEES', 'GOLDBETA', 'GOLDIETF', 'HDFCGOLD', 'IVZINGOLD', 'LICMFGOLD', 'QGOLDHALF', 'SETFGOLD']
+
+=== close <= 0 anomalies: do they reach the Hawkes universe? ===
+  Hawkes universe size: 95
+  intraday_bars close<=0 by symbol (top 12):
+    INFY              900   IN HAWKES UNIVERSE
+    ICICIBANK         900   IN HAWKES UNIVERSE
+    ITC               900   IN HAWKES UNIVERSE
+    MAZDOCK           341   IN HAWKES UNIVERSE
+    SBIN              225   IN HAWKES UNIVERSE
+    WEBELSOLAR        128   IN HAWKES UNIVERSE
+    TCS                75   IN HAWKES UNIVERSE
+    INOXWIND           75   IN HAWKES UNIVERSE
+    SUNDRMFAST         13   IN HAWKES UNIVERSE
+    COFORGE             1   IN HAWKES UNIVERSE
+  total close<=0 rows: 3,558 across 10 symbols
+  of those symbols, in Hawkes universe: 10 -> ['COFORGE', 'ICICIBANK', 'INFY', 'INOXWIND', 'ITC', 'MAZDOCK', 'SBIN', 'SUNDRMFAST', 'TCS', 'WEBELSOLAR']
+  close<=0 rows INSIDE the Hawkes universe: 3,558
+
+  daily_prices close<=0 sample:
+    ESSENTIA      2019-08-08  0.0
+    ESSENTIA      2019-08-20  0.0
+    ESSENTIA      2019-08-22  0.0
+    ESSENTIA      2019-08-23  0.0
+    ESSENTIA      2019-08-26  0.0
+    ESSENTIA      2019-08-27  0.0
+    ESSENTIA      2019-09-23  0.0
+    ESSENTIA      2019-09-24  0.0
+    ESSENTIA      2019-09-25  0.0
+    ESSENTIA      2019-09-30  0.0
+    ESSENTIA      2019-11-01  0.0
+    ESSENTIA      2019-11-04  0.0
+    ESSENTIA      2019-11-08  0.0
+    ESSENTIA      2019-11-11  0.0
+
+=== zero-close impact on jump extraction (INFY, worst affected) ===
+=== are the zero-close bars contiguous whole sessions? (INFY) ===
+  INFY: 12 affected sessions, 900 bars
+    2015-04-27  75 bars
+    2015-04-28  75 bars
+    2015-04-29  75 bars
+    2015-04-30  75 bars
+    2015-05-04  75 bars
+    2015-05-05  75 bars
+    2015-05-06  75 bars
+    2015-05-07  75 bars
+    2015-05-08  75 bars
+    2015-05-11  75 bars
+    2015-05-12  75 bars
+    2015-05-13  75 bars
+
+=== does extract_jumps emit nan/inf on the real INFY series? ===
+  bars=213,687  zeros=900
+  log_return  nan=0  inf=0
+  jumps detected: neg=398 pos=413
+  jumps flagged on a NON-FINITE log return: 0
+  non-finite positions (first 10): []
+
+FINDINGS:
+ 1. AMENDMENT-04 ยง2.2 REPRODUCED: 2010-05-16 has 6 rows, 2012-11-11 has 11 rows,
+    all gold ETFs, zero equities. Matches the document's 'six and eleven rows' exactly.
+ 2. Zero duplicates on every natural key -> writeBatch idempotency holds in the data.
+ 3. NEW UNDOCUMENTED BLEMISH: 3,558 intraday_bars rows have close<=0, across 10 symbols,
+    ALL of which are inside the 95-symbol Hawkes universe. They are contiguous whole
+    sessions (INFY: 12 sessions x 75 bars, 2015-04-27..2015-05-13) = a Kite feed gap.
+    IMPACT MEASURED AS NIL for Pillar 1: extract_jumps emits 0 nan, 0 inf, and flags
+    0 jumps on a non-finite log return. Reported because it is undocumented and any
+    future naive return calculation would break on it.
+ 4. daily_prices has 14 rows with close<=0 (ESSENTIA, 2019) - outside the Hawkes universe.

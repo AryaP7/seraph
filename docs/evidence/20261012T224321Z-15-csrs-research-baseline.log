@@ -1,0 +1,158 @@
+SERAPH evidence - FIRST REAL END-TO-END CSRS (E7+E6 -> C8 -> C9 -> E10)
+generated_utc : 2026-10-12T22:43:21Z
+git_commit    : f3eaac8b25f3fe3c47f4734b6b841e5e93f41cd1
+git_branch    : evidence/pre-arya-experimentation
+command       : .venv/Scripts/python.exe scripts/run_csrs_research.py --write
+inputs        : REAL persisted output only. rmt_output 5,363 rows (29/29 acceptance);
+                hawkes_output 473 rows (500d window, refit-5, idempotency proven).
+hamilton      : EXCLUDED as a STRUCTURAL absence on every tick. Its causal run found
+                6/14 nesting violations to LR=-2322.88, 3/14 non-converged folds,
+                53% near-absorbing dates, NFR17 0.269 sigma.
+weights       : equal-weight RESEARCH BASELINE, CalibrationConfig.epochs=() so the
+                content hash binds the fact that it was trained on nothing.
+                FR30 optimisation NOT run. No learned weight is claimed.
+xi_mode       : uniform - a spec'd mode, present in the csrs PRIMARY KEY
+thresholds    : C9 provisional amber=0.50 red=0.75, uncalibrated pending FR30
+NOT CLAIMED   : predictive skill, calibration, lead time, or probability semantics.
+===========================================================================
+
+[csrs] pillar 2 (E7): 5,363 daily rows 2005-01-03 .. 2026-08-21
+[csrs] pillar 1 (E6): 473 refits 2017-02-09 .. 2026-08-20
+[csrs] pillar 3     : EXCLUDED as a STRUCTURAL absence (causal run unidentified - see docs/evidence/20261012T134047Z-hamilton-causal-REAL/REPORT.md)
+[csrs] decision grid: 2,357 daily ticks 2017-02-09 .. 2026-08-20
+[csrs] weights      : equal-weight RESEARCH BASELINE, artefact 349a6874e8bc6884... (epochs=() -> trained on nothing)
+[csrs] xi_mode      : uniform (1/3,1/3,1/3) - Hamilton xi not used
+[csrs] thresholds   : amber=0.5 red=0.75 (C9 provisional, FR30 not run)
+Traceback (most recent call last):
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_csrs_research.py", line 285, in <module>
+    raise SystemExit(asyncio.run(main(a.write, a.limit)))
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\AppData\Roaming\uv\python\cpython-3.12.14-windows-x86_64-none\Lib\asyncio\runners.py", line 195, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\AppData\Roaming\uv\python\cpython-3.12.14-windows-x86_64-none\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\AppData\Roaming\uv\python\cpython-3.12.14-windows-x86_64-none\Lib\asyncio\base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_csrs_research.py", line 178, in main
+    e, w = hawkes_contagion_emission(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\seraph\orchestration\adapters.py", line 171, in hawkes_contagion_emission
+    return ObservedEmission(obs=PillarObservation(
+                                ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\.venv\Lib\site-packages\pydantic\main.py", line 263, in __init__
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+pydantic_core._pydantic_core.ValidationError: 1 validation error for PillarObservation
+  Value error, CONTRACT_VIOLATION: tau (2024-11-01T18:55:00+05:30) > ts (2024-11-01T15:30:00+05:30) — a pillar cannot be computed after the time it is valid for [type=value_error, input_value={'pillar': 'hawkes', 'ts'...imation_variance': None}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.13/v/value_error
+
+exit_code     : 1
+
+### RERUN after fixing a look-ahead leak found by the S5 contract ###
+defect        : the driver selected the most recent Hawkes refit by DATE, so the
+                2024-11-01 Diwali Muhurat refit (ts 18:55 IST) was offered to that
+                day's 15:30 decision. PillarObservation rejected it: tau > ts.
+fix           : select by TIMESTAMP (bisect on actual refit ts <= decision ts), so the
+                Muhurat refit becomes available the following session.
+rerun_utc     : 2026-10-12T22:44:29Z
+===========================================================================
+
+[csrs] pillar 2 (E7): 5,363 daily rows 2005-01-03 .. 2026-08-21
+[csrs] pillar 1 (E6): 473 refits 2017-02-09 .. 2026-08-20
+[csrs] pillar 3     : EXCLUDED as a STRUCTURAL absence (causal run unidentified - see docs/evidence/20261012T134047Z-hamilton-causal-REAL/REPORT.md)
+[csrs] decision grid: 2,357 daily ticks 2017-02-09 .. 2026-08-20
+[csrs] weights      : equal-weight RESEARCH BASELINE, artefact 349a6874e8bc6884... (epochs=() -> trained on nothing)
+[csrs] xi_mode      : uniform (1/3,1/3,1/3) - Hamilton xi not used
+[csrs] thresholds   : amber=0.5 red=0.75 (C9 provisional, FR30 not run)
+
+[csrs] 2,357 CSRS points, 0 failures in 1.2s
+[csrs] warning PARTIAL_COVERAGE: 2357
+[csrs] warning MASK_DEGRADED: 2357
+[csrs] warning NOISE_SATURATED: 1889
+
+[csrs] CSRS  : mean=0.6131 sd=0.2923 range=[0.0008, 1.0000]
+[csrs] var    : mean=0.015185 max=0.065376
+[csrs] masks  : {'(True, True, False)', '(False, True, False)'}  (PILLAR_ORDER=['hawkes', 'rmt', 'hamilton'])
+[csrs] alerts : {'amber': 624, 'red': 959, 'green': 774}  (PROVISIONAL thresholds, not calibrated)
+[csrs] shapley mean by pillar: {'hawkes': np.float64(0.0139), 'rmt': np.float64(0.5992), 'hamilton': np.float64(0.0)}
+[csrs] effective weights seen: ['((0.0, 1.0, 0.0), (0.0, 1.0, 0.0), (0.0, 1.0, 0.0))', '((0.5, 0.5, 0.0), (0.5, 0.5, 0.0), (0.5, 0.5, 0.0))']
+
+[csrs] wrote weights artefact C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\artefacts\fusion_weights.349a6874e8bc6884.json
+Traceback (most recent call last):
+  File "asyncpg/protocol/prepared_stmt.pyx", line 175, in asyncpg.protocol.protocol.PreparedStatementState._encode_bind_msg
+    codec.encode(self.settings, writer, arg)
+  File "asyncpg/protocol/codecs/base.pyx", line 251, in asyncpg.protocol.protocol.Codec.encode
+    return self.encoder(self, settings, buf, obj)
+  File "asyncpg/protocol/codecs/base.pyx", line 153, in asyncpg.protocol.protocol.Codec.encode_scalar
+    self.c_encoder(settings, buf, obj)
+  File "asyncpg/pgproto/codecs/datetime.pyx", line 208, in asyncpg.pgproto.pgproto.timestamptz_encode
+    raise TypeError(
+TypeError: expected a datetime.date or datetime.datetime instance, got 'str'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_csrs_research.py", line 302, in <module>
+    raise SystemExit(asyncio.run(main(a.write, a.limit)))
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\AppData\Roaming\uv\python\cpython-3.12.14-windows-x86_64-none\Lib\asyncio\runners.py", line 195, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\AppData\Roaming\uv\python\cpython-3.12.14-windows-x86_64-none\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\AppData\Roaming\uv\python\cpython-3.12.14-windows-x86_64-none\Lib\asyncio\base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_csrs_research.py", line 269, in main
+    await conn.execute(
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\.venv\Lib\site-packages\asyncpg\connection.py", line 357, in execute
+    _, status, _ = await self._execute(
+                   ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\.venv\Lib\site-packages\asyncpg\connection.py", line 1873, in _execute
+    result, _ = await self.__execute(
+                ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\.venv\Lib\site-packages\asyncpg\connection.py", line 1970, in __execute
+    result, stmt = await self._do_execute(
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\.venv\Lib\site-packages\asyncpg\connection.py", line 2033, in _do_execute
+    result = await executor(stmt, None)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "asyncpg/protocol/protocol.pyx", line 184, in bind_execute
+    args_buf = state._encode_bind_msg(args)
+  File "asyncpg/protocol/prepared_stmt.pyx", line 204, in asyncpg.protocol.protocol.PreparedStatementState._encode_bind_msg
+    raise exceptions.DataError(
+asyncpg.exceptions.DataError: invalid input for query argument $1: '2017-02-09T15:30:00+05:30' (expected a datetime.date or datetime.datetime instance, got 'str')
+exit_code     : 1
+
+### RERUN 2 after fixing the ts binding (CsrsPoint.ts is an ISO string; csrs.ts is timestamptz) ###
+note          : rerun 1 aborted inside the transaction and csrs remained at 0 rows -
+                verified failure propagation, no partial commit.
+rerun_utc     : 2026-10-12T22:44:51Z
+
+[csrs] pillar 2 (E7): 5,363 daily rows 2005-01-03 .. 2026-08-21
+[csrs] pillar 1 (E6): 473 refits 2017-02-09 .. 2026-08-20
+[csrs] pillar 3     : EXCLUDED as a STRUCTURAL absence (causal run unidentified - see docs/evidence/20261012T134047Z-hamilton-causal-REAL/REPORT.md)
+[csrs] decision grid: 2,357 daily ticks 2017-02-09 .. 2026-08-20
+[csrs] weights      : equal-weight RESEARCH BASELINE, artefact 349a6874e8bc6884... (epochs=() -> trained on nothing)
+[csrs] xi_mode      : uniform (1/3,1/3,1/3) - Hamilton xi not used
+[csrs] thresholds   : amber=0.5 red=0.75 (C9 provisional, FR30 not run)
+
+[csrs] 2,357 CSRS points, 0 failures in 1.2s
+[csrs] warning PARTIAL_COVERAGE: 2357
+[csrs] warning MASK_DEGRADED: 2357
+[csrs] warning NOISE_SATURATED: 1889
+
+[csrs] CSRS  : mean=0.6131 sd=0.2923 range=[0.0008, 1.0000]
+[csrs] var    : mean=0.015185 max=0.065376
+[csrs] masks  : {'(True, True, False)', '(False, True, False)'}  (PILLAR_ORDER=['hawkes', 'rmt', 'hamilton'])
+[csrs] alerts : {'amber': 624, 'red': 959, 'green': 774}  (PROVISIONAL thresholds, not calibrated)
+[csrs] shapley mean by pillar: {'hawkes': np.float64(0.0139), 'rmt': np.float64(0.5992), 'hamilton': np.float64(0.0)}
+[csrs] effective weights seen: ['((0.5, 0.5, 0.0), (0.5, 0.5, 0.0), (0.5, 0.5, 0.0))', '((0.0, 1.0, 0.0), (0.0, 1.0, 0.0), (0.0, 1.0, 0.0))']
+
+[csrs] wrote weights artefact C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\artefacts\fusion_weights.349a6874e8bc6884.json
+[csrs] E10 rows: 0 -> 2,357 (inserted 2,357, updated 0)
+exit_code_rerun2: 0

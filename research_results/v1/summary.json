@@ -1,0 +1,1715 @@
+{
+  "created_utc": "2026-10-14T05:28:42.837504+00:00",
+  "as_of": "2026-08-21",
+  "protocol": {
+    "horizon": 15,
+    "loss_barrier": 0.1,
+    "min_train": 756,
+    "refit_every": 63,
+    "C": 0.1,
+    "pillar_config": {
+      "min_train": 252,
+      "train_window": 1000,
+      "refit_every": 63,
+      "fast_window": 60,
+      "slow_window": 252,
+      "covariance_shrinkage": 0.1,
+      "ewma_decay": 0.94,
+      "ewma_warmup": 20,
+      "tail_sigma": 2.0,
+      "hawkes_half_life": 5.0,
+      "min_hawkes_events": 5,
+      "hmm_iterations": 80,
+      "hmm_transition_prior": 2.0
+    },
+    "alert_config": {
+      "horizon": 15,
+      "min_calibration": 252,
+      "lookback": 1260,
+      "refit_every": 63,
+      "false_episodes_per_year": 2.0,
+      "max_alarm_fraction": 0.1,
+      "sessions_per_year": 252
+    },
+    "candidate_features": {
+      "baseline_logit": [
+        "ewma_volatility"
+      ],
+      "three_pillars": [
+        "hawkes_daily_intensity",
+        "rmt_fast_leading_share",
+        "rmt_fast_minus_slow",
+        "hamilton_daily_next_volatility"
+      ],
+      "combined": [
+        "ewma_volatility",
+        "hawkes_daily_intensity",
+        "rmt_fast_leading_share",
+        "rmt_fast_minus_slow",
+        "hamilton_daily_next_volatility"
+      ],
+      "without_hawkes": [
+        "ewma_volatility",
+        "rmt_fast_leading_share",
+        "rmt_fast_minus_slow",
+        "hamilton_daily_next_volatility"
+      ],
+      "without_rmt": [
+        "ewma_volatility",
+        "hawkes_daily_intensity",
+        "hamilton_daily_next_volatility"
+      ],
+      "without_hamilton": [
+        "ewma_volatility",
+        "hawkes_daily_intensity",
+        "rmt_fast_leading_share",
+        "rmt_fast_minus_slow"
+      ]
+    }
+  },
+  "data_manifest": {
+    "created_utc": "2026-10-14T05:17:33.212725+00:00",
+    "source": "existing local SERAPH PostgreSQL; read-only repeatable-read",
+    "rows": 5361,
+    "from": "2005-01-03",
+    "to": "2026-08-21",
+    "market_definition": "equal-weight average log return of available point-in-time universe members; research index, not an executable portfolio",
+    "return_correction": "lag computed before universe filter; only consecutive global sessions admitted; re-entry gaps not mistaken for daily returns",
+    "factors": "ten deterministic MD5 symbol buckets of the contemporaneous eligible universe; fixed grouping rule, not sectors or licensed indices",
+    "limitations": [
+      "underlying adjusted EOD2 snapshot is not an as-first-published vintage archive",
+      "source universe construction inherited; turnover proxy and survivorship coverage caveats remain",
+      "persisted original pillars retain prior research-selection history"
+    ],
+    "files": {
+      "market_snapshot.parquet": "0f004e2cb91a35bc11c218e5aa2e27c8d86deebae403d3c92ca655f6f9ece36f",
+      "original_hawkes.parquet": "6a0b76ad69f2f73e1cefa17670e041cee66e7e4d5309ec4f1f3ef763900aa58a",
+      "original_rmt.parquet": "162174485ee9e35c027a7ecc29e11e4ed859816357a6fa53814fd77633433e84",
+      "original_vix.parquet": "7839fefe4af9fbebcb73315d2d241b2602d8f6ed93c422d4e55b7d303b76f04a"
+    }
+  },
+  "models": [
+    {
+      "target": "loss10_15",
+      "model": "baseline_logit",
+      "features": [
+        "ewma_volatility"
+      ],
+      "metrics": {
+        "n": 4576,
+        "positives": 352,
+        "base_rate": 0.07692307692307693,
+        "brier": 0.06980173887722267,
+        "log_loss": 0.26440398930131814,
+        "auc": 0.6547743952307162
+      },
+      "metrics_common": {
+        "n": 4576,
+        "positives": 352,
+        "base_rate": 0.07692307692307693,
+        "brier": 0.06980173887722267,
+        "log_loss": 0.26440398930131814,
+        "auc": 0.6547743952307162
+      },
+      "alarm_stats": {
+        "evaluated_sessions": 4310,
+        "alarm_sessions": 251,
+        "alarm_fraction": 0.05823665893271462,
+        "episodes": 21,
+        "false_episodes": 17,
+        "false_episodes_per_year": 0.9939675174013921
+      },
+      "events": [
+        {
+          "event": "gfc_2008",
+          "label_date": "2008-09-15",
+          "session_date": "2008-09-15",
+          "label_status": "provisional_project_label",
+          "provenance": "Lehman Brothers bankruptcy; the global transmission date. Alternative: 2008-01-21, the Indian market's own crash, which precedes the global event by eight months and would test a different phenomenon.",
+          "available_sessions": 0,
+          "status": "unassessable",
+          "first_warning": null,
+          "lead_sessions": null
+        },
+        {
+          "event": "taper_2013",
+          "label_date": "2013-05-22",
+          "session_date": "2013-05-22",
+          "label_status": "provisional_project_label",
+          "provenance": "Bernanke's taper testimony; the trigger for the emerging-market outflow episode that hit the rupee and Indian equities.",
+          "available_sessions": 15,
+          "status": "missed",
+          "first_warning": null,
+          "lead_sessions": null
+        },
+        {
+          "event": "ilfs_2018",
+          "label_date": "2018-09-21",
+          "session_date": "2018-09-21",
+          "label_status": "provisional_project_label",
+          "provenance": "IL&FS default cascade and the single-day NBFC selloff; the domestic shadow-banking shock.",
+          "available_sessions": 15,
+          "status": "missed",
+          "first_warning": null,
+          "lead_sessions": null
+        },
+        {
+          "event": "covid_2020",
+          "label_date": "2020-02-20",
+          "session_date": "2020-02-20",
+          "label_status": "provisional_project_label",
+          "provenance": "Onset of the global COVID selloff, chosen so the 30-day window covers the drawdown. Alternative: 2020-03-23, the Indian market bottom, which would place the window over the recovery instead.",
+          "available_sessions": 15,
+          "status": "missed",
+          "first_warning": null,
+          "lead_sessions": null
+        },
+        {
+          "event": "tightening_2022",
+          "label_date": "2022-01-05",
+          "session_date": "2022-01-05",
+          "label_status": "provisional_project_label",
+          "provenance": "Start of the 2022 global tightening drawdown. Alternative: 2022-06-16, the peak-hawkishness repricing.",
+          "available_sessions": 15,
+          "status": "missed",
+          "first_warning": null,
+          "lead_sessions": null
+        },
+        {
+          "event": "tariff_2026",
+          "label_date": "2026-02-01",
+          "session_date": "2026-02-01",
+          "label_status": "explicitly_unresolved",
+          "provenance": "PROVISIONAL - SPEC OQ3 is explicitly open. Placeholder for the Feb-2026 interim framework; the 50% peak and the solar CVD single-day drop are the other candidates. MUST be resolved before Epoch 6 results are reported.",
+          "available_sessions": 15,
+          "status": "missed",
+          "first_warning": null,
+          "lead_sessions": null
+        }
+      ],
+      "fit_status_counts": {
+        "fitted": 4591,
+        "insufficient_training": 770
+      },
+      "vs_baseline_brier": {
+        "n": 4576,
+        "mean": 0.0,
+        "lower": 0.0,
+        "upper": 0.0,
+        "block": 63,
+        "draws": 1000,
+        "caveat": "descriptive; not adjusted for model/research selection or nonstationarity"
+      }
+    },
+    {
+      "target": "loss10_15",
+      "model": "three_pillars",
+      "features": [
+        "hawkes_daily_intensity",
+        "rmt_fast_leading_share",
+        "rmt_fast_minus_slow",
+        "hamilton_daily_next_volatility"
+      ],
+      "metrics": {
+        "n": 4576,
+        "positives": 352,
+        "base_rate": 0.07692307692307693,
+        "brier": 0.07060728658351635,
+        "log_loss": 0.2674290562449862,
+        "auc": 0.6506139161501377
+      },
+      "metrics_common": {
+        "n": 4576,
+        "positives": 352,
+        "base_rate": 0.07692307692307693,
+        "brier": 0.07060728658351635,
+        "log_loss": 0.2674290562449862,
+        "auc": 0.6506139161501377
+      },
+      "alarm_stats": {
+        "evaluated_sessions": 4310,
+        "alarm_sessions": 86,
+        "alarm_fraction": 0.019953596287703015,
+        "episodes": 26,
+        "false_episodes": 24,
+        "false_episodes_per_year": 1.403248259860789
+      },
+      "events": [
+        {
+          "event": "gfc_2008",
+          "label_date": "2008-09-15",
+          "session_date": "2008-09-15",
+          "label_status": "provisional_project_label",
+          "provenance": "Lehman Brothers bankruptcy; the global transmission date. Alternative: 2008-01-21, the Indian market's own crash, which precedes the global event by eight months and would test a different phenomenon.",
+          "available_sessions": 0,
+          "status": "unassessable",
+          "first_warning": null,
+          "lead_sessions": null
+        },
+        {
+          "event": "taper_2013",
+          "label_date": "2013-05-22",
+          "session_date": "2013-05-22",
+          "label_status": "provisional_project_label",
+          "provenance": "Bernanke's taper testimony; the trigger for the emerging-market outflow episode that hit the rupee and Indian equities.",
+          "available_sessions": 15,
+          "status": "missed",
+          "first_warning": null,
+          "lead_sessions": null
+        },
+        {
+          "event": "ilfs_2018",
+          "label_date": "2018-09-21",
+          "session_date": "2018-09-21",
+          "label_status": "provisional_project_label",
+          "provenance": "IL&FS default cascade and the single-day NBFC selloff; the domestic shadow-banking shock.",
+          "available_sessions": 15,
+          "status": "missed",
+          "first_warning": null,
+          "lead_sessions": null
+        },
+        {
+          "event": "covid_2020",
+          "label_date": "2020-02-20",
+          "session_date": "2020-02-20",
+          "label_status": "provisional_project_label",
+          "provenance": "Onset of the global COVID selloff, chosen so the 30-day window covers the drawdown. Alternative: 2020-03-23, the Indian market bottom, which would place the window over the recovery instead.",
+          "available_sessions": 15,
+          "status": "missed",
+          "first_warning": null,
+          "lead_sessions": null
+        },
+        {
+          "event": "tightening_2022",
+          "label_date": "2022-01-05",
+          "session_date": "2022-01-05",
+          "label_status": "provisional_project_label",
+          "provenance": "Start of the 2022 global tightening drawdown. Alternative: 2022-06-16, the peak-hawkishness repricing.",
+          "available_sessions": 15,
+          "status": "missed",
+          "first_warning": null,
+          "lead_sessions": null
+        },
+        {
+          "event": "tariff_2026",
+          "label_date": "2026-02-01",
+          "session_date": "2026-02-01",
+          "label_status": "explicitly_unresolved",
+          "provenance": "PROVISIONAL - SPEC OQ3 is explicitly open. Placeholder for the Feb-2026 interim framework; the 50% peak and the solar CVD single-day drop are the other candidates. MUST be resolved before Epoch 6 results are reported.",
+          "available_sessions": 15,
+          "status": "missed",
+          "first_warning": null,
+          "lead_sessions": null
+        }
+      ],
+      "fit_status_counts": {
+        "fitted": 4591,
+        "insufficient_training": 770
+      },
+      "vs_baseline_brier": {
+        "n": 4576,
+        "mean": 0.0008055477062936814,
+        "lower": -0.0012030075524595365,
+        "upper": 0.0028281699245461993,
+        "block": 63,
+        "draws": 1000,
+        "caveat": "descriptive; not adjusted for model/research selection or nonstationarity"
+      }
+    },
+    {
+      "target": "loss10_15",
+      "model": "combined",
+      "features": [
+        "ewma_volatility",
+        "hawkes_daily_intensity",
+        "rmt_fast_leading_share",
+        "rmt_fast_minus_slow",
+        "hamilton_daily_next_volatility"
+      ],
+      "metrics": {
+        "n": 4576,
+        "positives": 352,
+        "base_rate": 0.07692307692307693,
+        "brier": 0.06954325881857248,
+        "log_loss": 0.26328765900141043,
+        "auc": 0.6587949810606061
+      },
+      "metrics_common": {
+        "n": 4576,
+        "positives": 352,
+        "base_rate": 0.07692307692307693,
+        "brier": 0.06954325881857248,
+        "log_loss": 0.26328765900141043,
+        "auc": 0.6587949810606061
+      },
+      "alarm_stats": {
+        "evaluated_sessions": 4310,
+        "alarm_sessions": 106,
+        "alarm_fraction": 0.02459396751740139,
+        "episodes": 26,
+        "false_episodes": 25,
+        "false_episodes_per_year": 1.4617169373549883
+      },
+      "events": [
+        {
+          "event": "gfc_2008",
+          "label_date": "2008-09-15",
+          "session_date": "2008-09-15",
+          "label_status": "provisional_project_label",
+          "provenance": "Lehman Brothers bankruptcy; the global transmission date. Alternative: 2008-01-21, the Indian market's own crash, which precedes the global event by eight months and would test a different phenomenon.",
+          "available_sessions": 0,
+          "status": "unassessable",
+          "first_warning": null,
+          "lead_sessions": null
+        },
+        {
+          "event": "taper_2013",
+          "label_date": "2013-05-22",
+          "session_date": "2013-05-22",
+          "label_status": "provisional_project_label",
+          "provenance": "Bernanke's taper testimony; the trigger for the emerging-market outflow episode that hit the rupee and Indian equities.",
+          "available_sessions": 15,
+          "status": "missed",
+          "first_warning": null,
+          "lead_sessions": null
+        },
+        {
+          "event": "ilfs_2018",
+          "label_date": "2018-09-21",
+          "session_date": "2018-09-21",
+          "label_status": "provisional_project_label",
+          "provenance": "IL&FS default cascade and the single-day NBFC selloff; the domestic shadow-banking shock.",
+          "available_sessions": 15,
+          "status": "missed",
+          "first_warning": null,
+          "lead_sessions": null
+        },
+        {
+          "event": "covid_2020",
+          "label_date": "2020-02-20",
+          "session_date": "2020-02-20",
+          "label_status": "provisional_project_label",
+          "provenance": "Onset of the global COVID selloff, chosen so the 30-day window covers the drawdown. Alternative: 2020-03-23, the Indian market bottom, which would place the window over the recovery instead.",
+          "available_sessions": 15,
+          "status": "missed",
+          "first_warning": null,
+          "lead_sessions": null
+        },
+        {
+          "event": "tightening_2022",
+          "label_date": "2022-01-05",
+          "session_date": "2022-01-05",
+          "label_status": "provisional_project_label",
+          "provenance": "Start of the 2022 global tightening drawdown. Alternative: 2022-06-16, the peak-hawkishness repricing.",
+          "available_sessions": 15,
+          "status": "missed",
+          "first_warning": null,
+          "lead_sessions": null
+        },
+        {
+          "event": "tariff_2026",
+          "label_date": "2026-02-01",
+          "session_date": "2026-02-01",
+          "label_status": "explicitly_unresolved",
+          "provenance": "PROVISIONAL - SPEC OQ3 is explicitly open. Placeholder for the Feb-2026 interim framework; the 50% peak and the solar CVD single-day drop are the other candidates. MUST be resolved before Epoch 6 results are reported.",
+          "available_sessions": 15,
+          "status": "missed",
+          "first_warning": null,
+          "lead_sessions": null
+        }
+      ],
+      "fit_status_counts": {
+        "fitted": 4591,
+        "insufficient_training": 770
+      },
+      "vs_baseline_brier": {
+        "n": 4576,
+        "mean": -0.000258480058650183,
+        "lower": -0.001927797272434514,
+        "upper": 0.0010848085614365123,
+        "block": 63,
+        "draws": 1000,
+        "caveat": "descriptive; not adjusted for model/research selection or nonstationarity"
+      }
+    },
+    {
+      "target": "loss10_15",
+      "model": "without_hawkes",
+      "features": [
+        "ewma_volatility",
+        "rmt_fast_leading_share",
+        "rmt_fast_minus_slow",
+        "hamilton_daily_next_volatility"
+      ],
+      "metrics": {
+        "n": 4576,
+        "positives": 352,
+        "base_rate": 0.07692307692307693,
+        "brier": 0.06986269329205246,
+        "log_loss": 0.2639194649523087,
+        "auc": 0.655859240487259
+      },
+      "metrics_common": {
+        "n": 4576,
+        "positives": 352,
+        "base_rate": 0.07692307692307693,
+        "brier": 0.06986269329205246,
+        "log_loss": 0.2639194649523087,
+        "auc": 0.655859240487259
+      },
+      "alarm_stats": {
+        "evaluated_sessions": 4310,
+        "alarm_sessions": 151,
+        "alarm_fraction": 0.03503480278422274,
+        "episodes": 25,
+        "false_episodes": 23,
+        "false_episodes_per_year": 1.3447795823665893
+      },
+      "events": [
+        {
+          "event": "gfc_2008",
+          "label_date": "2008-09-15",
+          "session_date": "2008-09-15",
+          "label_status": "provisional_project_label",
+          "provenance": "Lehman Brothers bankruptcy; the global transmission date. Alternative: 2008-01-21, the Indian market's own crash, which precedes the global event by eight months and would test a different phenomenon.",
+          "available_sessions": 0,
+          "status": "unassessable",
+          "first_warning": null,
+          "lead_sessions": null
+        },
+        {
+          "event": "taper_2013",
+          "label_date": "2013-05-22",
+          "session_date": "2013-05-22",
+          "label_status": "provisional_project_label",
+          "provenance": "Bernanke's taper testimony; the trigger for the emerging-market outflow episode that hit the rupee and Indian equities.",
+          "available_sessions": 15,
+          "status": "missed",
+          "first_warning": null,
+          "lead_sessions": null
+        },
+        {
+          "event": "ilfs_2018",
+          "label_date": "2018-09-21",
+          "session_date": "2018-09-21",
+          "label_status": "provisional_project_label",
+          "provenance": "IL&FS default cascade and the single-day NBFC selloff; the domestic shadow-banking shock.",
+          "available_sessions": 15,
+          "status": "missed",
+          "first_warning": null,
+          "lead_sessions": null
+        },
+        {
+          "event": "covid_2020",
+          "label_date": "2020-02-20",
+          "session_date": "2020-02-20",
+          "label_status": "provisional_project_label",
+          "provenance": "Onset of the global COVID selloff, chosen so the 30-day window covers the drawdown. Alternative: 2020-03-23, the Indian market bottom, which would place the window over the recovery instead.",
+          "available_sessions": 15,
+          "status": "missed",
+          "first_warning": null,
+          "lead_sessions": null
+        },
+        {
+          "event": "tightening_2022",
+          "label_date": "2022-01-05",
+          "session_date": "2022-01-05",
+          "label_status": "provisional_project_label",
+          "provenance": "Start of the 2022 global tightening drawdown. Alternative: 2022-06-16, the peak-hawkishness repricing.",
+          "available_sessions": 15,
+          "status": "missed",
+          "first_warning": null,
+          "lead_sessions": null
+        },
+        {
+          "event": "tariff_2026",
+          "label_date": "2026-02-01",
+          "session_date": "2026-02-01",
+          "label_status": "explicitly_unresolved",
+          "provenance": "PROVISIONAL - SPEC OQ3 is explicitly open. Placeholder for the Feb-2026 interim framework; the 50% peak and the solar CVD single-day drop are the other candidates. MUST be resolved before Epoch 6 results are reported.",
+          "available_sessions": 15,
+          "status": "missed",
+          "first_warning": null,
+          "lead_sessions": null
+        }
+      ],
+      "fit_status_counts": {
+        "fitted": 4591,
+        "insufficient_training": 770
+      },
+      "vs_baseline_brier": {
+        "n": 4576,
+        "mean": 6.095441482979902e-05,
+        "lower": -0.0013465881040726098,
+        "upper": 0.0012319704819906618,
+        "block": 63,
+        "draws": 1000,
+        "caveat": "descriptive; not adjusted for model/research selection or nonstationarity"
+      }
+    },
+    {
+      "target": "loss10_15",
+      "model": "without_rmt",
+      "features": [
+        "ewma_volatility",
+        "hawkes_daily_intensity",
+        "hamilton_daily_next_volatility"
+      ],
+      "metrics": {
+        "n": 4576,
+        "positives": 352,
+        "base_rate": 0.07692307692307693,
+        "brier": 0.06947541385245923,
+        "log_loss": 0.26336957546659273,
+        "auc": 0.6578856749311295
+      },
+      "metrics_common": {
+        "n": 4576,
+        "positives": 352,
+        "base_rate": 0.07692307692307693,
+        "brier": 0.06947541385245923,
+        "log_loss": 0.26336957546659273,
+        "auc": 0.6578856749311295
+      },
+      "alarm_stats": {
+        "evaluated_sessions": 4310,
+        "alarm_sessions": 128,
+        "alarm_fraction": 0.029698375870069606,
+        "episodes": 24,
+        "false_episodes": 20,
+        "false_episodes_per_year": 1.1693735498839908
+      },
+      "events": [
+        {
+          "event": "gfc_2008",
+          "label_date": "2008-09-15",
+          "session_date": "2008-09-15",
+          "label_status": "provisional_project_label",
+          "provenance": "Lehman Brothers bankruptcy; the global transmission date. Alternative: 2008-01-21, the Indian market's own crash, which precedes the global event by eight months and would test a different phenomenon.",
+          "available_sessions": 0,
+          "status": "unassessable",
+          "first_warning": null,
+          "lead_sessions": null
+        },
+        {
+          "event": "taper_2013",
+          "label_date": "2013-05-22",
+          "session_date": "2013-05-22",
+          "label_status": "provisional_project_label",
+          "provenance": "Bernanke's taper testimony; the trigger for the emerging-market outflow episode that hit the rupee and Indian equities.",
+          "available_sessions": 15,
+          "status": "missed",
+          "first_warning": null,
+          "lead_sessions": null
+        },
+        {
+          "event": "ilfs_2018",
+          "label_date": "2018-09-21",
+          "session_date": "2018-09-21",
+          "label_status": "provisional_project_label",
+          "provenance": "IL&FS default cascade and the single-day NBFC selloff; the domestic shadow-banking shock.",
+          "available_sessions": 15,
+          "status": "missed",
+          "first_warning": null,
+          "lead_sessions": null
+        },
+        {
+          "event": "covid_2020",
+          "label_date": "2020-02-20",
+          "session_date": "2020-02-20",
+          "label_status": "provisional_project_label",
+          "provenance": "Onset of the global COVID selloff, chosen so the 30-day window covers the drawdown. Alternative: 2020-03-23, the Indian market bottom, which would place the window over the recovery instead.",
+          "available_sessions": 15,
+          "status": "missed",
+          "first_warning": null,
+          "lead_sessions": null
+        },
+        {
+          "event": "tightening_2022",
+          "label_date": "2022-01-05",
+          "session_date": "2022-01-05",
+          "label_status": "provisional_project_label",
+          "provenance": "Start of the 2022 global tightening drawdown. Alternative: 2022-06-16, the peak-hawkishness repricing.",
+          "available_sessions": 15,
+          "status": "missed",
+          "first_warning": null,
+          "lead_sessions": null
+        },
+        {
+          "event": "tariff_2026",
+          "label_date": "2026-02-01",
+          "session_date": "2026-02-01",
+          "label_status": "explicitly_unresolved",
+          "provenance": "PROVISIONAL - SPEC OQ3 is explicitly open. Placeholder for the Feb-2026 interim framework; the 50% peak and the solar CVD single-day drop are the other candidates. MUST be resolved before Epoch 6 results are reported.",
+          "available_sessions": 15,
+          "status": "missed",
+          "first_warning": null,
+          "lead_sessions": null
+        }
+      ],
+      "fit_status_counts": {
+        "fitted": 4591,
+        "insufficient_training": 770
+      },
+      "vs_baseline_brier": {
+        "n": 4576,
+        "mean": -0.00032632502476342165,
+        "lower": -0.0019939379782946583,
+        "upper": 0.0009158778073351209,
+        "block": 63,
+        "draws": 1000,
+        "caveat": "descriptive; not adjusted for model/research selection or nonstationarity"
+      }
+    },
+    {
+      "target": "loss10_15",
+      "model": "without_hamilton",
+      "features": [
+        "ewma_volatility",
+        "hawkes_daily_intensity",
+        "rmt_fast_leading_share",
+        "rmt_fast_minus_slow"
+      ],
+      "metrics": {
+        "n": 4576,
+        "positives": 352,
+        "base_rate": 0.07692307692307693,
+        "brier": 0.0695332475021053,
+        "log_loss": 0.2632751128569753,
+        "auc": 0.6619708268767218
+      },
+      "metrics_common": {
+        "n": 4576,
+        "positives": 352,
+        "base_rate": 0.07692307692307693,
+        "brier": 0.0695332475021053,
+        "log_loss": 0.2632751128569753,
+        "auc": 0.6619708268767218
+      },
+      "alarm_stats": {
+        "evaluated_sessions": 4310,
+        "alarm_sessions": 128,
+        "alarm_fraction": 0.029698375870069606,
+        "episodes": 25,
+        "false_episodes": 23,
+        "false_episodes_per_year": 1.3447795823665893
+      },
+      "events": [
+        {
+          "event": "gfc_2008",
+          "label_date": "2008-09-15",
+          "session_date": "2008-09-15",
+          "label_status": "provisional_project_label",
+          "provenance": "Lehman Brothers bankruptcy; the global transmission date. Alternative: 2008-01-21, the Indian market's own crash, which precedes the global event by eight months and would test a different phenomenon.",
+          "available_sessions": 0,
+          "status": "unassessable",
+          "first_warning": null,
+          "lead_sessions": null
+        },
+        {
+          "event": "taper_2013",
+          "label_date": "2013-05-22",
+          "session_date": "2013-05-22",
+          "label_status": "provisional_project_label",
+          "provenance": "Bernanke's taper testimony; the trigger for the emerging-market outflow episode that hit the rupee and Indian equities.",
+          "available_sessions": 15,
+          "status": "missed",
+          "first_warning": null,
+          "lead_sessions": null
+        },
+        {
+          "event": "ilfs_2018",
+          "label_date": "2018-09-21",
+          "session_date": "2018-09-21",
+          "label_status": "provisional_project_label",
+          "provenance": "IL&FS default cascade and the single-day NBFC selloff; the domestic shadow-banking shock.",
+          "available_sessions": 15,
+          "status": "missed",
+          "first_warning": null,
+          "lead_sessions": null
+        },
+        {
+          "event": "covid_2020",
+          "label_date": "2020-02-20",
+          "session_date": "2020-02-20",
+          "label_status": "provisional_project_label",
+          "provenance": "Onset of the global COVID selloff, chosen so the 30-day window covers the drawdown. Alternative: 2020-03-23, the Indian market bottom, which would place the window over the recovery instead.",
+          "available_sessions": 15,
+          "status": "missed",
+          "first_warning": null,
+          "lead_sessions": null
+        },
+        {
+          "event": "tightening_2022",
+          "label_date": "2022-01-05",
+          "session_date": "2022-01-05",
+          "label_status": "provisional_project_label",
+          "provenance": "Start of the 2022 global tightening drawdown. Alternative: 2022-06-16, the peak-hawkishness repricing.",
+          "available_sessions": 15,
+          "status": "warned",
+          "first_warning": "2021-12-20",
+          "lead_sessions": 12
+        },
+        {
+          "event": "tariff_2026",
+          "label_date": "2026-02-01",
+          "session_date": "2026-02-01",
+          "label_status": "explicitly_unresolved",
+          "provenance": "PROVISIONAL - SPEC OQ3 is explicitly open. Placeholder for the Feb-2026 interim framework; the 50% peak and the solar CVD single-day drop are the other candidates. MUST be resolved before Epoch 6 results are reported.",
+          "available_sessions": 15,
+          "status": "missed",
+          "first_warning": null,
+          "lead_sessions": null
+        }
+      ],
+      "fit_status_counts": {
+        "fitted": 4591,
+        "insufficient_training": 770
+      },
+      "vs_baseline_brier": {
+        "n": 4576,
+        "mean": -0.0002684913751173655,
+        "lower": -0.0017469340642924474,
+        "upper": 0.0010042042196621768,
+        "block": 63,
+        "draws": 1000,
+        "caveat": "descriptive; not adjusted for model/research selection or nonstationarity"
+      }
+    },
+    {
+      "target": "onset15",
+      "model": "baseline_logit",
+      "features": [
+        "ewma_volatility"
+      ],
+      "metrics": {
+        "n": 4576,
+        "positives": 90,
+        "base_rate": 0.019667832167832168,
+        "brier": 0.019449981041083517,
+        "log_loss": 0.11019721425617446,
+        "auc": 0.3487937781740724
+      },
+      "metrics_common": {
+        "n": 4576,
+        "positives": 90,
+        "base_rate": 0.019667832167832168,
+        "brier": 0.019449981041083517,
+        "log_loss": 0.11019721425617446,
+        "auc": 0.3487937781740724
+      },
+      "alarm_stats": {
+        "evaluated_sessions": 4310,
+        "alarm_sessions": 795,
+        "alarm_fraction": 0.18445475638051045,
+        "episodes": 29,
+        "false_episodes": 28,
+        "false_episodes_per_year": 1.637122969837587
+      },
+      "events": [
+        {
+          "event": "gfc_2008",
+          "label_date": "2008-09-15",
+          "session_date": "2008-09-15",
+          "label_status": "provisional_project_label",
+          "provenance": "Lehman Brothers bankruptcy; the global transmission date. Alternative: 2008-01-21, the Indian market's own crash, which precedes the global event by eight months and would test a different phenomenon.",
+          "available_sessions": 0,
+          "status": "unassessable",
+          "first_warning": null,
+          "lead_sessions": null
+        },
+        {
+          "event": "taper_2013",
+          "label_date": "2013-05-22",
+          "session_date": "2013-05-22",
+          "label_status": "provisional_project_label",
+          "provenance": "Bernanke's taper testimony; the trigger for the emerging-market outflow episode that hit the rupee and Indian equities.",
+          "available_sessions": 15,
+          "status": "missed",
+          "first_warning": null,
+          "lead_sessions": null
+        },
+        {
+          "event": "ilfs_2018",
+          "label_date": "2018-09-21",
+          "session_date": "2018-09-21",
+          "label_status": "provisional_project_label",
+          "provenance": "IL&FS default cascade and the single-day NBFC selloff; the domestic shadow-banking shock.",
+          "available_sessions": 15,
+          "status": "missed",
+          "first_warning": null,
+          "lead_sessions": null
+        },
+        {
+          "event": "covid_2020",
+          "label_date": "2020-02-20",
+          "session_date": "2020-02-20",
+          "label_status": "provisional_project_label",
+          "provenance": "Onset of the global COVID selloff, chosen so the 30-day window covers the drawdown. Alternative: 2020-03-23, the Indian market bottom, which would place the window over the recovery instead.",
+          "available_sessions": 15,
+          "status": "warned",
+          "first_warning": "2020-01-30",
+          "lead_sessions": 15
+        },
+        {
+          "event": "tightening_2022",
+          "label_date": "2022-01-05",
+          "session_date": "2022-01-05",
+          "label_status": "provisional_project_label",
+          "provenance": "Start of the 2022 global tightening drawdown. Alternative: 2022-06-16, the peak-hawkishness repricing.",
+          "available_sessions": 15,
+          "status": "missed",
+          "first_warning": null,
+          "lead_sessions": null
+        },
+        {
+          "event": "tariff_2026",
+          "label_date": "2026-02-01",
+          "session_date": "2026-02-01",
+          "label_status": "explicitly_unresolved",
+          "provenance": "PROVISIONAL - SPEC OQ3 is explicitly open. Placeholder for the Feb-2026 interim framework; the 50% peak and the solar CVD single-day drop are the other candidates. MUST be resolved before Epoch 6 results are reported.",
+          "available_sessions": 15,
+          "status": "missed",
+          "first_warning": null,
+          "lead_sessions": null
+        }
+      ],
+      "fit_status_counts": {
+        "fitted": 4402,
+        "insufficient_training": 770,
+        "intercept_only_low_events": 189
+      },
+      "vs_baseline_brier": {
+        "n": 4576,
+        "mean": 0.0,
+        "lower": 0.0,
+        "upper": 0.0,
+        "block": 63,
+        "draws": 1000,
+        "caveat": "descriptive; not adjusted for model/research selection or nonstationarity"
+      }
+    },
+    {
+      "target": "onset15",
+      "model": "three_pillars",
+      "features": [
+        "hawkes_daily_intensity",
+        "rmt_fast_leading_share",
+        "rmt_fast_minus_slow",
+        "hamilton_daily_next_volatility"
+      ],
+      "metrics": {
+        "n": 4576,
+        "positives": 90,
+        "base_rate": 0.019667832167832168,
+        "brier": 0.019501987642130028,
+        "log_loss": 0.11208213022927817,
+        "auc": 0.2553252092931094
+      },
+      "metrics_common": {
+        "n": 4576,
+        "positives": 90,
+        "base_rate": 0.019667832167832168,
+        "brier": 0.019501987642130028,
+        "log_loss": 0.11208213022927817,
+        "auc": 0.2553252092931094
+      },
+      "alarm_stats": {
+        "evaluated_sessions": 4310,
+        "alarm_sessions": 531,
+        "alarm_fraction": 0.12320185614849188,
+        "episodes": 54,
+        "false_episodes": 54,
+        "false_episodes_per_year": 3.157308584686775
+      },
+      "events": [
+        {
+          "event": "gfc_2008",
+          "label_date": "2008-09-15",
+          "session_date": "2008-09-15",
+          "label_status": "provisional_project_label",
+          "provenance": "Lehman Brothers bankruptcy; the global transmission date. Alternative: 2008-01-21, the Indian market's own crash, which precedes the global event by eight months and would test a different phenomenon.",
+          "available_sessions": 0,
+          "status": "unassessable",
+          "first_warning": null,
+          "lead_sessions": null
+        },
+        {
+          "event": "taper_2013",
+          "label_date": "2013-05-22",
+          "session_date": "2013-05-22",
+          "label_status": "provisional_project_label",
+          "provenance": "Bernanke's taper testimony; the trigger for the emerging-market outflow episode that hit the rupee and Indian equities.",
+          "available_sessions": 15,
+          "status": "missed",
+          "first_warning": null,
+          "lead_sessions": null
+        },
+        {
+          "event": "ilfs_2018",
+          "label_date": "2018-09-21",
+          "session_date": "2018-09-21",
+          "label_status": "provisional_project_label",
+          "provenance": "IL&FS default cascade and the single-day NBFC selloff; the domestic shadow-banking shock.",
+          "available_sessions": 15,
+          "status": "missed",
+          "first_warning": null,
+          "lead_sessions": null
+        },
+        {
+          "event": "covid_2020",
+          "label_date": "2020-02-20",
+          "session_date": "2020-02-20",
+          "label_status": "provisional_project_label",
+          "provenance": "Onset of the global COVID selloff, chosen so the 30-day window covers the drawdown. Alternative: 2020-03-23, the Indian market bottom, which would place the window over the recovery instead.",
+          "available_sessions": 15,
+          "status": "missed",
+          "first_warning": null,
+          "lead_sessions": null
+        },
+        {
+          "event": "tightening_2022",
+          "label_date": "2022-01-05",
+          "session_date": "2022-01-05",
+          "label_status": "provisional_project_label",
+          "provenance": "Start of the 2022 global tightening drawdown. Alternative: 2022-06-16, the peak-hawkishness repricing.",
+          "available_sessions": 15,
+          "status": "missed",
+          "first_warning": null,
+          "lead_sessions": null
+        },
+        {
+          "event": "tariff_2026",
+          "label_date": "2026-02-01",
+          "session_date": "2026-02-01",
+          "label_status": "explicitly_unresolved",
+          "provenance": "PROVISIONAL - SPEC OQ3 is explicitly open. Placeholder for the Feb-2026 interim framework; the 50% peak and the solar CVD single-day drop are the other candidates. MUST be resolved before Epoch 6 results are reported.",
+          "available_sessions": 15,
+          "status": "missed",
+          "first_warning": null,
+          "lead_sessions": null
+        }
+      ],
+      "fit_status_counts": {
+        "fitted": 4402,
+        "insufficient_training": 770,
+        "intercept_only_low_events": 189
+      },
+      "vs_baseline_brier": {
+        "n": 4576,
+        "mean": 5.2006601046507266e-05,
+        "lower": 2.898936614648664e-07,
+        "upper": 0.00011729364844506884,
+        "block": 63,
+        "draws": 1000,
+        "caveat": "descriptive; not adjusted for model/research selection or nonstationarity"
+      }
+    },
+    {
+      "target": "onset15",
+      "model": "combined",
+      "features": [
+        "ewma_volatility",
+        "hawkes_daily_intensity",
+        "rmt_fast_leading_share",
+        "rmt_fast_minus_slow",
+        "hamilton_daily_next_volatility"
+      ],
+      "metrics": {
+        "n": 4576,
+        "positives": 90,
+        "base_rate": 0.019667832167832168,
+        "brier": 0.019498771774980897,
+        "log_loss": 0.11180222897193631,
+        "auc": 0.26914846188140884
+      },
+      "metrics_common": {
+        "n": 4576,
+        "positives": 90,
+        "base_rate": 0.019667832167832168,
+        "brier": 0.019498771774980897,
+        "log_loss": 0.11180222897193631,
+        "auc": 0.26914846188140884
+      },
+      "alarm_stats": {
+        "evaluated_sessions": 4310,
+        "alarm_sessions": 573,
+        "alarm_fraction": 0.13294663573085846,
+        "episodes": 47,
+        "false_episodes": 47,
+        "false_episodes_per_year": 2.748027842227378
+      },
+      "events": [
+        {
+          "event": "gfc_2008",
+          "label_date": "2008-09-15",
+          "session_date": "2008-09-15",
+          "label_status": "provisional_project_label",
+          "provenance": "Lehman Brothers bankruptcy; the global transmission date. Alternative: 2008-01-21, the Indian market's own crash, which precedes the global event by eight months and would test a different phenomenon.",
+          "available_sessions": 0,
+          "status": "unassessable",
+          "first_warning": null,
+          "lead_sessions": null
+        },
+        {
+          "event": "taper_2013",
+          "label_date": "2013-05-22",
+          "session_date": "2013-05-22",
+          "label_status": "provisional_project_label",
+          "provenance": "Bernanke's taper testimony; the trigger for the emerging-market outflow episode that hit the rupee and Indian equities.",
+          "available_sessions": 15,
+          "status": "missed",
+          "first_warning": null,
+          "lead_sessions": null
+        },
+        {
+          "event": "ilfs_2018",
+          "label_date": "2018-09-21",
+          "session_date": "2018-09-21",
+          "label_status": "provisional_project_label",
+          "provenance": "IL&FS default cascade and the single-day NBFC selloff; the domestic shadow-banking shock.",
+          "available_sessions": 15,
+          "status": "missed",
+          "first_warning": null,
+          "lead_sessions": null
+        },
+        {
+          "event": "covid_2020",
+          "label_date": "2020-02-20",
+          "session_date": "2020-02-20",
+          "label_status": "provisional_project_label",
+          "provenance": "Onset of the global COVID selloff, chosen so the 30-day window covers the drawdown. Alternative: 2020-03-23, the Indian market bottom, which would place the window over the recovery instead.",
+          "available_sessions": 15,
+          "status": "missed",
+          "first_warning": null,
+          "lead_sessions": null
+        },
+        {
+          "event": "tightening_2022",
+          "label_date": "2022-01-05",
+          "session_date": "2022-01-05",
+          "label_status": "provisional_project_label",
+          "provenance": "Start of the 2022 global tightening drawdown. Alternative: 2022-06-16, the peak-hawkishness repricing.",
+          "available_sessions": 15,
+          "status": "missed",
+          "first_warning": null,
+          "lead_sessions": null
+        },
+        {
+          "event": "tariff_2026",
+          "label_date": "2026-02-01",
+          "session_date": "2026-02-01",
+          "label_status": "explicitly_unresolved",
+          "provenance": "PROVISIONAL - SPEC OQ3 is explicitly open. Placeholder for the Feb-2026 interim framework; the 50% peak and the solar CVD single-day drop are the other candidates. MUST be resolved before Epoch 6 results are reported.",
+          "available_sessions": 15,
+          "status": "missed",
+          "first_warning": null,
+          "lead_sessions": null
+        }
+      ],
+      "fit_status_counts": {
+        "fitted": 4402,
+        "insufficient_training": 770,
+        "intercept_only_low_events": 189
+      },
+      "vs_baseline_brier": {
+        "n": 4576,
+        "mean": 4.879073389737622e-05,
+        "lower": 9.327106071176515e-07,
+        "upper": 0.0001054801842276594,
+        "block": 63,
+        "draws": 1000,
+        "caveat": "descriptive; not adjusted for model/research selection or nonstationarity"
+      }
+    },
+    {
+      "target": "onset15",
+      "model": "without_hawkes",
+      "features": [
+        "ewma_volatility",
+        "rmt_fast_leading_share",
+        "rmt_fast_minus_slow",
+        "hamilton_daily_next_volatility"
+      ],
+      "metrics": {
+        "n": 4576,
+        "positives": 90,
+        "base_rate": 0.019667832167832168,
+        "brier": 0.019489145161816854,
+        "log_loss": 0.11141789699524542,
+        "auc": 0.2758161192846882
+      },
+      "metrics_common": {
+        "n": 4576,
+        "positives": 90,
+        "base_rate": 0.019667832167832168,
+        "brier": 0.019489145161816854,
+        "log_loss": 0.11141789699524542,
+        "auc": 0.2758161192846882
+      },
+      "alarm_stats": {
+        "evaluated_sessions": 4310,
+        "alarm_sessions": 580,
+        "alarm_fraction": 0.1345707656612529,
+        "episodes": 50,
+        "false_episodes": 50,
+        "false_episodes_per_year": 2.9234338747099766
+      },
+      "events": [
+        {
+          "event": "gfc_2008",
+          "label_date": "2008-09-15",
+          "session_date": "2008-09-15",
+          "label_status": "provisional_project_label",
+          "provenance": "Lehman Brothers bankruptcy; the global transmission date. Alternative: 2008-01-21, the Indian market's own crash, which precedes the global event by eight months and would test a different phenomenon.",
+          "available_sessions": 0,
+          "status": "unassessable",
+          "first_warning": null,
+          "lead_sessions": null
+        },
+        {
+          "event": "taper_2013",
+          "label_date": "2013-05-22",
+          "session_date": "2013-05-22",
+          "label_status": "provisional_project_label",
+          "provenance": "Bernanke's taper testimony; the trigger for the emerging-market outflow episode that hit the rupee and Indian equities.",
+          "available_sessions": 15,
+          "status": "missed",
+          "first_warning": null,
+          "lead_sessions": null
+        },
+        {
+          "event": "ilfs_2018",
+          "label_date": "2018-09-21",
+          "session_date": "2018-09-21",
+          "label_status": "provisional_project_label",
+          "provenance": "IL&FS default cascade and the single-day NBFC selloff; the domestic shadow-banking shock.",
+          "available_sessions": 15,
+          "status": "missed",
+          "first_warning": null,
+          "lead_sessions": null
+        },
+        {
+          "event": "covid_2020",
+          "label_date": "2020-02-20",
+          "session_date": "2020-02-20",
+          "label_status": "provisional_project_label",
+          "provenance": "Onset of the global COVID selloff, chosen so the 30-day window covers the drawdown. Alternative: 2020-03-23, the Indian market bottom, which would place the window over the recovery instead.",
+          "available_sessions": 15,
+          "status": "missed",
+          "first_warning": null,
+          "lead_sessions": null
+        },
+        {
+          "event": "tightening_2022",
+          "label_date": "2022-01-05",
+          "session_date": "2022-01-05",
+          "label_status": "provisional_project_label",
+          "provenance": "Start of the 2022 global tightening drawdown. Alternative: 2022-06-16, the peak-hawkishness repricing.",
+          "available_sessions": 15,
+          "status": "missed",
+          "first_warning": null,
+          "lead_sessions": null
+        },
+        {
+          "event": "tariff_2026",
+          "label_date": "2026-02-01",
+          "session_date": "2026-02-01",
+          "label_status": "explicitly_unresolved",
+          "provenance": "PROVISIONAL - SPEC OQ3 is explicitly open. Placeholder for the Feb-2026 interim framework; the 50% peak and the solar CVD single-day drop are the other candidates. MUST be resolved before Epoch 6 results are reported.",
+          "available_sessions": 15,
+          "status": "missed",
+          "first_warning": null,
+          "lead_sessions": null
+        }
+      ],
+      "fit_status_counts": {
+        "fitted": 4402,
+        "insufficient_training": 770,
+        "intercept_only_low_events": 189
+      },
+      "vs_baseline_brier": {
+        "n": 4576,
+        "mean": 3.916412073333335e-05,
+        "lower": -1.0304731917532246e-05,
+        "upper": 9.554270007836586e-05,
+        "block": 63,
+        "draws": 1000,
+        "caveat": "descriptive; not adjusted for model/research selection or nonstationarity"
+      }
+    },
+    {
+      "target": "onset15",
+      "model": "without_rmt",
+      "features": [
+        "ewma_volatility",
+        "hawkes_daily_intensity",
+        "hamilton_daily_next_volatility"
+      ],
+      "metrics": {
+        "n": 4576,
+        "positives": 90,
+        "base_rate": 0.019667832167832168,
+        "brier": 0.01946974594572966,
+        "log_loss": 0.11086362958649655,
+        "auc": 0.30993708822509536
+      },
+      "metrics_common": {
+        "n": 4576,
+        "positives": 90,
+        "base_rate": 0.019667832167832168,
+        "brier": 0.01946974594572966,
+        "log_loss": 0.11086362958649655,
+        "auc": 0.30993708822509536
+      },
+      "alarm_stats": {
+        "evaluated_sessions": 4310,
+        "alarm_sessions": 619,
+        "alarm_fraction": 0.14361948955916473,
+        "episodes": 51,
+        "false_episodes": 51,
+        "false_episodes_per_year": 2.9819025522041764
+      },
+      "events": [
+        {
+          "event": "gfc_2008",
+          "label_date": "2008-09-15",
+          "session_date": "2008-09-15",
+          "label_status": "provisional_project_label",
+          "provenance": "Lehman Brothers bankruptcy; the global transmission date. Alternative: 2008-01-21, the Indian market's own crash, which precedes the global event by eight months and would test a different phenomenon.",
+          "available_sessions": 0,
+          "status": "unassessable",
+          "first_warning": null,
+          "lead_sessions": null
+        },
+        {
+          "event": "taper_2013",
+          "label_date": "2013-05-22",
+          "session_date": "2013-05-22",
+          "label_status": "provisional_project_label",
+          "provenance": "Bernanke's taper testimony; the trigger for the emerging-market outflow episode that hit the rupee and Indian equities.",
+          "available_sessions": 15,
+          "status": "missed",
+          "first_warning": null,
+          "lead_sessions": null
+        },
+        {
+          "event": "ilfs_2018",
+          "label_date": "2018-09-21",
+          "session_date": "2018-09-21",
+          "label_status": "provisional_project_label",
+          "provenance": "IL&FS default cascade and the single-day NBFC selloff; the domestic shadow-banking shock.",
+          "available_sessions": 15,
+          "status": "missed",
+          "first_warning": null,
+          "lead_sessions": null
+        },
+        {
+          "event": "covid_2020",
+          "label_date": "2020-02-20",
+          "session_date": "2020-02-20",
+          "label_status": "provisional_project_label",
+          "provenance": "Onset of the global COVID selloff, chosen so the 30-day window covers the drawdown. Alternative: 2020-03-23, the Indian market bottom, which would place the window over the recovery instead.",
+          "available_sessions": 15,
+          "status": "missed",
+          "first_warning": null,
+          "lead_sessions": null
+        },
+        {
+          "event": "tightening_2022",
+          "label_date": "2022-01-05",
+          "session_date": "2022-01-05",
+          "label_status": "provisional_project_label",
+          "provenance": "Start of the 2022 global tightening drawdown. Alternative: 2022-06-16, the peak-hawkishness repricing.",
+          "available_sessions": 15,
+          "status": "missed",
+          "first_warning": null,
+          "lead_sessions": null
+        },
+        {
+          "event": "tariff_2026",
+          "label_date": "2026-02-01",
+          "session_date": "2026-02-01",
+          "label_status": "explicitly_unresolved",
+          "provenance": "PROVISIONAL - SPEC OQ3 is explicitly open. Placeholder for the Feb-2026 interim framework; the 50% peak and the solar CVD single-day drop are the other candidates. MUST be resolved before Epoch 6 results are reported.",
+          "available_sessions": 15,
+          "status": "missed",
+          "first_warning": null,
+          "lead_sessions": null
+        }
+      ],
+      "fit_status_counts": {
+        "fitted": 4402,
+        "insufficient_training": 770,
+        "intercept_only_low_events": 189
+      },
+      "vs_baseline_brier": {
+        "n": 4576,
+        "mean": 1.9764904646142206e-05,
+        "lower": 2.3742526364815675e-06,
+        "upper": 4.001549960596882e-05,
+        "block": 63,
+        "draws": 1000,
+        "caveat": "descriptive; not adjusted for model/research selection or nonstationarity"
+      }
+    },
+    {
+      "target": "onset15",
+      "model": "without_hamilton",
+      "features": [
+        "ewma_volatility",
+        "hawkes_daily_intensity",
+        "rmt_fast_leading_share",
+        "rmt_fast_minus_slow"
+      ],
+      "metrics": {
+        "n": 4576,
+        "positives": 90,
+        "base_rate": 0.019667832167832168,
+        "brier": 0.019488072424403848,
+        "log_loss": 0.11151168496493079,
+        "auc": 0.278161688215188
+      },
+      "metrics_common": {
+        "n": 4576,
+        "positives": 90,
+        "base_rate": 0.019667832167832168,
+        "brier": 0.019488072424403848,
+        "log_loss": 0.11151168496493079,
+        "auc": 0.278161688215188
+      },
+      "alarm_stats": {
+        "evaluated_sessions": 4310,
+        "alarm_sessions": 699,
+        "alarm_fraction": 0.16218097447795823,
+        "episodes": 40,
+        "false_episodes": 40,
+        "false_episodes_per_year": 2.3387470997679816
+      },
+      "events": [
+        {
+          "event": "gfc_2008",
+          "label_date": "2008-09-15",
+          "session_date": "2008-09-15",
+          "label_status": "provisional_project_label",
+          "provenance": "Lehman Brothers bankruptcy; the global transmission date. Alternative: 2008-01-21, the Indian market's own crash, which precedes the global event by eight months and would test a different phenomenon.",
+          "available_sessions": 0,
+          "status": "unassessable",
+          "first_warning": null,
+          "lead_sessions": null
+        },
+        {
+          "event": "taper_2013",
+          "label_date": "2013-05-22",
+          "session_date": "2013-05-22",
+          "label_status": "provisional_project_label",
+          "provenance": "Bernanke's taper testimony; the trigger for the emerging-market outflow episode that hit the rupee and Indian equities.",
+          "available_sessions": 15,
+          "status": "missed",
+          "first_warning": null,
+          "lead_sessions": null
+        },
+        {
+          "event": "ilfs_2018",
+          "label_date": "2018-09-21",
+          "session_date": "2018-09-21",
+          "label_status": "provisional_project_label",
+          "provenance": "IL&FS default cascade and the single-day NBFC selloff; the domestic shadow-banking shock.",
+          "available_sessions": 15,
+          "status": "missed",
+          "first_warning": null,
+          "lead_sessions": null
+        },
+        {
+          "event": "covid_2020",
+          "label_date": "2020-02-20",
+          "session_date": "2020-02-20",
+          "label_status": "provisional_project_label",
+          "provenance": "Onset of the global COVID selloff, chosen so the 30-day window covers the drawdown. Alternative: 2020-03-23, the Indian market bottom, which would place the window over the recovery instead.",
+          "available_sessions": 15,
+          "status": "missed",
+          "first_warning": null,
+          "lead_sessions": null
+        },
+        {
+          "event": "tightening_2022",
+          "label_date": "2022-01-05",
+          "session_date": "2022-01-05",
+          "label_status": "provisional_project_label",
+          "provenance": "Start of the 2022 global tightening drawdown. Alternative: 2022-06-16, the peak-hawkishness repricing.",
+          "available_sessions": 15,
+          "status": "missed",
+          "first_warning": null,
+          "lead_sessions": null
+        },
+        {
+          "event": "tariff_2026",
+          "label_date": "2026-02-01",
+          "session_date": "2026-02-01",
+          "label_status": "explicitly_unresolved",
+          "provenance": "PROVISIONAL - SPEC OQ3 is explicitly open. Placeholder for the Feb-2026 interim framework; the 50% peak and the solar CVD single-day drop are the other candidates. MUST be resolved before Epoch 6 results are reported.",
+          "available_sessions": 15,
+          "status": "missed",
+          "first_warning": null,
+          "lead_sessions": null
+        }
+      ],
+      "fit_status_counts": {
+        "fitted": 4339,
+        "insufficient_training": 770,
+        "intercept_only_low_events": 189,
+        "intercept_only_optimizer_failed": 63
+      },
+      "vs_baseline_brier": {
+        "n": 4576,
+        "mean": 3.809138332032788e-05,
+        "lower": -7.482561546524732e-07,
+        "upper": 9.13621002208956e-05,
+        "block": 63,
+        "draws": 1000,
+        "caveat": "descriptive; not adjusted for model/research selection or nonstationarity"
+      }
+    },
+    {
+      "target": "loss10_15",
+      "model": "ewma_student_t",
+      "features": [
+        "ewma_volatility"
+      ],
+      "metrics": {
+        "n": 5287,
+        "positives": 431,
+        "base_rate": 0.08152071117836202,
+        "brier": 0.07427528008937016,
+        "log_loss": 0.3321859277485202,
+        "auc": 0.6602390135197637
+      },
+      "metrics_common": {
+        "n": 4576,
+        "positives": 352,
+        "base_rate": 0.07692307692307693,
+        "brier": 0.0711011932468313,
+        "log_loss": 0.32878669527585513,
+        "auc": 0.6356988071410123
+      },
+      "alarm_stats": {
+        "evaluated_sessions": 5021,
+        "alarm_sessions": 503,
+        "alarm_fraction": 0.10017924716191993,
+        "episodes": 33,
+        "false_episodes": 24,
+        "false_episodes_per_year": 1.2045409281019717
+      },
+      "events": [
+        {
+          "event": "gfc_2008",
+          "label_date": "2008-09-15",
+          "session_date": "2008-09-15",
+          "label_status": "provisional_project_label",
+          "provenance": "Lehman Brothers bankruptcy; the global transmission date. Alternative: 2008-01-21, the Indian market's own crash, which precedes the global event by eight months and would test a different phenomenon.",
+          "available_sessions": 15,
+          "status": "missed",
+          "first_warning": null,
+          "lead_sessions": null
+        },
+        {
+          "event": "taper_2013",
+          "label_date": "2013-05-22",
+          "session_date": "2013-05-22",
+          "label_status": "provisional_project_label",
+          "provenance": "Bernanke's taper testimony; the trigger for the emerging-market outflow episode that hit the rupee and Indian equities.",
+          "available_sessions": 15,
+          "status": "missed",
+          "first_warning": null,
+          "lead_sessions": null
+        },
+        {
+          "event": "ilfs_2018",
+          "label_date": "2018-09-21",
+          "session_date": "2018-09-21",
+          "label_status": "provisional_project_label",
+          "provenance": "IL&FS default cascade and the single-day NBFC selloff; the domestic shadow-banking shock.",
+          "available_sessions": 15,
+          "status": "missed",
+          "first_warning": null,
+          "lead_sessions": null
+        },
+        {
+          "event": "covid_2020",
+          "label_date": "2020-02-20",
+          "session_date": "2020-02-20",
+          "label_status": "provisional_project_label",
+          "provenance": "Onset of the global COVID selloff, chosen so the 30-day window covers the drawdown. Alternative: 2020-03-23, the Indian market bottom, which would place the window over the recovery instead.",
+          "available_sessions": 15,
+          "status": "missed",
+          "first_warning": null,
+          "lead_sessions": null
+        },
+        {
+          "event": "tightening_2022",
+          "label_date": "2022-01-05",
+          "session_date": "2022-01-05",
+          "label_status": "provisional_project_label",
+          "provenance": "Start of the 2022 global tightening drawdown. Alternative: 2022-06-16, the peak-hawkishness repricing.",
+          "available_sessions": 15,
+          "status": "missed",
+          "first_warning": null,
+          "lead_sessions": null
+        },
+        {
+          "event": "tariff_2026",
+          "label_date": "2026-02-01",
+          "session_date": "2026-02-01",
+          "label_status": "explicitly_unresolved",
+          "provenance": "PROVISIONAL - SPEC OQ3 is explicitly open. Placeholder for the Feb-2026 interim framework; the 50% peak and the solar CVD single-day drop are the other candidates. MUST be resolved before Epoch 6 results are reported.",
+          "available_sessions": 15,
+          "status": "missed",
+          "first_warning": null,
+          "lead_sessions": null
+        }
+      ],
+      "fit_status_counts": {
+        "forecast": 5302,
+        "insufficient_history": 59
+      },
+      "vs_baseline_brier": {
+        "n": 4576,
+        "mean": 0.0012994543696086295,
+        "lower": -0.00205001827393825,
+        "upper": 0.005326398519081987,
+        "block": 63,
+        "draws": 1000,
+        "caveat": "descriptive; not adjusted for model/research selection or nonstationarity"
+      }
+    },
+    {
+      "target": "loss10_15",
+      "model": "gjr_garch_t",
+      "features": [
+        "market_log_return_history"
+      ],
+      "metrics": {
+        "n": 4590,
+        "positives": 364,
+        "base_rate": 0.07930283224400872,
+        "brier": 0.07129534402444213,
+        "log_loss": 0.2708795106332021,
+        "auc": 0.6661610100736934
+      },
+      "metrics_common": {
+        "n": 4576,
+        "positives": 352,
+        "base_rate": 0.07692307692307693,
+        "brier": 0.069724219922836,
+        "log_loss": 0.26681260435795684,
+        "auc": 0.6566118392734159
+      },
+      "alarm_stats": {
+        "evaluated_sessions": 4324,
+        "alarm_sessions": 112,
+        "alarm_fraction": 0.025901942645698426,
+        "episodes": 34,
+        "false_episodes": 30,
+        "false_episodes_per_year": 1.7483811285846438
+      },
+      "events": [
+        {
+          "event": "gfc_2008",
+          "label_date": "2008-09-15",
+          "session_date": "2008-09-15",
+          "label_status": "provisional_project_label",
+          "provenance": "Lehman Brothers bankruptcy; the global transmission date. Alternative: 2008-01-21, the Indian market's own crash, which precedes the global event by eight months and would test a different phenomenon.",
+          "available_sessions": 0,
+          "status": "unassessable",
+          "first_warning": null,
+          "lead_sessions": null
+        },
+        {
+          "event": "taper_2013",
+          "label_date": "2013-05-22",
+          "session_date": "2013-05-22",
+          "label_status": "provisional_project_label",
+          "provenance": "Bernanke's taper testimony; the trigger for the emerging-market outflow episode that hit the rupee and Indian equities.",
+          "available_sessions": 15,
+          "status": "missed",
+          "first_warning": null,
+          "lead_sessions": null
+        },
+        {
+          "event": "ilfs_2018",
+          "label_date": "2018-09-21",
+          "session_date": "2018-09-21",
+          "label_status": "provisional_project_label",
+          "provenance": "IL&FS default cascade and the single-day NBFC selloff; the domestic shadow-banking shock.",
+          "available_sessions": 15,
+          "status": "missed",
+          "first_warning": null,
+          "lead_sessions": null
+        },
+        {
+          "event": "covid_2020",
+          "label_date": "2020-02-20",
+          "session_date": "2020-02-20",
+          "label_status": "provisional_project_label",
+          "provenance": "Onset of the global COVID selloff, chosen so the 30-day window covers the drawdown. Alternative: 2020-03-23, the Indian market bottom, which would place the window over the recovery instead.",
+          "available_sessions": 15,
+          "status": "missed",
+          "first_warning": null,
+          "lead_sessions": null
+        },
+        {
+          "event": "tightening_2022",
+          "label_date": "2022-01-05",
+          "session_date": "2022-01-05",
+          "label_status": "provisional_project_label",
+          "provenance": "Start of the 2022 global tightening drawdown. Alternative: 2022-06-16, the peak-hawkishness repricing.",
+          "available_sessions": 15,
+          "status": "missed",
+          "first_warning": null,
+          "lead_sessions": null
+        },
+        {
+          "event": "tariff_2026",
+          "label_date": "2026-02-01",
+          "session_date": "2026-02-01",
+          "label_status": "explicitly_unresolved",
+          "provenance": "PROVISIONAL - SPEC OQ3 is explicitly open. Placeholder for the Feb-2026 interim framework; the 50% peak and the solar CVD single-day drop are the other candidates. MUST be resolved before Epoch 6 results are reported.",
+          "available_sessions": 15,
+          "status": "missed",
+          "first_warning": null,
+          "lead_sessions": null
+        }
+      ],
+      "fit_status_counts": {
+        "forecast": 4605,
+        "insufficient_training": 756
+      },
+      "vs_baseline_brier": {
+        "n": 4576,
+        "mean": -7.751895438665401e-05,
+        "lower": -0.0032613010839121406,
+        "upper": 0.0033511725737420746,
+        "block": 63,
+        "draws": 1000,
+        "caveat": "descriptive; not adjusted for model/research selection or nonstationarity"
+      }
+    }
+  ],
+  "limitations": [
+    "Retrospective research: COVID and the other events informed project design. This is not an untouched pre-COVID model or prospective validation.",
+    "Underlying adjusted prices are a current snapshot, not an as-first-published vintage archive. Universe/survivorship and turnover-proxy caveats are inherited.",
+    "The market series is an equal-weight geometric-return research index of available universe members, not a tradable portfolio or the NIFTY index.",
+    "All project event dates are provisional; tariff-2026 is explicitly unresolved. Warnings against that placeholder are diagnostic only.",
+    "New daily-tail Hawkes and 10 hash-portfolio RMT are distinct from original intraday/500-stock estimators; no high-dimensional RMT significance claim is made.",
+    "Hamilton next-crisis-state probability denotes a fitted high-volatility latent state, not the probability of a named crisis.",
+    "Only six labelled episodes exist; overlapping daily positives do not create six independent years of crises. Sampling and regime uncertainty remain substantial.",
+    "Threshold budgets are fit on past data and may be violated subsequently. Abstention, missingness, and unassessable early periods are retained.",
+    "Bootstrap intervals do not correct for research/model selection, changing regimes, data revisions or label uncertainty.",
+    "HMM cap-limited and Hawkes sparse-event fits remain visible in fit_audit.json; forecasts contain model uncertainty not captured by simulation standard errors.",
+    "No broker execution, production monitoring, point-in-time news/macro ingestion, or production acceptance is claimed."
+  ],
+  "empirical_acceptance": {
+    "status": "unvalidated",
+    "reason": "Retrospective replay does not establish dependable advance crisis prediction; inspect measured results and retain failed hypotheses."
+  }
+}

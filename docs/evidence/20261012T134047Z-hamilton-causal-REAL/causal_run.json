@@ -1,0 +1,699 @@
+{
+  "generated_utc": "2026-10-12T15:36:28Z",
+  "n_obs": 5365,
+  "date_first": "2005-01-03",
+  "date_last": "2026-08-21",
+  "initial_train": 2000,
+  "refit_every": 252,
+  "k_regimes": 3,
+  "wall_minutes": 114.66,
+  "check_B_assert_causal": true,
+  "check_C_warmup_all_nan": true,
+  "check_C_no_nan_after": true,
+  "check_D_max_simplex_dev": 1.1102230246251565e-15,
+  "converged_blocks": 11,
+  "n_blocks": 14,
+  "boundary_hit_blocks": 14,
+  "zero_transition_blocks": 0,
+  "causal_first_date": "2013-01-14",
+  "causal_occupancy": [
+    0.7429420505200595,
+    0.06983655274888559,
+    0.18722139673105498
+  ],
+  "nfr17_separation_sigma": 0.2687818540921325,
+  "blocks": [
+    {
+      "index": 0,
+      "train_start": 0,
+      "train_end": 2000,
+      "emit_start": 2000,
+      "emit_end": 2252,
+      "train_first_date": "2005-01-03",
+      "train_last_date": "2013-01-11",
+      "emit_first_date": "2013-01-14",
+      "emit_last_date": "2014-01-15",
+      "llf": 16677.670226275113,
+      "order": [
+        0,
+        1,
+        2
+      ],
+      "converged": true,
+      "diag": {
+        "n_train": 2000,
+        "seconds": 185.5,
+        "llf": 16677.670226275113,
+        "order": [
+          0,
+          1,
+          2
+        ],
+        "n_warnings": 0,
+        "converged": true,
+        "iterations": -1,
+        "transition_params": [
+          24.645058,
+          -0.062419,
+          -50.452995,
+          -37.629817,
+          -1.584547,
+          1.392844,
+          18.948124,
+          5.478239,
+          -3.945569,
+          -36.560309,
+          -1.555801,
+          -0.95235
+        ],
+        "transition_absmax": 50.452995,
+        "min_offdiag_transition": -7.105427357601002e-15,
+        "boundary_hit_1e6": true
+      }
+    },
+    {
+      "index": 1,
+      "train_start": 0,
+      "train_end": 2252,
+      "emit_start": 2252,
+      "emit_end": 2504,
+      "train_first_date": "2005-01-03",
+      "train_last_date": "2014-01-15",
+      "emit_first_date": "2014-01-16",
+      "emit_last_date": "2015-01-28",
+      "llf": 19189.77389228665,
+      "order": [
+        0,
+        1,
+        2
+      ],
+      "converged": true,
+      "diag": {
+        "n_train": 2252,
+        "seconds": 207.2,
+        "llf": 19189.77389228665,
+        "order": [
+          0,
+          1,
+          2
+        ],
+        "n_warnings": 0,
+        "converged": true,
+        "iterations": -1,
+        "transition_params": [
+          27.154641,
+          -1.606927,
+          -49.437946,
+          -13.192606,
+          -2.820623,
+          1.160977,
+          20.629438,
+          4.957649,
+          -3.76633,
+          -12.84733,
+          -1.844404,
+          -1.166222
+        ],
+        "transition_absmax": 49.437946,
+        "min_offdiag_transition": -3.552713678800501e-15,
+        "boundary_hit_1e6": true
+      }
+    },
+    {
+      "index": 2,
+      "train_start": 0,
+      "train_end": 2504,
+      "emit_start": 2504,
+      "emit_end": 2756,
+      "train_first_date": "2005-01-03",
+      "train_last_date": "2015-01-28",
+      "emit_first_date": "2015-01-29",
+      "emit_last_date": "2016-02-03",
+      "llf": 21669.398082525055,
+      "order": [
+        0,
+        1,
+        2
+      ],
+      "converged": true,
+      "diag": {
+        "n_train": 2504,
+        "seconds": 237.6,
+        "llf": 21669.398082525055,
+        "order": [
+          0,
+          1,
+          2
+        ],
+        "n_warnings": 0,
+        "converged": true,
+        "iterations": -1,
+        "transition_params": [
+          33.28992,
+          -1.590946,
+          -58.715931,
+          -15.836521,
+          -2.802834,
+          3.091042,
+          26.30614,
+          4.95772,
+          -3.766553,
+          -15.747078,
+          -1.845393,
+          -1.166755
+        ],
+        "transition_absmax": 58.715931,
+        "min_offdiag_transition": -7.105427357601002e-15,
+        "boundary_hit_1e6": true
+      }
+    },
+    {
+      "index": 3,
+      "train_start": 0,
+      "train_end": 2756,
+      "emit_start": 2756,
+      "emit_end": 3008,
+      "train_first_date": "2005-01-03",
+      "train_last_date": "2016-02-03",
+      "emit_first_date": "2016-02-04",
+      "emit_last_date": "2017-02-09",
+      "llf": 23983.184853299055,
+      "order": [
+        0,
+        1,
+        2
+      ],
+      "converged": true,
+      "diag": {
+        "n_train": 2756,
+        "seconds": 241.3,
+        "llf": 23983.184853299055,
+        "order": [
+          0,
+          1,
+          2
+        ],
+        "n_warnings": 1,
+        "converged": true,
+        "iterations": -1,
+        "transition_params": [
+          14.659949,
+          0.2931,
+          -24.889992,
+          -15.41801,
+          -2.988813,
+          1.009656,
+          15.542666,
+          5.447207,
+          -4.557559,
+          -7.931322,
+          -2.136516,
+          -0.550343
+        ],
+        "transition_absmax": 24.889992,
+        "min_offdiag_transition": -3.552713678800501e-15,
+        "boundary_hit_1e6": true
+      }
+    },
+    {
+      "index": 4,
+      "train_start": 0,
+      "train_end": 3008,
+      "emit_start": 3008,
+      "emit_end": 3260,
+      "train_first_date": "2005-01-03",
+      "train_last_date": "2017-02-09",
+      "emit_first_date": "2017-02-10",
+      "emit_last_date": "2018-02-15",
+      "llf": 25786.67480321921,
+      "order": [
+        0,
+        1,
+        2
+      ],
+      "converged": true,
+      "diag": {
+        "n_train": 3008,
+        "seconds": 286.9,
+        "llf": 25786.67480321921,
+        "order": [
+          0,
+          1,
+          2
+        ],
+        "n_warnings": 1,
+        "converged": true,
+        "iterations": -1,
+        "transition_params": [
+          20.660307,
+          0.664541,
+          -33.784595,
+          -19.141618,
+          -2.387708,
+          -1.438251,
+          22.466175,
+          5.484741,
+          -4.54988,
+          -9.879726,
+          -1.704796,
+          -0.506543
+        ],
+        "transition_absmax": 33.784595,
+        "min_offdiag_transition": -3.552713678800501e-15,
+        "boundary_hit_1e6": true
+      }
+    },
+    {
+      "index": 5,
+      "train_start": 0,
+      "train_end": 3260,
+      "emit_start": 3260,
+      "emit_end": 3512,
+      "train_first_date": "2005-01-03",
+      "train_last_date": "2018-02-15",
+      "emit_first_date": "2018-02-16",
+      "emit_last_date": "2019-02-21",
+      "llf": 27757.8359201859,
+      "order": [
+        0,
+        1,
+        2
+      ],
+      "converged": true,
+      "diag": {
+        "n_train": 3260,
+        "seconds": 302.1,
+        "llf": 27757.8359201859,
+        "order": [
+          0,
+          1,
+          2
+        ],
+        "n_warnings": 0,
+        "converged": true,
+        "iterations": -1,
+        "transition_params": [
+          22.150667,
+          0.57157,
+          -30.449835,
+          -19.656918,
+          -2.978602,
+          0.0533,
+          23.48729,
+          5.547621,
+          -4.557094,
+          -11.454425,
+          -2.120805,
+          -0.53528
+        ],
+        "transition_absmax": 30.449835,
+        "min_offdiag_transition": -3.552713678800501e-15,
+        "boundary_hit_1e6": true
+      }
+    },
+    {
+      "index": 6,
+      "train_start": 0,
+      "train_end": 3512,
+      "emit_start": 3512,
+      "emit_end": 3764,
+      "train_first_date": "2005-01-03",
+      "train_last_date": "2019-02-21",
+      "emit_first_date": "2019-02-22",
+      "emit_last_date": "2020-03-05",
+      "llf": 30017.712796053747,
+      "order": [
+        0,
+        1,
+        2
+      ],
+      "converged": true,
+      "diag": {
+        "n_train": 3512,
+        "seconds": 420.3,
+        "llf": 30017.712796053747,
+        "order": [
+          0,
+          1,
+          2
+        ],
+        "n_warnings": 0,
+        "converged": true,
+        "iterations": -1,
+        "transition_params": [
+          9.97915,
+          0.508022,
+          -7.194436,
+          -10.476497,
+          -6.227927,
+          -0.391172,
+          10.399946,
+          5.390826,
+          -4.820527,
+          -4.877032,
+          -5.280458,
+          -0.297874
+        ],
+        "transition_absmax": 10.476497,
+        "min_offdiag_transition": 2.3314683517128287e-15,
+        "boundary_hit_1e6": true
+      }
+    },
+    {
+      "index": 7,
+      "train_start": 0,
+      "train_end": 3764,
+      "emit_start": 3764,
+      "emit_end": 4016,
+      "train_first_date": "2005-01-03",
+      "train_last_date": "2020-03-05",
+      "emit_first_date": "2020-03-06",
+      "emit_last_date": "2021-03-10",
+      "llf": 32373.24306466881,
+      "order": [
+        0,
+        1,
+        2
+      ],
+      "converged": false,
+      "diag": {
+        "n_train": 3764,
+        "seconds": 638.1,
+        "llf": 32373.24306466881,
+        "order": [
+          0,
+          1,
+          2
+        ],
+        "n_warnings": 0,
+        "converged": false,
+        "iterations": -1,
+        "transition_params": [
+          7.249044,
+          0.244909,
+          -7.604697,
+          -8.08924,
+          -6.090559,
+          -0.422341,
+          6.806753,
+          5.105587,
+          -4.804934,
+          -3.377526,
+          -5.42707,
+          -0.383747
+        ],
+        "transition_absmax": 8.08924,
+        "min_offdiag_transition": 8.36422845442728e-15,
+        "boundary_hit_1e6": true
+      }
+    },
+    {
+      "index": 8,
+      "train_start": 0,
+      "train_end": 4016,
+      "emit_start": 4016,
+      "emit_end": 4268,
+      "train_first_date": "2005-01-03",
+      "train_last_date": "2021-03-10",
+      "emit_first_date": "2021-03-12",
+      "emit_last_date": "2022-03-17",
+      "llf": 34044.69221393733,
+      "order": [
+        0,
+        1,
+        2
+      ],
+      "converged": true,
+      "diag": {
+        "n_train": 4016,
+        "seconds": 490.1,
+        "llf": 34044.69221393733,
+        "order": [
+          0,
+          1,
+          2
+        ],
+        "n_warnings": 1,
+        "converged": true,
+        "iterations": -1,
+        "transition_params": [
+          8.636144,
+          2.000473,
+          -13.882179,
+          -10.443907,
+          -11.558868,
+          -0.087582,
+          8.263364,
+          6.870432,
+          -5.014229,
+          -5.662332,
+          -10.861525,
+          -0.299554
+        ],
+        "transition_absmax": 13.882179,
+        "min_offdiag_transition": 8.913378045046633e-27,
+        "boundary_hit_1e6": true
+      }
+    },
+    {
+      "index": 9,
+      "train_start": 0,
+      "train_end": 4268,
+      "emit_start": 4268,
+      "emit_end": 4520,
+      "train_first_date": "2005-01-03",
+      "train_last_date": "2022-03-17",
+      "emit_first_date": "2022-03-21",
+      "emit_last_date": "2023-03-23",
+      "llf": 36454.76495532159,
+      "order": [
+        0,
+        1,
+        2
+      ],
+      "converged": true,
+      "diag": {
+        "n_train": 4268,
+        "seconds": 354.5,
+        "llf": 36454.76495532159,
+        "order": [
+          0,
+          1,
+          2
+        ],
+        "n_warnings": 1,
+        "converged": true,
+        "iterations": -1,
+        "transition_params": [
+          10.865673,
+          1.760869,
+          -16.941025,
+          -10.899386,
+          -11.321208,
+          -0.243688,
+          9.950811,
+          6.688123,
+          -4.916265,
+          -6.519896,
+          -10.557639,
+          -0.359743
+        ],
+        "transition_absmax": 16.941025,
+        "min_offdiag_transition": -8.881784197001252e-16,
+        "boundary_hit_1e6": true
+      }
+    },
+    {
+      "index": 10,
+      "train_start": 0,
+      "train_end": 4520,
+      "emit_start": 4520,
+      "emit_end": 4772,
+      "train_first_date": "2005-01-03",
+      "train_last_date": "2023-03-23",
+      "emit_first_date": "2023-03-24",
+      "emit_last_date": "2024-04-01",
+      "llf": 38518.56499439335,
+      "order": [
+        0,
+        1,
+        2
+      ],
+      "converged": true,
+      "diag": {
+        "n_train": 4520,
+        "seconds": 391.0,
+        "llf": 38518.56499439335,
+        "order": [
+          0,
+          1,
+          2
+        ],
+        "n_warnings": 0,
+        "converged": true,
+        "iterations": -1,
+        "transition_params": [
+          26.244978,
+          0.379281,
+          -29.013242,
+          -14.476375,
+          -2.682013,
+          -3.691972,
+          23.769262,
+          5.330119,
+          -3.607626,
+          -10.411625,
+          -2.19584,
+          -1.139049
+        ],
+        "transition_absmax": 29.013242,
+        "min_offdiag_transition": -3.552713678800501e-15,
+        "boundary_hit_1e6": true
+      }
+    },
+    {
+      "index": 11,
+      "train_start": 0,
+      "train_end": 4772,
+      "emit_start": 4772,
+      "emit_end": 5024,
+      "train_first_date": "2005-01-03",
+      "train_last_date": "2024-04-01",
+      "emit_first_date": "2024-04-02",
+      "emit_last_date": "2025-04-04",
+      "llf": 40705.241452906324,
+      "order": [
+        0,
+        1,
+        2
+      ],
+      "converged": true,
+      "diag": {
+        "n_train": 4772,
+        "seconds": 431.0,
+        "llf": 40705.241452906324,
+        "order": [
+          0,
+          1,
+          2
+        ],
+        "n_warnings": 0,
+        "converged": true,
+        "iterations": -1,
+        "transition_params": [
+          21.900319,
+          0.314559,
+          -26.347054,
+          -12.30441,
+          -2.754878,
+          -2.595461,
+          19.303475,
+          5.402133,
+          -3.636943,
+          -8.267083,
+          -2.268719,
+          -1.194758
+        ],
+        "transition_absmax": 26.347054,
+        "min_offdiag_transition": -3.552713678800501e-15,
+        "boundary_hit_1e6": true
+      }
+    },
+    {
+      "index": 12,
+      "train_start": 0,
+      "train_end": 5024,
+      "emit_start": 5024,
+      "emit_end": 5276,
+      "train_first_date": "2005-01-03",
+      "train_last_date": "2025-04-04",
+      "emit_first_date": "2025-04-07",
+      "emit_last_date": "2026-04-15",
+      "llf": 44257.072690102825,
+      "order": [
+        0,
+        1,
+        2
+      ],
+      "converged": false,
+      "diag": {
+        "n_train": 5024,
+        "seconds": 548.2,
+        "llf": 44257.072690102825,
+        "order": [
+          0,
+          1,
+          2
+        ],
+        "n_warnings": 1,
+        "converged": false,
+        "iterations": -1,
+        "transition_params": [
+          3.067819,
+          0.304435,
+          -6.716082,
+          -8.661956,
+          -0.976846,
+          -0.014555,
+          -0.836329,
+          4.9482,
+          -6.124575,
+          -3.939218,
+          -2.96011,
+          -0.696434
+        ],
+        "transition_absmax": 8.661956,
+        "min_offdiag_transition": 2.171167690079301e-10,
+        "boundary_hit_1e6": true
+      }
+    },
+    {
+      "index": 13,
+      "train_start": 0,
+      "train_end": 5276,
+      "emit_start": 5276,
+      "emit_end": 5365,
+      "train_first_date": "2005-01-03",
+      "train_last_date": "2026-04-15",
+      "emit_first_date": "2026-04-16",
+      "emit_last_date": "2026-08-21",
+      "llf": 45430.56024755484,
+      "order": [
+        0,
+        1,
+        2
+      ],
+      "converged": false,
+      "diag": {
+        "n_train": 5276,
+        "seconds": 2140.6,
+        "llf": 45430.56024755484,
+        "order": [
+          0,
+          1,
+          2
+        ],
+        "n_warnings": 1,
+        "converged": false,
+        "iterations": -1,
+        "transition_params": [
+          2.737266,
+          1.681383,
+          -6.009203,
+          -12.75154,
+          0.101093,
+          -0.235073,
+          -1.956475,
+          6.198435,
+          -6.461813,
+          -10.75371,
+          -1.22857,
+          -0.751314
+        ],
+        "transition_absmax": 12.75154,
+        "min_offdiag_transition": 1.2783344468608415e-26,
+        "boundary_hit_1e6": true
+      }
+    }
+  ]
+}

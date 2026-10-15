@@ -1,0 +1,33 @@
+{
+  "artefactId": "36b6f9bb7977e544709a212a09d4af46cc60ad0b57b341c8718a0cf5f50588eb",
+  "calibratedOn": {
+    "epochs": [],
+    "splitPolicy": "leave_one_epoch_out",
+    "foldHeldOut": null,
+    "kappaMiss": 1.0,
+    "kappaFa": 1.0,
+    "maskProfile": [
+      true,
+      true,
+      true
+    ]
+  },
+  "w": [
+    [
+      0.3333333333333333,
+      0.3333333333333333,
+      0.3333333333333333
+    ],
+    [
+      0.3333333333333333,
+      0.3333333333333333,
+      0.3333333333333333
+    ],
+    [
+      0.3333333333333333,
+      0.3333333333333333,
+      0.3333333333333333
+    ]
+  ],
+  "ecdfWindowYears": 5
+}

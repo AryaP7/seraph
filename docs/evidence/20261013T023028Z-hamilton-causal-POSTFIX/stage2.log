@@ -1,0 +1,80 @@
+INPUT : 5365 obs 2005-01-03 .. 2026-08-21
+
+======================================================================
+2a  DOES THE TVTP TRANSITION BLOCK MOVE OFF ITS INITIAL VALUE?
+======================================================================
+  tvtp flag on model            : True
+  transition slice size         : 12 params
+  start_params transition block : max|.| = 0.000e+00
+  _em_iteration probe failed: TypeError("float() argument must be a string or a real number, not 'KimSmootherResults'")
+
+  fitting with restarts=0 (default all-zeros start is the ONLY start) ...
+  restarts=0 : llf=16677.68  transition max|.|=4.414e+01  (59s)
+  multi-start (stage 1 block 0): llf=16677.68  -> gain 0.00 llf
+
+======================================================================
+2b  NESTING: LL(full) >= LL(intercept-only), same sample, df=6
+======================================================================
+blk  train_n   train_last       llf_full llf_restricted         LR   p(chi2,6)     ok
+-------------------------------------------------------------------------------------
+  0     2000   2013-01-11       16677.68       16667.45      20.47     0.00228   True
+  1     2252   2014-01-15       19189.79       19181.52      16.53      0.0112   True
+  2     2504   2015-01-28       21679.68       21664.78      29.81    4.27e-05   True
+  3     2756   2016-02-03       23983.18       23966.42      33.52    8.31e-06   True
+  4     3008   2017-02-09       25786.67       25769.04      35.27    3.82e-06   True
+  5     3260   2018-02-15       27769.04       27746.24      45.60    3.56e-08   True
+  6     3512   2019-02-21       30017.71       30306.30    -577.18         nan  False
+  7     3764   2020-03-05       32980.29       32969.61      21.36     0.00158   True
+  8     4016   2021-03-10       34044.69       34682.70   -1276.02         nan  False
+  9     4268   2022-03-17       37131.86       37117.62      28.49    7.61e-05   True
+ 10     4520   2023-03-23       38518.59       39378.13   -1719.08         nan  False
+ 11     4772   2024-04-01       40705.23       41866.68   -2322.90         nan  False
+ 12     5024   2025-04-04       44257.12       44242.52      29.20    5.58e-05   True
+ 13     5276   2026-04-15       45430.68       45416.64      28.09    9.05e-05   True
+
+  nesting violations (LR < 0, impossible at a true maximum): 4/14
+    block 6 (train<=2019-02-21): LR=-577.18
+    block 8 (train<=2021-03-10): LR=-1276.02
+    block 10 (train<=2023-03-23): LR=-1719.08
+    block 11 (train<=2024-04-01): LR=-2322.90
+
+======================================================================
+2c  TRUNCATION INVARIANCE at K=3008 (2017-02-09)
+======================================================================
+  exog(y[:K]) == exog_full[:K] ? True
+  [wf] block 0: train<=2013-01-11 (2000 obs) -> emit 2013-01-14..2014-01-15
+  [wf] block 1: train<=2014-01-15 (2252 obs) -> emit 2014-01-16..2015-01-28
+  [wf] block 2: train<=2015-01-28 (2504 obs) -> emit 2015-01-29..2016-02-03
+  [wf] block 3: train<=2016-02-03 (2756 obs) -> emit 2016-02-04..2017-02-09
+  truncated run: 4 blocks in 17.6 min
+  overlapping finite cells compared : 3024
+  max |xi_full - xi_truncated|      : 0.000e+00
+  NaN masks identical               : True
+  VERDICT: bitwise identical=True   within 1e-10=True
+  per-block llf (full vs truncated):
+    block 0: 16677.6838 vs 16677.6838  delta=0.000e+00
+    block 1: 19189.7887 vs 19189.7887  delta=0.000e+00
+    block 2: 21679.6795 vs 21679.6795  delta=0.000e+00
+    block 3: 23983.1819 vs 23983.1819  delta=0.000e+00
+
+======================================================================
+2d  TRANSITION-MATRIX DISTRIBUTION OVER TIME (absorbing or not?)
+======================================================================
+  full-sample fit: llf=46327.30 (657s)
+  regime_transition shape: (3, 3, 5365)
+  min off-diagonal transition probability, percentiles over t:
+    p0   = 9.072e-24
+    p1   = 3.939e-18
+    p5   = 4.609e-09
+    p25  = 2.008e-07
+    p50  = 3.288e-06
+    p75  = 1.863e-04
+    p100 = 1.360e-03
+  fraction of dates with min off-diag < 1e-6 : 0.3864
+  (isolated extremes => small fraction; genuinely absorbing => near 1)
+    regime 0 self-persistence p_ii: median=0.998172 max=0.999907
+    regime 1 self-persistence p_ii: median=0.995436 max=0.999180
+    regime 2 self-persistence p_ii: median=0.994299 max=0.999279
+  fitted transition params max|.| = 11.592292
+
+wrote C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\docs\evidence\20261013T023028Z-hamilton-causal-POSTFIX\stage2_results.json

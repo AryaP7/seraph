@@ -6,6 +6,40 @@
     "ask": [
       "Edit(seraph/shared_types/**)",
       "Write(seraph/shared_types/**)"
+    ],
+    "allow": [
+      "Bash(pytest*)",
+      "Bash(python -m pytest*)",
+      "Bash(python scripts/check_invariants.py*)",
+      "Bash(python -m fixtures.mock_generator*)",
+      "Bash(docker compose up -d*)",
+      "Bash(docker-compose up -d*)",
+      "Bash(docker compose ps*)",
+      "Bash(docker ps*)"
+    ]
+  },
+  "autoMode": {
+    "hard_deny": [
+      "$defaults",
+      "Committing, pushing, publishing or transmitting .env, kite_credentials*.json, or any Kite API key or access token to the git remote or any external service. The origin remote is a PUBLIC GitHub repository. Local reads by scripts/kite_login.py are normal and not covered by this rule.",
+      "Publishing, pushing or hosting Kite-derived intraday data (intraday_bars, microstructure_state, or any export or screenshot of them) anywhere publicly reachable. SPEC section 7.14: Kite-derived data may not be publicly redistributed."
+    ],
+    "soft_deny": [
+      "$defaults",
+      "Bash(docker compose down -v*)",
+      "Bash(docker-compose down -v*)",
+      "Bash(docker volume rm*)",
+      "Bash(git push --force*)",
+      "Any SQL or script that drops, truncates or mass-deletes daily_prices, intraday_bars, universe_snapshots, hamilton_output or rmt_output. The corpus is roughly 8.0M daily and 18.8M intraday rows that cost 1-2 hours of rate-limited Kite API calls and cannot be cheaply refetched.",
+      "Deleting or overwriting intraday_backfill.checkpoint.json. It is gitignored, exists only on this machine, and losing it forces a full intraday re-backfill.",
+      "Reading docs/archive/** through any shell route (cat, sed, head, tail, less, type, grep, python -c). It is superseded material deliberately excluded from AI indexing and two of its sections are actively wrong. Clear this only when the task is explicitly about report section 5.1.2 or viva preparation."
+    ],
+    "environment": [
+      "$defaults",
+      "**SERAPH methodology, binding (HANDOFF.md section 5)**: never alter a model, threshold, window or test in order to make a requirement or test pass; never fabricate unavailable macro data; never manufacture predictive skill; never hide a failed validation criterion. NFR17 currently fails (2.02 sigma against 3 sigma required) and NFR16 is 4/6 - both are meant to stay visible.",
+      "**Document authority**: docs/SPEC.md (v4) outranks docs/ARCHITECTURE.md (v2), which outranks docs/DATA-ACQUISITION.md. Where code and docs disagree the docs win: raise it rather than silently deviating. docs/archive/ is superseded and must never be built from or cited as current spec.",
+      "**Pipeline reality**: rmt_output holds 5,363 validated rows; hamilton_output holds 5,365 rows that are NON-CAUSAL (smoothed, leaking the future); hawkes_output, reconciled_state and csrs are all empty, and no FusionWeights artefact exists. No CSRS has ever been computed from real data. SERAPH must not be described as an operational or calibrated risk engine.",
+      "**DEMO-DELETE-ME.md scaffolding is still present** and reachable with SERAPH_DEMO=1. Every number it produces is fabricated and must never be presented as a market reading."
     ]
   }
 }

@@ -1,0 +1,314 @@
+# D-1 / CT-3 — negative-jump density on the real corpus + Lee-Mykland size calibration
+# READ-ONLY on the database. Generated 2026-10-13T12:49:30Z
+# git: f3eaac8  branch: evidence/pre-arya-experimentation
+
+## PART 1 — Monte-Carlo size/power of the shipped Lee-Mykland test
+$ .venv/Scripts/python.exe -I <scratchpad>/lm_size.py
+c = E|N(0,1)| = 0.797885   1/c = 1.253314
+  threshold(n_obs=      500) = 5.5257   thr*c = 4.4089
+  threshold(n_obs=     2319) = 5.8903   thr*c = 4.6998
+  threshold(n_obs=     2475) = 5.9057   thr*c = 4.7121
+  threshold(n_obs= 18781302) = 7.8208   thr*c = 6.2401
+
+[sigma scaling] true sigma=0.0012  mean sigma_hat=0.00120004  ratio=1.0000   (1/c=1.2533, c=0.7979)
+
+[SHIPPED, H0 no jumps] reps=400 bars/rep=2475
+  P(>=1 detection in a sample) = 0.0000   target alpha = 0.01
+  mean detections/sample = 0.0000  max = 0
+
+[RESCALED thr*c, H0 no jumps] threshold=4.6998
+  P(>=1 detection in a sample) = 0.0125   target alpha = 0.01
+  mean detections/sample = 0.0125  max = 1
+
+[POWER] single injected jump, detection rate over 200 reps
+ m*sigma   shipped  rescaled
+       4     0.040     0.255
+       5     0.250     0.620
+       6     0.505     0.915
+       7     0.890     0.995
+       8     0.985     1.000
+      10     1.000     1.000
+
+## PART 2 — negative-jump density, FULL Hawkes universe, full corpus (read-only)
+$ .venv/Scripts/python.exe -I <scratchpad>/ct3_density.py
+universe symbols considered: 95
+  ... 10/95 symbols, 5s
+  ... 20/95 symbols, 11s
+  ... 30/95 symbols, 16s
+  ... 40/95 symbols, 20s
+  ... 50/95 symbols, 24s
+  ... 60/95 symbols, 28s
+  ... 70/95 symbols, 32s
+  ... 90/95 symbols, 38s
+
+bars=18,269,762  symbol-days=244,772  elapsed=40s
+threshold (last symbol): shipped=6.9109  corrected=5.5141  ratio=1/c=1.2533
+
+    variant  neg events  pos events  neg/symbol-day  neg/pooled-bar  neg share
+    shipped      21,180      28,603          0.0865         0.00116     0.4254
+  corrected      36,173      52,440          0.1478         0.00198     0.4082
+
+SPEC FR10[v4] records 0.087 neg events/symbol-day.
+  shipped   = 0.0865  -> ratio to SPEC = 0.995
+  corrected = 0.1478  -> ratio to SPEC = 1.699
+  corrected/shipped uplift = 1.708x
+  shortfall vs CT-3 floor 1.0/symbol-day:  shipped 11.6x   corrected 6.8x
+
+top 8 symbols by shipped neg-jumps/symbol-day:
+        symbol  symdays  shipped/d  corrected/d
+    WEBELSOLAR     2862     0.3512       0.5563
+           BSE     2366     0.1445       0.2684
+    ADANIGREEN     2027     0.1436       0.2156
+          INFY     2862     0.1391       0.1974
+       ETERNAL     1261     0.1213       0.1848
+     MAXHEALTH     1490     0.1154       0.2020
+      HDFCBANK     2862     0.1143       0.1765
+    BAJFINANCE     2862     0.1132       0.2058
+
+bottom 4:
+      BOSCHLTD     2862     0.0625       0.1212
+           MCX     2862     0.0622       0.1209
+    TORNTPHARM     2862     0.0611       0.1265
+    SUNDRMFAST     2862     0.0577       0.1282
+
+BEST single symbol, shipped:   0.3512 neg/day  (2.8x below the 1.0 floor)
+BEST single symbol, corrected: 0.5563 neg/day  (1.8x below the 1.0 floor)
+
+================================================================================
+
+APPENDIX A - script for PART 1 (lm_size.py), verbatim
+
+================================================================================
+"""Monte-Carlo size/power check of the Lee-Mykland implementation in C4.
+
+Under H0 (pure Brownian, no jumps) the L&M test with level alpha rejects
+*anywhere in the sample* with probability ~alpha (it is a max-statistic /
+family-wise test). So the fraction of SAMPLES containing >=1 detection should
+be ~alpha, and the per-bar FPR should be ~alpha/n.
+"""
+import sys
+import numpy as np
+
+sys.path.insert(0, r"C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya")
+from seraph.features.jump_extraction import (  # noqa: E402
+    LM_ALPHA, LM_WINDOW_K, bipower_volatility, extract_jumps,
+    lee_mykland_threshold, _C_CONST,
+)
+
+rng = np.random.default_rng(20261013)
+N_BARS = 2475            # matches the CT-3 fetch window
+SIGMA = 0.0012           # ~ typical 5-min equity log-return sd
+REPS = 400
+
+print(f"c = E|N(0,1)| = {_C_CONST:.6f}   1/c = {1/_C_CONST:.6f}")
+for n in (500, 2319, 2475, 18781302):
+    thr = lee_mykland_threshold(n)
+    print(f"  threshold(n_obs={n:>9}) = {thr:.4f}   thr*c = {thr*_C_CONST:.4f}")
+
+# --- sigma-hat scaling check: is sigma_hat an unbiased estimate of sigma? ---
+r = rng.normal(0.0, SIGMA, size=200_000)
+sig = bipower_volatility(r, LM_WINDOW_K)
+sig = sig[np.isfinite(sig)]
+print(f"\n[sigma scaling] true sigma={SIGMA:.6g}  mean sigma_hat={sig.mean():.6g}"
+      f"  ratio={sig.mean()/SIGMA:.4f}   (1/c={1/_C_CONST:.4f}, c={_C_CONST:.4f})")
+
+# --- empirical size of the shipped implementation ---
+hits_per_sample, any_hit = [], 0
+for _ in range(REPS):
+    rr = rng.normal(0.0, SIGMA, size=N_BARS)
+    prices = 100.0 * np.exp(np.cumsum(rr))
+    out = extract_jumps(prices)
+    h = int(out["is_jump"].sum())
+    hits_per_sample.append(h)
+    any_hit += h > 0
+hits = np.array(hits_per_sample)
+print(f"\n[SHIPPED, H0 no jumps] reps={REPS} bars/rep={N_BARS}")
+print(f"  P(>=1 detection in a sample) = {any_hit/REPS:.4f}   target alpha = {LM_ALPHA}")
+print(f"  mean detections/sample = {hits.mean():.4f}  max = {hits.max()}")
+
+# --- the same, with the threshold rescaled by c (single-correction variant) ---
+def extract_jumps_rescaled(prices, k=LM_WINDOW_K, alpha=LM_ALPHA):
+    p = np.asarray(prices, float)
+    lr = np.zeros(p.size)
+    lr[1:] = np.diff(np.log(p))
+    sg = bipower_volatility(lr, k)
+    with np.errstate(invalid="ignore", divide="ignore"):
+        stat = np.abs(lr) / sg
+    stat = np.nan_to_num(stat)
+    thr = lee_mykland_threshold(int(np.isfinite(sg).sum()), alpha) * _C_CONST
+    isj = stat > thr
+    return isj, thr
+
+any_hit2, hits2 = 0, []
+for _ in range(REPS):
+    rr = rng.normal(0.0, SIGMA, size=N_BARS)
+    prices = 100.0 * np.exp(np.cumsum(rr))
+    isj, thr2 = extract_jumps_rescaled(prices)
+    h = int(isj.sum()); hits2.append(h); any_hit2 += h > 0
+hits2 = np.array(hits2)
+print(f"\n[RESCALED thr*c, H0 no jumps] threshold={thr2:.4f}")
+print(f"  P(>=1 detection in a sample) = {any_hit2/REPS:.4f}   target alpha = {LM_ALPHA}")
+print(f"  mean detections/sample = {hits2.mean():.4f}  max = {hits2.max()}")
+
+# --- power: inject one jump of m*sigma at a known bar ---
+print("\n[POWER] single injected jump, detection rate over 200 reps")
+print(f"{'m*sigma':>8} {'shipped':>9} {'rescaled':>9}")
+for m in (4, 5, 6, 7, 8, 10):
+    d1 = d2 = 0
+    for _ in range(200):
+        rr = rng.normal(0.0, SIGMA, size=N_BARS)
+        idx = 1200
+        rr[idx] += -m * SIGMA
+        prices = 100.0 * np.exp(np.cumsum(rr))
+        o = extract_jumps(prices)
+        d1 += bool(o["is_jump"][idx])
+        isj, _ = extract_jumps_rescaled(prices)
+        d2 += bool(isj[idx])
+    print(f"{m:>8} {d1/200:>9.3f} {d2/200:>9.3f}")
+
+================================================================================
+
+APPENDIX B - script for PART 2 (ct3_density.py), verbatim
+
+================================================================================
+"""D-1: measured negative-jump density on the real corpus, under the shipped
+Lee-Mykland threshold and under the mu_1-corrected (x c) threshold.
+
+READ-ONLY on the database. No writes of any kind.
+"""
+import asyncio, os, sys, time
+import numpy as np
+import asyncpg
+
+sys.path.insert(0, r"C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya")
+from seraph.features.jump_extraction import (  # noqa: E402
+    LM_ALPHA, LM_WINDOW_K, bipower_volatility, lee_mykland_threshold, _C_CONST,
+)
+from seraph.ingestion.hawkes_universe import build_symbol_list  # noqa: E402
+from seraph.store.bootstrap import resolve_dsn  # noqa: E402
+
+LIMIT = int(os.environ.get("SYM_LIMIT", "0")) or None
+BARS_PER_DAY = 75
+
+
+def signs(close, k=LM_WINDOW_K, alpha=LM_ALPHA):
+    p = np.asarray(close, float)
+    lr = np.zeros(p.size)
+    with np.errstate(divide="ignore", invalid="ignore"):
+        lr[1:] = np.diff(np.log(np.where(p > 0, p, np.nan)))
+    lr = np.nan_to_num(lr)
+    sg = bipower_volatility(lr, k)
+    with np.errstate(divide="ignore", invalid="ignore"):
+        stat = np.nan_to_num(np.abs(lr) / sg)
+    n_fin = int(np.isfinite(sg).sum())
+    thr_ship = lee_mykland_threshold(n_fin, alpha)
+    thr_corr = thr_ship * _C_CONST
+    out = {}
+    for name, thr in (("shipped", thr_ship), ("corrected", thr_corr)):
+        isj = (stat > thr) & (lr != 0)
+        sgn = np.where(isj, np.sign(lr), 0)
+        out[name] = (int((sgn == -1).sum()), int((sgn == 1).sum()))
+    return out, n_fin, thr_ship, thr_corr
+
+
+async def main():
+    pool = await asyncpg.create_pool(resolve_dsn(), min_size=1, max_size=2)
+    try:
+        members = await pool.fetchval(
+            "SELECT members FROM universe_snapshots ORDER BY rebalance_date DESC LIMIT 1")
+        syms = build_symbol_list(list(members))
+        if LIMIT:
+            syms = syms[:LIMIT]
+        print(f"universe symbols considered: {len(syms)}")
+        tot = {"shipped": [0, 0], "corrected": [0, 0]}
+        tot_bars = 0
+        tot_symdays = 0
+        per_sym = []
+        t0 = time.time()
+        for i, s in enumerate(syms, 1):
+            rows = await pool.fetch(
+                "SELECT ts, close FROM intraday_bars WHERE symbol=$1 ORDER BY ts", s)
+            if len(rows) < 200:
+                continue
+            close = np.fromiter((float(r["close"]) for r in rows), float, len(rows))
+            dates = {r["ts"].date() for r in rows}
+            res, n_fin, ts_, tc_ = signs(close)
+            symdays = len(dates)
+            tot_bars += len(rows)
+            tot_symdays += symdays
+            for kk in tot:
+                tot[kk][0] += res[kk][0]
+                tot[kk][1] += res[kk][1]
+            per_sym.append((s, symdays, res["shipped"][0], res["corrected"][0]))
+            if i % 10 == 0:
+                print(f"  ... {i}/{len(syms)} symbols, {time.time()-t0:.0f}s", flush=True)
+        print(f"\nbars={tot_bars:,}  symbol-days={tot_symdays:,}  "
+              f"elapsed={time.time()-t0:.0f}s")
+        print(f"threshold (last symbol): shipped={ts_:.4f}  corrected={tc_:.4f}  "
+              f"ratio=1/c={1/_C_CONST:.4f}")
+        print(f"\n{'variant':>11} {'neg events':>11} {'pos events':>11} "
+              f"{'neg/symbol-day':>15} {'neg/pooled-bar':>15} {'neg share':>10}")
+        for kk in ("shipped", "corrected"):
+            neg, pos = tot[kk]
+            print(f"{kk:>11} {neg:>11,} {pos:>11,} {neg/tot_symdays:>15.4f} "
+                  f"{neg/tot_bars:>15.5f} {neg/max(neg+pos,1):>10.4f}")
+        d_ship = tot['shipped'][0] / tot_symdays
+        d_corr = tot['corrected'][0] / tot_symdays
+        print(f"\nSPEC FR10[v4] records 0.087 neg events/symbol-day.")
+        print(f"  shipped   = {d_ship:.4f}  -> ratio to SPEC = {d_ship/0.087:.3f}")
+        print(f"  corrected = {d_corr:.4f}  -> ratio to SPEC = {d_corr/0.087:.3f}")
+        print(f"  corrected/shipped uplift = {d_corr/max(d_ship,1e-12):.3f}x")
+        print(f"  shortfall vs CT-3 floor 1.0/symbol-day:"
+              f"  shipped {1/max(d_ship,1e-12):.1f}x   corrected {1/max(d_corr,1e-12):.1f}x")
+        per_sym.sort(key=lambda r: -r[2] / max(r[1], 1))
+        print(f"\ntop 8 symbols by shipped neg-jumps/symbol-day:")
+        print(f"{'symbol':>14} {'symdays':>8} {'shipped/d':>10} {'corrected/d':>12}")
+        for s, d, a, b in per_sym[:8]:
+            print(f"{s:>14} {d:>8} {a/d:>10.4f} {b/d:>12.4f}")
+        print(f"\nbottom 4:")
+        for s, d, a, b in per_sym[-4:]:
+            print(f"{s:>14} {d:>8} {a/d:>10.4f} {b/d:>12.4f}")
+        mx = max(r[2] / max(r[1], 1) for r in per_sym)
+        print(f"\nBEST single symbol, shipped:   {mx:.4f} neg/day  "
+              f"({1/max(mx,1e-12):.1f}x below the 1.0 floor)")
+        mx2 = max(r[3] / max(r[1], 1) for r in per_sym)
+        print(f"BEST single symbol, corrected: {mx2:.4f} neg/day  "
+              f"({1/max(mx2,1e-12):.1f}x below the 1.0 floor)")
+    finally:
+        await pool.close()
+
+asyncio.run(main())
+
+================================================================================
+
+APPENDIX C - effective significance level of the shipped FR50 test
+
+================================================================================
+
+Because the Gumbel tail is thin, inflating the threshold by 1/c = 1.2533 costs
+
+~3 orders of magnitude in LEVEL, not 25%. alpha_eff = 1 - exp(-exp(-x)) where
+
+x = (thr_shipped - a_n) / b_n, i.e. the shipped threshold re-expressed as a
+
+Gumbel quantile of the statistic's own null max distribution.
+
+
+
+n_obs      a_n     b_n   thr_shipped  thr_correct   effective_alpha   tighter_by
+
+     2319  3.5313  0.2540      5.8903       4.6998         9.262e-05       108.0x   <- CT-3 window
+
+   200000  4.5718  0.2024      6.8968       5.5029         1.026e-05       974.9x   <- per-symbol full history
+
+ 18781302  5.4453  0.1728      7.8208       6.2401         1.069e-06      9353.6x   <- whole corpus
+
+
+
+Nominal alpha = 0.01 in all three rows. The per-symbol row is the
+
+production-relevant one: extract_jumps computes its threshold from the count of
+
+finite sigma-hat values for the symbol it is given (~214,650 bars for a
+
+full-history symbol), so FR50 ships at an effective level near 1e-5.

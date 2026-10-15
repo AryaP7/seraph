@@ -1,0 +1,52 @@
+SERAPH evidence - C5 production rolling-window selection (FR10/FR11, AMENDMENT-03)
+generated_utc : 2026-10-12T17:42:08Z
+git_commit    : f79299dfcaba20c7f3ae88a437a9cb9f2e57cf58
+command       : .venv/Scripts/python.exe scripts/compare_hawkes_windows.py --points 24 --windows 60,250,500
+why           : WINDOW_DAYS=60 is a declared constant whose VALUE was never validated.
+                The validated alpha/phi/n were fitted on the WHOLE CORPUS, not on 60-day
+                windows, where n swings 0.003-0.099. A production writer emits a rolling
+                series, so the window must be selected before the writer is built.
+selection rule: stability, identifiability, out-of-sample per-bar NLL, feasibility.
+                Explicitly NOT chosen to land near the whole-corpus n=0.108.
+input         : regenerated p1_data.pkl (21,180 events, verified against AMENDMENT-03)
+side effects  : none - script is read-only (no INSERT/UPDATE/DELETE, no DB writes)
+===========================================================================
+
+C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\seraph\pillars\hawkes\engine.py:249: RuntimeWarning: overflow encountered in exp
+  phi = 1.0 / (1.0 + np.exp(-theta[2]))
+C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\seraph\pillars\hawkes\engine.py:270: RuntimeWarning: overflow encountered in exp
+  phi=float(1.0 / (1.0 + np.exp(-best.x[2]))),
+[cmp] market-wide bar series: 213,751 bars (~2,850 sessions)
+
+[cmp]   60d window: 24 fits, 0 unidentifiable, 1.79 s/fit
+[cmp]  250d window: 24 fits, 0 unidentifiable, 8.45 s/fit
+[cmp]  500d window: 24 fits, 0 unidentifiable, 17.14 s/fit
+
+================================================================================================
+HAWKES PRODUCTION WINDOW COMPARISON
+================================================================================================
+  window  fits  unident   n mean     n sd    n CV    a CV   phi CV  OOS NLL/bar   s/fit
+     60d    24        0   0.0739   0.0527   0.714   0.858    0.842      0.23221    1.79
+    250d    24        0   0.0847   0.0292   0.344   0.459    0.299      0.17622    8.45
+    500d    24        0   0.0948   0.0193   0.204   0.255    0.231      0.13253   17.14
+
+  window    n min    n max   n range  stationary  converged  |dn| boundary
+     60d   0.0057   0.2034    0.1976       100%24/       24         0.0090
+    250d   0.0346   0.1332    0.0986       100%24/       24         0.0018
+    500d   0.0494   0.1241    0.0748       100%24/       24         0.0012
+
+  window   MTS mean    MTS sd   MTS min   MTS max   (ungated n/(1-n); FR13 gate applied per-window in production)
+     60d     0.0835    0.0657    0.0058    0.2553
+    250d     0.0937    0.0348    0.0358    0.1536
+    500d     0.1052    0.0232    0.0519    0.1417
+
+------------------------------------------------------------------------------------------------
+Daily-refit cost over the 2,862-session corpus, at the measured s/fit:
+     60d window:    85.3 min
+    250d window:   403.1 min
+    500d window:   817.8 min
+
+Reference (NOT a target): the large-sample validation result is
+alpha~0.0557, phi~0.4837, n~0.1079 on chronological folds of 85k-171k
+bars. That is a different object from a rolling production estimate and
+the window is not selected for proximity to it.

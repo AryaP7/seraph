@@ -1,0 +1,27 @@
+SERAPH evidence - C5 E6 writer SMOKE DRY RUN (no persistence)
+generated_utc : 2026-10-12T18:05:42Z
+git_commit    : f3eaac8b25f3fe3c47f4734b6b841e5e93f41cd1
+git_branch    : evidence/pre-arya-experimentation
+command       : .venv/Scripts/python.exe scripts/write_hawkes_production.py --window-days 500 --refit-every 250
+purpose       : validate the writer's REAL-DATA path mechanically at low cost. refit_every=250
+                gives ~9 refit points instead of the ~470 a production run needs, so this
+                exercises stream construction, data-quality filtering, the refit schedule,
+                estimate_state integration and row mapping without a 2-hour fit.
+                NOT a production backfill and NOT a window endorsement - the window grid
+                extension (evidence 11) is still running.
+writes        : NOTHING - --write omitted, so this is a dry run by construction.
+===========================================================================
+
+[hawkes] universe: 95 symbols (equity-only, build_symbol_list — never a raw intraday_bars scan)
+[hawkes] stream: 213,751 bars, 21,173 negative / 28,582 positive jumps, 2,862 sessions  (42s)
+[hawkes] data quality: 91/95 symbols used, 4 too short, 3,558 bars dropped for close<=0 (of 18,269,762 read)
+[hawkes] schedule: window=500d refit_every=250 -> 10 refit points, 2017-02-09 .. 2026-03-10
+
+[hawkes] 10 estimates, 0 absences in 2.8 min
+[hawkes] warning LOW_EVENT_COUNT: 8/10 windows
+[hawkes] n   : mean=0.0959 sd=0.0172 range=[0.0659, 0.1190] CV=0.179
+[hawkes] MTS : mean=0.0237 sd=0.0480 range=[0.0000, 0.1351]
+[hawkes] FR11 n<1 on every row: True
+[hawkes] FR13 mts>=0 on every row: True
+
+[hawkes] DRY RUN — nothing written. Re-run with --write to persist.

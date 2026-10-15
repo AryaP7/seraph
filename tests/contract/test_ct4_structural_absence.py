@@ -1,7 +1,9 @@
 # CT-4 — Pillars ⇄ C8: structural absence (ARCHITECTURE §5 ②)
-"""This test IS Objective 6. Absence is R → ∞, never zero; the D2 mask
+"""Experimental corrected Objective 6. Absence means no update, never zero; the D2 mask
 excludes structurally-absent pillars; on the first genuine emission the
-covariance drops and the mask flips true.
+covariance drops and the mask flips true. Historical CT-4's saturation
+requirement was mathematically false for an unobserved random walk. It has
+been replaced by the analytic prediction covariance (EXPERIMENT-MATH §2).
 
 Written before C8 exists (test-first, AGENTS.md §6). The C8 tests skip until
 `seraph/reconciliation/kalman.py` lands with:
@@ -27,11 +29,7 @@ from seraph.shared_types import PillarObservation, ist_timestamp
 N_ABSENT = 200
 
 
-def _trace(state) -> float:
-    return float(np.trace(np.asarray(state.P)))
-
-
-def test_ct4_structural_absence_saturates_and_recovers():
+def test_ct4_structural_absence_predicts_without_fake_information_and_recovers():
     kalman = pytest.importorskip(
         "seraph.reconciliation.kalman", reason="C8 not built yet (L5)"
     )
@@ -63,14 +61,12 @@ def test_ct4_structural_absence_saturates_and_recovers():
     # no observation, the prediction leaves the mean where it started.
     assert states[-1].x_hat[0] == pytest.approx(states[0].x_hat[0], abs=1e-6)
 
-    # D4: trace(P) grows monotonically, then SATURATES (bounded R — never ∞).
-    traces = [_trace(s) for s in states]
-    assert all(b >= a - 1e-12 for a, b in zip(traces, traces[1:]))
-    early_growth = traces[N_ABSENT // 4] - traces[0]
-    late_growth = traces[-1] - traces[-N_ABSENT // 4]
-    assert late_growth < 0.10 * max(early_growth, 1e-12), (
-        "trace(P) must saturate under structural absence, not grow unbounded"
-    )
+    # Correct random-walk prior: no observation => p00(t)=p00(0)+Q*Delta.
+    # The mock spans beyond the market close; default trading time contributes
+    # exactly the 75 regular-session bars, not overnight wall-clock intervals.
+    p00 = [s.P[0][0] for s in states]
+    assert all(b >= a - 1e-12 for a, b in zip(p00, p00[1:]))
+    assert p00[-1] == pytest.approx(0.001 + 75 * 0.001)
 
     # First genuine Hawkes emission: P[0][0] drops strictly, mask flips true.
     p00_before = states[-1].P[0][0]

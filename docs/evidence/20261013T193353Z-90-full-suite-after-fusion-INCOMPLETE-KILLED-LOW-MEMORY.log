@@ -1,0 +1,10 @@
+.............F.......................................................... [ 32%]
+.................................x...................................... [ 64%]
+.............................
+
+### RUN INCOMPLETE — stopped by the harness because the system was low on
+### memory, NOT a test failure and NOT a completed suite. Do not read the
+### dot-line above as a result: collection reached ~64% plus 17 tests, with
+### 1 F (the pre-existing CT-3) and 1 x (a known xfail pin). The last
+### COMPLETE full-suite run is the prior phase: 207 passed, 1 failed,
+### 2 xfailed in 1097.52s (docs/evidence/20261013T135032Z-70-full-suite-FINAL.log).

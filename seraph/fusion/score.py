@@ -8,6 +8,9 @@ Contract notes:
   the pipeline); components are clipped defensively here.
 - The confidence interval is a normal approximation csrs ± 1.96·σ and may
   extend past [0,1]; FR29's *calibration* of the interval is C10's job.
+- Variance is conditional on fixed regime probabilities and weights, and
+  describes uncertainty in one shared pillar vector (EXPERIMENT-MATH §1).
+  It is not a regime-mixture prediction interval or a loss probability.
 - Alert thresholds are provisional until FR30 calibration (SPEC OQ9).
 """
 from __future__ import annotations
@@ -63,14 +66,14 @@ def score(
         effective.append(renorm)
         any_fallback = any_fallback or fallback
 
-    csrs = 0.0
-    variance = 0.0
-    for j in range(3):
-        w_j = np.asarray(effective[j], dtype=float)
-        csrs += xi_used[j] * float(w_j @ np.asarray(x))
-        # FR29 — computed with masked-zero weights, so the absent pillar's
-        # prior block of P never leaks into the interval (D2 consequence 3).
-        variance += (xi_used[j] ** 2) * float(w_j @ p @ w_j)
+    # Every regime-specific score uses the SAME uncertain pillar vector.
+    # Hence Var(sum_j xi_j w_j' x) = a' P a, a = sum_j xi_j w_j.
+    # Summing xi_j**2 w_j' P w_j omits cross-regime covariance terms and
+    # understates uncertainty even when all weight rows are identical.
+    # Masked weights are zero, excluding unavailable coordinates of P (D2).
+    a = np.asarray(xi_used, dtype=float) @ np.asarray(effective, dtype=float)
+    csrs = float(a @ np.asarray(x))
+    variance = float(a @ p @ a)
     csrs = min(1.0, max(0.0, csrs))
     variance = max(0.0, variance)
     half = _Z95 * variance ** 0.5

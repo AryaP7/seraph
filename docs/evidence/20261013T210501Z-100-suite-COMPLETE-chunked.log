@@ -1,0 +1,55 @@
+# FULL TEST SUITE — COMPLETED RESULT (run in three chunks)
+#
+# WHY CHUNKED. A single-process run of the whole suite was stopped twice by the
+# harness because the system was critically low on memory (2.37 GB free of
+# 15.8 GB; vmmemWSL alone held 3.0 GB). A partial run is not a result, so the
+# suite was split into three foreground chunks, each completing within the
+# 600 s foreground limit. The partition is by directory and by the Hamilton
+# files, is exhaustive, and is non-overlapping -- verified against the
+# collection count below.
+#
+# COLLECTION:  223 tests collected   (pytest tests/ --collect-only -q)
+#
+# CHUNK A  tests/ minus tests/contract minus the three test_c7_hamilton*.py
+#          -> 148 passed, 2 xfailed            in   25.33 s
+#          log: *-100a-suite-chunkA.log
+#
+# CHUNK B  tests/test_c7_hamilton.py
+#          tests/test_c7_hamilton_causal.py
+#          tests/test_c7_hamilton_regime_recovery.py
+#          -> 26 passed                        in  637.52 s  (10m37s)
+#          log: *-100b-suite-chunkB-hamilton.log
+#
+# CHUNK C  tests/contract
+#          -> 46 passed, 1 FAILED              in  180.77 s  (3m00s)
+#          log: *-100c-suite-chunkC-contract.log
+#
+# ARITHMETIC CHECK (auditable):
+#          passed   148 + 26 + 46 = 220
+#          failed     0 +  0 +  1 =   1
+#          xfailed    2 +  0 +  0 =   2
+#          TOTAL                  = 223  == collection count. No test was
+#                                            skipped, double-counted or lost.
+#
+# TOTAL WALL TIME: 843.62 s (~14m04s)
+#
+# ======================================================================
+# RESULT: 220 passed, 1 failed, 2 xfailed  (223 total)
+# ======================================================================
+#
+# THE SINGLE FAILURE is the pre-existing CT-3 negative-jump-density check,
+# deliberately left failing and unmodified (git diff --numstat on that file is
+# 71 insertions / 0 deletions, docstrings only; the assertion and
+# MIN_NEG_JUMPS_PER_DAY are byte-identical). Corpus-wide density is 0.0865
+# negative jumps per symbol-day against a floor of 1.0 -- 11.6x short -- and
+# SPEC FR10 [v4] quotes that very figure (0.087) when superseding the
+# per-symbol one-trading-day window this floor was the precondition for.
+# Retiring the gate is the C4/C5 owner's decision. See BLOCKER-TRIAGE.md D-1.
+#
+# THE TWO XFAILS are both strict=True pins on open specification questions:
+#   - test_c4_lee_mykland_calibration.py  -> D-1b, the 1/c threshold mis-scaling
+#   - test_fr35_ablation_design_pins.py   -> D-2, Table B's fold count
+# Each fails the suite the moment its question is resolved in code, which is
+# the intended behaviour.
+#
+# NEW TESTS THIS PHASE (all passing): 13 in tests/test_fusion_learning_leakage.py

@@ -1,0 +1,29 @@
+{
+  "created_utc": "2026-10-14T05:35:27.143458+00:00",
+  "python": "3.12.14 (main, Aug 14 2026, 15:40:22) [MSC v.1944 64 bit (AMD64)]",
+  "libraries": {
+    "numpy": "2.5.4",
+    "scipy": "1.18.1",
+    "pandas": "3.0.6",
+    "pyarrow": "25.0.1",
+    "arch": "8.0.0",
+    "statsmodels": "0.15.0"
+  },
+  "code_hashes": {
+    "scripts\\run_prediction_experiment.py": "cfba439ee636b933bfa98c60bad33a4b91801f3c7daf943d63c1349ae01e8903",
+    "EXPERIMENT.md": "9c78d1b24c5aed5d03a8bb01014f85ab36c510bee7f828001788041df08de922",
+    "seraph\\validation\\epochs.py": "adb28cfb00f501cbe31d060787a6118fed8ab2f62d784f7124694868aa333cc3",
+    "seraph\\prediction\\models.py": "6a81b50794209c32eb3af95d91f33687d1c1f4ba2760189f1fe59070f675c802",
+    "seraph\\prediction\\pillars.py": "2ba7f87fd4c0b6d734b4bac8f477cdd8bdc8b674a4e3bd64593ec4c9bb25b06a",
+    "seraph\\prediction\\evaluation.py": "ded8805254854c4ac53ba74c3617f6ff68297a28e12d0531aecc19dcbd62edc8"
+  },
+  "data_hash": "0f004e2cb91a35bc11c218e5aa2e27c8d86deebae403d3c92ca655f6f9ece36f",
+  "outputs": {
+    "alert_episodes.csv": "5c7f407e0fd4178175301321e22effca8cf600c5ab7050e0bb63321f505dbd34",
+    "event_warnings.csv": "8ad362e7d371a272dc80c0b724e3c01d11067536ab054140203c7d173a07ab20",
+    "features.parquet": "47ef8097c5f9028e6132d7e92b05ce527f053ca5e1174d40a6f2a4b13ea44310",
+    "fit_audit.json": "990f2f1fd64e6c55e2bed92c7411cd32a4dc28db71997389ac3a176c34468339",
+    "predictions.parquet": "dde5efbe3e70845d3a920f09bcd81225417edab328808f064af9fe95f06d7fab",
+    "summary.json": "5cf1e65205bcd2363d205c6b42b5e5dea381bac72b3f67fec44cfd54d41ba28a"
+  }
+}

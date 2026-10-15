@@ -1,0 +1,93 @@
+### command: .venv/Scripts/python.exe -I scripts/audit_event_coverage.py --exclusion-table docs/evidence/20261013T134906Z-36-block-bootstrap-pillar-csrs.log
+### started: 2026-10-13T18:33:24Z
+### HEAD: f3eaac8
+### derived deterministically from arm-6 log 36; no DB access, no recomputation
+
+
+==============================================================================
+ARM 6b — EXACT 0.5-EXCLUSION ACCOUNTING (parsed from 20261013T134906Z-36-block-bootstrap-pillar-csrs.log)
+==============================================================================
+
+  === T1, Pillar 2 = lambda_1/N (shipped) ===
+  signal                         AUC     L=1    L=21    L=63   L=252   L=423   L=770
+  -----------------------------------------------------------------------------------
+  CSRS[hawkes]                0.6464    EXCL    --     --     --     --     -- 
+  CSRS[rmt]                   0.5292     --     --     --     --     --     -- 
+  CSRS[hamilton]              0.6350    EXCL    --     --     --     --     -- 
+  CSRS[hawkes+rmt]            0.5218     --     --     --     --     --     -- 
+  CSRS[hawkes+hamilton]       0.6239    EXCL    --     --     --     --     -- 
+  CSRS[rmt+hamilton]          0.5778    EXCL    --     --     --     --     -- 
+  CSRS[hawkes+rmt+hamilton]   0.5733    EXCL    --     --     --     --     -- 
+  BASE[rv_20]                 0.7347    EXCL   EXCL   EXCL   EXCL   EXCL   EXCL
+  BASE[drawdown]              0.6713    EXCL    --     --     --     --     -- 
+  BASE[rv_accel_5]            0.6622    EXCL   EXCL   EXCL   EXCL   EXCL   EXCL
+  BASE[dd_accel_5]            0.7015    EXCL   EXCL   EXCL   EXCL   EXCL   EXCL
+    pillar/CSRS  excluding 0.5 at L=1   : 5/7
+    pillar/CSRS  excluding 0.5 at L=770 : 0/7
+    baselines    excluding 0.5 at L=1   : 4/4
+    baselines    excluding 0.5 at L=770 : 3/4
+
+  === T3, Pillar 2 = lambda_1/N (shipped) ===
+  signal                         AUC     L=1    L=21    L=63   L=252   L=423   L=770
+  -----------------------------------------------------------------------------------
+  CSRS[hawkes]                0.5335     --     --     --     --     --     -- 
+  CSRS[rmt]                   0.4148    EXCL    --     --     --     --     -- 
+  CSRS[hamilton]              0.4458    EXCL    --     --     --     --     -- 
+  CSRS[hawkes+rmt]            0.4174    EXCL    --     --     --     --     -- 
+  CSRS[hawkes+hamilton]       0.4445    EXCL    --     --     --     --     -- 
+  CSRS[rmt+hamilton]          0.4188    EXCL    --     --     --     --     -- 
+  CSRS[hawkes+rmt+hamilton]   0.4178    EXCL    --     --     --     --     -- 
+  BASE[rv_20]                 0.4951     --     --     --     --     --     -- 
+  BASE[drawdown]              0.6322    EXCL    --     --     --     --     -- 
+  BASE[rv_accel_5]            0.5288     --     --     --     --     --     -- 
+  BASE[dd_accel_5]            0.6009    EXCL    --     --     --     --     -- 
+    pillar/CSRS  excluding 0.5 at L=1   : 6/7
+    pillar/CSRS  excluding 0.5 at L=770 : 0/7
+    baselines    excluding 0.5 at L=1   : 2/4
+    baselines    excluding 0.5 at L=770 : 0/4
+
+  === T1, Pillar 2 = SCA_t (FR18) ===
+  signal                         AUC     L=1    L=21    L=63   L=252   L=423   L=770
+  -----------------------------------------------------------------------------------
+  CSRS[hawkes]                0.6464    EXCL    --     --     --     --     -- 
+  CSRS[rmt]                   0.6289    EXCL   EXCL    --     --     --     -- 
+  CSRS[hamilton]              0.6350    EXCL    --     --     --     --     -- 
+  CSRS[hawkes+rmt]            0.6209    EXCL   EXCL    --     --     --     -- 
+  CSRS[hawkes+hamilton]       0.6239    EXCL    --     --     --     --     -- 
+  CSRS[rmt+hamilton]          0.6679    EXCL   EXCL    --     --     --     -- 
+  CSRS[hawkes+rmt+hamilton]   0.6632    EXCL   EXCL   EXCL    --     --     -- 
+  BASE[rv_20]                 0.7347    EXCL   EXCL   EXCL   EXCL   EXCL   EXCL
+  BASE[drawdown]              0.6713    EXCL    --     --     --     --     -- 
+  BASE[rv_accel_5]            0.6622    EXCL   EXCL   EXCL   EXCL   EXCL   EXCL
+  BASE[dd_accel_5]            0.7015    EXCL   EXCL   EXCL   EXCL   EXCL   EXCL
+    pillar/CSRS  excluding 0.5 at L=1   : 7/7
+    pillar/CSRS  excluding 0.5 at L=770 : 0/7
+    baselines    excluding 0.5 at L=1   : 4/4
+    baselines    excluding 0.5 at L=770 : 3/4
+
+  === T3, Pillar 2 = SCA_t (FR18) ===
+  signal                         AUC     L=1    L=21    L=63   L=252   L=423   L=770
+  -----------------------------------------------------------------------------------
+  CSRS[hawkes]                0.5335     --     --     --     --     --     -- 
+  CSRS[rmt]                   0.5055     --     --     --     --     --     -- 
+  CSRS[hamilton]              0.4458    EXCL    --     --     --     --     -- 
+  CSRS[hawkes+rmt]            0.5084     --     --     --     --     --     -- 
+  CSRS[hawkes+hamilton]       0.4445    EXCL    --     --     --     --     -- 
+  CSRS[rmt+hamilton]          0.4748     --     --     --     --     --     -- 
+  CSRS[hawkes+rmt+hamilton]   0.4756     --     --     --     --     --     -- 
+  BASE[rv_20]                 0.4951     --     --     --     --     --     -- 
+  BASE[drawdown]              0.6322    EXCL    --     --     --     --     -- 
+  BASE[rv_accel_5]            0.5288     --     --     --     --     --     -- 
+  BASE[dd_accel_5]            0.6009    EXCL    --     --     --     --     -- 
+    pillar/CSRS  excluding 0.5 at L=1   : 2/7
+    pillar/CSRS  excluding 0.5 at L=770 : 0/7
+    baselines    excluding 0.5 at L=1   : 2/4
+    baselines    excluding 0.5 at L=770 : 0/4
+
+  'EXCL' = the 95% interval excludes AUC = 0.5, i.e. the result has
+  resolving power. ' -- ' = the interval spans 0.5, i.e. the result
+  is indistinguishable from chance AT THAT dependence assumption.
+  L=1 is the naive i.i.d. assumption; L=770 is measured (arm 3b).
+
+### finished: 2026-10-13T18:33:30Z
+### exit code: 0

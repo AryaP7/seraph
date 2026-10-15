@@ -1,26 +1,26 @@
 # SERAPH — single-node Postgres + TimescaleDB per SPEC NFR34/NFR35.
 # One command up: `docker compose up -d`
-# Host port 5433 to avoid colliding with any local Postgres on 5432.
-# DSN: postgresql://seraph:seraph@localhost:5433/seraph  (override via SERAPH_DB_DSN)
+# Isolated research port 5434; the original SERAPH database stays on 5433.
+# DSN: postgresql://seraph:seraph@localhost:5434/seraph_research
 services:
   timescaledb:
     image: timescale/timescaledb:latest-pg16
-    container_name: seraph-timescaledb
+    container_name: seraph-research-timescaledb
     environment:
       POSTGRES_USER: seraph
       POSTGRES_PASSWORD: seraph
-      POSTGRES_DB: seraph
+      POSTGRES_DB: seraph_research
     ports:
-      - "5433:5432"
+      - "5434:5432"
     volumes:
-      - seraph_pgdata:/var/lib/postgresql/data
+      - seraph_research_pgdata:/var/lib/postgresql/data
       # Applied automatically on first boot; idempotent, so re-applying is safe.
       - ./seraph/store/schema.sql:/docker-entrypoint-initdb.d/schema.sql:ro
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U seraph -d seraph"]
+      test: ["CMD-SHELL", "pg_isready -U seraph -d seraph_research"]
       interval: 5s
       timeout: 3s
       retries: 20
 
 volumes:
-  seraph_pgdata:
+  seraph_research_pgdata:

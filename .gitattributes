@@ -1,0 +1,2 @@
+# Preserve recorded artifact/code bytes across platforms; provenance uses SHA256.
+* -text whitespace=cr-at-eol

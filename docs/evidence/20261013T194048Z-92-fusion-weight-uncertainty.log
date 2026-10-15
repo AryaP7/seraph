@@ -1,0 +1,25 @@
+
+[unc] pillar 2 = lam1
+[unc] training period: 4,081 days 2005-01-03 .. 2021-12-14, 60 positives (4 events)
+[unc] point estimate: hawkes=0.150, rmt=0.100, hamilton=0.750  (train AUC 0.3771)
+[unc] 150 block-bootstrap replicates per block length
+
+ block L   hawkes 5%  hawkes 95%      rmt 5%     rmt 95% hamilton 5%hamilton 95%  mean width
+--------------------------------------------------------------------------------------------
+      21       0.000       1.000       0.000       0.900       0.000       1.000       0.967
+      63       0.000       1.000       0.000       0.900       0.000       0.850       0.917
+     252       0.000       1.000       0.000       1.000       0.000       1.000       1.000
+     770       0.000       1.000       0.000       1.000       0.000       0.950       0.983
+
+Each pair is the 90% block-bootstrap interval for that pillar's
+learned weight. The simplex constrains weights to [0,1] summing to
+1, so an interval spanning most of [0,1] means the weight is not an
+estimate of anything and two-decimal reporting would be false
+precision. L=770 is the measured integral timescale; shorter
+lengths understate dependence and so understate the width.
+
+[unc] at L=770, 21% of replicates put >0.95 of the
+[unc] weight on a SINGLE pillar - the grid search is choosing a
+[unc] corner of the simplex, i.e. discarding fusion entirely.
+
+[unc] wrote docs\evidence\fusion\weight_uncertainty_lam1.json

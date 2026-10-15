@@ -1,0 +1,15 @@
+ blk  train_n     llf_full    llf_restr          LR     ok    prior LR   secs
+--------------------------------------------------------------------------------------
+   6     3512     30313.87     30306.30      +15.13   True     -577.18    999
+       warning: PARTIAL_COVERAGE — crisis/tranquil RV separation is 2.50 sigma, below NFR17's 3-sigma target — regimes may be weakly id
+   8     4016     34694.24     34682.70      +23.09   True    -1276.02   1013
+       warning: PARTIAL_COVERAGE — crisis/tranquil RV separation is 2.17 sigma, below NFR17's 3-sigma target — regimes may be weakly id
+  10     4520     38518.59     39378.13    -1719.08  False    -1719.08   1162
+       warning: PARTIAL_COVERAGE — a non-converged start reached llf 39392.03, 873.44 above the selected converged fit (38518.59); the 
+  11     4772     40705.23     41866.68    -2322.90  False    -2322.90   1278
+       warning: PARTIAL_COVERAGE — a non-converged start reached llf 41883.88, 1178.65 above the selected converged fit (40705.23); the
+
+  2/4 of the previously-violating blocks now satisfy nesting.
+  implied total: 2/14 violations (was 6/14 pre-fix, 4/14 after the first warm start)
+
+[exited with code 0]

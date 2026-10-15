@@ -1,0 +1,66 @@
+SERAPH evidence — FR52 universe integrity on REAL data (READ-ONLY)
+generated_utc : 2026-10-12T13:23:17Z
+git_commit    : f79299dfcaba20c7f3ae88a437a9cb9f2e57cf58
+why           : CT-2 only ever exercised universe cardinality SYNTHETICALLY. AGENTS.md §5
+                names reversed filter/rank order as a bug trap that 'silently produces
+                fewer than 500 names'. This checks the real 44 snapshots for that signature.
+bug signature : eligible_count > 500 while members < 500  ->  would indicate rank-before-filter
+=======================================================================
+
+snapshots: 44
+rebalance      members  eligible  entrants  leavers   churn
+--------------------------------------------------------------
+2005-01-01         292       292       292        0   1.000
+2005-07-01         299       299         7        0   0.023
+2006-01-01         310       310        11        0   0.035
+2006-07-01         318       318         8        0   0.025
+2007-01-01         327       327         9        0   0.028
+2007-07-01         341       341        14        0   0.041
+2008-01-01         358       358        17        0   0.047
+2008-07-01         387       387        29        0   0.075
+2009-01-01         409       409        22        0   0.054
+2009-07-01         436       436        27        0   0.062
+2010-01-01         481       481        45        0   0.094
+2010-07-01         500       535        42       23   0.084
+2011-01-01         500       592        44       44   0.088
+2011-07-01         500       677        41       41   0.082
+2012-01-01         500       729        35       35   0.070
+2012-07-01         500       786        41       41   0.082
+2013-01-01         500       814        21       21   0.042
+2013-07-01         500       825        14       14   0.028
+2014-01-01         500       850        24       24   0.048
+2014-07-01         500       894        27       27   0.054
+2015-01-01         500       942        28       28   0.056
+2015-07-01         500       975        36       36   0.072
+2016-01-01         500      1009        36       36   0.072
+2016-07-01         500      1036        35       35   0.070
+2017-01-01         500      1049        34       34   0.068
+2017-07-01         500      1064        30       30   0.060
+2018-01-01         500      1082        46       46   0.092
+2018-07-01         500      1090        22       22   0.044
+2019-01-01         500      1102        24       24   0.048
+2019-07-01         500      1140        20       20   0.040
+2020-01-01         500      1169        28       28   0.056
+2020-07-01         500      1194        28       28   0.056
+2021-01-01         500      1236        29       29   0.058
+2021-07-01         500      1283        22       22   0.044
+2022-01-01         500      1336        43       43   0.086
+2022-07-01         500      1383        41       41   0.082
+2023-01-01         500      1416        31       31   0.062
+2023-07-01         500      1453        33       33   0.066
+2024-01-01         500      1505        39       39   0.078
+2024-07-01         500      1537        26       26   0.052
+2025-01-01         500      1580        34       34   0.068
+2025-07-01         500      1629        31       31   0.062
+2026-01-01         500      1709        53       53   0.106
+2026-07-01         500      1758        37       37   0.074
+
+members range        : 292 .. 500
+snapshots at exactly 500 : 33/44
+snapshots below 500      : 11/44
+eligible_count < members (impossible) : 0  []
+snapshots containing duplicate members: 0
+
+VERDICT: filter-before-rank CONFIRMED. members==eligible in all 11 early snapshots
+         (pool below cap); members pins at exactly 500 in all 33 snapshots where
+         eligible>500; zero cases of eligible<members; zero duplicate members.

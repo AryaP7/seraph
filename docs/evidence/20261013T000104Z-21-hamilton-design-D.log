@@ -1,0 +1,32 @@
+SERAPH evidence - C7 Design D: does an INFORMATIVE y_t rescue the Hamilton regime filter?
+generated_utc : 2026-10-13T00:01:04Z
+git_commit    : f3eaac8b25f3fe3c47f4734b6b841e5e93f41cd1
+command       : .venv/Scripts/python.exe scripts/test_hamilton_observation_d.py
+hypothesis    : Hamilton fails because 2 of its 3 observations carry no crisis
+                information (ar_t AUC 0.4453, bas_t 0.3799 - both below chance),
+                NOT because the optimiser is broken (AMENDMENT-05's focus) and NOT
+                because the features are too smooth (falsified by the control, which
+                has ac 0.965/0.930/0.957 and still separates at 5.80 sigma).
+pre-registered: if separation is the binding constraint, Design D escapes the 0/0/100
+                collapse with sep >> 1.12 and a finite half-life. If D ALSO collapses,
+                the NSE daily feature space lacks separable regimes and Hamilton must
+                be formally declared UNAVAILABLE with evidence, not repaired.
+unchanged     : HamiltonEngine.fit() called as-is; 3 states; no threshold tuned.
+===========================================================================
+
+[build] 5,362 days 2005-01-04 .. 2026-08-21
+
+                design    ac_1    ac_2    ac_3 |  tranq stress crisis |  sep_s |   tau_half |        BIC
+--------------------------------------------------------------------------------------------------------
+     CONTROL synthetic  0.9650  0.9295  0.9572 |  66.7%   0.0%  33.3% |   5.80 |      346.4 |     -13396
+   CURRENT (RV,AR,BAS)  0.9973  0.9983  0.9965 |   0.0%   0.0% 100.0% |   1.12 | 34657343.8 |     -72200
+   D1 accel+semivar+dd  0.9751  0.9789  0.9971 |   0.0%   0.0% 100.0% |   0.98 | 34657357.1 |     -55334
+    D2 semivar+jump+dd  0.9789  0.9703  0.9971 |   0.0% 100.0%   0.0% |   6.50 |        0.7 |     -28833
+      D3 rv+semivar+dd  0.9973  0.9789  0.9971 |   0.0%  55.0%  45.0% |   1.24 |       71.4 |     -62809
+
+  ac_* are the lag-1 autocorrelations of the three columns, in column order.
+  The CONTROL is the exoneration test: it shares the high autocorrelation of
+  CURRENT yet separates at 5.80 sigma, so a collapse below is attributable to
+  the features, not to HamiltonEngine.fit().
+
+exit_code: 0

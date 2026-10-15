@@ -1,0 +1,110 @@
+{
+  "schema_version": 1,
+  "verified_on": "2026-10-14",
+  "event_cutoff": "2026-08-21",
+  "publication_time_precision": "date_only",
+  "title_convention": "Short descriptive source labels, not verbatim article titles.",
+  "completeness": {
+    "verified_initial_or_new_declarations": 9,
+    "status": "Nine declarations individually verified against dated WHO primary pages; cross-checked against the WHO IHR committee index and targeted 2025/2026 declaration searches. No additional declaration before cutoff identified; this is not a certified immutable archive audit.",
+    "committee_index_url": "https://www.who.int/teams/ihr/ihr-emergency-committees",
+    "excluded_uniformly": "Continuation meetings, renewals, emergency terminations, national or continental declarations, and committee meetings that did not declare a WHO PHEIC."
+  },
+  "rule": {
+    "name": "hypothetical_generic_WHO_PHEIC_watch",
+    "watch_sessions": 20,
+    "activation": "first_observed_session_strictly_after_published_date",
+    "decision_time": "after_close",
+    "inclusive_start": true,
+    "overlaps": "union_of_watch_intervals",
+    "fitting": "none",
+    "interpretation": "Hindsight-informed scenario watch, not a market-crisis probability, not historically preregistered, and not evidence of three-pillar predictive skill.",
+    "evaluation_requirement": "Retain every event and every watch session, including false alarms and missing market coverage. Report external-only, pillars-only, and combined results separately."
+  },
+  "events": [
+    {
+      "event": "H1N1_2009",
+      "title": "WHO initial H1N1 emergency decision",
+      "published_date": "2009-04-25",
+      "publication_timestamp": null,
+      "source_url": "https://www.who.int/news/item/25-04-2009-first-meeting-of-the-ihr-emergency-committee",
+      "evidence_excerpt": "the Director-General has determined that the current events constitute a public health emergency of international concern",
+      "category": "WHO_PHEIC_NEW_DECLARATION"
+    },
+    {
+      "event": "POLIO_2014",
+      "title": "WHO polio international-spread emergency decision",
+      "published_date": "2014-05-05",
+      "publication_timestamp": null,
+      "source_url": "https://www.who.int/news/item/05-05-2014-who-statement-on-the-meeting-of-the-international-health-regulations-emergency-committee-concerning-the-international-spread-of-wild-poliovirus",
+      "evidence_excerpt": "on 5 May 2014 declared the international spread of wild poliovirus in 2014 a Public Health Emergency of International Concern (PHEIC).",
+      "category": "WHO_PHEIC_NEW_DECLARATION"
+    },
+    {
+      "event": "EBOLA_WEST_AFRICA_2014",
+      "title": "WHO West African Ebola emergency decision",
+      "published_date": "2014-08-08",
+      "publication_timestamp": null,
+      "source_url": "https://www.who.int/news/item/08-08-2014-statement-on-the-1st-meeting-of-the-ihr-emergency-committee-on-the-2014-ebola-outbreak-in-west-africa",
+      "evidence_excerpt": "on 8 August 2014 declared the Ebola outbreak in West Africa a Public Health Emergency of International Concern (PHEIC).",
+      "category": "WHO_PHEIC_NEW_DECLARATION"
+    },
+    {
+      "event": "ZIKA_NEUROLOGICAL_CLUSTERS_2016",
+      "title": "WHO neurological-cluster emergency associated with Zika",
+      "published_date": "2016-02-01",
+      "publication_timestamp": null,
+      "source_url": "https://www.who.int/news-room/detail/01-02-2016-who-director-general-summarizes-the-outcome-of-the-emergency-committee-regarding-clusters-of-microcephaly-and-guillain-barr%C3%A9-syndrome",
+      "evidence_excerpt": "constitutes a Public Health Emergency of International Concern.",
+      "category": "WHO_PHEIC_NEW_DECLARATION",
+      "source_context": "The declared event was the cluster of microcephaly and other neurological disorders, associated with Zika; not an assertion that every Zika infection is a PHEIC."
+    },
+    {
+      "event": "EBOLA_DRC_KIVU_ITURI_2019",
+      "title": "WHO eastern DRC Ebola emergency decision",
+      "published_date": "2019-07-17",
+      "publication_timestamp": null,
+      "source_url": "https://www.who.int/news-room/detail/17-07-2019-ebola-outbreak-in-the-democratic-republic-of-the-congo-declared-a-public-health-emergency-of-international-concern",
+      "evidence_excerpt": "outbreak in the Democratic Republic of the Congo (DRC) a Public Health Emergency of International Concern (PHEIC).",
+      "category": "WHO_PHEIC_NEW_DECLARATION"
+    },
+    {
+      "event": "NOVEL_CORONAVIRUS_2020",
+      "title": "WHO novel-coronavirus emergency decision",
+      "published_date": "2020-01-30",
+      "publication_timestamp": null,
+      "source_url": "https://www.who.int/news/item/30-01-2020-statement-on-the-second-meeting-of-the-international-health-regulations-(2005)-emergency-committee-regarding-the-outbreak-of-novel-coronavirus-(2019-ncov)",
+      "evidence_excerpt": "The Director-General declared that the outbreak of 2019-nCoV constitutes a PHEIC",
+      "category": "WHO_PHEIC_NEW_DECLARATION",
+      "source_context": "This is the January PHEIC decision, not the later March pandemic characterization. Meeting hours are reported, but an exact first-publication timestamp is not established here."
+    },
+    {
+      "event": "MPOX_MULTICOUNTRY_2022",
+      "title": "WHO first mpox emergency decision",
+      "published_date": "2022-07-23",
+      "publication_timestamp": null,
+      "source_url": "https://www.who.int/news-room/speeches/item/who-director-general-s-statement-on-the-press-conference-following-IHR-emergency-committee-regarding-the-multi--country-outbreak-of-monkeypox--23-july-2022",
+      "evidence_excerpt": "I have decided that the global monkeypox outbreak represents a public health emergency of international concern.",
+      "category": "WHO_PHEIC_NEW_DECLARATION"
+    },
+    {
+      "event": "MPOX_UPSURGE_2024",
+      "title": "WHO renewed mpox emergency decision",
+      "published_date": "2024-08-14",
+      "publication_timestamp": null,
+      "source_url": "https://www.who.int/news/item/14-08-2024-who-director-general-declares-mpox-outbreak-a-public-health-emergency-of-international-concern",
+      "evidence_excerpt": "This PHEIC determination is the second in two years relating to mpox.",
+      "category": "WHO_PHEIC_NEW_DECLARATION"
+    },
+    {
+      "event": "EBOLA_BUNDIBUGYO_DRC_UGANDA_2026",
+      "title": "WHO Bundibugyo Ebola emergency decision",
+      "published_date": "2026-05-17",
+      "publication_timestamp": null,
+      "source_url": "https://www.who.int/news/item/17-05-2026-epidemic-of-ebola-disease-in-the-democratic-republic-of-the-congo-and-uganda-determined-a-public-health-emergency-of-international-concern",
+      "evidence_excerpt": "constitutes a public health emergency of international concern (PHEIC), but does not meet the criteria of pandemic emergency",
+      "category": "WHO_PHEIC_NEW_DECLARATION",
+      "source_context": "The WHO page records a later correction to a reported Kinshasa case. Only the declaration and displayed date are used; case counts are not reconstructed from the revised page."
+    }
+  ]
+}

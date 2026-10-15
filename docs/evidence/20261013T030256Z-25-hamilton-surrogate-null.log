@@ -1,0 +1,64 @@
+real corpus: 5,365 days  2005-01-03 .. 2026-08-21
+k=3  reps=20 per family  surrogate restarts=1
+
+REAL   sep=2.0197  llf=46313.5  occ=43%/25%/32%  half=177d/134d/169d  conv=True  (153s)
+
+--- ar1 surrogates ---
+  rep  0: sep= 4.751  occ=   28%/36%/35%  minocc=0.28  ac1=[0.9952 0.9992 0.9963]  conv=T
+  rep  1: sep= 3.355  occ=   29%/32%/39%  minocc=0.29  ac1=[0.9965 0.9984 0.9953]  conv=T
+  rep  2: sep= 4.998  occ=   35%/39%/26%  minocc=0.26  ac1=[0.9974 0.9977 0.9967]  conv=T
+  rep  3: sep= 3.403  occ=   30%/31%/39%  minocc=0.30  ac1=[0.9973 0.9971 0.995 ]  conv=T
+  rep  4: sep= 4.345  occ=   29%/33%/38%  minocc=0.29  ac1=[0.9974 0.9974 0.9977]  conv=T
+  rep  5: sep= 3.875  occ=   17%/41%/42%  minocc=0.17  ac1=[0.9936 0.9978 0.9954]  conv=T
+  rep  6: sep= 3.690  occ=   31%/30%/39%  minocc=0.30  ac1=[0.9962 0.9966 0.9936]  conv=T
+  rep  7: sep= 3.361  occ=   26%/31%/44%  minocc=0.26  ac1=[0.9978 0.9982 0.9968]  conv=T
+  rep  8: sep= 3.461  occ=   37%/31%/32%  minocc=0.31  ac1=[0.9941 0.9985 0.9967]  conv=T
+  rep  9: sep= 4.940  occ=   28%/39%/33%  minocc=0.28  ac1=[0.9967 0.9976 0.9932]  conv=T
+  rep 10: sep= 6.028  occ=   31%/41%/28%  minocc=0.28  ac1=[0.9962 0.9984 0.9971]  conv=T
+  rep 11: sep= 1.865  occ=   33%/34%/33%  minocc=0.33  ac1=[0.9969 0.9982 0.9953]  conv=T
+  rep 12: sep= 3.560  occ=   29%/35%/37%  minocc=0.29  ac1=[0.9958 0.9977 0.9955]  conv=T
+  rep 13: sep= 6.470  occ=   35%/38%/26%  minocc=0.26  ac1=[0.9974 0.9968 0.9963]  conv=T
+  rep 14: sep= 2.844  occ=   36%/37%/27%  minocc=0.27  ac1=[0.9959 0.9968 0.9967]  conv=T
+  rep 15: sep= 5.129  occ=   25%/38%/37%  minocc=0.25  ac1=[0.9984 0.9974 0.9959]  conv=T
+  rep 16: sep= 2.714  occ=   32%/35%/33%  minocc=0.32  ac1=[0.9983 0.9978 0.9948]  conv=T
+  rep 17: sep= 6.682  occ=   21%/38%/41%  minocc=0.21  ac1=[0.997  0.9987 0.9963]  conv=T
+  rep 18: sep= 3.325  occ=   29%/30%/41%  minocc=0.29  ac1=[0.9958 0.9981 0.9968]  conv=T
+  rep 19: sep= 3.387  occ=   32%/31%/38%  minocc=0.31  ac1=[0.9936 0.9965 0.9959]  conv=T
+
+  ar1: n=20  null sep mean=4.109 sd=1.281  median=3.625  max=6.682  p95=6.481
+  real sep=2.020  #surrogate>=real = 19  empirical p = 0.9524
+  -> NOT DISTINGUISHABLE from a no-regime process at p<=0.05
+
+--- aaft surrogates ---
+  rep  0: sep= 2.480  occ=   43%/36%/21%  minocc=0.21  ac1=[0.9936 0.9956 0.9868]  conv=T
+  rep  1: sep= 2.167  occ=   29%/42%/29%  minocc=0.29  ac1=[0.9905 0.9949 0.9874]  conv=T
+  rep  2: sep= 2.353  occ=   44%/37%/19%  minocc=0.19  ac1=[0.9917 0.996  0.9897]  conv=T
+  rep  3: sep= 1.937  occ=   35%/41%/23%  minocc=0.23  ac1=[0.9922 0.9941 0.979 ]  conv=T
+  rep  4: sep= 2.060  occ=   28%/45%/27%  minocc=0.27  ac1=[0.9907 0.9959 0.9662]  conv=T
+  rep  5: sep= 1.944  occ=   33%/39%/28%  minocc=0.28  ac1=[0.9954 0.9962 0.9913]  conv=T
+  rep  6: sep= 1.938  occ=   43%/37%/20%  minocc=0.20  ac1=[0.9929 0.9957 0.9819]  conv=T
+  rep  7: sep= 1.914  occ=   34%/37%/29%  minocc=0.29  ac1=[0.9936 0.9947 0.9837]  conv=T
+  rep  8: sep= 2.222  occ=   44%/38%/18%  minocc=0.18  ac1=[0.9933 0.9961 0.9859]  conv=T
+  rep  9: sep= 2.069  occ=   25%/46%/29%  minocc=0.25  ac1=[0.9927 0.994  0.9815]  conv=T
+  rep 10: sep= 2.074  occ=   32%/37%/31%  minocc=0.31  ac1=[0.9925 0.9958 0.9892]  conv=T
+  rep 11: sep= 2.686  occ=   33%/41%/26%  minocc=0.26  ac1=[0.9944 0.9948 0.9842]  conv=T
+  rep 12: sep= 2.079  occ=   39%/43%/19%  minocc=0.19  ac1=[0.9937 0.9956 0.976 ]  conv=T
+  rep 13: sep= 2.202  occ=   20%/50%/31%  minocc=0.20  ac1=[0.9931 0.9961 0.9893]  conv=T
+  rep 14: sep= 2.276  occ=   35%/38%/27%  minocc=0.27  ac1=[0.994  0.9963 0.9902]  conv=T
+  rep 15: sep= 2.352  occ=   28%/45%/27%  minocc=0.27  ac1=[0.9932 0.996  0.9879]  conv=T
+  rep 16: sep= 2.141  occ=   38%/35%/27%  minocc=0.27  ac1=[0.9924 0.9963 0.984 ]  conv=T
+  rep 17: sep= 2.015  occ=   35%/43%/22%  minocc=0.22  ac1=[0.9924 0.9958 0.9898]  conv=T
+  rep 18: sep= 1.955  occ=   31%/40%/29%  minocc=0.29  ac1=[0.9922 0.9957 0.9862]  conv=T
+  rep 19: sep= 2.071  occ=   41%/34%/25%  minocc=0.25  ac1=[0.992  0.9955 0.9855]  conv=T
+
+  aaft: n=20  null sep mean=2.147 sd=0.202  median=2.077  max=2.686  p95=2.490
+  real sep=2.020  #surrogate>=real = 14  empirical p = 0.7143
+  -> NOT DISTINGUISHABLE from a no-regime process at p<=0.05
+
+=== PRE-REGISTERED DECISION ===
+  p-values: ar1=0.9524  aaft=0.7143
+  distinguishable under BOTH families at p<=0.05: False
+  NFR17 (sep >= 3.0 sigma): False  (sep = 2.020)
+  VERDICT: NOT DISTINGUISHABLE from a no-regime process — Hamilton output stays unavailable
+
+  wrote docs/evidence/20261013T030256Z-25-hamilton-surrogate-null.json

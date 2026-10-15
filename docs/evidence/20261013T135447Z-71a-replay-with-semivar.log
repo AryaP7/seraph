@@ -1,0 +1,42 @@
+[replay] grid        : 5,363 daily ticks 2005-01-03 .. 2026-08-21
+[replay] P1 hawkes   : 473 refits 2017-02-09 .. 2026-08-20 (refit_every=5 sessions)
+[replay] P2 rmt      : 5,363 daily rows, quantity = lambda1/N (shipped)
+[replay] P3 hamilton : 3,365 CAUSAL rows 2013-01-14 .. 2026-08-21  [EXPLORATORY]
+[replay] rule A      : CSRS >= 0.5 (C9 frozen constant)
+[replay] rule B      : > trailing-5y 95% quantile, min 250 obs, index i excluded from its own threshold
+[replay] PILLAR_ORDER= ['hawkes', 'rmt', 'hamilton']
+[replay]   subset hawkes                 468 pts  4895 failures  mean=0.3103
+[replay]   subset rmt                    5,363 pts  0 failures  mean=0.5771
+[replay]   subset hamilton               3,365 pts  1998 failures  mean=0.5689
+[replay]   subset hawkes+rmt             5,363 pts  0 failures  mean=0.5623
+[replay]   subset hawkes+hamilton        3,365 pts  1998 failures  mean=0.5558
+[replay]   subset rmt+hamilton           5,363 pts  0 failures  mean=0.5973
+[replay]   subset hawkes+rmt+hamilton    5,363 pts  0 failures  mean=0.5897
+[replay]   baseline BASE[rv_20]          5,358 finite pts
+[replay]   baseline BASE[drawdown]       5,363 finite pts
+[replay]   baseline BASE[semivar_20]     5,358 finite pts
+[replay]   baseline BASE[rv_accel_5]     5,353 finite pts
+[replay]   baseline BASE[dd_accel_5]     5,358 finite pts
+
+[replay] wrote docs\evidence\replay\replay_results.json
+
+=== Rule B, horizon 15d (FR32 upper lead bound) ===
+signal                     gfc_2008  taper_201  ilfs_2018  covid_202  tightenin  tariff_20   FA/yr   prec
+---------------------------------------------------------------------------------------------------------
+CSRS[hawkes]                 UNTEST     UNTEST     UNTEST     UNTEST     UNTEST     UNTEST    0.00      -
+CSRS[rmt]                      FAIL       FAIL       FAIL       FAIL       FAIL       FAIL    2.78   0.06
+CSRS[hamilton]               UNTEST     UNTEST       FAIL       FAIL       FAIL   PASS 12d    2.06   0.15
+CSRS[hawkes+rmt]               FAIL       FAIL       FAIL       FAIL       FAIL       FAIL    5.10   0.10
+CSRS[hawkes+hamilton]        UNTEST     UNTEST       FAIL       FAIL       FAIL   PASS 12d    2.43   0.31
+CSRS[rmt+hamilton]             FAIL       FAIL       FAIL       FAIL       FAIL       FAIL    2.41   0.07
+CSRS[hawkes+rmt+hamilton]       FAIL       FAIL       FAIL       FAIL       FAIL       FAIL    3.66   0.11
+BASE[rv_20]                    FAIL       FAIL       FAIL       FAIL       FAIL    PASS 8d    1.02   0.21
+BASE[drawdown]                 FAIL       FAIL       FAIL       FAIL       FAIL       FAIL    0.60   0.13
+BASE[semivar_20]               FAIL       FAIL       FAIL       FAIL       FAIL       FAIL    0.65   0.22
+BASE[rv_accel_5]               FAIL       FAIL       FAIL       FAIL    PASS 2d       FAIL    3.34   0.16
+BASE[dd_accel_5]               FAIL       FAIL       FAIL       FAIL   PASS 12d    PASS 5d    3.85   0.11
+
+PASS = a rising edge inside [onset-15, onset-1]. FAIL = no pre-onset
+edge. UNTEST = insufficient causal coverage before the onset.
+FR32's lead window is 5-15 days; `within_fr32_lead_window` in the
+JSON records whether the lead also clears the 5-day lower bound.

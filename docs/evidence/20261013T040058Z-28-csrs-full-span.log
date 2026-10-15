@@ -1,0 +1,50 @@
+[csrs] pillar 2 (E7): 5,363 daily rows 2005-01-03 .. 2026-08-21
+[csrs] pillar 1 (E6): 473 refits 2017-02-09 .. 2026-08-20
+[csrs] pillar 3     : EXCLUDED as a STRUCTURAL absence (causal run unidentified - see docs/evidence/20261012T134047Z-hamilton-causal-REAL/REPORT.md)
+[csrs] decision grid: 5,363 daily ticks 2005-01-03 .. 2026-08-21
+[csrs] weights      : equal-weight RESEARCH BASELINE, artefact 349a6874e8bc6884... (epochs=() -> trained on nothing)
+[csrs] xi_mode      : uniform (1/3,1/3,1/3) - Hamilton xi not used
+[csrs] thresholds   : amber=0.5 red=0.75 (C9 provisional, FR30 not run)
+
+[csrs] 5,363 CSRS points, 0 failures in 2.9s
+[csrs] warning MASK_DEGRADED: 5363
+[csrs] warning PARTIAL_COVERAGE: 2609
+[csrs] warning NOISE_SATURATED: 1890
+
+[csrs] CSRS  : mean=0.5623 sd=0.3455 range=[0.0008, 1.0000]
+[csrs] var    : mean=0.010224 max=0.065376
+[csrs] masks  : {'(False, True, False)', '(True, True, False)'}  (PILLAR_ORDER=['hawkes', 'rmt', 'hamilton'])
+[csrs] alerts : {'amber': 999, 'red': 2173, 'green': 2191}  (PROVISIONAL thresholds, not calibrated)
+[csrs] shapley mean by pillar: {'hawkes': np.float64(0.0061), 'rmt': np.float64(0.5562), 'hamilton': np.float64(0.0)}
+[csrs] effective weights seen: ['((0.0, 1.0, 0.0), (0.0, 1.0, 0.0), (0.0, 1.0, 0.0))', '((0.5, 0.5, 0.0), (0.5, 0.5, 0.0), (0.5, 0.5, 0.0))']
+
+[csrs] dumped 5,363 points to docs\evidence\20261013T040058Z-28-csrs-fullspan-2pillar.csv (NOT persisted to E10)
+
+[csrs] DRY RUN - nothing written. Re-run with --write.
+=== STRESS SLOT ===
+[csrs] pillar 2 (E7): 5,363 daily rows 2005-01-03 .. 2026-08-21
+[csrs] pillar 1 (E6): 473 refits 2017-02-09 .. 2026-08-20
+[csrs] pillar 3     : EXCLUDED as a STRUCTURAL absence (causal run unidentified - see docs/evidence/20261012T134047Z-hamilton-causal-REAL/REPORT.md)
+[csrs] decision grid: 5,363 daily ticks 2005-01-03 .. 2026-08-21
+[csrs] pillar 3 slot : downside semivariance (20d, causal) over 5,358 days 2005-01-10 .. 2026-08-21
+[csrs]   PROVENANCE  : slot 3 is NAMED 'hamilton' in PILLAR_ORDER. mask[2]=True here means STRESS, not Hamilton.
+[csrs]   NOT an early-warning signal: T3 AUC 0.4928 (chance), led 0/6 epochs
+[csrs] weights      : equal-weight RESEARCH BASELINE, artefact 36b6f9bb7977e544... (epochs=() -> trained on nothing)
+[csrs] xi_mode      : uniform (1/3,1/3,1/3) - Hamilton xi not used
+[csrs] thresholds   : amber=0.5 red=0.75 (C9 provisional, FR30 not run)
+
+[csrs] 5,363 CSRS points, 0 failures in 4.7s
+[csrs] warning MASK_DEGRADED: 4895
+[csrs] warning PARTIAL_COVERAGE: 2860
+[csrs] warning NOISE_SATURATED: 1890
+
+[csrs] CSRS  : mean=0.5260 sd=0.2333 range=[0.0013, 1.0000]
+[csrs] var    : mean=0.004952 max=0.049772
+[csrs] masks  : {'(True, True, True)', '(False, True, True)'}  (PILLAR_ORDER=['hawkes', 'rmt', 'hamilton'])
+[csrs] alerts : {'amber': 1620, 'red': 1121, 'green': 2622}  (PROVISIONAL thresholds, not calibrated)
+[csrs] shapley mean by pillar: {'hawkes': np.float64(0.0026), 'rmt': np.float64(0.3035), 'hamilton': np.float64(0.2199)}
+[csrs] effective weights seen: ['((0.0, 0.5, 0.5), (0.0, 0.5, 0.5), (0.0, 0.5, 0.5))', '((0.3333333333333333, 0.3333333333333333, 0.3333333333333333), (0.3333333333333333, 0.3333333333333333, 0.3333333333333333), (0.3333333333333333, 0.3333333333333333, 0.3333333333333333))']
+
+[csrs] dumped 5,363 points to docs\evidence\20261013T040058Z-28-csrs-fullspan-3pillar.csv (NOT persisted to E10)
+
+[csrs] DRY RUN - nothing written. Re-run with --write.

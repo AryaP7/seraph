@@ -1,0 +1,279 @@
+{
+  "generated_utc": "2026-10-13T21:24:19Z",
+  "status": "EXPLORATORY screen. Produces a priority order for a FRESH pre-registration; establishes nothing on its own.",
+  "perms": 2000,
+  "resolution_floor": 0.0005,
+  "n_comparisons": 19,
+  "holm_tightest": 0.002632,
+  "holm": {
+    "M frac_down": {
+      "p": 0.06297,
+      "holm_threshold": 0.002632,
+      "survives": false
+    },
+    "B dd_accel_5": {
+      "p": 0.06497,
+      "holm_threshold": 0.002778,
+      "survives": false
+    },
+    "B drawdown": {
+      "p": 0.08196,
+      "holm_threshold": 0.002941,
+      "survives": false
+    },
+    "P2 rmt Omega_t": {
+      "p": 0.09795,
+      "holm_threshold": 0.003125,
+      "survives": false
+    },
+    "V vix_accel_5": {
+      "p": 0.11894,
+      "holm_threshold": 0.003333,
+      "survives": false
+    },
+    "P3 hamilton LSD": {
+      "p": 0.15192,
+      "holm_threshold": 0.003571,
+      "survives": false
+    },
+    "M frac_down_3pct": {
+      "p": 0.16592,
+      "holm_threshold": 0.003846,
+      "survives": false
+    },
+    "V vix_ratio_60": {
+      "p": 0.28336,
+      "holm_threshold": 0.004167,
+      "survives": false
+    },
+    "P2 rmt V_eig": {
+      "p": 0.30985,
+      "holm_threshold": 0.004545,
+      "survives": false
+    },
+    "P2 rmt SCA_t": {
+      "p": 0.33483,
+      "holm_threshold": 0.005,
+      "survives": false
+    },
+    "B rv_accel_5": {
+      "p": 0.37331,
+      "holm_threshold": 0.005556,
+      "survives": false
+    },
+    "M turnover_ratio_60": {
+      "p": 0.47876,
+      "holm_threshold": 0.00625,
+      "survives": false
+    },
+    "B semivar_20": {
+      "p": 0.52524,
+      "holm_threshold": 0.007143,
+      "survives": false
+    },
+    "B rv_20": {
+      "p": 0.52924,
+      "holm_threshold": 0.008333,
+      "survives": false
+    },
+    "M dispersion": {
+      "p": 0.65917,
+      "holm_threshold": 0.01,
+      "survives": false
+    },
+    "P2 rmt lambda1/N": {
+      "p": 0.78411,
+      "holm_threshold": 0.0125,
+      "survives": false
+    },
+    "V india_vix": {
+      "p": 0.85357,
+      "holm_threshold": 0.016667,
+      "survives": false
+    },
+    "P2 rmt F_t": {
+      "p": 0.90605,
+      "holm_threshold": 0.025,
+      "survives": false
+    },
+    "P1 hawkes n/(1-n)": {
+      "p": 0.94703,
+      "holm_threshold": 0.05,
+      "survives": false
+    }
+  },
+  "holm_survivors": [],
+  "features": {
+    "P1 hawkes n/(1-n)": {
+      "finite": 2358,
+      "gaps_filled": 3005,
+      "t3_auc": 0.3805,
+      "p_shift": 0.94703,
+      "p_aaft": 0.93453,
+      "null_p95": 0.6146,
+      "p_worst": 0.94703
+    },
+    "P2 rmt lambda1/N": {
+      "finite": 5363,
+      "gaps_filled": 0,
+      "t3_auc": 0.434,
+      "p_shift": 0.77461,
+      "p_aaft": 0.78411,
+      "null_p95": 0.6366,
+      "p_worst": 0.78411
+    },
+    "P2 rmt SCA_t": {
+      "finite": 5363,
+      "gaps_filled": 0,
+      "t3_auc": 0.5324,
+      "p_shift": 0.33483,
+      "p_aaft": 0.31334,
+      "null_p95": 0.612,
+      "p_worst": 0.33483
+    },
+    "P2 rmt F_t": {
+      "finite": 5363,
+      "gaps_filled": 0,
+      "t3_auc": 0.3791,
+      "p_shift": 0.89755,
+      "p_aaft": 0.90605,
+      "null_p95": 0.6399,
+      "p_worst": 0.90605
+    },
+    "P2 rmt V_eig": {
+      "finite": 5363,
+      "gaps_filled": 0,
+      "t3_auc": 0.5205,
+      "p_shift": 0.30985,
+      "p_aaft": 0.30085,
+      "null_p95": 0.5637,
+      "p_worst": 0.30985
+    },
+    "P2 rmt Omega_t": {
+      "finite": 5363,
+      "gaps_filled": 0,
+      "t3_auc": 0.5934,
+      "p_shift": 0.09795,
+      "p_aaft": 0.09795,
+      "null_p95": 0.6171,
+      "p_worst": 0.09795
+    },
+    "P3 hamilton LSD": {
+      "finite": 3365,
+      "gaps_filled": 1998,
+      "t3_auc": 0.5978,
+      "p_shift": 0.11994,
+      "p_aaft": 0.15192,
+      "null_p95": 0.6463,
+      "p_worst": 0.15192
+    },
+    "B rv_20": {
+      "finite": 5358,
+      "gaps_filled": 5,
+      "t3_auc": 0.4946,
+      "p_shift": 0.49875,
+      "p_aaft": 0.52924,
+      "null_p95": 0.6819,
+      "p_worst": 0.52924
+    },
+    "B drawdown": {
+      "finite": 5363,
+      "gaps_filled": 0,
+      "t3_auc": 0.6322,
+      "p_shift": 0.08196,
+      "p_aaft": 0.06847,
+      "null_p95": 0.6569,
+      "p_worst": 0.08196
+    },
+    "B semivar_20": {
+      "finite": 5358,
+      "gaps_filled": 5,
+      "t3_auc": 0.4924,
+      "p_shift": 0.51924,
+      "p_aaft": 0.52524,
+      "null_p95": 0.6841,
+      "p_worst": 0.52524
+    },
+    "B rv_accel_5": {
+      "finite": 5353,
+      "gaps_filled": 10,
+      "t3_auc": 0.5281,
+      "p_shift": 0.33733,
+      "p_aaft": 0.37331,
+      "null_p95": 0.6269,
+      "p_worst": 0.37331
+    },
+    "B dd_accel_5": {
+      "finite": 5358,
+      "gaps_filled": 5,
+      "t3_auc": 0.6005,
+      "p_shift": 0.06497,
+      "p_aaft": 0.06347,
+      "null_p95": 0.609,
+      "p_worst": 0.06497
+    },
+    "V india_vix": {
+      "finite": 3034,
+      "gaps_filled": 2329,
+      "t3_auc": 0.4057,
+      "p_shift": 0.83858,
+      "p_aaft": 0.85357,
+      "null_p95": 0.6362,
+      "p_worst": 0.85357
+    },
+    "V vix_accel_5": {
+      "finite": 3029,
+      "gaps_filled": 2334,
+      "t3_auc": 0.5847,
+      "p_shift": 0.07846,
+      "p_aaft": 0.11894,
+      "null_p95": 0.6057,
+      "p_worst": 0.11894
+    },
+    "V vix_ratio_60": {
+      "finite": 3004,
+      "gaps_filled": 2359,
+      "t3_auc": 0.5609,
+      "p_shift": 0.27286,
+      "p_aaft": 0.28336,
+      "null_p95": 0.6683,
+      "p_worst": 0.28336
+    },
+    "M dispersion": {
+      "finite": 5362,
+      "gaps_filled": 1,
+      "t3_auc": 0.4687,
+      "p_shift": 0.65917,
+      "p_aaft": 0.65767,
+      "null_p95": 0.6203,
+      "p_worst": 0.65917
+    },
+    "M frac_down": {
+      "finite": 5362,
+      "gaps_filled": 1,
+      "t3_auc": 0.556,
+      "p_shift": 0.06097,
+      "p_aaft": 0.06297,
+      "null_p95": 0.5594,
+      "p_worst": 0.06297
+    },
+    "M frac_down_3pct": {
+      "finite": 5362,
+      "gaps_filled": 1,
+      "t3_auc": 0.5516,
+      "p_shift": 0.16142,
+      "p_aaft": 0.16592,
+      "null_p95": 0.5888,
+      "p_worst": 0.16592
+    },
+    "M turnover_ratio_60": {
+      "finite": 5303,
+      "gaps_filled": 60,
+      "t3_auc": 0.5024,
+      "p_shift": 0.47826,
+      "p_aaft": 0.47876,
+      "null_p95": 0.6386,
+      "p_worst": 0.47876
+    }
+  }
+}

@@ -1,0 +1,30 @@
+
+[fin] pre-registered financial list: 54 names
+[fin] coverage floor: >=20 financial, >=100 other
+[fin] days retained: 4,123 of 5,362  2010-01-05 .. 2026-08-21
+[fin] financial names per day: min 20 median 34 max 52
+[fin] epochs covered: 5/6 -> ['taper_2013', 'ilfs_2018', 'covid_2020', 'tightening_2022', 'tariff_2026']
+
+=== timing classification (local +-1y baseline) ===
+feature               BEFORE15   DURING   AFTER    class  epochs+
+-----------------------------------------------------------------
+fin_rv_20               -0.264   +1.409  +2.300    AFTER      1/5
+nonfin_rv_20            +0.209   +1.653  +1.771    AFTER      3/5
+fin_minus_nonfin        -1.027   +0.102  +1.191    AFTER      3/5
+fin_ratio_60            +0.232   +2.077  +1.612   DURING      3/5
+fin_dispersion          +0.152   +0.781  +0.230   DURING      3/5
+
+=== T3 AUC, two calibrated nulls, 2000 perms ===
+feature                T3 AUC  p_shift   p_aaft  null p95     verdict
+---------------------------------------------------------------------
+fin_rv_20              0.4673   0.5967   0.5887    0.7031  below null
+nonfin_rv_20           0.5287   0.4083   0.3988    0.7030  below null
+fin_minus_nonfin       0.5109   0.4398   0.4578    0.6856  below null
+fin_ratio_60           0.5705   0.2974   0.2954    0.7150  below null
+fin_dispersion         0.5622   0.1794   0.1849    0.6122  below null
+
+[fin] Holm over 5 features -> tightest threshold 0.01000
+[fin] resolution floor 0.00050
+[fin] features meeting ALL THREE pre-registered criteria: NONE
+
+[fin] wrote docs\evidence\signals\financial_sector_screen.json

@@ -6,7 +6,8 @@ from pathlib import Path
 
 import asyncpg
 
-DEFAULT_DSN = "postgresql://seraph:seraph@localhost:5433/seraph"
+# Isolated experiment: never default writers/tests to the original database.
+DEFAULT_DSN = "postgresql://seraph:seraph@localhost:5434/seraph_research"
 _SCHEMA_PATH = Path(__file__).with_name("schema.sql")
 
 
