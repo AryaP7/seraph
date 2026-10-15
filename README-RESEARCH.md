@@ -1,7 +1,9 @@
 # SERAPH Research — start here
 
-This is the separately authorized working copy. **Hawkes, RMT and Hamilton are
-retained.** The original project in Downloads was not edited. The new pipeline
+This began as a separately authorized working copy. **Hawkes, RMT and Hamilton
+are retained.** On 2026-10-15, the owner promoted Astra to GitHub main and updated
+the Downloads `SERAPH VARYA/SERAPH Varya` directory as the primary workspace.
+The previous code remains available at the `pre-astra-codebase` tag. The pipeline
 runs offline from the copied research snapshot and has a local dashboard.
 
 ## What the evidence says
