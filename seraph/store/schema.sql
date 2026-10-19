@@ -191,19 +191,42 @@ CREATE TABLE IF NOT EXISTS regulatory_action_log (
 );
 
 -- ---------------------------------------------------------------- E13
+-- Table C is DR-05 step 3: the six-epoch RMT/Hamilton run, which the
+-- committed design emits by default. The metric columns are nullable
+-- because an ablation cell legitimately has no measurement (a single-class
+-- fold, a subset whose pillar the epoch lacks, a calibration that did not
+-- converge) and NOT NULL would force a number to be invented for it.
+-- Migration 002 brings an existing database to this shape; the CHECK below
+-- keeps each state whole so "measured" always means a number is present.
 CREATE TABLE IF NOT EXISTS validation_results (
     pillar_subset          text             NOT NULL,           -- e.g. 'hawkes+rmt+hamilton'
     reconciliation_mode    text             NOT NULL CHECK (reconciliation_mode IN ('kalman', 'forward_fill')),
     xi_mode                text             NOT NULL DEFAULT 'hamilton' CHECK (xi_mode IN ('hamilton', 'uniform')),
     epoch                  text             NOT NULL,
-    table_id               text             NOT NULL CHECK (table_id IN ('A', 'B')),
-    auc                    double precision NOT NULL,
-    mean_lead_time_days    double precision NOT NULL,
-    precision_at_recall    double precision NOT NULL,
-    weights_artefact_id    text             NOT NULL,
-    leakage_check          text             NOT NULL CHECK (leakage_check IN ('clean', 'TRAIN_TEST_OVERLAP')),
+    table_id               text             NOT NULL CHECK (table_id IN ('A', 'B', 'C')),
+    availability           text             NOT NULL DEFAULT 'measured'
+                                            CHECK (availability IN ('measured', 'unavailable')),
+    unavailable_reason     text,
+    unavailable_detail     text,
+    auc                    double precision,
+    mean_lead_time_days    double precision,
+    precision_at_recall    double precision,
+    declared_folds         integer,
+    train_epochs           text[],
+    calibration_max_iter   integer,
+    weights_artefact_id    text,
+    leakage_check          text             CHECK (leakage_check IN ('clean', 'TRAIN_TEST_OVERLAP')),
     pre_registration_hash  text             NOT NULL,           -- D5(d)
-    PRIMARY KEY (pillar_subset, reconciliation_mode, xi_mode, epoch)
+    PRIMARY KEY (pillar_subset, reconciliation_mode, xi_mode, epoch),
+    CONSTRAINT validation_results_availability_is_whole CHECK (
+        (availability = 'measured'
+         AND auc IS NOT NULL
+         AND unavailable_reason IS NULL)
+        OR
+        (availability = 'unavailable'
+         AND auc IS NULL
+         AND unavailable_reason IS NOT NULL)
+    )
 );
 
 -- ---------------------------------------------------------------- E14

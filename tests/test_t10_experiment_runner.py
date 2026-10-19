@@ -162,13 +162,16 @@ class TestTheDesignNeverAsksForAbsentCoverage:
         runner must refuse it with a reason rather than score it on the two
         pillars that do exist, which would silently relabel the subset."""
         path, digest = design
-        row = experiment._fold(
+        row, fitted = experiment._fold(
             cfg=dict(table="A", pillarSubset=["hawkes", "rmt"],
                      reconciliationMode="kalman",
                      epochs=["gfc_2008", "taper_2013"], folds=2),
             epoch="gfc_2008", xi_mode="hamilton", dataset=dataset,
             digest=digest, amber_threshold=0.5, kappa_miss=10.0, kappa_fa=1.0,
             max_iterations=BUDGET, target_recall=0.8)
+        assert fitted is None, (
+            "an unavailable fold must not yield a weight artefact: there "
+            "was nothing to fit")
         assert row.availability == "unavailable"
         assert row.unavailable_reason == "structural_pillar_absence"
         assert "hawkes" in row.detail
@@ -406,12 +409,25 @@ class TestTableCCannotBePublishedYet:
         assert converted and all(c is not None for c in converted)
         assert all(isinstance(c, EvaluationRow) for c in converted)
 
-    def test_the_schema_check_also_excludes_c(self):
-        """Recorded next to the contract gap because they have to move
-        together: widening one without the other turns a construction error
-        into an insert error."""
+    def test_the_archive_can_hold_what_the_contract_cannot_publish(self):
+        """The two halves of the DR-05 gap, which are now in different states
+        on purpose.
+
+        FR38 requires every ablation result to be archived, so `table_id` was
+        widened to ('A','B','C') in schema.sql and migration 002 — otherwise a
+        run computes Table C and then cannot store it. Publishing one is a
+        separate claim: `EvaluationRow` still declares `Literal["A","B"]`, and
+        widening it edits `shared_types`, which every component imports and
+        which CLAUDE.md gates on the owner. So the archive accepts a Table C
+        row, the published contract does not, and the runner counts the
+        difference rather than dropping it.
+        """
         schema = Path("seraph/store/schema.sql").read_text(encoding="utf-8")
-        assert "table_id               text             NOT NULL CHECK (table_id IN ('A', 'B'))" in schema
+        assert "CHECK (table_id IN ('A', 'B', 'C'))" in schema
+
+        contract = Path("seraph/shared_types/validation.py").read_text(
+            encoding="utf-8")
+        assert 'table: Literal["A", "B"]' in contract
 
 
 class TestTheReportSaysWhatItIs:

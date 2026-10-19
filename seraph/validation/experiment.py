@@ -209,30 +209,40 @@ def _fold(
     kappa_fa: float,
     max_iterations: int,
     target_recall: float,
-) -> ExperimentRow:
-    """Leave-one-epoch-out: train on the configuration's other epochs."""
+) -> tuple[ExperimentRow, FusionWeights | None]:
+    """Leave-one-epoch-out: train on the configuration's other epochs.
+
+    Returns the fitted artefact alongside the row. FR37's transfer test needs
+    the exact artefact, not a fresh fit of the same shape — O9's acceptance is
+    "weight vectors bit-identical between NSE and second-market runs", which
+    is only checkable if the second run can reuse the first one's object.
+    """
     subset = tuple(cfg["pillarSubset"])
     mode: ReconciliationMode = cfg["reconciliationMode"]
     epochs = tuple(cfg["epochs"])
-    miss = _unavailable  # local alias keeps the guard clauses below readable
+    def miss(reason: UnavailableReason, detail: str):
+        """No artefact: there was nothing to fit, or the fit failed."""
+        return _unavailable(cfg, epoch, xi_mode, digest, reason,
+                            detail), None
+
 
     held = dataset.get(epoch)
     if held is None:
-        return miss(cfg, epoch, xi_mode, digest, "insufficient_test_sample",
+        return miss("insufficient_test_sample",
                     f"the dataset has no epoch {epoch!r}")
 
     absent = sorted(set(subset) - set(held.pillar_coverage))
     if absent:
-        return miss(cfg, epoch, xi_mode, digest, "structural_pillar_absence",
+        return miss("structural_pillar_absence",
                     f"{epoch} has no coverage for {', '.join(absent)}")
 
     if mode not in held.observations:
-        return miss(cfg, epoch, xi_mode, digest, "reconciliation_mode_absent",
+        return miss("reconciliation_mode_absent",
                     f"{epoch} has no {mode} states; FR36 needs both modes")
 
     test = held.observations[mode]
     if not test:
-        return miss(cfg, epoch, xi_mode, digest, "insufficient_test_sample",
+        return miss("insufficient_test_sample",
                     f"{epoch} has no {mode} observations")
 
     train_epochs: list[EpochId] = []
@@ -252,7 +262,7 @@ def _fold(
             train.extend(block.observations[mode])
 
     if not train:
-        return miss(cfg, epoch, xi_mode, digest, "insufficient_training_sample",
+        return miss("insufficient_training_sample",
                     f"no usable {mode} training data outside {epoch}")
 
     # Calibrate under the SAME restriction the test fold is scored under.
@@ -264,13 +274,13 @@ def _fold(
         kappa_miss=kappa_miss, kappa_fa=kappa_fa,
         mask_profile=subset_mask(subset), max_iterations=max_iterations)
     if fitted.status == "error":
-        return miss(cfg, epoch, xi_mode, digest, "calibration_failed",
+        return miss("calibration_failed",
                     f"calibration returned {fitted.error.kind}")
     weights: FusionWeights = fitted.value
 
     leak = leakage_check(weights, [epoch])
     if leak != "clean":
-        return miss(cfg, epoch, xi_mode, digest, "train_test_overlap",
+        return miss("train_test_overlap",
                     f"{epoch} appears in the artefact's own training epochs")
 
     scores = []
@@ -278,7 +288,7 @@ def _fold(
         scored = score_subset(reconciled=obs.state, xi=obs.xi, weights=weights,
                               subset=subset, xi_mode=xi_mode)
         if scored.status == "error":
-            return miss(cfg, epoch, xi_mode, digest, "scoring_failed",
+            return miss("scoring_failed",
                         f"score returned {scored.error.kind} at {obs.state.ts}")
         scores.append(scored.value.csrs)
 
@@ -286,7 +296,7 @@ def _fold(
     measured = auc(scores, labels)
     if not np.isfinite(measured):
         pos = sum(1 for v in labels if v == 1)
-        return miss(cfg, epoch, xi_mode, digest, "single_class_fold",
+        return miss("single_class_fold",
                     f"{pos} positive of {len(labels)}; AUC is undefined")
 
     # A NaN lead time stays a NaN MEASUREMENT rather than becoming an
@@ -303,7 +313,7 @@ def _fold(
         precision_at_fixed_recall=float(precision_at_recall(scores, labels,
                                                            target_recall)),
         weights_artefact_id=weights.artefact_id, leakage_check=leak,
-        train_epochs=tuple(train_epochs))
+        train_epochs=tuple(train_epochs)), weights
 
 
 # --- the run -------------------------------------------------------------
@@ -344,6 +354,10 @@ class ExperimentReport(FrozenModel):
     #: on the report because a plumbing run and a full evaluation differ in
     #: exactly this number, and a reader holding only the rows cannot tell.
     calibration_max_iter: int
+    #: The fitted artefacts, by id. FR37 transfers these exact objects;
+    #: O9 asks for weight vectors bit-identical between the NSE run and
+    #: the second market, which a re-fit of the same shape would not be.
+    weight_artefacts: dict[str, FusionWeights] = {}
     note: str = ""
 
     def by_table(self) -> dict[str, tuple[ExperimentRow, ...]]:
@@ -460,17 +474,21 @@ def run(
     max_iterations = int(design.get("calibrationMaxIter", 1200))
 
     rows: list[ExperimentRow] = []
+    artefacts: dict[str, FusionWeights] = {}
     for cfg in configs:
         if cfg["table"] not in tables:
             continue
         for xi_mode in cfg.get("xiModes", ["hamilton"]):
             for epoch in cfg["epochs"]:
-                rows.append(_fold(
+                row, fitted = _fold(
                     cfg=cfg, epoch=epoch, xi_mode=xi_mode, dataset=dataset,
                     digest=digest, amber_threshold=float(amber),
                     kappa_miss=kappa_miss, kappa_fa=kappa_fa,
                     max_iterations=max_iterations,
-                    target_recall=target_recall))
+                    target_recall=target_recall)
+                rows.append(row)
+                if fitted is not None:
+                    artefacts[fitted.artefact_id] = fitted
 
     unpublishable = sum(1 for r in rows if r.as_evaluation_row() is None)
     return ok(ExperimentReport(
@@ -480,6 +498,7 @@ def run(
         comparability=design.get("tableComparability", ""),
         unpublishable_rows=unpublishable,
         calibration_max_iter=max_iterations,
+        weight_artefacts=artefacts,
         note=("rows the declared EvaluationRow contract cannot carry are "
               "counted, not dropped: Table C has no place in its table "
               "Literal, and an unavailable cell has no fields there")))
