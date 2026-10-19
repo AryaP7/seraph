@@ -53,6 +53,17 @@ class LockUnavailable(RuntimeError):
     """Another live holder has this job's lock."""
 
 
+class LeaseLost(RuntimeError):
+    """This writer no longer holds the lease it is trying to write under.
+
+    R10. Distinct from `LockUnavailable`, which means "you cannot start".
+    This means "you started, your lease was taken over while you worked, and
+    the write you are attempting would stamp over your successor's state".
+    The two need different handling: the first is a reason to wait, the
+    second is a reason to stop and re-acquire.
+    """
+
+
 def pid_alive(pid: int) -> bool | None:
     """Is this local process id running?
 
@@ -116,10 +127,24 @@ class JobStore:
         self.path.parent.mkdir(parents=True, exist_ok=True)
         with self.connect() as db:
             db.executescript('''
+                -- R10: `generation` is the fencing token. It increments on
+                -- every acquire, including a takeover of an expired lease,
+                -- so a writer holding generation 3 can be told apart from
+                -- the successor holding 4 even when both believe they own
+                -- the job. Without it a worker whose 30-minute lease had
+                -- expired could still clear its successor's checkpoint,
+                -- advance its watermark, or record its success -- all three
+                -- of which this store did.
                 CREATE TABLE IF NOT EXISTS job_locks (
                     job TEXT PRIMARY KEY, owner TEXT NOT NULL,
                     acquired_at TEXT NOT NULL, expires_at TEXT NOT NULL,
-                    run_id TEXT NOT NULL);
+                    run_id TEXT NOT NULL,
+                    generation INTEGER NOT NULL DEFAULT 1);
+                -- Monotone per job, surviving release. A lease that is
+                -- released and re-acquired must not reuse a generation, or
+                -- the stale writer's token becomes valid again.
+                CREATE TABLE IF NOT EXISTS job_generations (
+                    job TEXT PRIMARY KEY, generation INTEGER NOT NULL);
                 CREATE TABLE IF NOT EXISTS job_runs (
                     run_id TEXT PRIMARY KEY, job TEXT NOT NULL,
                     started_at TEXT NOT NULL, finished_at TEXT,
@@ -168,11 +193,87 @@ class JobStore:
                     f"{job} is locked by {held[0]} until {held[1]} "
                     f"(run {held[2]})")
             taken_over = bool(held)
-            db.execute('INSERT OR REPLACE INTO job_locks VALUES (?,?,?,?,?)',
-                       (job, owner, _stamp(moment), expires, run_id))
+            # R10: bump the fencing token monotonically, from a table that
+            # survives release. Deriving it from the lock row would reuse a
+            # generation after a clean release and make a stale writer's
+            # token valid again.
+            row = db.execute('SELECT generation FROM job_generations '
+                             'WHERE job=?', (job,)).fetchone()
+            generation = (row[0] if row else 0) + 1
+            db.execute('INSERT OR REPLACE INTO job_generations VALUES (?,?)',
+                       (job, generation))
+            db.execute('INSERT OR REPLACE INTO job_locks VALUES (?,?,?,?,?,?)',
+                       (job, owner, _stamp(moment), expires, run_id,
+                        generation))
         return dict(job=job, owner=owner, expires_at=expires,
+                    generation=generation,
                     took_over_expired_lease=taken_over,
                     previous_owner=held[0] if held else None)
+
+    def renew(self, job: str, run_id: str, generation: int, *,
+              lease_minutes: int = DEFAULT_LEASE_MINUTES,
+              now: datetime | None = None) -> dict:
+        """Extend this holder's lease (R10).
+
+        Without this, a job that legitimately runs longer than its lease has
+        it taken over while still working, and then two workers write. The
+        audit asked for exactly this: "renew bounded long jobs".
+
+        Refuses if the caller is not the current holder, because a renewal
+        granted to a superseded writer is worse than no renewal at all -- it
+        would extend a lease the writer no longer owns.
+        """
+        moment = now or _now()
+        expires = _stamp(moment + timedelta(minutes=lease_minutes))
+        with self.connect() as db:
+            db.execute('BEGIN IMMEDIATE')
+            held = db.execute(
+                'SELECT run_id,generation FROM job_locks WHERE job=?',
+                (job,)).fetchone()
+            if held is None or held[0] != run_id or held[1] != generation:
+                raise LeaseLost(
+                    f"{job} is no longer held by run {run_id} at generation "
+                    f"{generation}"
+                    + (f"; it is held by run {held[0]} at generation {held[1]}"
+                       if held else " and no lease exists"))
+            db.execute('UPDATE job_locks SET expires_at=? WHERE job=?',
+                       (expires, job))
+        return dict(job=job, run_id=run_id, generation=generation,
+                    expires_at=expires)
+
+    def _require_holder(self, db, job: str, run_id: str,
+                        generation: int | None) -> None:
+        """Refuse a write from anyone but the current lease holder (R10).
+
+        `generation is None` is accepted only when no lease exists at all,
+        which is the ad-hoc case: an operator calling `checkpoint` outside
+        `run()`. A None generation while somebody else holds the lease is
+        refused, so the escape hatch cannot be used to stamp over a live
+        worker.
+        """
+        held = db.execute('SELECT run_id,generation,owner FROM job_locks '
+                          'WHERE job=?', (job,)).fetchone()
+        if held is None:
+            return
+        if held[0] == run_id and held[1] == generation:
+            return                                      # the current holder
+        # Three distinct refusals, because they call for different actions.
+        if generation is None:
+            raise LeaseLost(
+                f"{job} is held by run {held[0]} ({held[2]}); an unfenced "
+                f"write would stamp over a live worker's state. Pass the "
+                f"generation `acquire()` returned")
+        if held[0] == run_id:
+            raise LeaseLost(
+                f"{job} is held by run {run_id} at generation {held[1]} and "
+                f"this write carries generation {generation}. The lease was "
+                f"re-acquired under the same run id -- re-read it before "
+                f"writing")
+        raise LeaseLost(
+            f"{job} is held by run {held[0]} at generation {held[1]} "
+            f"({held[2]}); run {run_id} at generation {generation} may not "
+            f"write to it. Its lease was taken over -- re-acquire before "
+            f"writing")
 
     def release(self, job: str, run_id: str) -> None:
         with self.connect() as db:
@@ -257,8 +358,12 @@ class JobStore:
 
     # ------------------------------------------------------ checkpoints
 
-    def checkpoint(self, job: str, payload: dict, *, run_id: str) -> None:
+    def checkpoint(self, job: str, payload: dict, *, run_id: str,
+                   generation: int | None = None) -> None:
+        """Save progress, fenced by the caller's lease (R10)."""
         with self.connect() as db:
+            db.execute('BEGIN IMMEDIATE')
+            self._require_holder(db, job, run_id, generation)
             db.execute('INSERT OR REPLACE INTO job_checkpoints VALUES (?,?,?,?)',
                        (job, json.dumps(payload), _stamp(), run_id))
 
@@ -270,12 +375,34 @@ class JobStore:
             return None
         return dict(payload=json.loads(row[0]), updated_at=row[1], run_id=row[2])
 
-    def clear_checkpoint(self, job: str) -> None:
+    def clear_checkpoint(self, job: str, *, run_id: str | None = None,
+                         generation: int | None = None) -> None:
+        """Discard progress, fenced by the caller's lease (R10).
+
+        This was the worst of the three unfenced writes. `run()` calls it on
+        SUCCESS, so a worker whose lease had expired mid-run would finish,
+        clear the SUCCESSOR's checkpoint, and the successor would then
+        restart from nothing having already done the work.
+        """
         with self.connect() as db:
+            db.execute('BEGIN IMMEDIATE')
+            if run_id is not None:
+                self._require_holder(db, job, run_id, generation)
             db.execute('DELETE FROM job_checkpoints WHERE job=?', (job,))
 
-    def set_watermark(self, job: str, stream: str, position: str) -> None:
+    def set_watermark(self, job: str, stream: str, position: str, *,
+                      run_id: str | None = None,
+                      generation: int | None = None) -> None:
+        """Advance a stream position, fenced by the caller's lease (R10).
+
+        An expired writer advancing a watermark is how input gets skipped:
+        the successor reads the position as already consumed and never
+        fetches it.
+        """
         with self.connect() as db:
+            db.execute('BEGIN IMMEDIATE')
+            if run_id is not None:
+                self._require_holder(db, job, run_id, generation)
             db.execute('INSERT OR REPLACE INTO job_watermarks VALUES (?,?,?,?)',
                        (job, stream, position, _stamp()))
 
@@ -328,7 +455,11 @@ class JobStore:
         for attempt in range(1, max_attempts + 1):
             try:
                 detail = work(context) or {}
-                self.clear_checkpoint(job)
+                # R10: both of these were unfenced. A worker whose lease
+                # expired mid-run would clear the successor's checkpoint and
+                # record ITS OWN success for the successor's job.
+                self.clear_checkpoint(job, run_id=run_id,
+                                      generation=lease.get('generation'))
                 self.release(job, run_id)
                 record = JobRun(run_id=run_id, job=job, started_at=started,
                                 finished_at=_stamp(), status="succeeded",
@@ -369,11 +500,23 @@ class _JobContext:
     lease: dict | None = None
     last_traceback: str | None = None
 
+    @property
+    def generation(self) -> int | None:
+        return (self.lease or {}).get('generation')
+
     def checkpoint(self, payload: dict) -> None:
-        self.store.checkpoint(self.job, payload, run_id=self.run_id)
+        self.store.checkpoint(self.job, payload, run_id=self.run_id,
+                              generation=self.generation)
 
     def set_watermark(self, stream: str, position: str) -> None:
-        self.store.set_watermark(self.job, stream, position)
+        self.store.set_watermark(self.job, stream, position,
+                                 run_id=self.run_id,
+                                 generation=self.generation)
+
+    def renew(self, *, lease_minutes: int = DEFAULT_LEASE_MINUTES) -> dict:
+        """Extend this run's lease. A long job calls this periodically."""
+        return self.store.renew(self.job, self.run_id, self.generation,
+                                lease_minutes=lease_minutes)
 
     def watermark(self, stream: str) -> str | None:
         return self.store.watermark(self.job, stream)
