@@ -368,7 +368,23 @@ class DecisionResult:
 
 @dataclass(frozen=True)
 class StateSnapshot:
-    """Everything needed to resume, plus what it must match to be restorable."""
+    """Everything needed to resume, plus what it must match to be restorable.
+
+    R05: `restore()` used to validate `pipeline_version` and `calendar_id`
+    only, so a service rebuilt with a DIFFERENT process-noise constant or a
+    different set of fusion weights resumed from the old filter state
+    silently. The numbers carried on, computed under one configuration and
+    continued under another, with nothing in the record saying so. Neither
+    `q_proc` nor `weights` was even in the payload, so no caller could have
+    detected it either.
+
+    `config_id` closes that. It is a hash over everything that DEFINES the
+    state rather than merely accompanying it: the process noise, the fusion
+    weights' artefact id, the standardizer policy, the declared cadence, the
+    warmup threshold, and the CONTENT hash of each deployed model bundle
+    rather than its label -- the audit is explicit that a bundle id is a
+    name, and a name can be reused over different bytes.
+    """
 
     state_id: str
     pipeline_version: str
@@ -379,12 +395,21 @@ class StateSnapshot:
     decisions: int
     calendar_id: str = ""
     bundle_ids: tuple[str, ...] = ()
+    #: Fingerprint of the state-defining configuration (R05). Empty only in
+    #: a snapshot written before this field existed, which `restore()`
+    #: refuses rather than accepting as "no configuration to check".
+    config_id: str = ""
+    #: The inputs to `config_id`, kept in the payload so a mismatch can be
+    #: EXPLAINED instead of only detected. A bare "configuration differs"
+    #: sends the operator reading source to find out which part.
+    config: dict = field(default_factory=dict)
 
     def describe(self) -> dict:
         return dict(state_id=self.state_id,
                     pipeline_version=self.pipeline_version, as_of=self.as_of,
                     decisions=self.decisions, calendar_id=self.calendar_id,
                     bundle_ids=list(self.bundle_ids),
+                    config_id=self.config_id, config=dict(self.config),
                     standardizer_observations={
                         p: len(v) for p, v in
                         self.standardizer.get("values", {}).items()})
@@ -452,14 +477,63 @@ class InferenceService:
             raise InferenceError(
                 "warm_start must run before the first decision; restarting an "
                 "already-running service is restore(), not warm_start()")
-        for vintage in sorted(history, key=lambda v: v.emission_available_at):
-            if _parse(vintage.emission_available_at) >= cutoff:
+
+        # R03. This used to assimilate into the standardizer, set `_latest`
+        # and mark `_assimilated` -- and never touch `self.filter`. So the
+        # ECDF was warm, the vintages were recorded as CONSUMED, and the
+        # Kalman state was still at its cold prior. `process()` then skipped
+        # them (they are already assimilated) and the first real decision ran
+        # on an uninitialised filter whose `x` and `P` had seen nothing,
+        # reporting a confident-looking state built from no history. A cold
+        # warm-start and an equivalent chronological replay produced
+        # different states from the same inputs.
+        #
+        # The filter is now driven through the same predict/update path a
+        # live tick uses, in observation order, one batch per distinct
+        # `input_end`. No decision is produced and nothing is published: this
+        # is a prior, and `_decisions` stays at zero.
+        eligible = [v for v in sorted(history,
+                                      key=lambda v: (v.input_end,
+                                                     v.emission_available_at))
+                    if _parse(v.emission_available_at) < cutoff
+                    and v.value is not None]
+
+        batches: dict[str, list[Vintage]] = {}
+        for vintage in eligible:
+            batches.setdefault(vintage.input_end, []).append(vintage)
+
+        for input_end in sorted(batches):
+            observed = _parse(input_end)
+            emissions = []
+            for vintage in batches[input_end]:
+                # The SAME ranking the live path uses: the standardizer's
+                # window as it stood at this observation, then `standardise`.
+                # Ranking against the window AS OF this batch is what makes a
+                # warm start equal to a chronological replay -- using the
+                # final window for every historical point would standardise
+                # 2015 against 2026 and leak the future into the prior.
+                window = self.standardizer.window(vintage.producer, observed)
+                rank, variance, _ = standardise(
+                    vintage.value, window=window,
+                    raw_variance=vintage.variance, pillar=vintage.producer)
+                self.standardizer.assimilate(vintage)
+                self._latest[vintage.producer] = vintage
+                self._assimilated[vintage.producer] = vintage.key
+                self._last_rank[vintage.producer] = float(rank)
+                emissions.append(ObservedEmission(obs=PillarObservation(
+                    pillar=vintage.producer, ts=input_end,
+                    tau=vintage.input_end, value=rank,
+                    estimation_variance=variance)))
+            if not emissions:
                 continue
-            if vintage.value is None:
-                continue
-            self.standardizer.assimilate(vintage)
-            self._latest[vintage.producer] = vintage
-            self._assimilated[vintage.producer] = vintage.key
+            state = self.filter.update(emissions)
+            if state.status != "ok":
+                raise InferenceError(
+                    f"warm start could not assimilate the batch observing "
+                    f"through {input_end}: {state.error}")
+
+        # `_last_as_of` stays None on purpose: no DECISION has happened, so
+        # the first live decision is not ordered against a warm-start batch.
         return self.snapshot()
 
     @property
@@ -509,8 +583,44 @@ class InferenceService:
         #   * available and declaring an absence — it ALSO replaces the
         #     previous one. "I cannot emit" is information from the producer,
         #     not silence, and a structural absence has to reach the D2 mask.
+        # R02 — the four instants, kept apart (DR-11).
+        #
+        #   input_end              when the WORLD produced the information
+        #   emission_available_at  when SERAPH could first READ it
+        #   as_of                  the decision cutoff (deterministic)
+        #   now                    wall clock at computation
+        #
+        # The rule used to be `emission_available_at > as_of` -> withheld,
+        # with `as_of` set by the caller to the bar end. A producer cannot
+        # emit a bar-derived estimate until the bar is complete, so a normal
+        # one-second processing delay made `emission_available_at` later than
+        # the bar end on EVERY bar: the vintage was withheld every time, the
+        # previous one carried forward and aged forever, and the pillar never
+        # updated. Nothing failed loudly; the score simply stopped moving.
+        #
+        # The fix is in the CUTOFF, not in this comparison. `as_of` is now
+        # the bar end plus a declared allowance (`engine_adapter`), so a
+        # producer emitting at its normal latency is readable BY the cutoff
+        # and is admitted. The availability test therefore stays against
+        # `as_of` -- the decision's own cutoff -- and not against `now`:
+        #
+        #   * `input_end > as_of`              -> LOOKAHEAD. Refused.
+        #   * `emission_available_at > as_of`  -> not readable at the cutoff.
+        #                                         Withheld, carried forward.
+        #
+        # Testing availability against the wall clock instead was tried and
+        # is wrong: `now` is the tick instant, which under replay can precede
+        # the bar timestamps entirely, so every vintage was withheld and a
+        # 40-day-old warm-start value carried forward into a confident score.
+        # The publication gate caught it, but a score computed from stale
+        # inputs is exactly what R02 exists to prevent.
+        #
+        # Both conditions are functions of `as_of`, which is a function of
+        # the bar end, so a replay of the same bars reproduces the same
+        # admissions and the same decision identity.
         withheld: dict[str, Vintage] = {}
-        for vintage in sorted(vintages, key=lambda v: v.emission_available_at):
+        for vintage in sorted(vintages, key=lambda v: (v.input_end,
+                                                       v.emission_available_at)):
             producer = vintage.producer
             reason = self.deployments.reason_unusable(vintage.bundle_id,
                                                       request.as_of)
@@ -520,11 +630,36 @@ class InferenceService:
                     f"previous one carried forward")
                 withheld[producer] = vintage
                 continue
+            if _parse(vintage.input_end) > request.as_of:
+                # Causality. Skew tolerance does not relax this.
+                warnings.append(
+                    f"{producer}: vintage observes through {vintage.input_end}, "
+                    f"after this decision's cutoff {request.as_of.isoformat()}; "
+                    f"REFUSED as lookahead and the previous one carried forward")
+                withheld[producer] = vintage
+                continue
             if _parse(vintage.emission_available_at) > request.as_of:
                 warnings.append(
-                    f"{producer}: vintage {vintage.input_end} becomes "
-                    f"available at {vintage.emission_available_at}, after this "
-                    f"decision; withheld and the previous one carried forward")
+                    f"{producer}: vintage {vintage.input_end} becomes readable "
+                    f"at {vintage.emission_available_at}, after this decision's "
+                    f"cutoff {request.as_of.isoformat()}; withheld and the "
+                    f"previous one carried forward")
+                withheld[producer] = vintage
+                continue
+            # R04 — a late-arriving OLDER vintage must not replace a newer
+            # input. The loop used to assign unconditionally, having sorted by
+            # `emission_available_at` alone, so the emission that ARRIVED last
+            # won regardless of which one OBSERVED last: a producer re-emitting
+            # a stale window silently rolled the pillar backwards. A correction
+            # to the same `input_end` is a legitimate revision and still
+            # applies; an earlier `input_end` does not.
+            incumbent = self._latest.get(producer)
+            if incumbent is not None and vintage.input_end < incumbent.input_end:
+                warnings.append(
+                    f"{producer}: vintage observing through {vintage.input_end} "
+                    f"arrived after one observing through "
+                    f"{incumbent.input_end}; the newer observation stands and "
+                    f"the late older one is recorded, not applied")
                 withheld[producer] = vintage
                 continue
             self._latest[producer] = vintage
@@ -693,8 +828,35 @@ class InferenceService:
 
     # ------------------------------------------------------ snapshot/restore
 
+    def config_fingerprint(self) -> tuple[str, dict]:
+        """The state-defining configuration, and its hash (R05).
+
+        What belongs here is anything that changes what the SAME inputs
+        would produce. `q_proc` and the fusion weights do; a log level does
+        not. Model bundles contribute their `manifest_hash` -- their CONTENT
+        -- not their `bundle_id`, because an id is a label and a label can
+        be reused over different bytes.
+        """
+        config = dict(
+            q_proc=self._q_proc,
+            weights_artefact_id=getattr(self.weights, "artefact_id", ""),
+            standardizer_policy_id=StandardizerHistory.policy_id,
+            standardizer_window_years=self.standardizer.window_years,
+            cadence={p: self.cadence.get(p) for p in ORDER},
+            warmup_observations=self.warmup_observations,
+            pillar_order=list(ORDER),
+            bundles=sorted(
+                (b.get("bundle_id", ""), b.get("manifest_hash", ""))
+                for b in self.deployments.describe()),
+        )
+        digest = hashlib.sha256(
+            json.dumps(config, sort_keys=True, default=str).encode()
+        ).hexdigest()[:32]
+        return digest, config
+
     def snapshot(self) -> StateSnapshot:
         filter_state = _filter_state(self.filter)
+        config_id, config = self.config_fingerprint()
         payload = dict(
             pipeline_version=SERVICE_VERSION,
             as_of=_iso(self._last_as_of),
@@ -707,6 +869,8 @@ class InferenceService:
             calendar_id=_calendar_id(self.session_strings),
             bundle_ids=sorted(b["bundle_id"]
                               for b in self.deployments.describe()),
+            config_id=config_id,
+            config=config,
         )
         state_id = hashlib.sha256(
             json.dumps(payload, sort_keys=True, default=str).encode()
@@ -716,7 +880,8 @@ class InferenceService:
             as_of=payload["as_of"], filter_state=filter_state,
             standardizer=payload["standardizer"], vintages=payload["vintages"],
             decisions=self._decisions, calendar_id=payload["calendar_id"],
-            bundle_ids=tuple(payload["bundle_ids"]))
+            bundle_ids=tuple(payload["bundle_ids"]),
+            config_id=config_id, config=config)
 
     def restore(self, snapshot: StateSnapshot) -> None:
         """Resume from a snapshot, or refuse and say what did not match.
@@ -735,6 +900,27 @@ class InferenceService:
             raise InferenceError(
                 "snapshot was taken against a different session calendar; "
                 "resuming would silently change the process clock")
+
+        # R05 — the configuration that DEFINES this state must match.
+        config_id, config = self.config_fingerprint()
+        if not snapshot.config_id:
+            raise InferenceError(
+                "snapshot carries no configuration fingerprint, so it was "
+                "written before this check existed and there is no way to "
+                "tell whether its process noise, fusion weights or model "
+                "bundle contents match this service. Rebuild by warm start: "
+                "an unverifiable resume is the defect, not the inconvenience")
+        if snapshot.config_id != config_id:
+            differing = sorted(
+                key for key in set(config) | set(snapshot.config or {})
+                if config.get(key) != (snapshot.config or {}).get(key))
+            raise InferenceError(
+                f"snapshot was written under configuration "
+                f"{snapshot.config_id} and this service is {config_id}; "
+                f"these differ: {', '.join(differing) or 'unknown'}. "
+                f"Resuming would continue a filter state computed under one "
+                f"configuration as though it had been computed under this "
+                f"one. Rebuild by warm start.")
         self.standardizer = StandardizerHistory.restore(snapshot.standardizer)
         _restore_filter(self.filter, snapshot.filter_state)
         self._last_as_of = _parse(snapshot.as_of)

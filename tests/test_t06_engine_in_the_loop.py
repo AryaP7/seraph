@@ -76,11 +76,52 @@ def test_a_bar_close_produces_a_decision_result():
 
 
 def test_the_decision_id_is_the_bar_end_so_a_replayed_tick_is_idempotent():
-    """A decision is named by the bar it decided on, not by when it ran."""
+    """A decision is named by the bar it decided on, not by when it ran.
+
+    X04 changed the FORMAT, not this intent. It was
+    `f"live:{as_of.isoformat()}"` -- no stream, no mode -- so a replay pass
+    and a live pass over the same bar end minted the same id, and
+    `LiveStore.commit_decision` (which returned an existing row as a replay
+    before comparing payloads) accepted the replay as the live decision. The
+    id is now `{mode}:{stream_id}:{bar_end}`: still keyed on the bar rather
+    than on when it ran, and no longer collidable across streams or modes.
+
+    Note it keys on the BAR END, not on `as_of`. `as_of` is the bar end plus
+    `DECISION_ALLOWANCE` (R02), and a decision's name should be the bar it
+    decided on, not the cutoff it used to decide.
+    """
     loop, evaluator = loop_with(StaticProducers())
     loop.tick(at=at("2024-01-02", 9, 31))
     first = evaluator.results[0]
-    assert first.request.decision_id == f"live:{first.request.as_of.isoformat()}"
+    assert first.request.decision_id == "live_shadow:live:2024-01-02T10:10:00+05:30"
+    assert first.request.as_of.isoformat() == "2024-01-02T10:10:05+05:30"
+
+
+def test_the_decision_id_distinguishes_mode_and_stream():
+    """The collision X04 names: same bar end, different mode or stream."""
+    from seraph.live.engine_adapter import decision_id
+
+    bar_end = "2024-01-02T10:10:00+05:30"
+    live = decision_id(mode="live_shadow", stream_id="live", bar_end=bar_end)
+    replay = decision_id(mode="historical_replay", stream_id="live", bar_end=bar_end)
+    other = decision_id(mode="live_shadow", stream_id="demo", bar_end=bar_end)
+    assert len({live, replay, other}) == 3
+    # The old format for all three was identical.
+    assert len({f"live:{bar_end}"} ) == 1
+
+
+def test_the_decision_cutoff_allows_normal_producer_latency():
+    """R02. A producer cannot emit a bar-derived estimate until the bar is
+    complete, so a cutoff AT the bar end withheld every bar-derived vintage
+    on every bar and the pillar never updated."""
+    from seraph.live.engine_adapter import DECISION_ALLOWANCE
+
+    loop, evaluator = loop_with(StaticProducers())
+    loop.tick(at=at("2024-01-02", 9, 31))
+    request = evaluator.results[0].request
+    assert DECISION_ALLOWANCE.total_seconds() > 0
+    assert request.as_of - DECISION_ALLOWANCE == \
+        datetime.fromisoformat("2024-01-02T10:10:00+05:30")
 
 
 def test_the_input_batch_ids_name_the_bars_that_produced_the_decision():

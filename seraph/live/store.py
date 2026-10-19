@@ -76,6 +76,15 @@ class MigrationDrift(StoreError):
     """An applied migration's file has changed since it ran."""
 
 
+class DecisionConflict(StoreError):
+    """The same decision id is already stored with different content.
+
+    R06: `commit_decision` used to return an existing row as a replay before
+    comparing payloads, so a changed decision under a fixed id was silently
+    discarded and reported as a successful replay.
+    """
+
+
 class CheckpointUnusable(StoreError):
     """The checkpoint cannot be trusted, so it will not be restored."""
 
@@ -372,20 +381,39 @@ class LiveStore:
                         events: "Sequence[dict]" = ()) -> dict:
         """The one transaction. Everything, or nothing.
 
-        A repeat of a `decision_id` already stored returns that decision
-        without writing: after a crash *between* commit and acknowledgement,
-        replay must return the same logical decision rather than a second one.
+        A repeat of a `decision_id` already stored **with the same content**
+        returns that decision without writing: after a crash between commit
+        and acknowledgement, replay must return the same logical decision
+        rather than a second one.
+
+        R06: that check used to be `decision_id` alone, so the SAME id
+        carrying DIFFERENT bytes was silently reported as a replay and the
+        new content was thrown away. Idempotency is a property of content,
+        not of a name. Same id and same bytes is a replay; same id and
+        different bytes is a conflict, and the caller is told which.
         """
+        # The payload hash is computed first, because it decides whether this
+        # is a replay at all and nothing should be written to find that out.
+        payload_body = json.dumps(payload, sort_keys=True, default=str)
+        payload_hash = hashlib.sha256(payload_body.encode()).hexdigest()
+
         existing = self.decision(decision_id)
         if existing is not None:
-            return dict(existing, replayed=True)
+            if existing.get("payload_hash") == payload_hash:
+                return dict(existing, replayed=True)
+            raise DecisionConflict(
+                f"decision {decision_id} is already stored with payload hash "
+                f"{existing.get('payload_hash', '')[:16]} and this writer has "
+                f"{payload_hash[:16]}. A decision id is immutable: the same "
+                f"id with different content is a conflict, not a replay. "
+                f"Either the id is being reused across streams or modes "
+                f"(it carries both -- see engine_adapter.decision_id), or an "
+                f"input changed under a fixed identity.")
 
         # The blob lands before the transaction opens, so the reference the
         # transaction inserts is already backed by a complete file.
         state_ref, state_hash = self.write_checkpoint_blob(state)
         checkpoint_id = f"ck:{state_hash[:24]}"
-        payload_body = json.dumps(payload, sort_keys=True, default=str)
-        payload_hash = hashlib.sha256(payload_body.encode()).hexdigest()
         # Injectable, like every other clock in this codebase: a test that
         # cannot control when a pass happened cannot test staleness.
         stamp = _stamp(at)
@@ -411,10 +439,10 @@ class LiveStore:
             db.execute(
                 "INSERT INTO live_decisions(decision_id, as_of, computed_at, "
                 "input_hash, checkpoint_id, payload_json, payload_hash, "
-                "publication_state) VALUES (?,?,?,?,?,?,?,?)",
+                "publication_state, stream_id) VALUES (?,?,?,?,?,?,?,?,?)",
                 (decision_id, as_of, computed_at,
                  input_hash or payload_hash, checkpoint_id, payload_body,
-                 payload_hash, publication_state))
+                 payload_hash, publication_state, self.stream_id))
             db.execute(
                 "INSERT INTO runtime_head(stream_id, checkpoint_id, decision_id,"
                 " version, updated_at) VALUES (?,?,?,?,?) "
@@ -427,11 +455,12 @@ class LiveStore:
                 db.execute(
                     "INSERT OR IGNORE INTO outbox(outbox_id, event_kind, "
                     "aggregate_id, idempotency_key, payload_json, created_at, "
-                    "attempts, next_attempt_at) VALUES (?,?,?,?,?,?,0,?)",
+                    "attempts, next_attempt_at, stream_id) "
+                    "VALUES (?,?,?,?,?,?,0,?,?)",
                     (f"ob:{decision_id}:{i}", event["event_kind"],
                      event.get("aggregate_id", decision_id), key,
                      json.dumps(event.get("payload", {}), sort_keys=True,
-                                default=str), stamp, stamp))
+                                default=str), stamp, stamp, self.stream_id))
         return dict(decision_id=decision_id, checkpoint_id=checkpoint_id,
                     version=current + 1, payload_hash=payload_hash,
                     replayed=False)
@@ -447,20 +476,30 @@ class LiveStore:
         return _decision_row(row)
 
     def latest_decision(self, *, publishable_only: bool = False) -> dict | None:
-        sql = "SELECT * FROM live_decisions"
+        """The most recent decision ON THIS STREAM.
+
+        R06: this used to query every row in the database and order by
+        `as_of`, while `head()` beside it was stream-scoped. So a replay
+        stream's decision -- or a demo's -- could be returned as the current
+        live reading, which is the one substitution this codebase's whole
+        mode discipline exists to prevent.
+        """
+        sql = "SELECT * FROM live_decisions WHERE stream_id=?"
+        args: list = [self.stream_id]
         if publishable_only:
-            sql += " WHERE publication_state='current'"
+            sql += " AND publication_state='current'"
         sql += " ORDER BY as_of DESC, computed_at DESC LIMIT 1"
         with self.connect() as db:
-            row = db.execute(sql).fetchone()
+            row = db.execute(sql, args).fetchone()
         return _decision_row(row) if row else None
 
     def decisions(self, *, limit: int = 50, since: str | None = None
                   ) -> list[dict]:
-        sql = "SELECT * FROM live_decisions"
-        args: list = []
+        """This stream's decisions, newest first (R06)."""
+        sql = "SELECT * FROM live_decisions WHERE stream_id=?"
+        args: list = [self.stream_id]
         if since:
-            sql += " WHERE as_of > ?"
+            sql += " AND as_of > ?"
             args.append(since)
         sql += " ORDER BY as_of DESC LIMIT ?"
         args.append(limit)
@@ -472,13 +511,20 @@ class LiveStore:
 
     def pending_events(self, *, at: datetime | None = None,
                        limit: int = 50) -> list[OutboxEvent]:
+        """Undelivered events FOR THIS STREAM (R06).
+
+        A delivery worker reading every stream's events would let a replay
+        or a demo emit a production alert -- O04's first requirement is that
+        this cannot happen, and it starts here.
+        """
         moment = _stamp(at)
         with self.connect() as db:
             rows = db.execute(
-                "SELECT * FROM outbox WHERE delivered_at IS NULL AND "
+                "SELECT * FROM outbox WHERE stream_id=? AND "
+                "delivered_at IS NULL AND "
                 "attempts < ? AND (next_attempt_at IS NULL OR "
                 "next_attempt_at <= ?) ORDER BY created_at LIMIT ?",
-                (MAX_ATTEMPTS, moment, limit)).fetchall()
+                (self.stream_id, MAX_ATTEMPTS, moment, limit)).fetchall()
         return [OutboxEvent(
             outbox_id=r["outbox_id"], event_kind=r["event_kind"],
             aggregate_id=r["aggregate_id"],
@@ -562,9 +608,15 @@ class LiveStore:
 
 
 def _decision_row(row) -> dict:
+    keys = row.keys()
     return dict(decision_id=row["decision_id"], as_of=row["as_of"],
                 computed_at=row["computed_at"], input_hash=row["input_hash"],
                 checkpoint_id=row["checkpoint_id"],
                 payload=json.loads(row["payload_json"]),
                 payload_hash=row["payload_hash"],
-                publication_state=row["publication_state"])
+                publication_state=row["publication_state"],
+                # Which stream this decision belongs to (R06). Read
+                # defensively so a row from a database that predates
+                # migration 002 still renders rather than raising.
+                stream_id=(row["stream_id"] if "stream_id" in keys
+                           else DEFAULT_STREAM))

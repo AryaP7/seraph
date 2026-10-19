@@ -23,7 +23,7 @@ Nothing here invents a pillar value.
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from datetime import datetime
+from datetime import datetime, timedelta
 from typing import Protocol, Sequence
 
 from seraph.live.bars import Bar
@@ -36,7 +36,38 @@ from seraph.live.inference import (
 )
 from seraph.live.publication import FeedProvenance
 
-ADAPTER_VERSION = "live.engine_adapter/2026-10-17.1"
+ADAPTER_VERSION = "live.engine_adapter/2026-10-19.1"
+
+#: How long after a bar closes the decision for it is taken (R02, DR-11).
+#:
+#: A producer cannot emit a bar-derived estimate until the bar is complete,
+#: so a cutoff AT the bar end withholds every bar-derived vintage forever.
+#: This is the declared allowance that admits normal producer latency while
+#: staying a deterministic function of the bar end, so a replay reproduces
+#: the same cutoff. It is an ENGINEERING default, not a measured one: O07
+#: measures real bar-to-decision latency and this should be set from that
+#: measurement rather than from this comment.
+DECISION_ALLOWANCE = timedelta(seconds=5)
+
+
+def decision_id(*, mode: str, stream_id: str, bar_end: str) -> str:
+    """The identity of one decision.
+
+    X04 (completion-audit verification, Part 3). This was
+    `f"live:{as_of.isoformat()}"` -- no stream, no mode. A replay pass and a
+    live pass over the same bar end minted the SAME id, and because
+    `LiveStore.commit_decision` returned an existing row as a replay before
+    comparing its payload, a replay commit was accepted as the existing live
+    decision and reported `replayed=True`. The audit names the read side of
+    this (R06: `latest_decision` is not stream-scoped) but not the minting
+    side, and fixing only the read side leaves the collision.
+
+    Mode is part of the identity, not metadata on it: a live reading and a
+    replay of the same instant are different facts about the world, and the
+    whole mode discipline in this codebase rests on never being able to
+    substitute one for the other.
+    """
+    return f"{mode}:{stream_id}:{bar_end}"
 
 
 class Producers(Protocol):
@@ -110,12 +141,16 @@ class ServiceEvaluator:
                  producers: Producers | None = None,
                  mode: str = "live_shadow",
                  universe_snapshot_id: str = "",
-                 model_bundle_id: str = "") -> None:
+                 model_bundle_id: str = "",
+                 stream_id: str = "live") -> None:
         self.service = service
         self.producers = producers or NullProducers()
         self.mode = mode
         self.universe_snapshot_id = universe_snapshot_id
         self.model_bundle_id = model_bundle_id
+        #: Which stream these decisions belong to. Part of the decision
+        #: identity (X04) and of every scoped read in `LiveStore` (R06).
+        self.stream_id = stream_id
         self.results: list[DecisionResult] = []
 
     @property
@@ -123,10 +158,18 @@ class ServiceEvaluator:
         return self.service.warmup_complete
 
     def __call__(self, bars: "Sequence[Bar]", stamp: str) -> dict | None:
-        as_of = datetime.fromisoformat(
-            max(b.end for b in bars) if bars else stamp)
+        bar_end = max(b.end for b in bars) if bars else stamp
+        # R02/DR-11: `as_of` is the DECISION CUTOFF, not the bar end. It is
+        # the bar end plus a declared allowance, so that a producer which
+        # cannot emit until the bar is complete is admitted at its normal
+        # latency instead of being withheld on every single bar. It stays a
+        # function of the bar end rather than of the wall clock, so replaying
+        # the same bars yields the same cutoff and the same decision identity.
+        as_of = datetime.fromisoformat(bar_end) + DECISION_ALLOWANCE
         request = DecisionRequest(
-            decision_id=f"live:{as_of.isoformat()}",
+            decision_id=decision_id(mode=self.mode,
+                                    stream_id=self.stream_id,
+                                    bar_end=bar_end),
             as_of=as_of, trigger="bar_close", mode=self.mode,
             input_batch_ids=tuple(sorted({f"{b.symbol}@{b.end}" for b in bars})),
             universe_snapshot_id=self.universe_snapshot_id,
@@ -154,7 +197,8 @@ class ServiceEvaluator:
 
 def attach(loop, service: InferenceService, *,
            producers: Producers | None = None,
-           mode: str | None = None) -> ServiceEvaluator:
+           mode: str | None = None,
+           stream_id: str = "live") -> ServiceEvaluator:
     """Put the engine in the loop's `evaluate` slot and keep warmup honest.
 
     After this call the loop computes a score on every bar close instead of
@@ -162,7 +206,7 @@ def attach(loop, service: InferenceService, *,
     constructor argument nobody updates.
     """
     evaluator = ServiceEvaluator(service, producers=producers,
-                                 mode=mode or loop.mode)
+                                 mode=mode or loop.mode, stream_id=stream_id)
     loop.evaluate = evaluator
     loop.warmup_source = lambda: evaluator.warmup_complete
     loop.feed_sink = lambda provenance: setattr(

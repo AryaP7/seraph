@@ -89,8 +89,20 @@ def build(*, replay: bool, store: LiveStore, clock: MarketClock
 
 
 def restore(service: InferenceService, store: LiveStore,
-            lifecycle: SessionLifecycle) -> dict:
-    """Resume from the last checkpoint, or say why a rebuild is needed."""
+            lifecycle: SessionLifecycle, loop: "LiveLoop | None" = None) -> dict:
+    """Resume from the last checkpoint, or say why a rebuild is needed.
+
+    R08: this used to restore the INFERENCE service and nothing else. The
+    bar builder came back empty and the input cursor was never read, so
+    after a crash mid-bar the runtime re-accepted ticks it had already
+    consumed -- double-counting the open bar's volume and moving its close --
+    while the filter state resumed correctly. Half-recovered is the worst of
+    the three possible states, because the inconsistency is between two
+    components that each look fine.
+
+    `loop` is optional so `--status` can report restorability without
+    building a feed, which is the one thing `--status` must never do.
+    """
     head = store.head()
     if head.checkpoint_id is None:
         lifecycle.to("warming_up", reason="no checkpoint; cold start")
@@ -101,20 +113,37 @@ def restore(service: InferenceService, store: LiveStore,
         record = store.load_checkpoint(head.checkpoint_id)
         from seraph.live.inference import StateSnapshot
 
+        state = record["state"]
         service.restore(StateSnapshot(
             state_id=record["checkpoint_id"],
-            pipeline_version=record["state"].get("pipeline_version", ""),
-            as_of=record["state"].get("as_of"),
-            filter_state=record["state"].get("filter_state", {}),
-            standardizer=record["state"].get("standardizer", {}),
-            vintages=record["state"].get("vintages", {}),
-            decisions=record["state"].get("decisions", 0),
-            calendar_id=record["state"].get("calendar_id", ""),
-            bundle_ids=tuple(record["state"].get("bundle_ids", ()))))
+            pipeline_version=state.get("pipeline_version", ""),
+            as_of=state.get("as_of"),
+            filter_state=state.get("filter_state", {}),
+            standardizer=state.get("standardizer", {}),
+            vintages=state.get("vintages", {}),
+            decisions=state.get("decisions", 0),
+            calendar_id=state.get("calendar_id", ""),
+            bundle_ids=tuple(state.get("bundle_ids", ())),
+            config_id=state.get("config_id", ""),
+            config=state.get("config", {})))
+
+        # The bar builder and the input cursor, which R08 found unrestored.
+        cursor = record.get("input_cursor") or {}
+        bars_restored = False
+        if loop is not None and state.get("bars"):
+            loop.builder.restore(state["bars"])
+            bars_restored = True
         return dict(restored=True, checkpoint_id=head.checkpoint_id,
-                    as_of=record["state"].get("as_of"))
+                    as_of=state.get("as_of"),
+                    bars_restored=bars_restored,
+                    open_bars=(len(loop.builder.partial())
+                               if loop is not None else None),
+                    consumed_batches=len(cursor.get("batches", ())),
+                    config_id=state.get("config_id", ""))
     except Exception as exc:                                  # noqa: BLE001
         # A checkpoint that cannot be validated is rebuilt, never forced.
+        # R05 makes this reachable for a changed configuration, which is the
+        # point: a rebuild is correct and a silent resume was not.
         lifecycle.to("warming_up", reason=f"checkpoint unusable: {exc}")
         return dict(restored=False, reason=f"{type(exc).__name__}: {exc}")
 
@@ -145,12 +174,40 @@ def report_status(store: LiveStore, clock: MarketClock,
 
 def commit(store: LiveStore, loop: LiveLoop, service: InferenceService,
            evaluator, decision) -> dict | None:
-    """Persist one pass: bars, then the decision transaction."""
+    """Persist one pass: bars, then the decision transaction.
+
+    R11: `result` used to be `evaluator.results[-1]` unconditionally -- the
+    evaluator's most recent result, not the one belonging to the `decision`
+    being committed. On a pass that produced no new decision that re-committed
+    the previous one, and on any pass where the two disagreed it persisted a
+    payload describing one decision under another's identity. The result is
+    now matched to the decision by bar end, and a mismatch returns None
+    rather than guessing.
+
+    R08: the bar-builder snapshot travels inside the checkpoint state, in the
+    same transaction as the decision, so the recoverable boundary between a
+    closed bar and a committed decision is one atomic write rather than two
+    independent ones.
+    """
     for bar in loop.last_closed:
         store.record_closed_bar(bar)
-    result = evaluator.results[-1] if evaluator.results else None
+
+    # `LiveDecision.bar_end` is what the decision id is derived from
+    # (`engine_adapter.decision_id`), so it is the join key between the
+    # loop's decision and the service's result.
+    bar_end = getattr(decision, "bar_end", None)
+    result = next((c for c in reversed(evaluator.results)
+                   if bar_end and c.request.decision_id.endswith(bar_end)), None)
     if result is None:
+        # Nothing to commit for THIS decision. Committing the evaluator's
+        # most recent result instead is what R11 found: it persisted a
+        # payload describing one decision under another's identity.
         return None
+
+    state = asdict(service.snapshot())
+    # One recoverable boundary: filter state, bar state and input cursor are
+    # written together or not at all.
+    state["bars"] = loop.builder.snapshot()
     head = store.head()
     return store.commit_decision(
         decision_id=result.request.decision_id,
@@ -158,9 +215,11 @@ def commit(store: LiveStore, loop: LiveLoop, service: InferenceService,
         computed_at=result.computed_at.isoformat(),
         payload=decision.describe(),
         publication_state=("current" if decision.publishable else "withheld"),
-        state=asdict(service.snapshot()),
+        state=state,
         expected_version=head.version,
-        input_cursor=dict(batches=list(result.request.input_batch_ids)),
+        input_cursor=dict(batches=list(result.request.input_batch_ids),
+                          watermarks={s: loop.builder.watermark(s)
+                                      for s in loop._symbols}),
         pipeline_version=result.request.pipeline_version,
         events=[dict(event_kind="decision",
                      aggregate_id=result.request.decision_id,
@@ -203,7 +262,9 @@ def main(argv=None) -> int:
 
     loop, service, evaluator = build(replay=args.replay, store=store,
                                      clock=clock)
-    restored = restore(service, store, lifecycle)
+    # R08: the loop is handed over so the BAR BUILDER is restored too, not
+    # only the inference service.
+    restored = restore(service, store, lifecycle, loop)
     print(f"[live] restore: {json.dumps(restored, default=str)}")
 
     lifecycle.to("connecting")
