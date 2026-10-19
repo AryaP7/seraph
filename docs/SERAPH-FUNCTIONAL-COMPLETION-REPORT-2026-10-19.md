@@ -18,7 +18,7 @@ Machine-readable evidence:
 | **Integration completion** | **10 of 17** | those 10 plus the 7 blocked items in §4 |
 | **Demo readiness** | **yes, for the market/data/archive/workflow story** — no, for a live broker feed | §3 |
 | **Engineering backlog** | 28 of 77 rows done before this session; **T02–T07 and the three role workflows added since** | the 2026-10-18 plan's backlog |
-| Test suite | **2,159 passed, 14 skipped, 0 failed** (3m57s, excluding the 4 slow Hamilton modules) | — |
+| Test suite | **2,193 passed, 14 skipped, 0 failed** (19m15s, full suite) | — |
 | New regression tests this session | **+123** (T03 24, T04 22, T05/08/09 33, T06/07 20, plus earlier) | — |
 
 The single most important change: **the project now runs on its own real
@@ -180,14 +180,15 @@ into a confident-looking 0.79. Reverted; the fix belongs in the cutoff.
 
 ## 6. Honest accounting of the test suite
 
-- **Passing: 2,159.** No failures, no errors.
+- **Passing: 2,193** on the full suite (19m15s). A faster run excluding the
+  four slow Hamilton modules gives 2,159 in 3m57s, which is the split the CI
+  matrix uses.
 - **Skipped, not passed: 14.** Four `ct3_jump_sufficiency` (need intraday
   bars — the same Kite blocker) and ten DB-gated cases needing a disposable
   `seraph_test_*` Postgres. V02's CI `migrations` job runs exactly those ten
   and **fails if any skip**.
-- **Excluded from this run: 4 modules** (`test_c7_hamilton*`,
-  `ct7_simulator_consistency`) for runtime, the same split the CI matrix
-  uses. They passed in the last full run.
+- **Nothing excluded.** The 2,193 figure is the whole suite including the
+  four slow Hamilton modules.
 - **Untested external dependencies:** the broker websocket, a real identity
   provider, and the three new CI jobs, which cannot be exercised from a
   developer machine — which is V02's whole point.
