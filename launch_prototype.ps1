@@ -22,13 +22,28 @@
 
     -NoNewsWorker runs the console against the store exactly as it is. The
     screen then says nothing is fetching, which is true.
+
+    MARKET SIDE (C15). This launcher also brings the market data and
+    decisions up to date, so running the application no longer needs a
+    second terminal for `run_daily.py` and `run_forecast.py`. That work runs
+    in the background through `scripts/run_market_jobs.py`: every step there
+    is idempotent, so a relaunch re-runs it harmlessly, and the console's
+    startup panel reads the status file it writes.
+
+    It deliberately does NOT start the live tick loop. `run_live.py` opens a
+    market feed, and that is an operator's decision rather than a side
+    effect of opening a dashboard. The line printed below says how.
+
+    -NoMarketJobs skips it and leaves the stored vintages and forecasts
+    exactly as they are.
 #>
 param(
     [string]$Store = "$PSScriptRoot/prototype_runs/seraph.sqlite",
     [string]$NewsStore = "$PSScriptRoot/prototype_runs/news-intelligence-pilot.sqlite",
     [string]$LiveStore = "$PSScriptRoot/prototype_runs/live.sqlite",
     [int]$Port = 8512,
-    [switch]$NoNewsWorker
+    [switch]$NoNewsWorker,
+    [switch]$NoMarketJobs
 )
 $ErrorActionPreference = 'Stop'
 $env:SERAPH_PROTOTYPE_STORE = $Store
@@ -38,7 +53,26 @@ $env:SERAPH_NEWS_WORKER = if ($NoNewsWorker) { '0' } else { '1' }
 
 $Python = "$PSScriptRoot/.venv/Scripts/python.exe"
 $Worker = $null
+$Market = $null
 try {
+    if (-not $NoMarketJobs) {
+        New-Item -ItemType Directory -Force "$PSScriptRoot/prototype_runs" | Out-Null
+        # Backgrounded on purpose. The daily RMT estimate takes about two
+        # minutes (FR17 needs two endpoint windows and FR19 bootstraps each
+        # 1,000 times), and blocking the console on it would mean staring at
+        # a dead terminal before the page appears. The status file tells the
+        # console what happened, and every step is idempotent so a relaunch
+        # mid-run is harmless.
+        $Market = Start-Process -FilePath $Python -ArgumentList @(
+            "`"$PSScriptRoot/scripts/run_market_jobs.py`""
+        ) -WorkingDirectory $PSScriptRoot -PassThru -WindowStyle Hidden `
+          -RedirectStandardOutput "$PSScriptRoot/prototype_runs/market-jobs.log" `
+          -RedirectStandardError "$PSScriptRoot/prototype_runs/market-jobs-errors.log"
+        Write-Host "[seraph] market jobs pid $($Market.Id); log: prototype_runs/market-jobs.log"
+        Write-Host '[seraph] the live tick loop is NOT started: run `python scripts/run_live.py --status` first, then --replay --once or a live run.'
+    } else {
+        Write-Host '[seraph] market jobs skipped for this run (-NoMarketJobs); stored vintages and forecasts are unchanged.'
+    }
     if (-not $NoNewsWorker) {
         New-Item -ItemType Directory -Force "$PSScriptRoot/prototype_runs" | Out-Null
         # --catch-up polls every source once before entering the loop, after
@@ -62,8 +96,15 @@ try {
     & $Python -m streamlit run "$PSScriptRoot/seraph/dashboard/prototype_app.py" `
         --server.address 127.0.0.1 --server.port $Port --server.headless true
 } finally {
-    # Only the process this script started.
+    # Only the processes this script started.
     if ($Worker -and -not $Worker.HasExited) {
         & taskkill /PID $Worker.Id /T /F | Out-Null
+    }
+    # The market jobs normally finish on their own well before shutdown;
+    # this covers the case where the console is closed mid-run. Stopping it
+    # loses no work: each step either committed its idempotent write or did
+    # not, and the next launch repeats it.
+    if ($Market -and -not $Market.HasExited) {
+        & taskkill /PID $Market.Id /T /F | Out-Null
     }
 }

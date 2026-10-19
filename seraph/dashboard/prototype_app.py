@@ -252,6 +252,52 @@ def _news_action(event: dict, role: str, news_path, news_master, payload):
         event_ids=tuple(event.get('event_ids') or ()))
 
 
+def market_jobs_panel():
+    """What the market side of startup achieved (C15).
+
+    The news panel beside this one answers "is anything fetching news". This
+    answers the question that had no answer at all: are the market data and
+    decisions up to date, and if not, why. Before C15 the launcher started
+    the news worker and nothing else, so `run_daily.py` and
+    `run_forecast.py` needed a second terminal and the console could not say
+    whether anyone had run them.
+
+    It reads a status file rather than running anything. A panel that
+    triggered a two-minute RMT estimate on page render would make every
+    refresh a cliff.
+    """
+    import sys as _sys
+    from pathlib import Path as _Path
+    _scripts = _Path(__file__).resolve().parents[2] / 'scripts'
+    if str(_scripts) not in _sys.path:
+        _sys.path.insert(0, str(_scripts))
+    import run_market_jobs
+
+    state = run_market_jobs.status()
+    if not state.get('ran'):
+        st.info(state.get('note', 'the market jobs have not run'))
+        return
+    if state.get('blocked'):
+        st.warning(f"Market jobs could not run: {state['blocked']}")
+        return
+
+    st.caption(f"Last run {state.get('generated')} · session "
+               f"{state.get('session')} · {state.get('corpus')}")
+    for step in state.get('steps', ()):
+        if step.get('ok'):
+            st.write(f"**{step['step']}** — ok")
+        else:
+            st.warning(f"**{step['step']}** — failed: "
+                       f"{step.get('error') or step.get('output')}")
+    st.caption(state.get('note', ''))
+
+    # The one thing the launcher deliberately does not start.
+    st.caption('The live tick loop is not started by the launcher: opening a '
+               'market feed is an operator decision. `python '
+               'scripts/run_live.py --status` reports what it would do '
+               'without connecting to anything.')
+
+
 def acquisition_panel(news_path: Path):
     """Who is fetching news, and what each source actually returned.
 
@@ -390,6 +436,9 @@ def main():
     news_service.ensure_worker(paths['news'])
     with st.expander('NEWS ACQUISITION', expanded=False):
         acquisition_panel(paths['news'])
+
+    with st.expander('MARKET JOBS', expanded=False):
+        market_jobs_panel()
     role=st.session_state.setdefault('console_role','retail')
     with st.expander('LIVE RUNTIME', expanded=live_path.exists()):
         live_revision=live_panel(live_path)
