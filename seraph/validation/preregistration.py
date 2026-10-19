@@ -122,6 +122,7 @@ def build(
     kappa_fa: float = 1.0,
     amber_threshold: float = 0.5,
     primary_metric: str = "auc",
+    calibration_max_iter: int = 1200,
 ) -> dict:
     """The design to commit. Nothing here may change once results exist.
 
@@ -141,6 +142,16 @@ def build(
         "kappaMiss": kappa_miss,
         "kappaFa": kappa_fa,
         "primaryMetric": primary_metric,
+        # Inside the hash on purpose. A smaller budget is a different
+        # design, not the same design run cheaply, so a plumbing run can
+        # never be mistaken for the full evaluation.
+        "calibrationMaxIter": calibration_max_iter,
+        # Both the number and the sentence. The runner needs a float it
+        # can apply without parsing prose, and a reader needs the rule
+        # stated. A threshold that exists only inside the sentence invites
+        # a runner to pick its own, which is the freedom pre-registration
+        # exists to remove.
+        "amberThreshold": amber_threshold,
         "amberThresholdRule": (
             f"CSRS >= {amber_threshold} sustained for 1 update; threshold fixed "
             f"before evaluation, not tuned per configuration"

@@ -30,6 +30,26 @@ def subset_mask(subset: tuple[PillarId, ...]) -> AvailabilityMask:
     return tuple(p in subset for p in PILLAR_ORDER)
 
 
+def restrict(reconciled: ReconciledState, subset: tuple[PillarId, ...]
+             ) -> ReconciledState:
+    """The state as it would be if only `subset` were available.
+
+    The subset mask is intersected with the state's own mask — an ablation can
+    remove information, never invent it (a structurally-absent pillar stays
+    absent even if the subset names it).
+
+    Separated from `score_subset` because the experiment runner needs the same
+    restriction when it CALIBRATES a subset row, not only when it scores one.
+    Training on the full mask and testing on the restricted one would hand the
+    weights information the test fold cannot see — a leak that no assertion
+    about the test path would catch, since both halves would look correct on
+    their own.
+    """
+    mask = tuple(m and s for m, s in zip(reconciled.mask, subset_mask(subset)))
+    tau = tuple(t if m else None for t, m in zip(reconciled.tau_last_update, mask))
+    return reconciled.model_copy(update={"mask": mask, "tau_last_update": tau})
+
+
 def score_subset(
     *,
     reconciled: ReconciledState,
@@ -38,12 +58,6 @@ def score_subset(
     subset: tuple[PillarId, ...],
     xi_mode: str = "hamilton",
 ) -> Ok[CsrsPoint] | Err:
-    """Score exactly as production would if only `subset` were available.
-
-    The subset mask is intersected with the state's own mask — an ablation can
-    remove information, never invent it (a structurally-absent pillar stays
-    absent even if the subset names it)."""
-    mask = tuple(m and s for m, s in zip(reconciled.mask, subset_mask(subset)))
-    tau = tuple(t if m else None for t, m in zip(reconciled.tau_last_update, mask))
-    restricted = reconciled.model_copy(update={"mask": mask, "tau_last_update": tau})
-    return score(reconciled=restricted, xi=xi, weights=weights, xi_mode=xi_mode)
+    """Score exactly as production would if only `subset` were available."""
+    return score(reconciled=restrict(reconciled, subset), xi=xi,
+                 weights=weights, xi_mode=xi_mode)

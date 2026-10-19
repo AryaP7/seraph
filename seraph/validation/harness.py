@@ -128,6 +128,7 @@ def calibrate(
     kappa_miss: float = 10.0,
     kappa_fa: float = 1.0,
     mask_profile=(True, True, True),
+    max_iterations: int = 1200,
 ) -> Ok[FusionWeights] | Err:
     """FR30 — jointly optimise all nine weights under one objective.
 
@@ -165,8 +166,13 @@ def calibrate(
             vals.append(r.value.csrs)
         return calibration_loss(vals, labels, kappa_miss, kappa_fa)
 
+    # The budget is a parameter because it changes the weights, and so
+    # changes the result. The experiment runner takes it from the hashed
+    # pre-registration rather than choosing it, so a cheap run and a full
+    # run are two DECLARED designs instead of one design run two ways.
     best = minimize(objective, np.zeros(9), method="Nelder-Mead",
-                    options={"maxiter": 1200, "fatol": 1e-8, "xatol": 1e-6})
+                    options={"maxiter": max_iterations, "fatol": 1e-8,
+                             "xatol": 1e-6})
     if not np.isfinite(best.fun) or best.fun >= 1e12:
         return err(ConstraintViolated(
             constraint="calibration failed to find a feasible weight set",
