@@ -23,8 +23,15 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 
-#: Runtime assets the canonical console cannot start without.
+#: Every runtime asset the product cannot start without.
+#:
+#: O01: this tuple used to cover the console assets and `store/schema.sql`
+#: only, so it passed a wheel that was missing seven other files. A verifier
+#: that checks a subset reports success for a broken distribution, which is
+#: worse than no verifier -- the audit's own probe found the gaps this script
+#: was supposed to find.
 REQUIRED = (
+    # C12 console
     "seraph/dashboard/console_component/index.html",
     "seraph/dashboard/console_component/bridge.js",
     "seraph/dashboard/console_component/preview_pillars.js",
@@ -32,7 +39,20 @@ REQUIRED = (
     "seraph/dashboard/console_component/THREE-LICENSE.txt",
     "seraph/dashboard/assets/console.html",
     "seraph/dashboard/assets/THREE-LICENSE.txt",
+    # C1 schema and migrations. A wheel without these installs an
+    # application that cannot create the tables it reads.
     "seraph/store/schema.sql",
+    "seraph/store/migrations/001_evaluation_identity.sql",
+    "seraph/live/migrations/001_runtime.sql",
+    # News curated registry. Without these `load_master_data()` returns an
+    # empty registry and the globe has nothing to resolve a mention against.
+    "seraph/news/curated/entities.csv",
+    "seraph/news/curated/places.csv",
+    "seraph/news/curated/assets.csv",
+    "seraph/news/curated/exposure.csv",
+    "seraph/news/curated/source_places.csv",
+    # C2 tariff registry.
+    "seraph/ingestion/tariff_events.curated.csv",
 )
 
 #: Scratch copies that must NOT be distributed.
@@ -59,6 +79,52 @@ out = dict(
     original_console_asset_present=(root / "dashboard" / "assets" / "console.html").exists(),
     schema_sql_present=(root / "store" / "schema.sql").exists(),
 )
+
+# O01 -- the two probes whose failure the audit recorded. Both run from the
+# INSTALLED package, outside the checkout, so a source-tree copy cannot
+# stand in for a shipped one.
+#
+# 1. Can the runtime store create its own schema? The saved probe got
+#    `OperationalError: no such table: runtime_head`.
+try:
+    import tempfile
+    from seraph.live.store import LiveStore
+    with tempfile.TemporaryDirectory() as scratch:
+        probe = LiveStore(Path(scratch) / "runtime.sqlite")
+        out["live_head"] = probe.head().describe() if hasattr(
+            probe.head(), "describe") else str(probe.head())
+        out["live_store_error"] = None
+except Exception as exc:                                    # noqa: BLE001
+    out["live_head"] = None
+    out["live_store_error"] = f"{type(exc).__name__}: {exc}"
+
+# 2. Does the curated registry carry rows? The saved probe reported
+#    entities 0, places 0, assets 0, edges 0 and `empty: True`.
+try:
+    from seraph.news.curated import missing_registry_files
+    from seraph.news.registry import load_master_data
+    master, report = load_master_data()
+    out["curated"] = dict(
+        entities=len(getattr(master, "entities", {})),
+        places=len(getattr(master, "places", {})),
+        assets=len(getattr(master, "assets", {})),
+        edges=len(getattr(master, "edges", {})),
+        empty=bool(report.get("empty")) if isinstance(report, dict) else None,
+        files_missing=missing_registry_files())
+    out["curated_error"] = None
+except Exception as exc:                                    # noqa: BLE001
+    out["curated"] = None
+    out["curated_error"] = f"{type(exc).__name__}: {exc}"
+
+# 3. Migration SQL must be readable from the installed package, not just
+#    present as a file name in the archive.
+try:
+    from seraph.live.migrations import migration_files
+    out["live_migrations"] = [p.name for p in migration_files()]
+    out["live_migration_bytes"] = sum(p.stat().st_size for p in migration_files())
+except Exception as exc:                                    # noqa: BLE001
+    out["live_migrations"] = None
+    out["live_migration_error"] = f"{type(exc).__name__}: {exc}"
 import seraph.dashboard.prototype_app as app
 declared = Path(getattr(app.console, "path", getattr(app.console, "_path", component)))
 out["declared_component_path"] = str(declared)
@@ -133,13 +199,27 @@ def main() -> int:
                 and not record["wheel"]["forbidden_present"])
     fresh = record["fresh_environment"]
     render_ok = fresh["render_exception"] is None
+    # O01's two acceptance conditions, from the installed package.
+    schema_ok = fresh.get("live_store_error") is None
+    curated = fresh.get("curated") or {}
+    curated_ok = bool(
+        fresh.get("curated_error") is None
+        and not curated.get("files_missing")
+        and all(curated.get(k, 0) > 0
+                for k in ("entities", "places", "assets", "edges")))
+    migrations_ok = bool(fresh.get("live_migrations")
+                         and fresh.get("live_migration_bytes", 0) > 0)
     record["verdict"] = dict(
         wheel_carries_required_assets=wheel_ok,
         installs_outside_the_checkout=fresh["is_site_packages"],
         component_resolves_to_the_installed_package=fresh["declared_path_is_installed"],
         canonical_console_renders=render_ok,
+        runtime_schema_creates_from_installed_package=schema_ok,
+        curated_registry_carries_rows=curated_ok,
+        migration_sql_readable_from_installed_package=migrations_ok,
         passed=bool(wheel_ok and fresh["is_site_packages"]
-                    and fresh["declared_path_is_installed"] and render_ok))
+                    and fresh["declared_path_is_installed"] and render_ok
+                    and schema_ok and curated_ok and migrations_ok))
     _write(record)
     print(json.dumps(record["verdict"], indent=2))
     return 0 if record["verdict"]["passed"] else 1

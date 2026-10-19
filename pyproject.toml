@@ -23,6 +23,23 @@ dependencies = [
 
 [project.optional-dependencies]
 research = ["arch>=8.0", "pyarrow>=20.0"]
+# O02 — optional capabilities, declared rather than discovered at runtime.
+#
+# `live` is the broker websocket. `seraph/live/feed.py` imports kiteconnect
+# lazily inside `KiteTickerFeed.connect()` and raises `FeedUnavailable` with
+# an install instruction when it is absent, so the core install does not
+# need it and a missing feed is never faked. Installing this extra does NOT
+# grant market access: that needs credentials and a daily access token.
+live = ["kiteconnect>=5.2"]
+# `auth` is real identity verification. `seraph/identity/oidc.py` validates
+# claims behind a signature-verifying provider; without this extra only the
+# explicitly-isolated local demo principal is available.
+auth = ["pyjwt[crypto]>=2.8"]
+# NOTE: the browser audits (`scripts/audit_console_browser.py`,
+# `scripts/verify_news_browser.py`) need no extra. They drive Microsoft Edge
+# over the DevTools protocol using `websockets`, which streamlit already
+# requires. Their requirement is a SYSTEM one -- Edge must be installed --
+# and is documented in docs/OPERATIONS.md rather than pinned here.
 # `tick` (X-DataInitiative) is the C5 Hawkes MLE baseline per AGENTS.md §2, but it
 # has no wheels for Python 3.12 / Windows and needs a C++ toolchain to build.
 # It is only required once C5 (L4, built last of the pillars) starts — keep it out
@@ -46,6 +63,23 @@ include = ["seraph*", "fixtures*"]
 "seraph.dashboard.assets" = ["*.html", "*.js", "*.css", "*.txt"]
 "seraph.store" = ["*.sql"]
 "seraph.ingestion" = ["*.csv"]
+# O01 — seven runtime assets were missing from the wheel, for two different
+# reasons, and the second is the one that is easy to get wrong:
+#
+#   1. `seraph/live/migrations/` and `seraph/news/curated/` had no
+#      `__init__.py`, so `packages.find` never saw them. A `package-data`
+#      entry for a directory setuptools does not consider a package attaches
+#      to nothing. Both now have one.
+#   2. A `package-data` glob does NOT recurse. `"seraph.store" = ["*.sql"]`
+#      above ships `store/schema.sql` and says nothing about
+#      `store/migrations/001_evaluation_identity.sql`, which is why that file
+#      went missing even though `store/migrations/` IS a package.
+#
+# Symptoms in the audit's wheel probe: `no such table: runtime_head`, and a
+# curated registry reporting 0 entities, 0 places, 0 assets and 0 edges.
+"seraph.live.migrations" = ["*.sql"]
+"seraph.store.migrations" = ["*.sql"]
+"seraph.news.curated" = ["*.csv"]
 
 [tool.setuptools.exclude-package-data]
 "seraph.dashboard.assets" = ["*.bak", "*.broken"]

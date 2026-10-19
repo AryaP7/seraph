@@ -35,8 +35,14 @@ async def execute_originals(conn, day):
     Minimum histories and native estimator defaults are retained. Hamilton
     fitting is chronological and diagnostic-only, never smoothed output.
     """
-    from scripts.write_hawkes_production import load_stream, tod_profile
-    from scripts.build_observations import build_row, universe_for
+    # O02: these four live in research scripts that a built wheel does not
+    # ship. `research_scripts.load` fails with an instruction naming the
+    # capability instead of a bare ModuleNotFoundError from three frames down.
+    from seraph.orchestration import research_scripts
+    load_stream, tod_profile = research_scripts.load(
+        'write_hawkes_production', 'load_stream', 'tod_profile')
+    build_row, universe_for = research_scripts.load(
+        'build_observations', 'build_row', 'universe_for')
     # FIX01: the cutoff is the session's declared close, not a fixed 15:30.
     ts=SessionCalendar().close_timestamp(day); cutoff=datetime.fromisoformat(ts)
     end=date.fromisoformat(day)

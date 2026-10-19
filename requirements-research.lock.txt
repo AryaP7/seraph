@@ -39,13 +39,13 @@ pydeck==0.9.3
 pygments==2.21.0
 pytest==9.1.1
 python-dateutil==2.9.0.post0
+pypdf==6.21.1
 python-multipart==0.0.32
 referencing==0.37.0
 requests==2.34.2
 rpds-py==2026.9.1
 scikit-learn==1.9.1
 scipy==1.18.1
--e .
 six==1.17.0
 sortedcontainers==2.4.0
 starlette==1.8.0
@@ -61,3 +61,14 @@ uvicorn==0.54.0
 watchdog==6.0.0
 websockets==17.2
 wrapt==2.5.1
+
+# The project itself, pinned dependencies above. V03: this file ends in
+# `-e .`, which makes pip resolve the project's own requirements -- so a
+# pyproject dependency this file does not NAME is fetched unpinned, in the
+# one file whose entire purpose is reproducibility. `pypdf>=6.21.1` was
+# exactly that: declared in pyproject, absent here, floating in CI. Every
+# pyproject dependency is now pinned above; pip resolves `-e .` against
+# those pins rather than against the index. Adding a dependency to
+# pyproject without pinning it here reintroduces the drift, and
+# `scripts/check_invariants.py` fails when it does.
+-e .

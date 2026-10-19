@@ -131,12 +131,71 @@ def check_frozen_shared_types() -> list[str]:
     return notes
 
 
+def check_lockfile_covers_pyproject() -> list[str]:
+    """Every runtime dependency in pyproject must be pinned in the lockfile.
+
+    V03: `requirements-research.lock.txt` ends in `-e .`, which resolves the
+    project's own dependencies at install time. A pyproject requirement that
+    the lock does not name is therefore fetched unpinned -- in the one file
+    whose entire purpose is reproducibility. `pypdf>=6.21.1` was exactly
+    that: declared in pyproject, absent from the lock, floating in CI.
+    """
+    pyproject = REPO_ROOT / "pyproject.toml"
+    lock = REPO_ROOT / "requirements-research.lock.txt"
+    if not pyproject.exists() or not lock.exists():
+        return []
+    body = pyproject.read_text(encoding="utf-8")
+    block = re.search(r"^dependencies\s*=\s*\[(.*?)\]", body,
+                      re.S | re.M)
+    if not block:
+        return ["could not find the `dependencies` array in pyproject.toml"]
+    required = {
+        re.split(r"[<>=!~\[ ]", name)[0].strip().lower().replace("_", "-")
+        for name in re.findall(r'"([^"]+)"', block.group(1))}
+    pinned = set()
+    for line in lock.read_text(encoding="utf-8").splitlines():
+        line = line.strip()
+        if not line or line.startswith("#") or line.startswith("-"):
+            continue
+        pinned.add(re.split(r"[<>=!~\[ ]", line)[0].strip().lower().replace("_", "-"))
+    missing = sorted(required - pinned)
+    return [f"`{name}` is required by pyproject.toml and not pinned in "
+            f"requirements-research.lock.txt, so `-e .` will resolve it "
+            f"unpinned" for name in missing]
+
+
+def check_no_secrets_at_rest() -> list[str]:
+    """No credential file may sit in the repository working tree.
+
+    W0-B/X05: a plaintext Kite access token lived at the repository root.
+    `.gitignore` kept it out of history, which is necessary and not
+    sufficient -- the file is still read by every tool and agent with
+    filesystem access, and travels with any copy or archive of the folder.
+    """
+    patterns = ("*token*.json", "*credential*.json", "*.secret", "*secrets*.json")
+    found = sorted({path.name for pattern in patterns
+                    for path in REPO_ROOT.glob(pattern) if path.is_file()})
+    # Reported as [info], not a violation, deliberately. Remediation is an
+    # OWNER action -- the file holds their live broker token, and moving it
+    # is their call, not a scripted one. A hard failure here would also fail
+    # CI on a condition CI cannot reach (the file is gitignored, so a clean
+    # clone never has it), and a check that fails only where it cannot be
+    # actioned is a check that gets suppressed.
+    return [f"[info] {name} is a credential-shaped file in the repository "
+            f"root. Being gitignored is not the same as being absent: it is "
+            f"still read by every tool with filesystem access and travels "
+            f"with any copy of this folder. Move it outside the tree and "
+            f"point SERAPH_KITE_TOKENS at it." for name in found]
+
+
 CHECKS = [
     ("PILLAR_ORDER consistency", check_pillar_order),
     ("C9 fusion purity (no validation/ import, no DB driver)", check_fusion_purity),
     ("AR_t placement (C4, not C6)", check_ar_t_placement),
     ("Explicit IST timestamps", check_naive_timestamps),
     ("shared_types frozen= audit (info only)", check_frozen_shared_types),
+    ("lockfile pins every pyproject dependency", check_lockfile_covers_pyproject),
+    ("no credential file in the repository root", check_no_secrets_at_rest),
 ]
 
 

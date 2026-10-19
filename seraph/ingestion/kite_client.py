@@ -36,7 +36,41 @@ LOGIN_ROOT = "https://kite.zerodha.com/connect/login"
 
 _REPO_ROOT = Path(__file__).resolve().parents[2]
 ENV_FILE = _REPO_ROOT / ".env"
-TOKEN_CACHE = _REPO_ROOT / "kite_credentials.tokens.json"
+
+#: Where the daily access token is cached.
+#:
+#: W0-B/X05: this was unconditionally `_REPO_ROOT / "kite_credentials.tokens.json"`
+#: -- a live broker token in plaintext inside the working tree. `.gitignore`
+#: kept it out of history, which is necessary and not sufficient: the file is
+#: still read by every tool and agent with filesystem access, and it travels
+#: with any copy, zip or backup of the folder.
+#:
+#: `SERAPH_KITE_TOKENS` now overrides the location, so the token can live
+#: outside the repository (e.g. `%LOCALAPPDATA%\\seraph\\kite.tokens.json`).
+#: The in-tree path remains the fallback so an existing setup keeps working
+#: rather than breaking on upgrade -- but `token_cache_is_in_repo()` reports
+#: when that fallback is in use, and `scripts/check_invariants.py` says so.
+_DEFAULT_TOKEN_CACHE = _REPO_ROOT / "kite_credentials.tokens.json"
+
+
+def token_cache_path() -> Path:
+    """The configured token cache. `SERAPH_KITE_TOKENS` wins."""
+    override = os.environ.get("SERAPH_KITE_TOKENS")
+    return Path(override).expanduser() if override else _DEFAULT_TOKEN_CACHE
+
+
+def token_cache_is_in_repo() -> bool:
+    """Is the token sitting inside the working tree? Reported, not enforced."""
+    try:
+        token_cache_path().resolve().relative_to(_REPO_ROOT)
+    except (ValueError, OSError):
+        return False
+    return True
+
+
+#: Back-compatible module attribute. Prefer `token_cache_path()`, which
+#: honours the environment override at call time rather than at import time.
+TOKEN_CACHE = _DEFAULT_TOKEN_CACHE
 
 #: Max days returnable per request, per interval (DATA-ACQUISITION §1).
 INTERVAL_MAX_DAYS = {
@@ -94,22 +128,33 @@ def exchange_request_token(creds: KiteCredentials, request_token: str) -> dict:
     )
     r.raise_for_status()
     data = r.json()["data"]
-    TOKEN_CACHE.write_text(json.dumps({
+    cache = token_cache_path()
+    cache.parent.mkdir(parents=True, exist_ok=True)
+    cache.write_text(json.dumps({
         "access_token": data["access_token"],
         "public_token": data.get("public_token"),
         "user_id": data.get("user_id"),
         "login_time": data.get("login_time"),
     }, indent=2), encoding="utf-8")
+    if token_cache_is_in_repo():
+        # Said once, at the moment the token is written, which is the only
+        # moment the operator is definitely watching.
+        print(f"[kite] WARNING: the access token was written to {cache}, "
+              f"inside the repository. Set SERAPH_KITE_TOKENS to a path "
+              f"outside the tree and log in again.")
     return data
 
 
 def cached_access_token() -> str:
-    if not TOKEN_CACHE.exists():
+    cache = token_cache_path()
+    if not cache.exists():
         raise RuntimeError(
-            "no cached Kite access token — run `python scripts/kite_login.py` "
-            "and log in (tokens expire daily)"
+            f"no cached Kite access token at {cache} — run "
+            f"`python scripts/kite_login.py` and log in (tokens expire "
+            f"daily). Set SERAPH_KITE_TOKENS to keep the token outside the "
+            f"repository."
         )
-    return json.loads(TOKEN_CACHE.read_text(encoding="utf-8"))["access_token"]
+    return json.loads(cache.read_text(encoding="utf-8"))["access_token"]
 
 
 class KiteClient:
