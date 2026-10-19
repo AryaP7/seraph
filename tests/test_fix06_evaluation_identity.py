@@ -137,10 +137,21 @@ class FakeConn:
 
 
 def test_a_pending_migration_is_applied_once():
+    """Asserted against what `discover()` finds, not a hard-coded list.
+
+    These two assertions used to name `001_evaluation_identity.sql` literally,
+    so adding T10's `002_experiment_rows.sql` failed them -- for the inventory
+    having grown, which is not what either test is about. The properties are
+    that every pending migration is applied, in filename order, and that a
+    second run applies none of them again.
+    """
     import asyncio
     conn = FakeConn()
+    discovered = [name for name, _, _ in migrations.discover()]
+    assert len(discovered) >= 2, "this guards order, so it needs two of them"
+
     first = asyncio.run(migrations.migrate(conn))
-    assert first["applied"] == ["001_evaluation_identity.sql"]
+    assert first["applied"] == discovered
     second = asyncio.run(migrations.migrate(conn))
     assert second["applied"] == [], "a second run must be a no-op"
 
@@ -150,7 +161,8 @@ def test_a_dry_run_changes_nothing():
     conn = FakeConn()
     result = asyncio.run(migrations.migrate(conn, dry_run=True))
     assert result["dry_run"] is True
-    assert result["pending"] == ["001_evaluation_identity.sql"]
+    assert result["pending"] == [name for name, _, _ in migrations.discover()]
+    assert result["applied"] == []
     assert not any("ALTER TABLE" in sql for sql in conn.executed)
 
 

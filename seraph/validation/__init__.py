@@ -11,7 +11,7 @@ The runner and its three companions are re-exported here so the package
 interface matches what the docstring claims:
 
 * `run_experiment` — FR35/FR36, leave-one-epoch-out under a committed design;
-* `transfer` — FR37/O9, the same weights on another market with no refit;
+* `run_transfer` — FR37/O9, the same weights on another market with no refit;
 * `sweep` — FR34, the one of four sensitivity axes that lives in this layer;
 * `save_report` / `load_report` / `render_report` — FR38 artefacts.
 
@@ -58,9 +58,15 @@ from seraph.validation.sensitivity import sweep
 from seraph.validation.transfer import (
     CANDIDATE_MARKETS,
     TransferResult,
-    transfer,
     weights_are_bit_identical,
 )
+
+# Deliberately `run_transfer`, not `transfer`: the function and its module
+# share a name, so re-exporting it as `transfer` made
+# `from seraph.validation import transfer` return the FUNCTION and shadow the
+# module, while `import seraph.validation.transfer` still gave the module.
+# Fourteen tests failed on `'function' object has no attribute 'transfer'`.
+from seraph.validation.transfer import transfer as run_transfer
 
 __all__ = [
     "CANDIDATE_MARKETS",
@@ -92,11 +98,11 @@ __all__ = [
     "render_report",
     "restrict",
     "run_experiment",
+    "run_transfer",
     "save_report",
     "score_subset",
     "subset_mask",
     "sweep",
-    "transfer",
     "verify",
     "weights_are_bit_identical",
 ]

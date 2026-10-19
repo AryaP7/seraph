@@ -220,11 +220,10 @@ def _fold(
     subset = tuple(cfg["pillarSubset"])
     mode: ReconciliationMode = cfg["reconciliationMode"]
     epochs = tuple(cfg["epochs"])
-    def miss(reason: UnavailableReason, detail: str):
-        """No artefact: there was nothing to fit, or the fit failed."""
-        return _unavailable(cfg, epoch, xi_mode, digest, reason,
-                            detail), None
 
+    def miss(reason: UnavailableReason, detail: str):
+        """No artefact: there was nothing to fit, or the fit itself failed."""
+        return _unavailable(cfg, epoch, xi_mode, digest, reason, detail), None
 
     held = dataset.get(epoch)
     if held is None:

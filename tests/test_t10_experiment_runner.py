@@ -272,13 +272,23 @@ class TestNothingTrainsOnTheTestFold:
         look correct in isolation, so the artefact's own recorded mask profile
         is the thing worth asserting."""
         from seraph.validation.ablation import subset_mask
-        from seraph.orchestration.run_store import RunStore  # noqa: F401
 
-        # The artefact id is a content hash over (rows, config); the config
-        # carries mask_profile, so a row whose subset and profile disagree
-        # would hash differently and is what this guards.
         for row in report.measured():
-            assert len(row.pillar_subset) == sum(subset_mask(row.pillar_subset))
+            artefact = report.weight_artefacts[row.weights_artefact_id]
+            config = artefact.calibrated_on
+            assert config.mask_profile == subset_mask(row.pillar_subset), (
+                f"{row.pillar_subset} was calibrated under "
+                f"{config.mask_profile}, so training saw coordinates the "
+                f"test fold is masked out of")
+            assert config.fold_held_out == row.epoch
+            assert row.epoch not in config.epochs
+
+    def test_the_retained_artefact_is_the_one_the_row_names(self, report):
+        """The artefacts exist so FR37 can transfer the exact object. If the
+        row's id did not resolve, a transfer could only refit."""
+        for row in report.measured():
+            artefact = report.weight_artefacts[row.weights_artefact_id]
+            assert artefact.artefact_id == row.weights_artefact_id
 
 
 class TestTheUnitOfAggregationIsTheConfiguration:

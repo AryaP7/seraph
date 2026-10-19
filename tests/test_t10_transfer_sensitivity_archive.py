@@ -133,6 +133,43 @@ class TestTheTransferCannotRefit:
         assert not transfer.weights_are_bit_identical(a, relabelled)
 
 
+class TestThePackageInterfaceDoesNotShadowItsModules:
+    """A re-export must not share a name with its own module.
+
+    `seraph/validation/__init__.py` briefly re-exported the `transfer`
+    FUNCTION under the bare name `transfer`, which shadowed the `transfer`
+    MODULE: `from seraph.validation import transfer` returned a function while
+    `import seraph.validation.transfer` returned the module. Fourteen tests
+    failed on `'function' object has no attribute 'transfer'`. It is exported
+    as `run_transfer` now, matching `run_experiment`.
+    """
+
+    def test_the_submodules_are_reachable_by_their_own_names(self):
+        import seraph.validation as package
+
+        for name in ("experiment", "experiment_store", "sensitivity",
+                     "transfer", "ablation", "harness", "preregistration"):
+            attribute = getattr(package, name)
+            assert hasattr(attribute, "__file__"), (
+                f"seraph.validation.{name} resolves to {attribute!r}, not the "
+                f"module -- a re-export is shadowing it")
+
+    def test_no_export_collides_with_a_submodule_name(self):
+        import pkgutil
+
+        import seraph.validation as package
+
+        submodules = {m.name for m in pkgutil.iter_modules(package.__path__)}
+        collisions = sorted(submodules & set(package.__all__))
+        assert collisions == [], (
+            f"{collisions} are exported under the same name as a submodule")
+
+    def test_the_exports_all_resolve(self):
+        import seraph.validation as package
+
+        assert [n for n in package.__all__ if not hasattr(package, n)] == []
+
+
 class TestTheTransferScopeIsReportedNotOmitted:
     def test_a_market_outside_the_spec_set_is_refused(self, observations):
         result = transfer.transfer(weights=weights(), target_market="FTSE",
