@@ -24,6 +24,7 @@ A feed that cannot say *when* it last heard from the market is not usable, so
 """
 from __future__ import annotations
 
+import math
 import os
 from dataclasses import dataclass, field
 from datetime import datetime, timedelta
@@ -44,15 +45,82 @@ class FeedUnavailable(RuntimeError):
 
 @dataclass(frozen=True)
 class Tick:
+    """One quote. A `Tick` that exists is a valid quote, by construction.
+
+    The validation below is the OHLC boundary. `last_price <= 0` alone was
+    not it: `float('nan') <= 0` and `float('inf') <= 0` are both `False`, so
+    a nonfinite price passed straight into a bar's open, high, low and close,
+    and from there into the Lee-Mykland return and the CSRS. Everything
+    downstream treats a bar as numeric, so this is the only place the check
+    can be made once.
+    """
+
     symbol: str
     ts: str                      # IST, explicit offset
     last_price: float
     volume_traded: int | None = None
     source_kind: SourceKind = "none"
+    #: The provider's own monotone counter, where the feed supplies one. Used
+    #: ONLY for ordering, and only against another sequence from the same
+    #: provider — see `BarBuilder._out_of_order`.
+    sequence: int | None = None
 
     def __post_init__(self) -> None:
+        for problem in (self._reject(),):
+            if problem is not None:
+                raise ValueError(f"{self.symbol or '<no symbol>'}: {problem}")
+
+    def _reject(self) -> str | None:
+        """Why this is not a quote, or `None`. Never raises."""
+        if not self.symbol or not str(self.symbol).strip():
+            return "a quote with no symbol cannot be attributed to an instrument"
+        if not isinstance(self.last_price, (int, float)) or isinstance(self.last_price, bool):
+            return f"price {self.last_price!r} is not a number"
+        if not math.isfinite(self.last_price):
+            return (f"price {self.last_price!r} is not finite; NaN and infinity "
+                    f"must never reach OHLC")
         if self.last_price <= 0:
-            raise ValueError(f"{self.symbol}: a non-positive price is not a quote")
+            return "a non-positive price is not a quote"
+        if self.volume_traded is not None:
+            volume = self.volume_traded
+            if isinstance(volume, bool) or not isinstance(volume, (int, float)):
+                return f"cumulative volume {volume!r} is not a number"
+            if not math.isfinite(volume):
+                return f"cumulative volume {volume!r} is not finite"
+            if volume < 0:
+                return (f"cumulative volume {volume!r} is negative; a traded "
+                        f"total cannot fall below zero")
+            if int(volume) != volume:
+                return (f"cumulative volume {volume!r} is fractional; traded "
+                        f"quantity is a count")
+        if self.sequence is not None:
+            if isinstance(self.sequence, bool) or not isinstance(self.sequence, int):
+                return f"provider sequence {self.sequence!r} is not an integer"
+            if self.sequence < 0:
+                return f"provider sequence {self.sequence!r} is negative"
+        try:
+            moment = datetime.fromisoformat(self.ts)
+        except (TypeError, ValueError):
+            return (f"timestamp {self.ts!r} is not ISO-8601; every timestamp in "
+                    f"this system is IST with an explicit offset")
+        if moment.utcoffset() is None:
+            return (f"timestamp {self.ts!r} carries no UTC offset; a naive "
+                    f"timestamp cannot be placed in a trading session")
+        return None
+
+    @classmethod
+    def accept(cls, **fields) -> "tuple[Tick | None, str | None]":
+        """Build a tick, or say why these fields are not one. Never raises.
+
+        A feed adapter runs inside a provider callback, where an exception
+        can take the socket thread down with it. This is the non-raising
+        door: the adapter gets back either a tick or a reason, counts the
+        reason, and keeps reading.
+        """
+        try:
+            return cls(**fields), None
+        except (ValueError, TypeError) as exc:
+            return None, str(exc)
 
 
 @dataclass(frozen=True)
@@ -142,7 +210,8 @@ class ReplayFeed:
         if batch:
             self._last = batch[-1].ts
         return [Tick(symbol=t.symbol, ts=t.ts, last_price=t.last_price,
-                     volume_traded=t.volume_traded, source_kind="replay")
+                     volume_traded=t.volume_traded, source_kind="replay",
+                     sequence=t.sequence)
                 for t in batch]
 
     def feed(self, ticks: Iterable[Tick]) -> None:
@@ -185,6 +254,13 @@ class KiteTickerFeed:
         self._symbols: tuple[str, ...] = ()
         self._tokens: dict[int, str] = {}
         self._verified = False
+        #: Packets the provider sent that are not quotes, by reason. Visible
+        #: in `health()`, because a feed silently dropping half its packets
+        #: and a feed receiving nothing look identical otherwise.
+        self.rejected: dict[str, int] = {}
+
+    def _reject(self, reason: str) -> None:
+        self.rejected[reason] = self.rejected.get(reason, 0) + 1
 
     def _require_credentials(self) -> tuple[str, str]:
         if not self._api_key:
@@ -229,18 +305,29 @@ class KiteTickerFeed:
         ticker = KiteTicker(api_key, access_token)
 
         def on_ticks(_ws, ticks):                            # pragma: no cover
+            # Runs inside the kiteconnect callback thread. Nothing here may
+            # raise: an exception escaping this function can take the socket
+            # thread down, and a provider that sends one malformed packet
+            # would then stop the whole feed. `Tick.accept` is the
+            # non-raising door; a rejected packet is counted and named.
             for raw in ticks:
                 symbol = self._tokens.get(raw.get("instrument_token"))
                 price = raw.get("last_price")
-                if not symbol or not price:
+                if not symbol or price is None:
+                    self._reject("no symbol token or no price in packet")
                     continue
                 stamp = raw.get("exchange_timestamp") or datetime.now(IST)
                 if isinstance(stamp, datetime):
                     stamp = ist_timestamp(stamp.astimezone(IST).replace(microsecond=0))
-                self._buffer.append(Tick(
-                    symbol=symbol, ts=stamp, last_price=float(price),
+                tick, problem = Tick.accept(
+                    symbol=symbol, ts=stamp, last_price=price,
                     volume_traded=raw.get("volume_traded"),
-                    source_kind="broker_websocket"))
+                    source_kind="broker_websocket",
+                    sequence=raw.get("sequence_number"))
+                if tick is None:
+                    self._reject(problem or "unspecified")
+                    continue
+                self._buffer.append(tick)
                 self._last = stamp
             self._verified = True
 
@@ -264,6 +351,11 @@ class KiteTickerFeed:
         if not self._verified:
             detail += ("; this adapter has never been exercised against the live "
                        "endpoint in this checkout")
+        if self.rejected:
+            total = sum(self.rejected.values())
+            detail += (f"; {total} packet(s) rejected as not-a-quote: "
+                       + ", ".join(f"{n}x {why}"
+                                   for why, n in sorted(self.rejected.items())))
         return FeedHealth(source_kind="broker_websocket", connected=connected,
                           last_message_at=self._last, symbols=len(self._symbols),
                           is_live=True, detail=detail)
@@ -277,17 +369,25 @@ class KiteTickerFeed:
 
 
 def resolve_feed(*, allow_replay: ReplayFeed | None = None) -> MarketDataFeed:
-    """Pick the best available source, and be explicit when there is none.
+    """Pick the source the caller asked for, and be explicit when there is none.
 
-    Order: a real broker connection if credentials exist; otherwise the
-    caller's replay feed if they supplied one *deliberately*; otherwise
-    `NullFeed`. There is no automatic fallback from live to archived — the
-    caller has to hand over a replay feed on purpose.
+    **An explicit replay feed wins over credentials.** The previous order
+    tested `KITE_API_KEY` first, so `run_live.py --replay` on a machine with
+    a token opened a real broker websocket: the operator asked for a replay
+    and got the market. That is the most dangerous shape of defect in this
+    module relative to its size, because the replay path exists precisely to
+    exercise the loop *without* touching a broker, and `--replay` is what a
+    test or a demo runs.
+
+    Order now: the caller's deliberate replay feed; otherwise a real broker
+    connection if credentials exist; otherwise `NullFeed`. There is still no
+    automatic fallback from live to archived — a caller has to hand over a
+    replay feed on purpose, and live mode fails loudly rather than degrading.
     """
-    if os.environ.get("KITE_API_KEY"):
-        return KiteTickerFeed()
     if allow_replay is not None:
         return allow_replay
+    if os.environ.get("KITE_API_KEY"):
+        return KiteTickerFeed()
     return NullFeed(
         "no live market data source is configured. Set KITE_API_KEY and run "
         "scripts/kite_login.py, or pass a ReplayFeed explicitly. Archived data "

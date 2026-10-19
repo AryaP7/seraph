@@ -54,6 +54,13 @@ VolumeQuality = Literal["exact", "partial", "uncertain", "unavailable"]
 QuarantineReason = Literal["outside_session", "late_finalized", "out_of_order",
                            "duplicate", "volume_reset_or_revision"]
 
+#: Bumped when the shape of `BarBuilder.snapshot()` changes. 2 added the
+#: ordering and dedup state (`last_ts`, `last_sequence`, `seen_keys`) that
+#: version 1 silently omitted, so a version-1 snapshot cannot be restored:
+#: it would resume with an empty duplicate set and no order watermark, which
+#: is the defect the fields exist to prevent.
+SNAPSHOT_VERSION = 2
+
 
 @dataclass(frozen=True)
 class Bar:
@@ -87,7 +94,17 @@ class _SymbolState:
     last_finalized_end: str | None = None
     last_cumulative_volume: int | None = None
     last_cumulative_at: str | None = None
-    last_order_key: tuple | None = None
+    #: Chronological watermarks. Two of them, because they are two different
+    #: kinds of evidence: `last_ts` is the exchange timestamp, which every
+    #: feed supplies, and `last_sequence` is the provider's own counter, which
+    #: only some do. They are compared separately and never against each
+    #: other — mixing a sequence number with a timestamp ordinal is how an
+    #: ordering check starts rejecting valid ticks.
+    last_ts: str | None = None
+    last_sequence: int | None = None
+    #: Content identities seen in the OPEN window only; cleared on finalize,
+    #: which bounds this set to one bar per symbol. A duplicate from an
+    #: already-finalized window is caught by `last_finalized_end` instead.
     seen_keys: set = field(default_factory=set)
     accumulator: "_Accumulator | None" = None
     #: False until a baseline exists, so the first window of a mid-session
@@ -160,10 +177,48 @@ class BarBuilder:
         return self._state.setdefault(symbol, _SymbolState(symbol=symbol))
 
     @staticmethod
-    def _order_key(tick: Tick) -> tuple:
-        # Provider sequence would be better; without one this is the documented
-        # fallback. Two ticks identical in all of these are indistinguishable.
+    def _identity_key(tick: Tick) -> tuple:
+        """What makes two ticks the same OBSERVATION, for deduplication.
+
+        Content, not order. Two ticks identical in timestamp, price and
+        cumulative volume are indistinguishable reports of one trade, so the
+        second is a duplicate. This tuple is only ever hashed and compared
+        for equality — never ordered. `None` is a legitimate volume here.
+        """
         return (tick.ts, tick.last_price, tick.volume_traded)
+
+    @staticmethod
+    def _out_of_order(state: _SymbolState, tick: Tick) -> str | None:
+        """Why this tick precedes what we have already accepted, or `None`.
+
+        Chronological evidence only. The rule this replaces built one tuple
+        `(ts, price, volume)` and used it for BOTH deduplication and
+        ordering, which was wrong twice over:
+
+        * **Price is not an ordering dimension.** At a single timestamp a
+          rising tick compared greater and was accepted while a falling tick
+          compared less and was quarantined `out_of_order` and discarded. A
+          market that ticks down inside a second had those ticks dropped and
+          its bar's volume marked uncertain; a market that ticked up did not.
+        * **`volume_traded` is `int | None`.** Two ticks sharing a timestamp
+          and price where one carried no volume reached `None < int`, which
+          raises `TypeError` out of `add()` and **discarded every remaining
+          tick in the batch**, not just the offending one. Kite in LTP mode,
+          or mixed full/LTP packets for one instrument, produces exactly
+          that shape.
+
+        Same-timestamp ticks are now accepted in arrival order, symmetrically
+        whichever way the price moved. A provider sequence, where the feed
+        supplies one, is compared only against another provider sequence.
+        """
+        if state.last_ts is not None and tick.ts < state.last_ts:
+            return (f"timestamp {tick.ts} precedes the last accepted "
+                    f"{state.last_ts}")
+        if (tick.sequence is not None and state.last_sequence is not None
+                and tick.sequence < state.last_sequence):
+            return (f"provider sequence {tick.sequence} precedes the last "
+                    f"accepted {state.last_sequence}")
+        return None
 
     # ---------------------------------------------------------------- add
 
@@ -179,7 +234,7 @@ class BarBuilder:
             state = self._state_for(tick.symbol)
             session_id = tick.ts[:10]
 
-            key = self._order_key(tick)
+            key = self._identity_key(tick)
             if key in state.seen_keys:
                 self._quarantine(tick, "duplicate",
                                  "identical timestamp, price and cumulative volume")
@@ -193,18 +248,23 @@ class BarBuilder:
                                  f"{state.last_finalized_end}")
                 continue
 
-            if state.last_order_key is not None and key < state.last_order_key:
-                self._quarantine(tick, "out_of_order")
+            late = self._out_of_order(state, tick)
+            if late is not None:
+                self._quarantine(tick, "out_of_order", late)
                 if state.accumulator is not None:
                     state.accumulator.volume_quality = "uncertain"
                 continue
 
             if state.session_id != session_id:
-                # New session: cumulative volume restarts at the exchange.
+                # New session: cumulative volume restarts at the exchange,
+                # and so do both order watermarks — yesterday's last sequence
+                # says nothing about today's first.
                 state.session_id = session_id
                 state.last_cumulative_volume = None
                 state.last_cumulative_at = None
                 state.baseline_established = False
+                state.last_ts = None
+                state.last_sequence = None
                 state.seen_keys.clear()
 
             if state.accumulator is not None and start > state.accumulator.start:
@@ -219,7 +279,9 @@ class BarBuilder:
 
             self._apply_volume(state, tick)
             state.accumulator.add_price(tick.last_price)
-            state.last_order_key = key
+            state.last_ts = tick.ts
+            if tick.sequence is not None:
+                state.last_sequence = tick.sequence
             state.seen_keys.add(key)
             self.accepted_ticks += 1
         return closed
@@ -257,6 +319,12 @@ class BarBuilder:
         bar = accumulator.to_bar(complete=True)
         state.last_finalized_end = accumulator.end
         state.accumulator = None
+        # The dedup set only has to cover the OPEN window: once a window is
+        # finalized, `last_finalized_end` rejects anything belonging to it
+        # before the identity check is reached. Clearing here bounds the set
+        # to one bar per symbol instead of a whole session's ticks, which is
+        # what made it unsafe to persist.
+        state.seen_keys.clear()
         return bar
 
     # --------------------------------------------------------------- close
@@ -282,9 +350,17 @@ class BarBuilder:
     # ----------------------------------------------------------- recovery
 
     def snapshot(self) -> dict:
-        """Everything needed to resume without reopening a finalized window."""
+        """Everything needed to resume without reopening a finalized window,
+        **and** without re-accepting a tick it had already consumed.
+
+        Version 1 omitted the order watermark and the duplicate set, so a
+        restart silently resumed with no memory of either: a redelivered
+        batch was re-applied to the open bar, double-counting its volume and
+        moving its close. `seen_keys` is bounded to the open window (see
+        `_finalize`), so persisting it costs one bar per symbol.
+        """
         return dict(
-            version=1,
+            version=SNAPSHOT_VERSION,
             symbols={
                 symbol: dict(
                     session_id=s.session_id,
@@ -292,6 +368,15 @@ class BarBuilder:
                     last_cumulative_volume=s.last_cumulative_volume,
                     last_cumulative_at=s.last_cumulative_at,
                     baseline_established=s.baseline_established,
+                    last_ts=s.last_ts,
+                    last_sequence=s.last_sequence,
+                    # JSON has no tuples and no sets. Sorted for a stable
+                    # snapshot hash: R05 fingerprints this payload, so an
+                    # arbitrary set order would make an identical state look
+                    # like a changed one.
+                    seen_keys=sorted([list(k) for k in s.seen_keys],
+                                     key=lambda k: (str(k[0]), float(k[1]),
+                                                    -1 if k[2] is None else int(k[2]))),
                     open_accumulator=(
                         None if s.accumulator is None else dict(
                             start=s.accumulator.start, end=s.accumulator.end,
@@ -304,10 +389,14 @@ class BarBuilder:
             accepted_ticks=self.accepted_ticks)
 
     def restore(self, snapshot: dict) -> None:
-        if snapshot.get("version") != 1:
-            raise ValueError(f"unsupported bar snapshot version "
-                             f"{snapshot.get('version')!r}; rebuild rather than "
-                             f"restore a shape this build does not understand")
+        if snapshot.get("version") != SNAPSHOT_VERSION:
+            raise ValueError(
+                f"unsupported bar snapshot version "
+                f"{snapshot.get('version')!r}; this build writes "
+                f"{SNAPSHOT_VERSION}. Rebuild rather than restore a shape this "
+                f"build does not understand — a version-1 snapshot carries no "
+                f"duplicate set and no order watermark, so resuming from one "
+                f"would re-accept ticks it had already consumed")
         self._state.clear()
         for symbol, payload in snapshot.get("symbols", {}).items():
             state = _SymbolState(
@@ -315,7 +404,11 @@ class BarBuilder:
                 last_finalized_end=payload.get("last_finalized_end"),
                 last_cumulative_volume=payload.get("last_cumulative_volume"),
                 last_cumulative_at=payload.get("last_cumulative_at"),
-                baseline_established=payload.get("baseline_established", False))
+                baseline_established=payload.get("baseline_established", False),
+                last_ts=payload.get("last_ts"),
+                last_sequence=payload.get("last_sequence"),
+                seen_keys={(k[0], k[1], k[2])
+                           for k in payload.get("seen_keys", ())})
             open_bar = payload.get("open_accumulator")
             if open_bar:
                 state.accumulator = _Accumulator(symbol=symbol, **open_bar)
