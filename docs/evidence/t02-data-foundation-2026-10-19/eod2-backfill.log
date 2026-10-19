@@ -1,0 +1,17 @@
+[eod2] 250/3524 files — 468,366 rows so far
+[eod2] 500/3524 files — 1,029,673 rows so far
+[eod2] 750/3524 files — 1,560,704 rows so far
+[eod2] 1000/3524 files — 2,022,822 rows so far
+[eod2] 1250/3524 files — 2,557,947 rows so far
+[eod2] 1500/3524 files — 3,166,919 rows so far
+[eod2] 1750/3524 files — 3,755,248 rows so far
+[eod2] 2000/3524 files — 4,222,701 rows so far
+[eod2] 2250/3524 files — 4,744,487 rows so far
+[eod2] 2500/3524 files — 5,258,646 rows so far
+[eod2] 2750/3524 files — 5,781,731 rows so far
+[eod2] 3000/3524 files — 6,207,784 rows so far
+[eod2] 3250/3524 files — 6,805,204 rows so far
+[eod2] 3500/3524 files — 7,318,148 rows so far
+[eod2] done: {'symbols': 3524, 'rows': 7385306, 'inserted': 7341990, 'updated': 43316, 'skipped': 0, 'errors': 0} — note: TOTTRDVAL approximated as close × volume — EOD2 CSVs carry no traded-value column; exact values require the bhavcopy path
+
+[exited with code 0]

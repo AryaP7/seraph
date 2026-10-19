@@ -1,0 +1,53 @@
+{
+  "task": "T02 \u2014 market data foundation (FR1, FR7, FR8, FR52)",
+  "generated": "2026-10-19",
+  "decision": {
+    "source": "vendor/eod2/src/eod2_data/daily/*.csv (vendored in-repo)",
+    "why": "FR1 names the EOD2 pipeline as the daily source and the code already pointed at this tree: seraph/ingestion/eod2_client.py DEFAULT_DATA_DIR and seraph/universe/instrument_type.py both resolve to vendor/eod2. No new dependency, no subscription, no architectural change \u2014 the pipeline existed and had simply never been run.",
+    "destination": "the project's own docker-compose research PostgreSQL on 127.0.0.1:5434 (FR8), brought up with the documented `docker compose up -d`. The 9.2 GB source volume on 5433 was NOT attached, migrated or modified.",
+    "rejected": [
+      "A SQLite or file-based store: FR8 requires PostgreSQL + TimescaleDB.",
+      "Kite Connect for daily data: FR1 assigns Kite to INTRADAY only, and it needs a paid subscription plus a daily interactive token."
+    ]
+  },
+  "results": {
+    "daily_prices": {
+      "rows": 7385306,
+      "symbols": 3524,
+      "first": "2005-01-03",
+      "last": "2026-08-21"
+    },
+    "universe_snapshots": {
+      "count": 43,
+      "first": "2005-07-01",
+      "last": "2026-07-01",
+      "at_target": 33,
+      "underfilled": 10,
+      "latest_members": 500
+    }
+  },
+  "fr52": {
+    "rule": "filter to >=1000 listing days, THEN rank by 6-month median traded value, THEN take top 500 (the documented bug trap)",
+    "q_target": 2.0,
+    "observed": "Q_t = 2.00 exactly on every rebalance from 2010-07-01 onward",
+    "early_epochs": "2005-07 through 2010-01 are UNDERFILLED (299-474 names, Q_t 2.11-3.34). This independently reproduces AMENDMENT-02: N=500/Q=2 is not attainable for the 2008 epoch from this corpus. Reported, not worked around.",
+    "equity_filter": {
+      "source": "vendor/eod2/src/eod2_data/isin.csv",
+      "symbols_classified": 3755,
+      "verified": "NIFTYBEES and GOLDBEES correctly excluded as non-equity; RELIANCE, TCS, HDFCBANK admitted"
+    }
+  },
+  "idempotency": {
+    "check": "CT-1: re-running the same slice must insert 0",
+    "first_run": "20 symbols, 43316 rows, inserted=43316",
+    "second_run": "20 symbols, 43316 rows, inserted=0, updated=43316",
+    "verdict": "idempotent"
+  },
+  "disclosed_approximation": {
+    "field": "tottrdval",
+    "note": "EOD2 daily CSVs carry no traded-value column, so TOTTRDVAL is close x volume. eod2_client raises ESTIMATOR_FALLBACK saying so on every run. Exact values would need the bhavcopy path. FR52 ranks on this, so the ranking is on a proxy \u2014 disclosed, not silently substituted."
+  },
+  "still_blocked": {
+    "intraday_bars": "EMPTY. FR1 sources 5-minute bars from Kite Connect for a ~100-symbol subset. scripts/backfill_intraday.py is implemented and checkpointed but requires a paid Kite subscription and a daily interactive login. This is the one genuine external blocker and it gates the Hawkes pillar's FRESH computation."
+  }
+}
