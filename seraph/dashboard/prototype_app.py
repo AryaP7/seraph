@@ -21,6 +21,7 @@ from seraph.news import NewsStore
 from seraph.news.registry import load_master_data
 from seraph.dashboard.current_reader import VIEW_MODES, read_current, revision
 from seraph.live.store import LiveStore
+from seraph.shared_types import PILLAR_ORDER
 
 console = components.declare_component('seraph_console', path=str(Path(__file__).parent/'console_component'))
 
@@ -71,6 +72,44 @@ def _bundle(store_path: str, run_id: str, role: str):
     )
 
 
+def csrs_metric(payload: dict | None) -> tuple:
+    """The score to display, and the detail line under it.
+
+    U01: `payload['csrs']` is `CsrsPoint.model_dump()` -- a dict with a
+    nested float, a variance, a confidence interval and the D2 mask. The
+    panel passed that whole dict to `st.metric`, which raises
+
+        Invalid `value` type. Expected one of: int, float, Decimal,
+        NumPy number. Provided type: dict.
+
+    so a store holding a real decision rendered an exception where the score
+    should be. Accepts the bare float too: a producer that writes a scalar is
+    not wrong, it is just a different shape, and this is the one place that
+    difference has to be absorbed.
+    """
+    body = (payload or {}).get('csrs')
+    if body is None:
+        return 'Unavailable', 'no CSRS in this decision'
+    if isinstance(body, (int, float)) and not isinstance(body, bool):
+        return round(float(body), 4), ''
+    if not isinstance(body, dict):
+        return 'Unavailable', f'unrecognised CSRS shape {type(body).__name__}'
+    score = body.get('csrs')
+    if not isinstance(score, (int, float)) or isinstance(score, bool):
+        return 'Unavailable', 'this decision carries no numeric CSRS'
+    bits = []
+    low, high = body.get('ci_lower'), body.get('ci_upper')
+    if isinstance(low, (int, float)) and isinstance(high, (int, float)):
+        bits.append(f'FR29 interval [{low:.3f}, {high:.3f}]')
+    if body.get('alert_level'):
+        bits.append(f"level {body['alert_level']}")
+    mask = body.get('mask')
+    if isinstance(mask, (list, tuple)) and len(mask) == len(PILLAR_ORDER):
+        present = [p for p, on in zip(PILLAR_ORDER, mask) if on]
+        bits.append('pillars ' + (', '.join(present) if present else 'NONE'))
+    return round(float(score), 4), ' · '.join(bits)
+
+
 def live_panel(store_path: Path):
     """T08 (audit finding R12): the live runtime, read and labelled.
 
@@ -98,9 +137,10 @@ def live_panel(store_path: Path):
         if current.decision_id is None:
             st.warning(current.reason)
         else:
-            st.metric('CSRS', (current.payload or {}).get('csrs',
-                                                          'Unavailable'),
-                      help=current.reason)
+            score, detail = csrs_metric(current.payload)
+            st.metric('CSRS', score, help=current.reason)
+            if detail:
+                st.caption(detail)
             age=current.age_seconds or 0
             age_text=(f'{age / 60:.0f} min old' if age >= 0
                       else f'{abs(age) / 60:.0f} min in the FUTURE')
@@ -115,16 +155,100 @@ def live_panel(store_path: Path):
     return revision(store)
 
 
+def store_paths() -> dict:
+    """The three stores this console reads, and where each is configured.
+
+    Independent by construction. U01's defect was structural rather than
+    cosmetic: `main()` returned on a missing archive store before the live
+    panel was built and before news was reached, so a machine running the
+    live runtime and the news worker -- and nothing else -- showed one line
+    of text saying to run a historical script. The audit probe recorded it as
+    1 info message, 0 metrics, 0 radios. Each surface now stands or falls on
+    its own store.
+    """
+    root = Path(__file__).resolve().parents[2]
+    return dict(
+        archive=Path(os.environ.get('SERAPH_PROTOTYPE_STORE',
+                                    str(root/'prototype_runs/seraph.sqlite'))),
+        live=Path(os.environ.get('SERAPH_LIVE_STORE',
+                                 str(root/'prototype_runs/live.sqlite'))),
+        news=Path(os.environ.get('SERAPH_NEWS_STORE',
+                                 str(root/'prototype_runs/news-intelligence-pilot.sqlite'))),
+    )
+
+
+def news_only_panel(news_path: Path, role: str):
+    """The news channel with no market decision to anchor it.
+
+    Deliberately a DIFFERENT surface from the console's news tab, not the
+    same one with a gap. The console's version is bound to a selected
+    historical decision and answers "what was known then"; this one has no
+    such anchor and answers "what is known now". Labelling them the same
+    would be the substitution the whole mode discipline exists to prevent.
+    """
+    if not news_path.exists():
+        st.info(f'No news store at `{news_path}`. `./launch_news.ps1` '
+                f'registers the reviewed catalogue and starts the worker.')
+        return
+    from seraph.dashboard.news_view import build_news_payload
+    from seraph.news.acquisition import _now as news_now
+    store = NewsStore(news_path)
+    master = load_master_data()[0]
+    as_of = news_now()
+    st.caption(f'CURRENT NEWS · no market decision is selected, so this is '
+               f'the live news clock at {as_of}, not a reconstruction.')
+    payload = build_news_payload(store, master, decision_ts=as_of,
+                                 role=role, strict_replay=False)
+    channel = payload.get('channel') or {}
+    events = channel.get('events') or []
+    freshness = channel.get('freshness') or {}
+    columns = st.columns(3)
+    columns[0].metric('Events visible now', len(events))
+    columns[1].metric('Sources reporting', len(channel.get('sources') or []))
+    columns[2].metric('Registered issuers', len(getattr(master, 'entities', {})))
+    if freshness:
+        st.caption(f"Freshness: {freshness.get('state', 'unknown')} · "
+                   f"{freshness.get('note', '')}")
+    if events:
+        st.dataframe([
+            dict(published=e.get('published_at'), source=e.get('source_id'),
+                 title=(e.get('title') or '')[:140],
+                 kind=e.get('event_type'))
+            for e in events[:40]], width='stretch')
+    else:
+        st.info('The news store is attached and holds no event visible at '
+                'this clock. That is an empty result, not a failure.')
+
+
+def archive_console(path: Path):
+    """The historical console. Returns False when there is nothing to show.
+
+    Its empty states are now statements about THIS surface rather than about
+    the whole application, because the live and news surfaces above it may
+    well be working.
+    """
+    if not path.exists():
+        st.info(f'No archive store at `{path}`. `python '
+                f'scripts/run_prototype.py` produces one. The live and news '
+                f'surfaces above do not depend on it.')
+        return False
+    if not _complete_runs(str(path)):
+        st.info('The archive store is attached and holds no COMPLETE run. A '
+                'run that is sealed but awaiting its report is not complete; '
+                'resume the canonical command.')
+        return False
+    return True
+
+
 def main():
     st.set_page_config(page_title='SERAPH',layout='wide')
     st.markdown('<style>.block-container{max-width:1900px;padding-top:1rem}</style>',unsafe_allow_html=True)
     st.title('SERAPH')
     st.caption('Historical model outputs + explicitly tagged fabricated previews. Local role switching is not authentication. Experimental warnings are not validated crisis predictions.')
-    path=Path(os.environ.get('SERAPH_PROTOTYPE_STORE',str(Path(__file__).resolve().parents[2]/'prototype_runs/seraph.sqlite')))
-    if not path.exists():
-        st.info('No persisted run. Execute scripts/run_prototype.py first.');return
-    live_path=Path(os.environ.get('SERAPH_LIVE_STORE',
-        str(Path(__file__).resolve().parents[2]/'prototype_runs/live.sqlite')))
+    paths=store_paths()
+    path=paths['archive']
+    live_path=paths['live']
+    role=st.session_state.setdefault('console_role','retail')
     with st.expander('LIVE RUNTIME', expanded=live_path.exists()):
         live_revision=live_panel(live_path)
     if live_revision and st.session_state.get('live_revision')!=live_revision:
@@ -133,13 +257,24 @@ def main():
         # half-typed form, and the console keeps drafts across renders.
         st.session_state['live_revision']=live_revision
         st.session_state['live_revision_seen_at']=time.strftime('%H:%M:%S')
+    if not archive_console(path):
+        # No historical console, but the other two surfaces are independent
+        # and may both be live. This is the branch U01's early return made
+        # unreachable.
+        with st.expander('NEWS CHANNEL', expanded=paths['news'].exists()):
+            news_only_panel(paths['news'], role)
+        st.caption(f"Configured stores — archive `{path}` "
+                   f"({'present' if path.exists() else 'ABSENT'}) · live "
+                   f"`{live_path}` ({'present' if live_path.exists() else 'ABSENT'}) "
+                   f"· news `{paths['news']}` "
+                   f"({'present' if paths['news'].exists() else 'ABSENT'}). "
+                   f"Override with SERAPH_PROTOTYPE_STORE, SERAPH_LIVE_STORE "
+                   f"and SERAPH_NEWS_STORE.")
+        return
     store=RunStore(path)
     runs=_complete_runs(str(path))
-    if not runs:
-        st.info('No complete runs; resume the canonical command.');return
     selected=st.selectbox('Run',[r['id'] for r in runs])
     manifest=next(r['manifest'] for r in runs if r['id']==selected)
-    role=st.session_state.setdefault('console_role','retail')
     bundle=_bundle(str(path),selected,role)
     points=bundle['points']
     day=st.selectbox('Historical decision date',[p['date'] for p in points],index=len(points)-1)
@@ -149,8 +284,7 @@ def main():
         st.session_state['console_context']=context
         st.session_state.pop('console_result',None)
     portfolio=st.session_state.get('console_portfolios',{}).get((selected,role))
-    news_path=Path(os.environ.get('SERAPH_NEWS_STORE',
-        str(Path(__file__).resolve().parents[2]/'prototype_runs/news-intelligence-pilot.sqlite')))
+    news_path=paths['news']
     news_store=NewsStore(news_path) if news_path.exists() else None
     news_master=load_master_data()[0] if news_store is not None else None
     news_mode = st.radio('News clock', ['current_news', 'historical_decision'], horizontal=True,
