@@ -22,6 +22,7 @@ from __future__ import annotations
 import sys
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
+from typing import get_args
 
 import pytest
 
@@ -37,9 +38,17 @@ from seraph.live.engine_adapter import (                       # noqa: E402
 )
 from seraph.live.inference import ORDER, InferenceService, Vintage  # noqa: E402
 from seraph.live.store import LiveStore, StoreError            # noqa: E402
+from seraph.shared_types.pillars import UnavailableEmission     # noqa: E402
 
 IST = timezone(timedelta(hours=5, minutes=30))
 SESSIONS = [f"2026-08-{d:02d}" for d in range(3, 25)]
+
+#: `UnavailableEmission.reason` is a closed Literal of exactly three values,
+#: and a `Vintage`'s `absence_reason` flows into it. Read from the model
+#: rather than retyped, so widening the Literal cannot leave this test
+#: asserting a stale set.
+PERMITTED_ABSENCE_REASONS = set(get_args(
+    UnavailableEmission.model_fields["reason"].annotation))
 
 
 def at(day: str, hour: int, minute: int) -> datetime:
@@ -73,8 +82,11 @@ def seed(store, *, day="2026-08-20", rmt=0.42, hamilton=0.31,
         store.record_daily_vintage(
             producer="hawkes", input_end=close.isoformat(),
             emission_available_at=available, origin="absent",
-            absence="structural", absence_reason="no_intraday_coverage",
-            bundle_id="original hawkes")
+            # One of UnavailableEmission's three permitted reasons; the
+            # specific cause (no intraday bars) lives in the detail, not here.
+            absence="structural", absence_reason="no_data_coverage",
+            bundle_id="original hawkes",
+            detail=dict(reason="no 5-minute intraday bars; needs Kite"))
     return close
 
 
@@ -177,7 +189,7 @@ class TestDailyVintageProducer:
                         [], at("2026-08-21", 9, 20))}
         assert produced["hawkes"].value is None
         assert produced["hawkes"].absence == "structural"
-        assert produced["hawkes"].absence_reason == "no_intraday_coverage"
+        assert produced["hawkes"].absence_reason == "no_data_coverage"
 
     def test_a_pillar_with_no_row_is_a_declared_absence_not_a_guess(self, store):
         produced = {v.producer: v for v in
@@ -185,7 +197,32 @@ class TestDailyVintageProducer:
                         [], at("2026-08-21", 9, 20))}
         assert all(v.value is None for v in produced.values())
         assert all(v.absence == "structural" for v in produced.values())
-        assert produced["rmt"].absence_reason == "no_daily_vintage_persisted"
+        assert produced["rmt"].absence_reason == "no_data_coverage"
+
+    def test_the_absence_reason_is_one_the_service_accepts(self, store):
+        """`PillarObservation.reason` is a closed Literal of three values, and
+        a `Vintage`'s `absence_reason` flows into `UnavailableEmission.reason`.
+
+        A descriptive string passes every test that builds a `Vintage`
+        directly and then raises pydantic ValidationError the moment the
+        service builds the emission -- which is how
+        'no_daily_vintage_persisted' got as far as the real decision path
+        before failing. This pins the contract at the producer boundary.
+        """
+        permitted = PERMITTED_ABSENCE_REASONS
+        produced = DailyVintageProducer(store=store).vintages_for(
+            [], at("2026-08-21", 9, 20))
+        for vintage in produced:
+            assert vintage.absence_reason in permitted, (
+                f"{vintage.absence_reason!r} is not one of {permitted}; the "
+                f"service will reject it when it builds the emission")
+
+    def test_a_stored_absence_reason_is_also_one_the_service_accepts(self, store):
+        seed(store, hawkes_origin="absent")
+        produced = {v.producer: v for v in
+                    DailyVintageProducer(store=store).vintages_for(
+                        [], at("2026-08-21", 9, 20))}
+        assert produced["hawkes"].absence_reason in PERMITTED_ABSENCE_REASONS
 
     def test_describe_reports_each_pillar_origin(self, store):
         seed(store)

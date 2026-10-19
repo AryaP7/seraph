@@ -68,18 +68,132 @@ def _stamp(moment: datetime) -> str:
     return ist_timestamp(moment.replace(microsecond=0))
 
 
-async def compute_pillars(day: str) -> tuple[dict, dict]:
-    """RMT and Hamilton from the daily corpus, via the existing executor."""
+#: Hamilton's standing exclusion, recorded rather than re-derived.
+#:
+#: `original_execution` ends its Hamilton block by setting
+#: `absence='structural'` with
+#: `exclusion='standing research decision (NOT_PRODUCTION)'`. The pillar is
+#: excluded by a research decision about regime-support validity, not by a
+#: data-dependent outcome -- so the estimate is diagnostic and never
+#: contributes to the composite however it comes out.
+#:
+#: Re-deriving it on every daily tick is therefore expensive and changes
+#: nothing. The cost is not the EM fit: that block loops over EVERY date in
+#: the calendar (5,363 of them) issuing two database queries each --
+#: `universe_for` and `build_row` -- before Hamilton is fitted at all. On
+#: this corpus that dominates the entire job.
+#:
+#: So the default records the exclusion with its reason, and
+#: `--hamilton diagnostic` runs the full walk-forward for anyone who wants
+#: the diagnostic. Nothing is dropped and nothing is pretended.
+HAMILTON_EXCLUSION = dict(
+    absence="structural",
+    # One of PillarObservation's three permitted reasons: this value reaches
+    # `UnavailableEmission.reason`, a closed Literal. The exclusion's actual
+    # nature is in `reason` below and in the stored vintage's detail.
+    absence_reason="no_data_coverage",
+    reason=("regime support unvalidated; diagnostic only, and excluded from "
+            "the composite by a standing research decision (NOT_PRODUCTION). "
+            "This is NOT a feed outage. Run with --hamilton diagnostic to "
+            "recompute the walk-forward estimate anyway"),
+)
+
+
+async def compute_pillars(day: str, *, hamilton: str = "excluded"
+                          ) -> tuple[dict, dict]:
+    """RMT (and optionally the Hamilton diagnostic) from the daily corpus.
+
+    `hamilton='excluded'` skips the walk-forward and records the standing
+    exclusion directly. `hamilton='diagnostic'` calls the full executor.
+    """
     import asyncpg
 
-    from seraph.orchestration.original_execution import execute_originals
     from seraph.store.bootstrap import DEFAULT_DSN
 
     conn = await asyncpg.connect(DEFAULT_DSN)
     try:
-        return await execute_originals(conn, day)
+        if hamilton == "diagnostic":
+            from seraph.orchestration.original_execution import execute_originals
+            return await execute_originals(conn, day)
+        return await _rmt_only(conn, day)
     finally:
         await conn.close()
+
+
+async def _rmt_only(conn, day: str) -> tuple[dict, dict]:
+    """RMT from the daily corpus; Hamilton's exclusion recorded, not re-derived.
+
+    This mirrors `original_execution`'s RMT block exactly -- two endpoint
+    windows so FR17's eigenvector rotation has a predecessor, the same
+    `aligned_returns` preparation and the same `RmtEngine` -- rather than
+    reimplementing the spectral path.
+    """
+    import hashlib
+    from datetime import date as _date
+
+    import numpy as np
+
+    from seraph.features.alignment import aligned_returns
+    from seraph.market_calendar import SessionCalendar
+    from seraph.orchestration.research_scripts import load as load_scripts
+    from seraph.pillars.rmt.engine import RmtEngine, T_WINDOW
+
+    (universe_for,) = load_scripts("build_observations", "universe_for")
+
+    stamp = SessionCalendar().close_timestamp(day)
+    end = _date.fromisoformat(day)
+    members = await universe_for(conn, end)
+    if not members:
+        raise ValueError(f"no point-in-time universe at {day}")
+
+    output = {p: dict(model=f"original {p}",
+                      origin="fresh read-only source execution",
+                      score_eligible=False, value=None,
+                      information_timestamp=stamp, detail=None,
+                      absence="structural",
+                      absence_reason="insufficient_history",
+                      reason="insufficient data")
+              for p in ("hawkes", "rmt", "hamilton")}
+    audit: dict = {"cutoff": stamp, "errors": {}, "input_hashes": {},
+                   "limitations": [
+                       "RMT spectral-state warmup uses two endpoint windows; "
+                       "SCA calibration is incomplete"]}
+
+    rows = await conn.fetch(
+        "SELECT symbol,date,adj_close FROM daily_prices WHERE symbol=ANY($1::text[]) "
+        "AND date<=$2 AND adj_close>0 ORDER BY date,symbol", members, end)
+    calendar = sorted({r["date"] for r in rows})
+    px: dict = {s: {} for s in members}
+    for row in rows:
+        px[row["symbol"]][row["date"]] = float(row["adj_close"])
+
+    engine = RmtEngine()
+    if calendar and calendar[-1] == end and len(calendar) >= T_WINDOW + 2:
+        last, keep = None, ()
+        for days in (calendar[:-1], calendar):
+            panel, keep = aligned_returns(px, days, T_WINDOW + 1)
+            if len(keep) < 30:
+                break
+            audit["input_hashes"][f"rmt_{days[-1]}"] = hashlib.sha256(
+                panel.tobytes()).hexdigest()
+            last = engine.step(returns=panel, members=keep,
+                               date=days[-1].isoformat())
+        if last is not None and last.status == "ok" and len(keep) >= 30:
+            detail, sca = last.value
+            output["rmt"].update(
+                score_eligible=True, value=engine._prev_share,
+                detail={"spectral": detail.model_dump(), "sca_t": sca},
+                reason=None, absence=None, absence_reason=None)
+            audit["limitations"].extend(w.message for w in last.warnings)
+    else:
+        output["rmt"]["reason"] = (
+            f"RMT needs {T_WINDOW + 2} aligned sessions ending {day}; "
+            f"the corpus has {len(calendar)} ending "
+            f"{calendar[-1] if calendar else 'nothing'}")
+
+    output["hamilton"].update(HAMILTON_EXCLUSION)
+    audit["limitations"].append(HAMILTON_EXCLUSION["reason"])
+    return output, audit
 
 
 def archived_hawkes(day: str) -> dict | None:
@@ -150,7 +264,10 @@ def persist(store: LiveStore, day: str, pillars: dict, *,
     written.append(store.record_daily_vintage(
         producer="hawkes", input_end=_stamp(close),
         emission_available_at=available, origin="absent",
-        absence="structural", absence_reason="no_intraday_coverage",
+        # `absence_reason` must be one of PillarObservation's three
+        # permitted reasons; it flows into UnavailableEmission.reason, which
+        # is a closed Literal. The specific cause goes in `detail` below.
+        absence="structural", absence_reason="no_data_coverage",
         bundle_id="original hawkes",
         detail=dict(reason=(
             "a fresh Hawkes estimate needs 5-minute intraday bars; "
@@ -177,6 +294,14 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--day", help="session date, YYYY-MM-DD")
     parser.add_argument("--store", type=Path,
                         default=ROOT / "prototype_runs" / "live.sqlite")
+    parser.add_argument("--hamilton", choices=("excluded", "diagnostic"),
+                        default="excluded",
+                        help="excluded: record the standing research "
+                             "exclusion without re-deriving it (default; the "
+                             "walk-forward costs 5,363 date iterations with "
+                             "two queries each and the result is excluded "
+                             "from the composite either way). diagnostic: run "
+                             "the full walk-forward anyway.")
     parser.add_argument("--hawkes", choices=("archived", "absent"),
                         default="archived",
                         help="archived: read the persisted research estimate "
@@ -192,10 +317,13 @@ def main(argv: list[str] | None = None) -> int:
     if not args.day:
         parser.error("--day is required unless --status is given")
 
-    print(f"[daily] {args.day}: computing RMT and Hamilton from the daily "
-          f"corpus (minutes, not seconds -- FR17 needs two windows and FR19 "
+    what = ("RMT and the Hamilton diagnostic" if args.hamilton == "diagnostic"
+            else "RMT")
+    print(f"[daily] {args.day}: computing {what} from the daily corpus "
+          f"(minutes, not seconds -- FR17 needs two windows and FR19 "
           f"bootstraps each 1,000 times)", flush=True)
-    pillars, audit = asyncio.run(compute_pillars(args.day))
+    pillars, audit = asyncio.run(compute_pillars(args.day,
+                                                 hamilton=args.hamilton))
     written = persist(store, args.day, pillars, hawkes_mode=args.hawkes)
 
     for row in written:

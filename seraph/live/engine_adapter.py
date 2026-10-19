@@ -133,11 +133,21 @@ class DailyVintageProducer:
     """
 
     store: object                               #: a `LiveStore`
-    #: Absence declared for a pillar with no stored vintage at all. Structural
-    #: is correct here: no estimate exists, which is not a feed outage that
-    #: might clear on the next tick.
+    #: Absence declared for a pillar with no stored vintage READABLE at the
+    #: cutoff. Structural is correct: no estimate exists, which is not a feed
+    #: outage that might clear on the next tick.
+    #:
+    #: `missing_reason` must be one of `PillarObservation`'s three permitted
+    #: reasons -- 'no_data_coverage', 'estimation_failed',
+    #: 'insufficient_history' -- because it flows into
+    #: `UnavailableEmission.reason`, which is a closed Literal. A descriptive
+    #: string here ('no_daily_vintage_persisted' was the first attempt)
+    #: passes every unit test that builds a `Vintage` directly and then
+    #: raises a pydantic ValidationError the moment the service tries to
+    #: build the emission. The human-readable detail belongs in the stored
+    #: vintage's `detail` JSON, which is not type-constrained.
     missing_absence: str = "structural"
-    missing_reason: str = "no_daily_vintage_persisted"
+    missing_reason: str = "no_data_coverage"
 
     def vintages_for(self, bars: "Sequence[Bar]", as_of: datetime
                      ) -> "list[Vintage]":

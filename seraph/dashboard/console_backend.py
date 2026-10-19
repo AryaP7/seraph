@@ -229,8 +229,7 @@ def project_run(point, manifest, points, role, *, log=None, portfolio=None,
         view = dict(role=role,csrs=None,alertLevel='unavailable',explanation='No composite: original inputs unavailable.',maskDegraded=True)
     payload = dict(run_id=point['run_id'],date=point['date'],timestamp=point['evaluation_timestamp'],
         cutoff=point['data_cutoff'],mode=manifest['mode'],role=role,view=view,
-        history=[dict(date=p['date'],csrs=p['composite']['csrs'] if p['composite'] else None)
-                 for p in points if p['date']<=point['date']],
+        history=_history_with_benchmark(points,point),
         portfolio=portfolio if portfolio is not None else point.get('portfolio'),
         news=news_branch(point, store=news_store, master=news_master,
                          preview=news_preview, role=role, news_mode=news_mode,
@@ -250,6 +249,29 @@ def project_run(point, manifest, points, role, *, log=None, portfolio=None,
     if role == 'regulator':
         payload.update(manifest=manifest,action_log=log or [])
     return clean(payload)
+
+
+def _history_with_benchmark(points, point) -> dict:
+    """The FR41 overlay: CSRS and official Nifty 500 returns on the same dates.
+
+    This used to be `[{date, csrs}, ...]` -- a CSRS line, which is not the
+    overlay FR41 describes ("overlay historical CSRS on benchmark Nifty 500
+    returns to support visual back-testing"). The audit recorded the feature
+    as absent, correctly.
+
+    Returns a dict rather than a list so the renderer gets the series label,
+    its source, the units of BOTH series and the coverage gaps alongside the
+    rows. The units matter: a CSRS is a 0..1 score and a benchmark return is
+    a return, so a chart cannot put them on one axis by accident.
+    """
+    from seraph.ingestion import benchmark_client
+
+    rows = [dict(date=p['date'],
+                 csrs=p['composite']['csrs'] if p['composite'] else None)
+            for p in points if p['date'] <= point['date']]
+    overlay = benchmark_client.align(rows)
+    overlay['representativeness'] = benchmark_client.representativeness(rows)
+    return overlay
 
 
 def dispatch(store, point, role, event):
