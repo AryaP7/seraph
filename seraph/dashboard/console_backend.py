@@ -425,7 +425,7 @@ def _workflow(point, role, event):
     principal = svc.demo_principal(role, reg=bundle['registry'])
     workspace, scenarios, cases = (bundle['workspace'], bundle['scenarios'],
                                    bundle['cases'])
-    identity = svc.describe()
+    identity = svc.describe(role)
 
     def ok(kind, value, **extra):
         return dict(kind=kind, value=value, identity=identity, **extra)

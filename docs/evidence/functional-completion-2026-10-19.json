@@ -1,0 +1,253 @@
+{
+  "generated": "2026-10-19T21:57:34+05:30",
+  "summary": {
+    "journeys_checked": 10,
+    "working": 10,
+    "not_working": 0,
+    "blocked_elsewhere": 7
+  },
+  "journeys": [
+    {
+      "journey": "daily market corpus",
+      "requirement": "FR1, FR7, FR8",
+      "works": true,
+      "evidence": {
+        "rows": 7385306,
+        "symbols": 3524,
+        "first": "2005-01-03",
+        "last": "2026-08-21"
+      },
+      "note": "real NSE daily OHLCV from the vendored EOD2 snapshot"
+    },
+    {
+      "journey": "point-in-time universe",
+      "requirement": "FR52, FR54",
+      "works": true,
+      "evidence": {
+        "snapshots": 43,
+        "at_target": 33,
+        "underfilled": 10,
+        "first": "2005-07-01",
+        "last": "2026-07-01"
+      },
+      "note": "Q_t = 2.00 where N_t = 500. Early epochs are UNDERFILLED, reproducing AMENDMENT-02 rather than working around it"
+    },
+    {
+      "journey": "equity classification",
+      "requirement": "FR52 equity filter",
+      "works": true,
+      "evidence": {
+        "symbols": 3755,
+        "etf_excluded": true,
+        "equity_admitted": true
+      },
+      "note": "ETFs excluded so mechanical correlation stays out of C_t"
+    },
+    {
+      "journey": "daily pillar vintages",
+      "requirement": "FR16-FR19, FR20-FR24, R01",
+      "works": true,
+      "evidence": {
+        "hamilton": {
+          "origin": "absent",
+          "value": null,
+          "input_end": "2026-08-21T15:30:00+05:30",
+          "absence": "structural"
+        },
+        "hawkes": {
+          "origin": "archived",
+          "value": 0.051476449081060305,
+          "input_end": "2026-08-20T15:25:00+05:30",
+          "absence": null
+        },
+        "rmt": {
+          "origin": "computed",
+          "value": 0.2331952692153683,
+          "input_end": "2026-08-21T15:30:00+05:30",
+          "absence": null
+        }
+      },
+      "note": "`origin` distinguishes computed here from read from a prior research artefact from absent"
+    },
+    {
+      "journey": "real producer to CSRS",
+      "requirement": "R01, FR25-FR29",
+      "works": true,
+      "evidence": {
+        "csrs": 0.0,
+        "mask": [
+          false,
+          true,
+          true
+        ],
+        "ci": [
+          -0.5654,
+          0.5654
+        ],
+        "warnings": [
+          "hamilton: bundle original hamilton is not registered; its vintage was withheld and the previous one carried fo",
+          "hawkes: bundle original hawkes (research snapshot) is not registered; its vintage was withheld and the previou",
+          "hawkes: the carried-forward vintage 2026-08-20T15:30:00+05:30 is stale enough that R has reached its ceiling; "
+        ]
+      },
+      "note": "warm start here is synthetic, so the SCORE is a path demonstration; the vintages and the mask are real"
+    },
+    {
+      "journey": "benchmark overlay",
+      "requirement": "FR41, FR54",
+      "works": true,
+      "evidence": {
+        "series": {
+          "available": true,
+          "label": "NIFTY 500 (official NSE index close)",
+          "source": "vendor/eod2/src/eod2_data/daily/nifty 500.csv",
+          "sessions": 3577,
+          "first": "2012-02-21",
+          "last": "2026-08-21",
+          "convention": "simple close-to-close return, not forward-filled"
+        },
+        "coverage": {
+          "csrs_dates": 2,
+          "matched": 1,
+          "benchmark_missing": 1,
+          "first_missing": "2005-01-03"
+        }
+      },
+      "note": "the official NSE index; the pre-2012 gap is reported rather than forward-filled or substituted"
+    },
+    {
+      "journey": "market flow panel",
+      "requirement": "FR45, FR51",
+      "works": true,
+      "evidence": {
+        "available": true,
+        "date": "2026-10-19",
+        "fiiNet": -1148.64,
+        "diiNet": 3201.19,
+        "residualFlowShare": 0.2722067046019345,
+        "basis": "stored E14 proxy; producer numerator/denominator scope caveats apply",
+        "totalTurnoverCrore": 68688.94,
+        "units": "INR crore, as published by NSE",
+        "warnings": [
+          "Stored flow proxy is not measured retail participation"
+        ],
+        "scope": "market aggregate across NSE+BSE+MSEI for the FII/DII numerator against NSE cash turnover. A proxy for non-institutional participation, never a per-instrument retail attribution"
+      },
+      "note": "real NSE print, or an explicit absence. No example values are substituted"
+    },
+    {
+      "journey": "durable role workflows",
+      "requirement": "FR42, FR43, FR47, FR49",
+      "works": true,
+      "evidence": {
+        "operations": 21,
+        "holdings": 1,
+        "scenario_run": true,
+        "case": "case_dff7c2fb94f",
+        "identity": "local demonstration identity, not authenticated. State is du"
+      },
+      "note": "durable and owner-scoped; local demo identity, not auth"
+    },
+    {
+      "journey": "prospective forecast ledger",
+      "requirement": "R12, C10",
+      "works": true,
+      "evidence": {
+        "issued": 14,
+        "pending": 14,
+        "sample": [
+          {
+            "model": "baseline_logit",
+            "target": "loss10_15",
+            "probability": 0.04622898875177071,
+            "matures_after": "2026-09-14",
+            "outcome": null
+          },
+          {
+            "model": "combined",
+            "target": "loss10_15",
+            "probability": 0.04620450377601309,
+            "matures_after": "2026-09-14",
+            "outcome": null
+          },
+          {
+            "model": "ewma_student_t",
+            "target": "loss10_15",
+            "probability": 5e-05,
+            "matures_after": "2026-09-14",
+            "outcome": null
+          }
+        ]
+      },
+      "note": "outcome stays null until the horizon elapses"
+    },
+    {
+      "journey": "installed distribution",
+      "requirement": "O01, O02",
+      "works": true,
+      "evidence": {
+        "wheel_carries_required_assets": true,
+        "installs_outside_the_checkout": true,
+        "component_resolves_to_the_installed_package": true,
+        "canonical_console_renders": true,
+        "runtime_schema_creates_from_installed_package": true,
+        "curated_registry_carries_rows": true,
+        "migration_sql_readable_from_installed_package": true,
+        "passed": true
+      },
+      "note": "from PACKAGING-2026-10-19.json"
+    }
+  ],
+  "blocked": [
+    {
+      "journey": "fresh Hawkes pillar",
+      "requirement": "FR10-FR15",
+      "blocked_by": "`intraday_bars` is empty. FR1 sources 5-minute bars from Kite Connect; scripts/backfill_intraday.py is written and checkpointed but needs a paid subscription and a daily interactive login",
+      "consequence": "Hawkes is published as an archived research estimate or a declared absence. Because DECLARED_CADENCE puts it at bar_close, an archived daily value is stale against its own cadence and the D2 mask correctly excludes it from a live composite",
+      "needs": "owner: a Kite Connect subscription and login"
+    },
+    {
+      "journey": "measured sector micro-flags",
+      "requirement": "FR14",
+      "blocked_by": "same intraday dependency: per-sector jump counts come from Lee-Mykland extraction over 5-minute bars (FR50)",
+      "consequence": "the portfolio overlay names the absence and its cause; no substitute is used",
+      "needs": "owner: the same Kite dependency"
+    },
+    {
+      "journey": "directed contagion network",
+      "requirement": "FR15",
+      "blocked_by": "needs the Hawkes branching matrix, which needs the same intraday estimation",
+      "consequence": "not displayed; no inferred network is shown",
+      "needs": "owner: the same Kite dependency"
+    },
+    {
+      "journey": "counterfactual policy path",
+      "requirement": "FR48",
+      "blocked_by": "`project_xi` needs a FITTED HamiltonEngine and no fit artefact is persisted. Hamilton is also under a standing research exclusion (NOT_PRODUCTION)",
+      "consequence": "the direct regime-path simulator works; the macro z-to-xi mapping is unavailable and says so",
+      "needs": "owner: a decision on persisting a Hamilton fit despite the standing exclusion"
+    },
+    {
+      "journey": "defensive action drawdown comparison",
+      "requirement": "FR46",
+      "blocked_by": "needs declared positions, execution and cost assumptions. Those are financially material choices and are not invented here",
+      "consequence": "the playbook shows dominant-pillar guidance without a measured drawdown reduction",
+      "needs": "owner: the position/execution/cost contract"
+    },
+    {
+      "journey": "institution exposure decomposition",
+      "requirement": "FR42",
+      "blocked_by": "needs authorised institution submissions. Private positions are not derivable from public price bars",
+      "consequence": "the surface reports absence rather than an inference",
+      "needs": "owner: authorised data and a submission schema"
+    },
+    {
+      "journey": "one-command launch of market plus news",
+      "requirement": "C15 / O03",
+      "blocked_by": "launch_prototype.ps1, prototype_app.py and bridge.js are being edited by a concurrent session in this working tree",
+      "consequence": "the market side runs from its own commands (run_daily.py, run_live.py, run_forecast.py) and the news side starts with the console. The server half of every role workflow is complete and tested; its browser controls are not wired",
+      "needs": "owner: decide whose changes to those files land first"
+    }
+  ],
+  "honesty": "`works` means the journey ran on this installation now. A working journey is not a claim of predictive skill, calibration or commercial readiness, and the blocked list is not a list of things that nearly work"
+}

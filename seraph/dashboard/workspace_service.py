@@ -53,14 +53,32 @@ def _runs_dir() -> Path:
     return Path(__file__).resolve().parents[2] / "prototype_runs"
 
 
-#: The demonstration organisation and subject. Fixed, so that restarting the
+#: The demonstration organisation and subjects. Fixed, so that restarting the
 #: console returns the SAME principal and therefore the same saved rows --
 #: a per-session random identity would make persistence untestable and would
 #: quietly orphan yesterday's portfolios.
 DEMO_ORG = "org_demo"
 DEMO_ORG_NAME = "Local Demonstration Desk"
-DEMO_SUBJECT = "local-demo"
 DEMO_ISSUER = "local://seraph-demo"
+
+#: ONE SUBJECT PER ROLE, not one user holding all three.
+#:
+#: The first version granted every role to a single user and re-resolved it
+#: per request. That does not work and should not: `IdentityRegistry.resolve`
+#: returns one role for a session, so the third grant collided with the first
+#: and `CaseStore` refused the case with "only a regulator may open a case".
+#:
+#: Separate subjects are also the right model rather than a workaround. A
+#: retail holder and a market regulator are different people with different
+#: data, and a single principal carrying all three roles at once is precisely
+#: the privilege confusion role-based access control exists to prevent. The
+#: consequence is deliberate: each demonstration role has its OWN portfolios,
+#: scenarios and cases, because the stores are owner-scoped.
+DEMO_SUBJECTS = {
+    "retail": "local-demo-retail",
+    "institutional": "local-demo-institutional",
+    "regulator": "local-demo-regulator",
+}
 
 #: Said on every surface that shows this principal's data.
 DEMO_NOTE = ("local demonstration identity, not authenticated. State is "
@@ -74,19 +92,23 @@ def registry(path: "Path | None" = None) -> IdentityRegistry:
 def demo_principal(role: str = "retail", *, reg: IdentityRegistry | None = None):
     """A real `Principal` for the local demonstration, built the real way.
 
-    Idempotent: the organisation, user, membership and grant are upserted, so
-    calling this on every page render does not accumulate rows. A fresh
-    session is opened each time because a session is the thing that expires;
-    the USER and its grants are stable, which is what owns the data.
+    One user PER ROLE -- see `DEMO_SUBJECTS`. Idempotent: the organisation,
+    user, membership and grant are upserted, so calling this on every page
+    render does not accumulate rows. A fresh session is opened each time
+    because a session is the thing that expires; the USER and its grants are
+    stable, which is what owns the data.
     """
-    if role not in ("retail", "institutional", "regulator"):
-        raise ValueError(f"unknown role {role!r}")
+    if role not in DEMO_SUBJECTS:
+        raise ValueError(
+            f"unknown role {role!r}; this release has "
+            f"{', '.join(sorted(DEMO_SUBJECTS))}")
     reg = reg or registry()
     try:
         reg.add_organisation(DEMO_ORG, DEMO_ORG_NAME, "institution")
     except Exception:                                       # noqa: BLE001
         pass                                                # already present
-    user = reg.upsert_user(provider_subject=DEMO_SUBJECT, issuer=DEMO_ISSUER)
+    user = reg.upsert_user(provider_subject=DEMO_SUBJECTS[role],
+                           issuer=DEMO_ISSUER)
     try:
         reg.add_membership(user.user_id, DEMO_ORG)
     except Exception:                                       # noqa: BLE001
@@ -112,8 +134,9 @@ def stores(*, reg: IdentityRegistry | None = None) -> dict:
     )
 
 
-def describe() -> dict:
+def describe(role: str = "retail") -> dict:
     """What the console should say about this identity, verbatim."""
-    return dict(identity=DEMO_SUBJECT, organisation=DEMO_ORG,
+    return dict(identity=DEMO_SUBJECTS.get(role, role),
+                organisation=DEMO_ORG, role=role,
                 authenticated=False, note=DEMO_NOTE,
                 directory=str(_runs_dir()))
