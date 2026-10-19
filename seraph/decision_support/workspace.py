@@ -39,6 +39,7 @@ import csv
 import hashlib
 import io
 import json
+import math
 import sqlite3
 import uuid
 from contextlib import contextmanager
@@ -181,8 +182,31 @@ def parse_holdings(data: bytes | str, *, source_name: str,
         if existing is None:
             by_symbol[accepted.symbol] = accepted
             continue
-        # Same instrument twice: add the positions rather than keeping one and
-        # losing the other, and say that it happened.
+        # Same instrument twice. Quantities and values ADD -- keeping one and
+        # losing the other would understate the position.
+        #
+        # P03: metadata does not add, and `existing.X or accepted.X` resolved
+        # a DISAGREEMENT by row order. Two rows for RELIANCE labelled
+        # "Energy" and "Telecom" stored whichever came first, so reordering
+        # the uploaded file changed the stored sector -- and the sector drives
+        # the portfolio overlay. Row order is not evidence. A conflict is now
+        # rejected and names both values, so the user fixes their file instead
+        # of receiving a quietly different portfolio.
+        conflicts = []
+        for field_name in ("sector", "isin", "account"):
+            first = getattr(existing, field_name)
+            second = getattr(accepted, field_name)
+            if first is not None and second is not None and first != second:
+                conflicts.append(f"{field_name} {first!r} vs {second!r}")
+        if conflicts:
+            preview.rejected.append(RejectedRow(
+                index,
+                f"duplicate {accepted.symbol} rows disagree on "
+                f"{'; '.join(conflicts)}. Row order is not evidence of which "
+                f"is right: correct the file, or split the position across "
+                f"separate symbols",
+                _raw(row)))
+            continue
         merged = AcceptedRow(
             index=existing.index, symbol=existing.symbol,
             quantity=(existing.quantity or 0) + (accepted.quantity or 0)
@@ -192,7 +216,7 @@ def parse_holdings(data: bytes | str, *, source_name: str,
             price=existing.price or accepted.price,
             currency=existing.currency, sector=existing.sector or accepted.sector,
             isin=existing.isin or accepted.isin, cash=existing.cash,
-            account=existing.account, raw=existing.raw)
+            account=existing.account or accepted.account, raw=existing.raw)
         by_symbol[accepted.symbol] = merged
         preview.duplicates_merged.append(accepted.symbol)
 
@@ -219,13 +243,28 @@ def _classify(index: int, row: dict, base_currency: str):
         return RejectedRow(index, "no symbol, ticker or ISIN", _raw(row))
 
     def number(key):
+        """Parse one numeric cell, or say why it is not a number.
+
+        P03: this was `float(str(value)...)` with a `ValueError` guard, and
+        `float()` accepts `"nan"`, `"inf"`, `"-inf"` and `"Infinity"` without
+        raising. A NaN quantity then passed the `< 0` check too -- every
+        comparison with NaN is False -- and `value = quantity * price`
+        propagated it into the stored holding and from there into the
+        portfolio total, where it makes the whole arithmetic NaN. A single
+        malformed cell in an uploaded spreadsheet silently voided the entire
+        portfolio's numbers.
+        """
         value = row.get(key)
         if value is None or str(value).strip() == "":
             return None, None
         try:
-            return float(str(value).replace(",", "").strip()), None
+            parsed = float(str(value).replace(",", "").strip())
         except ValueError:
             return None, f"{key} {value!r} is not a number"
+        if not math.isfinite(parsed):
+            return None, (f"{key} {value!r} is not a finite number; NaN and "
+                          f"infinity cannot be held, valued or summed")
+        return parsed, None
 
     quantity, qerr = number("quantity")
     if qerr:
@@ -247,6 +286,14 @@ def _classify(index: int, row: dict, base_currency: str):
                            _raw(row))
     if value is None and quantity is not None and price is not None:
         value = quantity * price
+        # P03: the inputs are finite, so the product normally is -- but
+        # 1e308 * 1e308 overflows to inf. A derived number gets the same
+        # check as a parsed one, because the invariant is about what is
+        # STORED, not about where it came from.
+        if not math.isfinite(value):
+            return RejectedRow(
+                index, f"quantity {quantity} times price {price} overflows to "
+                       f"{value}; an implied value must be finite", _raw(row))
     if quantity is None and value is None:
         return RejectedRow(index, "row has neither a quantity nor a value", _raw(row))
 
@@ -478,18 +525,47 @@ class WorkspaceStore:
                           + (f', {stale_days} days before the requested date'
                              if stale_days else '')))
 
-    def current_holdings(self, principal: Principal, portfolio_id: str) -> dict:
+    def current_holdings(self, principal: Principal, portfolio_id: str, *,
+                         now: str | None = None) -> dict:
+        """The positions held NOW.
+
+        P03: this was `ORDER BY effective_at DESC LIMIT 1` with no upper
+        bound, so a snapshot effective in 2099 -- a typo, or a deliberately
+        staged future rebalance -- was returned as the current holdings. The
+        as-of path beside it (`holdings_as_of`) has always had the
+        `effective_at <= ?` bound; `current` is the same question with `now`
+        as the date, and it simply did not ask it.
+
+        A future snapshot is not hidden: it is reported separately, so a
+        staged rebalance is visible as staged rather than silently in force.
+        """
         self.registry.require(principal, 'read', 'portfolio', portfolio_id)
+        moment = now or _now()
         with self.connect() as db:
             row = db.execute(
                 'SELECT snapshot_id,effective_at FROM holdings_snapshots '
-                'WHERE portfolio_id=? ORDER BY effective_at DESC LIMIT 1',
-                (portfolio_id,)).fetchone()
+                'WHERE portfolio_id=? AND effective_at<=? '
+                'ORDER BY effective_at DESC LIMIT 1',
+                (portfolio_id, moment)).fetchone()
+            scheduled = db.execute(
+                'SELECT snapshot_id,effective_at FROM holdings_snapshots '
+                'WHERE portfolio_id=? AND effective_at>? '
+                'ORDER BY effective_at LIMIT 1',
+                (portfolio_id, moment)).fetchone()
+        pending = (dict(snapshot_id=scheduled[0], effective_at=scheduled[1])
+                   if scheduled else None)
         if not row:
-            return dict(basis='unavailable', holdings=[], snapshot_id=None,
-                        note='this portfolio has no holdings snapshot yet')
+            return dict(
+                basis='unavailable', holdings=[], snapshot_id=None,
+                scheduled=pending, as_of=moment,
+                note=('this portfolio has no holdings snapshot in force. '
+                      f'Its earliest snapshot is effective {scheduled[1]}, '
+                      f'in the future, and a future snapshot is not current'
+                      if scheduled else
+                      'this portfolio has no holdings snapshot yet'))
         rows = self._rows(row[0])
         return dict(basis='current', snapshot_id=row[0], effective_at=row[1],
+                    as_of=moment, scheduled=pending,
                     holdings=rows, total_value=sum(h['value'] for h in rows))
 
     def _rows(self, snapshot_id: str) -> list[dict]:
