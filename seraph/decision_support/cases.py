@@ -41,6 +41,12 @@ Status = Literal["triage", "investigating", "awaiting_information",
 
 Priority = Literal["low", "medium", "high", "urgent"]
 
+#: The same four values, iterable. A caller validating a priority needs the
+#: tuple -- `Literal` is a type, not a runtime collection -- and the console
+#: dispatcher inventing its own list is how "critical" got accepted at the
+#: boundary and refused in the store.
+PRIORITIES: tuple[str, ...] = ("low", "medium", "high", "urgent")
+
 #: The only moves that exist. Anything else is refused, with this map quoted.
 TRANSITIONS: dict[str, tuple[str, ...]] = {
     "triage": ("investigating", "closed"),

@@ -265,8 +265,357 @@ def dispatch(store, point, role, event):
     return dict(_dispatch(store,point,role,event),context=context)
 
 
+#: Durable-workflow operations (T05/T08/T09). Kept in one table so the
+#: dispatcher below stays readable and so a new operation cannot be added
+#: without declaring the role that may invoke it.
+#:
+#: The defect these close is not a bug in `WorkspaceStore`, `ScenarioStore`
+#: or `CaseStore` -- all three are implemented and tested. It is that nothing
+#: in the dashboard ever CALLED them: around 1,300 lines of working
+#: persistence with no route to a user. Portfolios lived in
+#: `st.session_state`, scenarios were transient, and the regulator case
+#: lifecycle had no caller at all.
+WORKFLOW_ROLES = {
+    # portfolios and watchlists — any role may own their own
+    'ws_portfolios': ('retail', 'institutional', 'regulator'),
+    'ws_create': ('retail', 'institutional', 'regulator'),
+    'ws_preview': ('retail', 'institutional', 'regulator'),
+    'ws_commit': ('retail', 'institutional', 'regulator'),
+    'ws_holdings': ('retail', 'institutional', 'regulator'),
+    'ws_snapshots': ('retail', 'institutional', 'regulator'),
+    'ws_watchlist_save': ('retail', 'institutional', 'regulator'),
+    'ws_watchlists': ('retail', 'institutional', 'regulator'),
+    # scenarios — an institutional/regulator tool, as ScenarioStore enforces
+    'sc_list': ('institutional', 'regulator'),
+    'sc_save': ('institutional', 'regulator'),
+    'sc_run': ('institutional', 'regulator'),
+    'sc_compare': ('institutional', 'regulator'),
+    'sc_review': ('institutional', 'regulator'),
+    'sc_history': ('institutional', 'regulator'),
+    'sc_export': ('institutional', 'regulator'),
+    # cases — regulator only
+    'case_list': ('regulator',),
+    'case_open': ('regulator',),
+    'case_evidence': ('regulator',),
+    'case_decision': ('regulator',),
+    'case_status': ('regulator',),
+    'case_export': ('regulator',),
+}
+
+
+def _workflow(point, role, event):
+    """Serve one durable-workflow operation, or `None` if `op` is not one.
+
+    Every call resolves a `Principal` through the identity registry and the
+    stores enforce their own authorisation on top of `WORKFLOW_ROLES` -- two
+    independent checks, because the role in a browser event is a claim and
+    `ScenarioStore.save` refusing a retail principal is the guarantee.
+    """
+    op = event.get('op')
+    if op not in WORKFLOW_ROLES:
+        return None
+    if role not in WORKFLOW_ROLES[op]:
+        raise ValueError(f'{op} is not available to the {role} role')
+
+    from seraph.dashboard import workspace_service as svc
+    from seraph.decision_support.scenarios import Assumption, baseline_from_point
+
+    bundle = svc.stores()
+    principal = svc.demo_principal(role, reg=bundle['registry'])
+    workspace, scenarios, cases = (bundle['workspace'], bundle['scenarios'],
+                                   bundle['cases'])
+    identity = svc.describe()
+
+    def ok(kind, value, **extra):
+        return dict(kind=kind, value=value, identity=identity, **extra)
+
+    # ---------------------------------------------------- T05 portfolios
+    if op == 'ws_portfolios':
+        return ok('ws_portfolios', workspace.portfolios(principal))
+    if op == 'ws_create':
+        name = str(event.get('name') or '').strip()
+        if not 1 <= len(name) <= 120:
+            raise ValueError('A portfolio needs a name of 1-120 characters')
+        return ok('ws_create', workspace.create_portfolio(principal, name=name))
+    if op == 'ws_preview':
+        body = event.get('body')
+        if not isinstance(body, str) or not body.strip():
+            raise ValueError('Paste or upload CSV/JSON holdings first')
+        if len(body) > 4_000_000:
+            raise ValueError('That upload is larger than this release supports')
+        preview = workspace.preview_import(
+            principal, _require(event, 'portfolio_id'), body,
+            source_name=str(event.get('source_name') or 'pasted.csv'))
+        return ok('ws_preview', preview.describe())
+    if op == 'ws_commit':
+        body = event.get('body')
+        if not isinstance(body, str) or not body.strip():
+            raise ValueError('Nothing to commit; preview an import first')
+        portfolio_id = _require(event, 'portfolio_id')
+        # Re-parsed server side from the ORIGINAL bytes, never from the
+        # preview the browser echoes back: a mutated preview must not be
+        # able to turn an uploaded 100 into a stored 999 (P03).
+        preview = workspace.preview_import(
+            principal, portfolio_id, body,
+            source_name=str(event.get('source_name') or 'pasted.csv'))
+        saved = workspace.commit_import(
+            principal, portfolio_id, preview, body,
+            effective_at=str(event.get('effective_at') or _now_stamp()),
+            note=event.get('note') or None)
+        return ok('ws_commit', saved, rejected=len(preview.rejected))
+    if op == 'ws_holdings':
+        portfolio_id = _require(event, 'portfolio_id')
+        as_of = event.get('as_of')
+        value = (workspace.holdings_as_of(principal, portfolio_id, as_of)
+                 if as_of else workspace.current_holdings(principal, portfolio_id))
+        return ok('ws_holdings', value)
+    if op == 'ws_snapshots':
+        return ok('ws_snapshots',
+                  workspace.snapshots(principal, _require(event, 'portfolio_id')))
+    if op == 'ws_watchlist_save':
+        items = event.get('items')
+        if not isinstance(items, list) or len(items) > 500:
+            raise ValueError('A watchlist is a list of at most 500 symbols')
+        name = str(event.get('name') or '').strip() or 'default'
+        return ok('ws_watchlist_save',
+                  workspace.save_watchlist(principal, name,
+                                           [str(i).upper()[:32] for i in items]))
+    if op == 'ws_watchlists':
+        return ok('ws_watchlists', workspace.watchlists(principal))
+
+    # ----------------------------------------------------- T08 scenarios
+    if op == 'sc_list':
+        return ok('sc_list', scenarios.scenarios(principal))
+    if op == 'sc_save':
+        name = str(event.get('name') or '').strip()
+        if not 1 <= len(name) <= 120:
+            raise ValueError('A scenario needs a name of 1-120 characters')
+        steps = event.get('steps')
+        if not isinstance(steps, list) or not steps:
+            raise ValueError('A scenario needs at least one step')
+        raw = event.get('assumptions') or []
+        if not isinstance(raw, list):
+            raise ValueError('Assumptions must be a list')
+        assumptions = [
+            Assumption(key=str(a.get('key'))[:80], value=a.get('value'),
+                       unit=str(a.get('unit') or 'rank')[:40],
+                       justification=str(a.get('justification') or '')[:400],
+                       source=(str(a['source'])[:200] if a.get('source') else None))
+            for a in raw if isinstance(a, dict)]
+        if not assumptions:
+            raise ValueError(
+                'A scenario must declare its assumptions: an unlabelled '
+                'hypothetical cannot be told apart from a measurement later')
+        return ok('sc_save', scenarios.save(
+            principal, name=name, kind=str(event.get('kind') or 'rank_shock'),
+            baseline=baseline_from_point(point), steps=steps,
+            assumptions=assumptions))
+    if op == 'sc_run':
+        scenario_id = _require(event, 'scenario_id')
+        saved = scenarios.scenario(principal, scenario_id)
+        # Run the scenario's OWN stored steps through the same simulator the
+        # transient tool uses, so a saved scenario and an ad-hoc shock cannot
+        # diverge in arithmetic.
+        results = _simulate_steps(point, saved['kind'], saved['steps'])
+        return ok('sc_run', scenarios.record_run(
+            principal, scenario_id, results=[r.model_dump(mode='json')
+                                             for r in results],
+            inputs=dict(steps=saved['steps'], kind=saved['kind'],
+                        run_id=point['run_id'], date=point['date'])))
+    if op == 'sc_compare':
+        return ok('sc_compare', scenarios.compare(
+            principal, _require(event, 'left_id'), _require(event, 'right_id')))
+    if op == 'sc_review':
+        verdict = event.get('verdict')
+        if verdict not in ('approved', 'changes_requested', 'rejected'):
+            raise ValueError('Unknown verdict')
+        return ok('sc_review', scenarios.review(
+            principal, _require(event, 'scenario_id'), verdict=verdict,
+            comment=(str(event['comment'])[:2000] if event.get('comment') else None),
+            assumption_version=event.get('assumption_version'),
+            run_key=event.get('run_key')))
+    if op == 'sc_history':
+        scenario_id = _require(event, 'scenario_id')
+        return ok('sc_history', dict(
+            scenario=scenarios.scenario(principal, scenario_id),
+            assumptions=scenarios.assumption_history(principal, scenario_id),
+            runs=scenarios.runs(principal, scenario_id)))
+    if op == 'sc_export':
+        scenario_id = _require(event, 'scenario_id')
+        return ok('sc_export', dict(
+            scenario=scenarios.scenario(principal, scenario_id),
+            assumption_history=scenarios.assumption_history(principal, scenario_id),
+            runs=scenarios.runs(principal, scenario_id),
+            exported_at=_now_stamp(), identity=identity,
+            limitations=[
+                'Scenario outputs are hypothetical pillar-rank arithmetic, '
+                'not an economic forecast or a loss estimate.',
+                identity['note']]),
+            filename=f'seraph-scenario-{scenario_id}.json')
+
+    # --------------------------------------------------------- T09 cases
+    if op == 'case_list':
+        return ok('case_list', cases.cases(principal, status=event.get('status')))
+    if op == 'case_open':
+        title = str(event.get('title') or '').strip()
+        if not 3 <= len(title) <= 200:
+            raise ValueError('A case needs a title of 3-200 characters')
+        # Vocabulary comes from `cases.Priority`, not from this module: an
+        # invented value here would be refused deeper down with a worse
+        # message, or worse, accepted and stored.
+        from seraph.decision_support.cases import PRIORITIES
+        priority = event.get('priority') or 'medium'
+        if priority not in PRIORITIES:
+            raise ValueError(
+                f"Unknown priority {priority!r}; this release uses "
+                f"{', '.join(PRIORITIES)}")
+        return ok('case_open', cases.open_case(
+            principal, title=title, priority=priority,
+            related=dict(run_id=point['run_id'], date=point['date'],
+                         alert_id=f"{point['run_id']}:{point['date']}"),
+            request_id=_require(event, 'id')))
+    if op == 'case_evidence':
+        from seraph.decision_support.cases import EvidenceRef
+        refs = event.get('refs')
+        if not isinstance(refs, list) or not refs:
+            raise ValueError('Attach at least one evidence reference')
+        pinned = []
+        for r in refs:
+            if not isinstance(r, dict):
+                continue
+            # `revision` is what makes replay honest (CaseStore's own words):
+            # an evidence pointer with no revision can silently come back as
+            # different content later, so it is required rather than defaulted.
+            revision = str(r.get('revision') or '').strip()
+            if not revision:
+                raise ValueError(
+                    'Each evidence reference needs a revision; an unpinned '
+                    'pointer cannot be replayed honestly')
+            pinned.append(EvidenceRef(
+                kind=str(r.get('kind') or '')[:40],
+                ref_id=str(r.get('ref_id') or '')[:200],
+                revision=revision[:200],
+                label=(str(r['label'])[:200] if r.get('label') else None),
+                captured_at=_now_stamp()))
+        if not pinned:
+            raise ValueError('Attach at least one evidence reference')
+        return ok('case_evidence', cases.attach_evidence(
+            principal, _require(event, 'case_id'), pinned,
+            expected_version=int(event.get('expected_version', 0)),
+            request_id=_require(event, 'id')))
+    if op == 'case_decision':
+        rationale = str(event.get('rationale') or '').strip()
+        if len(rationale) < 3:
+            raise ValueError('A decision needs a recorded rationale')
+        return ok('case_decision', cases.record_decision(
+            principal, _require(event, 'case_id'),
+            outcome=str(event.get('outcome') or '')[:80],
+            rationale=rationale[:2000],
+            action_category=(str(event['action_category'])[:80]
+                             if event.get('action_category') else None),
+            expected_version=int(event.get('expected_version', 0)),
+            request_id=_require(event, 'id')))
+    if op == 'case_status':
+        # `CaseStore.TRANSITIONS` is the state machine and it refuses an
+        # illegal MOVE with the permitted moves quoted. This only checks that
+        # the status is a real one; which moves are legal from here is the
+        # store's question, not this layer's, and duplicating that table would
+        # be two maps to keep in step.
+        from seraph.decision_support.cases import TRANSITIONS
+        status = event.get('status')
+        if status not in TRANSITIONS:
+            raise ValueError(
+                f"Unknown case status {status!r}; this release uses "
+                f"{', '.join(sorted(TRANSITIONS))}")
+        return ok('case_status', cases.set_status(
+            principal, _require(event, 'case_id'), status=status,
+            expected_version=int(event.get('expected_version', 0)),
+            request_id=_require(event, 'id'),
+            reason=(str(event['reason'])[:400] if event.get('reason') else None)))
+    if op == 'case_export':
+        case_id = _require(event, 'case_id')
+        return ok('case_export', cases.export(principal, case_id),
+                  filename=f'seraph-case-{case_id}.json')
+    return None                                     # pragma: no cover
+
+
+def _require(event, key):
+    value = event.get(key)
+    if not isinstance(value, str) or not value.strip():
+        raise ValueError(f'{key} is required')
+    return value.strip()[:200]
+
+
+def _now_stamp() -> str:
+    from datetime import datetime
+    from seraph.shared_types import IST, ist_timestamp
+    return ist_timestamp(datetime.now(IST).replace(microsecond=0))
+
+
+def _weights_of(point):
+    """The fusion weights this point was scored under, or refuse.
+
+    Same check the ad-hoc shock path makes: reproducing a baseline under a
+    DIFFERENT weight artefact would silently compare two things.
+    """
+    weights = InferenceSession([point['date']]).weights
+    if weights.artefact_id != point['composite']['weights_artefact_id']:
+        raise ValueError(
+            'Saved weight version unavailable; cannot reproduce this baseline')
+    return weights
+
+
+def _simulate_steps(point, kind, steps):
+    """One saved scenario's steps through the EXISTING simulators.
+
+    A saved scenario and the transient shock tool must produce the same
+    numbers from the same inputs, so this calls `simulate_shock` /
+    `simulate_policy` with exactly the arguments the ad-hoc path uses rather
+    than growing a second copy of the arithmetic. `xi=(1/3,)*3` and the
+    `xi_mode='uniform'` relabelling below mirror that path deliberately: a
+    saved rank shock is a sensitivity probe against a uniform regime
+    baseline, not a regime forecast.
+    """
+    if not point.get('composite') or not point.get('reconciled'):
+        raise ValueError('No baseline state available for this run/date')
+    state = ReconciledState.model_validate(point['reconciled'])
+    weights = _weights_of(point)
+    first = next((s for s in steps if isinstance(s, dict)), None)
+    if first is None:
+        raise ValueError('This scenario has no usable step')
+
+    if kind == 'regime_path':
+        import math
+        path = [tuple(s['xi']) for s in steps
+                if isinstance(s, dict) and isinstance(s.get('xi'), list)]
+        if not path:
+            raise ValueError('A regime-path scenario needs at least one xi row')
+        for row in path:
+            if len(row) != 3 or abs(sum(row) - 1) > 1e-8 or any(
+                    not isinstance(v, (int, float)) or not math.isfinite(v)
+                    or v < 0 or v > 1 for v in row):
+                raise ValueError(
+                    'Every regime row must contain three probabilities '
+                    'summing to one')
+        return unwrap(simulate_policy(reconciled=state, weights=weights,
+                                      xi_path=path))
+
+    magnitude = float(first.get('delta') or first.get('magnitude') or 0.0)
+    horizon = int(first.get('horizon') or 1)
+    if not -1 <= magnitude <= 1 or not 1 <= horizon <= 60:
+        raise ValueError('Shock must be within [-1,1]; horizon 1..60')
+    results = unwrap(simulate_shock(
+        reconciled=state, xi=(1 / 3,) * 3, weights=weights,
+        pillar=str(first.get('pillar') or ''), magnitude=magnitude,
+        horizon_days=horizon))
+    return [r.model_copy(update={'xi_mode': 'uniform'}) for r in results]
+
+
 def _dispatch(store, point, role, event):
     op=event.get('op')
+    workflow=_workflow(point,role,event)
+    if workflow is not None:
+        return workflow
     if op=='portfolio':
         holdings=event.get('holdings')
         if not isinstance(holdings,list) or len(holdings)>10000:
