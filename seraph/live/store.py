@@ -76,6 +76,35 @@ class MigrationDrift(StoreError):
     """An applied migration's file has changed since it ran."""
 
 
+#: Payload fields that are OPERATIONAL MEASUREMENT, not the decision.
+#:
+#: `LiveDecision.describe()` carries both: the decision (score, publishability,
+#: which bars, which inputs) and how the run went (how many milliseconds from
+#: bar close to decision, when the feed last spoke). The second kind is
+#: legitimately different on every execution, so including it in the content
+#: hash made R06's conflict detection fire on a LEGITIMATE recomputation --
+#: re-deciding the same bar after a restart would raise `DecisionConflict`
+#: purely because the stopwatch read differently.
+#:
+#: Found by `docs/evidence/engineering-audit-2026-10-18/r08_recovery_probe.py`,
+#: which showed matching bars and matching decision counts but differing
+#: payload hashes across a crash.
+#:
+#: The full payload is still STORED verbatim -- nothing is discarded. This
+#: only decides what "the same decision" means.
+OPERATIONAL_PAYLOAD_FIELDS = frozenset({
+    "bar_close_to_decision_ms",     # a measured latency
+    "feed",                         # includes last_message_at
+    "recency",                      # age of the newest observation at decision
+})
+
+
+def decision_identity(payload: dict) -> dict:
+    """The part of a decision payload that defines WHICH decision this is."""
+    return {k: v for k, v in (payload or {}).items()
+            if k not in OPERATIONAL_PAYLOAD_FIELDS}
+
+
 class DecisionConflict(StoreError):
     """The same decision id is already stored with different content.
 
@@ -394,8 +423,11 @@ class LiveStore:
         """
         # The payload hash is computed first, because it decides whether this
         # is a replay at all and nothing should be written to find that out.
+        # It covers the DECISION, not the stopwatch -- see `decision_identity`.
         payload_body = json.dumps(payload, sort_keys=True, default=str)
-        payload_hash = hashlib.sha256(payload_body.encode()).hexdigest()
+        payload_hash = hashlib.sha256(
+            json.dumps(decision_identity(payload), sort_keys=True,
+                       default=str).encode()).hexdigest()
 
         existing = self.decision(decision_id)
         if existing is not None:

@@ -1,0 +1,47 @@
+{
+  "scenarios": {
+    "crash_mid_bar": {
+      "crash_after_passes": 1,
+      "restored": true,
+      "bars_restored": true,
+      "open_bars_after_restore": 1,
+      "config_id": "8a2730129c6b",
+      "bars_match_baseline": true,
+      "decisions_match_baseline": true,
+      "bars": 12,
+      "decisions": 2
+    },
+    "crash_after_finalization": {
+      "crash_after_passes": 2,
+      "restored": true,
+      "bars_restored": true,
+      "open_bars_after_restore": 0,
+      "config_id": "8a2730129c6b",
+      "bars_match_baseline": true,
+      "decisions_match_baseline": true,
+      "bars": 12,
+      "decisions": 2
+    },
+    "crash_after_commit": {
+      "crash_after_passes": 3,
+      "restored": true,
+      "bars_restored": true,
+      "open_bars_after_restore": 0,
+      "config_id": "8a2730129c6b",
+      "bars_match_baseline": true,
+      "decisions_match_baseline": true,
+      "bars": 12,
+      "decisions": 2
+    }
+  },
+  "baseline": {
+    "bars": 12,
+    "decisions": 2
+  },
+  "verdict": {
+    "all_bars_match": true,
+    "all_decisions_match": true,
+    "all_restored": true,
+    "passed": true
+  }
+}

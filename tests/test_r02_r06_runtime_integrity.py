@@ -365,6 +365,57 @@ class TestR06IdempotencyIsBoundToContent:
         assert store.decision("live_shadow:live:bar-1")["payload"]["csrs"] == 0.4
 
 
+class TestR06IdentityExcludesOperationalMeasurement:
+    """Found by `r08_recovery_probe.py`, not by the audit: the payload mixes
+    the decision (score, publishability, inputs) with how the run WENT
+    (latency, feed liveness). Hashing both made R06's conflict detection fire
+    on a LEGITIMATE recomputation -- re-deciding the same bar after a restart
+    raised `DecisionConflict` purely because the stopwatch read differently."""
+
+    @pytest.fixture
+    def store(self, tmp_path):
+        return LiveStore(tmp_path / "runtime.sqlite")
+
+    def _commit(self, store, *, latency, feed_seen, csrs=0.4):
+        return store.commit_decision(
+            decision_id="live_shadow:live:bar-1",
+            as_of="2024-01-02T10:10:05+05:30",
+            computed_at="2024-01-02T10:10:05+05:30",
+            payload=dict(csrs=csrs, publishable=True,
+                         bar_close_to_decision_ms=latency,
+                         feed=dict(last_message_at=feed_seen),
+                         recency=dict(age_seconds=1)),
+            publication_state="current",
+            state=dict(pipeline_version="t"), input_cursor=dict(batches=[]))
+
+    def test_a_different_latency_is_not_a_different_decision(self, store):
+        self._commit(store, latency=12.5, feed_seen="10:10:01")
+        again = self._commit(store, latency=88.1, feed_seen="10:10:04")
+        assert again["replayed"] is True, \
+            "a legitimate recomputation was rejected as a conflict"
+
+    def test_a_different_score_is_still_a_conflict(self, store):
+        self._commit(store, latency=12.5, feed_seen="10:10:01", csrs=0.4)
+        with pytest.raises(DecisionConflict):
+            self._commit(store, latency=12.5, feed_seen="10:10:01", csrs=0.9)
+
+    def test_the_full_payload_is_still_stored_verbatim(self, store):
+        """Nothing is discarded; this only decides what 'the same decision'
+        means."""
+        self._commit(store, latency=12.5, feed_seen="10:10:01")
+        stored = store.decision("live_shadow:live:bar-1")["payload"]
+        assert stored["bar_close_to_decision_ms"] == 12.5
+        assert stored["feed"]["last_message_at"] == "10:10:01"
+
+    def test_the_excluded_fields_are_named_and_few(self):
+        from seraph.live.store import OPERATIONAL_PAYLOAD_FIELDS, decision_identity
+        assert "csrs" not in OPERATIONAL_PAYLOAD_FIELDS
+        assert "publishable" not in OPERATIONAL_PAYLOAD_FIELDS
+        assert "bar_close_to_decision_ms" in OPERATIONAL_PAYLOAD_FIELDS
+        identity = decision_identity(dict(csrs=1, bar_close_to_decision_ms=5))
+        assert identity == dict(csrs=1)
+
+
 class TestR06ReadsAreStreamScoped:
     """`latest_decision()` and `decisions()` queried every row in the
     database and ordered by `as_of`, while `head()` beside them was
