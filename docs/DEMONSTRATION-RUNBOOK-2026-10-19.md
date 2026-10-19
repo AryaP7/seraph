@@ -4,7 +4,7 @@ Written 19 October 2026 against branch `seraph/engineering-completion`.
 Every command here was run on this checkout and its output is recorded in
 [functional-completion-2026-10-19.json](evidence/functional-completion-2026-10-19.json).
 
-Verified state: **10 of 10 checked journeys work; 6 are blocked** on a paid
+Verified state: **10 of 10 checked journeys work; 8 are blocked** on a paid
 subscription or an owner decision. §5 lists them precisely. The three items
 that were blocked on a concurrent editing session are now closed: its news
 work was landed, and the launcher, the workflow controls and the job-lease
@@ -196,6 +196,57 @@ python docs/evidence/engineering-audit-2026-10-18/r08_recovery_probe.py
 Three crash points, each reproducing the uninterrupted run's bars and
 decisions.
 
+**11. Show the FR35 ablation runner, and what gates it.**
+```bash
+python scripts/run_experiment.py --status
+```
+The most useful thing in this step is a **refusal**. `--status` reports that
+`preregistration.json` is absent, so no AUC can be computed at all: D5(d)
+makes a committed design the precondition for a result, and DR-05 step 5
+leaves committing it to a person on purpose — a script writing it as a build
+step would defeat the mechanism it exists to provide.
+
+To show the plumbing, commit a design to a scratch path and run the supplied
+fixture through it:
+
+```bash
+python -c "from pathlib import Path; from seraph.validation.preregistration import build, commit; print(commit(build(calibration_max_iter=50), Path('prereg-demo.json')))"
+```
+
+```bash
+python scripts/run_experiment.py --dataset fixture --tables B --preregistration prereg-demo.json --transfer JSE
+```
+
+Four things worth pointing at in the output:
+
+- the **comparability warning printed above the tables**, not after them.
+  Tables A (4 folds), B (2) and C (6) answer three different questions and are
+  never ranked together.
+- **`folds` as measured/declared** on every line. The mean is over one
+  configuration's own folds; there is deliberately no table-level mean, because
+  pooling six configurations and two xi modes answers no question and reads as
+  a ranking.
+- the two **xi-mode rows being identical for single-pillar subsets**. That is
+  the arithmetic, not agreement: under a one-pillar mask every regime row
+  renormalises to the same indicator vector, so CSRS is just that pillar's own
+  value and the R5 control cannot diverge. It does move for `rmt+hamilton`.
+- the transfer stating in its own output that its target is a **fixture epoch
+  standing in for a second market**, and is therefore not an O9 result.
+
+Every number here comes from `fixtures/experiment_dataset.py`, which declares
+itself synthetic in a field that travels with the data. The point of the step
+is that the machinery and its refusals work — not that anything has been
+measured about any market.
+
+```bash
+python -m pytest tests/test_t10_experiment_runner.py tests/test_t10_transfer_sensitivity_archive.py -q
+```
+
+86 cases, including every refusal: no design, an edited design, a design with
+no threshold, a leaking fold, a single-class fold, a subset that outruns its
+epoch's coverage, a transfer that would be in-sample, and a sweep whose
+designs do not actually differ.
+
 ---
 
 ## 5. What does not work, and who can unblock it
@@ -208,6 +259,8 @@ decisions.
 | **Counterfactual policy path** (FR48) | `project_xi` needs a *fitted* `HamiltonEngine` and no fit artefact is persisted; Hamilton is also under a standing research exclusion. The direct regime-path simulator works; the macro z→ξ mapping says it is unavailable. | owner: decide whether to persist a Hamilton fit despite the exclusion |
 | **Defensive-action drawdown** (FR46) | Needs declared positions, execution and cost assumptions. Those are financially material and are not invented. | owner: the contract |
 | **Institution decomposition** (FR42) | Needs authorised institution submissions. Private positions are not derivable from public price bars. | owner: data + schema |
+| **A real FR35 ablation result** (FR35–37) | The runner, the FR37 transfer, the FR34 sweep and the FR38 archive are built and tested. `preregistration.json` is not committed, and D5(d) makes it the precondition for any AUC; DR-05 step 5 left that to a person deliberately. A real result also needs per-epoch reconciled states for all six labelled epochs, which the archive does not hold. | owner: commit the design |
+| **Publishing a Table C row** (FR35) | The archive accepts `table_id` 'C' after migration 002, because FR38 requires every ablation result to be archived. `shared_types.EvaluationRow` still declares `Literal["A","B"]`, and widening it edits a package all twelve components import — ask-gated in `CLAUDE.md`. The runner counts such rows rather than dropping them. DR-12 §6 states the choice. | owner: one contract decision |
 
 **Closed since the first version of this runbook**, because the concurrent
 session's news work was landed and freed the files: one-command launch of

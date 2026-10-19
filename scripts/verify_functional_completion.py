@@ -327,6 +327,32 @@ BLOCKED = [
                     "positions are not derivable from public price bars",
          consequence="the surface reports absence rather than an inference",
          needs="owner: authorised data and a submission schema"),
+    dict(journey="a real FR35 ablation result", requirement="FR35-FR37",
+         blocked_by=("`preregistration.json` is not committed and D5(d) makes "
+                     "a committed design the precondition for any AUC. DR-05 "
+                     "step 5 left committing it to a person deliberately: a "
+                     "script writing it as a build step would defeat what "
+                     "pre-registration is for. A real run also needs "
+                     "per-epoch reconciled states for all six labelled "
+                     "epochs, which the archive does not hold"),
+         consequence=("the runner, the FR37 transfer, the FR34 sweep and the "
+                      "FR38 archive are built and tested, and refuse to "
+                      "compute without a committed design. Every number "
+                      "produced so far is from a fixture that declares itself "
+                      "synthetic"),
+         needs="owner: commit the pre-registration"),
+    dict(journey="publishing a Table C ablation row", requirement="FR35",
+         blocked_by=("`shared_types.EvaluationRow` declares "
+                     "`table: Literal['A', 'B']`, and DR-05 step 3 added "
+                     "Table C to the design. Widening the type edits a "
+                     "package all twelve components import, which CLAUDE.md "
+                     "gates on the owner"),
+         consequence=("migration 002 widened the ARCHIVE to accept 'C', "
+                      "because FR38 requires every ablation result to be "
+                      "archived. The runner measures Table C and counts the "
+                      "rows the published contract cannot carry rather than "
+                      "dropping them"),
+         needs="owner: one contract decision (DR-12 section 6)"),
 ]
 
 #: Closed since the first run of this script, recorded so the blocked list

@@ -203,10 +203,17 @@ A passing suite is not functional correctness, which is why
 
 ## 7. What I did not do
 
-- **T10** (experiment runner assembly), **T11**, **T12**, **T13** — all P2,
-  and T11–T13 are blocked on the model/data contracts in §4. T10 is pure
-  assembly in clean files and is the next sensible piece of work.
-- **R10** job-lease fencing — blocked on `operations/jobs.py`.
+- **T11**, **T12**, **T13** — all P2 and all blocked on the model/data
+  contracts in §4.
+- **A real FR35 result.** T10 built the runner; the design it would run
+  under is still uncommitted, and that is deliberately the owner's act
+  rather than a build step — DR-05 step 5, and D5(d) gates every AUC on it.
+  Every number produced so far comes from a synthetic fixture that says so
+  in a field travelling with the data.
+- **Widening `EvaluationRow` to carry Table C**, which needs an edit to
+  `seraph/shared_types/` — ask-gated in `CLAUDE.md` because all twelve
+  components import from it. DR-12 §6 states the choice. The archive was
+  widened, because FR38 requires it; publishing is the open half.
 - **X12** — two duplicated curated place rows (Maharashtra, Odisha) make
   those states unresolvable. Recorded with a test pinning its blast radius;
   fixing it is a curated-data migration with citation implications.
@@ -224,10 +231,17 @@ inputs, overlays the official benchmark, shows a real institutional flow
 print, and persists portfolios, scenarios and regulator cases durably.
 
 It is **not finished**, and the remaining gaps are specific rather than
-diffuse: one paid subscription unlocks three features, three owner decisions
-unlock three more, and one concurrent session resolution unlocks the browser
-controls and the single-command launch. No mandatory requirement is
-*unimplemented for want of engineering effort* except T10 and the UI wiring.
+diffuse: one paid subscription unlocks three features, and four owner
+decisions unlock the rest — the Hamilton fit, the position/cost contract,
+authorised institution submissions, and committing the pre-registration.
+The concurrent session was resolved, which unlocked the browser controls and
+the single-command launch. **No mandatory requirement now remains
+unimplemented for want of engineering effort.**
+
+T10 closed the last of those: `EvaluationRow` had no producer anywhere in
+the repository, and the FR35 ablation now has a runner, an FR37 transfer
+path, an FR34 sensitivity sweep and an FR38 archive. What it does not have
+is a result, for the one reason above.
 
 No feature above is claimed as working that this report has not verified,
 and nothing simulated is presented as real.
