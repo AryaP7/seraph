@@ -19,10 +19,15 @@
 # aliases    pipe-separated alternative spellings the resolver accepts,
 #            exactly. Official documents write countries in their long
 #            legal form; a short curated name alone never matches them.
+#            X02b: three rows carry their official Devanagari name as
+#            an alias, deliberately. All 264 curated rows were ASCII,
+#            which is the only reason X01/X02 were latent rather than
+#            active: an ASCII-only normaliser cannot be caught by an
+#            ASCII-only fixture. These keep that bug class visible.
 place_id,name,kind,parent_id,iso_code,lat,lon,source_ref,known_from,aliases
-in,India,country,,IND,22.00000,79.00000,https://www.geonames.org/1269750/republic-of-india.html,,Republic of India
-in_mh,Maharashtra,state,in,,19.50000,76.00000,https://www.geonames.org/1264418/maharashtra.html,,
-in_mh_mumbai,Mumbai,city,in_mh,,19.07283,72.88261,https://www.geonames.org/1275339/mumbai.html,,
+in,India,country,,IND,22.00000,79.00000,https://www.geonames.org/1269750/republic-of-india.html,,Republic of India|भारत
+in_mh,Maharashtra,state,in,,19.50000,76.00000,https://www.geonames.org/1264418/maharashtra.html,,महाराष्ट्र
+in_mh_mumbai,Mumbai,city,in_mh,,19.07283,72.88261,https://www.geonames.org/1275339/mumbai.html,,मुंबई
 us,United States,country,,USA,39.76000,-98.50000,https://www.geonames.org/6252001/united-states.html,,United States of America|USA
 us_dc_washington,Washington D.C.,city,us,,38.89511,-77.03637,https://www.geonames.org/4140963/washington-dc.html,,
 cn,China,country,,CHN,35,105,https://www.geonames.org/1814991/people-s-republic-of-china.html,2026-10-17T07:15:00+05:30,People's Republic of China|PRC

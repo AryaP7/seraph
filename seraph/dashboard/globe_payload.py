@@ -39,10 +39,13 @@ the antimeridian, and cross-checks it against the JavaScript.
 """
 from __future__ import annotations
 
+import hashlib
 import math
 import re
 from dataclasses import dataclass
 from typing import Iterable, Literal, Mapping, Sequence
+
+from seraph.news.model import word_tokens
 
 ADAPTER_VERSION = "c12.globe_payload/2026-10-17.1"
 
@@ -114,7 +117,36 @@ def _wrap_lon(lon: float) -> float:
 
 
 def _slug(value: str) -> str:
-    return re.sub(r"[^a-z0-9]+", "-", str(value).lower()).strip("-")
+    """A stable, collision-free id fragment for any value, in any script.
+
+    X01 (completion-audit verification, Part 3). This was
+    `re.sub(r"[^a-z0-9]+", "-", str(value).lower()).strip("-")`, which
+    deletes every non-ASCII character. Two different Devanagari state names
+    therefore produced the SAME geometry id:
+
+        geo:in-state:uttar-pradesh   <- 'Uttar Pradesh'
+        geo:in-state:                <- 'उत्तर प्रदेश'
+        geo:in-state:                <- 'तमिलनाडु'
+
+    so the renderer pinned both states to one mesh. Same bug class as N02's
+    headline grouping and X02's entity resolver.
+
+    The ASCII form is kept verbatim where it is already unambiguous, so
+    every existing id is unchanged and no stored payload or saved evidence
+    is invalidated. When normalisation would lose information -- an empty
+    result, or characters dropped -- a short content hash of the original
+    is appended, which distinguishes the cases without making ASCII ids
+    unreadable.
+    """
+    text = str(value)
+    ascii_form = re.sub(r"[^a-z0-9]+", "-", text.lower()).strip("-")
+    # Did the ASCII reduction lose anything that mattered? Compare against
+    # a script-agnostic tokenisation of the same string.
+    meaningful = "".join(word_tokens(text))
+    if ascii_form and meaningful == re.sub(r"[^a-z0-9]+", "", text.lower()):
+        return ascii_form
+    digest = hashlib.sha256(text.encode("utf-8")).hexdigest()[:12]
+    return f"{ascii_form}-u{digest}" if ascii_form else f"u{digest}"
 
 
 # ------------------------------------------------------- geometry resolver

@@ -31,7 +31,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Literal
 
-from seraph.news.model import Asset, Entity, ExposureEdge, Place
+from seraph.news.model import Asset, Entity, ExposureEdge, Place, word_tokens
 from seraph.product_types import SourceRef
 
 CURATED_DIR = Path(__file__).resolve().parent / "curated"
@@ -90,10 +90,49 @@ class Resolution:
                     matched_on=self.matched_on)
 
 
+#: Legal-form words dropped before comparison, so "NTPC Ltd" and "NTPC"
+#: are one name. They only ever match ASCII tokens, so a Devanagari or
+#: other non-Latin name is unaffected by them.
+_LEGAL_FORMS = re.compile(
+    r"\b(ltd|limited|pvt|private|inc|plc|corp|corporation|co)\b")
+
+
 def _norm(name: str) -> str:
-    cleaned = re.sub(r"[^a-z0-9 ]+", " ", name.lower())
-    cleaned = re.sub(r"\b(ltd|limited|pvt|private|inc|plc|corp|corporation|co)\b",
-                     " ", cleaned)
+    """The comparable form of a name, in any script.
+
+    X02 (completion-audit verification, Part 3). This was
+    `re.sub(r"[^a-z0-9 ]+", " ", name.lower())`, which deletes every
+    character outside ASCII. A Devanagari name therefore normalised to the
+    EMPTY STRING -- and `resolve_asset` tested
+
+        needle in _norm(a.name) or _norm(a.name) in needle
+
+    where `"" in needle` is always True. One asset with a non-Latin name
+    made every mention in the corpus resolve to it, reported as
+    `status='resolved'` with no ambiguity flag:
+
+        resolve_asset("Reliance refinery") -> resolved -> as:hindi
+        resolve_asset("anything at all")   -> resolved -> as:hindi
+
+    Wrong arcs on the globe and wrong assets attached to events, presented
+    as confident links. It was latent only because all 264 curated rows
+    happened to be ASCII; it arms the moment N09's non-English coverage
+    adds one Devanagari or Tamil name -- that is, exactly when the planned
+    Indian-language breadth is delivered.
+
+    This now reuses the same Unicode-category rule the syndication
+    tokeniser uses (`news/model.py`, `syn/2`), which was fixed for the same
+    bug class in document grouping. Three places shared the assumption;
+    this is the second, and `dashboard/globe_payload._slug` is the third.
+
+    It uses `word_tokens`, the unfiltered primitive, NOT
+    `syndication_tokens`: that one drops stopwords and words shorter than
+    three characters, which is right for headlines and would reduce "L&T"
+    and "BP" -- both real NSE issuers -- to the empty string, reintroducing
+    this very defect from the other direction.
+    """
+    tokens = word_tokens(name or "")
+    cleaned = _LEGAL_FORMS.sub(" ", " ".join(tokens))
     return " ".join(cleaned.split())
 
 
@@ -342,9 +381,27 @@ class MasterData:
         return Resolution(mention=mention, status="unknown")
 
     def resolve_asset(self, mention: str) -> Resolution:
+        """Resolve an asset mention. Abstains on ambiguity and on no evidence.
+
+        X02: the containment test below reads both ways, so an asset whose
+        normalised name was EMPTY matched every mention -- `"" in needle` is
+        always True. `_norm` no longer returns empty for a non-Latin name,
+        but an empty name is still possible (a registry row with a blank or
+        punctuation-only name), and a containment rule that can match on no
+        evidence must refuse rather than resolve. `resolve_entity` and
+        `resolve_place` already guarded their needle; this one did not guard
+        either side.
+        """
         needle = _norm(mention)
-        hits = [a.asset_id for a in self.assets.values()
-                if needle and (needle in _norm(a.name) or _norm(a.name) in needle)]
+        if not needle:
+            return Resolution(mention=mention, status="unknown")
+        hits = []
+        for asset in self.assets.values():
+            name = _norm(asset.name)
+            if not name:
+                continue
+            if needle in name or name in needle:
+                hits.append(asset.asset_id)
         if len(hits) == 1:
             return Resolution(mention=mention, status="resolved", entity_id=hits[0],
                               matched_on="asset")

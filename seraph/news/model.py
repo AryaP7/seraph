@@ -263,15 +263,22 @@ _WORD_CATEGORIES = frozenset({'Lu', 'Ll', 'Lt', 'Lm', 'Lo',
 _WORD_JOINERS = frozenset('‌‍ʼ’\'')
 
 
-def syndication_tokens(title: str) -> tuple[str, ...]:
-    """The content tokens a headline contributes to its group identity.
+def word_tokens(text: str) -> tuple[str, ...]:
+    """Every word in `text`, case-folded, in any script. No filtering.
 
-    Script-agnostic by construction: a token is a run of word characters by
-    Unicode category, so Devanagari, Latin and digits are all tokenised by
-    the same rule rather than by one that happens to fit English.
+    The shared primitive. A token is a run of word characters by Unicode
+    general category, so Devanagari, Latin and digits are tokenised by one
+    rule rather than by one that happens to fit English.
+
+    Callers apply their own filtering on top, because the right filter
+    differs: `syndication_tokens` drops stopwords and one- and two-letter
+    words, which is correct for deciding whether two HEADLINES are the same
+    story and wrong for comparing NAMES -- that filter would reduce "L&T"
+    and "BP" to nothing. `news/registry._norm` therefore uses this function
+    directly.
     """
     words, current = [], []
-    for char in (title or "").casefold():
+    for char in (text or "").casefold():
         if (unicodedata.category(char) in _WORD_CATEGORIES
                 or (current and char in _WORD_JOINERS)):
             current.append(char)
@@ -280,7 +287,17 @@ def syndication_tokens(title: str) -> tuple[str, ...]:
             current = []
     if current:
         words.append(''.join(current))
-    return tuple(w for w in words
+    return tuple(words)
+
+
+def syndication_tokens(title: str) -> tuple[str, ...]:
+    """The content tokens a headline contributes to its group identity.
+
+    Script-agnostic by construction: a token is a run of word characters by
+    Unicode category, so Devanagari, Latin and digits are all tokenised by
+    the same rule rather than by one that happens to fit English.
+    """
+    return tuple(w for w in word_tokens(title)
                  if w not in _STOPWORDS and (len(w) > 2 or w.isdigit()))
 
 
