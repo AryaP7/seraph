@@ -3,7 +3,7 @@
 Session date: 19 October 2026. Branch: `seraph/engineering-completion`,
 cut from `main` at `51680bb`. Twelve commits, nothing pushed.
 
-**Headline:** full suite **2067 passed, 14 skipped, 0 failed**; 236 new
+**Headline:** full suite **2078 passed, 14 skipped, 0 failed**; 236 new
 regression tests; O01 and R08 both pass their full acceptance against real
 artefacts. 13 of 14 integrity defects closed. R10 and all of W5 deferred
 because another agent session holds those files in this same tree.
@@ -154,8 +154,9 @@ Fixing fewer than all three leaves the hole.
 
 | Check | Result |
 |---|---|
-| **Full suite, session end** | **2067 passed, 14 skipped, 0 failed** (18m14s) |
-| Core legs re-run after the final commit | 2044 passed, 14 skipped, 0 failed (4m35s) |
+| **Full suite, final** | **2078 passed, 14 skipped, 0 failed** (21m33s) |
+| Full suite, earlier in the session | 2067 passed, 14 skipped, 0 failed (18m14s) |
+| Core legs after the line-ending commit | 2044 passed, 14 skipped, 0 failed (4m35s) |
 | Full suite at session start | 1705 passed, 4 skipped (1715 collected) |
 | `scripts/check_invariants.py` | exit 0, with two `[info]` notes |
 | `scripts/verify_packaging.py` | **passed**, all 7 conditions |
@@ -163,8 +164,9 @@ Fixing fewer than all three leaves the hole.
 | JS harnesses (`npm test`) | both clean, 31 + 40 named claims |
 | New tests added | 236 |
 
-The collected count rose from 1715 to 2081 — my 236 plus the concurrent
-session's additions.
+The collected count rose from 1715 to 2092 across the session — my 236 plus
+the concurrent session's additions, which is also why the three full runs
+report slightly different totals as that work landed.
 
 Two new invariant checks were added and both pass: the lockfile must pin every
 pyproject dependency (so `-e .` cannot float one), and no credential-shaped
