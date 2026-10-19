@@ -341,6 +341,111 @@ class LiveStore:
                 (producer, limit)).fetchall()
         return [_vintage_row(r) for r in rows]
 
+    # ---------------------------------------------- prospective forecasts
+
+    def record_forecast(self, *, target: str, model: str, as_of: str,
+                        artefact_id: str, horizon: int, matures_after: str,
+                        fit_status: str, probability: float | None = None,
+                        threshold: float | None = None,
+                        alarm: bool | None = None, inputs_hash: str = "",
+                        detail: dict | None = None,
+                        at: datetime | None = None) -> dict:
+        """Issue one prospective forecast (T04 / R12).
+
+        Idempotent on `(target, model, as_of, artefact_id)`: a re-run of the
+        same model over the same cutoff is the same forecast. A DIFFERENT
+        fitted model over the same cutoff is a genuinely different forecast
+        and gets its own row.
+
+        No outcome is accepted here. The whole point of the ledger is that
+        the prediction is recorded before the outcome is known, so the
+        outcome is a separate later write via `attach_outcome` and the
+        migration's trigger refuses to let this row's prediction change
+        afterwards.
+        """
+        if probability is not None and not (0.0 <= probability <= 1.0):
+            raise StoreError(
+                f"probability {probability!r} is outside [0,1]; a forecast "
+                f"probability that is not a probability cannot be scored")
+        if probability is not None and not math.isfinite(probability):
+            raise StoreError(f"non-finite probability {probability!r}")
+        if matures_after <= as_of:
+            raise StoreError(
+                f"matures_after ({matures_after}) must be after the "
+                f"information cutoff ({as_of}); a forecast that matures at "
+                f"or before its own cutoff has no horizon")
+        stamp = _stamp(at)
+        with self.connect() as db:
+            db.execute(
+                "INSERT OR IGNORE INTO prospective_forecasts("
+                "target, model, as_of, artefact_id, issued_at, horizon, "
+                "matures_after, probability, threshold, alarm, fit_status, "
+                "inputs_hash, detail_json) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                (target, model, as_of, artefact_id, stamp, int(horizon),
+                 matures_after, probability, threshold,
+                 None if alarm is None else int(bool(alarm)), fit_status,
+                 inputs_hash,
+                 json.dumps(detail or {}, sort_keys=True, default=str)))
+            stored = bool(db.total_changes)
+        return dict(target=target, model=model, as_of=as_of,
+                    artefact_id=artefact_id, issued_at=stamp,
+                    matures_after=matures_after, stored=stored)
+
+    def attach_outcome(self, *, target: str, model: str, as_of: str,
+                       artefact_id: str, outcome: float,
+                       now: str | None = None,
+                       at: datetime | None = None) -> dict:
+        """Attach a realised outcome, but only after the horizon has elapsed.
+
+        This is the guard that keeps the ledger prospective. Writing an
+        outcome before `matures_after` would mean scoring a forecast against
+        a label the forecast's own window had not finished producing -- which
+        is how an evaluation becomes accidentally in-sample.
+        """
+        moment = now or _stamp(at)
+        with self.connect() as db:
+            row = db.execute(
+                "SELECT matures_after, outcome FROM prospective_forecasts "
+                "WHERE target=? AND model=? AND as_of=? AND artefact_id=?",
+                (target, model, as_of, artefact_id)).fetchone()
+            if row is None:
+                raise StoreError(
+                    f"no forecast for {target}/{model} at {as_of} "
+                    f"({artefact_id}); an outcome cannot be attached to a "
+                    f"forecast that was never issued")
+            if row["outcome"] is not None:
+                raise StoreError(
+                    f"{target}/{model} at {as_of} already has an outcome; "
+                    f"re-scoring a settled forecast would rewrite history")
+            if moment < row["matures_after"]:
+                raise StoreError(
+                    f"{target}/{model} at {as_of} matures after "
+                    f"{row['matures_after']} and it is {moment}. Attaching an "
+                    f"outcome now would score the forecast against a label "
+                    f"its own horizon has not finished producing")
+            db.execute(
+                "UPDATE prospective_forecasts SET outcome=?, outcome_at=? "
+                "WHERE target=? AND model=? AND as_of=? AND artefact_id=?",
+                (float(outcome), moment, target, model, as_of, artefact_id))
+        return dict(target=target, model=model, as_of=as_of,
+                    artefact_id=artefact_id, outcome=float(outcome),
+                    outcome_at=moment)
+
+    def forecasts(self, *, target: str | None = None, limit: int = 50,
+                  pending_only: bool = False) -> list[dict]:
+        sql = "SELECT * FROM prospective_forecasts WHERE 1=1"
+        args: list = []
+        if target:
+            sql += " AND target=?"
+            args.append(target)
+        if pending_only:
+            sql += " AND outcome IS NULL"
+        sql += " ORDER BY as_of DESC, target, model LIMIT ?"
+        args.append(limit)
+        with self.connect() as db:
+            rows = db.execute(sql, args).fetchall()
+        return [_forecast_row(r) for r in rows]
+
     def record_closed_bar(self, bar, *, input_batch_id: str | None = None,
                           revision: int = 0) -> bool:
         """Persist a finalized bar. Returns whether it was newly written.
@@ -723,6 +828,18 @@ class LiveStore:
                                           as_of=latest["as_of"],
                                           publication_state=latest["publication_state"])
                                      if latest else None))
+
+
+def _forecast_row(row) -> dict:
+    """One prospective forecast. `outcome` is None until maturity."""
+    return dict(target=row["target"], model=row["model"], as_of=row["as_of"],
+                artefact_id=row["artefact_id"], issued_at=row["issued_at"],
+                horizon=row["horizon"], matures_after=row["matures_after"],
+                probability=row["probability"], threshold=row["threshold"],
+                alarm=(None if row["alarm"] is None else bool(row["alarm"])),
+                fit_status=row["fit_status"], inputs_hash=row["inputs_hash"],
+                outcome=row["outcome"], outcome_at=row["outcome_at"],
+                detail=json.loads(row["detail_json"] or "{}"))
 
 
 def _vintage_row(row) -> dict:
