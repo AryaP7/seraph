@@ -1,0 +1,94 @@
+{
+  "generated": "2026-10-19T11:43:29+0530",
+  "store_used_for_render": "C:\\Users\\Arlop\\Downloads\\SERAPH VARYA\\SERAPH Varya\\prototype_runs\\fix01-covid-window.sqlite",
+  "wheel": {
+    "name": "seraph-0.1.0-py3-none-any.whl",
+    "entries": 173,
+    "payload": [
+      "seraph/dashboard/assets/THREE-LICENSE.txt",
+      "seraph/dashboard/assets/connected.css",
+      "seraph/dashboard/assets/connected.html",
+      "seraph/dashboard/assets/connected.js",
+      "seraph/dashboard/assets/console.html",
+      "seraph/dashboard/assets/frontend.html",
+      "seraph/dashboard/assets/globe.html",
+      "seraph/dashboard/assets/globe_core.js",
+      "seraph/dashboard/assets/globe_geometry.js",
+      "seraph/dashboard/assets/three.r128.min.js",
+      "seraph/dashboard/console_component/THREE-LICENSE.txt",
+      "seraph/dashboard/console_component/bridge.js",
+      "seraph/dashboard/console_component/index.html",
+      "seraph/dashboard/console_component/news_layer.js",
+      "seraph/dashboard/console_component/preview_pillars.js",
+      "seraph/dashboard/console_component/three.r128.min.js",
+      "seraph/ingestion/tariff_events.curated.csv",
+      "seraph/live/migrations/001_runtime.sql",
+      "seraph/live/migrations/002_decision_stream.sql",
+      "seraph/news/curated/assets.csv",
+      "seraph/news/curated/entities.csv",
+      "seraph/news/curated/exposure.csv",
+      "seraph/news/curated/places.csv",
+      "seraph/news/curated/source_places.csv",
+      "seraph/store/migrations/001_evaluation_identity.sql",
+      "seraph/store/schema.sql"
+    ],
+    "missing_required": [],
+    "forbidden_present": []
+  },
+  "install_ok": true,
+  "fresh_environment": {
+    "installed_from": "C:\\Users\\Arlop\\AppData\\Local\\Temp\\tmpays_fv3y\\env\\Lib\\site-packages\\seraph",
+    "is_site_packages": true,
+    "component_files": [
+      "THREE-LICENSE.txt",
+      "bridge.js",
+      "index.html",
+      "news_layer.js",
+      "preview_pillars.js",
+      "three.r128.min.js"
+    ],
+    "index_html_bytes": 264211,
+    "index_has_console_markup": true,
+    "three_js_bytes": 603445,
+    "three_licence_present": true,
+    "original_console_asset_present": true,
+    "schema_sql_present": true,
+    "live_head": {
+      "stream_id": "live",
+      "checkpoint_id": null,
+      "decision_id": null,
+      "version": 0,
+      "updated_at": null
+    },
+    "live_store_error": null,
+    "curated": {
+      "entities": 22,
+      "places": 21,
+      "assets": 28,
+      "edges": 64,
+      "empty": false,
+      "files_missing": []
+    },
+    "curated_error": null,
+    "live_migrations": [
+      "001_runtime.sql",
+      "002_decision_stream.sql"
+    ],
+    "live_migration_bytes": 5171,
+    "declared_component_path": "C:\\Users\\Arlop\\AppData\\Local\\Temp\\tmpays_fv3y\\env\\Lib\\site-packages\\seraph\\dashboard\\console_component",
+    "declared_path_is_installed": true,
+    "render_exception": null,
+    "run_selected": "37bccf329742",
+    "date_options": 81
+  },
+  "verdict": {
+    "wheel_carries_required_assets": true,
+    "installs_outside_the_checkout": true,
+    "component_resolves_to_the_installed_package": true,
+    "canonical_console_renders": true,
+    "runtime_schema_creates_from_installed_package": true,
+    "curated_registry_carries_rows": true,
+    "migration_sql_readable_from_installed_package": true,
+    "passed": true
+  }
+}
