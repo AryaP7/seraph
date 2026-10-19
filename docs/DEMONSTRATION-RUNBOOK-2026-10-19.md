@@ -4,9 +4,11 @@ Written 19 October 2026 against branch `seraph/engineering-completion`.
 Every command here was run on this checkout and its output is recorded in
 [functional-completion-2026-10-19.json](evidence/functional-completion-2026-10-19.json).
 
-Verified state: **10 of 10 checked journeys work; 7 are blocked** on a paid
-subscription, an owner decision, or a concurrent editing session. §5 lists
-them precisely.
+Verified state: **10 of 10 checked journeys work; 6 are blocked** on a paid
+subscription or an owner decision. §5 lists them precisely. The three items
+that were blocked on a concurrent editing session are now closed: its news
+work was landed, and the launcher, the workflow controls and the job-lease
+fencing followed.
 
 ---
 
@@ -102,10 +104,15 @@ python scripts/run_live.py --replay --once   # one bounded pass, no broker
 and starts no job. `--replay` **cannot** open a broker socket even with
 credentials present — that was a repaired defect and there is a test for it.
 
-**Known gap (C15):** the launcher starts the console and news, not the
-market and daily jobs. Those are the commands in §2 and must be run
-separately or from a scheduler. Wiring them into one launcher is blocked —
-see §5.
+The launcher also runs the market jobs in the background — the daily
+vintages, the prospective forecast, and settling anything matured — so §2's
+commands are not a second terminal any more. Every step there is idempotent,
+so a relaunch repeats them harmlessly, and the console's **MARKET JOBS**
+panel reports what the last run achieved.
+
+It deliberately does **not** start the live tick loop. Opening a market feed
+is an operator's decision, not a side effect of opening a dashboard.
+`-NoMarketJobs` skips the market side; `-NoNewsWorker` skips the news side.
 
 ---
 
@@ -144,16 +151,24 @@ net −1,148.64 crore and DII net +3,201.19 crore for 2026-10-19 — with the
 scope caveat attached: it is a market aggregate and a proxy for
 non-institutional participation, never a per-instrument retail attribution.
 
-**6. Show the durable role workflows.** These have **no browser controls
-yet** (§5, last row), so demonstrate them through the dispatcher:
+**6. Show the durable role workflows in the browser.** Open **MY
+WORKSPACE** under the run/date selection. Three tabs:
+
+- *Portfolios* — upload a CSV with one bad row and show the rejection with
+  its reason, save a dated snapshot, reload the page and show it is still
+  there, then open History.
+- *Scenarios* — switch to the institutional role, save a rank shock (it
+  refuses without a justification), run it, compare two, review one, and
+  download the export.
+- *Regulator cases* — switch role again, open a case against the selected
+  alert, pin evidence at a revision, record a decision, move the status (only
+  legal moves are offered), and download the case export.
+
+The 33 dispatcher tests still back this, if you want the same journeys
+without clicking:
 ```bash
-python -m pytest tests/test_t05_t08_t09_workflows.py -v
+python -m pytest tests/test_t05_t08_t09_workflows.py tests/test_t05_t08_t09_ui.py -v
 ```
-33 cases driving the real `dispatch()` with the browser's own event shape:
-upload a portfolio with a bad row and see the actionable rejection, save and
-reopen it after a restart, save a scenario and run it against the real
-simulator, review the exact revision, and take a regulator case from opening
-through evidence, decision, closure and reopening to a versioned export.
 
 **7. Show the prospective ledger.**
 ```bash
@@ -193,7 +208,11 @@ decisions.
 | **Counterfactual policy path** (FR48) | `project_xi` needs a *fitted* `HamiltonEngine` and no fit artefact is persisted; Hamilton is also under a standing research exclusion. The direct regime-path simulator works; the macro z→ξ mapping says it is unavailable. | owner: decide whether to persist a Hamilton fit despite the exclusion |
 | **Defensive-action drawdown** (FR46) | Needs declared positions, execution and cost assumptions. Those are financially material and are not invented. | owner: the contract |
 | **Institution decomposition** (FR42) | Needs authorised institution submissions. Private positions are not derivable from public price bars. | owner: data + schema |
-| **One-command launch; browser controls for the role workflows** (C15, O03) | `launch_prototype.ps1`, `prototype_app.py` and `bridge.js` are being edited by a concurrent session in this working tree. The server half of every role workflow is complete and tested; its browser controls are not wired. | owner: decide whose changes land first |
+
+**Closed since the first version of this runbook**, because the concurrent
+session's news work was landed and freed the files: one-command launch of
+the market side (C15/O03), browser controls for the three role workflows,
+and the job-lease fencing (R10).
 
 ---
 

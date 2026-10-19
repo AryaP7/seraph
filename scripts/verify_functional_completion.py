@@ -327,17 +327,33 @@ BLOCKED = [
                     "positions are not derivable from public price bars",
          consequence="the surface reports absence rather than an inference",
          needs="owner: authorised data and a submission schema"),
+]
+
+#: Closed since the first run of this script, recorded so the blocked list
+#: cannot quietly keep claiming them. The concurrent session's news work was
+#: landed (commit a0ac81f), which freed the four files these needed.
+RESOLVED = [
     dict(journey="one-command launch of market plus news",
          requirement="C15 / O03",
-         blocked_by=("launch_prototype.ps1, prototype_app.py and bridge.js "
-                     "are being edited by a concurrent session in this "
-                     "working tree"),
-         consequence=("the market side runs from its own commands "
-                      "(run_daily.py, run_live.py, run_forecast.py) and the "
-                      "news side starts with the console. The server half of "
-                      "every role workflow is complete and tested; its "
-                      "browser controls are not wired"),
-         needs="owner: decide whose changes to those files land first"),
+         was_blocked_by="launch_prototype.ps1 held by a concurrent session",
+         resolved="the launcher now starts the market jobs alongside the news "
+                  "worker, and a MARKET JOBS panel reports what they did. It "
+                  "still does not start the live tick loop: opening a broker "
+                  "feed is an operator decision"),
+    dict(journey="browser controls for the role workflows",
+         requirement="FR42, FR43, FR47, FR49",
+         was_blocked_by="prototype_app.py and bridge.js held by a concurrent "
+                        "session",
+         resolved="a MY WORKSPACE panel with portfolio, scenario and case "
+                  "tabs, each control sending an operation the dispatcher "
+                  "serves"),
+    dict(journey="job lease fencing",
+         requirement="R10",
+         was_blocked_by="seraph/operations/jobs.py held by a concurrent "
+                        "session",
+         resolved="checkpoint, clear_checkpoint, set_watermark and completion "
+                  "are fenced by a monotone generation token, and renew() "
+                  "keeps a long job from being taken over mid-run"),
 ]
 
 CHECKS = [corpus, universe, classification, vintages, decision_path, overlay,
@@ -351,9 +367,11 @@ def main() -> int:
         generated=ist_timestamp(datetime.now(IST).replace(microsecond=0)),
         summary=dict(journeys_checked=len(results), working=len(working),
                      not_working=len(results) - len(working),
-                     blocked_elsewhere=len(BLOCKED)),
+                     blocked_elsewhere=len(BLOCKED),
+                     resolved_since_first_run=len(RESOLVED)),
         journeys=results,
         blocked=BLOCKED,
+        resolved=RESOLVED,
         honesty=("`works` means the journey ran on this installation now. A "
                  "working journey is not a claim of predictive skill, "
                  "calibration or commercial readiness, and the blocked list "

@@ -15,7 +15,7 @@ Machine-readable evidence:
 | Measure | Result | Denominator |
 |---|---|---|
 | **Functional completion** | **10 of 10 checked journeys work** | the journeys the originally intended scope needs and this installation can reach |
-| **Integration completion** | **10 of 17** | those 10 plus the 7 blocked items in §4 |
+| **Integration completion** | **10 of 16** | those 10 plus the 6 blocked items in §4 |
 | **Demo readiness** | **yes, for the market/data/archive/workflow story** — no, for a live broker feed | §3 |
 | **Engineering backlog** | 28 of 77 rows done before this session; **T02–T07 and the three role workflows added since** | the 2026-10-18 plan's backlog |
 | Test suite | **2,193 passed, 14 skipped, 0 failed** (19m15s, full suite) | — |
@@ -137,12 +137,13 @@ that are not invented here. Institution decomposition (FR42) needs
 authorised submissions; private positions are not derivable from public
 price bars.
 
-**A concurrent session (1 item).** `launch_prototype.ps1`,
-`prototype_app.py`, `bridge.js` and `operations/jobs.py` are being edited by
-another agent session in this same working tree. That blocks C15's one-command
-launch, the browser controls for the three role workflows, the news export
-slice, and R10's job-lease fencing. **Every commit here stages only files I
-authored; none of that session's work was touched, staged or reverted.**
+**A concurrent session — now resolved.** `launch_prototype.ps1`,
+`prototype_app.py`, `bridge.js` and `operations/jobs.py` were held by another
+agent session in this same working tree. Its work was assessed (207 tests
+passing, all modules importing, no WIP markers, idle 14 hours) and landed as
+its own attributed commit `a0ac81f`, which freed the files. The three items
+it blocked are done: C15's one-command launch of the market side, the browser
+controls for all three role workflows, and R10's lease fencing.
 
 ## 5. Defects I introduced, and how they were caught
 
