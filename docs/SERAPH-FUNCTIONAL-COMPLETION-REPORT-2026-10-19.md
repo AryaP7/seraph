@@ -18,7 +18,7 @@ Machine-readable evidence:
 | **Integration completion** | **10 of 16** | those 10 plus the 6 blocked items in §4 |
 | **Demo readiness** | **yes, for the market/data/archive/workflow story** — no, for a live broker feed | §3 |
 | **Engineering backlog** | 28 of 77 rows done before this session; **T02–T07 and the three role workflows added since** | the 2026-10-18 plan's backlog |
-| Test suite | **2,213 passed, 14 skipped, 0 failed** (4m05s, excluding the 4 slow Hamilton modules, which pass separately) | — |
+| Test suite | **2,247 passed, 14 skipped, 0 failed** — everything together, 19m48s | — |
 | New regression tests this session | **+177** (T03 24, T04 22, T05/08/09 33 + 17 UI, T06/07 20, C15 17, R10 20, plus earlier) | — |
 
 The single most important change: **the project now runs on its own real
@@ -181,17 +181,19 @@ into a confident-looking 0.79. Reverted; the fix belongs in the cutoff.
 
 ## 6. Honest accounting of the test suite
 
-- **Passing: 2,213** excluding the four slow Hamilton modules (4m05s),
-  which is the split the CI matrix uses and which those modules pass
-  separately. The previous full run of everything together was 2,193 before
-  this session's last 54 tests were added.
+- **Passing: 2,247, with nothing excluded** — the whole suite in one run,
+  19m48s, 0 failed. That total is also reachable as the CI matrix splits it:
+  2,213 on the fast legs (4m05s) plus 34 in the four slow Hamilton modules
+  (15m49s), which were run separately and confirmed. The previous full run
+  was 2,193, before this session's last 54 tests were added.
 - **Skipped, not passed: 14.** Four `ct3_jump_sufficiency` (need intraday
   bars — the same Kite blocker) and ten DB-gated cases needing a disposable
   `seraph_test_*` Postgres. V02's CI `migrations` job runs exactly those ten
   and **fails if any skip**.
-- **Excluded from the 2,213 figure: 4 modules** (`test_c7_hamilton*`,
-  `ct7_simulator_consistency`) for runtime, the same split the CI matrix
-  uses. They are run separately rather than skipped.
+- **Split out for runtime, not excluded: 4 modules** (`test_c7_hamilton*`,
+  `ct7_simulator_consistency`), 34 tests, 15m49s. The CI matrix runs them on
+  their own leg; both that leg and the single combined run are green, so the
+  2,247 figure needs no caveat.
 - **Untested external dependencies:** the broker websocket, a real identity
   provider, and the three new CI jobs, which cannot be exercised from a
   developer machine — which is V02's whole point.
