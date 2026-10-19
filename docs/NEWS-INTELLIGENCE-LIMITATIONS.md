@@ -93,3 +93,95 @@ No news signal enters CSRS, fusion weights, Hawkes, RMT or Hamilton.
 
 See [completion evidence](NEWS-COMPLETION-2026-10-18.md) and the
 [operating/review commands](NEWS-RUNBOOK.md).
+
+---
+
+## Added 19 October 2026 — completion work
+
+### The Federal Register declines automated document access
+
+`federalregister.gov` answers a document request with a 302 to
+`unblock.federalregister.gov`, an access-control interstitial. That is the
+publisher declining automated access and **it is not worked around**: the
+enrichment host allow-list refuses to follow the redirect, and no user
+agent is spoofed to get past it.
+
+This was why the store held abstracts and almost no document text. The
+same documents are US Government works published by the GPO at
+`govinfo.gov`, already a permitted host and reachable, so Federal Register
+items are now enriched from there while the reader still cites the
+publisher's own link. Measured on the ITA feed: **40 of 40 documents
+retrieved, median 16.7 KB**, where previously none was.
+
+Nothing about this generalises. Another publisher that blocks automated
+access and has no second official publisher stays unavailable, and is
+reported as unavailable.
+
+### Sources that remain uncovered, and why
+
+Probed on 19 October 2026
+(`docs/evidence/news-intelligence/news-completion-2026-10-19/source-reachability.json`):
+
+| Source | Result | Consequence |
+|---|---|---|
+| DGFT notifications | HTTP 403 | **Indian trade instruments remain uncovered** |
+| CBIC (both hosts) | SSL CERTIFICATE_VERIFY_FAILED | Customs duty changes remain uncovered |
+| MOSPI | SSL CERTIFICATE_VERIFY_FAILED | Official statistics remain uncovered |
+| IMD | SSL CERTIFICATE_VERIFY_FAILED | Weather warnings remain uncovered |
+| eGazette | SSL CERTIFICATE_VERIFY_FAILED | Gazette instruments remain uncovered |
+| POSOCO grid | HTTP 502 | Grid operations remain uncovered |
+| CEA | not a feed this parser understands | Power reporting remains uncovered |
+| USITC news, trade.gov, EU trade RSS | 403 / 404 | no additional foreign-measure feed from these |
+
+Certificate verification is **not** disabled to work around any of these.
+The one reachable addition that closed a named gap was registered:
+`federal_register_ita`, the register filtered by issuing agency, which
+catches trade-remedy determinations that never say "India" in a title a
+term search can see. Verified by acquisition, not by registration: 40
+documents, all classified `trade_remedy_determination`, 6 reaching a
+documented exposure route.
+
+### No currently acquired instrument can be priced
+
+The conditional tariff scenario is wired end to end — inputs, arithmetic,
+refusal reasons, UI and export — and is exercised in the browser. On the
+sources connected today it **refuses on every route**, and the reasons are
+reported rather than hidden
+(`.../news-completion-2026-10-19/scenario-on-real-data.json`):
+
+* 17 routes — *"the document states no ad-valorem duty rate"*. Even with
+  the full 16 KB notices now retrieved, an antidumping determination
+  states dumping MARGINS, not an old→new ad-valorem pair, and the
+  landed-cost formula needs both. Supplying `old_rate = 0` to make a
+  number appear would be an invented input, so the guard stands.
+* 13 routes — the legal stage is `announced`, `unknown` or
+  `consultation`: nothing is decided that could change a landed cost.
+* 2 routes — the issuing jurisdiction is not established.
+
+This is an evidence limitation, not a missing feature, and it must not be
+described as a working numerical demonstration. A scenario with the
+caller's own cost base and pass-through does compute — that path is
+covered by tests and by the browser check — but no real instrument
+currently held supplies the rates.
+
+### Exposure coverage is still concentrated and unsized
+
+27 documented product/origin pairs across 24 products, from **two**
+origins (China, India), and **all 27 are unsized**. Six registered issuers
+have no sector, so sector-level news cannot route to them; that is shown
+on screen as an unmapped holding rather than as an absence of risk. No
+sector was invented for them, because assigning one needs evidence this
+work did not have.
+
+### What the role workflows are and are not
+
+Document comparison, the product/country matrix, the conditional scenario
+and the export are implemented and driven through the real UI. The
+regulator's link review is a real workflow: accept/reject with a required
+reason, appended with reviewer and time, affecting later projections and
+no stored document.
+
+The reviewer identity is `demo-role:<role>` with `authenticated: false`.
+Local role switching is a demonstration of distinct projections; it is not
+authentication and nothing recorded through it should be read as the act
+of an identified person.

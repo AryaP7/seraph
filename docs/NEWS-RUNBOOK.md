@@ -6,20 +6,46 @@ Launch, shutdown, recovery, troubleshooting. Every command here was run.
 
 ## Launch
 
+**This is the canonical command. There is no separate news command.**
+
 ```powershell
 .\launch_prototype.ps1
 ```
 
-This does three things in order, and the order matters:
+It starts the console and exactly one supervised acquisition worker
+against the same database.
 
-1. **reconciles source registrations** — on every launch, not only when the
-   store is missing. Gating it on a missing file meant an existing database
-   never received a source added to the catalogue later.
-2. **starts the supervisor**, which starts the worker with `--catch-up`.
-   Catch-up records collection gaps *before* polling, then resumes
-   backfills, then polls every source once. Polling first would overwrite
+**Every other way of starting the same application behaves the same.**
+`.\.claude\launch.json` (`seraph-console`), a bare `streamlit run
+seraph/dashboard/prototype_app.py` and an IDE run button used to start
+the frontend ALONE, so whether the screen showed live news depended on
+which command the operator happened to type. The application now asks for
+its own worker in `seraph/dashboard/news_service.py`, and an OS lock —
+not either code path — is what guarantees there is only ever one:
+
+* the launcher starts a worker immediately, because a server with no
+  browser session attached has not run the app script yet and would
+  otherwise fetch nothing until somebody opened the page;
+* any other launch gets its worker from the app on the first page view;
+* whichever moves first wins, and the other stands aside and says so in
+  the **NEWS ACQUISITION** panel.
+
+What a launch does, in order:
+
+1. **beats first**, then **reconciles source registrations** — on every
+   launch, not only when the store is missing. Registration contacts
+   unregistered sources and a roster with unreachable hosts spends
+   minutes in connection timeouts, so the heartbeat is written *before*
+   that work, with a declared deadline. Without it the supervisor read
+   the previous run's `stopped` row and killed a worker that was busy.
+2. **records collection gaps, then polls every source once**
+   (`--catch-up`). Polling first would overwrite
    `source_health.last_success_at` and erase the evidence of the outage.
-3. **starts Streamlit** against the same store (`SERAPH_NEWS_STORE`).
+3. **enters the loop and serves the frontend.** The HISTORICAL BACKFILL
+   runs after the first steady pass, not before it: under one catch-up
+   deadline covering both, a real roster expired that deadline while the
+   backfill was still working, `worker_state` reported `stalled`, and the
+   supervisor terminated a healthy worker.
 
 Worker only, no UI:
 
@@ -27,8 +53,26 @@ Worker only, no UI:
 .\launch_news.ps1
 ```
 
-`-NoNewsWorker` starts the UI alone. The console then shows **NO WORKER** and
-says nothing is fetching, which is true.
+`-NoNewsWorker`, or `SERAPH_NEWS_WORKER=0`, starts the UI alone. The
+console then says nothing is fetching, which is true.
+
+### What the screen tells you about acquisition
+
+The **NEWS ACQUISITION** panel at the top of the console says which of
+four situations you are in — this dashboard started a worker, one was
+already running, acquisition is switched off, or it could not start —
+and shows the worker's heartbeat and a per-source outcome table. It
+describes NEWS ACQUISITION only; the market pillars, the live runtime and
+the archive are separate services with their own panels.
+
+### A failing source is not a failing worker
+
+`degraded` is an ALIVE state. It means the worker is polling and at least
+one source is failing; the detail names which. Healthy feeds keep
+acquiring and the supervisor leaves the worker alone. Only a process that
+exits, stops beating, or blows through its declared deadline is replaced,
+and three consecutive JOB-level failures (the pass machinery itself
+raising, not a publisher erroring) make the worker exit for replacement.
 
 ## Shutdown
 
@@ -208,3 +252,47 @@ python scripts/verify_news_document_recovery.py --output docs/evidence/news-inte
 The browser check requires Windows Edge and uses ordinary role/portfolio UI
 actions. The document check uses real HTTP requests with a simulated unchanged
 feed and writes only an isolated copy. Both refuse to overwrite earlier evidence.
+
+---
+
+## Role workflows (19 October 2026)
+
+Three operations the console dispatches. The rules about who may do what
+live in `seraph/news/workflows.py`, not in the dashboard, so they can be
+tested without a browser; `scripts/verify_news_workflows_browser.py`
+drives them through the real UI.
+
+| Role | Action | Where |
+|---|---|---|
+| institutional | run a conditional scenario with your own cost base and pass-through | CONDITIONAL SCENARIO card |
+| institutional | compare two instruments that cite the same identifier | COMPARE INSTRUMENTS card |
+| institutional | export the displayed analysis with its evidence and limitations | EXPORT ANALYSIS card |
+| regulator | accept or reject a proposed instrument link, with a reason | INSTRUMENT LINK REVIEW card |
+
+Two things to know before demonstrating them:
+
+* **A review changes later projections and changes no stored document.**
+  Decisions are append-only with reviewer, reason and time. The reviewer
+  is recorded as `demo-role:regulator` with `authenticated: false`
+  because local role switching is a demonstration identity, not
+  authentication. A deployment with real users puts the server identity
+  there instead (`seraph/identity/`).
+* **A scenario's cost base and pass-through are YOUR assumptions** and
+  are labelled as such in the result. Leave them blank for the rate
+  change alone; with no eligible cost base there is no monetary range.
+  On the sources currently connected the scenario REFUSES, with a named
+  reason — see the limitations document.
+
+### Retention
+
+```bash
+python scripts/run_news.py --retention --dry-run   # what would be removed
+python scripts/run_news.py --retention             # remove it
+```
+
+Enforces each source's declared `retention_days` on stored text. It
+removes the TEXT and keeps the observation, its content hash, the story
+title and URL, and an immutable redaction record — so enforcing retention
+cannot be used to rewrite what the system once held. The worker also runs
+it at startup and every hundredth pass. No source in the shipped
+catalogue declares a window, so by default this does nothing.

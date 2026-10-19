@@ -18,5 +18,13 @@
                       "--server.port", "8501", "--server.headless", "true"],
       "port": 8501
     }
+  ],
+  "_note": [
+    "seraph-console starts one supervised news worker with it. That is not",
+    "configured here: the application asks for it in",
+    "seraph/dashboard/news_service.py, so this launch, launch_prototype.ps1",
+    "and a bare `streamlit run` all behave the same. Set SERAPH_NEWS_WORKER=0",
+    "to run the console against the store exactly as it is.",
+    "seraph-dashboard is the older research dashboard and has no news channel."
   ]
 }

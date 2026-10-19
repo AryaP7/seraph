@@ -113,6 +113,15 @@ _NOT_A_PRODUCT = frozenset({
     "the order", "this order", "the measure", "the duty",
 })
 
+#: Nouns that make a captured phrase about the PROCEEDING rather than about
+#: an article of trade. Found on real text: an antidumping notice reads
+#: "excluding rates that are zero", and reading that as a carved-out
+#: product put a scope caveat on the document and capped its confidence
+#: over a sentence about arithmetic.
+_PROCEEDING_NOUNS = re.compile(
+    r"\b(?:rates?|margins?|entries|duties|deposits?|respondents?|companies|"
+    r"producers?|exporters?|reviews?|periods?|shipments?|sales)\b", re.I)
+
 
 def _clean(name: str) -> str:
     return re.sub(r"\s+", " ", name).strip().strip(".,;:").removeprefix(
@@ -232,7 +241,8 @@ def scope_of(text: str, *, body_retained: "bool | None" = None) -> Scope:
         _clean(m.group(1)) for m in named_origins if _clean(m.group(1))))
     products = tuple(dict.fromkeys(
         p for p in (_clean(m.group(1)) for m in named_products)
-        if p and p.lower() not in _NOT_A_PRODUCT))
+        if p and p.lower() not in _NOT_A_PRODUCT
+        and not _PROCEEDING_NOUNS.search(p)))
     party_names = tuple(dict.fromkeys(
         _clean(m.group(1)) for m in named_parties if _clean(m.group(1))))
 

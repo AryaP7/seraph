@@ -265,6 +265,104 @@ function applyNewsLayer(){
  catch(err){setStatus('failed','news layer: '+err.message);return null;}}
 
 let originalNewsPanels=null;
+
+/* ---- institutional: the product/country shape of the exposure --------
+   One route at a time never showed WHICH products, from WHICH origins,
+   reach which sectors. A pair with no documented edge is absent here,
+   not present with a zero: "no documented route" and "no exposure" are
+   different claims and only the first is ours. */
+function matrixHTML(matrix){
+ if(!matrix||!(matrix.cells||[]).length)return '';
+ const rows=matrix.cells.map(c=>({product:c.product,origin:c.origin_name||c.origin,
+   target:c.target,mechanism:c.mechanism,role:c.target_role||'-',
+   size:c.sized?(c.magnitude+' '+c.unit):'UNSIZED',
+   events:(c.active_events||[]).length,confidence:c.confidence}));
+ return card('PRODUCT \u00d7 COUNTRY EXPOSURE',
+  '<p>'+esc(matrix.documented_pairs)+' documented pair(s); '
+  +esc(matrix.unsized)+' unsized. '+esc(matrix.note)+'</p>'+table(rows));
+}
+
+/* ---- institutional: two instruments side by side ---------------------
+   Offered only where two documents CITE the same instrument identifier,
+   the same evidence standard the supersession linkage uses. */
+function compareHTML(pairs){
+ if(!(pairs||[]).length)return '';
+ const options=pairs.map((p,i)=>'<option value="'+i+'">'+esc(p.instrument_id)
+   +' \u2014 '+esc((p.earlier_headline||'').slice(0,60))+' \u2192 '
+   +esc((p.later_headline||'').slice(0,60))+'</option>').join('');
+ window.SERAPH_COMPARE_PAIRS=pairs;
+ return card('COMPARE INSTRUMENTS',
+  '<p>Pairs that cite the same instrument identifier. A similar headline is '
+  +'not evidence that two documents are the same measure.</p>'
+  +'<select id="news-compare-pair">'+options+'</select>'
+  +'<button id="news-compare-go">Compare</button>');
+}
+
+/* ---- institutional: conditional scenario, with the caller's inputs ---
+   Empty by default on purpose. A blank field is an unsupplied
+   assumption; a pre-filled one would be an invented input. */
+function scenarioFormHTML(view){
+ const routes=(view.items||[]).filter(i=>i.event_id);
+ if(!routes.length)return '';
+ const seen=new Set(),options=[];
+ for(const r of routes){ if(seen.has(r.event_id))continue; seen.add(r.event_id);
+  options.push('<option value="'+esc(r.event_id)+'">'+esc(r.target)+' \u00b7 '
+   +esc(r.mechanism)+'</option>'); }
+ return card('CONDITIONAL SCENARIO',
+  '<p>Landed-cost arithmetic from the instrument\u2019s own stated rates. The two '
+  +'inputs below are YOUR assumptions, recorded as such \u2014 they are not '
+  +'observed company data. Leave them blank for the rate change alone; with '
+  +'no eligible cost base there is no monetary range.</p>'
+  +'<select id="news-scenario-event">'+options.join('')+'</select>'
+  +'<input id="news-scenario-base" type="number" min="0" step="any" '
+  +'placeholder="Eligible cost base (optional)" aria-label="Eligible cost base">'
+  +'<input id="news-scenario-low" type="number" min="0" max="1" step="0.05" '
+  +'placeholder="Pass-through low 0-1" aria-label="Pass-through low">'
+  +'<input id="news-scenario-high" type="number" min="0" max="1" step="0.05" '
+  +'placeholder="Pass-through high 0-1" aria-label="Pass-through high">'
+  +'<button id="news-scenario-go">Run scenario</button>');
+}
+
+function exportHTML(){
+ return card('EXPORT ANALYSIS',
+  '<p>The displayed analysis with its evidence links, input assumptions, '
+  +'processing manifest and limitations \u2014 so a reader who disagrees can '
+  +'find the documents and the versions that produced it.</p>'
+  +'<button id="news-export-go">Export displayed analysis</button>');
+}
+
+/* ---- regulator: accept or reject a proposed instrument link ----------
+   The queue was already on screen; a queue you cannot act on is not a
+   review workflow. A reason is required, because a decision nobody can
+   read the grounds for cannot be audited later. */
+function reviewHTML(view){
+ const block=(view.items||[]).find(i=>i.kind==='supersession_review');
+ if(!block)return '';
+ const rows=(block.unresolved||[]).concat(block.proposed||[]);
+ if(!rows.length)return card('INSTRUMENT LINK REVIEW',
+   '<p>Nothing is awaiting review at this decision time.</p>');
+ const items=rows.map((r,i)=>{
+  const later=r.event_id||r.later,earlier=r.earlier||'';
+  return '<article class="news-review" data-later="'+esc(later)+'" data-earlier="'
+   +esc(earlier)+'"><b>'+esc((r.headline||r.later_headline||later).slice(0,110))+'</b>'
+   +'<p>'+esc(r.warning||r.reason||'')+'</p>'
+   +(earlier?kv('Proposed predecessor',earlier):'<p>No predecessor is '
+     +'identified. Enter one below only if you have established it from the '
+     +'documents; this system will not guess it from a similar title.</p>')
+   +'<input class="news-review-earlier" value="'+esc(earlier)+'" '
+   +'placeholder="Earlier event id" aria-label="Earlier event id">'
+   +'<input class="news-review-reason" placeholder="Reason (required)" '
+   +'aria-label="Reason for this decision">'
+   +'<button class="news-review-go" data-decision="confirmed">Accept link</button>'
+   +'<button class="news-review-go" data-decision="rejected">Reject link</button>'
+   +'</article>';}).join('');
+ return card('INSTRUMENT LINK REVIEW',
+  '<p>While a link is missing, the earlier order is still reported as in '
+  +'force. A decision here changes later projections and changes no stored '
+  +'document. You are acting as a LOCAL DEMO ROLE, not an authenticated '
+  +'user, and the record says so.</p>'+items);
+}
+
 function roleNewsHTML(view){
  if(!view)return '<p>Role news view unavailable.</p>';
  const openEvents=ids=>ids.length?'<button class="role-news-evidence" data-events="'+esc(ids.join(' '))+'">Open source events</button>':'';
@@ -288,7 +386,9 @@ function roleNewsHTML(view){
    +'<p>'+esc((i.path||[]).join(' → '))+'</p>'+links(i.evidence_links)
    +openEvents(i.event_id?[i.event_id]:[])+'</details>').join('');
   if(!(view.items||[]).length)body+='<p>No documented impact routes at this decision time.</p>';
+  body+=matrixHTML(view.matrix)+compareHTML(view.comparable)+scenarioFormHTML(view)+exportHTML();
  }else{
+  body+=reviewHTML(view);
   body+=(view.items||[]).map(i=>'<details open><summary>'+esc(i.kind)+'</summary>'+json(i)+'</details>').join('');
  }
  return '<section class="role-news-view" aria-label="Role-specific news intelligence">'+card(view.role.toUpperCase()+' NEWS INTELLIGENCE',body)+'</section>';
@@ -358,6 +458,44 @@ function renderNewsPanels(){
   row.onclick=()=>revealEvents((row.dataset.eventIds||'').split(' ').filter(Boolean));});
  q('signals').querySelectorAll('.role-news-evidence').forEach(button=>{
   button.onclick=()=>revealEvents((button.dataset.events||'').split(' ').filter(Boolean));});
+ bindRoleActions(q('signals'));
+}
+
+/* The role ACTIONS. Each sends one request through the ordinary lifecycle,
+   so a failure shows in the same status line as every other operation and
+   the result lands in `data.result` where the panel can read it. */
+function bindRoleActions(root){
+ if(!root)return;
+ const go=root.querySelector('#news-compare-go');
+ if(go)go.onclick=()=>{
+  const pairs=window.SERAPH_COMPARE_PAIRS||[];
+  const chosen=pairs[Number((root.querySelector('#news-compare-pair')||{}).value||0)];
+  if(!chosen){setStatus('failed','no instrument pair selected');return;}
+  request('news_export',{compare:[chosen.earlier,chosen.later],
+   event_ids:[chosen.earlier,chosen.later]});};
+
+ const run=root.querySelector('#news-scenario-go');
+ if(run)run.onclick=()=>{
+  const value=id=>{const n=root.querySelector(id);return n&&n.value!==''?n.value:null;};
+  request('news_scenario',{event_id:(root.querySelector('#news-scenario-event')||{}).value,
+   cost_base:value('#news-scenario-base'),
+   pass_through_low:value('#news-scenario-low'),
+   pass_through_high:value('#news-scenario-high')});};
+
+ const out=root.querySelector('#news-export-go');
+ if(out)out.onclick=()=>request('news_export',{});
+
+ root.querySelectorAll('.news-review-go').forEach(button=>{
+  button.onclick=()=>{
+   const card=button.closest('.news-review');
+   if(!card)return;
+   const earlier=(card.querySelector('.news-review-earlier')||{}).value||'';
+   const reason=(card.querySelector('.news-review-reason')||{}).value||'';
+   if(!earlier.trim()){setStatus('failed','name the earlier instrument this '
+    +'document supersedes; it is not guessed from a similar title');return;}
+   if(!reason.trim()){setStatus('failed','a review needs a reason');return;}
+   request('news_review',{later:card.dataset.later,earlier:earlier.trim(),
+    decision:button.dataset.decision,reason:reason.trim()});};});
 }
 
 /* Plain words for what the row actually claims. "ambiguous" alone reads as a
@@ -459,6 +597,7 @@ function show(view){active=view;if(!data)return;
  rolePanel.style.display=view===home?'':'none';
  if(view===home){const host=q(home==='console'?'viewConsole':home==='pillars'?'viewPillars':'viewExtra');if(host)host.appendChild(rolePanel);}
  rolePanel.innerHTML=view===home?roleNewsHTML((data.news||{}).role_view):'';
+ bindRoleActions(rolePanel);
  rolePanel.querySelectorAll('.role-news-evidence').forEach(button=>{
   button.onclick=()=>revealEvents((button.dataset.events||'').split(' ').filter(Boolean));});
  window.dispatchEvent(new Event('resize'));send('streamlit:setFrameHeight',{height:1050});}
@@ -483,6 +622,14 @@ function show(view){active=view;if(!data)return;
  const contextMoved=inflight&&(inflight.context.run_id!==ctx.run_id
    ||inflight.context.date!==ctx.date||inflight.context.role!==ctx.role);
  if(inflight&&(inflight.op==='news_project'||inflight.op==='news_refresh'||inflight.op==='news_acquire')&&data.news&&data.news.as_of!==(previous&&previous.news&&previous.news.as_of)){clearInflight();setStatus('idle');}
+ /* The ERROR check comes first. A refused operation comes back with an
+    `error` and no `kind`, and it carries the same `context.request_id` as
+    a successful one -- so testing `answered` first reported a refusal as
+    "DONE" with an empty detail, which is the most misleading status a
+    request bar can show. */
+ else if(inflight&&data.result&&data.result.error&&data.result.context
+   &&data.result.context.request_id===inflight.id){
+  clearInflight();setStatus('failed',data.result.error);}
  else if(answered){clearInflight();setStatus('succeeded',data.result.kind);}
  else if(inflight&&data.result&&data.result.error){clearInflight();setStatus('failed',data.result.error);}
  else if(inflight&&inflight.op==='role'&&data.role!==(previous&&previous.role)){

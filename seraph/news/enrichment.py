@@ -29,7 +29,17 @@ class ArticleText(HTMLParser):
         attrs = dict(attrs)
         selector = (attrs.get('id', '') + ' ' + attrs.get('class', '')).lower()
         parent = self.stack[-1][1:] if self.stack else (False, False)
-        active = parent[0] or tag in ('article', 'main') or any(
+        # `pre` is a container here because for a whole class of official
+        # documents it IS the document: the GPO publishes every Federal
+        # Register notice as `<html><body><pre>…</pre></body></html>`, with
+        # no `article` or `main` anywhere. Without it those pages parsed to
+        # nothing and were refused as "no usable article container", which
+        # is why no Federal Register full text was ever retrieved. A page
+        # that has a real container still wins -- `pre` inside it is
+        # already active -- so this only decides pages that have nothing
+        # else, and the existing length guard still refuses a stray code
+        # sample.
+        active = parent[0] or tag in ('article', 'main', 'pre') or any(
             token in selector.split() for token in
             ('article__body', 'article-body', 'document-body', 'document-content',
              'col-md-8', 'pressreleasemain', 'pressreleasepage', 'pressreleasecontent'))
@@ -104,6 +114,20 @@ class EnrichingFetcher:
         self.cache = {}  # URL -> text, hash, incomplete, monotonic time, format, acquisition time
         self.failures = {}  # bounded retry cooldown when no store is supplied
 
+    @staticmethod
+    def _retrieval_url(item):
+        """Where the TEXT is read from, which is not always the citation.
+
+        federalregister.gov answers a document request with a 302 to its
+        `unblock` interstitial -- the publisher declining automated
+        access. That is not ours to work around, and the host allow-list
+        correctly refuses to follow it. The adapter supplies
+        `document_url` when the same work is published somewhere this
+        client may actually read it (the GPO's govinfo.gov, already
+        permitted), and the reader still cites `item.url`.
+        """
+        return ((item.metadata or {}).get('document_url')) or item.url
+
     def _permitted(self, url):
         split = urlsplit(url)
         return (split.hostname or '').lower() in HOSTS and split.scheme == 'https'
@@ -138,18 +162,19 @@ class EnrichingFetcher:
         stored = {}
         outstanding = []
         for item in candidates:
-            if not self._permitted(item.url) or item.url in stored:
+            target = self._retrieval_url(item)
+            if not self._permitted(target) or target in stored:
                 continue
-            record = (self.store.document(source.source_id, item.url)
+            record = (self.store.document(source.source_id, target)
                       if self.store is not None else None)
-            stored[item.url] = record
-            attempt = (self.store.document_attempt(source.source_id, item.url)
+            stored[target] = record
+            attempt = (self.store.document_attempt(source.source_id, target)
                        if self.store else None)
             fresh_enough = record is not None and not record['due_for_refresh']
-            if fresh_enough or self._cooling(source.source_id, item.url, attempt):
+            if fresh_enough or self._cooling(source.source_id, target, attempt):
                 continue
             outstanding.append(((attempt or {}).get('attempted_at') or '',
-                                item.url))
+                                target))
         outstanding.sort()
         allowed = {url for _stamp, url in outstanding[:max(0, self.max_documents)]}
 
@@ -157,11 +182,12 @@ class EnrichingFetcher:
         for item in candidates:
             metadata = dict(item.metadata or {})
             metadata.setdefault('text_scope', 'feed_summary' if item.body else 'headline_only')
-            host = (urlsplit(item.url).hostname or '').lower()
-            permitted = self._permitted(item.url)
+            target = self._retrieval_url(item)
+            host = (urlsplit(target).hostname or '').lower()
+            permitted = self._permitted(target)
             # Restrict redirects too: the generic feed transport remains
             # usable, while document retrieval cannot follow off-host links.
-            cached = self.cache.get(item.url)
+            cached = self.cache.get(target)
             if cached and time.monotonic() - cached[3] > 3600:
                 cached = None
             if cached is None:
@@ -169,28 +195,28 @@ class EnrichingFetcher:
                 # bytes are the ones the earlier pass stored, so the
                 # observation collapses onto the existing one instead of
                 # publishing a body-less correction over it.
-                record = stored.get(item.url)
+                record = stored.get(target)
                 if record is not None and not record['due_for_refresh']:
                     cached = (record['text'], record['document_hash'],
                               record['truncated'], time.monotonic(),
                               record['format'], record['acquired_at'])
-                    self.cache[item.url] = cached
-            attempt = self.store.document_attempt(source.source_id, item.url) if self.store else None
-            cooling = self._cooling(source.source_id, item.url, attempt)
+                    self.cache[target] = cached
+            attempt = self.store.document_attempt(source.source_id, target) if self.store else None
+            cooling = self._cooling(source.source_id, target, attempt)
             if not permitted:
                 metadata['document_status'] = 'host_not_enabled'
                 if self.store and attempt is None:
-                    self.store.record_document_attempt(source.source_id, item.url,
+                    self.store.record_document_attempt(source.source_id, target,
                                                        'host_not_enabled', retry_seconds=86400)
             elif cached is None and cooling:
                 metadata['document_status'] = 'retry_deferred'
-            elif (cached is None and item.url in allowed
+            elif (cached is None and target in allowed
                   and fetched < self.max_documents and deadline-time.monotonic() > 1):
                 fetched += 1
                 try:
                     self._http._throttle(host)
                     status, headers, raw = self._http._open(
-                        item.url, {'User-Agent': self._http.user_agent,
+                        target, {'User-Agent': self._http.user_agent,
                                    'Accept': 'text/html,application/pdf,text/plain;q=0.9'},
                         timeout=max(.1, deadline-time.monotonic()),
                         allowed_hosts=HOSTS)
@@ -202,31 +228,31 @@ class EnrichingFetcher:
                     format_ = 'pdf' if 'application/pdf' in content_type or raw.startswith(b'%PDF-') else 'article'
                     cached = (text, hashlib.sha256(raw).hexdigest(), truncated,
                               time.monotonic(), format_, _now())
-                    self.cache[item.url] = cached
+                    self.cache[target] = cached
                     if len(self.cache) > 500:
                         self.cache.pop(next(iter(self.cache)))
                     if self.store:
-                        self.store.record_document_attempt(source.source_id, item.url, 'retrieved')
+                        self.store.record_document_attempt(source.source_id, target, 'retrieved')
                         # Durable, so the next pass spends its budget on a
                         # document that still has none.
                         self.store.save_document(
-                            source.source_id, item.url, text=text,
+                            source.source_id, target, text=text,
                             document_hash=cached[1], format=format_,
                             truncated=truncated, acquired_at=cached[5])
                 except Exception as exc:
                     metadata['document_status'] = f'unavailable: {type(exc).__name__}: {exc}'
-                    self.failures[item.url] = time.monotonic() + 3600
+                    self.failures[target] = time.monotonic() + 3600
                     if len(self.failures) > 500:
                         self.failures.pop(next(iter(self.failures)))
                     if self.store:
-                        self.store.record_document_attempt(source.source_id, item.url,
+                        self.store.record_document_attempt(source.source_id, target,
                                                            metadata['document_status'])
             elif cached is None:
                 metadata['document_status'] = 'deferred_for_budget'
             if cached:
                 text, digest, truncated, _, format_, acquired = cached
                 metadata.update(document_status='retrieved', document_hash=digest,
-                                document_url=item.url,
+                                document_url=target,
                                 text_scope=(format_+'_partial' if truncated else format_+'_text'),
                                 document_format=format_, document_acquired_at=acquired,
                                 document_truncated=truncated)

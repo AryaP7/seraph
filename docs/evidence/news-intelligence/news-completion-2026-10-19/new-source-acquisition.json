@@ -1,0 +1,29 @@
+{
+  "registered": true,
+  "total_sources": 19,
+  "ingest": {
+    "source_id": "federal_register_ita",
+    "attempted_at": "2026-10-19T07:12:35+05:30",
+    "ok": true,
+    "new_observations": 40,
+    "unchanged": 0,
+    "new_stories": 40,
+    "corrections": 0,
+    "syndications": 14,
+    "reversions": 0,
+    "attempts": 1,
+    "error": null
+  },
+  "stories": 40,
+  "titles": [
+    "Polyethylene Terephthalate Film, Sheet, and Strip From India: Preliminary Results of Antidumpin",
+    "Certain Corrosion-Resistant Steel Products From the Republic of Korea: Preliminary Results and ",
+    "Boltless Steel Shelving Units Prepackaged for Sale From the People's Republic of China: Continu",
+    "Thermal Paper From the Republic of Korea: Preliminary Results and Rescission, in Part, of Antid",
+    "Certain Steel Nails From the Sultanate of Oman: Preliminary Results and Intent To Rescind, in P"
+  ],
+  "event_types": {
+    "trade_remedy_determination": 41
+  },
+  "stories_reaching_a_documented_exposure": 6
+}

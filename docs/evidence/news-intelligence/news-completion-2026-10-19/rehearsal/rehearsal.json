@@ -1,0 +1,91 @@
+{
+  "step1_no_separate_news_command": true,
+  "launch": "streamlit run seraph/dashboard/prototype_app.py",
+  "step2_startup_acquisition_visible": true,
+  "step3_two_passes": true,
+  "beat_trail": [
+    [
+      "running",
+      "waiting for next poll",
+      1
+    ],
+    [
+      "running",
+      "waiting for next poll",
+      1
+    ],
+    [
+      "running",
+      "waiting for next poll",
+      1
+    ],
+    [
+      "running",
+      "waiting for next poll",
+      1
+    ],
+    [
+      "running",
+      "waiting for next poll",
+      1
+    ],
+    [
+      "running",
+      "waiting for next poll",
+      2
+    ]
+  ],
+  "step2_processes_running": "4",
+  "step4_manual_acquisition": {
+    "request_id": 1,
+    "served": true,
+    "fetched": [
+      "nse_corporate_announcements",
+      "fed_press",
+      "federal_register_ita",
+      "federal_register_india",
+      "federalreserve_speeches"
+    ],
+    "unchanged": [
+      "bse_notices",
+      "rbi_press_releases",
+      "usgs_earthquakes",
+      "nse_circulars",
+      "pib_releases",
+      "rbi_notifications",
+      "sebi_press",
+      "wto_news",
+      "ustr_press",
+      "ec_news",
+      "rbi_speeches",
+      "federal_register",
+      "tata_kalinganagar_expansion"
+    ],
+    "failed": {},
+    "timed_out": [
+      "mofcom_rare_earth_18_2025"
+    ],
+    "skipped_for_budget": [],
+    "stories_before": 938,
+    "stories_after": 1186
+  },
+  "step6_frontend": {
+    "markers": 7,
+    "arcs": 1,
+    "banner": "NOT A CURRENT MARKET READING \u2014 the newest observation is 2362.9 days old. Anything computed from it is a REPLAY of that period, not a statement about the market now, and must be labelled as such | observed 2020-04-30T15:30:00+05:30 \u00b7 now 20",
+    "signals_has_text": true
+  },
+  "step5_single_source_failure": {
+    "broken_source_failures": 1,
+    "worker_states_seen": [
+      "degraded",
+      "running"
+    ],
+    "worker_state_after": "degraded",
+    "worker_still_alive": true,
+    "worker_detail": "1 source(s) degraded, healthy feeds continuing: rehearsal_broken_feed",
+    "healthy_sources_still_covered": 18,
+    "processes": "4"
+  },
+  "step7_processes_after_shutdown": "0"
+}

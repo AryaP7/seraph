@@ -556,15 +556,27 @@ def _drive_worker(run_news, tmp_path, store):
 
 
 def test_a09_a_blocked_poll_is_not_reported_as_a_healthy_worker(run_news, tmp_path):
+    """A pass that fetched nothing must say so.
+
+    The status this asserts CHANGED after A09, and deliberately. A09's
+    first fix wrote `failed`, which the supervisor reads as a dead process
+    and acts on by terminating the worker -- so a held lease, or one
+    publisher's 503, could take down acquisition entirely. `degraded`
+    carries exactly the same information to a reader (the activity names
+    the cause) without telling the supervisor to kill a live process. See
+    `tests/test_news_source_failure_isolation.py` for that contract.
+    """
     jobs = JobStore(tmp_path / "jobs.sqlite")
     jobs.acquire(run_news.JOB, "held-by-a-live-process")
     store = NewsStore(tmp_path / "worker.sqlite")
     fetched, seen, _stdout = _drive_worker(run_news, tmp_path, store)
     assert fetched == [], "the lease really does block the poll"
-    assert seen and seen[0]["state"] == "failed"
-    assert seen[0]["activity"] == "lock_unavailable", (
+    assert seen and seen[0]["state"] == "degraded", (
         "the loop beat `running` / `waiting for next poll` while fetching "
         "nothing at all for the whole lease term")
+    assert seen[0]["state"] != "running"
+    assert seen[0]["activity"] == "lock_unavailable"
+    assert "not evidence of polling" in (seen[0]["detail"] or "")
     assert any(r.status == "lock_unavailable" for r in jobs.runs())
 
 

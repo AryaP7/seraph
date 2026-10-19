@@ -117,6 +117,31 @@ VERIFIED_JSON_SOURCES = (
        ('india_trade', 'tariffs'), rights='US Government work, not copyrightable: 17 U.S.C. 105 (https://www.govinfo.gov/about/policies). Credit the issuing agency; third-party material embedded in a government document is NOT covered. See docs/decisions/DR-10-2026-10-18-source-text-rights.md',
        may_store_full_text=True,
        poll_interval_minutes=120, accessibility_verified=True), 'federal_register'),
+    # The same register, filtered by ISSUING AGENCY rather than by the word
+    # "India". The International Trade Administration is the body that
+    # actually issues antidumping and countervailing determinations, and a
+    # determination reaches an Indian exporter through the PRODUCT it
+    # covers -- "Certain Corrosion-Resistant Steel Products" -- without
+    # necessarily saying India anywhere a term search can see. The
+    # term-filtered feed above therefore misses exactly the instruments
+    # the exposure registry exists to route.
+    #
+    # Reachability was probed before registration, not assumed:
+    # docs/evidence/news-intelligence/news-completion-2026-10-19/source-reachability.json
+    (Source('federal_register_ita', 'US Federal Register', 'official_policy',
+       'https://www.federalregister.gov/api/v1/documents.json?per_page=40&order=newest'
+       '&conditions[agencies][]=international-trade-administration'
+       '&fields[]=title&fields[]=html_url&fields[]=publication_date'
+       '&fields[]=abstract&fields[]=document_number',
+       ('india_trade', 'tariffs', 'trade_remedy'),
+       rights='US Government work, not copyrightable: 17 U.S.C. 105 (https://www.govinfo.gov/about/policies). Credit the issuing agency; third-party material embedded in a government document is NOT covered. See docs/decisions/DR-10-2026-10-18-source-text-rights.md',
+       may_store_full_text=True,
+       poll_interval_minutes=120, accessibility_verified=True,
+       notes='Trade-remedy determinations by issuing agency. Most carry no '
+             'Indian subject at all; relevance scoring and the exposure '
+             'registry decide which do, and an unmatched determination is '
+             'carried as out of scope rather than dropped.'),
+     'federal_register'),
     (Source(
         source_id="federal_register", provider="US Federal Register",
         kind="official_policy",
@@ -661,6 +686,18 @@ def main(argv=None) -> int:
 
 
 def _run_worker(args, store):
+    # BEAT FIRST. Registration contacts every unregistered source, and a
+    # roster with unreachable hosts spends minutes in connection timeouts
+    # before the old first beat was reached. During that window the store
+    # still held the PREVIOUS run's heartbeat -- typically `stopped` --
+    # so the supervisor's startup grace expired, it read a stale row that
+    # did not belong to its child, and it killed a worker that was busy
+    # doing exactly what it was told. The deadline is declared here so a
+    # slow registration is distinguishable from a hung one.
+    store.beat(status="catching_up" if args.catch_up else "running",
+               pid=os.getpid(), activity="reconciling source registrations",
+               deadline=_deadline_in(seconds=600),
+               detail="contacting unregistered sources; no polling yet")
     # Reconcile reviewed configuration in the background worker. Serving the
     # cached frontend never waits for source probes or registration requests.
     register(store, reprobe=False, probe_documents=False)
@@ -668,12 +705,25 @@ def _run_worker(args, store):
     jobs = JobStore(args.jobs)
 
     def work(context):
+        """One steady-state pass.
+
+        A source that fails is NOT a failed pass. This used to raise on any
+        partial failure, the loop wrote heartbeat `failed`, and the
+        supervisor -- which restarts anything that is not alive -- killed a
+        perfectly healthy worker. A publisher returning 503 could therefore
+        exhaust the restart budget and stop every working feed with it.
+
+        The failure is not hidden: it is recorded against that source's
+        health, reported as uncovered by `coverage_at`, named in the
+        returned detail, and the heartbeat says `degraded`.
+        """
         reports = poll_once(store, fetcher)
         context.checkpoint({"last_poll": _now()})
         failed = [r['source_id'] for r in reports if not r['ok']]
         if failed:
-            raise RuntimeError('Partial/failed news poll: ' + ', '.join(failed))
-        return {"sources": len(reports),
+            print('[news] degraded sources this pass (healthy feeds '
+                  'continue): ' + ', '.join(failed), flush=True)
+        return {"sources": len(reports), "degraded": failed,
                 "new_stories": sum(r["new_stories"] for r in reports)}
 
     if args.backfill:
@@ -706,14 +756,21 @@ def _run_worker(args, store):
         # Latest news comes first; a historical backfill must not hold up
         # current acquisition. The persisted gaps survive this forced poll.
         jobs.run(JOB, _work_forced(store, fetcher), max_attempts=1)
-        store.beat(status='catching_up', pid=os.getpid(), activity='historical backfill',
-                   deadline=_deadline_in(seconds=300))
-        resumed = resume_backfills(store, _now(), fetcher)
-        if resumed["recovered"]:
-            print(f"[news] catch-up: backfill recovered {resumed['recovered']}")
-        if resumed["still_open"]:
-            print(f"[news] catch-up: gaps still OPEN (truncated or failed): "
-                  f"{', '.join(resumed['still_open'])}")
+        # Current news is now in. The HISTORICAL backfill does NOT run here.
+        #
+        # It used to, under a single 300-second catch-up deadline covering
+        # both. On a real roster that deadline expires while the backfill
+        # is still working, `worker_state` then reports `stalled` -- which
+        # is what the deadline is for -- and the supervisor terminates a
+        # worker that was doing exactly what it was asked to. Startup is
+        # also the worst possible place for it: nothing on the screen can
+        # update until an unbounded recovery of old pages finishes.
+        #
+        # It is resumed inside the loop instead, after the first steady
+        # pass, where it is bounded, re-declares its own deadline, and
+        # cannot delay current acquisition.
+        print("[news] catch-up: current news fetched; historical backfill "
+              "runs after the first steady pass, not before it")
 
     # One owner per store. A second worker doubles every fetch and races on
     # the same acquisition requests.
@@ -745,6 +802,9 @@ def _run_worker(args, store):
     print(f"[news] polling every {args.interval:.0f}s; Ctrl+C to stop")
     beat_detail = f"interval={args.interval:.0f}s"
     passes = 0
+    # JOB-level failures only. A source returning an error never increments
+    # this; it is degraded coverage, not a broken worker.
+    job_failures = 0
     try:
         while True:
             # Beat BEFORE the work: the heartbeat answers "is the worker
@@ -783,27 +843,79 @@ def _run_worker(args, store):
             store.beat(status="running", pid=os.getpid(), sequence=passes,
                        activity="polling due sources", deadline=_deadline_in(seconds=180))
             outcome = jobs.run(JOB, work, max_attempts=1)
-            # The outcome used to be discarded. A pass that fetched NOTHING
-            # because the job lease was unavailable, or because the work
-            # raised, then beat "running / waiting for next poll" exactly
-            # like a successful one -- so a worker doing no acquisition at
-            # all looked healthy on every screen. The heartbeat now carries
-            # what actually happened.
+            # The outcome used to be discarded, so a pass that fetched
+            # NOTHING beat "running / waiting for next poll" exactly like a
+            # successful one. Reporting it is right; reporting it as a dead
+            # PROCESS was not -- the supervisor restarts anything that is
+            # not alive, so a publisher's 503 terminated a healthy worker
+            # and could exhaust the restart budget. Three states, apart:
+            #
+            #   pass ran, every source ok                    -> running
+            #   pass ran with failed sources, or no pass ran
+            #     because the lease was held                 -> degraded
+            #   the pass machinery itself raised, repeatedly -> failed,
+            #     the one case a supervisor should act on
+            idle = _deadline_in(seconds=max(30.0, args.interval) + 60)
+            degraded = list((outcome.detail or {}).get("degraded") or ())
             if outcome.status == "lock_unavailable":
+                job_failures = 0
                 print(f"[news] pass {passes} did NOT poll: {outcome.error}")
-                store.beat(status="failed", pid=os.getpid(), sequence=passes,
-                           activity="lock_unavailable",
+                store.beat(status="degraded", pid=os.getpid(), sequence=passes,
+                           activity="lock_unavailable", deadline=idle,
                            detail=(f"no acquisition this pass: {outcome.error}. "
                                    f"A heartbeat is not evidence of polling"))
             elif outcome.status != "succeeded":
-                print(f"[news] pass {passes} failed: {outcome.error}")
-                store.beat(status="failed", pid=os.getpid(), sequence=passes,
-                           activity="poll failed",
-                           detail=f"{outcome.status}: {outcome.error}")
+                job_failures += 1
+                limit = store.MAX_CONSECUTIVE_JOB_FAILURES
+                print(f"[news] pass {passes} failed "
+                      f"({job_failures}/{limit}): {outcome.error}")
+                terminal = job_failures >= limit
+                store.beat(status="failed" if terminal else "degraded",
+                           pid=os.getpid(), sequence=passes,
+                           activity="poll failed", deadline=idle,
+                           detail=(f"{outcome.status}: {outcome.error} "
+                                   f"({job_failures} consecutive)"))
+                if terminal:
+                    # The pass machinery is broken, not a publisher. Exit so
+                    # the supervisor can replace the process: staying up and
+                    # reporting `degraded` for ever would be exactly the
+                    # quiet failure a supervisor exists to prevent.
+                    print(f"[news] {job_failures} consecutive job failures; "
+                          f"exiting for the supervisor to replace this worker")
+                    return 1
+            elif degraded:
+                job_failures = 0
+                store.beat(status="degraded", pid=os.getpid(), sequence=passes,
+                           activity="waiting for next poll", deadline=idle,
+                           detail=(f"{len(degraded)} source(s) degraded, "
+                                   f"healthy feeds continuing: "
+                                   f"{', '.join(degraded)}"))
             else:
+                job_failures = 0
                 store.beat(status="running", pid=os.getpid(), sequence=passes,
-                           activity="waiting for next poll",
-                           deadline=_deadline_in(seconds=max(30.0, args.interval) + 60))
+                           activity="waiting for next poll", deadline=idle)
+            if args.catch_up and passes == 1:
+                # Deferred off the startup path on purpose: current news is
+                # already in, the screen is already serving it, and this
+                # declares its OWN deadline so a long recovery of old pages
+                # is distinguishable from a hung worker instead of being
+                # mistaken for one.
+                store.beat(status="catching_up", pid=os.getpid(),
+                           sequence=passes, activity="historical backfill",
+                           deadline=_deadline_in(seconds=900))
+                try:
+                    resumed = resume_backfills(store, _now(), fetcher)
+                    if resumed["recovered"]:
+                        print(f"[news] backfill recovered {resumed['recovered']}")
+                    if resumed["still_open"]:
+                        print(f"[news] gaps still OPEN (truncated or failed): "
+                              f"{', '.join(resumed['still_open'])}")
+                except Exception as exc:            # noqa: BLE001 - recorded
+                    # Recovering history must never stop current news.
+                    print(f"[news] backfill failed, current acquisition "
+                          f"continues: {type(exc).__name__}: {exc}")
+                store.beat(status="running", pid=os.getpid(), sequence=passes,
+                           activity="waiting for next poll", deadline=idle)
             if passes % 100 == 0:
                 # Idempotent and bounded. A worker that runs for a week must
                 # not be the reason a 30-day window is never enforced.

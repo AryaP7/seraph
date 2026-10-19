@@ -464,7 +464,14 @@ def extract(stories: list[Story], master: MasterData, *,
     # Issuer jurisdiction seeds a scoped exposure query, never an occurrence dot.
     source_place = master.origin_of(primary.source_id)
     if (source_place and source_place.get('basis') == 'jurisdiction'
-        and event_type in ('export_restriction', 'tariff_announcement', 'import_duty_change')
+        # A trade remedy has an issuing jurisdiction like any other
+        # instrument: the authority that imposes the duty is also the
+        # destination market the duty applies in. Leaving the class out
+        # meant every determination reached the scenario path with no
+        # destination, and the arithmetic refused for a reason that was
+        # about this omission rather than about the document.
+        and event_type in ('export_restriction', 'tariff_announcement',
+                           'import_duty_change', 'trade_remedy_determination')
         and frame.assertion_status == 'confirmed_statement'):
         exposure_origins.append(source_place['place_id'])
         locations.append((source_place['place_id'], 'issuer_jurisdiction'))

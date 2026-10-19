@@ -1,0 +1,29 @@
+{
+  "type": "controlled contract reproduction, not a real publisher outage",
+  "partial_outage": {
+    "one_successful_source": true,
+    "one_source_http_503": true,
+    "worker_state": "degraded",
+    "worker_activity": "waiting for next poll",
+    "worker_detail": "1 source(s) degraded, healthy feeds continuing: temporarily_unavailable_feed",
+    "worker_is_alive": true,
+    "supervisor": {
+      "starts": 1,
+      "restarts": 0,
+      "terminations": 1,
+      "exit": 0,
+      "checks": 41
+    },
+    "expected": "the worker stays alive and keeps polling; the failed source stays visible in its own health"
+  },
+  "stopped_worker": {
+    "supervisor": {
+      "starts": 3,
+      "restarts": 2,
+      "terminations": 3,
+      "exit": 1,
+      "checks": 6
+    },
+    "expected": "a worker that is not alive is still terminated and replaced, up to the restart bound"
+  }
+}

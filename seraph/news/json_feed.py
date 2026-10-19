@@ -28,6 +28,7 @@ code paths are not introduced per source.
 from __future__ import annotations
 
 import json
+import re
 from typing import Callable
 
 from seraph.news.http_feed import FeedFetchError, _strip_html
@@ -56,13 +57,32 @@ def federal_register(body: bytes, *, base_url: str = "") -> list[dict]:
             "no 'results' key")
     out = []
     for item in payload.get("results") or []:
-        out.append(dict(
+        number = (item.get("document_number") or "").strip()
+        published = (item.get("publication_date") or "").strip()
+        row = dict(
             title=(item.get("title") or "").strip(),
             url=item.get("html_url") or item.get("pdf_url") or base_url,
-            guid=item.get("document_number") or item.get("html_url") or "",
-            published_raw=item.get("publication_date"),
+            guid=number or item.get("html_url") or "",
+            published_raw=published,
             summary=_strip_html(item.get("abstract") or ""),
-            source_kind_hint="official_policy"))
+            source_kind_hint="official_policy")
+        # Where the FULL TEXT can actually be read.
+        #
+        # federalregister.gov answers a document request with a 302 to
+        # `unblock.federalregister.gov`, an access-control interstitial.
+        # That is the publisher declining automated access and it is not
+        # ours to work around -- the enrichment host allow-list correctly
+        # refuses to follow it, which is why no document body was ever
+        # retrieved from this source.
+        #
+        # The GPO publishes the same document, as the same US Government
+        # work, at a documented stable path, and govinfo.gov is already a
+        # permitted host. This is a different publisher of the same text,
+        # not a way around the first one's control.
+        if number and re.fullmatch(r"\d{4}-\d{2}-\d{2}", published):
+            row["document_url"] = (f"https://www.govinfo.gov/content/pkg/"
+                                   f"FR-{published}/html/{number}.htm")
+        out.append(row)
     return [e for e in out if e["title"]]
 
 
@@ -259,6 +279,10 @@ class JsonSourceFetcher:
                     'day' if len(entry.get('published_raw') or '') == 10 else 'timestamp',
                     occurred_at=_published(entry['published_raw']) if adapter == 'usgs_earthquakes' else None,
                     coordinates=entry.get('coordinates'), coordinate_order=entry.get('coordinate_order'),
+                    # Where the full text is actually readable, when the
+                    # citation link is not. Enrichment fetches this and the
+                    # reader still cites `url`.
+                    document_url=entry.get('document_url'),
                     source_kind_hint=entry.get('source_kind_hint'))))
         return FetchResult(items=tuple(items), cursor=received,
                            http_status=status)

@@ -1,0 +1,12 @@
+{
+  "routes_examined": 22,
+  "priced": [],
+  "refusal_reasons": {
+    "the document states no ad-valorem duty rate": 17,
+    "the issuing jurisdiction is not established, so the destination market of the du": 2,
+    "legal stage is 'announced': nothing is decided that could change a landed cost": 7,
+    "legal stage is 'unknown': nothing is decided that could change a landed cost": 5,
+    "legal stage is 'consultation': nothing is decided that could change a landed cos": 1
+  },
+  "stories": 942
+}

@@ -508,10 +508,20 @@ class NewsStore:
 
     def document_progress(self, source_id: "str | None" = None) -> dict:
         """How many permitted documents have text, and how many are owed one."""
+        # A document is counted when it was retrieved for this story, from
+        # EITHER the citation url or the separate retrieval url the adapter
+        # supplied. Joining on the citation alone reported zero documents
+        # for every source whose text is published somewhere other than the
+        # link a reader follows -- which is every Federal Register source,
+        # whose text comes from the GPO.
         sql = ('SELECT s.source_id, COUNT(*), '
                'SUM(CASE WHEN d.url IS NULL THEN 0 ELSE 1 END) '
-               'FROM stories s LEFT JOIN documents d '
-               'ON d.source_id=s.source_id AND d.url=s.url')
+               'FROM stories s '
+               'LEFT JOIN observation_metadata m '
+               'ON m.observation_id=s.observation_id '
+               'LEFT JOIN documents d '
+               'ON d.source_id=s.source_id AND d.url IN '
+               '(s.url, COALESCE(json_extract(m.payload, \'$.document_url\'), s.url))')
         args = []
         if source_id:
             sql += ' WHERE s.source_id=?'
@@ -1222,7 +1232,20 @@ class NewsStore:
 
     #: Statuses that CLAIM to be alive, and are therefore subject to the age
     #: and stall checks. `stopped` and `failed` are terminal.
-    ALIVE_STATUSES = ('running', 'catching_up')
+    #:
+    #: `degraded` is alive. A worker whose pass completed while one publisher
+    #: returned 503 is working correctly: the outage belongs to that source's
+    #: health, not to the process. Writing `failed` for it made the
+    #: supervisor -- which restarts anything not in this tuple -- terminate a
+    #: healthy worker, and a recurring publisher error could exhaust the
+    #: restart budget and stop every good feed with it.
+    ALIVE_STATUSES = ('running', 'catching_up', 'degraded')
+
+    #: Consecutive JOB-level failures (the pass machinery itself raising,
+    #: not a source returning an error) before the worker declares itself
+    #: failed and invites a restart. One is a blip; three in a row is a
+    #: worker that cannot do its job, which is what a supervisor is for.
+    MAX_CONSECUTIVE_JOB_FAILURES = 3
 
     def worker_state(self, decision_ts: str, worker: str = 'news.poll', *,
                      dead_after_minutes: int = 5,

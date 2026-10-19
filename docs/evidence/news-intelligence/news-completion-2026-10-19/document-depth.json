@@ -1,0 +1,73 @@
+{
+  "stories": 80,
+  "text_scopes": {
+    "feed_summary": 38,
+    "headline_only": 2,
+    "article_text": 40
+  },
+  "retrieved_documents": 40,
+  "median_chars": 16726,
+  "max_chars": 31827,
+  "with_old_and_new_rate": 0,
+  "with_any_rate": 29,
+  "with_effective_date": 0,
+  "with_instrument_id": 40,
+  "with_named_exclusion": 6,
+  "sample": [
+    {
+      "title": "Chromium Trioxide From the Republic of Türkiye: Final Affirmative Dete",
+      "chars": 14695,
+      "rate_pair": false,
+      "rates": 3,
+      "effective": false,
+      "instrument_ids": [
+        "ita_case:A-489-856",
+        "federal_register:2026-20697"
+      ],
+      "excluded_countries": [],
+      "excluded_products": []
+    },
+    {
+      "title": "Chromium Trioxide From India: Final Affirmative Countervailing Duty De",
+      "chars": 16889,
+      "rate_pair": false,
+      "rates": 1,
+      "effective": false,
+      "instrument_ids": [
+        "ita_case:C-533-945",
+        "federal_register:2026-20696"
+      ],
+      "excluded_countries": [],
+      "excluded_products": []
+    },
+    {
+      "title": "Chromium Trioxide From India: Final Affirmative Determination of Sales",
+      "chars": 16184,
+      "rate_pair": false,
+      "rates": 3,
+      "effective": false,
+      "instrument_ids": [
+        "ita_case:A-533-944",
+        "federal_register:2026-20695"
+      ],
+      "excluded_countries": [],
+      "excluded_products": [
+        "rates that are zero",
+        "zero"
+      ]
+    },
+    {
+      "title": "Certain Paper Shopping Bags From Cambodia: Preliminary Results of Anti",
+      "chars": 18604,
+      "rate_pair": false,
+      "rates": 4,
+      "effective": false,
+      "instrument_ids": [
+        "ita_case:A-555-002",
+        "federal_register:2026-20777"
+      ],
+      "excluded_countries": [],
+      "excluded_products": []
+    }
+  ]
+}

@@ -37,6 +37,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from seraph.news.acquisition import NewsStore, _now        # noqa: E402
+from seraph.operations.jobs import pid_alive                # noqa: E402
 
 DEFAULT_STORE = ROOT / "prototype_runs" / "news-intelligence-pilot.sqlite"
 WORKER = "news.poll"
@@ -53,7 +54,19 @@ def supervise(store_path: Path, *, interval: float, max_restarts: int,
               once: bool, python: str | None = None,
               spawn=subprocess.Popen, sleep=time.sleep,
               check_seconds: float = 5, startup_grace: float = 30,
-              monotonic=time.monotonic) -> int:
+              monotonic=time.monotonic, owner_pid: int | None = None) -> int:
+    """Keep one worker alive against `store_path`.
+
+    `owner_pid` makes the supervisor a dependant of whoever started it.
+    The dashboard starts one when no launcher has, and a dashboard killed
+    outright cannot run its own cleanup — so the supervisor watches the
+    process that asked for it and shuts the worker down when that process
+    is gone. Without it, every hard kill of the UI would leave a worker
+    fetching against a store nobody is reading.
+
+    An UNANSWERABLE liveness question is never treated as death: the
+    supervisor keeps running rather than stopping acquisition on a guess.
+    """
     store = NewsStore(store_path)
     python = python or sys.executable
     restarts = 0
@@ -101,11 +114,38 @@ def supervise(store_path: Path, *, interval: float, max_restarts: int,
                         code = child.wait(timeout=check_seconds)
                         break
                     except subprocess.TimeoutExpired:
+                        if owner_pid is not None and pid_alive(owner_pid) is False:
+                            detail = (f"owner process {owner_pid} is gone; "
+                                      f"stopping the worker it asked for")
+                            print(f"[supervisor] {detail}")
+                            store.beat(SUPERVISOR, status="stopped",
+                                       pid=os.getpid(), detail=detail)
+                            store.beat(WORKER, status="stopped", pid=child.pid,
+                                       detail=detail)
+                            return 0
                         state = store.worker_state(_now(), WORKER)
                         belongs = state.get('pid') == child.pid
                         if monotonic() - started < startup_grace:
                             continue
-                        if belongs and state['state'] in ('running', 'catching_up'):
+                        if not belongs:
+                            # The row still describes a PREVIOUS run. Our
+                            # child has not beaten yet, which is a
+                            # different fact from our child being dead --
+                            # and judging it by somebody else's old
+                            # `stopped` row is how a worker still
+                            # reconciling its sources got killed. Wait for
+                            # a row of its own; the deadline and the grace
+                            # above still bound how long that can take.
+                            if monotonic() - started < startup_grace * 20:
+                                continue
+                        # Read the alive set from the store rather than
+                        # repeating it here. The two drifted: the store
+                        # learned `degraded` -- a worker whose pass ran
+                        # while one publisher was down -- and this literal
+                        # did not, so the supervisor terminated healthy
+                        # workers over somebody else's 503 and could spend
+                        # its whole restart budget doing it.
+                        if belongs and state['state'] in store.ALIVE_STATUSES:
                             continue
                         # Only terminate our own child. A stale PID in SQLite
                         # is never authority to kill an unrelated process.
@@ -182,12 +222,18 @@ def main(argv=None) -> int:
                              "quiet restart loop")
     parser.add_argument("--once", action="store_true",
                         help="run one worker and do not restart it")
+    parser.add_argument("--owner-pid", type=int, default=None,
+                        help="shut down when this process exits. The "
+                             "dashboard passes its own pid when it starts a "
+                             "worker, so a hard-killed UI cannot leave one "
+                             "fetching against a store nobody is reading")
     args = parser.parse_args(argv)
     from seraph.news.worker_lock import worker_lock, WorkerAlreadyRunning
     try:
         with worker_lock(args.store, 'supervisor'):
             return supervise(args.store, interval=args.interval,
-                             max_restarts=args.max_restarts, once=args.once)
+                             max_restarts=args.max_restarts, once=args.once,
+                             owner_pid=args.owner_pid)
     except WorkerAlreadyRunning as exc:
         print(f'[supervisor] {exc}')
         return 2

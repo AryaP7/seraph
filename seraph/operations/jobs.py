@@ -53,6 +53,44 @@ class LockUnavailable(RuntimeError):
     """Another live holder has this job's lock."""
 
 
+def pid_alive(pid: int) -> bool | None:
+    """Is this local process id running?
+
+    `True`, `False`, or `None` when the question cannot be answered. The
+    third answer is the important one: callers decide whether to break a
+    lease or shut a supervisor down on the strength of it, and an
+    unanswerable question must never be rounded down to "dead".
+    """
+    if not isinstance(pid, int) or isinstance(pid, bool) or pid <= 0:
+        return None
+    if os.name != "nt":
+        try:
+            os.kill(pid, 0)
+        except ProcessLookupError:
+            return False
+        except PermissionError:
+            return True                 # exists, owned by someone else
+        except OSError:
+            return None
+        return True
+    import ctypes
+    from ctypes import wintypes
+    PROCESS_QUERY_LIMITED_INFORMATION, STILL_ACTIVE = 0x1000, 259
+    kernel32 = ctypes.windll.kernel32
+    handle = kernel32.OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION, False, pid)
+    if not handle:
+        # 87 ERROR_INVALID_PARAMETER: no such process. Anything else
+        # (access denied, for instance) leaves the question open.
+        return False if kernel32.GetLastError() == 87 else None
+    try:
+        code = wintypes.DWORD()
+        if not kernel32.GetExitCodeProcess(handle, ctypes.byref(code)):
+            return None
+        return code.value == STILL_ACTIVE
+    finally:
+        kernel32.CloseHandle(handle)
+
+
 @dataclass(frozen=True)
 class JobRun:
     run_id: str
@@ -162,35 +200,9 @@ class JobStore:
             pid = int(pid)
         except (AttributeError, ValueError):
             return None
-        if host != socket.gethostname() or pid <= 0:
+        if host != socket.gethostname():
             return None
-        if os.name != "nt":
-            try:
-                os.kill(pid, 0)
-            except ProcessLookupError:
-                return False
-            except PermissionError:
-                return True             # exists, owned by someone else
-            except OSError:
-                return None
-            return True
-        import ctypes
-        from ctypes import wintypes
-        PROCESS_QUERY_LIMITED_INFORMATION, STILL_ACTIVE = 0x1000, 259
-        kernel32 = ctypes.windll.kernel32
-        handle = kernel32.OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION,
-                                      False, pid)
-        if not handle:
-            # 87 ERROR_INVALID_PARAMETER: no such process. Anything else
-            # (access denied, for instance) leaves the question open.
-            return False if kernel32.GetLastError() == 87 else None
-        try:
-            code = wintypes.DWORD()
-            if not kernel32.GetExitCodeProcess(handle, ctypes.byref(code)):
-                return None
-            return code.value == STILL_ACTIVE
-        finally:
-            kernel32.CloseHandle(handle)
+        return pid_alive(pid)
 
     def reconcile_lock(self, job: str, *, reason: str,
                        now: datetime | None = None) -> dict:

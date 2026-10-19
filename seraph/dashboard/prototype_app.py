@@ -177,6 +177,138 @@ def store_paths() -> dict:
     )
 
 
+def _news_action(event: dict, role: str, news_path, news_master, payload):
+    """Dispatch one role action against the news channel.
+
+    Rebuilds the channel at the decision time the console is showing, so
+    an action operates on the same facts the reader is looking at rather
+    than on whatever has arrived since.
+    """
+    from seraph.dashboard.news_view import news_channel
+    from seraph.news import workflows
+    from seraph.news.acquisition import _now as news_now
+
+    op = event.get('op')
+    # `news_path` arrives as an OPEN STORE from main(), not a path.
+    # Re-opening it raised "argument should be a str or an os.PathLike
+    # object ... not 'NewsStore'", which the console then displayed as a
+    # successful operation -- see the status-ordering fix in bridge.js.
+    store = news_path if isinstance(news_path, NewsStore) else NewsStore(news_path)
+    decision_ts = ((payload.get('news') or {}).get('as_of')) or news_now()
+    channel = news_channel(store, news_master, decision_ts=decision_ts)
+    events = {e.event_id: e for e in channel['eligible_events']}
+
+    if op == 'news_review':
+        return workflows.review_instrument_link(
+            store, role=role,
+            later_event_id=str(event.get('later') or ''),
+            earlier_event_id=str(event.get('earlier') or ''),
+            decision=str(event.get('decision') or ''),
+            reason=str(event.get('reason') or ''),
+            instrument_id=event.get('instrument_id'))
+
+    if op == 'news_scenario':
+        target = events.get(str(event.get('event_id') or ''))
+        if target is None:
+            raise ValueError('that event is not visible at this decision time')
+        edge = None
+        for edge_id in reversed(tuple(event.get('path') or ())):
+            candidate = channel['master'].edges.get(edge_id)
+            if candidate is not None and candidate.products:
+                edge = candidate
+                break
+        if edge is None:
+            for estimate in channel['estimates']:
+                if estimate.event_id != target.event_id:
+                    continue
+                for edge_id in reversed(estimate.path or ()):
+                    candidate = channel['master'].edges.get(edge_id)
+                    if candidate is not None and candidate.products:
+                        edge = candidate
+                        break
+                if edge is not None:
+                    break
+        low, high = event.get('pass_through_low'), event.get('pass_through_high')
+        interval = (low, high) if (low not in (None, '') and
+                                   high not in (None, '')) else None
+        return workflows.run_scenario(
+            target, channel['master'], role=role, edge=edge,
+            product=event.get('product') or None,
+            cost_base=event.get('cost_base'), pass_through=interval,
+            on=decision_ts)
+
+    # news_export
+    comparison = None
+    pair = event.get('compare') or ()
+    if len(tuple(pair)) == 2:
+        from seraph.news.comparison import compare_instruments
+        comparison = compare_instruments(events.get(pair[0]),
+                                         events.get(pair[1]),
+                                         master=channel['master'])
+    return workflows.export_analysis(
+        role=role, channel=channel, scenario=event.get('scenario'),
+        comparison=comparison,
+        matrix=(channel.get('role_view') or {}).get('matrix'),
+        event_ids=tuple(event.get('event_ids') or ()))
+
+
+def acquisition_panel(news_path: Path):
+    """Who is fetching news, and what each source actually returned.
+
+    Startup used to be silent about this. The worker was started by one
+    launcher and not by another, so whether the screen showed live news
+    depended on the command the operator happened to type, and the only
+    clue was a heartbeat age nobody reads as "your IDE launch does not
+    fetch". This says which of the situations it is in, in words.
+
+    It describes NEWS ACQUISITION and nothing else. The market pillars,
+    the live runtime and the archive are separate services with their own
+    panels, and a green line here is not a statement about any of them.
+    """
+    from seraph.dashboard import news_service
+    from seraph.news.acquisition import _now as news_now
+
+    state = news_service.status()
+    label = {'dashboard': 'This dashboard started a supervised worker.',
+             'external': 'A worker was already running; this dashboard did '
+                         'not start a second one.',
+             'disabled': 'Acquisition is switched off for this session.',
+             'failed': 'This dashboard could not start a worker.',
+             'exited': 'The worker this dashboard started has exited.',
+             'not_asked': 'No worker has been requested.'}
+    st.write(f"**{label.get(state.get('owner'), state.get('owner'))}** "
+             f"{state.get('reason', '')}")
+
+    if not news_path.exists():
+        st.info('No news store yet; the worker creates one on its first pass.')
+        return
+    store = NewsStore(news_path)
+    worker = store.worker_state(news_now())
+    shown = {'state': worker['state'], 'activity': worker.get('activity'),
+             'passes': worker.get('sequence'),
+             'last beat': worker.get('last_beat_at'),
+             'age (min)': worker.get('age_minutes'),
+             'detail': worker.get('detail')}
+    st.caption('ACQUISITION WORKER — liveness only. `degraded` means the '
+               'worker is polling and at least one source is failing.')
+    st.write(shown)
+
+    rows = []
+    for source in store.sources():
+        health = store.health(source.source_id)
+        rows.append(dict(source=source.source_id, status=health.status,
+                         last_success=health.last_success_at,
+                         last_attempt=health.last_attempt_at,
+                         consecutive_failures=health.consecutive_failures,
+                         error=health.last_error))
+    rows.sort(key=lambda r: (r['status'] != 'never_succeeded',
+                             r['consecutive_failures'] == 0, r['source']))
+    st.caption(f'PER-SOURCE OUTCOMES — {sum(1 for r in rows if r["consecutive_failures"])} '
+               f'of {len(rows)} source(s) currently failing. A failing source '
+               f'is degraded coverage; the others keep acquiring.')
+    st.dataframe(rows, use_container_width=True, hide_index=True)
+
+
 def news_only_panel(news_path: Path, role: str):
     """The news channel with no market decision to anchor it.
 
@@ -248,6 +380,16 @@ def main():
     paths=store_paths()
     path=paths['archive']
     live_path=paths['live']
+    # Exactly one supervised worker, whichever command started this app.
+    # `launch_prototype.ps1` starts one; `.claude/launch.json` and a bare
+    # `streamlit run` did not, so the same application had live news or a
+    # frozen store depending on how it was launched. The call stands aside
+    # when a launcher already owns a worker, and an OS lock -- not this
+    # call -- is what guarantees there is only ever one.
+    from seraph.dashboard import news_service
+    news_service.ensure_worker(paths['news'])
+    with st.expander('NEWS ACQUISITION', expanded=False):
+        acquisition_panel(paths['news'])
     role=st.session_state.setdefault('console_role','retail')
     with st.expander('LIVE RUNTIME', expanded=live_path.exists()):
         live_revision=live_panel(live_path)
@@ -305,7 +447,8 @@ def main():
     # web request on eleven network fetches.
     _asked = st.session_state.get('news_acquire_request')
     if _asked and news_store is not None:
-        _progress = NewsStore(news_store).acquisition_progress(
+        _progress = (news_store if isinstance(news_store, NewsStore)
+                     else NewsStore(news_store)).acquisition_progress(
             _asked.get('request_id'))
         _state = _progress.get('state', 'unknown')
         if _asked.get('state') == 'rate_limited':
@@ -353,11 +496,33 @@ def main():
                 # `NewsStore(news_path)` call further up then raised
                 # UnboundLocalError and the console failed to render.
                 from seraph.news.acquisition import _now as _news_now
-                _asked = NewsStore(news_store).request_acquisition(
+                # Same defect, same fix: this is already an open store.
+                _acq = (news_store if isinstance(news_store, NewsStore)
+                        else NewsStore(news_store))
+                _asked = _acq.request_acquisition(
                     reason='console', requested_by='console', now=_news_now())
                 st.session_state['news_acquire_request'] = _asked
                 st.rerun()
-            if event.get('op')=='role':
+            # --- the role ACTIONS -----------------------------------
+            # A review queue on screen is not a review workflow and a
+            # scenario function nothing can supply inputs to is not a
+            # scenario feature. These three are what make them one. The
+            # rules about who may do what live in seraph/news/workflows.py,
+            # not here, so they can be tested without a browser.
+            if event.get('op') in ('news_review', 'news_scenario', 'news_export'):
+                if news_store is None:
+                    raise ValueError('No news store is connected')
+                result = _news_action(event, role, news_store, news_master,
+                                      payload)
+                # The console correlates a reply to its request by
+                # `context.request_id`; without it the page never
+                # acknowledges the operation and the status line reports
+                # whatever the PREVIOUS one left behind.
+                result.setdefault('context', dict(
+                    run_id=selected, date=day, role=role,
+                    request_id=event.get('id')))
+                st.session_state['console_result'] = result
+            elif event.get('op')=='role':
                 new_role=event.get('role')
                 if new_role not in ('retail','institutional','regulator'):raise ValueError('Unknown role')
                 st.session_state['console_role']=new_role
@@ -369,7 +534,10 @@ def main():
                 # A write changed durable state this bundle has cached.
                 if result['kind']=='action':
                     _bundle.clear()
-        except (ValueError,TypeError,KeyError) as exc:
+        except (ValueError,TypeError,KeyError,PermissionError) as exc:
+            # PermissionError included: a role action sent while the role
+            # is mid-switch must come back as a readable refusal, not as an
+            # uncaught exception that replaces the whole console.
             st.session_state['console_result']={
                 'error':str(exc),
                 'context':dict(run_id=selected,date=day,role=role,

@@ -570,3 +570,96 @@ def test_the_payload_carries_corroboration_per_event(tmp_path, master):
     row = payload["surfaces"]["signals"]["items"][0]["corroboration"]
     assert row["independence_verified"] is False
     assert row["documents"] == 1 and row["revisions"] == 0
+
+
+# ------------------------------------------- document depth (19 October)
+
+def test_a_pre_block_is_an_article_container():
+    """The GPO publishes every Federal Register notice as
+    `<html><body><pre>...</pre></body></html>` with no `article` or `main`.
+    Those pages parsed to nothing and were refused as "no usable article
+    container", which is why no Federal Register full text was ever
+    retrieved and why the store held abstracts only."""
+    from seraph.news.enrichment import extract_article
+    raw = (b"<html><head><title>FR</title></head><body><pre>"
+           + b"The Department of Commerce determines that the subject "
+             b"merchandise is being sold at less than fair value. " * 4
+           + b"</pre></body></html>")
+    text, truncated = extract_article(raw, "text/html")
+    assert "less than fair value" in text and not truncated
+
+
+def test_a_real_article_container_still_wins():
+    from seraph.news.enrichment import extract_article
+    raw = (b"<html><body><article>" + b"The operative text of the notice. " * 8
+           + b"<pre>navigation junk</pre></article></body></html>")
+    text, _ = extract_article(raw, "text/html")
+    assert "operative text" in text
+
+
+def test_the_adapter_names_where_the_full_text_can_be_read():
+    """federalregister.gov answers a document request with a 302 to its
+    `unblock` interstitial. That is the publisher declining automated
+    access and is not worked around; the same US Government work is read
+    from the GPO instead, and the reader still cites the publisher."""
+    import json as _json
+    from seraph.news.json_feed import parse_json_source
+    body = _json.dumps(dict(results=[dict(
+        title="Widgets From India: Final Determination",
+        html_url="https://www.federalregister.gov/documents/2026/10/19/2026-21293/widgets",
+        document_number="2026-21293", publication_date="2026-10-19",
+        abstract="An abstract.")])).encode()
+    row = parse_json_source("federal_register", body)[0]
+    assert row["url"].startswith("https://www.federalregister.gov/"), (
+        "the citation must stay the publisher's own link")
+    assert row["document_url"] == (
+        "https://www.govinfo.gov/content/pkg/FR-2026-10-19/html/2026-21293.htm")
+
+
+def test_an_item_with_no_document_number_gets_no_retrieval_url():
+    import json as _json
+    from seraph.news.json_feed import parse_json_source
+    body = _json.dumps(dict(results=[dict(
+        title="Untitled notice", html_url="https://www.federalregister.gov/x",
+        publication_date="2026-10-19")])).encode()
+    assert "document_url" not in parse_json_source("federal_register", body)[0]
+
+
+def test_enrichment_fetches_the_retrieval_url_not_the_citation():
+    from seraph.news.enrichment import EnrichingFetcher
+    item = FetchedItem("r", "T", "https://www.federalregister.gov/documents/x",
+                       b"x", metadata={"document_url":
+                                       "https://www.govinfo.gov/content/pkg/FR-x/html/y.htm"})
+    assert EnrichingFetcher._retrieval_url(item).startswith(
+        "https://www.govinfo.gov/")
+    bare = FetchedItem("r", "T", "https://www.pib.gov.in/a", b"x")
+    assert EnrichingFetcher._retrieval_url(bare) == "https://www.pib.gov.in/a"
+
+
+def test_a_proceeding_phrase_is_not_a_carved_out_product():
+    """Found on real text: an antidumping notice reads "excluding rates
+    that are zero", and reading that as a product carve-out put a scope
+    caveat on the document and capped its confidence over a sentence
+    about arithmetic."""
+    from seraph.news.scope import scope_of
+    assert scope_of("excluding rates that are zero or de minimis",
+                    body_retained=True).excluded_products == ()
+    assert scope_of("excluding respondents with zero margins",
+                    body_retained=True).excluded_products == ()
+    assert scope_of("the order excludes hot-rolled coil",
+                    body_retained=True).excluded_products == ("hot-rolled coil",)
+
+
+def test_document_progress_counts_a_separately_published_document(tmp_path):
+    store = NewsStore(tmp_path / "progress.sqlite")
+    store.register(source(may_store_full_text=True))
+    item = FetchedItem("r1", "Notice", "https://www.federalregister.gov/d/1",
+                       b"x", metadata={"document_url":
+                                       "https://www.govinfo.gov/content/pkg/FR-a/html/b.htm"})
+    store.ingest("feed", lambda *_: FetchResult((item,)), now=T0)
+    assert store.document_progress("feed")["feed"]["with_document"] == 0
+    store.save_document("feed", "https://www.govinfo.gov/content/pkg/FR-a/html/b.htm",
+                        text="t" * 500, document_hash="h", format="article")
+    assert store.document_progress("feed")["feed"]["with_document"] == 1, (
+        "joining on the citation url reported zero documents for every "
+        "source whose text is published elsewhere")

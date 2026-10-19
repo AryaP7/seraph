@@ -1,0 +1,137 @@
+{
+  "matrix": {
+    "status": "observed",
+    "documented_pairs": 27,
+    "pairs_with_current_events": 27,
+    "unsized": 27,
+    "products": [
+      "aluminium sheet",
+      "aluminum sheet",
+      "chromium trioxide",
+      "common alloy",
+      "corrosion-resistant",
+      "denier polyester",
+      "forged steel fittings",
+      "graphite electrode",
+      "graphite electrodes",
+      "oil country tubular",
+      "oleoresin paprika",
+      "paper shopping bags",
+      "perfluoroalkoxy",
+      "permanent magnet",
+      "polyester staple",
+      "polyester staple fiber",
+      "polyethylene terephthalate",
+      "rail coupler",
+      "rare earth",
+      "rare-earth",
+      "shopping bags",
+      "shrimp",
+      "steel",
+      "warmwater shrimp"
+    ],
+    "origins": [
+      "China",
+      "India"
+    ]
+  },
+  "matrix_sample": [
+    {
+      "product": "rare earth",
+      "origin": "cn",
+      "origin_name": "China",
+      "target": "in",
+      "mechanism": "import",
+      "target_role": "input_user",
+      "confidence": "medium",
+      "magnitude": null,
+      "unit": null,
+      "sized": false,
+      "edge_id": "cn_india_rare_earth_supply",
+      "evidence": [
+        "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2151394"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "known_from": "2026-10-17T07:15:00+05:30",
+      "active_events": [
+        "evt_adf6db7fc29ae51cb411"
+      ],
+      "active_headlines": [
+        "Announcement No.18 of 2025 of The Ministry of Commerce and The General Administration of C",
+        "Announcement No.18 of 2025 of The Ministry of Commerce and The General Administration of C"
+      ],
+      "directions": [
+        "ambiguous"
+      ]
+    },
+    {
+      "product": "rare-earth",
+      "origin": "cn",
+      "origin_name": "China",
+      "target": "in",
+      "mechanism": "import",
+      "target_role": "input_user",
+      "confidence": "medium",
+      "magnitude": null,
+      "unit": null,
+      "sized": false,
+      "edge_id": "cn_india_rare_earth_supply",
+      "evidence": [
+        "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2151394"
+      ],
+      "valid_from": null,
+      "valid_to": null,
+      "known_from": "2026-10-17T07:15:00+05:30",
+      "active_events": [
+        "evt_adf6db7fc29ae51cb411"
+      ],
+      "active_headlines": [
+        "Announcement No.18 of 2025 of The Ministry of Commerce and The General Administration of C",
+        "Announcement No.18 of 2025 of The Ministry of Commerce and The General Administration of C"
+      ],
+      "directions": [
+        "ambiguous"
+      ]
+    }
+  ],
+  "institutional_has_matrix": true,
+  "comparable_pairs": 2,
+  "comparable_sample": [
+    {
+      "instrument_id": "recovery_certificate:3965 OF 2021",
+      "earlier": "evt_08d9d2617a7226d947a8",
+      "later": "evt_c1c8eb23a064990f0179",
+      "earlier_headline": "Release of attachment on immovable property under RC No. 3965 of 2021-Ram Kishore Taparia (PAN – ABJPT1453C) i",
+      "later_headline": "Release Order for RC No.3965 of 2021-Ram Kishore Taparia (PAN – ABJPT1453C) in the matter of Cosboard Industri"
+    },
+    {
+      "instrument_id": "recovery_certificate:8924 OF 2025",
+      "earlier": "evt_764e9a6ab1a90c83e158",
+      "later": "evt_e489d483fb40f9836ca2",
+      "earlier_headline": "Completion of RC No. 8924 of 2025 issued against Yuvika Tradewing LLP (PAN - AABFY4620R) in the matter of Cres",
+      "later_headline": "Release Order dated October 15, 2026 for RC 8924 of 2025 issued against Yuvika Tradewing LLP (PAN - AABFY4620R"
+    }
+  ],
+  "comparison": {
+    "status": "compared",
+    "same_instrument": true,
+    "changes": 0,
+    "changed_fields": []
+  },
+  "review": {
+    "decision": "confirmed",
+    "reviewer": "demo-role:regulator",
+    "authenticated": false,
+    "effect": "later projections at or after this time apply the decision; stored documents and their evidence are unchanged"
+  },
+  "retail_blocked": "the retail view does not offer 'review_instrument_link'. Role selection here is a demonstr",
+  "reason_required": "a review needs a reason: a decision nobody can read the grounds for cannot be au",
+  "export": {
+    "schema": "news-analysis-export/1",
+    "events": 2,
+    "impacts": 0,
+    "limitations": 5,
+    "has_manifest": true
+  }
+}

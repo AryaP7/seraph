@@ -1,0 +1,85 @@
+
+DevTools listening on ws://127.0.0.1:62467/devtools/browser/612038cf-f171-40c5-b3b9-14691a2cfebb
+[31092:27880:1019/123254.257:ERROR:chrome\browser\component_updater\edge_optimization_guide_models_manifest_installer.cc:264] Edge LLM: catalog update failed: 5
+[31092:27880:1019/123254.265:ERROR:chrome\browser\component_updater\edge_language_detection_model_installer.cc:97] Edge Language Detection Model: On-demand update failed with error: 5
+[31092:27880:1019/123255.686:ERROR:components\edge_auth\edge_auth_errors.cc:553] EDGE_IDENTITY: Image Fetch FAILED: Error: Primary Error: kUrlRequestError, Secondary Error: kURLResponseNot200, Platform error: 0, Error string: [empty]
+
+2026-10-19 12:32:56.342 Uvicorn server started on 127.0.0.1:62466
+[31092:24356:1019/123256.371:ERROR:components\sync\engine\get_updates_processor.cc:426] PostClientToServerMessage() failed during GetUpdates with error Network error (ERR_NAME_NOT_RESOLVED)
+[31092:27880:1019/123256.417:ERROR:chrome\browser\task_manager\providers\fallback_task_provider.cc:126] Every renderer should have at least one task provided by a primary task provider. If a "Renderer" fallback task is shown, it is a bug. If you have repro steps, please file a new bug and tag it as a dependency of crbug.com/40528867.
+
+  You can now view your Streamlit app in your browser.
+
+  URL: http://127.0.0.1:62466
+
+2026-10-19 12:32:58.773 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+[31092:24356:1019/123258.879:ERROR:components\sync\engine\get_updates_processor.cc:426] PostClientToServerMessage() failed during GetUpdates with error Network error (ERR_NAME_NOT_RESOLVED)
+[31092:24356:1019/123302.631:ERROR:components\sync\engine\get_updates_processor.cc:426] PostClientToServerMessage() failed during GetUpdates with error Network error (ERR_NAME_NOT_RESOLVED)
+2026-10-19 12:33:05.354 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2026-10-19 12:33:10.023 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+[31092:20388:1019/123312.009:ERROR:components\sync\engine\get_updates_processor.cc:426] PostClientToServerMessage() failed during GetUpdates with error Network error (ERR_NAME_NOT_RESOLVED)
+2026-10-19 12:33:15.411 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2026-10-19 12:33:25.986 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+[31092:24356:1019/123326.084:ERROR:components\sync\engine\get_updates_processor.cc:426] PostClientToServerMessage() failed during GetUpdates with error Network error (ERR_NAME_NOT_RESOLVED)
+2026-10-19 12:33:31.522 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2026-10-19 12:33:40.518 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2026-10-19 12:33:46.173 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+[31092:24356:1019/123347.184:ERROR:components\sync\engine\get_updates_processor.cc:426] PostClientToServerMessage() failed during GetUpdates with error Network error (ERR_NAME_NOT_RESOLVED)
+2026-10-19 12:33:51.321 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2026-10-19 12:33:59.211 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2026-10-19 12:34:09.054 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+SUCCESS: The process with PID 25928 (child process of PID 29228) has been terminated.
+SUCCESS: The process with PID 29228 (child process of PID 28544) has been terminated.
+SUCCESS: The process with PID 11060 (child process of PID 31092) has been terminated.
+SUCCESS: The process with PID 30020 (child process of PID 31092) has been terminated.
+SUCCESS: The process with PID 29428 (child process of PID 31092) has been terminated.
+SUCCESS: The process with PID 26560 (child process of PID 31092) has been terminated.
+SUCCESS: The process with PID 29784 (child process of PID 31092) has been terminated.
+SUCCESS: The process with PID 29912 (child process of PID 31092) has been terminated.
+SUCCESS: The process with PID 31508 (child process of PID 31092) has been terminated.
+SUCCESS: The process with PID 31032 (child process of PID 31092) has been terminated.
+SUCCESS: The process with PID 31092 (child process of PID 28544) has been terminated.

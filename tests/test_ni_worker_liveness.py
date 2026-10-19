@@ -160,9 +160,20 @@ def read(name: str) -> str:
 def test_registration_is_reconciled_on_every_launch():
     """It used to run only when the store file was missing, so an existing
     database never received a source added to the catalogue later: the feed
-    was in the code and silently never fetched."""
+    was in the code and silently never fetched.
+
+    Asserted where the behaviour lives. This used to look for `--register`
+    in the launcher and was in fact matching the word inside a COMMENT
+    there -- so it would have kept passing after the flag was removed, and
+    it failed only when the comment was reworded. Every worker reconciles
+    the catalogue on start, which is what makes the property true however
+    the worker was launched.
+    """
+    runner = (ROOT / "scripts/run_news.py").read_text(encoding="utf-8")
+    body = runner.split("def _run_worker", 1)[1][:2000]
+    assert "register(store," in body, (
+        "the worker no longer reconciles source registration on start")
     script = read("launch_prototype.ps1")
-    assert "--register" in script
     assert "if (-not (Test-Path $NewsStore))" not in script, (
         "registration is gated on a missing store again")
 

@@ -1,0 +1,78 @@
+{
+  "dgft_notifications_alt": {
+    "url": "https://content.dgft.gov.in/Website/dgftprod/Notification",
+    "error": "FeedFetchError: HTTP 403 from https://content.dgft.gov.in/Website/dgftprod/Notification: Forbidden"
+  },
+  "cbic_customs_notifications": {
+    "url": "https://www.cbic.gov.in/entities/view-sticker",
+    "error": "FeedFetchError: could not reach https://www.cbic.gov.in/entities/view-sticker: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local i"
+  },
+  "cbic_rss": {
+    "url": "https://taxinformation.cbic.gov.in/content-page/explore-notification",
+    "error": "FeedFetchError: could not reach https://taxinformation.cbic.gov.in/content-page/explore-notification: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed"
+  },
+  "pib_ministry_commerce": {
+    "url": "https://pib.gov.in/RssMain.aspx?ModId=6&Lang=1&Regid=3",
+    "http": 200,
+    "seconds": 0.5,
+    "content_type": "text/xml",
+    "bytes": 8032,
+    "looks_like": "rss"
+  },
+  "pib_ministry_finance": {
+    "url": "https://pib.gov.in/RssMain.aspx?ModId=6&Lang=1&Regid=3",
+    "http": 200,
+    "seconds": 0.5,
+    "content_type": "text/xml",
+    "bytes": 8032,
+    "looks_like": "rss"
+  },
+  "mospi_rss": {
+    "url": "https://www.mospi.gov.in/rss.xml",
+    "error": "FeedFetchError: could not reach https://www.mospi.gov.in/rss.xml: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certifi"
+  },
+  "rbi_rss_all": {
+    "url": "https://website.rbi.org.in/web/rbi/notifications/rss",
+    "http": 200,
+    "seconds": 0.7,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 149444,
+    "looks_like": "html"
+  },
+  "cea_rss": {
+    "url": "https://cea.nic.in/feed/",
+    "http": 200,
+    "seconds": 0.2,
+    "content_type": "text/html;charset=UTF-8",
+    "bytes": 16151,
+    "looks_like": "html"
+  },
+  "pib_power": {
+    "url": "https://pib.gov.in/RssMain.aspx?ModId=6&Lang=1&Regid=3",
+    "http": 200,
+    "seconds": 0.3,
+    "content_type": "text/xml",
+    "bytes": 8032,
+    "looks_like": "rss"
+  },
+  "usitc_news": {
+    "url": "https://www.usitc.gov/rss/news_releases.xml",
+    "error": "FeedFetchError: HTTP 403 from https://www.usitc.gov/rss/news_releases.xml: Forbidden"
+  },
+  "commerce_ita_press": {
+    "url": "https://www.trade.gov/feeds/press-releases.xml",
+    "error": "FeedFetchError: HTTP 404 from https://www.trade.gov/feeds/press-releases.xml: Not Found"
+  },
+  "eu_trade_news": {
+    "url": "https://policy.trade.ec.europa.eu/rss_en",
+    "error": "FeedFetchError: HTTP 404 from https://policy.trade.ec.europa.eu/rss_en: Not Found"
+  },
+  "federal_register_trade": {
+    "url": "https://www.federalregister.gov/api/v1/documents.json?per_page=20&order=newest&conditions%5Bterm%5D=India",
+    "http": 200,
+    "seconds": 0.7,
+    "content_type": "application/json; charset=utf-8",
+    "bytes": 42995,
+    "looks_like": "json"
+  }
+}

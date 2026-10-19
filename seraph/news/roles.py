@@ -30,10 +30,19 @@ class RoleView:
     items: list = field(default_factory=list)
     uncovered: list = field(default_factory=list)
     notes: list = field(default_factory=list)
+    #: Institutional only: the product/origin shape of the documented
+    #: exposure, and the instrument pairs worth comparing side by side.
+    matrix: dict | None = None
+    comparable: list = field(default_factory=list)
 
     def describe(self) -> dict:
-        return dict(role=self.role, items=self.items,
-                    uncovered=self.uncovered, notes=list(self.notes))
+        described = dict(role=self.role, items=self.items,
+                         uncovered=self.uncovered, notes=list(self.notes))
+        if self.matrix is not None:
+            described["matrix"] = self.matrix
+        if self.comparable:
+            described["comparable"] = list(self.comparable)
+        return described
 
 
 def _targets_of(estimates) -> dict:
@@ -199,6 +208,30 @@ def institutional_view(channel, master=None) -> RoleView:
             unknowns=list(getattr(frame, "unknowns", ()) or ()),
             limitations=list(estimate.limitations),
             path=[str(step) for step in (estimate.path or ())]))
+
+    # --- the product/country shape of the exposure, not one route at a time
+    if master is not None:
+        from seraph.news.comparison import product_country_matrix
+        view.matrix = product_country_matrix(channel, master)
+
+    # --- instruments worth comparing side by side ----------------------
+    # Offered, not guessed: a pair is proposed only where two documents
+    # CITE the same instrument identifier, which is the same evidence
+    # standard the supersession linkage uses.
+    pairs, by_instrument = [], {}
+    for event in channel.get("eligible_events", ()) or ():
+        for cited in getattr(event, "instrument_ids", ()) or ():
+            by_instrument.setdefault(cited, []).append(event)
+    for cited, group in sorted(by_instrument.items()):
+        ordered = sorted(group, key=lambda e: ((e.timing.first_seen_at
+                                                if e.timing else "") or "",
+                                               e.event_id))
+        for earlier, later in zip(ordered, ordered[1:]):
+            pairs.append(dict(instrument_id=cited,
+                              earlier=earlier.event_id, later=later.event_id,
+                              earlier_headline=earlier.headline[:110],
+                              later_headline=later.headline[:110]))
+    view.comparable = pairs[:25]
 
     unsized = sum(1 for i in view.items if i["size"] is None)
     priced = sum(1 for i in view.items

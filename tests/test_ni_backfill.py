@@ -322,4 +322,27 @@ def test_catch_up_records_gaps_before_it_polls():
     block = runner.split("if args.catch_up:", 1)[1][:1200]
     assert block.index("record_gaps") < block.index("_work_forced"), (
         "catch-up polls before recording gaps again")
-    assert "resume_backfills" in block
+
+
+def test_the_historical_backfill_does_not_block_startup():
+    """A catch-up launch still recovers gaps -- but after current news is
+    serving, not before it.
+
+    Both ran under one 300-second catch-up deadline. On a real roster that
+    expires while the backfill is still working, `worker_state` reports
+    `stalled`, and the supervisor terminates a worker that was doing
+    exactly what it was asked to. Startup is also the worst place for an
+    unbounded recovery of old pages: nothing on screen can update until it
+    finishes.
+    """
+    runner = (ROOT / "scripts/run_news.py").read_text(encoding="utf-8")
+    catch_up = runner.split("if args.catch_up:", 1)[1].split("owned = store.claim", 1)[0]
+    assert "resume_backfills" not in catch_up, (
+        "the historical backfill is back on the blocking startup path")
+    assert "resume_backfills" in runner, "the backfill must still happen"
+    deferred = runner.split("if args.catch_up and passes == 1:", 1)
+    assert len(deferred) == 2, "the backfill is no longer deferred into the loop"
+    assert "resume_backfills" in deferred[1][:1200]
+    assert "_deadline_in" in deferred[1][:1200], (
+        "a long recovery must declare its own deadline, or it cannot be "
+        "told apart from a hung worker")
