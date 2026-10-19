@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-10-18T22:11:54.916970+05:30",
+  "created_at": "2026-10-19T06:35:42.890743+05:30",
   "numerical_tests": {
     "tests": 180,
     "failures": 0,
@@ -13,6 +13,7 @@
   "invariant_checker": {
     "command": ".venv/Scripts/python.exe scripts/check_invariants.py",
     "exit_code": 0,
+    "output": "invariant-check.txt",
     "checks": [
       "PILLAR_ORDER consistency",
       "C9 purity",
@@ -24,7 +25,30 @@
   "audit": {
     "original_research_hashes_match": true,
     "baseline_and_combined_replication_absolute_tolerance": 1e-12,
+    "probability_replication": [
+      {
+        "target": "loss10_15",
+        "model": "baseline",
+        "max_absolute_difference": 0.0
+      },
+      {
+        "target": "loss10_15",
+        "model": "combined",
+        "max_absolute_difference": 0.0
+      },
+      {
+        "target": "onset15",
+        "model": "baseline",
+        "max_absolute_difference": 0.0
+      },
+      {
+        "target": "onset15",
+        "model": "combined",
+        "max_absolute_difference": 0.0
+      }
+    ],
     "recorded_mature_label_cutoff_violations": 0,
+    "experiment_mature_label_cutoff_violations": 0,
     "mathematical_counterexamples": "diagnostics.json and supplement.json",
     "forecast_configurations": 20,
     "supervised_configurations": 18,

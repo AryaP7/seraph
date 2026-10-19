@@ -6,8 +6,12 @@ import importlib.metadata
 import json
 from pathlib import Path
 import re
+import subprocess
 import sys
 import xml.etree.ElementTree as ET
+
+import numpy as np
+import pandas as pd
 
 OUT=Path(__file__).resolve().parent
 ROOT=OUT.parents[2]
@@ -31,19 +35,54 @@ def main():
                             else e.find('error').attrib.get('message')))
               for e in tree.findall('.//testcase')
               if e.find('failure') is not None or e.find('error') is not None]
+    invariants=subprocess.run([sys.executable,'scripts/check_invariants.py'],cwd=ROOT,
+                              capture_output=True,text=True,check=False)
+    (OUT/'invariant-check.txt').write_text(invariants.stdout+invariants.stderr,encoding='utf-8')
+    integrity=json.loads((OUT/'input-integrity.json').read_text())
+    roots={'code':ROOT,'artifact':ROOT/'research_results/v1_verified','data':ROOT/'research_data'}
+    hashes_match=all(sha(roots[row['kind']]/row['path'].replace('\\','/'))==row['expected']
+                     for row in integrity)
+    diagnostics=json.loads((OUT/'diagnostics.json').read_text())
+    summary=json.loads((OUT/'experiment/summary.json').read_text())
+    fit_audit=json.loads((OUT/'experiment/fit-audit.json').read_text())
+    cutoff_violations=[]
+    for name,record in fit_audit.items():
+        for fit in record.get('fits',[]):
+            if fit['train_end']+15>fit['fitted_at']:
+                cutoff_violations.append(dict(configuration=name,kind='fit',record=fit))
+        for fit in record.get('alerts',[]):
+            if fit['calibration_end_exclusive']-1+15>fit['decision_index']:
+                cutoff_violations.append(dict(configuration=name,kind='alert',record=fit))
+    original=pd.read_parquet(ROOT/'research_results/v1_verified/predictions.parquet')
+    replicated=pd.read_parquet(OUT/'experiment/predictions.parquet')
+    replication=[]
+    for target in sorted(replicated.target.unique()):
+        for model,old_model in [('baseline','baseline_logit'),('combined','combined')]:
+            old=original[(original.target==target)&(original.model==old_model)].sort_values('date')
+            new=replicated[(replicated.target==target)&(replicated.model==model)].sort_values('date')
+            np.testing.assert_array_equal(old.date.to_numpy(),new.date.to_numpy())
+            np.testing.assert_allclose(old.probability,new.probability,rtol=0,atol=1e-12,equal_nan=True)
+            replication.append(dict(target=target,model=model,
+                max_absolute_difference=float(np.nanmax(np.abs(old.probability.to_numpy()-new.probability.to_numpy())))))
+    assert hashes_match,'Original research inputs changed since the audit.'
+    assert invariants.returncode==0,invariants.stdout+invariants.stderr
+    assert not cutoff_violations,cutoff_violations
     verification=dict(
         created_at=datetime.now(timezone(timedelta(hours=5,minutes=30))).isoformat(),
         numerical_tests=dict(**counts,passed=counts['tests']-counts['failures']-counts['errors']-counts['skipped'],
                              duration_seconds=sum(float(s.attrib.get('time',0)) for s in suites),
                              failures_detail=failures,report='tests.xml'),
         invariant_checker=dict(command='.venv/Scripts/python.exe scripts/check_invariants.py',
-            exit_code=0,checks=['PILLAR_ORDER consistency','C9 purity','AR_t placement',
+            exit_code=invariants.returncode,output='invariant-check.txt',checks=['PILLAR_ORDER consistency','C9 purity','AR_t placement',
                                 'Explicit IST timestamps','shared_types frozen audit (informational)']),
-        audit=dict(original_research_hashes_match=True,
+        audit=dict(original_research_hashes_match=hashes_match,
             baseline_and_combined_replication_absolute_tolerance=1e-12,
-            recorded_mature_label_cutoff_violations=0,
+            probability_replication=replication,
+            recorded_mature_label_cutoff_violations=len(diagnostics['stored_cutoff_violations']),
+            experiment_mature_label_cutoff_violations=len(cutoff_violations),
             mathematical_counterexamples='diagnostics.json and supplement.json',
-            forecast_configurations=20,supervised_configurations=18,
+            forecast_configurations=len(summary),
+            supervised_configurations=sum(row['model']!='climatology' for row in summary),
             no_predictive_success_claim=True),
         environment=dict(python=sys.version,libraries={name:importlib.metadata.version(name)
             for name in ('numpy','scipy','pandas','statsmodels','pyarrow','pytest')}),
@@ -84,8 +123,8 @@ def main():
     outputs=[REPORT,*[p for p in OUT.rglob('*') if p.is_file()
             and p.name!='manifest.json' and '__pycache__' not in p.parts]]
     manifest=dict(created_at=verification['created_at'],
-        sources={str(p.relative_to(ROOT)):sha(p) for p in sources},
-        outputs={str(p.relative_to(ROOT)):sha(p) for p in outputs},
+        sources={p.relative_to(ROOT).as_posix():sha(p) for p in sources},
+        outputs={p.relative_to(ROOT).as_posix():sha(p) for p in outputs},
         findings=len(findings),broken_report_links=missing)
     (OUT/'manifest.json').write_text(json.dumps(manifest,indent=2),encoding='utf-8')
     print(json.dumps(dict(tests=counts,findings=len(findings),broken_links=missing),indent=2))

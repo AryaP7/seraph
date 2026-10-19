@@ -1,0 +1,6 @@
+[ok] PILLAR_ORDER consistency
+[ok] C9 fusion purity (no validation/ import, no DB driver)
+[ok] AR_t placement (C4, not C6)
+[ok] Explicit IST timestamps
+[ok] shared_types frozen= audit (info only)
+    [info] shared_types/: 1 BaseModel class(es) found, 2 frozen=True usage(s). Cross-check against everything ARCHITECTURE.md marks `readonly` — this check can't do that part.
