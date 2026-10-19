@@ -1,0 +1,15 @@
+{
+  "name": "seraph-console-harnesses",
+  "version": "0.1.0",
+  "private": true,
+  "description": "X06 — the manifest tests/js/*.mjs needed. package-lock.json existed with no package.json, so `npm ci` and `npm install` both failed and the two harnesses had no runner, no caller and no CI job. They are run from pytest (tests/test_x06_js_harnesses.py) and from the browser CI job; nothing here is shipped in the wheel.",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "node tests/js/bridge_harness.mjs && node tests/js/news_layer_harness.mjs",
+    "test:bridge": "node tests/js/bridge_harness.mjs",
+    "test:news-layer": "node tests/js/news_layer_harness.mjs"
+  }
+}

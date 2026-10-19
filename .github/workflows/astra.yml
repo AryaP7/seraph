@@ -52,3 +52,138 @@ jobs:
         with:
           name: astra-${{ matrix.suite }}
           path: test-results/*.xml
+
+  # ------------------------------------------------------------------ V02
+  #
+  # The audit's V02: "CI jobs for guarded database migrations, JS/browser
+  # flows and installed-wheel smoke. Existing workflow runs pytest against a
+  # disabled DB and older dependency lock; availability on a developer
+  # machine is not CI coverage."
+  #
+  # Three jobs, each closing one of those gaps. Every one reports what it
+  # could NOT check rather than passing silently, because a green job that
+  # skipped its subject is worse than a red one.
+
+  wheel:
+    name: installed-wheel smoke
+    runs-on: windows-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install uv
+        run: python -m pip install uv
+      # O01 — a wheel was shipping without seven runtime assets, and the old
+      # verifier checked a subset so it passed the broken build. This now
+      # installs the wheel OUTSIDE the checkout and runs the audit's own two
+      # failing probes: can the runtime store create `runtime_head`, and does
+      # the curated registry carry rows.
+      - name: Build, install and probe the wheel
+        run: python scripts/verify_packaging.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: astra-packaging
+          path: docs/evidence/PACKAGING-*.json
+
+  migrations:
+    name: guarded database migrations
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    services:
+      postgres:
+        image: timescale/timescaledb:latest-pg16
+        env:
+          POSTGRES_USER: seraph
+          POSTGRES_PASSWORD: seraph
+          POSTGRES_DB: seraph_test_ci
+        ports: ['5435:5432']
+        options: >-
+          --health-cmd pg_isready --health-interval 5s
+          --health-timeout 5s --health-retries 10
+    env:
+      # The three guards in tests/conftest.py: the DSN must name a
+      # `seraph_test_*` database, the token must be set, and the guard must
+      # hold it. A CI database is disposable by construction; these stay in
+      # force so CI cannot be the thing that writes a test marker into a
+      # real store.
+      SERAPH_TEST_DB_DSN: postgresql://seraph:seraph@127.0.0.1:5435/seraph_test_ci
+      SERAPH_TEST_TOKEN: ci-disposable
+      PYTHONIOENCODING: utf-8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: requirements-research.lock.txt
+      - run: python -m pip install -r requirements-research.lock.txt
+      - name: Provision the disposable database
+        run: python scripts/provision_test_db.py
+      - name: Run the DB-gated tests that skip everywhere else
+        run: >-
+          python -m pytest
+          tests/contract/test_ct1_ingestion_idempotency.py
+          tests/test_c2_macro_ingestion.py
+          tests/test_c5_hawkes_writer.py
+          tests/test_fix06_evaluation_identity.py
+          -q --junitxml=test-results/migrations.xml
+      - name: Report any test that still skipped
+        if: always()
+        shell: bash
+        run: |
+          python - <<'PY'
+          import glob, xml.etree.ElementTree as ET
+          skipped = []
+          for path in glob.glob("test-results/migrations.xml"):
+              for case in ET.parse(path).getroot().iter("testcase"):
+                  if case.find("skipped") is not None:
+                      skipped.append(case.get("name"))
+          print(f"skipped in the migrations job: {len(skipped)}")
+          for name in skipped:
+              print(f"  - {name}")
+          if skipped:
+              raise SystemExit(
+                  "a DB-gated test skipped in the job that exists to run it; "
+                  "a green job that skipped its subject is not coverage")
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: astra-migrations
+          path: test-results/*.xml
+
+  browser:
+    name: JS console harnesses
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      PYTHONIOENCODING: utf-8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: requirements-research.lock.txt
+      - run: python -m pip install -r requirements-research.lock.txt
+      # X06 — package-lock.json existed with no package.json, so `npm ci`
+      # could not run and the two harnesses had no runner, no caller and no
+      # CI job at all. Both run directly and through pytest, so a regression
+      # in bridge.js or news_layer.js fails here and in the normal suite.
+      - name: Run the harnesses directly
+        run: npm test
+      - name: Run them through pytest
+        run: >-
+          python -m pytest tests/test_x06_js_harnesses.py -q
+          --junitxml=test-results/browser.xml
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: astra-browser
+          path: test-results/*.xml
