@@ -107,6 +107,79 @@ class NullProducers:
 
 
 @dataclass
+class DailyVintageProducer:
+    """The real producer (R01/T03): daily pillar vintages, read from the store.
+
+    `NullProducers` below says exactly why this shape is right, and it was
+    right: "RMT and Hamilton are daily products read from the store, not
+    derived from a five-minute bar." A five-minute bar close is not an
+    occasion to re-eigendecompose a 1000x500 correlation matrix with a
+    1,000-replication bootstrap; it is an occasion to ask what the latest
+    daily estimate is. So the daily job computes and persists (see
+    `scripts/run_daily.py` and migration 003), and this reads.
+
+    What it does NOT do is invent anything. Every vintage handed back came
+    from a stored row, carrying that row's own `input_end`,
+    `emission_available_at`, absence kind and origin. A pillar with no usable
+    row gets a declared absence, not a guess, and the absence kind is the
+    stored one rather than one inferred here -- structural drops the pillar
+    from the D2 mask and transient does not, and conflating them would
+    silently change the composite.
+
+    Availability is the store's `emission_available_at <= as_of` filter,
+    which is the same rule `InferenceService` applies on admission. That is
+    deliberate: a producer that handed over a vintage the service would then
+    withhold would make the two disagree about what was knowable when.
+    """
+
+    store: object                               #: a `LiveStore`
+    #: Absence declared for a pillar with no stored vintage at all. Structural
+    #: is correct here: no estimate exists, which is not a feed outage that
+    #: might clear on the next tick.
+    missing_absence: str = "structural"
+    missing_reason: str = "no_daily_vintage_persisted"
+
+    def vintages_for(self, bars: "Sequence[Bar]", as_of: datetime
+                     ) -> "list[Vintage]":
+        rows = {r["producer"]: r for r in
+                self.store.daily_vintages(as_of=as_of.isoformat())}
+        stamp = as_of.isoformat()
+        out: list[Vintage] = []
+        for pillar in ORDER:
+            row = rows.get(pillar)
+            if row is None:
+                out.append(Vintage(
+                    producer=pillar, input_end=stamp,
+                    emission_available_at=stamp,
+                    absence=self.missing_absence,
+                    absence_reason=self.missing_reason))
+                continue
+            out.append(Vintage(
+                producer=pillar,
+                input_end=row["input_end"],
+                emission_available_at=row["emission_available_at"],
+                value=row["value"], variance=row["variance"],
+                bundle_id=row["bundle_id"] or "",
+                absence=row["absence"], absence_reason=(
+                    row["absence_reason"] or "no_data_coverage"),
+                quality=row["quality"] or "ok", coverage=row["coverage"]))
+        return out
+
+    def describe(self) -> dict:
+        rows = self.store.daily_vintages()
+        return dict(
+            kind="daily_vintage",
+            connected=[r["producer"] for r in rows if r["value"] is not None],
+            origins={r["producer"]: r["origin"] for r in rows},
+            latest={r["producer"]: r["input_end"] for r in rows},
+            note=("daily pillar vintages read from the runtime store. "
+                  "`origin` says whether each was computed by this "
+                  "installation or read from a prior research artefact; an "
+                  "archived value is a real measurement of an earlier run, "
+                  "not a current reading"))
+
+
+@dataclass
 class StaticProducers:
     """Vintages supplied by the caller, keyed by the bar end they belong to.
 

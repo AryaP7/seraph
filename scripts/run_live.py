@@ -48,7 +48,8 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from seraph.live import LiveLoop, MarketClock, ReplayFeed, resolve_feed  # noqa: E402
-from seraph.live.engine_adapter import NullProducers, attach              # noqa: E402
+from seraph.live.engine_adapter import (                                  # noqa: E402
+    DailyVintageProducer, NullProducers, attach)
 from seraph.live.inference import InferenceService                        # noqa: E402
 from seraph.live.lifecycle import SessionLifecycle, next_session_window   # noqa: E402
 from seraph.live.store import LiveStore                                   # noqa: E402
@@ -77,14 +78,32 @@ def session_dates(clock: MarketClock, *, back: int = 400) -> list[str]:
     return out
 
 
-def build(*, replay: bool, store: LiveStore, clock: MarketClock
-          ) -> "tuple[LiveLoop, InferenceService, object]":
+def build(*, replay: bool, store: LiveStore, clock: MarketClock,
+          producers: str = "daily") -> "tuple[LiveLoop, InferenceService, object]":
+    """Assemble the runtime.
+
+    R01/T03: `producers=NullProducers()` was hardwired here, so every pillar
+    reported a structural absence, no CSRS was ever produced and the
+    publication gate correctly refused to call anything current. That was an
+    honest description of a runtime with no producer attached -- and it is no
+    longer the only option.
+
+    `daily` attaches `DailyVintageProducer`, which reads the vintages
+    `scripts/run_daily.py` persists (migration 003). `none` keeps
+    `NullProducers` reachable, because "no producer is connected" is a state
+    the runtime must still be able to be in and report.
+    """
     feed = resolve_feed(allow_replay=ReplayFeed([], label="empty replay")
                         if replay else None)
-    loop = LiveLoop(feed, clock=clock,
-                    mode="historical_replay" if replay else "live_shadow")
+    mode = "historical_replay" if replay else "live_shadow"
+    loop = LiveLoop(feed, clock=clock, mode=mode)
     service = InferenceService(session_dates=session_dates(clock))
-    evaluator = attach(loop, service, producers=NullProducers())
+    attached = (DailyVintageProducer(store=store) if producers == "daily"
+                else NullProducers())
+    # The stream is part of the decision identity (X04), so a replay's
+    # decisions can never be read as the live stream's.
+    evaluator = attach(loop, service, producers=attached,
+                       stream_id="replay" if replay else "live")
     return loop, service, evaluator
 
 
@@ -240,6 +259,12 @@ def main(argv=None) -> int:
     parser.add_argument("--status", action="store_true",
                         help="report persisted state, lifecycle and clock; "
                              "connect to nothing and start no job")
+    parser.add_argument("--producers", choices=("daily", "none"),
+                        default="daily",
+                        help="daily: read the vintages scripts/run_daily.py "
+                             "persisted. none: attach NullProducers, which "
+                             "reports every pillar as a structural absence "
+                             "and publishes nothing (R01's honest default)")
     parser.add_argument("--replay", action="store_true",
                         help="use an explicit replay feed. Its output is never "
                              "publishable as a current reading")
@@ -261,7 +286,7 @@ def main(argv=None) -> int:
         return report_status(store, clock, lifecycle)
 
     loop, service, evaluator = build(replay=args.replay, store=store,
-                                     clock=clock)
+                                     clock=clock, producers=args.producers)
     # R08: the loop is handed over so the BAR BUILDER is restored too, not
     # only the inference service.
     restored = restore(service, store, lifecycle, loop)

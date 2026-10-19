@@ -43,6 +43,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import math
 import os
 import sqlite3
 import tempfile
@@ -254,6 +255,91 @@ class LiveStore:
                 (batch_id, source_id, received_at or _stamp(), payload_hash,
                  payload_ref, json.dumps(quality or {}, sort_keys=True)))
         return payload_hash
+
+    # --------------------------------------------------- daily vintages
+
+    def record_daily_vintage(self, *, producer: str, input_end: str,
+                             emission_available_at: str, origin: str,
+                             value: float | None = None,
+                             variance: float | None = None,
+                             absence: str | None = None,
+                             absence_reason: str | None = None,
+                             quality: str = "ok",
+                             coverage: float | None = None,
+                             bundle_id: str = "",
+                             detail: dict | None = None,
+                             at: datetime | None = None) -> dict:
+        """Persist one daily pillar emission (T03).
+
+        Idempotent on `(producer, input_end, bundle_id)`: re-running the daily
+        job over the same window is the same vintage, so a cron tick that
+        fires twice writes once. A genuinely new emission has a later
+        `input_end`.
+
+        `origin` must be one of 'computed', 'archived' or 'absent' -- see
+        migration 003 for why that distinction is not cosmetic. A vintage with
+        no value must declare its absence kind, mirroring `Vintage`'s own
+        constructor check, so the invariant holds at the storage boundary too
+        and not only in memory.
+        """
+        if origin not in ("computed", "archived", "absent"):
+            raise StoreError(
+                f"unknown vintage origin {origin!r}; use 'computed' (this "
+                f"installation ran the estimator), 'archived' (read from a "
+                f"prior research artefact) or 'absent'")
+        if value is None and absence is None:
+            raise StoreError(
+                f"{producer}: a vintage with no value must declare its "
+                f"absence as 'structural' or 'transient'. Absence kind is "
+                f"never inferred -- structural drops the pillar from the D2 "
+                f"mask and transient does not")
+        if value is not None and not math.isfinite(value):
+            raise StoreError(f"{producer}: non-finite vintage value {value!r}")
+        stamp = _stamp(at)
+        with self.connect() as db:
+            db.execute(
+                "INSERT OR IGNORE INTO daily_vintages(producer, input_end, "
+                "bundle_id, emission_available_at, value, variance, absence, "
+                "absence_reason, quality, coverage, origin, computed_at, "
+                "detail_json) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                (producer, input_end, bundle_id, emission_available_at, value,
+                 variance, absence, absence_reason, quality, coverage, origin,
+                 stamp, json.dumps(detail or {}, sort_keys=True, default=str)))
+            written = db.total_changes
+        return dict(producer=producer, input_end=input_end,
+                    bundle_id=bundle_id, origin=origin,
+                    stored=bool(written), computed_at=stamp)
+
+    def daily_vintages(self, *, as_of: str | None = None,
+                       producers: "Sequence[str] | None" = None) -> list[dict]:
+        """The newest vintage per pillar readable at `as_of`.
+
+        'Readable' is `emission_available_at <= as_of`, which is the same
+        availability rule `InferenceService` applies -- so a producer cannot
+        hand the service a vintage the service would then withhold, and the
+        two cannot disagree about what was knowable.
+        """
+        sql = ("SELECT * FROM daily_vintages "
+               "WHERE (? IS NULL OR emission_available_at <= ?)")
+        args: list = [as_of, as_of]
+        if producers:
+            sql += " AND producer IN (%s)" % ",".join("?" * len(producers))
+            args.extend(producers)
+        sql += " ORDER BY producer, input_end DESC, emission_available_at DESC"
+        with self.connect() as db:
+            rows = db.execute(sql, args).fetchall()
+        newest: dict[str, dict] = {}
+        for row in rows:
+            newest.setdefault(row["producer"], _vintage_row(row))
+        return [newest[p] for p in sorted(newest)]
+
+    def vintage_history(self, producer: str, *, limit: int = 50) -> list[dict]:
+        with self.connect() as db:
+            rows = db.execute(
+                "SELECT * FROM daily_vintages WHERE producer=? "
+                "ORDER BY input_end DESC, emission_available_at DESC LIMIT ?",
+                (producer, limit)).fetchall()
+        return [_vintage_row(r) for r in rows]
 
     def record_closed_bar(self, bar, *, input_batch_id: str | None = None,
                           revision: int = 0) -> bool:
@@ -637,6 +723,23 @@ class LiveStore:
                                           as_of=latest["as_of"],
                                           publication_state=latest["publication_state"])
                                      if latest else None))
+
+
+def _vintage_row(row) -> dict:
+    """One persisted daily vintage, in `Vintage`'s own vocabulary.
+
+    `origin` and `computed_at` ride alongside because a consumer has to be
+    able to say whether a number was computed here or read from an archive;
+    see migration 003.
+    """
+    return dict(producer=row["producer"], input_end=row["input_end"],
+                bundle_id=row["bundle_id"],
+                emission_available_at=row["emission_available_at"],
+                value=row["value"], variance=row["variance"],
+                absence=row["absence"], absence_reason=row["absence_reason"],
+                quality=row["quality"], coverage=row["coverage"],
+                origin=row["origin"], computed_at=row["computed_at"],
+                detail=json.loads(row["detail_json"] or "{}"))
 
 
 def _decision_row(row) -> dict:
