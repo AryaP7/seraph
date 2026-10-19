@@ -11,6 +11,7 @@ was produced for. A late response whose context no longer matches the selection
 is discarded instead of rendered, and the bridge is told why.
 """
 from pathlib import Path
+import json
 import os
 import time
 import streamlit as st
@@ -252,6 +253,258 @@ def _news_action(event: dict, role: str, news_path, news_master, payload):
         event_ids=tuple(event.get('event_ids') or ()))
 
 
+def workflows_panel(store, point, role):
+    """Browser controls for the three durable workflows (T05, T08, T09).
+
+    `WorkspaceStore`, `ScenarioStore` and `CaseStore` were implemented,
+    tested and reachable through `dispatch()` -- and had no controls, so no
+    user could get at them. This is the surface.
+
+    Streamlit-native rather than added to the console component on purpose.
+    These are durable-state forms: file upload, previewing rejected rows,
+    listing saved records, downloading an export. `bridge.js` owns the 3D
+    globe and the role/decision view, and hand-writing CRUD forms into that
+    IIFE would be a large change with nothing to show for it. The division
+    is by what the surface IS, not by convenience.
+
+    Every button goes through the same `dispatch()` the tests drive, with the
+    same event shape, so what works here is what 33 regression tests already
+    cover.
+    """
+    import uuid as _uuid
+
+    def send(op, **args):
+        """One dispatch, with a fresh request id.
+
+        The id must be unique per click: `CaseStore` dedupes on it, so a
+        reused id makes the second distinct change a silent no-op.
+        """
+        event = dict(id=f"ui-{op}-{_uuid.uuid4().hex[:12]}",
+                     run_id=point['run_id'], date=point['date'], op=op, **args)
+        return dispatch(store, point, role, event)
+
+    def report(outcome, success):
+        if outcome.get('error'):
+            st.warning(outcome['error'])
+        else:
+            st.success(success)
+        return outcome
+
+    identity = None
+    try:
+        identity = send('ws_portfolios')
+    except Exception as exc:                                # noqa: BLE001
+        st.warning(f'Durable workflows unavailable: {exc}')
+        return
+    st.caption(identity['identity']['note'])
+
+    portfolios, scenarios, cases = st.tabs(
+        ['PORTFOLIOS', 'SCENARIOS', 'REGULATOR CASES'])
+
+    # ------------------------------------------------------- portfolios
+    with portfolios:
+        existing = identity['value']
+        if existing:
+            labels = {f"{p['name']} · {p['portfolio_id'][:12]}": p['portfolio_id']
+                      for p in existing}
+            chosen = st.selectbox('Portfolio', list(labels), key='wf_pf')
+            pid = labels[chosen]
+            held = send('ws_holdings', portfolio_id=pid)['value']
+            st.caption(f"{held['basis']} · effective {held.get('effective_at')}")
+            if held.get('scheduled'):
+                st.info(f"A snapshot effective {held['scheduled']['effective_at']} "
+                        f"is scheduled and is NOT in force.")
+            if held['holdings']:
+                st.dataframe(held['holdings'], width='stretch')
+                st.caption(f"total value {held.get('total_value')}")
+            else:
+                st.info(held.get('note', 'no holdings in force'))
+
+            upload = st.file_uploader('Upload holdings (CSV or JSON)',
+                                      type=['csv', 'json'], key='wf_up')
+            body = None
+            if upload is not None:
+                body = upload.getvalue().decode('utf-8', errors='replace')
+                preview = send('ws_preview', portfolio_id=pid, body=body,
+                               source_name=upload.name)['value']
+                st.caption(f"{preview['accepted']} accepted · "
+                           f"{preview['rejected']} rejected")
+                if preview['rejected_rows']:
+                    # Actionable, not a count: "12 rows rejected" is not a
+                    # result the user can do anything with.
+                    st.dataframe(preview['rejected_rows'], width='stretch')
+                for warning in preview.get('warnings') or ():
+                    st.warning(warning)
+            effective = st.text_input('Effective at (IST)',
+                                      value=_now_ist(), key='wf_eff')
+            if st.button('Save snapshot', key='wf_commit') and body:
+                report(send('ws_commit', portfolio_id=pid, body=body,
+                            effective_at=effective, source_name=upload.name),
+                       'Saved. It will still be here after a restart.')
+            with st.expander('History'):
+                st.dataframe(send('ws_snapshots', portfolio_id=pid)['value']
+                             or [{'note': 'no snapshots yet'}], width='stretch')
+        else:
+            st.info('No portfolio yet.')
+        new_name = st.text_input('New portfolio name', key='wf_new')
+        if st.button('Create portfolio', key='wf_create') and new_name.strip():
+            report(send('ws_create', name=new_name), 'Created.')
+            st.rerun()
+
+        with st.expander('Watchlist'):
+            items = st.text_input('Symbols, comma separated', key='wf_wl')
+            if st.button('Save watchlist', key='wf_wlsave') and items.strip():
+                report(send('ws_watchlist_save', name='default',
+                            items=[s.strip() for s in items.split(',') if s.strip()]),
+                       'Watchlist saved.')
+            st.write(send('ws_watchlists')['value'] or 'none saved')
+
+    # -------------------------------------------------------- scenarios
+    with scenarios:
+        if role == 'retail':
+            st.info('Scenarios are an institutional or regulator tool. '
+                    'Switch role in the console.')
+        else:
+            saved = send('sc_list')['value']
+            if saved:
+                labels = {f"{s['name']} · r{s['assumption_version']} · "
+                          f"{s['scenario_id'][:10]}": s['scenario_id']
+                          for s in saved}
+                chosen = st.selectbox('Scenario', list(labels), key='wf_sc')
+                sid = labels[chosen]
+                columns = st.columns(4)
+                if columns[0].button('Run', key='wf_scrun'):
+                    outcome = report(send('sc_run', scenario_id=sid), 'Ran.')
+                    if not outcome.get('error'):
+                        st.write(outcome['value'])
+                if columns[1].button('History', key='wf_schist'):
+                    st.write(send('sc_history', scenario_id=sid)['value'])
+                verdict = columns[2].selectbox(
+                    'Verdict', ['approved', 'changes_requested', 'rejected'],
+                    key='wf_scv', label_visibility='collapsed')
+                if columns[2].button('Review', key='wf_screv'):
+                    report(send('sc_review', scenario_id=sid, verdict=verdict),
+                           'Review recorded against this exact revision.')
+                export = send('sc_export', scenario_id=sid)
+                if not export.get('error'):
+                    columns[3].download_button(
+                        'Export', data=json.dumps(export['value'], indent=2,
+                                                  default=str),
+                        file_name=export['filename'], mime='application/json',
+                        key='wf_scexp')
+                if len(labels) > 1:
+                    other = st.selectbox('Compare with',
+                                         [k for k in labels if labels[k] != sid],
+                                         key='wf_sccmp')
+                    if st.button('Compare', key='wf_sccmpgo'):
+                        st.write(send('sc_compare', left_id=sid,
+                                      right_id=labels[other])['value'])
+            else:
+                st.info('No scenario saved yet.')
+            with st.expander('Save a new rank-shock scenario'):
+                name = st.text_input('Name', key='wf_scname')
+                pillar = st.selectbox('Pillar', list(PILLAR_ORDER), key='wf_scp')
+                delta = st.number_input('Rank shock', -1.0, 1.0, 0.1, 0.05,
+                                        key='wf_scd')
+                horizon = st.number_input('Horizon (sessions)', 1, 60, 5,
+                                          key='wf_sch')
+                why = st.text_input('Justification (required)', key='wf_scj')
+                if st.button('Save scenario', key='wf_scsave'):
+                    if not why.strip():
+                        st.warning('An assumption needs a justification: an '
+                                   'unlabelled hypothetical cannot be told '
+                                   'apart from a measurement later.')
+                    else:
+                        report(send('sc_save', name=name, kind='rank_shock',
+                                    steps=[dict(pillar=pillar, delta=delta,
+                                                horizon=int(horizon))],
+                                    assumptions=[dict(key='shock', value=delta,
+                                                      unit='rank',
+                                                      justification=why)]),
+                               'Saved with its assumptions.')
+                        st.rerun()
+
+    # ------------------------------------------------------------ cases
+    with cases:
+        if role != 'regulator':
+            st.info('Case management is a regulator tool. Switch role in the '
+                    'console.')
+        else:
+            open_cases = send('case_list')['value']
+            if open_cases:
+                labels = {f"{c['title'][:40]} · {c['status']} · v{c['version']}":
+                          c for c in open_cases}
+                chosen = st.selectbox('Case', list(labels), key='wf_case')
+                case = labels[chosen]
+                cid, version = case['case_id'], case['version']
+                st.caption(f"{cid} · status {case['status']} · version {version}")
+                with st.expander('Attach pinned evidence'):
+                    kind = st.selectbox('Kind', ['run_point', 'news_event',
+                                                 'story', 'model_fit',
+                                                 'scenario'], key='wf_evk')
+                    ref = st.text_input('Reference id', key='wf_evr',
+                                        value=f"{point['run_id']}:{point['date']}")
+                    revision = st.text_input('Revision (required)', '1',
+                                             key='wf_evrev')
+                    if st.button('Attach', key='wf_evgo'):
+                        report(send('case_evidence', case_id=cid,
+                                    expected_version=version,
+                                    refs=[dict(kind=kind, ref_id=ref,
+                                               revision=revision)]),
+                               'Evidence pinned at that revision.')
+                        st.rerun()
+                with st.expander('Record a decision'):
+                    outcome = st.text_input('Outcome', 'soft_warning',
+                                            key='wf_dco')
+                    rationale = st.text_area('Rationale (required)',
+                                             key='wf_dcr')
+                    if st.button('Record', key='wf_dcgo'):
+                        report(send('case_decision', case_id=cid,
+                                    expected_version=version, outcome=outcome,
+                                    rationale=rationale,
+                                    action_category=outcome),
+                               'Decision recorded.')
+                        st.rerun()
+                with st.expander('Change status'):
+                    from seraph.decision_support.cases import TRANSITIONS
+                    allowed = TRANSITIONS.get(case['status'], ())
+                    if allowed:
+                        target = st.selectbox('To', list(allowed), key='wf_stt')
+                        reason = st.text_input('Reason', key='wf_str')
+                        if st.button('Apply', key='wf_stgo'):
+                            report(send('case_status', case_id=cid,
+                                        expected_version=version,
+                                        status=target, reason=reason),
+                                   f'Moved to {target}.')
+                            st.rerun()
+                    else:
+                        st.info(f"No move is permitted from {case['status']}.")
+                export = send('case_export', case_id=cid)
+                if not export.get('error'):
+                    st.download_button(
+                        'Export case', data=json.dumps(export['value'],
+                                                       indent=2, default=str),
+                        file_name=export['filename'],
+                        mime='application/json', key='wf_caseexp')
+            else:
+                st.info('No case open.')
+            with st.expander('Open a case on this alert'):
+                from seraph.decision_support.cases import PRIORITIES
+                title = st.text_input('Title', key='wf_ctitle')
+                priority = st.selectbox('Priority', list(PRIORITIES), index=1,
+                                        key='wf_cpri')
+                if st.button('Open case', key='wf_cgo') and title.strip():
+                    report(send('case_open', title=title, priority=priority),
+                           'Case opened against the selected alert.')
+                    st.rerun()
+
+
+def _now_ist() -> str:
+    from datetime import datetime as _dt
+    from seraph.shared_types import IST as _IST, ist_timestamp as _ts
+    return _ts(_dt.now(_IST).replace(microsecond=0))
+
+
 def market_jobs_panel():
     """What the market side of startup achieved (C15).
 
@@ -487,6 +740,14 @@ def main():
         report=bundle['report'],
         news_store=news_store,news_master=news_master, news_mode=news_mode, news_offset=(news_offset-1)*40)
     st.caption(f'Run {selected[:16]} · decision {point["evaluation_timestamp"]} · role {role}')
+
+    # T05/T08/T09: the durable workflows. Placed after the run/date/role
+    # selection because every one of them is scoped to that selection --
+    # a case is opened against THIS alert, a scenario's baseline is THIS
+    # point -- and `dispatch` refuses a stale context.
+    with st.expander('MY WORKSPACE — portfolios, scenarios, cases',
+                     expanded=False):
+        workflows_panel(store, point, role)
     st.caption(f'News: {news_mode} · {(payload.get("news") or {}).get("as_of", "unavailable")} · Market decision: {point["evaluation_timestamp"]}')
     # What the last manual refresh actually achieved. A refresh that could not
     # reach every source must say which ones, or it implies a completeness it
