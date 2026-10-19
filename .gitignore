@@ -16,3 +16,10 @@ kite_credentials.tokens.json
 test-results/
 
 prototype_runs/
+
+# uv.lock is a byproduct of `uv build` / `uv venv`, which
+# scripts/verify_packaging.py runs. This project's lock is
+# requirements-research.lock.txt (see its header and the invariant check in
+# scripts/check_invariants.py); two lockfiles at the root would be two
+# answers to one question.
+uv.lock
