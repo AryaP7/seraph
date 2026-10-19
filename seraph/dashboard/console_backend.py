@@ -230,6 +230,9 @@ def project_run(point, manifest, points, role, *, log=None, portfolio=None,
     payload = dict(run_id=point['run_id'],date=point['date'],timestamp=point['evaluation_timestamp'],
         cutoff=point['data_cutoff'],mode=manifest['mode'],role=role,view=view,
         history=_history_with_benchmark(points,point),
+        # FR45/FR51: the real market aggregate, or an explicit absence. The
+        # console previously carried three fabricated `(example)` values here.
+        flow=market_flow(point.get('date')),
         portfolio=portfolio if portfolio is not None else point.get('portfolio'),
         news=news_branch(point, store=news_store, master=news_master,
                          preview=news_preview, role=role, news_mode=news_mode,
@@ -249,6 +252,82 @@ def project_run(point, manifest, points, role, *, log=None, portfolio=None,
     if role == 'regulator':
         payload.update(manifest=manifest,action_log=log or [])
     return clean(payload)
+
+
+def market_flow(as_of: str | None = None) -> dict:
+    """FR45/FR51 — the latest real market-level FII/DII flow, or why there
+    is none.
+
+    The console showed `FII net (example) -1200`, `DII net (example) 900`,
+    `Residual share (example) 0.72` -- three fabricated numbers, labelled
+    `(example)` but sitting where a measurement belongs. E14 now carries real
+    published prints (`seraph/ingestion/flow_client.py` reads NSE's public
+    `fiidiiTradeReact` endpoint and its index-turnover archive), so this
+    reads them.
+
+    Returns `available=False` with a reason rather than a placeholder when
+    E14 is empty or unreachable. An empty panel that says why is honest; an
+    example number in a measurement's place is not, however it is labelled.
+
+    The flow is a MARKET AGGREGATE. `flow_diagnostic` carries the scope
+    caveat and it must not be softened on the way to the screen: bar data has
+    no counterparty tags, so `residualFlowShare` is a proxy for
+    non-institutional participation and never a per-instrument retail
+    attribution.
+    """
+    import asyncio
+
+    from seraph.decision_support.artefacts import flow_diagnostic
+
+    async def _read() -> dict | None:
+        import asyncpg
+
+        from seraph.store.bootstrap import DEFAULT_DSN
+        connection = await asyncpg.connect(DEFAULT_DSN, timeout=5)
+        try:
+            sql = ("SELECT date, fii_net, dii_net, total_turnover, "
+                   "residual_flow_share FROM flow_aggregates ")
+            args: tuple = ()
+            if as_of:
+                # asyncpg binds a real `date`, not an ISO string, for a date
+                # parameter -- a string raises DataError even with the cast.
+                from datetime import date as _date
+                sql += "WHERE date <= $1 "
+                args = (_date.fromisoformat(as_of[:10]),)
+            sql += "ORDER BY date DESC LIMIT 1"
+            row = await connection.fetchrow(sql, *args)
+            return dict(row) if row else None
+        finally:
+            await connection.close()
+
+    try:
+        row = asyncio.run(_read())
+    except Exception as exc:                                # noqa: BLE001
+        return dict(available=False,
+                    reason=(f"the flow store could not be read "
+                            f"({type(exc).__name__}). No example values are "
+                            f"substituted"))
+    if row is None:
+        return dict(available=False,
+                    reason=("no FII/DII print has been ingested yet. Run "
+                            "`python -m seraph.ingestion.flow_client`; NSE "
+                            "serves no free bulk history, so the series "
+                            "accumulates forward from first capture"))
+
+    numeric = {k: (float(v) if v is not None else None)
+               for k, v in row.items() if k != "date"}
+    result = flow_diagnostic(numeric)
+    if result.status != "ok":
+        return dict(available=False, date=str(row["date"]),
+                    reason=f"stored flow row is unusable: {result.error}")
+    return dict(available=True, date=str(row["date"]), **result.value,
+                totalTurnoverCrore=numeric.get("total_turnover"),
+                units="INR crore, as published by NSE",
+                warnings=[w.message for w in result.warnings],
+                scope=("market aggregate across NSE+BSE+MSEI for the FII/DII "
+                       "numerator against NSE cash turnover. A proxy for "
+                       "non-institutional participation, never a "
+                       "per-instrument retail attribution"))
 
 
 def _history_with_benchmark(points, point) -> dict:
@@ -643,7 +722,31 @@ def _dispatch(store, point, role, event):
         if not isinstance(holdings,list) or len(holdings)>10000:
             raise ValueError('Provide a JSON list of at most 10000 holdings')
         # News preview flags never enter measured portfolio arithmetic.
-        return dict(kind='portfolio',value=unwrap(portfolio_overlay(holdings,{})),basis='User supplied current holdings; measured sector flags unavailable')
+        #
+        # The empty sector-flag mapping is not an oversight and must not be
+        # filled with a plausible substitute. FR14's micro-flags come from
+        # per-sector JUMP EVENT counts, `estimate_state(sector_counts=...,
+        # sector_baselines=...)`, and those counts come from the Lee-Mykland
+        # extraction over 5-minute bars (FR50). `intraday_bars` is empty and
+        # filling it needs a Kite Connect subscription plus a daily
+        # interactive login, so no measured sector flag exists to pass. News
+        # sector mechanisms are a different subsystem and are qualitative;
+        # routing them in here would turn a hypothesis into a measurement.
+        return dict(kind='portfolio',
+                    value=unwrap(portfolio_overlay(holdings,{})),
+                    basis='User supplied current holdings; measured sector '
+                          'flags unavailable',
+                    sector_flags=dict(
+                        available=False,
+                        requires='per-sector jump counts from 5-minute '
+                                 'intraday bars (FR14 via FR50)',
+                        blocked_by='intraday_bars is empty; populating it '
+                                   'needs a Kite Connect subscription and a '
+                                   'daily interactive login '
+                                   '(scripts/backfill_intraday.py)',
+                        note='no substitute is used. News-derived sector '
+                             'mechanisms are qualitative and belong to a '
+                             'different subsystem'))
     if op=='action':
         if role!='regulator': raise ValueError('Regulator role required')
         if not point['composite']: raise ValueError('No scored alert to annotate')
