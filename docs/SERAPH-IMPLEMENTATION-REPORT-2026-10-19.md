@@ -1,7 +1,7 @@
 # SERAPH — autonomous implementation report
 
 Session date: 19 October 2026. Branch: `seraph/engineering-completion`,
-cut from `main` at `51680bb`. Ten commits, nothing pushed.
+cut from `main` at `51680bb`. Twelve commits, nothing pushed.
 
 **Headline:** full suite **2067 passed, 14 skipped, 0 failed**; 236 new
 regression tests; O01 and R08 both pass their full acceptance against real
@@ -155,6 +155,7 @@ Fixing fewer than all three leaves the hole.
 | Check | Result |
 |---|---|
 | **Full suite, session end** | **2067 passed, 14 skipped, 0 failed** (18m14s) |
+| Core legs re-run after the final commit | 2044 passed, 14 skipped, 0 failed (4m35s) |
 | Full suite at session start | 1705 passed, 4 skipped (1715 collected) |
 | `scripts/check_invariants.py` | exit 0, with two `[info]` notes |
 | `scripts/verify_packaging.py` | **passed**, all 7 conditions |
@@ -285,10 +286,15 @@ reversals are recorded in DR-11 rather than quietly dropped.
 
 ## 9. Git
 
-Branch `seraph/engineering-completion` from `51680bb`. Ten commits, **no
+Branch `seraph/engineering-completion` from `51680bb`. Twelve commits, **no
 push, no merge, no force**. `main` is untouched.
 
+Source and configuration changed, excluding the baseline capture: **25 files,
+~1823 insertions.** Plus ~2200 lines of new tests across seven new modules.
+
 ```
+66e57bb  Restore LF line endings on seven files I rewrote
+43b6747  Final report: real suite numbers, X12, and W0-D's actual blocker
 ce11ba8  R08 acceptance, and a false-conflict path it exposed in R06
 e3ebcca  Record contracts, backlog disposition and the O01 acceptance evidence
 22f1fe2  V02, X06: close the three CI gaps and give the JS harnesses a runner
