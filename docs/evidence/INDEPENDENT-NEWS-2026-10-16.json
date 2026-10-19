@@ -1,0 +1,74 @@
+{
+  "created_at": "2026-10-16T22:06:33+05:30",
+  "actual_store_projection": {
+    "source_coverage": {
+      "covered": 2,
+      "total": 3,
+      "uncovered": [
+        "rbi_press_releases: last success 147min before, past its 90min freshness policy"
+      ],
+      "complete": false,
+      "note": "sources that failed or were never fetched are listed. An empty map with uncovered sources is missing coverage, not a quiet market"
+    },
+    "connected_surfaces_if_builder_were_called": [
+      "signals"
+    ],
+    "preview_surfaces": [
+      "sector_stress",
+      "geography",
+      "assets"
+    ],
+    "registry": {
+      "entities": 0,
+      "places": 0,
+      "assets": 0,
+      "edges": 0
+    },
+    "visible_story_count": 30,
+    "latest_first_seen": "2026-10-16T19:38:38+05:30",
+    "latest_published": "2026-10-16T18:30:00+05:30",
+    "event_types_in_signal_rail": [
+      "debt_instrument_event",
+      "official_speech",
+      "liquidity_operation",
+      "statistical_release",
+      "official_speech",
+      "liquidity_operation",
+      "official_speech",
+      "bank_resolution",
+      "liquidity_operation",
+      "liquidity_operation",
+      "official_speech",
+      "official_speech"
+    ]
+  },
+  "synthetic_facility_event": {
+    "affected": [
+      "steel"
+    ],
+    "actors": [],
+    "direct_asset_resolution_exists": {
+      "mention": "Kalinganagar",
+      "status": "resolved",
+      "entity_id": "plant",
+      "candidates": [],
+      "matched_on": "asset"
+    },
+    "extractor_resolved_facility": false,
+    "extractor_resolved_place": false
+  },
+  "synthetic_same_source_copies": {
+    "unique_source_count": 1,
+    "stories": 10,
+    "reported_confirmations": 10,
+    "confidence_with_medium_path": "medium"
+  },
+  "synthetic_opposite_policy_moves": {
+    "cut_type": "policy_rate_decision",
+    "cut_direction": "adverse",
+    "hike_type": "policy_rate_decision",
+    "hike_direction": "adverse",
+    "note": "event-level fixed direction; no target-specific economic interpretation"
+  },
+  "canonical_frontend_calls_builder": false
+}

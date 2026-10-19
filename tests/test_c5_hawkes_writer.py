@@ -50,6 +50,27 @@ class _FakePool:
         return [{"ts": t, "close": c} for t, c in self._data.get(symbol, [])]
 
 
+def _pooled(stream, members=None):
+    """Pool the whole grid over every loaded symbol.
+
+    T05 changed `load_stream` to return a `PooledStream` whose counts are
+    pooled per window from that window's member set, rather than one
+    pre-pooled stream. These tests are about the loader's data quality and
+    jump attribution, which are unchanged, so they pool the full grid over
+    every symbol and assert exactly what they asserted before.
+    """
+    members = tuple(stream.series) if members is None else tuple(members)
+    if not stream.bars:
+        empty = np.zeros(0)
+        return dict(n_neg=empty, n_pos=empty, active=empty)
+    hi = len(stream.bars) - 1
+    inputs, _ = stream.window(0, hi, segments=[(0, hi, members)],
+                              policy="fixed_at_fit_cutoff", declared=members,
+                              basket_id="", basket_basis="point_in_time",
+                              rebalance_date=None)
+    return inputs
+
+
 # --------------------------------------------------------------- schedule ---
 
 def test_refit_points_respects_the_window_and_steps_by_sessions():
@@ -128,31 +149,33 @@ def test_nonpositive_closes_are_dropped_and_counted_never_patched():
     corrupted = [(t, 0.0) if 75 <= i < 150 else (t, c)
                  for i, (t, c) in enumerate(good)]
     pool = _FakePool({"AAA": corrupted})
-    st = asyncio.run(whp.load_stream(pool, ["AAA"]))
+    stream = asyncio.run(whp.load_stream(pool, ["AAA"]))
+    st = _pooled(stream)
 
-    assert st["dq"]["bars_dropped_nonpositive"] == 75
-    assert st["dq"]["bars_read"] == len(bars)
-    assert len(st["bars"]) == len(bars) - 75
+    assert stream.quality.bars_dropped_nonpositive == 75
+    assert stream.quality.bars_read == len(bars)
+    assert len(stream.bars) == len(bars) - 75
     # the blanked session contributes no bars at all, so nothing was patched
     blanked_day = bars[75].date()
-    assert blanked_day not in set(st["day"]), "a dropped session must not reappear"
+    assert blanked_day not in set(stream.day), "a dropped session must not reappear"
     assert st["active"].min() >= 1.0
 
 
 def test_a_symbol_below_the_bar_floor_is_excluded_not_padded():
     pool = _FakePool({"SHORT": [(t, 100.0) for t in _session_bars(1)]})
-    st = asyncio.run(whp.load_stream(pool, ["SHORT"]))
-    assert st["dq"]["symbols_too_short"] == 1
-    assert st["dq"]["symbols_used"] == 0
-    assert st["bars"] == []
+    stream = asyncio.run(whp.load_stream(pool, ["SHORT"]))
+    assert stream.quality.symbols_too_short == ("SHORT",)
+    assert stream.quality.symbols_used == 0
+    assert stream.bars == []
 
 
 def test_active_symbol_count_tracks_contributing_symbols_per_bar():
     bars = _session_bars(4)
     a = [(t, 100.0 + 0.05 * i) for i, t in enumerate(bars)]
     b = [(t, 50.0 + 0.05 * i) for i, t in enumerate(bars)]
-    st = asyncio.run(whp.load_stream(_FakePool({"A": a, "B": b}), ["A", "B"]))
-    assert st["dq"]["symbols_used"] == 2
+    stream = asyncio.run(whp.load_stream(_FakePool({"A": a, "B": b}), ["A", "B"]))
+    st = _pooled(stream)
+    assert stream.quality.symbols_used == 2
     assert st["active"].max() == 2.0, "both symbols trade every bar"
 
 
@@ -177,7 +200,7 @@ def test_jump_counts_are_separated_by_sign():
     close = 100.0 * np.exp(np.cumsum(ret))
     rows = list(zip(bars, close.tolist()))
 
-    st = asyncio.run(whp.load_stream(_FakePool({"A": rows}), ["A"]))
+    st = _pooled(asyncio.run(whp.load_stream(_FakePool({"A": rows}), ["A"])))
     assert st["n_neg"].shape == st["n_pos"].shape == (len(bars),)
     assert st["n_neg"].sum() >= 1.0, "the planted crash bar must be a negative jump"
     assert st["n_pos"].sum() >= 1.0, "the planted spike bar must be a positive jump"
@@ -195,7 +218,7 @@ def test_a_constant_series_yields_no_jumps_rather_than_dividing_by_zero():
     """
     bars = _session_bars(4)
     rows = [(t, 100.0) for t in bars]
-    st = asyncio.run(whp.load_stream(_FakePool({"A": rows}), ["A"]))
+    st = _pooled(asyncio.run(whp.load_stream(_FakePool({"A": rows}), ["A"])))
     assert st["n_neg"].sum() == 0.0
     assert st["n_pos"].sum() == 0.0
     assert np.isfinite(st["n_neg"]).all() and np.isfinite(st["n_pos"]).all()
@@ -254,7 +277,10 @@ def _db_available() -> bool:
 
 
 @pytest.mark.skipif(not _db_available(),
-                    reason="TimescaleDB not reachable — run `docker compose up -d` first")
+                    reason=("database unusable; DB tests need a disposable seraph_test_* "
+                            "database with SERAPH_TEST_DB_DSN and "
+                            "SERAPH_TEST_TOKEN (see tests/conftest.py); "
+                            "`docker compose up -d` alone is not enough"))
 def test_e6_upsert_is_idempotent_on_the_natural_key():
     """Writing the same sentinel row twice must not duplicate it (CT-1's rule for E6).
 
@@ -308,7 +334,10 @@ def test_e6_upsert_is_idempotent_on_the_natural_key():
 
 
 @pytest.mark.skipif(not _db_available(),
-                    reason="TimescaleDB not reachable — run `docker compose up -d` first")
+                    reason=("database unusable; DB tests need a disposable seraph_test_* "
+                            "database with SERAPH_TEST_DB_DSN and "
+                            "SERAPH_TEST_TOKEN (see tests/conftest.py); "
+                            "`docker compose up -d` alone is not enough"))
 def test_e6_rejects_a_branching_ratio_at_or_above_one():
     """FR11 is enforced by the schema, not merely by the engine."""
     import asyncpg

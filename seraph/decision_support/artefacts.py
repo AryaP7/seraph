@@ -1,5 +1,10 @@
-# C11 — Decision Support (FR43–FR49)
-"""The seven O10 artefacts.
+# C11 — Decision Support (FR44–FR48)
+"""Five of the seven O10 artefacts: explanation, flow diagnostic, both
+simulators, playbook.
+
+The other two own a module each, because each is independently testable and
+neither has anything to do with the other: FR43's portfolio overlay is in
+`portfolio.py`, FR49's regulator action log in `action_log.py`.
 
 Design rule throughout: **C11 translates, it does not compute risk.** Every
 number it presents comes from C9/C10 or the store. The two simulators call
@@ -7,8 +12,6 @@ C9's `score()` on perturbed inputs rather than reimplementing the formula —
 forking that logic is precisely what CT-7 exists to catch.
 """
 from __future__ import annotations
-
-from dataclasses import dataclass
 
 import numpy as np
 
@@ -86,40 +89,6 @@ def explain(point: CsrsPoint) -> Ok[dict] | Err:
     return ok({"sentence": sentence, "dominantPillar": dominant}, warnings)
 
 
-def portfolio_overlay(
-    holdings: "list[dict]", sector_flags: "dict[str, str]"
-) -> Ok[dict] | Err:
-    """FR43 — map sector micro-flags onto a user's holdings.
-
-    `holdings` rows need `symbol`, `value` and `sector`. Exposure is reported as
-    a percentage of total portfolio value, which is the number a retail holder
-    can act on; naming flagged sectors without sizing them is not decision
-    support.
-    """
-    if not holdings:
-        return err(ContractViolation(field="holdings", detail="empty portfolio"))
-    total = sum(float(h.get("value", 0.0)) for h in holdings)
-    if total <= 0:
-        return err(ContractViolation(
-            field="holdings", detail="total portfolio value must be positive"))
-
-    by_sector: dict[str, float] = {}
-    for h in holdings:
-        by_sector[h.get("sector", "unclassified")] = (
-            by_sector.get(h.get("sector", "unclassified"), 0.0) + float(h.get("value", 0.0))
-        )
-    rows = [
-        {
-            "sectorId": sector,
-            "pct": 100.0 * value / total,
-            "flag": sector_flags.get(sector, "none"),
-        }
-        for sector, value in sorted(by_sector.items(), key=lambda kv: -kv[1])
-    ]
-    exposed = sum(r["pct"] for r in rows if r["flag"] == "amber")
-    return ok({"exposedPct": exposed, "bySector": rows})
-
-
 def flow_diagnostic(row: "dict") -> Ok[dict] | Err:
     """FR45 — market-level institutional-vs-residual flow.
 
@@ -134,6 +103,17 @@ def flow_diagnostic(row: "dict") -> Ok[dict] | Err:
             field="total_turnover", detail="turnover must be positive"))
     fii = float(row.get("fii_net", 0.0))
     dii = float(row.get("dii_net", 0.0))
+    # E14 already carries the producer's documented proxy. Do not replace
+    # it with a different net-flow formula or conceal scope mismatch by clipping.
+    if row.get("residual_flow_share") is not None:
+        residual = float(row["residual_flow_share"])
+        if not np.isfinite(residual):
+            return err(ContractViolation(field="residual_flow_share", detail="non-finite stored proxy"))
+        return ok({"fiiNet": fii, "diiNet": dii, "residualFlowShare": residual,
+                   "basis": "stored E14 proxy; producer numerator/denominator scope caveats apply"},
+                  warnings=(SeraphWarning(code="ESTIMATOR_FALLBACK",
+                      message="Stored flow proxy is not measured retail participation",
+                      context={"field": "residual_flow_share"}),))
     residual = 1.0 - (abs(fii) + abs(dii)) / turnover
     return ok({
         "fiiNet": fii,
@@ -235,63 +215,3 @@ def playbook(dominant_pillar: str) -> Ok[dict] | Err:
         "drawdownReductionPct": None,
         "status": "awaiting C10 back-test calibration",
     })
-
-
-@dataclass
-class DecisionSupport:
-    """S10 — the C11 facade. Holds the regulator action log (FR49) in memory;
-    persistence is C1's job via E12."""
-
-    actions: list[dict]
-
-    def __init__(self) -> None:
-        self.actions = []
-
-    def log_regulatory_action(
-        self, *, alert_id: str, action: str, decomposition: tuple
-    ) -> Ok[dict] | Err:
-        """FR49 — record the regulator's response against the alert's pillar
-        decomposition. Logging only: SPEC §7 item 5 puts using this log to
-        recalibrate κ out of scope, and nothing here does so."""
-        if action not in ("none", "soft_warning", "circuit_breaker"):
-            return err(ContractViolation(
-                field="action", detail=f"unknown action {action!r}"))
-        entry = {
-            "alertId": alert_id,
-            "actionTaken": action,
-            "pillarDecompositionSnapshot": tuple(float(x) for x in decomposition),
-        }
-        self.actions.append(entry)
-        return ok(entry)
-
-    async def persist_actions(self, pool) -> Ok[int] | Err:
-        """FR49 — flush the in-memory log to E12 (regulatory_action_log).
-
-        Idempotent on alert_id, matching C1's convention, so replaying a session
-        cannot duplicate the audit trail. NFR26 requires these records be
-        immutable in spirit; re-logging the same alert overwrites rather than
-        appending a second, conflicting row.
-        """
-        import asyncpg as _asyncpg
-
-        if not self.actions:
-            return ok(0)
-        try:
-            async with pool.acquire() as conn:
-                await conn.executemany(
-                    """
-                    INSERT INTO regulatory_action_log
-                        (alert_id, ts, action_taken, pillar_decomposition_snapshot)
-                    VALUES ($1, now(), $2, $3)
-                    ON CONFLICT (alert_id) DO UPDATE SET
-                        action_taken = EXCLUDED.action_taken,
-                        pillar_decomposition_snapshot =
-                            EXCLUDED.pillar_decomposition_snapshot
-                    """,
-                    [(a["alertId"], a["actionTaken"],
-                      list(a["pillarDecompositionSnapshot"])) for a in self.actions],
-                )
-        except (OSError, _asyncpg.InterfaceError, _asyncpg.PostgresError) as exc:
-            return err(ContractViolation(
-                field="regulatory_action_log", detail=str(exc)))
-        return ok(len(self.actions))

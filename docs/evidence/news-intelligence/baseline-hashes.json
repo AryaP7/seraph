@@ -1,0 +1,20 @@
+{
+  "seraph/news/acquisition.py": "ee31a5e13a3cdcd7d2b0dca4c949c02f15dac0c3a8cc780522f3f3d82b44048b",
+  "seraph/news/estimation.py": "cb5cbfd590c224efe9510aa4e317d0cc3fa2bc6d0eab4fe5ff3e808b1fe44406",
+  "seraph/news/extraction.py": "12de2d83a889464043861e1e0a8767dfd4b3aa5f5645caf1420cf5f0c28109bc",
+  "seraph/news/http_feed.py": "202ae467e03c0d7c822e035239fa12ac50123a8a5a70be64535fb31a30a732d1",
+  "seraph/news/json_feed.py": "0d29c7aa2738fd5df75eab0a3ada191be79bac521d20ffc735b099acf97e47c9",
+  "seraph/news/model.py": "6d0fdfda1c7a7c851ec64b75eff3af54e324fd7f11c26f6735cab9ab0eba1bdb",
+  "seraph/news/registry.py": "391b6816d5edf66e70e6fc3b53c715ee624f3382f3fba4aff10a65812b413c8c",
+  "seraph/news/__init__.py": "40419c29e78419c78ced351b5486a1440b5b1d67c13237a3c50bbc364f6754fa",
+  "seraph/news/curated/assets.csv": "4217acad713aaf8361796e3b52ccdb5bd9765c0e5b22d435b32d4bbfff6188a7",
+  "seraph/news/curated/entities.csv": "3a82de8d0d8bb79b04ee60d126ca36ee5d7f1c754ebcc19a94e46d3414fd888a",
+  "seraph/news/curated/exposure.csv": "83016cfb57ffac92def6212422ad5a48734608f86ffb75e4a5d567e63f56d768",
+  "seraph/news/curated/places.csv": "54b8b286cdfcab2e800bc0b8948b853c9284c3b01604b71ce1da4b5542bdcb64",
+  "seraph/news/curated/source_places.csv": "a06553cfe828b7df550da55ce440d90cd36169e8f08281629b7c481bad5369e5",
+  "seraph/dashboard/news_view.py": "6fa1f005374425c27840059a0df5a6f814cdacf1d70013ba4d5c698665f99f6e",
+  "seraph/dashboard/globe_payload.py": "d7f9a76ebeb252914cd5be54fe466b3f4cbd1246d39126b807dce6f4f40970f2",
+  "seraph/dashboard/console_backend.py": "2953cb1d59d70803268dabff764bde3d700d4f004dfc23128ba9634fcef1318a",
+  "seraph/dashboard/prototype_app.py": "c1368a98bd63cbfdbd85c9d2f48bd2ee793d62f23699d8ee3d43a66a9b2f6724",
+  "scripts/run_news.py": "f73580ea748e1333a1d936420bb874c473a516cbe68344d97887b9e937730ee8"
+}

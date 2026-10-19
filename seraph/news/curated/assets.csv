@@ -1,0 +1,55 @@
+# NEWS03 asset master data. Loaded by seraph/news/registry.py.
+#
+# THIS FILE IS INTENTIONALLY EMPTY OF ASSETS.
+# An asset's place_id is the FACILITY's location. It is never the operator's
+# registered office: conflating them is how a Mumbai headquarters becomes the
+# site of a disrupted plant in Odisha. The loader refuses an uncited row and
+# refuses a place_id that is not in places.csv.
+#
+# -- COLUMNS -----------------------------------------------------------------
+# asset_id            unique, stable, lowercase_snake.
+# name                as the operator or the permit names it.
+# kind                plant | mine | port | refinery | terminal |
+#                     power_station | warehouse
+# place_id            REQUIRED, from places.csv. The facility's own location.
+# operator_entity_id  who runs it.
+# owner_entity_id     who owns it, when different.
+# capacity            numeric. REQUIRES capacity_unit; a bare number is not a
+#                     quantity.
+# capacity_unit       e.g. mtpa, MW, TEU/yr.
+# status              operational | under_construction | planned |
+#                     maintenance | unknown. Default unknown — say so rather
+#                     than assume it is running.
+# lat, lon            decimal degrees, WGS84.
+# source_ref          REQUIRED. Prefer the operator's own disclosure, the
+#                     environmental clearance or the regulator's register.
+#
+asset_id,name,kind,place_id,operator_entity_id,owner_entity_id,capacity,capacity_unit,status,lat,lon,source_ref,known_from
+tata_kalinganagar,Kalinganagar,plant,in_od_kalinganagar,tata_steel,tata_steel,,,unknown,,,https://www.tatasteel.com/media/newsroom/press-releases/india/2025/tata-steel-inaugurates-phase-ii-expansion-of-kalinganagar-operations/,2026-10-17T07:15:00+05:30
+ntpc_barauni,Barauni,power_station,ntpc_state_bihar,ntpc,ntpc,500.0,MW,unknown,,,https://ntpc.co.in/power-generation/coal-stations,2026-10-18T14:39:18+05:30
+ntpc_barh,Barh,power_station,ntpc_state_bihar,ntpc,ntpc,3300.0,MW,unknown,,,https://ntpc.co.in/power-generation/coal-stations,2026-10-18T14:39:18+05:30
+ntpc_bongaigaon,Bongaigaon,power_station,ntpc_state_assam,ntpc,ntpc,750.0,MW,unknown,,,https://ntpc.co.in/power-generation/coal-stations,2026-10-18T14:39:18+05:30
+ntpc_dadri,Dadri,power_station,ntpc_state_uttar_pradesh,ntpc,ntpc,1840.0,MW,unknown,,,https://ntpc.co.in/power-generation/coal-stations,2026-10-18T14:39:18+05:30
+ntpc_darlipali,Darlipali,power_station,ntpc_state_odisha,ntpc,ntpc,1600.0,MW,unknown,,,https://ntpc.co.in/power-generation/coal-stations,2026-10-18T14:39:18+05:30
+ntpc_farakka,Farakka,power_station,ntpc_state_west_bengal,ntpc,ntpc,2100.0,MW,unknown,,,https://ntpc.co.in/power-generation/coal-stations,2026-10-18T14:39:18+05:30
+ntpc_feroze_gandhi_unchahar,"Feroze Gandhi,Unchahar",power_station,ntpc_state_uttar_pradesh,ntpc,ntpc,1550.0,MW,unknown,,,https://ntpc.co.in/power-generation/coal-stations,2026-10-18T14:39:18+05:30
+ntpc_gadarwara,Gadarwara,power_station,ntpc_state_madhya_pradesh,ntpc,ntpc,1600.0,MW,unknown,,,https://ntpc.co.in/power-generation/coal-stations,2026-10-18T14:39:18+05:30
+ntpc_kahalgaon,Kahalgaon,power_station,ntpc_state_bihar,ntpc,ntpc,2340.0,MW,unknown,,,https://ntpc.co.in/power-generation/coal-stations,2026-10-18T14:39:18+05:30
+ntpc_kanti,Kanti,power_station,ntpc_state_bihar,ntpc,ntpc,390.0,MW,unknown,,,https://ntpc.co.in/power-generation/coal-stations,2026-10-18T14:39:18+05:30
+ntpc_khargone,Khargone,power_station,ntpc_state_madhya_pradesh,ntpc,ntpc,1320.0,MW,unknown,,,https://ntpc.co.in/power-generation/coal-stations,2026-10-18T14:39:18+05:30
+ntpc_korba,Korba,power_station,ntpc_state_chhattisgarh,ntpc,ntpc,2600.0,MW,unknown,,,https://ntpc.co.in/power-generation/coal-stations,2026-10-18T14:39:18+05:30
+ntpc_kudgi,Kudgi,power_station,ntpc_state_karnataka,ntpc,ntpc,2400.0,MW,unknown,,,https://ntpc.co.in/power-generation/coal-stations,2026-10-18T14:39:18+05:30
+ntpc_lara,Lara,power_station,ntpc_state_chhattisgarh,ntpc,ntpc,1600.0,MW,unknown,,,https://ntpc.co.in/power-generation/coal-stations,2026-10-18T14:39:18+05:30
+ntpc_mouda,Mouda,power_station,ntpc_state_maharashtra,ntpc,ntpc,2320.0,MW,unknown,,,https://ntpc.co.in/power-generation/coal-stations,2026-10-18T14:39:18+05:30
+ntpc_nabinagar_npgc,Nabinagar-NPGC,power_station,ntpc_state_bihar,ntpc,ntpc,1980.0,MW,unknown,,,https://ntpc.co.in/power-generation/coal-stations,2026-10-18T14:39:18+05:30
+ntpc_north_karanpura,North Karanpura,power_station,ntpc_state_jharkhand,ntpc,ntpc,1980.0,MW,unknown,,,https://ntpc.co.in/power-generation/coal-stations,2026-10-18T14:39:18+05:30
+ntpc_ramagundam,Ramagundam,power_station,ntpc_state_telangana,ntpc,ntpc,2600.0,MW,unknown,,,https://ntpc.co.in/power-generation/coal-stations,2026-10-18T14:39:18+05:30
+ntpc_rihand,Rihand,power_station,ntpc_state_uttar_pradesh,ntpc,ntpc,3000.0,MW,unknown,,,https://ntpc.co.in/power-generation/coal-stations,2026-10-18T14:39:18+05:30
+ntpc_simhadri,Simhadri,power_station,ntpc_state_andhra_pradesh,ntpc,ntpc,2000.0,MW,unknown,,,https://ntpc.co.in/power-generation/coal-stations,2026-10-18T14:39:18+05:30
+ntpc_singrauli,Singrauli,power_station,ntpc_state_uttar_pradesh,ntpc,ntpc,2000.0,MW,unknown,,,https://ntpc.co.in/power-generation/coal-stations,2026-10-18T14:39:18+05:30
+ntpc_sipat,Sipat,power_station,ntpc_state_chhattisgarh,ntpc,ntpc,2980.0,MW,unknown,,,https://ntpc.co.in/power-generation/coal-stations,2026-10-18T14:39:18+05:30
+ntpc_solapur,Solapur,power_station,ntpc_state_maharashtra,ntpc,ntpc,1320.0,MW,unknown,,,https://ntpc.co.in/power-generation/coal-stations,2026-10-18T14:39:18+05:30
+ntpc_talcher_kaniha,Talcher Kaniha,power_station,ntpc_state_orissa,ntpc,ntpc,3000.0,MW,unknown,,,https://ntpc.co.in/power-generation/coal-stations,2026-10-18T14:39:18+05:30
+ntpc_tanda,Tanda,power_station,ntpc_state_uttar_pradesh,ntpc,ntpc,1320.0,MW,unknown,,,https://ntpc.co.in/power-generation/coal-stations,2026-10-18T14:39:18+05:30
+ntpc_telangana,Telangana,power_station,ntpc_state_telangana,ntpc,ntpc,1600.0,MW,unknown,,,https://ntpc.co.in/power-generation/coal-stations,2026-10-18T14:39:18+05:30
+ntpc_vindhyachal,Vindhyachal,power_station,ntpc_state_madhya_pradesh,ntpc,ntpc,4760.0,MW,unknown,,,https://ntpc.co.in/power-generation/coal-stations,2026-10-18T14:39:18+05:30

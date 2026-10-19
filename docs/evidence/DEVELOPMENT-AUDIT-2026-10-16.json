@@ -1,0 +1,90 @@
+{
+  "date": "2026-10-16",
+  "base_commit": "51680bb",
+  "scope": "working tree including existing uncommitted changes",
+  "python": "3.12.14 Windows",
+  "core_suite": {
+    "test_cases": 495,
+    "passed": 481,
+    "skipped_including_expected_failure": 14,
+    "failures": 0,
+    "errors": 0
+  },
+  "model_suite": {
+    "test_cases": 34,
+    "passed": 34,
+    "failures": 0,
+    "errors": 0,
+    "duration_seconds": 1106.66
+  },
+  "mechanical_invariants": "5 passed; frozen-model check informational",
+  "research_artifact_verifier": "passed; original-root preservation check not requested",
+  "existing_diff_check_issue": "scripts/diagnose_jump_process.py:58 trailing whitespace",
+  "fresh_browser_check": false,
+  "fresh_postgres_execution": false,
+  "probes": {
+    "probes": {
+      "complete_without_report": true,
+      "complete_accepts_out_of_range_date": true,
+      "report_overwrite": true,
+      "transient_input_masks": [
+        [
+          true,
+          true,
+          false
+        ],
+        [
+          true,
+          false,
+          false
+        ]
+      ],
+      "state_bins_changed_by_future_append": 16,
+      "windows_localhost_ports": {
+        "5433": false,
+        "5434": false,
+        "8512": true
+      }
+    },
+    "special-session": {
+      "status": "reproduced_failure",
+      "range": "2024-11-01",
+      "error": "Future or missing pillar information timestamp"
+    },
+    "action-noop": {
+      "noop_update": {
+        "error": "IntegrityError",
+        "detail": "UNIQUE constraint failed: action_events.run_id, action_events.seq"
+      }
+    }
+  },
+  "audited_source_sha256": {
+    "seraph/orchestration/prototype.py": "89e68b4bc48025eb8576ff3ac25aa6aa3c83ff584a4d09bae260489bd9cf86e6",
+    "seraph/orchestration/run_store.py": "72e7aa3cade16d51bcbaa8cc6fbdb5b92e79e0fd167872efc356eb986d2f6570",
+    "seraph/orchestration/original_execution.py": "9d4192298ab12a9a1ffc87245a6a384da64013eb11d20985ce4fd53ec40f66be",
+    "seraph/dashboard/prototype_app.py": "b5c967c514de1912f4749c28b5bcac97472b596eecd4814be7ecf9734251c00b",
+    "seraph/dashboard/console_backend.py": "9cd7b56866c6da0fede02db0def1129f2e3f4ab39ebf6893a59a9efd855cbacb",
+    "seraph/dashboard/gateway.py": "dcb4278efa9b81b0786ba559e307c26d8bafb7e004747a10aaada1d994ca8fce",
+    "seraph/dashboard/console_component/index.html": "c629d25297f6f3a56a120e1a6bcf941bf0b3e9f975c4e67ec466d510aa08551d",
+    "seraph/dashboard/console_component/bridge.js": "0e43823dd919dfd14f1108002fa10f541b9b9753fe508af17ad26a459783376f",
+    "seraph/features/jump_extraction.py": "20dbc84568e9fe22bb9d57b02897e59786070f21c054dd80a6ca71d86610ebc0",
+    "seraph/store/schema.sql": "841a4df54fea6c5e58ddb8e68b43d69b372af9b48e1c3abadf35f13e5c7f5f61",
+    "seraph/validation/preregistration.py": "8959e038439cb561de7fd6484499580e95cc005ac48e9c09e52da576325c867a",
+    "scripts/write_hawkes_production.py": "ade6e4a9837b48bbb4ae5d706fc97933ffdf4711f99c5fe47c45c8421e4d85d9",
+    "seraph/decision_support/action_log.py": "494ac8dfa0eaf3d1cf73eb44359edbf8a5e0bae42c793919497dc3217aa64b70",
+    "seraph/decision_support/artefacts.py": "72260d22dd38f43467c1850a264c1759a8b59b3638add237c575e9093818ae57"
+  },
+  "combined_suite": {
+    "passed": 515,
+    "skipped": 13,
+    "expected_failure": 1,
+    "unexpected_failures": 0,
+    "partitions": "two non-overlapping invocations covering tests/"
+  },
+  "commands": [
+    "OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 .venv/Scripts/python.exe -m pytest tests --ignore=tests/test_c7_hamilton.py --ignore=tests/test_c7_hamilton_causal.py --ignore=tests/test_c7_hamilton_regime_recovery.py --ignore=tests/contract/test_ct7_simulator_consistency.py -q --junitxml=test-results/audit-2026-10-16-core.xml",
+    "OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 .venv/Scripts/python.exe -m pytest tests/test_c7_hamilton.py tests/test_c7_hamilton_causal.py tests/test_c7_hamilton_regime_recovery.py tests/contract/test_ct7_simulator_consistency.py -q --junitxml=test-results/audit-2026-10-16-models.xml",
+    ".venv/Scripts/python.exe scripts/check_invariants.py",
+    ".venv/Scripts/python.exe scripts/verify_research_artifacts.py"
+  ]
+}

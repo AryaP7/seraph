@@ -1,0 +1,34 @@
+{
+  "scope": "News continuation; no whole-repository or predictive-success claim",
+  "tests": {
+    "news_frontend_suite_passed": 542,
+    "subsequent_targeted_regressions_passed": 82,
+    "counts_overlap": true,
+    "js_bridge": "passed",
+    "js_news_layer_checks_passed": 31
+  },
+  "browser": {
+    "passed": true,
+    "roles": [
+      "retail",
+      "institutional",
+      "regulator"
+    ],
+    "actual_portfolio_submission": true,
+    "unmapped_warning": true,
+    "layout_width_visibility_overlap": "passed",
+    "evidence": "continuation-roles-2026-10-18-final/result.json"
+  },
+  "documents": {
+    "pdf_tests": "passed",
+    "real_http_probe": "document-recovery-2026-10-18-r2.json",
+    "probe_store_isolated": true
+  },
+  "validation": {
+    "legacy_gate_passed": false,
+    "frozen_documents": 395,
+    "independent_reviews": 0,
+    "locked_test_documents": 0
+  },
+  "completion_claim": "Not 100%; independent evaluation, multi-event benchmark coverage and prospective evidence remain required"
+}

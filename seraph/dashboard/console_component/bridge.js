@@ -1,0 +1,529 @@
+/* C12 connected shell. News/map previews remain explicitly fabricated.
+ *
+ * FIX11. The request lifecycle used to be a bare `pending` boolean set on send
+ * and cleared only by the next render: a lost or slow response latched it
+ * forever and every later click was silently dropped. Tool forms were rebuilt
+ * on each render, so a half-typed holdings JSON vanished whenever a result
+ * arrived. And a response was rendered without checking it still belonged to
+ * the run, date and role on screen.
+ *
+ * Now: one in-flight record with a bounded timeout, an explicit status line,
+ * retry that reuses the SAME idempotency id (Python deduplicates on it),
+ * drafts preserved across renders, and a result shown only when its context
+ * matches the current selection. Python enforces all of this again server
+ * side; this is the visible half, not the security boundary.
+ *
+ * T03 (audit finding R05). Role buttons used to change the projection and
+ * leave the map on screen: `active` started at 'map' and every response ended
+ * with `show(active)`, so all three clicks looked like nothing happened. And
+ * clicking the ALREADY-ACTIVE role waited for `data.role !== previous.role`,
+ * which can never become true — it timed out after 15s and blocked every
+ * later request, with the status control hidden inside Tools.
+ *
+ * Now: each role has a landing route, a role response navigates to it, a
+ * same-role click is acknowledged immediately as a no-op, and the request
+ * status bar is global rather than living in one tab.
+ */
+(()=>{
+let data=null, active='map';
+/* T03: every role has a landing route, so a role click goes somewhere. */
+const ROLE_HOME={retail:'console',institutional:'pillars',regulator:'tools'};
+const ROLE_LABEL={retail:'RETAIL HOME',institutional:'INSTITUTIONAL HOME',
+                  regulator:'REGULATOR HOME'};
+/* The in-flight request: {id, op, args, sentAt, timer, context} or null. */
+let inflight=null, lastStatus={state:'idle'}, drafts={};
+const REQUEST_TIMEOUT_MS=15000;
+const q=id=>document.getElementById(id), esc=x=>String(x??'Unavailable').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const num=x=>typeof x==='number'&&Number.isFinite(x)?x.toFixed(4):'Unavailable';
+const tag='<span class="fabricated">FABRICATED PREVIEW</span>';
+/* A portfolio weight is a share of a portfolio, not a measurement: eight
+   decimal places on it suggest a precision the number does not have, and
+   the retail panel was printing whatever float arrived. Two decimals, and
+   a floor so a tiny holding reads as "<0.01%" rather than "0.00%". */
+const pct=x=>{const n=Number(x);
+ if(!Number.isFinite(n))return 'Unavailable';
+ if(n>0&&n<0.01)return '<0.01%';
+ return n.toFixed(2).replace(/\.?0+$/,'')+'%';};
+/* The accounting scenario behind a duty change, or the reason there is
+   none. A refusal with its reasons tells a reader more than a blank. */
+function scenarioHTML(s){
+ if(!s)return '';
+ if(s.status!=='conditional_scenario')
+  return '<p class="m">No accounting scenario: '
+   +esc((s.reasons||['not applicable at this decision time']).join('; '))+'</p>';
+ const change=Number(s.landed_component_change);
+ return '<p class="m">Landed cost of '+esc(s.product)+' from '+esc(s.origin)
+  +' into '+esc(s.destination)+': '
+  +(Number.isFinite(change)?(change>=0?'+':'')+(change*100).toFixed(2)+'%':'Unavailable')
+  +' (duty '+esc(s.old_rate)+' → '+esc(s.new_rate)+', from '+esc(s.effective_from)+'). '
+  +esc(s.monetary_basis)+'. '+esc(s.assumption)+'. Not a return forecast.</p>';
+}
+
+
+const kv=(k,v)=>'<div class="ckv"><span>'+esc(k)+'</span><b>'+esc(v)+'</b></div>';
+const json=x=>'<pre>'+esc(JSON.stringify(x,null,2))+'</pre>';
+const card=(title,body)=>'<div class="ccard"><h4>'+esc(title)+'</h4><div class="cbody">'+body+'</div></div>';
+const send=(type,extra={})=>parent.postMessage({isStreamlitMessage:true,type,...extra},'*');
+
+/* --- request status -------------------------------------------------- */
+const DRAFT_FIELDS=['holdings','shock-pillar','magnitude','horizon','xi-path','action-op','action-value'];
+function captureDrafts(){for(const id of DRAFT_FIELDS){const n=q(id);if(n)drafts[id]=n.value;}}
+function restoreDrafts(){for(const id of DRAFT_FIELDS){const n=q(id);if(n&&drafts[id]!==undefined)n.value=drafts[id];}}
+function setStatus(state,detail){lastStatus={state,detail,at:Date.now()};renderStatus();}
+/* T03: one status bar visible from every route, including the map. The old
+   control lived inside Tools, so a stalled request on the map was invisible. */
+function statusBar(){let n=q('req-status-global');
+ if(!n){n=document.createElement('div');n.id='req-status-global';
+  n.style.cssText='position:fixed;right:12px;bottom:12px;z-index:9999;'
+   +'font:11px var(--mono,monospace);padding:7px 11px;border-radius:4px;'
+   +'background:#15161a;border:1px solid #2b2d35;color:#c9c6bf;max-width:46ch';
+  document.body.appendChild(n);}
+ return n;}
+function renderStatus(){renderStatusInto(statusBar());const n=q('req-status');
+ if(n)renderStatusInto(n);}
+function renderStatusInto(n){if(!n)return;
+ const label={idle:'READY',pending:'SENDING…',succeeded:'DONE',failed:'FAILED',timed_out:'NO RESPONSE',discarded:'DISCARDED'}[lastStatus.state]||'READY';
+ const colour={idle:'#77736b',pending:'#c9a63a',succeeded:'#4f9e6a',failed:'#d8776a',timed_out:'#d8776a',discarded:'#8b80ad'}[lastStatus.state]||'#77736b';
+ n.innerHTML='<span style="color:'+colour+'">●</span> <b>'+esc(label)+'</b>'+(lastStatus.detail?' — '+esc(lastStatus.detail):'')
+  +((lastStatus.state==='timed_out'||lastStatus.state==='failed')&&inflight?' <button id="req-retry">Retry</button>':'')
+  +(lastStatus.state==='timed_out'?' <button id="req-cancel">Cancel</button>':'');
+ n.setAttribute('role','status');n.setAttribute('aria-live','polite');
+ n.style.display=(lastStatus.state==='idle'&&n.id==='req-status-global')?'none':'';
+ const retryBtn=n.querySelector('[id$="req-retry"],#req-retry');
+ const cancelBtn=n.querySelector('[id$="req-cancel"],#req-cancel');
+ if(retryBtn)retryBtn.onclick=()=>retry();
+ if(cancelBtn)cancelBtn.onclick=()=>{clearInflight();setStatus('idle','request cancelled; nothing was discarded server side');};}
+function clearInflight(){if(inflight&&inflight.timer)clearTimeout(inflight.timer);inflight=null;}
+function transmit(){captureDrafts();
+ send('streamlit:setComponentValue',{value:{...inflight.args,op:inflight.op,id:inflight.id,
+   run_id:inflight.context.run_id,date:inflight.context.date},dataType:'json'});
+ inflight.timer=setTimeout(()=>{if(inflight)setStatus('timed_out',
+   'no response in '+(REQUEST_TIMEOUT_MS/1000)+'s. Retry sends the same request id, so a '
+   +'request that did arrive cannot be applied twice.');},REQUEST_TIMEOUT_MS);
+ setStatus('pending',inflight.op);}
+function request(op,args={}){if(!data)return;
+ if(inflight){setStatus('pending','a '+inflight.op+' request is already in flight; wait or retry it');return;}
+ inflight={id:crypto.randomUUID(),op,args,sentAt:Date.now(),timer:null,
+   context:{run_id:data.run_id,date:data.date,role:data.role}};
+ transmit();}
+/* Retry reuses the same idempotency id: Python deduplicates on it, so a lost
+   response can be recovered without risking a second journal event. */
+function retry(){if(!inflight)return;if(inflight.timer)clearTimeout(inflight.timer);transmit();}
+// Label original preserved previews at panel level, including drill-downs.
+document.querySelectorAll('main .card h3').forEach(n=>n.insertAdjacentHTML('beforeend',tag));
+q('ticker').insertAdjacentHTML('afterbegin',tag);q('online').textContent='1,019 desks · FABRICATED';
+q('beaconKey').insertAdjacentHTML('afterbegin',tag);
+/* The detail panel holds EITHER sourced news evidence or the original
+   illustrative preview, and `showNewsDetail` says which by setting
+   data-evidenced. Stamping FABRICATED on everything, as this did before,
+   put that tag above real Federal Register headlines with working source
+   links — which teaches the viewer to ignore the tag, and the tag is the
+   only thing protecting the preview layer from being read as data. */
+const EVIDENCED_NOTE='<div class="evidenced">EVIDENCED NEWS \u00b7 sourced '
+ +'documents with links and timestamps. Impact hypotheses are qualitative '
+ +'mechanisms, not measured losses, and are not SERAPH pillar output.</div>';
+const detailTag=()=>{for(const id of ['dbody','siteinfo']){const n=q(id);
+ if(!n||!n.childNodes.length)return;
+ if(n.querySelector('.fabricated')||n.querySelector('.evidenced'))return;
+ n.insertAdjacentHTML('afterbegin',n.getAttribute('data-evidenced')
+  ?EVIDENCED_NOTE
+  :tag+' News/asset estimation preview; not SERAPH pillar output.');}};
+new MutationObserver(detailTag).observe(q('dbody'),{childList:true});new MutationObserver(detailTag).observe(q('siteinfo'),{childList:true});
+function spark(history){let paths=[],s=[];history.forEach((h,i)=>{if(h.csrs==null){if(s.length)paths.push(s);s=[];}else s.push((i/Math.max(1,history.length-1)*600)+','+(70-h.csrs*65));});if(s.length)paths.push(s);return '<svg viewBox="0 0 600 80" width="100%">'+paths.map(s=>'<polyline points="'+s.join(' ')+'" fill="none" stroke="#c9a63a" stroke-width="2"/>').join('')+'</svg>';}
+function renderConsole(){const v=data.view;
+ q('c_csrs').textContent=num(v.csrs);q('c_ci').textContent=num(v.ciLower)+' – '+num(v.ciUpper);
+ q('c_level').textContent=(v.alertLevel||'unavailable').toUpperCase();q('c_level').style.color=({red:'#d8776a',amber:'#c9a63a',green:'#4f9e6a'})[v.alertLevel]||'#888';
+ q('c_mode').textContent=v.reconciliationMode||'HISTORICAL';q('c_plain').textContent=v.explanation;
+ q('c_fill').style.left=((v.ciLower||0)*100)+'%';q('c_fill').style.width=(((v.ciUpper||0)-(v.ciLower||0))*100)+'%';q('c_tick').style.left=((v.csrs||0)*100)+'%';
+ q('c_sigcount').textContent='SAVED RUN';q('c_signals').innerHTML=kv('Decision',data.timestamp)+kv('Coverage',v.maskDegraded?'DEGRADED':'COMPLETE')+kv('Warning',data.warning_status);
+ q('c_trends').innerHTML='<div style="width:100%">'+spark(data.history)+kv('Through',data.date)+'</div>';
+ q('c_mask').innerHTML=data.mask?['hawkes','rmt','hamilton'].map((n,i)=>kv(n,data.mask[i]?'IN FUSION':'EXCLUDED')).join(''):'Detailed mask withheld for this role; degraded coverage shown above.';
+ q('c_shapley').innerHTML=v.shapley?Object.entries(v.shapley).map(([k,x])=>kv(k,num(x))).join(''):'Not supplied to this role.';
+ const xi=v.regimeProbabilities;
+ q('c_stack').innerHTML=xi?xi.map((x,i)=>'<div style="width:'+x*100+'%;background:'+['#4f9e6a','#c9a63a','#b7362a'][i]+'"></div>').join(''):'';
+ q('c_slabels').textContent=xi?xi.map(num).join(' / '):'Measured regime probabilities unavailable for fusion. Hamilton diagnostics remain separate.';
+ q('c_fields').textContent=Object.keys(v).length+' FIELDS';q('c_access').textContent=data.role.toUpperCase()+' · server-projected payload. Local role switching is not authentication.';
+ document.querySelectorAll('[data-field]').forEach(n=>{const field={shapley:'shapley',mask:'pillarScores',xi_src:'regimeProbabilities',mode:'reconciliationMode',ci:'ciLower'}[n.dataset.field];n.classList.toggle('locked',field&&!(field in v));});
+}
+function renderPillars(){['hawkes','rmt','hamilton'].forEach(name=>{const item=data.pillars?.[name];const preview=PREVIEW_PILLARS[name];q('p_'+name).innerHTML=card(name.toUpperCase(),item?kv('Source',item.origin)+kv('Model',item.model)+kv('Value',num(item.value))+kv('Timestamp',item.information_timestamp)+kv('Score eligible',item.score_eligible)+json(item.detail||{}):'Model internals are not supplied to this role.')+(item&&item.value==null?card('Unfilled design preview',tag+kv(preview.label,num(preview.val))+preview.rows.map(([k,v])=>kv(k,v)).join('')+'<p>Preview values are not used for scoring.</p>'):'');});}
+function renderMethod(){q('m_flow').innerHTML=kv('Run',data.run_id)+kv('Decision',data.timestamp)+kv('Cutoff',data.cutoff)+kv('Mode',data.mode);q('m_std').textContent='Existing causal standardisation, reconciliation and CSRS pipeline. News estimates are a separate subsystem, not a source of these pillar scores.';q('m_status').innerHTML=kv('Engineering','Historical persisted integration')+kv('Predictive validation','Not established')+kv('News ingestion / estimator',newsConnectionLine())+kv('Authentication','Local role demo only');q('m_limits').innerHTML=json(data.limitations||['Experimental warnings; predictive skill unvalidated.'])+(data.manifest?json(data.manifest):'');}
+function table(rows){if(!rows?.length)return 'No saved outputs.';const keys=Object.keys(rows[0]);return '<table><thead><tr>'+keys.map(k=>'<th>'+esc(k)+'</th>').join('')+'</tr></thead><tbody>'+rows.map(r=>'<tr>'+keys.map(k=>'<td>'+esc(typeof r[k]==='object'?JSON.stringify(r[k]):r[k])+'</td>').join('')+'</tr>').join('')+'</tbody></table>';}
+function resultView(result){if(!result)return 'No operation submitted for this run/date/role.';if(Array.isArray(result.value)&&(result.kind==='shock'||result.kind==='policy'))return '<p>'+esc(result.basis)+'</p>'+table(result.value.map((r,i)=>({step:i+1,csrs:num(r.csrs),warning:r.alert_level,conditional_lower:num(r.ci_lower),conditional_upper:num(r.ci_upper)})))+'<details><summary>Scenario metadata</summary>'+json(result)+'</details>';return json(result);}
+function tools(){const professional=data.role!=='retail',reg=data.role==='regulator';let html=card('Portfolio holdings','<p>Enter current holdings as JSON: symbol, value, sector, optional quantity. Real exposure calculation uses no fabricated news flags.</p><textarea id="holdings" placeholder="Paste your holdings JSON list"></textarea><button id="portfolio-go">Calculate coverage</button>');
+ if(professional)html+=card('Pillar shock simulator · C11 / C9','<p>Hypothetical ECDF-rank shock; excluded pillars remain excluded.</p><select id="shock-pillar"><option>hawkes</option><option>rmt</option><option>hamilton</option></select><input id="magnitude" type="number" min="-1" max="1" step="0.05" value="0.1" aria-label="Shock magnitude"><input id="horizon" type="number" min="1" max="60" value="5" aria-label="Horizon"><button id="shock-go">Run shock</button>')+card('Defensive playbook',json(data.view.playbook)+'<p>Measured drawdown reduction unavailable. Guidance is not an evaluated trading result.</p>')+card('Institutional / residual flow',tag+'<p>Market aggregate feed not present in this saved run. No per-instrument retail attribution.</p>'+kv('FII net (example)','-1200')+kv('DII net (example)','900')+kv('Residual share (example)','0.72'));
+ if(reg)html+=card('Counterfactual policy simulator','<p>Macro z-to-regime fitted mapping unavailable. Run an explicit hypothetical regime path through C11 instead; equal regime weights may give an unchanged score.</p><textarea id="xi-path">[[0.8,0.15,0.05],[0.2,0.5,0.3]]</textarea><button id="policy-go">Run regime-path scenario</button>')+card('Regulator action journal','<p>Annotations for this historical alert; no real trading or circuit breaker execution.</p><select id="action-op"><option>create</option><option>update</option><option>delete</option></select><select id="action-value"><option>none</option><option>soft_warning</option><option>circuit_breaker</option></select><button id="action-go">Record action</button>'+json(data.action_log))+card('Institution / contagion preview',tag+'<p>Institution-level decomposition and contagion network are not produced by this run.</p>'+kv('Institution A (example exposure)','35%')+kv('Institution B (example exposure)','65%'));
+ html+=card('Last operation','<div id="req-status"></div>'+discardedView()+resultView(data.result));return html;}
+function discardedView(){const d=data.discarded_result;if(!d)return '';
+ return '<p class="fabricated">RESULT DISCARDED</p><p>'+esc(d.reason)+'</p>'
+  +(d.produced_for?kv('Produced for',JSON.stringify(d.produced_for)):'');}
+function bindTools(){
+ /* Inputs are restored before binding, and every keystroke is kept, so a
+    render triggered by an arriving result cannot destroy a draft. */
+ restoreDrafts();
+ for(const id of DRAFT_FIELDS){const n=q(id);if(n){n.oninput=captureDrafts;n.onchange=captureDrafts;}}
+ const bind=(id,op,args)=>{if(q(id))q(id).onclick=()=>{captureDrafts();try{request(op,args());}catch(e){setStatus('failed','input rejected: '+e.message);q('extra-content').insertAdjacentHTML('afterbegin',card('Input error',esc(e.message)));}}};
+ bind('portfolio-go','portfolio',()=>({holdings:JSON.parse(q('holdings').value)}));bind('shock-go','shock',()=>({pillar:q('shock-pillar').value,magnitude:Number(q('magnitude').value),horizon:Number(q('horizon').value)}));bind('policy-go','policy',()=>({xi_path:JSON.parse(q('xi-path').value)}));bind('action-go','action',()=>({operation:q('action-op').value,action:q('action-value').value}));
+ renderStatus();}
+/* T13 (audit findings R07/R08). The console used to carry one flat claim —
+   "MAP / NEWS / SECTOR / TICKER / WEATHER: FABRICATED PREVIEWS" — for every
+   surface at once, so a surface that HAD been connected was still described
+   as fabricated and a viewer could not tell the two apart. Status is now per
+   surface, and it comes from the payload rather than from this string. */
+/* How old is the data behind every surface, in words a reader can act on.
+   `as_of` is the DECISION time and reads as "this is current", so when the
+   sources are past the freshness policies they themselves declared, that has
+   to be said plainly rather than left to be inferred from a ratio. */
+function ageWords(mins){
+ if(mins==null)return 'unknown age';
+ if(mins<120)return Math.round(mins)+' min old';
+ if(mins<2880)return (mins/60).toFixed(1)+' h old';
+ return (mins/1440).toFixed(1)+' days old';
+}
+
+/* Two INDEPENDENT failures, and the second used to be invisible: the SOURCES
+   can be late, or the WORKER can be dead. A dead worker whose sources were
+   fetched recently looks perfectly healthy for up to three polling intervals,
+   so that is reported first and in its own words. */
+function stalenessNote(){
+ const f=(data&&data.news&&data.news.freshness)||null;
+ if(!f)return '';
+ const parts=[];
+ const w=f.worker||{};
+ if(w.state==='never_started')
+  parts.push('NO WORKER \u2014 nothing is fetching. These stories came from a '
+   +'one-off run; the screen will keep re-rendering and never get newer.');
+ else if(w.state==='stopped'||w.state==='failed')
+  parts.push('WORKER '+String(w.state).toUpperCase()+' \u2014 last heartbeat '
+   +ageWords(w.age_minutes)+'. Nothing is fetching'
+   +(w.detail?' ('+w.detail+')':'')+'.');
+ if(f.stale)
+  parts.push('STALE \u2014 newest item '+ageWords(f.age_minutes)+'; '
+   +f.late_sources+' of '+f.total_sources
+   +' sources past the freshness policy they declared.');
+ if(!parts.length)return '';
+ parts.push('Nothing on screen reflects what has happened since.');
+ return parts.join(' ');
+}
+
+/* The method panel used to state "Not connected — fabricated previews
+   retained" as a constant, so it went on saying so after the channel was
+   connected and nobody reading the method page learned otherwise. It is
+   derived from the same payload the banner reads. */
+function newsConnectionLine(){
+ const news=data&&data.news;
+ if(!news||news.status==='absent')
+  return 'Not connected — fabricated previews retained'
+   +((news&&news.reason)?' ('+esc(news.reason)+')':'');
+ const connected=news.connected_surfaces||[],preview=news.preview_surfaces||[];
+ const cov=news.source_coverage||{};
+ const rights=cov.rights||{};
+ const parts=[];
+ parts.push(connected.length
+  ? 'Connected: '+esc(connected.join(', '))
+  : 'Connected, but no surface has data at this decision time');
+ if(preview.length)parts.push('still fabricated preview: '+esc(preview.join(', ')));
+ if(cov.total!=null)parts.push(esc(cov.covered)+'/'+esc(cov.total)+' feed(s) within their declared freshness policy');
+ if(rights.total!=null)parts.push(esc(rights.reviewed)+'/'+esc(rights.total)+' source rights reviewed per use');
+ const manifest=news.manifest||{};
+ if(manifest.provenance)parts.push(esc(manifest.provenance)+' with '+esc(manifest.extractor||'current rules'));
+ return parts.join(' · ');
+}
+
+function newsStatusLine(){
+ const news=data&&data.news;
+ if(!news||news.status==='absent')
+  return 'MAP / NEWS / SECTOR: FABRICATED PREVIEWS \u2014 '
+   +esc((news&&news.reason)||'news channel not connected');
+ const connected=news.connected_surfaces||[],preview=news.preview_surfaces||[];
+ const parts=[];
+ // First, not last: a reader who stops reading after one clause must still
+ // have been told the data is old.
+ const stale=stalenessNote();
+ if(stale)parts.push(stale);
+ parts.push('NEWS '+(news.mode||'historical_decision')+' '+(news.as_of||'unknown'));
+ const coverage=news.source_coverage||{};
+ parts.push((coverage.covered||0)+'/'+(coverage.total||0)+' feeds fresh');
+ if(connected.length)parts.push('CONNECTED: '+connected.join(', ').toUpperCase());
+ if(preview.length)parts.push('FABRICATED PREVIEW: '+preview.join(', ').toUpperCase());
+ const globe=news.globe||{};
+ if(globe.nodes)parts.push(globe.nodes.length+' evidenced map node(s)');
+ if((globe.review_queue||{}).count)
+  parts.push((globe.review_queue.count)+' unplaced \u2192 review queue');
+ return parts.join(' | ');}
+
+/* Hand the news branch to the globe. The browser does not decide where a node
+   goes or what it claims: positions and click detail are computed server side
+   and only drawn here. */
+function applyNewsLayer(){
+ const ctx=data&&data.news&&data.news.context;
+ if(ctx&&(ctx.run_id!==data.run_id||ctx.date!==data.date||ctx.role!==data.role||
+   (ctx.news_mode==='historical_decision'&&ctx.news_as_of!==data.timestamp))) {
+   setStatus('failed','news context mismatch');return null;}
+
+ if(!window.SERAPH_GLOBE_API||!window.SERAPH_NEWS)return null;
+ try{return window.SERAPH_GLOBE_API.applyNews(data&&data.news);}
+ catch(err){setStatus('failed','news layer: '+err.message);return null;}}
+
+let originalNewsPanels=null;
+function roleNewsHTML(view){
+ if(!view)return '<p>Role news view unavailable.</p>';
+ const openEvents=ids=>ids.length?'<button class="role-news-evidence" data-events="'+esc(ids.join(' '))+'">Open source events</button>':'';
+ const links=rows=>(rows||[]).filter(r=>/^https?:\/\//i.test(r.url||'')).map(r=>'<a target="_blank" rel="noopener noreferrer" href="'+esc(r.url)+'">'+esc(r.source_id||'Source document')+'</a>').join(' · ');
+ let body=(view.notes||[]).map(n=>'<p>'+esc(n)+'</p>').join('');
+ if(view.role==='retail'){
+  body+=(view.items||[]).map(i=>'<article><b>'+esc(i.holding)+'</b>'
+   +kv('Sector',i.sector||'Unknown')+kv('Current evidence',i.documented?'Matched':'No matched event')
+   +(i.portfolio_weight_pct==null?'':kv('Portfolio weight (not loss)',pct(i.portfolio_weight_pct)))
+   +(i.touching||[]).slice(0,3).map(t=>'<p>'+esc(t.direction+' · '+t.mechanism+' · '+t.target)+'</p>').join('')
+   +((i.touching||[]).length>3?'<p>'+esc(i.touching.length-3)+' additional routes; open source events for the full evidence.</p>':'')
+   +openEvents([...new Set((i.touching||[]).map(t=>t.event_id))])+'</article>').join('');
+  body+=(view.uncovered||[]).map(i=>'<p><b>'+esc(i.holding)+' — UNMAPPED</b> '+esc(i.reason)+'</p>').join('');
+  if(!(view.items||[]).length&&!(view.uncovered||[]).length)body+='<p>Add your holdings in Tools to see portfolio-specific news routes.</p>';
+ }else if(view.role==='institutional'){
+  body+=(view.items||[]).map(i=>'<details><summary>'+esc(i.target+' · '+i.direction+' · '+i.mechanism)+'</summary>'
+   +kv('Evidence confidence',i.confidence)+kv('Exposure size',i.size==null?'UNSIZED':i.size+' '+i.unit)
+   +(i.opposing?'<p>Opposing mechanisms</p>'+json(i.opposing):'')
+   +scenarioHTML(i.scenario)
+   +(i.unknowns||[]).concat(i.limitations||[]).map(s=>'<p>'+esc(s)+'</p>').join('')
+   +'<p>'+esc((i.path||[]).join(' → '))+'</p>'+links(i.evidence_links)
+   +openEvents(i.event_id?[i.event_id]:[])+'</details>').join('');
+  if(!(view.items||[]).length)body+='<p>No documented impact routes at this decision time.</p>';
+ }else{
+  body+=(view.items||[]).map(i=>'<details open><summary>'+esc(i.kind)+'</summary>'+json(i)+'</details>').join('');
+ }
+ return '<section class="role-news-view" aria-label="Role-specific news intelligence">'+card(view.role.toUpperCase()+' NEWS INTELLIGENCE',body)+'</section>';
+}
+function renderNewsPanels(){
+ if(!originalNewsPanels)originalNewsPanels={signals:q('signals').innerHTML,stress:q('stress').innerHTML};
+ const news=data.news||{},surfaces=news.surfaces||{},items=(surfaces.signals||{}).items||[];
+ const page=news.pagination||{};
+ q('sigcount').textContent=items.length+' / '+(page.total||0)+' EVENTS';
+ const cov=news.source_coverage||{};
+ const scope=((surfaces.signals||{}).scope)||{};
+ q('signals').innerHTML='<p style="color:#79bacc">'+esc(news.mode)+' · '+esc(news.as_of)+'</p>'
+  +roleNewsHTML(news.role_view)
+  // Relevance is a different question from classification. Without this
+  // line, "50% unclassified" read as an extraction failure when it was
+  // mostly a whole jurisdiction's daily register arriving on one feed.
+  +(scope.in_scope==null?'':'<p class="m">'+esc(scope.in_scope)
+    +' in scope · '+esc(scope.out_of_scope)+' received but not about this '
+    +'system (carried and linked, never deleted) · '
+    +esc(scope.unclassified_in_scope)+' in scope and unidentified</p>')
+  +items.map(it=>'<details class="sig" data-event-id="'+esc(it.event_id)+'"><summary>'
+    +(it.off_page?'<span class="offpage">REFERENCED</span> ':'')+esc(it.headline)+'</summary>'
+    +(it.off_page?'<p class="m">Not on this page of LATEST SIGNALS. It is kept '
+      +'here because an inference on screen references it.</p>':'')
+    +newsEvidence(it)
+    // Both sides of one instrument. A measure that constrains an exporter
+    // also protects the producer competing with it; showing one and not the
+    // other makes the same document read as good or bad news depending on
+    // which target happened to be mapped.
+    +(it.opposing
+      ? '<p class="m">Constrains: '+esc((it.opposing.constrained_roles||[]).join(', ')||'-')
+        +' | Benefits: '+esc((it.opposing.benefiting_roles||[]).join(', ')||'-')
+        +(it.opposing.reversed_by_status?' (reversed: the measure has ended)':'')
+        +'<br>'+esc(it.opposing.net_effect)+'</p>'
+      : '')
+    // An exclusion that cannot state its reason cannot be argued with.
+    +(it.relevance&&!it.relevance.in_scope
+      ? '<p class="m">Not in scope: '+esc((it.relevance.reasons||[])[0]||'')+'</p>'
+      : '')
+    +(it.relevance&&it.relevance.in_scope
+      ? '<p class="m">In scope: '+esc((it.relevance.reasons||[]).join('; '))+'</p>'
+      : '')
+    +'<div class="m">First seen '+esc(it.first_seen_at)
+    // A document on public inspection is fully knowable now; only its
+    // publication date is still ahead. Saying so keeps a future date from
+    // reading as a stale one.
+    +(it.publication_scheduled
+      ? ' · scheduled for publication '+esc(it.published_at)+', not yet published'
+      : '')
+    +'</div></details>').join('')
+  +'<p>'+esc((cov.uncovered||[]).join('; ')||'Registered sources currently covered')+'</p>'
+  +'<p>'+esc((cov.coverage_gaps||[]).join('; '))+'</p>'
+  +'<details><summary>FABRICATED illustrative signals</summary>'+originalNewsPanels.signals+'</details>';
+ const rows=(((surfaces.sector_stress||{}).news||{}).rows)||[];
+ const covered=page.aggregates_cover||page.total||0;
+ q('stress').innerHTML='<p>NEWS \u00b7 inferred mechanisms</p>'
+  +'<p class="m">over all '+esc(covered)+' eligible events, not just the page shown</p>'
+  // The sector panel is where a reader forms a view. An inference drawn
+  // from stale inputs must carry that on the same surface.
+  +(stalenessNote()?'<p class="m" style="color:#ffb3ae">'+esc(stalenessNote())+'</p>':'')
+  +rows.map(sectorRow).join('')
+  +(rows.length?'':'<p>No documented sector exposure is reachable from the '
+    +'events eligible at this decision time. That is missing exposure '
+    +'mapping, not an absence of risk.</p>')
+  +'<details><summary>FABRICATED sector preview</summary>'+originalNewsPanels.stress+'</details>';
+ q('stress').querySelectorAll('.srow[data-event-ids]').forEach(row=>{
+  row.onclick=()=>revealEvents((row.dataset.eventIds||'').split(' ').filter(Boolean));});
+ q('signals').querySelectorAll('.role-news-evidence').forEach(button=>{
+  button.onclick=()=>revealEvents((button.dataset.events||'').split(' ').filter(Boolean));});
+}
+
+/* Plain words for what the row actually claims. "ambiguous" alone reads as a
+   failure; it is a finding — opposing mechanisms, or a target role the
+   evidence does not establish. */
+const DIRECTION_TEXT={favourable:'favourable for this sector',
+ adverse:'adverse for this sector',ambiguous:'direction unknown \u2014 opposing or unestablished mechanisms',
+ mixed:'mixed across targets',neutral:'no directional effect established',
+ unknown:'direction unknown'};
+function sectorRow(r){
+ const dirs=(r.direction||[]).map(d=>DIRECTION_TEXT[d]||d);
+ const sized=r.exposure_magnitude==null
+  ?'size unknown'+((r.unsized_relationships||0)?' \u00b7 '+esc(r.unsized_relationships)+' unsized relationship(s)':'')
+  :esc(r.exposure_magnitude)+' '+esc(r.exposure_unit);
+ return '<div class="srow" data-event-ids="'+esc((r.event_ids||[]).join(' '))+'"'
+  +' title="Show the events behind this inference">'
+  +'<b>'+esc(r.sector)+'</b>'
+  +'<p>'+esc((r.mechanisms||[]).join(', ')||'mechanism unrecorded')+'</p>'
+  +'<small>'+esc(dirs.join('; '))+'</small>'
+  +'<small>severity '+esc(r.severity)+' \u00b7 evidence '+esc(r.evidence_confidence)
+  +' \u00b7 '+sized+'</small>'
+  +'<small>'+esc(r.events)+' event(s) \u2014 click for the documents</small></div>';
+}
+
+/* Clickable evidence: open the rail entries this inference came from. An
+   event that is not on the displayed page says so rather than silently
+   opening nothing. */
+function revealEvents(ids){
+ if(!ids.length)return;
+ show('map');
+ let found=0;
+ ids.forEach(id=>{const n=q('signals').querySelector('details.sig[data-event-id="'+id+'"]');
+  if(n){n.open=true;if(!found)n.scrollIntoView({block:'center'});found++;}});
+ setStatus(found?'succeeded':'discarded',found
+  ?found+' of '+ids.length+' source event(s) opened in LATEST SIGNALS'
+  :'the event behind this inference is not on the displayed page \u2014 page '
+   +'through LATEST SIGNALS to reach its documents');
+}
+function newsEvidence(it){
+ const links=(it.evidence_links||[]).filter(r=>/^https?:\/\//i.test(r.url||''));
+ const f=it.interpretation||{};
+ /* What the record actually holds for this item, rather than a sentence
+    asserting that bodies are never retained. `text_scope` is written at
+    acquisition and says whether this is a title, a feed summary or a
+    retrieved document. */
+ const scope=r=>r.text_scope?' · '+esc(String(r.text_scope).replace(/_/g,' ')):'';
+ const rights=r=>r.display_permitted===false?' · quotation withheld by licence':'';
+ return '<p>'+esc([f.assertion_status,f.action,f.policy_status].filter(Boolean).join(' · '))+'</p>'
+  +links.map(r=>'<p>'+esc(r.source_note||'')+'</p><a target="_blank" rel="noopener noreferrer" href="'+esc(r.url)+'">'+esc(r.source_id)+' · evidence</a>'+scope(r)+rights(r)).join(' · ')
+  +'<p>'+esc((it.impacts||[]).map(i=>i.target_id+': '+i.direction+' via '+i.mechanism).join('; ')||'No supported target impact')+'</p>';
+}
+/* The display timer RE-PROJECTS stored data. It must never acquire: this
+   fired `news_refresh` every 30s, which forced all eleven sources, in the
+   web process, once per open browser tab. Acquisition is asked for
+   explicitly by `news_acquire` and served by the worker. */
+if(typeof window.setInterval==='function') window.setInterval(()=>{
+ if(!inflight&&data&&data.news&&data.news.mode==='current_news')
+  request('news_project',{});
+},30000);
+
+/* Asking for acquisition. Returns immediately -- the request is queued and
+   the worker serves it -- so the page acknowledges rather than blocking. */
+function requestAcquisition(){
+ if(inflight)return;
+ request('news_acquire',{});
+}
+window.SERAPH_REQUEST_ACQUISITION=requestAcquisition;
+
+function show(view){active=view;if(!data)return;
+ const home=ROLE_HOME[data.role]||'console';
+ document.querySelector('main').style.display=view==='map'?'':'none';document.querySelectorAll('.vw').forEach(n=>n.classList.remove('show'));
+ document.querySelectorAll('nav a').forEach(n=>n.classList.toggle('on',n.dataset.view===view));
+ /* Name the route so the user can see which role workspace is open. */
+ let crumb=q('route-crumb');
+ if(!crumb){crumb=document.createElement('div');crumb.id='route-crumb';
+  crumb.style.cssText='padding:5px 14px;font:11px var(--mono,monospace);'
+   +'background:#191a1f;color:#8d8a84;border-bottom:1px solid #26272e';
+  const banner=q('preview-banner');
+  if(banner&&banner.parentNode)banner.parentNode.insertBefore(crumb,banner);
+  else if(document.body&&document.body.appendChild)document.body.appendChild(crumb);}
+ crumb.textContent=(view===home?(ROLE_LABEL[data.role]||'HOME')+' · ':'')
+  +view.toUpperCase()+(view===home?'  (landing route for this role)':'');
+ if(view==='console'){q('viewConsole').classList.add('show');renderConsole();}else if(view==='pillars'){q('viewPillars').classList.add('show');renderPillars();}else if(view==='method'){q('viewMethod').classList.add('show');renderMethod();}else if(view!=='map'){
+ q('viewExtra').classList.add('show');q('extra-title').textContent=view.toUpperCase();let html='';
+ if(view==='feed'){const items=((data.news||{}).surfaces||{}).signals;
+  html=card('SERAPH alert · persisted',esc(data.view.explanation))
+   +((items&&items.status==='observed'&&items.items&&items.items.length)
+     ?card('News feed · received sources',items.items.map(it=>
+       kv(esc(it.event_type||'event'),esc(it.headline))
+       +'<div class="ckv"><span>first seen</span><b>'+esc(it.first_seen_at)
+       +'</b></div>'+newsEvidence(it)).join(''))
+     :card('News feed · separate subsystem',tag+q('signals').innerHTML));}
+ if(view==='exposure')html=card('Current supplied portfolio',data.portfolio?json(data.portfolio):'No holdings supplied. Use TOOLS to calculate coverage.')+card('Original design preview',tag+q('exposure').innerHTML);
+ if(view==='forecasts')html=data.role==='retail'?'Detailed model forecasts are available in the institutional and regulator views. See CONSOLE for the simplified warning.':table(data.predictions);
+ if(view==='backtest')html='<p>Retrospective saved-run comparison; not a new fit or evidence of general predictive edge.</p>'+(data.report?table(data.report.retrospective_comparison):'Comparison details not available to this role.')+spark(data.history);
+ if(view==='tools')html=tools();q('extra-content').innerHTML=html;if(view==='tools')bindTools();}
+ let rolePanel=q('role-news-home');
+ if(!rolePanel){rolePanel=document.createElement('div');rolePanel.id='role-news-home';document.body.appendChild(rolePanel);}
+ rolePanel.style.display=view===home?'':'none';
+ if(view===home){const host=q(home==='console'?'viewConsole':home==='pillars'?'viewPillars':'viewExtra');if(host)host.appendChild(rolePanel);}
+ rolePanel.innerHTML=view===home?roleNewsHTML((data.news||{}).role_view):'';
+ rolePanel.querySelectorAll('.role-news-evidence').forEach(button=>{
+  button.onclick=()=>revealEvents((button.dataset.events||'').split(' ').filter(Boolean));});
+ window.dispatchEvent(new Event('resize'));send('streamlit:setFrameHeight',{height:1050});}
+ document.querySelectorAll('nav a').forEach(a=>a.onclick=e=>{e.preventDefault();show(a.dataset.view);});
+ document.querySelector('.cta').textContent='VIEW BACKTEST';document.querySelector('.cta').onclick=()=>show('backtest');
+ /* T03: a same-role click never waits for role inequality. It acknowledges
+    at once and navigates to that role's landing route. */
+ document.querySelectorAll('#roles button').forEach(b=>b.onclick=()=>{
+  const wanted=b.dataset.role;
+  if(data&&data.role===wanted){
+   setStatus('succeeded','already '+wanted+'; opened '+(ROLE_LABEL[wanted]||wanted));
+   show(ROLE_HOME[wanted]||'console');return;}
+  request('role',{role:wanted});});
+ window.addEventListener('message',e=>{if(e.source!==parent||e.data.type!=='streamlit:render')return;
+ const previous=data;data=e.data.args.payload;
+ /* Resolve the in-flight request against what actually came back. A response
+    for a context the user has since left is reported, not rendered — Python
+    has already withheld it in `discarded_result`. */
+ const ctx=data.context||{run_id:data.run_id,date:data.date,role:data.role};
+ const answered=inflight&&data.result&&data.result.context
+   &&data.result.context.request_id===inflight.id;
+ const contextMoved=inflight&&(inflight.context.run_id!==ctx.run_id
+   ||inflight.context.date!==ctx.date||inflight.context.role!==ctx.role);
+ if(inflight&&(inflight.op==='news_project'||inflight.op==='news_refresh'||inflight.op==='news_acquire')&&data.news&&data.news.as_of!==(previous&&previous.news&&previous.news.as_of)){clearInflight();setStatus('idle');}
+ else if(answered){clearInflight();setStatus('succeeded',data.result.kind);}
+ else if(inflight&&data.result&&data.result.error){clearInflight();setStatus('failed',data.result.error);}
+ else if(inflight&&inflight.op==='role'&&data.role!==(previous&&previous.role)){
+  clearInflight();setStatus('succeeded','role · '+(ROLE_LABEL[data.role]||data.role));
+  active=ROLE_HOME[data.role]||'console';}
+ else if(contextMoved){clearInflight();setStatus('discarded','the run, date or role changed while the request was in flight; its result is not shown here');}
+ else if(inflight){setStatus('pending',inflight.op);}
+ else if(data.discarded_result){setStatus('discarded',data.discarded_result.reason);}
+ renderConsole();renderPillars();renderMethod();q('extra-content').innerHTML='';
+ document.querySelectorAll('#roles button').forEach(b=>b.classList.toggle('on',b.dataset.role===data.role));
+ /* The liveness banner. CSRS is specified as a CURRENT market risk score, and
+    every score this system can produce today comes from an archive. That has
+    to be on screen, not in a caption. */
+ const live=data.liveness;
+ if(live){const n=q('preview-banner');
+  n.style.background=live.publishable_as_current?'#12301c':'#3a1518';
+  n.style.color=live.publishable_as_current?'#9ad8ae':'#ffb3ae';
+  n.innerHTML='<b>'+esc(live.headline)+'</b> — '+esc(live.note)
+   +' | observed '+esc(live.observed_at)+' · now '+esc(live.now)
+   +' · market '+esc(live.market_state)+' · feed: '+esc(live.feed)
+   +'<br>RUN '+esc(data.run_id.slice(0,16))+' · '+esc(data.date)+' · '
+   +esc(data.role.toUpperCase())
+   +' | '+newsStatusLine()+' | NEWS '+((data.news||{}).mode||'historical')+' '+((data.news||{}).as_of||'unknown')+' | MARKET '+data.timestamp;}
+ else q('preview-banner').textContent='RUN '+data.run_id.slice(0,16)+' · '+data.date+' · '+data.role.toUpperCase()+' | '+newsStatusLine()+' | NEWS '+((data.news||{}).mode||'historical')+' '+((data.news||{}).as_of||'unknown')+' | MARKET '+data.timestamp;
+ // Published for the detail card in index.html, which has its own single
+ // writer and must not reach into `data` itself.
+ try{window.SERAPH_NEWS_FRESHNESS=(data.news&&data.news.freshness)||null;}catch(e){}
+ applyNewsLayer();
+ if(data.news&&data.news.status!=='absent')renderNewsPanels();
+ show(active);});
+ send('streamlit:componentReady',{apiVersion:1});send('streamlit:setFrameHeight',{height:1050});
+ /* Test seam. Inert in the browser: the harness must pre-declare the hook,
+    so nothing is exposed unless a test asked for it. Used by
+    tests/js/bridge_harness.mjs to drive the real request lifecycle rather
+    than grep the source for the word "retry". */
+ if(typeof globalThis!=='undefined'&&globalThis.__SERAPH_BRIDGE_TEST__===null){
+  globalThis.__SERAPH_BRIDGE_TEST__={request,retry,show,captureDrafts,restoreDrafts,
+   status:()=>lastStatus,inflight:()=>inflight,drafts:()=>drafts,
+   active:()=>active,roleHome:ROLE_HOME,
+   clickRole:r=>{const b=document.querySelector('#roles button[data-role="'+r+'"]');
+    if(b&&b.onclick)b.onclick();},
+   cancelInflight:()=>{clearInflight();setStatus('idle');},
+   newsStatusLine,applyNewsLayer,roleNewsHTML};}
+})();

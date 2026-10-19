@@ -10,6 +10,21 @@ reproduction and the dashboard. [VALIDATION.md](VALIDATION.md) records testing
 and empirical limits. This is a research baseline, not a validated crisis
 prediction service. Historical negative results remain preserved.
 
+## Integrated original frontend
+
+For the original globe, role buttons and connected decision-support console:
+
+```powershell
+.\.venv\Scripts\python.exe scripts/run_prototype.py
+.\launch_prototype.ps1
+```
+
+Open http://127.0.0.1:8512. The original `seraph/dashboard/app.py` entry point
+now opens this same integrated console. The research dashboard remains separate.
+Real historical outputs and fabricated preview panels are explicitly labelled.
+See [frontend integration coverage](docs/FRONTEND-INTEGRATION.md) for working
+features and remaining external/scientific dependencies.
+
 ## Quick start
 
 Python 3.12, from the repository root:

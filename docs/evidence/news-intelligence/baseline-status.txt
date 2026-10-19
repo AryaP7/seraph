@@ -1,0 +1,189 @@
+ M .claude/launch.json
+ M .gitignore
+ M .vscode/settings.json
+ M README.md
+ M docker-compose.yml
+ M docs/AMENDMENT-02-universe-and-Q.md
+ M docs/AMENDMENT-03-jump-sparsity-R2.md
+ M docs/SPEC.md
+ M fixtures/mock_generator.py
+ M pyproject.toml
+ M scripts/backfill_intraday.py
+ M scripts/build_observations.py
+ M scripts/diagnose_jump_process.py
+ M scripts/fit_hamilton.py
+ M scripts/fit_hawkes.py
+ M scripts/write_hawkes_production.py
+ M seraph/dashboard/app.py
+ M seraph/dashboard/datasource.py
+ M seraph/dashboard/gateway.py
+ M seraph/decision_support/__init__.py
+ M seraph/decision_support/artefacts.py
+ M seraph/features/__init__.py
+ M seraph/features/jump_extraction.py
+ M seraph/ingestion/hawkes_universe.py
+ M seraph/ingestion/kite_client.py
+ M seraph/pillars/hamilton/__init__.py
+ M seraph/pillars/hawkes/__init__.py
+ M seraph/pillars/hawkes/engine.py
+ M seraph/reconciliation/kalman.py
+ M seraph/reconciliation/time_clock.py
+ M seraph/store/writer.py
+ M seraph/universe/__init__.py
+ M seraph/universe/constructor.py
+ M seraph/universe/instrument_type.py
+ M seraph/validation/__init__.py
+ M seraph/validation/harness.py
+ M tests/contract/test_ct2_universe_cardinality.py
+ M tests/contract/test_ct3_jump_sufficiency.py
+ M tests/contract/test_ct7_simulator_consistency.py
+ M tests/test_c5_hawkes.py
+ M tests/test_c5_hawkes_writer.py
+?? PROTOTYPE.md
+?? docker-compose.test.yml
+?? docs/AUDIT-2026-10-16-BACKLOG.csv
+?? docs/AUDIT-2026-10-16-DEVELOPMENT.md
+?? docs/CLAUDE-SERAPH-IMPLEMENTATION-HANDOFF.md
+?? docs/DEVELOPMENT-HANDOFF.md
+?? docs/DEVELOPMENT-PLAN.md
+?? docs/DEVELOPMENT-STATUS.md
+?? docs/FRONTEND-INTEGRATION.md
+?? docs/IMPLEMENTATION-STATUS.md
+?? docs/INDEPENDENT-PRODUCT-READINESS-AUDIT-2026-10-16.md
+?? docs/NEWS-SOURCE-CATALOGUE-2026-10-17.json
+?? docs/NEXT-SESSION.md
+?? docs/OPERATIONS.md
+?? docs/PLAN-NEXT.md
+?? docs/PRODUCT-CONTRACTS.md
+?? docs/SERAPH-NEWS-INTELLIGENCE-DEVELOPMENT-PLAN-2026-10-17.md
+?? docs/SERAPH-TECHNICAL-DEVELOPMENT-PLAN-2026-10-16.md
+?? docs/SOURCE-TO-SCREEN-INVENTORY.md
+?? docs/decisions/
+?? docs/evidence/AUDIT-2026-10-16-PROBES.json
+?? docs/evidence/DEVELOPMENT-AUDIT-2026-10-16.json
+?? docs/evidence/ENV-VERIFICATION-2026-10-16.json
+?? docs/evidence/FIX01-FIX02-REPLAY-2026-10-16.json
+?? docs/evidence/INDEPENDENT-BROWSER-2026-10-16.json
+?? docs/evidence/INDEPENDENT-BROWSER-RECHECK-2026-10-16.json
+?? docs/evidence/INDEPENDENT-BROWSER-RECHECK-2026-10-16.png
+?? docs/evidence/INDEPENDENT-NEWS-2026-10-16.json
+?? docs/evidence/INDEPENDENT-READINESS-2026-10-16.json
+?? docs/evidence/INDEPENDENT-ROLE-TOOLS-2026-10-16.png
+?? docs/evidence/NEWS-AUDIT-VERIFICATION-2026-10-17.json
+?? docs/evidence/NEWS-FEATURE-AUDIT-EVIDENCE-2026-10-17.json
+?? docs/evidence/NEWS-SOURCE-PROBE-2026-10-16.json
+?? docs/evidence/NEWS-SOURCE-PROBE-2026-10-17.json
+?? docs/evidence/PACKAGING-2026-10-16.json
+?? docs/evidence/REVERIFY-2026-10-16.json
+?? docs/evidence/T00-RECONCILE-2026-10-16.json
+?? docs/evidence/T01-T03-REPRODUCTIONS-2026-10-16.json
+?? docs/evidence/T04-AUTHZ-FRESHNESS-2026-10-16.json
+?? docs/evidence/T05-BASKET-FIX-2026-10-17.json
+?? docs/evidence/T05-BASKET-SELECTION-2026-10-16.json
+?? docs/evidence/T06-EQUIVALENCE-1530-2026-10-17.json
+?? docs/evidence/T06-EQUIVALENCE-FULL-2026-10-17.json
+?? docs/evidence/T06-INFERENCE-SERVICE-2026-10-17.json
+?? docs/evidence/T07-DURABILITY-2026-10-17.json
+?? docs/evidence/T08-CURRENT-READER-2026-10-17.json
+?? docs/evidence/T09-SOURCE-BREADTH-2026-10-17.json
+?? docs/evidence/T13-GLOBE-BROWSER-2026-10-17.jpg
+?? docs/evidence/T13-NEWS-TO-GLOBE-2026-10-17.json
+?? docs/evidence/news-intelligence/
+?? docs/evidence/news_feature_audit.py
+?? integration_worktree_manifest.json
+?? launch_prototype.ps1
+?? package-lock.json
+?? scripts/audit_console_browser.py
+?? scripts/audit_news_readiness.py
+?? scripts/audit_product_readiness.py
+?? scripts/build_implementation_status.py
+?? scripts/compare_hawkes_basket_selection.py
+?? scripts/probe_news_sources.py
+?? scripts/provision_test_db.py
+?? scripts/reverify_audit_findings.py
+?? scripts/run_live.py
+?? scripts/run_news.py
+?? scripts/run_prototype.py
+?? scripts/verify_fix01_fix02.py
+?? scripts/verify_packaging.py
+?? scripts/verify_t06_equivalence.py
+?? seraph/dashboard/assets/THREE-LICENSE.txt
+?? seraph/dashboard/assets/connected.css
+?? seraph/dashboard/assets/connected.html
+?? seraph/dashboard/assets/connected.js
+?? seraph/dashboard/assets/globe_core.js
+?? seraph/dashboard/assets/globe_geometry.js
+?? seraph/dashboard/assets/three.r128.min.js
+?? seraph/dashboard/connected_frontend.py
+?? seraph/dashboard/console_backend.py
+?? seraph/dashboard/console_component/
+?? seraph/dashboard/current_reader.py
+?? seraph/dashboard/globe_payload.py
+?? seraph/dashboard/news_view.py
+?? seraph/dashboard/prototype_app.py
+?? seraph/decision_support/action_log.py
+?? seraph/decision_support/cases.py
+?? seraph/decision_support/exposure_trail.py
+?? seraph/decision_support/portfolio.py
+?? seraph/decision_support/portfolio_io.py
+?? seraph/decision_support/scenarios.py
+?? seraph/decision_support/workspace.py
+?? seraph/features/alignment.py
+?? seraph/identity/
+?? seraph/ingestion/bhavcopy_reader.py
+?? seraph/ingestion/flow_client.py
+?? seraph/ingestion/macro_client.py
+?? seraph/ingestion/tariff_events.curated.csv
+?? seraph/ingestion/tariff_events.py
+?? seraph/live/
+?? seraph/market_calendar/
+?? seraph/news/
+?? seraph/operations/
+?? seraph/orchestration/original_execution.py
+?? seraph/orchestration/prototype.py
+?? seraph/orchestration/run_store.py
+?? seraph/pillars/hawkes/artefact.py
+?? seraph/pillars/hawkes/basket_stream.py
+?? seraph/product_types/
+?? seraph/store/migrations/
+?? tests/conftest.py
+?? tests/js/
+?? tests/test_auth_identity_and_tenancy.py
+?? tests/test_c11_action_log.py
+?? tests/test_c11_portfolio.py
+?? tests/test_c11_portfolio_io.py
+?? tests/test_c2_macro_ingestion.py
+?? tests/test_case_workflow.py
+?? tests/test_connected_frontend.py
+?? tests/test_console_backend.py
+?? tests/test_data03_bhavcopy.py
+?? tests/test_fix01_session_clock.py
+?? tests/test_fix02_absence_semantics.py
+?? tests/test_fix03_fix08_persistence.py
+?? tests/test_fix04_causal_state_bins.py
+?? tests/test_fix06_evaluation_identity.py
+?? tests/test_fix07_hawkes_artefact.py
+?? tests/test_fix09_classification_policy.py
+?? tests/test_fix10_fix11_transport.py
+?? tests/test_live_market_path.py
+?? tests/test_news06_overlays.py
+?? tests/test_news_pipeline.py
+?? tests/test_ops_jobs_and_monitoring.py
+?? tests/test_port01_port02_workspace.py
+?? tests/test_product_types_envelope.py
+?? tests/test_prototype_integration.py
+?? tests/test_prototype_viewer.py
+?? tests/test_scen01_port04.py
+?? tests/test_t01_publication_gating.py
+?? tests/test_t02_bar_finality.py
+?? tests/test_t04_authorization_freshness.py
+?? tests/test_t05_hawkes_basket.py
+?? tests/test_t06_archive_equivalence.py
+?? tests/test_t06_engine_in_the_loop.py
+?? tests/test_t06_inference_service.py
+?? tests/test_t07_durable_runtime.py
+?? tests/test_t07_runtime_recovery.py
+?? tests/test_t08_current_reader.py
+?? tests/test_t09_source_breadth.py
+?? tests/test_t13_globe_payload.py
+?? tests/test_t13_origin_and_resolution.py

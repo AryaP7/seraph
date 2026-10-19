@@ -1,0 +1,177 @@
+{
+  "created_at": "2026-10-18T16:04:13.916910+00:00",
+  "data": {
+    "n": 5361,
+    "start": "2005-01-03 00:00:00",
+    "end": "2026-08-21 00:00:00",
+    "min_members": 212,
+    "max_members": 500,
+    "missing_market_returns": 0,
+    "extreme_return_rows": [
+      {
+        "date": "2020-03-23",
+        "market_return": -0.12557980737993163,
+        "universe_count": 498
+      },
+      {
+        "date": "2009-05-18",
+        "market_return": 0.11847677070422664,
+        "universe_count": 212
+      },
+      {
+        "date": "2008-01-21",
+        "market_return": -0.1068482072956384,
+        "universe_count": 354
+      },
+      {
+        "date": "2015-08-24",
+        "market_return": -0.10256614526778632,
+        "universe_count": 500
+      },
+      {
+        "date": "2020-03-12",
+        "market_return": -0.1016995931119887,
+        "universe_count": 498
+      },
+      {
+        "date": "2008-01-22",
+        "market_return": -0.08971912786215762,
+        "universe_count": 344
+      },
+      {
+        "date": "2006-06-08",
+        "market_return": -0.08053509363022564,
+        "universe_count": 304
+      },
+      {
+        "date": "2008-10-24",
+        "market_return": -0.08049680544768133,
+        "universe_count": 380
+      }
+    ]
+  },
+  "hamilton": {
+    "fits": 82,
+    "nonconverged": 7,
+    "min_state_occupancy": 0.005785509394363335
+  },
+  "hawkes": {
+    "fits": 81,
+    "zero_branching_fits": 7,
+    "min_events": 9.0
+  },
+  "stored_cutoff_violations": [],
+  "paired_intervals": [
+    {
+      "target": "loss10_15",
+      "n": 4576,
+      "mean": -0.000258480058650183,
+      "lower": -0.001761654968042624,
+      "upper": 0.0009714035174013332,
+      "block": 21,
+      "draws": 1000,
+      "caveat": "descriptive; not adjusted for model/research selection or nonstationarity"
+    },
+    {
+      "target": "loss10_15",
+      "n": 4576,
+      "mean": -0.000258480058650183,
+      "lower": -0.001927797272434514,
+      "upper": 0.0010848085614365123,
+      "block": 63,
+      "draws": 1000,
+      "caveat": "descriptive; not adjusted for model/research selection or nonstationarity"
+    },
+    {
+      "target": "loss10_15",
+      "n": 4576,
+      "mean": -0.000258480058650183,
+      "lower": -0.0020251006068502733,
+      "upper": 0.001266300395202214,
+      "block": 126,
+      "draws": 1000,
+      "caveat": "descriptive; not adjusted for model/research selection or nonstationarity"
+    },
+    {
+      "target": "onset15",
+      "n": 4576,
+      "mean": 4.879073389737622e-05,
+      "lower": -2.3792951370665788e-07,
+      "upper": 0.00010148867141577029,
+      "block": 21,
+      "draws": 1000,
+      "caveat": "descriptive; not adjusted for model/research selection or nonstationarity"
+    },
+    {
+      "target": "onset15",
+      "n": 4576,
+      "mean": 4.879073389737622e-05,
+      "lower": 9.327106071176515e-07,
+      "upper": 0.0001054801842276594,
+      "block": 63,
+      "draws": 1000,
+      "caveat": "descriptive; not adjusted for model/research selection or nonstationarity"
+    },
+    {
+      "target": "onset15",
+      "n": 4576,
+      "mean": 4.879073389737622e-05,
+      "lower": -9.595816857709758e-07,
+      "upper": 0.00011460147111440893,
+      "block": 126,
+      "draws": 1000,
+      "caveat": "descriptive; not adjusted for model/research selection or nonstationarity"
+    }
+  ],
+  "mathematical_probes": {
+    "legacy_lead_time": {
+      "reported_sessions": 99.0,
+      "valid_15_session_warning": false
+    },
+    "linear_loss_at_true_probability_point1": {
+      "0.0": 100.0,
+      "0.1": 99.0,
+      "1.0": 90.0
+    },
+    "hamilton_duration": [
+      {
+        "stay_probability": 0.5,
+        "implemented": 1.3862943611198906,
+        "geometric_continuous_median": 1.0,
+        "expected_spell_length": 2.0
+      },
+      {
+        "stay_probability": 0.9,
+        "implemented": 6.931471805599454,
+        "geometric_continuous_median": 6.578813478960585,
+        "expected_spell_length": 10.000000000000002
+      },
+      {
+        "stay_probability": 0.99,
+        "implemented": 69.31471805599446,
+        "geometric_continuous_median": 68.96756393652842,
+        "expected_spell_length": 99.99999999999991
+      }
+    ],
+    "rmt_exceedance_counterexample": [
+      {
+        "case": "five_independent_sectors",
+        "leading_share": 0.05749999999999999,
+        "exceedance_fraction": 0.05,
+        "mp_upper": 2.914213562373095
+      },
+      {
+        "case": "one_market_mode",
+        "leading_share": 0.25750000000000006,
+        "exceedance_fraction": 0.01,
+        "mp_upper": 2.914213562373095
+      }
+    ],
+    "original_hamilton_future_floor": {
+      "max_prefix_probability_change": 0.6667276389875525,
+      "with_training_floor_max_change": 0.0,
+      "scope": "Original batched hamilton_causal.walk_forward; NOT daily prediction/pillars.py",
+      "synthetic_only": true
+    }
+  }
+}

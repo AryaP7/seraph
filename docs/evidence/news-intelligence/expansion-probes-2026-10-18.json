@@ -1,0 +1,53 @@
+[
+  {
+    "url": "https://pib.gov.in/RssMain.aspx?ModId=6&Lang=1&Regid=3",
+    "reachable": true,
+    "usable": true,
+    "items": 20,
+    "dated_items": 0,
+    "newest_published": null,
+    "http_status": 200,
+    "latency_ms": 359.6,
+    "sample_title": "\u092d\u093e\u0930\u0924 \u0915\u093e \u092a\u094b\u0937\u0915 \u0924\u0924\u094d\u0935\u094b\u0902 \u0938\u0947 \u092d\u0930\u092a\u0942\u0930 \u092c\u0948\u0902\u0917\u0928\u0940 \u0906\u0932\u0942",
+    "checked_at": "2026-10-18T14:40:44+05:30",
+    "publication_mode": "first_seen_only",
+    "replay_eligible": false,
+    "note": "parsed, but no item carries a usable publication time"
+  },
+  {
+    "url": "https://www.commerce.gov.in/feed/",
+    "reachable": false,
+    "usable": false,
+    "error": "HTTP 404 from https://www.commerce.gov.in/feed/: Not Found",
+    "checked_at": "2026-10-18T14:40:44+05:30"
+  },
+  {
+    "url": "https://www.wto.org/library/rss/latest_news_e.xml",
+    "reachable": true,
+    "usable": true,
+    "items": 10,
+    "dated_items": 10,
+    "newest_published": "2026-10-16T05:30:00+05:30",
+    "http_status": 200,
+    "latency_ms": 590.1,
+    "sample_title": "WTO and multilateral partners review progress on supply chain finance initiative",
+    "checked_at": "2026-10-18T14:40:45+05:30",
+    "publication_mode": "source_timestamp",
+    "replay_eligible": true,
+    "note": "parsed as a feed with dated items"
+  },
+  {
+    "url": "https://www.eia.gov/rss/todayinenergy.xml",
+    "reachable": false,
+    "usable": false,
+    "error": "The read operation timed out",
+    "checked_at": "2026-10-18T14:40:52+05:30"
+  },
+  {
+    "url": "https://www.ecb.europa.eu/rss/press.html",
+    "reachable": false,
+    "usable": false,
+    "error": "could not reach https://www.ecb.europa.eu/rss/press.html: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1010)",
+    "checked_at": "2026-10-18T14:40:45+05:30"
+  }
+]

@@ -1,0 +1,48 @@
+# NEWS03 entity master data. Loaded by seraph/news/registry.py.
+#
+# Curated rows start here. Each one is first-party sourced.
+# Following the convention seraph/ingestion/tariff_events.curated.csv sets:
+# an uncited entity row is indistinguishable from an invented one, and a wrong
+# issuer link puts a news event on somebody else's balance sheet. The loader
+# REFUSES any row whose source_ref is not a citation.
+#
+# -- COLUMNS -----------------------------------------------------------------
+# entity_id   unique, stable, lowercase_snake (e.g. tata_steel).
+# name        the legal or commonly-used name as the source writes it.
+# kind        issuer | operator | subsidiary | government_body | industry_body
+# symbol      NSE trading symbol, ONLY if the entity is itself listed. A
+#             subsidiary is not its parent: leave blank and set parent_id.
+# isin        ISIN where known.
+# sector      from the sector taxonomy actually in use; leave blank if unsure.
+#             A guessed sector silently miscounts every sector aggregate.
+# parent_id   entity_id of the parent, for subsidiaries and operators.
+# valid_from  ISO date the record becomes true (renames, demergers, delistings).
+# valid_to    ISO date it stops being true. Blank means still current.
+# aliases     pipe-separated alternative spellings the resolver should accept.
+# source_ref  REQUIRED. https://..., doc:..., ref:... or filing:...
+#             Prefer the exchange listing, the company filing or the registrar
+#             over news coverage.
+#
+entity_id,name,kind,symbol,isin,sector,parent_id,valid_from,valid_to,aliases,source_ref,known_from
+reserve_bank_of_india,Reserve Bank of India,government_body,,,,,,,RBI|Reserve Bank|the Reserve Bank,https://website.rbi.org.in/documents/87730/39710918/IEPR1397E0213.pdf,
+tata_steel,Tata Steel,issuer,,,steel,,,,,https://www.tatasteel.com/media/newsroom/press-releases/india/2025/tata-steel-inaugurates-phase-ii-expansion-of-kalinganagar-operations/,2026-10-17T07:15:00+05:30
+camlin_fine_sciences,Camlin Fine Sciences Limited,issuer,,,chemicals,,,,Camlin Fine,https://nsearchives.nseindia.com/content/RSS/Online_announcements.xml,2026-10-18T13:13:16+05:30
+cyber_media_research,Cyber Media Research & Services Limited,issuer,,,,,,,Cyber Media Research,https://nsearchives.nseindia.com/content/RSS/Online_announcements.xml,2026-10-18T13:13:16+05:30
+cyient,Cyient Limited,issuer,,,it_services,,,,Cyient,https://nsearchives.nseindia.com/content/RSS/Online_announcements.xml,2026-10-18T13:13:16+05:30
+jay_jalaram_technologies,Jay Jalaram Technologies Limited,issuer,,,,,,,,https://nsearchives.nseindia.com/content/RSS/Online_announcements.xml,2026-10-18T13:13:16+05:30
+jsw_steel,JSW Steel Limited,issuer,,,steel,,,,JSW Steel,https://nsearchives.nseindia.com/content/RSS/Online_announcements.xml,2026-10-18T13:13:16+05:30
+kpi_green_energy,KPI Green Energy Limited,issuer,,,energy,,,,KPI Green|KPI Green Energy,https://nsearchives.nseindia.com/content/RSS/Online_announcements.xml,2026-10-18T13:13:16+05:30
+ltm_limited,LTM Limited,issuer,,,,,,,,https://nsearchives.nseindia.com/content/RSS/Online_announcements.xml,2026-10-18T13:13:16+05:30
+master_components,Master Components Limited,issuer,,,,,,,,https://nsearchives.nseindia.com/content/RSS/Online_announcements.xml,2026-10-18T13:13:16+05:30
+oil_india,Oil India Limited,issuer,,,energy,,,,Oil India|OIL,https://nsearchives.nseindia.com/content/RSS/Online_announcements.xml,2026-10-18T13:13:16+05:30
+prime_securities,Prime Securities Limited,issuer,,,financials,,,,Prime Securities,https://nsearchives.nseindia.com/content/RSS/Online_announcements.xml,2026-10-18T13:13:16+05:30
+railtel,Railtel Corporation Of India Limited,issuer,,,telecom,,,,RailTel|Railtel Corporation,https://nsearchives.nseindia.com/content/RSS/Online_announcements.xml,2026-10-18T13:13:16+05:30
+sbi_cards,SBI Cards and Payment Services Limited,issuer,,,financials,,,,SBI Cards|SBI Card,https://nsearchives.nseindia.com/content/RSS/Online_announcements.xml,2026-10-18T13:13:16+05:30
+vedanta,Vedanta Limited,issuer,,,metals_mining,,,,Vedanta,https://nsearchives.nseindia.com/content/RSS/Online_announcements.xml,2026-10-18T13:13:16+05:30
+zen_technologies,Zen Technologies Limited,issuer,,,defence,,,,Zen Tech,https://nsearchives.nseindia.com/content/RSS/Online_announcements.xml,2026-10-18T13:13:16+05:30
+icici_prudential_life,ICICI Prudential Life Insurance Company Limited,issuer,,,financials,,,,ICICI Prudential Life|ICICI Pru Life,https://www.bseindia.com/data/xml/notices.xml,2026-10-18T13:30:40+05:30
+vrl_logistics,VRL Logistics Limited,issuer,,,logistics,,,,VRL Logistics,https://www.bseindia.com/data/xml/notices.xml,2026-10-18T13:30:40+05:30
+south_india_paper_mills,The South India Paper Mills Limited,issuer,,,paper_packaging,,,,South India Paper Mills,https://www.bseindia.com/data/xml/notices.xml,2026-10-18T13:30:40+05:30
+caprihans_india,Caprihans India Limited,issuer,,,,,,,Caprihans,https://www.bseindia.com/data/xml/notices.xml,2026-10-18T13:30:40+05:30
+purple_finance,Purple Finance Limited,issuer,,,,,,,Purple Finance,https://www.bseindia.com/data/xml/notices.xml,2026-10-18T13:30:40+05:30
+ntpc,NTPC Limited,issuer,,,energy,,,,NTPC,https://ntpc.co.in/power-generation/coal-stations,2026-10-18T14:39:18+05:30

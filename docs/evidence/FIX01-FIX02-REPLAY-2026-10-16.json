@@ -1,0 +1,233 @@
+{
+  "generated": "2026-10-16T12:21:21+0530",
+  "store": "C:\\Users\\Arlop\\Downloads\\SERAPH VARYA\\SERAPH Varya\\prototype_runs\\fix01-full-replay.sqlite",
+  "replays": {
+    "session_close": {
+      "run_id": "5970fcde1dc15c6ae51fd460246d892c2589b3a5669dec5c6a086a29a8ce96b1",
+      "points": 5361,
+      "seconds": 69.1,
+      "first_date": "2005-01-03",
+      "last_date": "2026-08-21",
+      "content_digest": "540fbada1ad617954d4d04880560a28dbe187a640801c3e5eb88ca62e4fb9725",
+      "withheld_sessions": [],
+      "special_sessions": {
+        "2024-03-02": {
+          "evaluation_timestamp": "2024-03-02T12:30:00+05:30",
+          "session_kind": "special_live",
+          "mask": [
+            true,
+            true,
+            false
+          ],
+          "hawkes_tau": "2024-03-02T12:25:00+05:30",
+          "withheld": null,
+          "csrs": 0.5149862921858456
+        },
+        "2024-05-18": {
+          "evaluation_timestamp": "2024-05-18T12:30:00+05:30",
+          "session_kind": "special_live",
+          "mask": [
+            true,
+            true,
+            false
+          ],
+          "hawkes_tau": "2024-05-18T12:25:00+05:30",
+          "withheld": null,
+          "csrs": 0.1462907558337723
+        },
+        "2024-11-01": {
+          "evaluation_timestamp": "2024-11-01T19:00:00+05:30",
+          "session_kind": "muhurat",
+          "mask": [
+            true,
+            true,
+            false
+          ],
+          "hawkes_tau": "2024-11-01T18:55:00+05:30",
+          "withheld": null,
+          "csrs": 0.43486521041432674
+        },
+        "2025-10-21": {
+          "evaluation_timestamp": "2025-10-21T14:45:00+05:30",
+          "session_kind": "muhurat",
+          "mask": [
+            true,
+            true,
+            false
+          ],
+          "hawkes_tau": "2025-10-21T14:40:00+05:30",
+          "withheld": null,
+          "csrs": 0.4585474530676989
+        }
+      },
+      "future_information_violations": []
+    },
+    "standard_1530": {
+      "run_id": "dab8238dfc7f95c3c32f5aa1b145a1442449d18b100bcd3a1a1985d64368d0a0",
+      "points": 5361,
+      "seconds": 73.6,
+      "first_date": "2005-01-03",
+      "last_date": "2026-08-21",
+      "content_digest": "de9b04a5a743c2ceb90907d89341cb2522f58adf0dbd9019f3822d3bca088092",
+      "withheld_sessions": [
+        "2024-11-01"
+      ],
+      "special_sessions": {
+        "2024-03-02": {
+          "evaluation_timestamp": "2024-03-02T15:30:00+05:30",
+          "session_kind": "special_live",
+          "mask": [
+            true,
+            true,
+            false
+          ],
+          "hawkes_tau": "2024-03-02T12:25:00+05:30",
+          "withheld": null,
+          "csrs": 0.5149862921858456
+        },
+        "2024-05-18": {
+          "evaluation_timestamp": "2024-05-18T15:30:00+05:30",
+          "session_kind": "special_live",
+          "mask": [
+            true,
+            true,
+            false
+          ],
+          "hawkes_tau": "2024-05-18T12:25:00+05:30",
+          "withheld": null,
+          "csrs": 0.1462907558337723
+        },
+        "2024-11-01": {
+          "evaluation_timestamp": "2024-11-01T15:30:00+05:30",
+          "session_kind": "muhurat",
+          "mask": [
+            false,
+            true,
+            false
+          ],
+          "hawkes_tau": "2024-10-25T15:25:00+05:30",
+          "withheld": "2024-11-01T18:55:00+05:30",
+          "csrs": 0.1687467686224606
+        },
+        "2025-10-21": {
+          "evaluation_timestamp": "2025-10-21T15:30:00+05:30",
+          "session_kind": "muhurat",
+          "mask": [
+            true,
+            true,
+            false
+          ],
+          "hawkes_tau": "2025-10-21T14:40:00+05:30",
+          "withheld": null,
+          "csrs": 0.4583759564969572
+        }
+      },
+      "future_information_violations": []
+    }
+  },
+  "deterministic_retry": {
+    "run_id": "5970fcde1dc15c6ae51fd460246d892c2589b3a5669dec5c6a086a29a8ce96b1",
+    "same_identity": true,
+    "same_content": true
+  },
+  "covid_window_identity": {
+    "new_run_id": "37bccf32974201f095d5c90bfe8febe91e4833639b21f02121d69bb565c3ab77",
+    "new_points": 81,
+    "baseline_run_id": "77cc8a2fb747507a553169669d8b97b78d1b1f92eb1d7698661969525a769fcd",
+    "baseline_points": 81,
+    "scientific_content_identical": false,
+    "differing_dates": [
+      "2020-02-03",
+      "2020-02-04",
+      "2020-02-05",
+      "2020-02-06",
+      "2020-02-07",
+      "2020-02-10",
+      "2020-02-11",
+      "2020-02-12",
+      "2020-02-13",
+      "2020-02-14",
+      "2020-02-17",
+      "2020-02-18",
+      "2020-02-19",
+      "2020-02-20",
+      "2020-02-24",
+      "2020-02-25",
+      "2020-02-26",
+      "2020-02-27",
+      "2020-02-28",
+      "2020-03-02"
+    ],
+    "mask_changes": [],
+    "csrs_changes": [
+      {
+        "date": "2020-02-07",
+        "baseline": 0.017633205609950266,
+        "new": 0.017521478058873857,
+        "delta": -0.00011172755107640917
+      },
+      {
+        "date": "2020-02-14",
+        "baseline": 0.023894017836622282,
+        "new": 0.02374179795303986,
+        "delta": -0.00015221988358242108
+      },
+      {
+        "date": "2020-02-24",
+        "baseline": 0.036238106302506394,
+        "new": 0.03740921644508441,
+        "delta": 0.0011711101425780149
+      },
+      {
+        "date": "2020-03-02",
+        "baseline": 0.05168108863154659,
+        "new": 0.053580571871023636,
+        "delta": 0.0018994832394770428
+      },
+      {
+        "date": "2020-03-09",
+        "baseline": 0.04231738765734733,
+        "new": 0.04335382687006213,
+        "delta": 0.0010364392127148042
+      },
+      {
+        "date": "2020-03-17",
+        "baseline": 0.22105733943028832,
+        "new": 0.22283351460563167,
+        "delta": 0.001776175175343342
+      },
+      {
+        "date": "2020-03-24",
+        "baseline": 0.568726579199312,
+        "new": 0.5708315257853422,
+        "delta": 0.0021049465860302208
+      },
+      {
+        "date": "2020-03-31",
+        "baseline": 0.5705696455068776,
+        "new": 0.5729574003947295,
+        "delta": 0.002387754887851923
+      },
+      {
+        "date": "2020-04-09",
+        "baseline": 0.5857136782354713,
+        "new": 0.5881574914244786,
+        "delta": 0.0024438131890073267
+      },
+      {
+        "date": "2020-04-20",
+        "baseline": 0.5949962312498797,
+        "new": 0.597450999627145,
+        "delta": 0.002454768377265326
+      },
+      {
+        "date": "2020-04-27",
+        "baseline": 0.5811294373780824,
+        "new": 0.5837659034970044,
+        "delta": 0.0026364661189219873
+      }
+    ],
+    "max_abs_csrs_delta": 0.0026364661189219873,
+    "cause": "the archive holds one Hawkes refit (2020-02-01T15:25 IST) whose calendar date is not a session in market_snapshot.parquet. Date-keyed selection dropped it entirely; as-of selection offers it at the next decision, where D4 correctly rejects it as stale but the chronological standardisation window now contains it. Assimilated vintages are unchanged; only the ECDF support moved."
+  }
+}

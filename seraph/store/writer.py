@@ -113,10 +113,25 @@ _REGISTRY: dict[str, _EntitySpec] = {
 }
 
 
-def _upsert_sql(spec: _EntitySpec) -> str:
+_DERIVED_COLUMNS = {
+    "intraday_bars": {"signed_volume", "log_return", "is_jump", "jump_sign"},
+    "daily_prices": {"universe_member_flag"},
+    "macro_covariates": {"g_t", "g_t_sector_weighted"},
+}
+
+
+def _update_columns(spec, update_fields=None):
+    allowed = set(spec.columns.values()) - set(spec.key) - _DERIVED_COLUMNS.get(spec.table, set())
+    requested = allowed if update_fields is None else set(update_fields)
+    if not requested or not requested <= allowed:
+        raise ValueError(f"invalid ingestion update fields for {spec.table}")
+    return [c for c in spec.columns.values() if c in requested]
+
+
+def _upsert_sql(spec: _EntitySpec, update_fields=None) -> str:
     cols = list(spec.columns.values())
     placeholders = ", ".join(f"${i + 1}" for i in range(len(cols)))
-    non_key = [c for c in cols if c not in spec.key]
+    non_key = _update_columns(spec, update_fields)
     set_clause = ", ".join(f"{c} = EXCLUDED.{c}" for c in non_key)
     return (
         f"INSERT INTO {spec.table} ({', '.join(cols)}) VALUES ({placeholders}) "
@@ -154,7 +169,7 @@ class StoreWriter:
     async def close(self) -> None:
         await self._pool.close()
 
-    async def write_batch(self, batch: IngestBatch) -> Ok[WriteResult] | Err:
+    async def write_batch(self, batch: IngestBatch, *, update_fields=None) -> Ok[WriteResult] | Err:
         spec = _REGISTRY.get(batch.entity)
         if spec is None:
             return err(ContractViolation(
@@ -181,7 +196,10 @@ class StoreWriter:
                 context={"source": batch.source, "runId": batch.run_id},
             ),)
 
-        sql = _upsert_sql(spec)
+        try:
+            sql = _upsert_sql(spec, update_fields)
+        except ValueError as exc:
+            return err(ContractViolation(field="update_fields", detail=str(exc)))
         inserted = updated = 0
         try:
             async with self._pool.acquire() as conn:
@@ -212,7 +230,7 @@ class StoreWriter:
 
         return ok(WriteResult(inserted=inserted, updated=updated), warnings=warnings)
 
-    async def write_batch_bulk(self, batch: IngestBatch) -> Ok[WriteResult] | Err:
+    async def write_batch_bulk(self, batch: IngestBatch, *, update_fields=None) -> Ok[WriteResult] | Err:
         """COPY-based upsert for large historical backfills (AGENTS.md §2:
         Postgres COPY, not row INSERT, at millions of rows). Identical
         idempotency contract to write_batch — COPY lands in a temp table and
@@ -244,7 +262,10 @@ class StoreWriter:
 
         cols = list(spec.columns.values())
         key_cols = ", ".join(spec.key)
-        non_key = [c for c in cols if c not in spec.key]
+        try:
+            non_key = _update_columns(spec, update_fields)
+        except ValueError as exc:
+            return err(ContractViolation(field="update_fields", detail=str(exc)))
         set_clause = ", ".join(f"{c} = EXCLUDED.{c}" for c in non_key)
         records = [tuple(_row_params(spec, row)) for row in batch.rows]
 

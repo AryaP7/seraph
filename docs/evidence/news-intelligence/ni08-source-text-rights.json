@@ -1,0 +1,84 @@
+{
+  "ticket": "NI08",
+  "decision": "DR-10-2026-10-18-source-text-rights.md",
+  "recorded_at": "2026-10-18T03:30:00+05:30",
+  "question": "may SERAPH retain source full text? Answered per source by reading the terms.",
+  "determination": {
+    "fed_press": {
+      "may_store_full_text": true,
+      "rights": "Board-authored public-domain feed text; attribution required: https://www.federalreserve.gov/disclaimer.htm"
+    },
+    "federal_register": {
+      "may_store_full_text": true,
+      "rights": "US Government work, not copyrightable: 17 U.S.C. 105 (https://www.govinfo.gov/about/policies). Credit the issuing agency; third-party material embedded in a government document is NOT covered. See docs/decisions/DR-10-2026-10-18-source-text-rights.md"
+    },
+    "federal_register_india": {
+      "may_store_full_text": true,
+      "rights": "US Government work, not copyrightable: 17 U.S.C. 105 (https://www.govinfo.gov/about/policies). Credit the issuing agency; third-party material embedded in a government document is NOT covered. See docs/decisions/DR-10-2026-10-18-source-text-rights.md"
+    },
+    "mofcom_policy_listing": {
+      "may_store_full_text": false,
+      "rights": "official listing title/link only; no article text retained"
+    },
+    "mofcom_rare_earth_18_2025": {
+      "may_store_full_text": false,
+      "rights": "official document title/link only; no full text redistribution"
+    },
+    "pib_releases": {
+      "may_store_full_text": true,
+      "rights": "PIB Copyright Policy: may be reproduced free of charge, no prior approval; source must be PROMINENTLY acknowledged; must be accurate and not used in a derogatory or misleading context; third-party material NOT covered (https://factcheck.pib.gov.in/Documents/CopyrightPolicy.pdf). See docs/decisions/DR-10-2026-10-18-source-text-rights.md"
+    },
+    "rbi_notifications": {
+      "may_store_full_text": false,
+      "rights": "RBI reserves all rights: its copyright page says only '(c) Reserve Bank of India. All Rights Reserved' with no grant (https://www.rbi.org.in/Scripts/Copyright.aspx). Terms REVIEWED and full-text retention REFUSED. Headline, link, times and hash only. See docs/decisions/DR-10-2026-10-18-source-text-rights.md"
+    },
+    "rbi_press_releases": {
+      "may_store_full_text": false,
+      "rights": "RBI reserves all rights: its copyright page says only '(c) Reserve Bank of India. All Rights Reserved' with no grant (https://www.rbi.org.in/Scripts/Copyright.aspx). Terms REVIEWED and full-text retention REFUSED. Headline, link, times and hash only. See docs/decisions/DR-10-2026-10-18-source-text-rights.md"
+    },
+    "rbi_speeches": {
+      "may_store_full_text": false,
+      "rights": "RBI reserves all rights: its copyright page says only '(c) Reserve Bank of India. All Rights Reserved' with no grant (https://www.rbi.org.in/Scripts/Copyright.aspx). Terms REVIEWED and full-text retention REFUSED. Headline, link, times and hash only. See docs/decisions/DR-10-2026-10-18-source-text-rights.md"
+    },
+    "sebi_press": {
+      "may_store_full_text": false,
+      "rights": "SEBI permits reproduction only AFTER permission is obtained by email (https://www.sebi.gov.in/website-policy.html). That email has not been sent, so full-text retention is REFUSED - not because the terms are unknown, but because the permission they require is not held. One email would change this. See docs/decisions/DR-10-2026-10-18-source-text-rights.md"
+    },
+    "tata_kalinganagar_expansion": {
+      "may_store_full_text": false,
+      "rights": "issuer release title/link only; no full text redistribution"
+    },
+    "usgs_earthquakes": {
+      "may_store_full_text": true,
+      "rights": "US Government work in the public domain; USGS asks that proper credit be given (https://www.usgs.gov/information-policies-and-instructions/acknowledging-or-crediting-usgs). Third-party images used by USGS with permission are NOT covered. See docs/decisions/DR-10-2026-10-18-source-text-rights.md"
+    }
+  },
+  "body_coverage": {
+    "stories": 280,
+    "with_body": 22,
+    "pct": 7.9,
+    "note": "accrues forward only: rows are immutable and an unchanged item yields no new row"
+  },
+  "enforcement": "stories.body AND observations.raw are both gated on the same flag, so refused sources never had their bytes retained",
+  "measured_effect_on_34_real_federal_register_documents": {
+    "interpreted_differently": 9,
+    "mean_abstract_chars": 455,
+    "mean_title_chars": 134,
+    "regressions_found_and_fixed": [
+      "Paperwork Reduction Act boilerplate made action=decrease; boilerplate is now blanked (not deleted, so evidence offsets stay true)",
+      "Jeffrey Thies: Final Debarment Order read as proposed because the abstract narrates the preceding proposal; a finality marker in the TITLE now outranks a pending stage found only in the body"
+    ],
+    "gap_exposed": "the stage rule matched propose/proposes/proposed/proposal but NOT proposing, which is how a Federal Register abstract usually phrases it",
+    "not_chased": "two documents retain imprecise frames; both are out of scope (no Indian place, no mapped sector, no tracked authority) so neither reaches a user"
+  },
+  "not_claimed": [
+    "feed-supplied abstracts only; fetching each document full text from its own page is a separate question",
+    "SEBI is refused for want of a permission that was never requested, not for want of known terms",
+    "no rights determination was inferred from a site being governmental"
+  ],
+  "verification": {
+    "new_tests": 26,
+    "news_side_suite": 428,
+    "js_harness_checks": 31
+  }
+}

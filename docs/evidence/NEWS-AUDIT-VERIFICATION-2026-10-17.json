@@ -1,0 +1,42 @@
+{
+  "date": "2026-10-17",
+  "tests": {
+    "initial_news_pipeline_overlays_globe": {
+      "passed": 94,
+      "failed": 1,
+      "failure": "Windows sandbox TemporaryDirectory cleanup permission, not assertion failure"
+    },
+    "isolated_environment_retry": {
+      "passed": 1
+    },
+    "origin_resolution": {
+      "passed": 17
+    },
+    "unique_python_tests_passed": 112,
+    "javascript_harness_checks_passed": 27,
+    "full_suite_rerun": false,
+    "new_browser_run": false,
+    "saved_browser_screenshot_inspected": true
+  },
+  "synthetic_probe_count": 10,
+  "limitations": [
+    "Deliberate counterexamples do not estimate real-world accuracy",
+    "No current live polling service uptime verified",
+    "Source catalogue entries are proposals with differing verification status",
+    "No market-model or crisis-prediction evaluation rerun"
+  ],
+  "file_hashes_sha256": {
+    "scripts/run_news.py": "051012d90efb7ea8cf71b473449ad46be8a9dd482bd451e42ca749008aae7ecd",
+    "scripts/probe_news_sources.py": "f6c7c32668c499b9c080fd31ad4c24b7c6c0b87b0fe5b8b53b0adfab82e57001",
+    "seraph/news/model.py": "6d0fdfda1c7a7c851ec64b75eff3af54e324fd7f11c26f6735cab9ab0eba1bdb",
+    "seraph/news/extraction.py": "12de2d83a889464043861e1e0a8767dfd4b3aa5f5645caf1420cf5f0c28109bc",
+    "seraph/news/estimation.py": "cb5cbfd590c224efe9510aa4e317d0cc3fa2bc6d0eab4fe5ff3e808b1fe44406",
+    "seraph/news/acquisition.py": "ee31a5e13a3cdcd7d2b0dca4c949c02f15dac0c3a8cc780522f3f3d82b44048b",
+    "seraph/news/registry.py": "391b6816d5edf66e70e6fc3b53c715ee624f3382f3fba4aff10a65812b413c8c",
+    "seraph/news/http_feed.py": "28f52e0b03c0355a649b8a70e8be8add8730e02896a8c20c687e021a37b94993",
+    "seraph/dashboard/news_view.py": "6fa1f005374425c27840059a0df5a6f814cdacf1d70013ba4d5c698665f99f6e",
+    "seraph/dashboard/globe_payload.py": "d7f9a76ebeb252914cd5be54fe466b3f4cbd1246d39126b807dce6f4f40970f2",
+    "seraph/dashboard/console_backend.py": "2953cb1d59d70803268dabff764bde3d700d4f004dfc23128ba9634fcef1318a",
+    "docs/evidence/T13-NEWS-TO-GLOBE-2026-10-17.json": "e968ae6cb160eea2198dabb695c3e4f9002405ad13c121025868bdda89c60cd1"
+  }
+}

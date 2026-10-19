@@ -1,0 +1,177 @@
+{
+  "ticket": "NI11/NI12",
+  "recorded_at": "2026-10-17T21:46:47+05:30",
+  "what": "three curated sector exposure edges, cited from documents in the store, plus two stage/direction defects they exposed",
+  "registry": {
+    "entities": 2,
+    "places": 8,
+    "assets": 1,
+    "edges": 7,
+    "source_places": 10
+  },
+  "loader_errors": [],
+  "eligible_events": 206,
+  "impacts_total": 18,
+  "impacts_by_target": {
+    "in": 1,
+    "sector:agriculture": 3,
+    "sector:aluminium": 2,
+    "sector:auto": 1,
+    "sector:chemicals": 4,
+    "sector:steel": 5,
+    "tata_kalinganagar": 1,
+    "tata_steel": 1
+  },
+  "impacts_by_direction": {
+    "adverse": 5,
+    "ambiguous": 12,
+    "favourable": 1
+  },
+  "remedy_stages": {
+    "adopted": 6,
+    "announced": 15,
+    "consultation": 2,
+    "effective": 2,
+    "repealed": 1,
+    "unknown": 6
+  },
+  "rows": [
+    {
+      "target": "in",
+      "direction": "ambiguous",
+      "severity": "moderate",
+      "headline": "Announcement No.18 of 2025 of The Ministry of Commerce and The General Administration of Customs of The People\u2019s Republic of China Announcing the decision to implement export control on some medium and heavy rare earth related items",
+      "document": "https://english.mofcom.gov.cn/Policies/AnnouncementsOrders/art/2025/art_0dd87cbee7b045bf93fabe6ab2faceee.html"
+    },
+    {
+      "target": "sector:agriculture",
+      "direction": "ambiguous",
+      "severity": "minor",
+      "headline": "Oleoresin Paprika From India; Determinations",
+      "document": "https://www.federalregister.gov/documents/2026/10/08/2026-20609/oleoresin-paprika-from-india-determinations"
+    },
+    {
+      "target": "sector:agriculture",
+      "direction": "ambiguous",
+      "severity": "minor",
+      "headline": "Certain Frozen Warmwater Shrimp From India: Rescission of Antidumping Duty Administrative Review, In Part; 2025-2026",
+      "document": "https://www.federalregister.gov/documents/2026/09/28/2026-19779/certain-frozen-warmwater-shrimp-from-india-rescission-of-antidumping-duty-administrative-review-in"
+    },
+    {
+      "target": "sector:agriculture",
+      "direction": "adverse",
+      "severity": "minor",
+      "headline": "Oleoresin Paprika From India: Antidumping Duty Order and Countervailing Duty Order",
+      "document": "https://www.federalregister.gov/documents/2026/10/08/2026-20690/oleoresin-paprika-from-india-antidumping-duty-order-and-countervailing-duty-order"
+    },
+    {
+      "target": "sector:aluminium",
+      "direction": "favourable",
+      "severity": "minor",
+      "headline": "Common Alloy Aluminum Sheet From the People's Republic of China, Bahrain, Brazil, Croatia, Egypt, Germany, India, Indonesia, Italy, Oman, Romania, Serbia, Slovenia, South Africa, Spain, Taiwan, and the Republic of T\u00fcrkiye: Final Results of Changed Circumstances Reviews and Revocation of the Antidumping and Countervailing Duty Orders, in Part",
+      "document": "https://www.federalregister.gov/documents/2026/09/24/2026-19516/common-alloy-aluminum-sheet-from-the-peoples-republic-of-china-bahrain-brazil-croatia-egypt-germany"
+    },
+    {
+      "target": "sector:aluminium",
+      "direction": "ambiguous",
+      "severity": "minor",
+      "headline": "Common Alloy Aluminum Sheet From Bahrain, Brazil, Croatia, Egypt, Germany, India, Indonesia, Italy, Oman, Romania, Serbia, Slovenia, South Africa, Spain, Taiwan, and Turkey; Scheduling of Full Five-Year Reviews",
+      "document": "https://www.federalregister.gov/documents/2026/10/14/2026-20904/common-alloy-aluminum-sheet-from-bahrain-brazil-croatia-egypt-germany-india-indonesia-italy-oman"
+    },
+    {
+      "target": "sector:auto",
+      "direction": "ambiguous",
+      "severity": "moderate",
+      "headline": "Announcement No.18 of 2025 of The Ministry of Commerce and The General Administration of Customs of The People\u2019s Republic of China Announcing the decision to implement export control on some medium and heavy rare earth related items",
+      "document": "https://english.mofcom.gov.cn/Policies/AnnouncementsOrders/art/2025/art_0dd87cbee7b045bf93fabe6ab2faceee.html"
+    },
+    {
+      "target": "sector:chemicals",
+      "direction": "ambiguous",
+      "severity": "minor",
+      "headline": "Perfluoroalkoxy Alkane From India; Determinations",
+      "document": "https://www.federalregister.gov/documents/2026/09/24/2026-19492/perfluoroalkoxy-alkane-from-india-determinations"
+    },
+    {
+      "target": "sector:chemicals",
+      "direction": "ambiguous",
+      "severity": "minor",
+      "headline": "Polyethylene Terephthalate Film, Sheet, and Strip From India: Preliminary Results of Countervailing Duty Administrative Review, and Rescission, in Part; 2024",
+      "document": "https://www.federalregister.gov/documents/2026/10/14/2026-20940/polyethylene-terephthalate-film-sheet-and-strip-from-india-preliminary-results-of-countervailing"
+    },
+    {
+      "target": "sector:chemicals",
+      "direction": "adverse",
+      "severity": "minor",
+      "headline": "Chromium Trioxide From India: Final Affirmative Countervailing Duty Determination",
+      "document": "https://www.federalregister.gov/documents/2026/10/08/2026-20696/chromium-trioxide-from-india-final-affirmative-countervailing-duty-determination"
+    },
+    {
+      "target": "sector:chemicals",
+      "direction": "adverse",
+      "severity": "minor",
+      "headline": "Chromium Trioxide From India: Final Affirmative Determination of Sales at Less Than Fair Value",
+      "document": "https://www.federalregister.gov/documents/2026/10/08/2026-20695/chromium-trioxide-from-india-final-affirmative-determination-of-sales-at-less-than-fair-value"
+    },
+    {
+      "target": "sector:steel",
+      "direction": "ambiguous",
+      "severity": "minor",
+      "headline": "Oil Country Tubular Goods From India, South Korea, Turkey, Ukraine, and Vietnam; Determinations",
+      "document": "https://www.federalregister.gov/documents/2026/09/29/2026-19879/oil-country-tubular-goods-from-india-south-korea-turkey-ukraine-and-vietnam-determinations"
+    },
+    {
+      "target": "sector:steel",
+      "direction": "ambiguous",
+      "severity": "minor",
+      "headline": "Tata Steel inaugurates Phase II expansion of Kalinganagar operations",
+      "document": "https://www.tatasteel.com/media/newsroom/press-releases/india/2025/tata-steel-inaugurates-phase-ii-expansion-of-kalinganagar-operations/"
+    },
+    {
+      "target": "sector:steel",
+      "direction": "ambiguous",
+      "severity": "minor",
+      "headline": "Forged Steel Fittings From India and South Korea; Cancellation of Hearing for Antidumping and Countervailing Duty Reviews",
+      "document": "https://www.federalregister.gov/documents/2026/10/08/2026-20614/forged-steel-fittings-from-india-and-south-korea-cancellation-of-hearing-for-antidumping-and"
+    },
+    {
+      "target": "sector:steel",
+      "direction": "adverse",
+      "severity": "minor",
+      "headline": "Certain Freight Rail Couplers and Parts Thereof From India: Final Affirmative Countervailing Duty Determination",
+      "document": "https://www.federalregister.gov/documents/2026/09/24/2026-19522/certain-freight-rail-couplers-and-parts-thereof-from-india-final-affirmative-countervailing-duty"
+    },
+    {
+      "target": "sector:steel",
+      "direction": "adverse",
+      "severity": "minor",
+      "headline": "Certain Freight Rail Couplers and Parts Thereof From India: Final Affirmative Determination of Sales at Less Than Fair Value",
+      "document": "https://www.federalregister.gov/documents/2026/09/24/2026-19521/certain-freight-rail-couplers-and-parts-thereof-from-india-final-affirmative-determination-of-sales"
+    },
+    {
+      "target": "tata_kalinganagar",
+      "direction": "ambiguous",
+      "severity": "minor",
+      "headline": "Tata Steel inaugurates Phase II expansion of Kalinganagar operations",
+      "document": "https://www.tatasteel.com/media/newsroom/press-releases/india/2025/tata-steel-inaugurates-phase-ii-expansion-of-kalinganagar-operations/"
+    },
+    {
+      "target": "tata_steel",
+      "direction": "ambiguous",
+      "severity": "minor",
+      "headline": "Tata Steel inaugurates Phase II expansion of Kalinganagar operations",
+      "document": "https://www.tatasteel.com/media/newsroom/press-releases/india/2025/tata-steel-inaugurates-phase-ii-expansion-of-kalinganagar-operations/"
+    }
+  ],
+  "not_claimed": [
+    "no edge is sized: a US proceeding covering a product From India establishes the import trade exists, not a revenue share, company exposure or loss",
+    "a subject or sector marker is not a probability of financial loss",
+    "nothing here enters CSRS or the F1 pillar channel"
+  ],
+  "verification": {
+    "new_tests": 24,
+    "remedy_label_tests": 103,
+    "news_side_suite": 357,
+    "js_harness_checks": 31
+  }
+}

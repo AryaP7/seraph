@@ -1,0 +1,36 @@
+{
+  "tests": {
+    "news": {
+      "tests": "545",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "32.620"
+    },
+    "integration": {
+      "tests": "188",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "11.343"
+    }
+  },
+  "javascript": {
+    "news_layer_checks": 31,
+    "news_layer": "passed",
+    "bridge": "passed"
+  },
+  "mechanical_invariants": "passed",
+  "browser": "browser/result.json",
+  "release_gate": "release-gate.json",
+  "counterexamples": [
+    "findings.json",
+    "semantic-findings.json"
+  ],
+  "limits": [
+    "No new external source availability probes",
+    "No prospective trial",
+    "Not the full repository suite"
+  ],
+  "report": "../../../NEWS-FULL-AUDIT-2026-10-18.md"
+}

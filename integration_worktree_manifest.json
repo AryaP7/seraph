@@ -1,0 +1,92 @@
+[
+  {
+    "worktree": "c11-fr43-fr49",
+    "path": "fixtures/mock_generator.py",
+    "source_sha256": "28cfc8842a53ffe990be64a9eaef644173cd68e98dfa7c15cf2877e590a9691c",
+    "main_before_sha256": "3adb5c036814d4baef77e776fde1941c8eada7deb708b0488625651da2f9015a"
+  },
+  {
+    "worktree": "c11-fr43-fr49",
+    "path": "seraph/dashboard/gateway.py",
+    "source_sha256": "7feaa226404466d2ead24b66cbe34821b1602592468b9d48b1dedb2df1044361",
+    "main_before_sha256": "5eb061634f0e3fba1a96a94b1d7858b9a8f7552ee06cbe825fa92201f252db7f"
+  },
+  {
+    "worktree": "c11-fr43-fr49",
+    "path": "seraph/decision_support/__init__.py",
+    "source_sha256": "1334ddaf204491e50f5d284c14a1707e85ee5af26604425c645625ff89d334ca",
+    "main_before_sha256": "9788d999b4cebe156957a26a37d330fd344b7a8b321dd55e02532e1fd76d8276"
+  },
+  {
+    "worktree": "c11-fr43-fr49",
+    "path": "seraph/decision_support/artefacts.py",
+    "source_sha256": "5d18ebcbc1cdf342db8dcac003a82e02a6d40d39b9d5dd00d7a4e92b8a2b039a",
+    "main_before_sha256": "a4b820c457225c5d88dc0b74a76808fba3b5cc616c6d9d4dd9da93b24438ca9a"
+  },
+  {
+    "worktree": "c11-fr43-fr49",
+    "path": "seraph/decision_support/portfolio.py",
+    "source_sha256": "50105c7f8fb7513cb9a7208677d1a290e77f74ac5a29a3d46156db515eb8d004",
+    "main_before_sha256": null
+  },
+  {
+    "worktree": "c11-fr43-fr49",
+    "path": "seraph/decision_support/portfolio_io.py",
+    "source_sha256": "1ad08b4242ec5664d64da56bb01d266bed7a64e80997d5eb5d915860533b8240",
+    "main_before_sha256": null
+  },
+  {
+    "worktree": "c11-fr43-fr49",
+    "path": "seraph/decision_support/action_log.py",
+    "source_sha256": "494ac8dfa0eaf3d1cf73eb44359edbf8a5e0bae42c793919497dc3217aa64b70",
+    "main_before_sha256": null
+  },
+  {
+    "worktree": "c11-fr43-fr49",
+    "path": "tests/test_c11_portfolio.py",
+    "source_sha256": "14cd656a2a7e7a753a96fc7fbc6e66b67d98b932190a5978b0b2504f481be4b7",
+    "main_before_sha256": null
+  },
+  {
+    "worktree": "c11-fr43-fr49",
+    "path": "tests/test_c11_portfolio_io.py",
+    "source_sha256": "42fdb24c736d23adff07b948e0e4476b144241a216cf796374f3b08d3e981ef5",
+    "main_before_sha256": null
+  },
+  {
+    "worktree": "c11-fr43-fr49",
+    "path": "tests/test_c11_action_log.py",
+    "source_sha256": "0fb9e579302551f588fcb684e0079b03ad5d6d892fa45b8ceeabeacfba20eef5",
+    "main_before_sha256": null
+  },
+  {
+    "worktree": "c2-macro-ingestion",
+    "path": "seraph/ingestion/macro_client.py",
+    "source_sha256": "f257200176a34d1689f62767b018adf28364500576fe10856602ca6b86c8d85d",
+    "main_before_sha256": null
+  },
+  {
+    "worktree": "c2-macro-ingestion",
+    "path": "seraph/ingestion/flow_client.py",
+    "source_sha256": "70aba7455c83f47d179dd14eb551aac71dc0fc4174a3e51fdbcca45fc9c746c7",
+    "main_before_sha256": null
+  },
+  {
+    "worktree": "c2-macro-ingestion",
+    "path": "seraph/ingestion/tariff_events.py",
+    "source_sha256": "deea09d6646fe2a86fd0aac0c12b48c48dcaae0bc6e994c8566ece4b6f00cecc",
+    "main_before_sha256": null
+  },
+  {
+    "worktree": "c2-macro-ingestion",
+    "path": "seraph/ingestion/tariff_events.curated.csv",
+    "source_sha256": "d685828330ebcf6faa6b268ca7a313cda8a4c4f988d948d6eb4227b6e7f77364",
+    "main_before_sha256": null
+  },
+  {
+    "worktree": "c2-macro-ingestion",
+    "path": "tests/test_c2_macro_ingestion.py",
+    "source_sha256": "0cabb6b58296de63c0d07b6058d1c92a6d6ea315b4e7f1a78870517bbddb16d0",
+    "main_before_sha256": null
+  }
+]

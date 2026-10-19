@@ -1,0 +1,127 @@
+{
+  "generated_at": "2026-10-18T15:16:51+05:30",
+  "isolated_store": "C:\\Users\\Arlop\\Downloads\\SERAPH VARYA\\SERAPH Varya\\prototype_runs\\document-recovery-d2f68af8.sqlite",
+  "original_store_unchanged": true,
+  "simulated_feed_304": true,
+  "document_http_requests_real": true,
+  "reports": [
+    {
+      "source_id": "fed_press",
+      "attempted_at": "2026-10-18T15:16:46+05:30",
+      "ok": true,
+      "new_observations": 2,
+      "unchanged": 18,
+      "new_stories": 2,
+      "corrections": 2,
+      "syndications": 2,
+      "attempts": 1,
+      "error": null
+    },
+    {
+      "source_id": "federalreserve_speeches",
+      "attempted_at": "2026-10-18T15:16:49+05:30",
+      "ok": true,
+      "new_observations": 0,
+      "unchanged": 0,
+      "new_stories": 0,
+      "corrections": 0,
+      "syndications": 0,
+      "attempts": 1,
+      "error": null
+    },
+    {
+      "source_id": "federal_register",
+      "attempted_at": "2026-10-18T15:16:49+05:30",
+      "ok": true,
+      "new_observations": 0,
+      "unchanged": 0,
+      "new_stories": 0,
+      "corrections": 0,
+      "syndications": 0,
+      "attempts": 1,
+      "error": null
+    }
+  ],
+  "production": {
+    "sources": 17,
+    "stories": 458,
+    "nonempty_bodies": 24
+  },
+  "registry": {
+    "directory": "C:\\Users\\Arlop\\Downloads\\SERAPH VARYA\\SERAPH Varya\\seraph\\news\\curated",
+    "errors": [],
+    "entities": 22,
+    "places": 21,
+    "assets": 28,
+    "edges": 64,
+    "source_places": 10,
+    "empty": false
+  },
+  "issuers": 21,
+  "issuers_with_sector": 15,
+  "assets_with_coordinates": 0,
+  "attempts": [
+    {
+      "source": "fed_press",
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/enforcement20261008a.htm",
+      "at": "2026-10-18T15:16:47+05:30",
+      "retry_at": "2026-10-18T16:16:47+05:30",
+      "status": "retrieved"
+    },
+    {
+      "source": "fed_press",
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/enforcement20260918a.htm",
+      "at": "2026-10-18T15:16:49+05:30",
+      "retry_at": "2026-10-18T16:16:49+05:30",
+      "status": "retrieved"
+    },
+    {
+      "source": "federal_register",
+      "url": "https://www.federalregister.gov/documents/2026/10/16/2026-21232/center-for-scientific-review-amended-notice-of-meeting",
+      "at": "2026-10-18T15:16:49+05:30",
+      "retry_at": "2026-10-18T16:16:49+05:30",
+      "status": "unavailable: FeedFetchError: document redirect leaves permitted hosts"
+    },
+    {
+      "source": "federal_register",
+      "url": "https://www.federalregister.gov/documents/2026/10/16/2026-21225/notice-of-public-meeting-of-the-new-york-advisory-committee-to-the-us-commission-on-civil-rights",
+      "at": "2026-10-18T15:16:51+05:30",
+      "retry_at": "2026-10-18T16:16:51+05:30",
+      "status": "unavailable: FeedFetchError: document redirect leaves permitted hosts"
+    }
+  ],
+  "new_documents": [
+    {
+      "story_id": "sty_1ee0c96bbf8df4d3cf60",
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/enforcement20261008a.htm",
+      "characters": 1090,
+      "metadata": {
+        "publication_precision": "timestamp",
+        "published_raw": "Thu, 8 Oct 2026 20:30:00 GMT",
+        "text_scope": "article_text",
+        "document_status": "retrieved",
+        "document_hash": "29c39f95204414005cec2369073636bc40d3847a64a24c8fdd00f10b05066ebe",
+        "document_url": "https://www.federalreserve.gov/newsevents/pressreleases/enforcement20261008a.htm",
+        "document_format": "article",
+        "document_acquired_at": "2026-10-18T15:16:47+05:30",
+        "document_truncated": false
+      }
+    },
+    {
+      "story_id": "sty_f4d77d1db61143e37692",
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/enforcement20260918a.htm",
+      "characters": 997,
+      "metadata": {
+        "publication_precision": "timestamp",
+        "published_raw": "Fri, 18 Sep 2026 15:00:00 GMT",
+        "text_scope": "article_text",
+        "document_status": "retrieved",
+        "document_hash": "e0bd1b6cd0cfa52b4e0b1945f7b5783d0b7b835cb8e80d41a9a9e1221c93d864",
+        "document_url": "https://www.federalreserve.gov/newsevents/pressreleases/enforcement20260918a.htm",
+        "document_format": "article",
+        "document_acquired_at": "2026-10-18T15:16:49+05:30",
+        "document_truncated": false
+      }
+    }
+  ]
+}

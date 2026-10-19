@@ -1,0 +1,59 @@
+{
+  "generated": "2026-10-16T12:51:23+0530",
+  "store_used_for_render": "C:/Users/Arlop/Downloads/SERAPH VARYA/SERAPH Varya/prototype_runs/fix01-covid-window.sqlite",
+  "wheel": {
+    "name": "seraph-0.1.0-py3-none-any.whl",
+    "entries": 99,
+    "payload": [
+      "seraph/dashboard/assets/THREE-LICENSE.txt",
+      "seraph/dashboard/assets/connected.css",
+      "seraph/dashboard/assets/connected.html",
+      "seraph/dashboard/assets/connected.js",
+      "seraph/dashboard/assets/console.html",
+      "seraph/dashboard/assets/frontend.html",
+      "seraph/dashboard/assets/globe.html",
+      "seraph/dashboard/assets/globe_core.js",
+      "seraph/dashboard/assets/globe_geometry.js",
+      "seraph/dashboard/assets/three.r128.min.js",
+      "seraph/dashboard/console_component/THREE-LICENSE.txt",
+      "seraph/dashboard/console_component/bridge.js",
+      "seraph/dashboard/console_component/index.html",
+      "seraph/dashboard/console_component/preview_pillars.js",
+      "seraph/dashboard/console_component/three.r128.min.js",
+      "seraph/ingestion/tariff_events.curated.csv",
+      "seraph/store/schema.sql"
+    ],
+    "missing_required": [],
+    "forbidden_present": []
+  },
+  "install_ok": true,
+  "fresh_environment": {
+    "installed_from": "C:\\Users\\Arlop\\AppData\\Local\\Temp\\tmpun1r86fc\\env\\Lib\\site-packages\\seraph",
+    "is_site_packages": true,
+    "component_files": [
+      "THREE-LICENSE.txt",
+      "bridge.js",
+      "index.html",
+      "preview_pillars.js",
+      "three.r128.min.js"
+    ],
+    "index_html_bytes": 252898,
+    "index_has_console_markup": true,
+    "three_js_bytes": 603445,
+    "three_licence_present": true,
+    "original_console_asset_present": true,
+    "schema_sql_present": true,
+    "declared_component_path": "C:\\Users\\Arlop\\AppData\\Local\\Temp\\tmpun1r86fc\\env\\Lib\\site-packages\\seraph\\dashboard\\console_component",
+    "declared_path_is_installed": true,
+    "render_exception": null,
+    "run_selected": "37bccf329742",
+    "date_options": 81
+  },
+  "verdict": {
+    "wheel_carries_required_assets": true,
+    "installs_outside_the_checkout": true,
+    "component_resolves_to_the_installed_package": true,
+    "canonical_console_renders": true,
+    "passed": true
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "original_constant_transition_restarts": [
+    {
+      "restart": 0,
+      "minimum": -1.9338894578858836,
+      "maximum": 2.3860427086000664,
+      "valid_probabilities": false
+    },
+    {
+      "restart": 1,
+      "minimum": -1.9890459993194076,
+      "maximum": 2.814546033457716,
+      "valid_probabilities": false
+    },
+    {
+      "restart": 2,
+      "minimum": -1.8656576987781426,
+      "maximum": 1.4527156893995463,
+      "valid_probabilities": false
+    },
+    {
+      "restart": 3,
+      "minimum": -1.8867213154181481,
+      "maximum": 3.304019331852205,
+      "valid_probabilities": false
+    }
+  ],
+  "scope": "Exact default seed/draw construction in original engine.fit; constant-transition branch only",
+  "note": "A source-level initialization defect, not proof the selected final fit is invalid."
+}

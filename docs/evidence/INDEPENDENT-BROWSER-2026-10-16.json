@@ -1,0 +1,65 @@
+{
+  "initial": {
+    "role": "retail",
+    "mainVisible": true,
+    "visibleViews": [],
+    "extraTitle": "",
+    "tools": [],
+    "banner": "HISTORICAL REPLAY \u2014 NOT A CURRENT MARKET READING \u2014 the newest observation is 2360.3 days old. Anything computed from it is a REPLAY of that period, not a statement about the market now, and must be labelled as such | observed 2020-04-30T15:30:00+05:30 \u00b7 now 2026-10-16T22:04:52+05:30 \u00b7 market closed_for_day \u00b7 feed: none \u2014 no live market data source is configuredRUN 77cc8a2fb747507a \u00b7 2020-04-30 \u00b7 RETAIL | MAP / NEWS / SECTOR / TICKER / WEATHER: FABRICATED PREVIEWS."
+  },
+  "after_institutional_click": {
+    "role": "institutional",
+    "mainVisible": true,
+    "visibleViews": [],
+    "extraTitle": "",
+    "tools": [],
+    "banner": "HISTORICAL REPLAY \u2014 NOT A CURRENT MARKET READING \u2014 the newest observation is 2360.3 days old. Anything computed from it is a REPLAY of that period, not a statement about the market now, and must be labelled as such | observed 2020-04-30T15:30:00+05:30 \u00b7 now 2026-10-16T22:04:54+05:30 \u00b7 market closed_for_day \u00b7 feed: none \u2014 no live market data source is configuredRUN 77cc8a2fb747507a \u00b7 2020-04-30 \u00b7 INSTITUTIONAL | MAP / NEWS / SECTOR / TICKER / WEATHER: FABRICATED PREVIEWS."
+  },
+  "after_regulator_click": {
+    "role": "regulator",
+    "mainVisible": true,
+    "visibleViews": [],
+    "extraTitle": "",
+    "tools": [],
+    "banner": "HISTORICAL REPLAY \u2014 NOT A CURRENT MARKET READING \u2014 the newest observation is 2360.3 days old. Anything computed from it is a REPLAY of that period, not a statement about the market now, and must be labelled as such | observed 2020-04-30T15:30:00+05:30 \u00b7 now 2026-10-16T22:04:54+05:30 \u00b7 market closed_for_day \u00b7 feed: none \u2014 no live market data source is configuredRUN 77cc8a2fb747507a \u00b7 2020-04-30 \u00b7 REGULATOR | MAP / NEWS / SECTOR / TICKER / WEATHER: FABRICATED PREVIEWS."
+  },
+  "after_retail_click": {
+    "role": "retail",
+    "mainVisible": true,
+    "visibleViews": [],
+    "extraTitle": "",
+    "tools": [],
+    "banner": "HISTORICAL REPLAY \u2014 NOT A CURRENT MARKET READING \u2014 the newest observation is 2360.3 days old. Anything computed from it is a REPLAY of that period, not a statement about the market now, and must be labelled as such | observed 2020-04-30T15:30:00+05:30 \u00b7 now 2026-10-16T22:04:54+05:30 \u00b7 market closed_for_day \u00b7 feed: none \u2014 no live market data source is configuredRUN 77cc8a2fb747507a \u00b7 2020-04-30 \u00b7 RETAIL | MAP / NEWS / SECTOR / TICKER / WEATHER: FABRICATED PREVIEWS."
+  },
+  "same_role_timeout_in_tools": {
+    "role": "retail",
+    "mainVisible": false,
+    "visibleViews": [
+      "viewExtra"
+    ],
+    "extraTitle": "TOOLS",
+    "tools": [
+      "Calculate coverage",
+      "Retry",
+      "Cancel"
+    ],
+    "status": "\u25cf NO RESPONSE \u2014 no response in 15s. Retry sends the same request id, so a request that did arrive cannot be applied twice. Retry Cancel",
+    "banner": "HISTORICAL REPLAY \u2014 NOT A CURRENT MARKET READING \u2014 the newest observation is 2360.3 days old. Anything computed from it is a REPLAY of that period, not a statement about the market now, and must be labelled as such | observed 2020-04-30T15:30:00+05:30 \u00b7 now 2026-10-16T22:04:54+05:30 \u00b7 market closed_for_day \u00b7 feed: none \u2014 no live market data source is configuredRUN 77cc8a2fb747507a \u00b7 2020-04-30 \u00b7 RETAIL | MAP / NEWS / SECTOR / TICKER / WEATHER: FABRICATED PREVIEWS."
+  },
+  "regulator_tools": {
+    "role": "regulator",
+    "mainVisible": false,
+    "visibleViews": [
+      "viewExtra"
+    ],
+    "extraTitle": "TOOLS",
+    "tools": [
+      "Calculate coverage",
+      "Run shock",
+      "Run regime-path scenario",
+      "Record action"
+    ],
+    "status": "\u25cf DONE \u2014 role",
+    "banner": "HISTORICAL REPLAY \u2014 NOT A CURRENT MARKET READING \u2014 the newest observation is 2360.3 days old. Anything computed from it is a REPLAY of that period, not a statement about the market now, and must be labelled as such | observed 2020-04-30T15:30:00+05:30 \u00b7 now 2026-10-16T22:05:11+05:30 \u00b7 market closed_for_day \u00b7 feed: none \u2014 no live market data source is configuredRUN 77cc8a2fb747507a \u00b7 2020-04-30 \u00b7 REGULATOR | MAP / NEWS / SECTOR / TICKER / WEATHER: FABRICATED PREVIEWS."
+  }
+}

@@ -1,0 +1,922 @@
+[
+  {
+    "target": "loss10_15",
+    "model": "climatology",
+    "n": 4576,
+    "positives": 352,
+    "base_rate": 0.07692307692307693,
+    "brier": 0.07200495403739013,
+    "log_loss": 0.2759822586430667,
+    "auc": 0.599138580406336,
+    "average_precision": 0.10765034192668552,
+    "mean_probability": 0.11772014421235918,
+    "always_negative_accuracy": 0.9230769230769231,
+    "matched_baseline": "baseline",
+    "alerts": {
+      "evaluated_sessions": 4310,
+      "alarm_sessions": 0,
+      "alarm_fraction": 0.0,
+      "episodes": 0,
+      "false_episodes": 0,
+      "false_episodes_per_year": 0.0
+    },
+    "vs_matched": {
+      "n": 4576,
+      "mean": 0.0022032151601674528,
+      "lower": -0.0005018407270740842,
+      "upper": 0.005234361673437151,
+      "block": 63,
+      "draws": 1000,
+      "caveat": "descriptive; not adjusted for model/research selection or nonstationarity"
+    },
+    "assessment_before_unresolved_tariff": {
+      "n": 4438,
+      "positives": 351,
+      "base_rate": 0.07908968003605228,
+      "brier": 0.07383585374392954,
+      "log_loss": 0.2812895061991642,
+      "auc": 0.5874160094859875,
+      "average_precision": 0.10773595141669107,
+      "mean_probability": 0.11876089316541487,
+      "always_negative_accuracy": 0.9209103199639477
+    },
+    "events_excluding_tariff": {
+      "assessable": 4,
+      "warned": 0
+    }
+  },
+  {
+    "target": "loss10_15",
+    "model": "baseline",
+    "n": 4576,
+    "positives": 352,
+    "base_rate": 0.07692307692307693,
+    "brier": 0.06980173887722267,
+    "log_loss": 0.26440398930131814,
+    "auc": 0.6547743952307162,
+    "average_precision": 0.15362041422137224,
+    "mean_probability": 0.10719981456688708,
+    "always_negative_accuracy": 0.9230769230769231,
+    "matched_baseline": "baseline",
+    "alerts": {
+      "evaluated_sessions": 4310,
+      "alarm_sessions": 251,
+      "alarm_fraction": 0.05823665893271462,
+      "episodes": 21,
+      "false_episodes": 17,
+      "false_episodes_per_year": 0.9939675174013921
+    },
+    "vs_matched": {
+      "n": 4576,
+      "mean": 0.0,
+      "lower": 0.0,
+      "upper": 0.0,
+      "block": 63,
+      "draws": 1000,
+      "caveat": "descriptive; not adjusted for model/research selection or nonstationarity"
+    },
+    "assessment_before_unresolved_tariff": {
+      "n": 4438,
+      "positives": 351,
+      "base_rate": 0.07908968003605228,
+      "brier": 0.07154176480726983,
+      "log_loss": 0.26930984141559616,
+      "auc": 0.6514011140876812,
+      "average_precision": 0.15510078630291757,
+      "mean_probability": 0.10794230767255947,
+      "always_negative_accuracy": 0.9209103199639477
+    },
+    "events_excluding_tariff": {
+      "assessable": 4,
+      "warned": 0
+    }
+  },
+  {
+    "target": "loss10_15",
+    "model": "combined",
+    "n": 4576,
+    "positives": 352,
+    "base_rate": 0.07692307692307693,
+    "brier": 0.06954325881857248,
+    "log_loss": 0.26328765900141043,
+    "auc": 0.6587949810606061,
+    "average_precision": 0.17389106939657858,
+    "mean_probability": 0.10688229650657774,
+    "always_negative_accuracy": 0.9230769230769231,
+    "matched_baseline": "baseline",
+    "alerts": {
+      "evaluated_sessions": 4310,
+      "alarm_sessions": 106,
+      "alarm_fraction": 0.02459396751740139,
+      "episodes": 26,
+      "false_episodes": 25,
+      "false_episodes_per_year": 1.4617169373549883
+    },
+    "vs_matched": {
+      "n": 4576,
+      "mean": -0.000258480058650183,
+      "lower": -0.001927797272434514,
+      "upper": 0.0010848085614365123,
+      "block": 63,
+      "draws": 1000,
+      "caveat": "descriptive; not adjusted for model/research selection or nonstationarity"
+    },
+    "assessment_before_unresolved_tariff": {
+      "n": 4438,
+      "positives": 351,
+      "base_rate": 0.07908968003605228,
+      "brier": 0.07130225511785745,
+      "log_loss": 0.26830433801137127,
+      "auc": 0.6554853586906437,
+      "average_precision": 0.1752226170325672,
+      "mean_probability": 0.10775834778619708,
+      "always_negative_accuracy": 0.9209103199639477
+    },
+    "events_excluding_tariff": {
+      "assessable": 4,
+      "warned": 0
+    }
+  },
+  {
+    "target": "loss10_15",
+    "model": "baseline_C1",
+    "n": 4576,
+    "positives": 352,
+    "base_rate": 0.07692307692307693,
+    "brier": 0.06978098187051557,
+    "log_loss": 0.2638532771853479,
+    "auc": 0.6466733654011708,
+    "average_precision": 0.1592868032533622,
+    "mean_probability": 0.10611585375232169,
+    "always_negative_accuracy": 0.9230769230769231,
+    "matched_baseline": "baseline",
+    "alerts": {
+      "evaluated_sessions": 4310,
+      "alarm_sessions": 260,
+      "alarm_fraction": 0.060324825986078884,
+      "episodes": 23,
+      "false_episodes": 19,
+      "false_episodes_per_year": 1.1109048723897912
+    },
+    "vs_matched": {
+      "n": 4576,
+      "mean": -2.0757006707091162e-05,
+      "lower": -0.0013239753941698155,
+      "upper": 0.001261330010539742,
+      "block": 63,
+      "draws": 1000,
+      "caveat": "descriptive; not adjusted for model/research selection or nonstationarity"
+    },
+    "assessment_before_unresolved_tariff": {
+      "n": 4438,
+      "positives": 351,
+      "base_rate": 0.07908968003605228,
+      "brier": 0.07151831163059628,
+      "log_loss": 0.2687512611299099,
+      "auc": 0.6443486644122808,
+      "average_precision": 0.16105636776728716,
+      "mean_probability": 0.10684359610461393,
+      "always_negative_accuracy": 0.9209103199639477
+    },
+    "events_excluding_tariff": {
+      "assessable": 4,
+      "warned": 0
+    }
+  },
+  {
+    "target": "loss10_15",
+    "model": "combined_C1",
+    "n": 4576,
+    "positives": 352,
+    "base_rate": 0.07692307692307693,
+    "brier": 0.07030891655294665,
+    "log_loss": 0.2657461664384678,
+    "auc": 0.6341347602444903,
+    "average_precision": 0.1641910058764339,
+    "mean_probability": 0.10496378432279214,
+    "always_negative_accuracy": 0.9230769230769231,
+    "matched_baseline": "baseline_C1",
+    "alerts": {
+      "evaluated_sessions": 4310,
+      "alarm_sessions": 122,
+      "alarm_fraction": 0.028306264501160094,
+      "episodes": 16,
+      "false_episodes": 15,
+      "false_episodes_per_year": 0.877030162412993
+    },
+    "vs_matched": {
+      "n": 4576,
+      "mean": 0.0005279346824310704,
+      "lower": -0.0014806848847257422,
+      "upper": 0.0026035975756447827,
+      "block": 63,
+      "draws": 1000,
+      "caveat": "descriptive; not adjusted for model/research selection or nonstationarity"
+    },
+    "assessment_before_unresolved_tariff": {
+      "n": 4438,
+      "positives": 351,
+      "base_rate": 0.07908968003605228,
+      "brier": 0.07210496530670506,
+      "log_loss": 0.2709426890621139,
+      "auc": 0.6308139838846959,
+      "average_precision": 0.1656133158106887,
+      "mean_probability": 0.1058825840182188,
+      "always_negative_accuracy": 0.9209103199639477
+    },
+    "events_excluding_tariff": {
+      "assessable": 4,
+      "warned": 0
+    }
+  },
+  {
+    "target": "loss10_15",
+    "model": "baseline_5y",
+    "n": 4576,
+    "positives": 352,
+    "base_rate": 0.07692307692307693,
+    "brier": 0.06883812897724995,
+    "log_loss": 0.2597963970209876,
+    "auc": 0.6286247820893595,
+    "average_precision": 0.16048451446424689,
+    "mean_probability": 0.08906629230208866,
+    "always_negative_accuracy": 0.9230769230769231,
+    "matched_baseline": "baseline",
+    "alerts": {
+      "evaluated_sessions": 4310,
+      "alarm_sessions": 334,
+      "alarm_fraction": 0.07749419953596287,
+      "episodes": 5,
+      "false_episodes": 3,
+      "false_episodes_per_year": 0.17540603248259862
+    },
+    "vs_matched": {
+      "n": 4576,
+      "mean": -0.0009636098999727095,
+      "lower": -0.002337238744390462,
+      "upper": 0.0005919473632407118,
+      "block": 63,
+      "draws": 1000,
+      "caveat": "descriptive; not adjusted for model/research selection or nonstationarity"
+    },
+    "assessment_before_unresolved_tariff": {
+      "n": 4438,
+      "positives": 351,
+      "base_rate": 0.07908968003605228,
+      "brier": 0.07072644515874837,
+      "log_loss": 0.2659644945373539,
+      "auc": 0.6179871972629496,
+      "average_precision": 0.16072063498450911,
+      "mean_probability": 0.09071794581701828,
+      "always_negative_accuracy": 0.9209103199639477
+    },
+    "events_excluding_tariff": {
+      "assessable": 4,
+      "warned": 1
+    }
+  },
+  {
+    "target": "loss10_15",
+    "model": "combined_5y",
+    "n": 4576,
+    "positives": 352,
+    "base_rate": 0.07692307692307693,
+    "brier": 0.06887328905352505,
+    "log_loss": 0.2601928345530678,
+    "auc": 0.6451937252496557,
+    "average_precision": 0.17186285854398667,
+    "mean_probability": 0.09037628279277005,
+    "always_negative_accuracy": 0.9230769230769231,
+    "matched_baseline": "baseline_5y",
+    "alerts": {
+      "evaluated_sessions": 4310,
+      "alarm_sessions": 121,
+      "alarm_fraction": 0.028074245939675176,
+      "episodes": 30,
+      "false_episodes": 26,
+      "false_episodes_per_year": 1.520185614849188
+    },
+    "vs_matched": {
+      "n": 4576,
+      "mean": 3.5160076275093747e-05,
+      "lower": -0.001722044670653139,
+      "upper": 0.001408170744417524,
+      "block": 63,
+      "draws": 1000,
+      "caveat": "descriptive; not adjusted for model/research selection or nonstationarity"
+    },
+    "assessment_before_unresolved_tariff": {
+      "n": 4438,
+      "positives": 351,
+      "base_rate": 0.07908968003605228,
+      "brier": 0.07075671257964444,
+      "log_loss": 0.26631190153972684,
+      "auc": 0.6367552736527534,
+      "average_precision": 0.17226231578598256,
+      "mean_probability": 0.09200560502610455,
+      "always_negative_accuracy": 0.9209103199639477
+    },
+    "events_excluding_tariff": {
+      "assessable": 4,
+      "warned": 2
+    }
+  },
+  {
+    "target": "loss10_15",
+    "model": "combined_interaction",
+    "n": 4576,
+    "positives": 352,
+    "base_rate": 0.07692307692307693,
+    "brier": 0.06968021000591036,
+    "log_loss": 0.2635983762625699,
+    "auc": 0.6585077963584711,
+    "average_precision": 0.16919870440354826,
+    "mean_probability": 0.10727009843972907,
+    "always_negative_accuracy": 0.9230769230769231,
+    "matched_baseline": "baseline",
+    "alerts": {
+      "evaluated_sessions": 4310,
+      "alarm_sessions": 107,
+      "alarm_fraction": 0.024825986078886312,
+      "episodes": 23,
+      "false_episodes": 22,
+      "false_episodes_per_year": 1.2863109048723897
+    },
+    "vs_matched": {
+      "n": 4576,
+      "mean": -0.00012152887131230385,
+      "lower": -0.001790485998362212,
+      "upper": 0.0012482297390263106,
+      "block": 63,
+      "draws": 1000,
+      "caveat": "descriptive; not adjusted for model/research selection or nonstationarity"
+    },
+    "assessment_before_unresolved_tariff": {
+      "n": 4438,
+      "positives": 351,
+      "base_rate": 0.07908968003605228,
+      "brier": 0.0714446367468776,
+      "log_loss": 0.2686311093228572,
+      "auc": 0.6550364333579406,
+      "average_precision": 0.17049258852740562,
+      "mean_probability": 0.10816454549251665,
+      "always_negative_accuracy": 0.9209103199639477
+    },
+    "events_excluding_tariff": {
+      "assessable": 4,
+      "warned": 0
+    }
+  },
+  {
+    "target": "loss10_15",
+    "model": "context",
+    "n": 4576,
+    "positives": 352,
+    "base_rate": 0.07692307692307693,
+    "brier": 0.06871880749192887,
+    "log_loss": 0.25995649564938766,
+    "auc": 0.6878806710571626,
+    "average_precision": 0.17712676030857508,
+    "mean_probability": 0.10775931363252496,
+    "always_negative_accuracy": 0.9230769230769231,
+    "matched_baseline": "baseline",
+    "alerts": {
+      "evaluated_sessions": 4310,
+      "alarm_sessions": 60,
+      "alarm_fraction": 0.013921113689095127,
+      "episodes": 24,
+      "false_episodes": 22,
+      "false_episodes_per_year": 1.2863109048723897
+    },
+    "vs_matched": {
+      "n": 4576,
+      "mean": -0.0010829313852937991,
+      "lower": -0.0024873272103155277,
+      "upper": 7.208062843779601e-05,
+      "block": 63,
+      "draws": 1000,
+      "caveat": "descriptive; not adjusted for model/research selection or nonstationarity"
+    },
+    "assessment_before_unresolved_tariff": {
+      "n": 4438,
+      "positives": 351,
+      "base_rate": 0.07908968003605228,
+      "brier": 0.07043469654699873,
+      "log_loss": 0.2648194164426677,
+      "auc": 0.6842514344349431,
+      "average_precision": 0.17859654781676246,
+      "mean_probability": 0.10857793610015597,
+      "always_negative_accuracy": 0.9209103199639477
+    },
+    "events_excluding_tariff": {
+      "assessable": 4,
+      "warned": 0
+    }
+  },
+  {
+    "target": "loss10_15",
+    "model": "context_combined",
+    "n": 4576,
+    "positives": 352,
+    "base_rate": 0.07692307692307693,
+    "brier": 0.06880982290249855,
+    "log_loss": 0.26027202902387325,
+    "auc": 0.6781870103736226,
+    "average_precision": 0.18319917264514088,
+    "mean_probability": 0.10670352512278504,
+    "always_negative_accuracy": 0.9230769230769231,
+    "matched_baseline": "context",
+    "alerts": {
+      "evaluated_sessions": 4310,
+      "alarm_sessions": 62,
+      "alarm_fraction": 0.014385150812064965,
+      "episodes": 27,
+      "false_episodes": 26,
+      "false_episodes_per_year": 1.520185614849188
+    },
+    "vs_matched": {
+      "n": 4576,
+      "mean": 9.101541056968741e-05,
+      "lower": -0.0009720663104746225,
+      "upper": 0.0010193635260796383,
+      "block": 63,
+      "draws": 1000,
+      "caveat": "descriptive; not adjusted for model/research selection or nonstationarity"
+    },
+    "assessment_before_unresolved_tariff": {
+      "n": 4438,
+      "positives": 351,
+      "base_rate": 0.07908968003605228,
+      "brier": 0.07055874079244316,
+      "log_loss": 0.26532716817370966,
+      "auc": 0.6741554940723035,
+      "average_precision": 0.1844616997527491,
+      "mean_probability": 0.10767862438967647,
+      "always_negative_accuracy": 0.9209103199639477
+    },
+    "events_excluding_tariff": {
+      "assessable": 4,
+      "warned": 0
+    }
+  },
+  {
+    "target": "onset15",
+    "model": "climatology",
+    "n": 4576,
+    "positives": 90,
+    "base_rate": 0.019667832167832168,
+    "brier": 0.019452484106559614,
+    "log_loss": 0.11041592259316695,
+    "auc": 0.3106330806954971,
+    "average_precision": 0.01587767743725191,
+    "mean_probability": 0.012510876501488117,
+    "always_negative_accuracy": 0.9803321678321678,
+    "matched_baseline": "baseline",
+    "alerts": {
+      "evaluated_sessions": 4310,
+      "alarm_sessions": 455,
+      "alarm_fraction": 0.10556844547563805,
+      "episodes": 3,
+      "false_episodes": 3,
+      "false_episodes_per_year": 0.17540603248259862
+    },
+    "vs_matched": {
+      "n": 4576,
+      "mean": 2.503065476094984e-06,
+      "lower": -1.3866260102004638e-05,
+      "upper": 2.294640854941475e-05,
+      "block": 63,
+      "draws": 1000,
+      "caveat": "descriptive; not adjusted for model/research selection or nonstationarity"
+    },
+    "assessment_before_unresolved_tariff": {
+      "n": 4438,
+      "positives": 75,
+      "base_rate": 0.01689950428120775,
+      "brier": 0.016767664600471358,
+      "log_loss": 0.09909657765064314,
+      "auc": 0.249873939949576,
+      "average_precision": 0.012775097483826367,
+      "mean_probability": 0.012384920488427143,
+      "always_negative_accuracy": 0.9831004957187922
+    },
+    "events_excluding_tariff": {
+      "assessable": 4,
+      "warned": 0
+    }
+  },
+  {
+    "target": "onset15",
+    "model": "baseline",
+    "n": 4576,
+    "positives": 90,
+    "base_rate": 0.019667832167832168,
+    "brier": 0.019449981041083517,
+    "log_loss": 0.11019721425617446,
+    "auc": 0.3487937781740724,
+    "average_precision": 0.014253622733648887,
+    "mean_probability": 0.01278540526461595,
+    "always_negative_accuracy": 0.9803321678321678,
+    "matched_baseline": "baseline",
+    "alerts": {
+      "evaluated_sessions": 4310,
+      "alarm_sessions": 795,
+      "alarm_fraction": 0.18445475638051045,
+      "episodes": 29,
+      "false_episodes": 28,
+      "false_episodes_per_year": 1.637122969837587
+    },
+    "vs_matched": {
+      "n": 4576,
+      "mean": 0.0,
+      "lower": 0.0,
+      "upper": 0.0,
+      "block": 63,
+      "draws": 1000,
+      "caveat": "descriptive; not adjusted for model/research selection or nonstationarity"
+    },
+    "assessment_before_unresolved_tariff": {
+      "n": 4438,
+      "positives": 75,
+      "base_rate": 0.01689950428120775,
+      "brier": 0.01677303094227391,
+      "log_loss": 0.09913552456784316,
+      "auc": 0.27192604477041793,
+      "average_precision": 0.010971648122935596,
+      "mean_probability": 0.012682854003353958,
+      "always_negative_accuracy": 0.9831004957187922
+    },
+    "events_excluding_tariff": {
+      "assessable": 4,
+      "warned": 1
+    }
+  },
+  {
+    "target": "onset15",
+    "model": "combined",
+    "n": 4576,
+    "positives": 90,
+    "base_rate": 0.019667832167832168,
+    "brier": 0.019498771774980897,
+    "log_loss": 0.11180222897193631,
+    "auc": 0.26914846188140884,
+    "average_precision": 0.012500374616733086,
+    "mean_probability": 0.013532424167000411,
+    "always_negative_accuracy": 0.9803321678321678,
+    "matched_baseline": "baseline",
+    "alerts": {
+      "evaluated_sessions": 4310,
+      "alarm_sessions": 573,
+      "alarm_fraction": 0.13294663573085846,
+      "episodes": 47,
+      "false_episodes": 47,
+      "false_episodes_per_year": 2.748027842227378
+    },
+    "vs_matched": {
+      "n": 4576,
+      "mean": 4.879073389737622e-05,
+      "lower": 9.327106071176515e-07,
+      "upper": 0.0001054801842276594,
+      "block": 63,
+      "draws": 1000,
+      "caveat": "descriptive; not adjusted for model/research selection or nonstationarity"
+    },
+    "assessment_before_unresolved_tariff": {
+      "n": 4438,
+      "positives": 75,
+      "base_rate": 0.01689950428120775,
+      "brier": 0.016804637418628844,
+      "log_loss": 0.10014491462369192,
+      "auc": 0.23544655817862328,
+      "average_precision": 0.010455782940532416,
+      "mean_probability": 0.0133963261911562,
+      "always_negative_accuracy": 0.9831004957187922
+    },
+    "events_excluding_tariff": {
+      "assessable": 4,
+      "warned": 0
+    }
+  },
+  {
+    "target": "onset15",
+    "model": "baseline_C1",
+    "n": 4576,
+    "positives": 90,
+    "base_rate": 0.019667832167832168,
+    "brier": 0.019458923884022893,
+    "log_loss": 0.1101854019844789,
+    "auc": 0.3546391241888344,
+    "average_precision": 0.014242503574114138,
+    "mean_probability": 0.013191420118145428,
+    "always_negative_accuracy": 0.9803321678321678,
+    "matched_baseline": "baseline",
+    "alerts": {
+      "evaluated_sessions": 4310,
+      "alarm_sessions": 678,
+      "alarm_fraction": 0.15730858468677494,
+      "episodes": 35,
+      "false_episodes": 34,
+      "false_episodes_per_year": 1.9879350348027842
+    },
+    "vs_matched": {
+      "n": 4576,
+      "mean": 8.942842939374692e-06,
+      "lower": -2.037210242252171e-05,
+      "upper": 3.801346748435269e-05,
+      "block": 63,
+      "draws": 1000,
+      "caveat": "descriptive; not adjusted for model/research selection or nonstationarity"
+    },
+    "assessment_before_unresolved_tariff": {
+      "n": 4438,
+      "positives": 75,
+      "base_rate": 0.01689950428120775,
+      "brier": 0.016790449363294657,
+      "log_loss": 0.09937777541559452,
+      "auc": 0.27271143708457485,
+      "average_precision": 0.010964008329248015,
+      "mean_probability": 0.013122989542492672,
+      "always_negative_accuracy": 0.9831004957187922
+    },
+    "events_excluding_tariff": {
+      "assessable": 4,
+      "warned": 1
+    }
+  },
+  {
+    "target": "onset15",
+    "model": "combined_C1",
+    "n": 4576,
+    "positives": 90,
+    "base_rate": 0.019667832167832168,
+    "brier": 0.019662563183158607,
+    "log_loss": 0.11703957104661722,
+    "auc": 0.31554961113587954,
+    "average_precision": 0.013379327703143288,
+    "mean_probability": 0.015847766537983386,
+    "always_negative_accuracy": 0.9803321678321678,
+    "matched_baseline": "baseline_C1",
+    "alerts": {
+      "evaluated_sessions": 4310,
+      "alarm_sessions": 297,
+      "alarm_fraction": 0.06890951276102088,
+      "episodes": 51,
+      "false_episodes": 51,
+      "false_episodes_per_year": 2.9819025522041764
+    },
+    "vs_matched": {
+      "n": 4576,
+      "mean": 0.00020363929913571357,
+      "lower": 2.7013320130488843e-05,
+      "upper": 0.0003790906878996127,
+      "block": 63,
+      "draws": 1000,
+      "caveat": "descriptive; not adjusted for model/research selection or nonstationarity"
+    },
+    "assessment_before_unresolved_tariff": {
+      "n": 4438,
+      "positives": 75,
+      "base_rate": 0.01689950428120775,
+      "brier": 0.01695193624054198,
+      "log_loss": 0.10465876822056024,
+      "auc": 0.3137260294904118,
+      "average_precision": 0.0116542677571363,
+      "mean_probability": 0.01572890305418422,
+      "always_negative_accuracy": 0.9831004957187922
+    },
+    "events_excluding_tariff": {
+      "assessable": 4,
+      "warned": 0
+    }
+  },
+  {
+    "target": "onset15",
+    "model": "baseline_5y",
+    "n": 4576,
+    "positives": 90,
+    "base_rate": 0.019667832167832168,
+    "brier": 0.01961459284009656,
+    "log_loss": 0.11489348494705831,
+    "auc": 0.2688883935205826,
+    "average_precision": 0.012567561195303828,
+    "mean_probability": 0.01700927023260938,
+    "always_negative_accuracy": 0.9803321678321678,
+    "matched_baseline": "baseline",
+    "alerts": {
+      "evaluated_sessions": 4310,
+      "alarm_sessions": 890,
+      "alarm_fraction": 0.20649651972157773,
+      "episodes": 10,
+      "false_episodes": 10,
+      "false_episodes_per_year": 0.5846867749419954
+    },
+    "vs_matched": {
+      "n": 4576,
+      "mean": 0.0001646117990130368,
+      "lower": -1.1623817937153274e-05,
+      "upper": 0.0003187567939190534,
+      "block": 63,
+      "draws": 1000,
+      "caveat": "descriptive; not adjusted for model/research selection or nonstationarity"
+    },
+    "assessment_before_unresolved_tariff": {
+      "n": 4438,
+      "positives": 75,
+      "base_rate": 0.01689950428120775,
+      "brier": 0.016910235092225633,
+      "log_loss": 0.10286797357727011,
+      "auc": 0.2897883719153488,
+      "average_precision": 0.011284639914454135,
+      "mean_probability": 0.016873648834473103,
+      "always_negative_accuracy": 0.9831004957187922
+    },
+    "events_excluding_tariff": {
+      "assessable": 4,
+      "warned": 0
+    }
+  },
+  {
+    "target": "onset15",
+    "model": "combined_5y",
+    "n": 4576,
+    "positives": 90,
+    "base_rate": 0.019667832167832168,
+    "brier": 0.01965510653229227,
+    "log_loss": 0.11558116523744354,
+    "auc": 0.2905558032397087,
+    "average_precision": 0.012955867766202625,
+    "mean_probability": 0.01730197533773105,
+    "always_negative_accuracy": 0.9803321678321678,
+    "matched_baseline": "baseline_5y",
+    "alerts": {
+      "evaluated_sessions": 4310,
+      "alarm_sessions": 802,
+      "alarm_fraction": 0.18607888631090488,
+      "episodes": 19,
+      "false_episodes": 19,
+      "false_episodes_per_year": 1.1109048723897912
+    },
+    "vs_matched": {
+      "n": 4576,
+      "mean": 4.051369219571709e-05,
+      "lower": -9.687446020162177e-06,
+      "upper": 0.00010027057643254223,
+      "block": 63,
+      "draws": 1000,
+      "caveat": "descriptive; not adjusted for model/research selection or nonstationarity"
+    },
+    "assessment_before_unresolved_tariff": {
+      "n": 4438,
+      "positives": 75,
+      "base_rate": 0.01689950428120775,
+      "brier": 0.016947255056052442,
+      "log_loss": 0.10345917571737508,
+      "auc": 0.30416380166552065,
+      "average_precision": 0.011613347650781874,
+      "mean_probability": 0.01709618129265627,
+      "always_negative_accuracy": 0.9831004957187922
+    },
+    "events_excluding_tariff": {
+      "assessable": 4,
+      "warned": 0
+    }
+  },
+  {
+    "target": "onset15",
+    "model": "combined_interaction",
+    "n": 4576,
+    "positives": 90,
+    "base_rate": 0.019667832167832168,
+    "brier": 0.019511007379692653,
+    "log_loss": 0.11226755201302137,
+    "auc": 0.24134839252984594,
+    "average_precision": 0.012130874477600886,
+    "mean_probability": 0.013534164126691058,
+    "always_negative_accuracy": 0.9803321678321678,
+    "matched_baseline": "baseline",
+    "alerts": {
+      "evaluated_sessions": 4310,
+      "alarm_sessions": 559,
+      "alarm_fraction": 0.1296983758700696,
+      "episodes": 49,
+      "false_episodes": 49,
+      "false_episodes_per_year": 2.8649651972157772
+    },
+    "vs_matched": {
+      "n": 4576,
+      "mean": 6.102633860913115e-05,
+      "lower": 1.5446070470496132e-05,
+      "upper": 0.00011832604823558946,
+      "block": 63,
+      "draws": 1000,
+      "caveat": "descriptive; not adjusted for model/research selection or nonstationarity"
+    },
+    "assessment_before_unresolved_tariff": {
+      "n": 4438,
+      "positives": 75,
+      "base_rate": 0.01689950428120775,
+      "brier": 0.016818960946703418,
+      "log_loss": 0.10068471699578838,
+      "auc": 0.19859118343647336,
+      "average_precision": 0.010114285921265101,
+      "mean_probability": 0.013409505147655189,
+      "always_negative_accuracy": 0.9831004957187922
+    },
+    "events_excluding_tariff": {
+      "assessable": 4,
+      "warned": 0
+    }
+  },
+  {
+    "target": "onset15",
+    "model": "context",
+    "n": 4576,
+    "positives": 90,
+    "base_rate": 0.019667832167832168,
+    "brier": 0.019447470797138038,
+    "log_loss": 0.11013991410715067,
+    "auc": 0.35440134740179324,
+    "average_precision": 0.014521657475268911,
+    "mean_probability": 0.012784896637291569,
+    "always_negative_accuracy": 0.9803321678321678,
+    "matched_baseline": "baseline",
+    "alerts": {
+      "evaluated_sessions": 4310,
+      "alarm_sessions": 499,
+      "alarm_fraction": 0.11577726218097448,
+      "episodes": 92,
+      "false_episodes": 91,
+      "false_episodes_per_year": 5.320649651972158
+    },
+    "vs_matched": {
+      "n": 4576,
+      "mean": -2.510243945480353e-06,
+      "lower": -9.090406481861767e-06,
+      "upper": 1.9185517572711818e-06,
+      "block": 63,
+      "draws": 1000,
+      "caveat": "descriptive; not adjusted for model/research selection or nonstationarity"
+    },
+    "assessment_before_unresolved_tariff": {
+      "n": 4438,
+      "positives": 75,
+      "base_rate": 0.01689950428120775,
+      "brier": 0.01677371693821615,
+      "log_loss": 0.09918019297626066,
+      "auc": 0.2701321720528688,
+      "average_precision": 0.010903022318540687,
+      "mean_probability": 0.012682118503188856,
+      "always_negative_accuracy": 0.9831004957187922
+    },
+    "events_excluding_tariff": {
+      "assessable": 4,
+      "warned": 1
+    }
+  },
+  {
+    "target": "onset15",
+    "model": "context_combined",
+    "n": 4576,
+    "positives": 90,
+    "base_rate": 0.019667832167832168,
+    "brier": 0.019496881642619087,
+    "log_loss": 0.11174217081461364,
+    "auc": 0.2724104621786298,
+    "average_precision": 0.012549180045950119,
+    "mean_probability": 0.013522421188007708,
+    "always_negative_accuracy": 0.9803321678321678,
+    "matched_baseline": "context",
+    "alerts": {
+      "evaluated_sessions": 4310,
+      "alarm_sessions": 439,
+      "alarm_fraction": 0.10185614849187935,
+      "episodes": 54,
+      "false_episodes": 54,
+      "false_episodes_per_year": 3.157308584686775
+    },
+    "vs_matched": {
+      "n": 4576,
+      "mean": 4.941084548104967e-05,
+      "lower": 1.3260167948260456e-06,
+      "upper": 0.00010622469114562117,
+      "block": 63,
+      "draws": 1000,
+      "caveat": "descriptive; not adjusted for model/research selection or nonstationarity"
+    },
+    "assessment_before_unresolved_tariff": {
+      "n": 4438,
+      "positives": 75,
+      "base_rate": 0.01689950428120775,
+      "brier": 0.01680522727772956,
+      "log_loss": 0.10018070449449851,
+      "auc": 0.23294369317747726,
+      "average_precision": 0.010426000625145145,
+      "mean_probability": 0.01339148051354002,
+      "always_negative_accuracy": 0.9831004957187922
+    },
+    "events_excluding_tariff": {
+      "assessable": 4,
+      "warned": 0
+    }
+  }
+]

@@ -29,6 +29,7 @@ from seraph.shared_types import (
     PillarId,
     PillarObservation,
     ReconciledState,
+    SectorFlag,
     Simplex3,
     UnavailableEmission,
     fusion_weights_artefact_id,
@@ -215,6 +216,30 @@ def mock_fusion_weights(
 def mock_xi(rng: np.random.Generator) -> Simplex3:
     """Regime probabilities [tranquil, stressed, crisis]."""
     return _simplex3(rng)
+
+
+def mock_sector_flags(
+    *,
+    amber: tuple[str, ...] = ("steel", "aluminium"),
+    quiet: tuple[str, ...] = ("auto_components", "pharmaceuticals", "solar"),
+) -> tuple[SectorFlag, ...]:
+    """T0 MOCK — FR14 sector micro-flags. **Every value here is fabricated.**
+
+    C5 is the only component that may produce a real micro-flag, and
+    `hawkes_output` is empty, so no measured flag exists to feed C11's FR43
+    overlay yet. This exists so the overlay is testable before C5 runs. It is
+    not a market reading and must never be presented as one.
+
+    The sector names are the five tariff-exposed sectors of FR22 (the same set
+    `seraph.ingestion.hawkes_universe.TARIFF_SECTOR_BASKET` groups symbols
+    under). `n` carries AMENDMENT-03(e)'s realised-intensity-over-baseline
+    ratio and straddles C5's `SECTOR_AMBER_MULTIPLE = 2.0`, so a consumer that
+    re-derives the flag from `n` agrees with the flag as given — no second,
+    divergent threshold is introduced here.
+    """
+    flags = [SectorFlag(sector_id=s, n=2.4, flag="amber") for s in amber]
+    flags += [SectorFlag(sector_id=s, n=0.8, flag="none") for s in quiet]
+    return tuple(sorted(flags, key=lambda f: f.sector_id))
 
 
 def mock_csrs_point(

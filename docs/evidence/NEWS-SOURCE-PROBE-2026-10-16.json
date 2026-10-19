@@ -1,0 +1,82 @@
+{
+  "checked_at": "2026-10-16T19:37:45+0530",
+  "candidates": 5,
+  "usable": 3,
+  "usable_source_ids": [
+    "rbi_press_releases",
+    "rbi_notifications",
+    "rbi_speeches"
+  ],
+  "results": [
+    {
+      "url": "https://rbi.org.in/pressreleases_rss.xml",
+      "reachable": true,
+      "usable": true,
+      "items": 10,
+      "dated_items": 10,
+      "newest_published": "2026-10-16T18:30:00+05:30",
+      "http_status": 200,
+      "latency_ms": 162.5,
+      "sample_title": "Premature redemption under Sovereign Gold Bond (SGB) Scheme - Redemption Price for premature redemption of SGB 2020-21 S",
+      "checked_at": "2026-10-16T19:37:43+05:30",
+      "note": "parsed as a feed with dated items",
+      "source_id": "rbi_press_releases",
+      "why_a_candidate": "Reserve Bank of India press releases \u2014 official monetary and regulatory announcements"
+    },
+    {
+      "url": "https://rbi.org.in/notifications_rss.xml",
+      "reachable": true,
+      "usable": true,
+      "items": 10,
+      "dated_items": 10,
+      "newest_published": "2026-10-12T23:55:00+05:30",
+      "http_status": 200,
+      "latency_ms": 103.1,
+      "sample_title": "Risk Management and Inter-Bank Dealings",
+      "checked_at": "2026-10-16T19:37:43+05:30",
+      "note": "parsed as a feed with dated items",
+      "source_id": "rbi_notifications",
+      "why_a_candidate": "RBI notifications \u2014 binding circulars to regulated entities"
+    },
+    {
+      "url": "https://rbi.org.in/speeches_rss.xml",
+      "reachable": true,
+      "usable": true,
+      "items": 10,
+      "dated_items": 10,
+      "newest_published": "2026-10-10T18:05:00+05:30",
+      "http_status": 200,
+      "latency_ms": 115.6,
+      "sample_title": "Edited Transcript of the Reserve Bank of India\u2019s Post-Monetary Policy Press Conference: October 7, 2026 (Wednesday) -",
+      "checked_at": "2026-10-16T19:37:43+05:30",
+      "note": "parsed as a feed with dated items",
+      "source_id": "rbi_speeches",
+      "why_a_candidate": "RBI speeches \u2014 forward guidance, not binding"
+    },
+    {
+      "url": "https://www.pib.gov.in/RssMain.aspx?ModId=6&Lang=1&Regid=3",
+      "reachable": true,
+      "usable": true,
+      "items": 20,
+      "dated_items": 0,
+      "newest_published": null,
+      "http_status": 200,
+      "latency_ms": 101.3,
+      "sample_title": "\u0915\u0947\u0902\u0926\u094d\u0930\u0940\u092f \u0938\u0902\u0938\u094d\u0915\u0943\u0924\u093f \u090f\u0935\u0902 \u092a\u0930\u094d\u092f\u091f\u0928 \u092e\u0902\u0924\u094d\u0930\u0940 \u0936\u094d\u0930\u0940 \u0917\u091c\u0947\u0902\u0926\u094d\u0930 \u0938\u093f\u0902\u0939 \u0936\u0947\u0916\u093e\u0935\u0924 19 \u0905\u0915\u094d\u091f\u0942\u092c\u0930 2026 \u0915\u094b \u0928\u0908 \u0926\u093f\u0932\u094d\u0932\u0940 \u092e\u0947\u0902 \u0935\u0930\u094d\u0937 2024 \u0914\u0930 2025 \u0915\u0947 \u0932\u093f\u090f \u0909",
+      "checked_at": "2026-10-16T19:37:44+05:30",
+      "note": "parsed, but no item carries a usable publication time",
+      "source_id": "pib_releases",
+      "why_a_candidate": "Press Information Bureau \u2014 Government of India press releases"
+    },
+    {
+      "url": "https://www.rbi.org.in/Scripts/rss.aspx",
+      "reachable": false,
+      "usable": false,
+      "error": "https://www.rbi.org.in/Scripts/rss.aspx returned 'text/html; charset=utf-8'. That is a web page, not a feed \u2014 check the registered URL points at the feed itself",
+      "checked_at": "2026-10-16T19:37:45+05:30",
+      "source_id": "rbi_index_page",
+      "why_a_candidate": "the RBI feed INDEX, listed by the audit as 'RBI RSS'. Included to show it is a landing page, not a feed"
+    }
+  ],
+  "note": "`usable` means: fetched, parsed as RSS/Atom, and at least one item carries a publication time this parser can read. A feed with no usable dates still cannot order evidence, so it is not promoted to accessibility_verified. Rights and permitted use are a SEPARATE question this probe does not answer"
+}

@@ -1,0 +1,5 @@
+{
+  "enabled": true,
+  "database": "seraph_test_local",
+  "port": 5435
+}

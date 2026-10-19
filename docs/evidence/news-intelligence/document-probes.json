@@ -1,0 +1,30 @@
+{
+  "mofcom_listing": {
+    "status": 200,
+    "metadata": {
+      "title": "MINISTRY OF COMMERCE, PEOPLE'S REPUBLIC OF CHINA",
+      "published_at": null
+    }
+  },
+  "apeda_dgft": {
+    "error": "could not reach https://apeda.gov.in/dgft-notifications: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1010)"
+  },
+  "nse_terms": {
+    "error": "HTTP 404 from https://www.nseindia.com/static/terms-of-use: Not Found"
+  },
+  "fr_india": {
+    "url": "https://www.federalregister.gov/api/v1/documents.json?per_page=40&order=newest&conditions[term]=India&fields[]=title&fields[]=html_url&fields[]=publication_date&fields[]=abstract&fields[]=document_number",
+    "adapter": "federal_register",
+    "reachable": true,
+    "usable": true,
+    "items": 40,
+    "dated_items": 40,
+    "newest_published": "2026-10-15",
+    "http_status": 200,
+    "latency_ms": 723.7,
+    "sample_title": "Renewal of Agency Information Collections of Previously Approved Collections; Carrier Automated Tariffs; 3072-0064; 60-D",
+    "checked_at": "2026-10-17T07:34:08+05:30",
+    "adapter_version": "c-news.json_feed/2026-10-17.1",
+    "note": "parsed by the adapter with dated items"
+  }
+}

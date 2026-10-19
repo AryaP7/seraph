@@ -28,6 +28,7 @@ from seraph.features import (  # noqa: E402
     yang_zhang_volatility,
 )
 from seraph.store.bootstrap import resolve_dsn  # noqa: E402
+from seraph.features.alignment import aligned_returns
 
 YZ_LOOKBACK = 22        # trading days needed by Yang–Zhang (window + 1)
 AR_LOOKBACK = 250       # ~1y of returns for the covariance
@@ -67,6 +68,8 @@ async def build_row(pool, day: date, members: list[str]):
     rv_each, bas_each, ret_cols = [], [], []
     fallbacks: dict[str, int] = {}
     for obs in by_sym.values():
+        if obs[-1]['date'] != day:
+            continue  # a suspended/stale series is not today's observation
         if len(obs) < YZ_LOOKBACK:
             continue
         o = np.array([x["open"] for x in obs], dtype=float)
@@ -83,12 +86,13 @@ async def build_row(pool, day: date, members: list[str]):
             bas_each.append(bas)
             fallbacks[which] = fallbacks.get(which, 0) + 1
         adj = np.array([x["adj_close"] for x in obs], dtype=float)
-        if len(adj) >= AR_LOOKBACK and (adj > 0).all():
-            ret_cols.append(np.diff(np.log(adj[-AR_LOOKBACK:])))
+    calendar=sorted({r['date'] for r in rows})
+    panel,_=aligned_returns({s:{r['date']:float(r['adj_close']) for r in obs}
+                             for s,obs in by_sym.items()},calendar,AR_LOOKBACK)
 
-    if not rv_each or not bas_each or len(ret_cols) < 10:
+    if not rv_each or not bas_each or panel.shape[1] < 10:
         return None
-    ar = absorption_ratio(np.column_stack(ret_cols))
+    ar = absorption_ratio(panel)
     if not np.isfinite(ar):
         return None
     return (day, float(np.median(rv_each)), float(ar),

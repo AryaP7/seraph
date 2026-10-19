@@ -1,0 +1,475 @@
+{
+  "date": "2026-10-17",
+  "scope": "48 source families; not 48 tested or enabled feeds",
+  "registration_policy": "discovered -> documentation_checked -> adapter_verified -> enabled; rights and freshness checked separately",
+  "sources": [
+    {
+      "id": 1,
+      "source_family": "RBI: current three feeds in `run_news.py`",
+      "audit_status_and_wave": "Connected / 1",
+      "purpose_and_constraints": "Monetary decisions, liquidity, regulation; link official details and distinguish speeches/statistics",
+      "references": [],
+      "enabled_in_audited_default_store": true
+    },
+    {
+      "id": 2,
+      "source_family": "[PIB RSS directory](https://www.pib.gov.in/ViewRss.aspx?lang=1&reg=1)",
+      "audit_status_and_wave": "Docs checked, existing partial probe / 1",
+      "purpose_and_constraints": "Ministry-tagged announcements; repair dates/language; deduplicate announcements repeated by departments",
+      "references": [
+        "https://www.pib.gov.in/ViewRss.aspx?lang=1&reg=1"
+      ],
+      "enabled_in_audited_default_store": false
+    },
+    {
+      "id": 3,
+      "source_family": "[SEBI RSS](https://www.sebi.gov.in/rss.html)",
+      "audit_status_and_wave": "Docs checked / 1",
+      "purpose_and_constraints": "Circulars, orders and market regulation; feed published as `https://www.sebi.gov.in/sebirss.xml`",
+      "references": [
+        "https://www.sebi.gov.in/rss.html"
+      ],
+      "enabled_in_audited_default_store": false
+    },
+    {
+      "id": 4,
+      "source_family": "[NSE RSS directory](https://www.nseindia.com/static/rss-feed)",
+      "audit_status_and_wave": "Docs checked / 1",
+      "purpose_and_constraints": "Corporate announcements, annual reports and circulars; retrieve actual feed links from directory, never guess API paths",
+      "references": [
+        "https://www.nseindia.com/static/rss-feed"
+      ],
+      "enabled_in_audited_default_store": false
+    },
+    {
+      "id": 5,
+      "source_family": "BSE corporate disclosures, [BSE](https://www.bseindia.com/)",
+      "audit_status_and_wave": "Discovery / 1",
+      "purpose_and_constraints": "Complement NSE; deduplicate the same issuer filing across exchanges by document identity",
+      "references": [
+        "https://www.bseindia.com/"
+      ],
+      "enabled_in_audited_default_store": false
+    },
+    {
+      "id": 6,
+      "source_family": "DGFT, with official [APEDA DGFT-notification listing](https://apeda.gov.in/dgft-notifications)",
+      "audit_status_and_wave": "Listing checked / 1",
+      "purpose_and_constraints": "Export/import restrictions, quotas, product codes, validity changes; canonical DGFT/Gazette instrument is final authority",
+      "references": [
+        "https://apeda.gov.in/dgft-notifications"
+      ],
+      "enabled_in_audited_default_store": false
+    },
+    {
+      "id": 7,
+      "source_family": "[CBIC Tax Information Portal](https://taxinformation.cbic.gov.in/)",
+      "audit_status_and_wave": "Docs checked / 1",
+      "purpose_and_constraints": "Customs/GST notifications, exemptions, amended schedules; HTML/PDF adapter rather than assumed RSS",
+      "references": [
+        "https://taxinformation.cbic.gov.in/"
+      ],
+      "enabled_in_audited_default_store": false
+    },
+    {
+      "id": 8,
+      "source_family": "[DGTR trade notices](https://www.dgtr.gov.in/en/trade-notices)",
+      "audit_status_and_wave": "Listing checked / 2",
+      "purpose_and_constraints": "Investigations, findings, anti-dumping/safeguards; recommendation differs from imposed duty",
+      "references": [
+        "https://www.dgtr.gov.in/en/trade-notices"
+      ],
+      "enabled_in_audited_default_store": false
+    },
+    {
+      "id": 9,
+      "source_family": "[Gazette of India](https://egazette.gov.in/)",
+      "audit_status_and_wave": "Discovery / 1",
+      "purpose_and_constraints": "Canonical legal notifications; publication, instrument and amendment identity",
+      "references": [
+        "https://egazette.gov.in/"
+      ],
+      "enabled_in_audited_default_store": false
+    },
+    {
+      "id": 10,
+      "source_family": "[MoSPI](https://www.mospi.gov.in/)",
+      "audit_status_and_wave": "Discovery / 2",
+      "purpose_and_constraints": "CPI, IIP, GDP and release calendars; distinguish reference period, release and revision",
+      "references": [
+        "https://www.mospi.gov.in/"
+      ],
+      "enabled_in_audited_default_store": false
+    },
+    {
+      "id": 11,
+      "source_family": "Finance Ministry / Budget / GST Council, [Finance Ministry](https://finmin.gov.in/)",
+      "audit_status_and_wave": "Discovery / 2",
+      "purpose_and_constraints": "Fiscal measures and implementation; council recommendation alone is not an effective tax change",
+      "references": [
+        "https://finmin.gov.in/"
+      ],
+      "enabled_in_audited_default_store": false
+    },
+    {
+      "id": 12,
+      "source_family": "[PPAC](https://ppac.gov.in/) / MoPNG",
+      "audit_status_and_wave": "Docs checked for PPAC / 2",
+      "purpose_and_constraints": "Petroleum consumption, crude basket and gas-price notices; units and preliminary/revised status",
+      "references": [
+        "https://ppac.gov.in/"
+      ],
+      "enabled_in_audited_default_store": false
+    },
+    {
+      "id": 13,
+      "source_family": "[CEA generation and outage reports](https://cea.nic.in/reports/external/daily-generation?lang=en) / Grid India",
+      "audit_status_and_wave": "CEA checked, Grid India discovery / 2",
+      "purpose_and_constraints": "Unit-level generation/outages and coal stress; scheduled maintenance differs from unplanned outage",
+      "references": [
+        "https://cea.nic.in/reports/external/daily-generation?lang=en"
+      ],
+      "enabled_in_audited_default_store": false
+    },
+    {
+      "id": 14,
+      "source_family": "MNRE / Ministry of Power / CERC, [MNRE](https://mnre.gov.in/)",
+      "audit_status_and_wave": "Discovery / 2",
+      "purpose_and_constraints": "Renewables incentives, procurement, tariffs, transmission and grid regulation",
+      "references": [
+        "https://mnre.gov.in/"
+      ],
+      "enabled_in_audited_default_store": false
+    },
+    {
+      "id": 15,
+      "source_family": "Steel / Mines / Coal ministries, [Steel Ministry](https://steel.gov.in/)",
+      "audit_status_and_wave": "Discovery / 2",
+      "purpose_and_constraints": "Production, mining leases, duties, mineral supply; route ministry PIB notices immediately",
+      "references": [
+        "https://steel.gov.in/"
+      ],
+      "enabled_in_audited_default_store": false
+    },
+    {
+      "id": 16,
+      "source_family": "Agriculture / food / APEDA, [APEDA](https://apeda.gov.in/)",
+      "audit_status_and_wave": "Discovery beyond DGFT listing / 2",
+      "purpose_and_constraints": "Crop estimates, food trade, procurement, export conditions and quality restrictions",
+      "references": [
+        "https://apeda.gov.in/"
+      ],
+      "enabled_in_audited_default_store": false
+    },
+    {
+      "id": 17,
+      "source_family": "[IMD API reference](https://api.imd.gov.in/public/api_reference.html)",
+      "audit_status_and_wave": "Docs checked / 2",
+      "purpose_and_constraints": "District warnings, rainfall and port warnings; retain forecast issuance and validity, not just place names",
+      "references": [
+        "https://api.imd.gov.in/public/api_reference.html"
+      ],
+      "enabled_in_audited_default_store": false
+    },
+    {
+      "id": 18,
+      "source_family": "Shipping / port authorities / railways / civil aviation, [Shipping Ministry](https://shipmin.gov.in/)",
+      "audit_status_and_wave": "Discovery / 2",
+      "purpose_and_constraints": "Port closure, terminal, route and transport constraints; first-party notices for actual operation status",
+      "references": [
+        "https://shipmin.gov.in/"
+      ],
+      "enabled_in_audited_default_store": false
+    },
+    {
+      "id": 19,
+      "source_family": "MeitY / DoT / TRAI, [TRAI](https://www.trai.gov.in/)",
+      "audit_status_and_wave": "Discovery / 2",
+      "purpose_and_constraints": "Telecom regulation, spectrum, electronics programmes, digital and import policy",
+      "references": [
+        "https://www.trai.gov.in/"
+      ],
+      "enabled_in_audited_default_store": false
+    },
+    {
+      "id": 20,
+      "source_family": "CDSCO / Department of Pharmaceuticals / NPPA, [CDSCO](https://cdsco.gov.in/)",
+      "audit_status_and_wave": "Discovery / 2",
+      "purpose_and_constraints": "Drug restrictions, recalls, approvals and price controls; product/facility scope",
+      "references": [
+        "https://cdsco.gov.in/"
+      ],
+      "enabled_in_audited_default_store": false
+    },
+    {
+      "id": 21,
+      "source_family": "CCI / IBBI / IRDAI, [CCI](https://www.cci.gov.in/)",
+      "audit_status_and_wave": "Discovery / 3",
+      "purpose_and_constraints": "Competition decisions, insolvency and insurance regulation; legal-stage tracking",
+      "references": [
+        "https://www.cci.gov.in/"
+      ],
+      "enabled_in_audited_default_store": false
+    },
+    {
+      "id": 22,
+      "source_family": "State government gazettes and disaster/industry departments",
+      "audit_status_and_wave": "Discovery, select pilot states / 3",
+      "purpose_and_constraints": "Local permits, power rationing, shutdown orders and infrastructure disruption",
+      "references": [],
+      "enabled_in_audited_default_store": false
+    },
+    {
+      "id": 23,
+      "source_family": "Company investor-relations pages and filed annual reports",
+      "audit_status_and_wave": "Select pilot issuers / 1–2",
+      "purpose_and_constraints": "Plant locations, business segments, import dependencies and geographic revenue; permission-aware retrieval",
+      "references": [],
+      "enabled_in_audited_default_store": false
+    },
+    {
+      "id": 24,
+      "source_family": "[Federal Register API](https://www.federalregister.gov/developers/documentation/api/v1)",
+      "audit_status_and_wave": "Docs checked / 1",
+      "purpose_and_constraints": "US rules, proposed rules and presidential documents; retain document number, agency, dates and official PDF link; API needs no key",
+      "references": [
+        "https://www.federalregister.gov/developers/documentation/api/v1"
+      ],
+      "enabled_in_audited_default_store": false
+    },
+    {
+      "id": 25,
+      "source_family": "[USTR investigations](https://ustr.gov/issue-areas/enforcement/section-301-investigations) / CBP / USITC HTS",
+      "audit_status_and_wave": "USTR checked, others discovery / 1",
+      "purpose_and_constraints": "Tariff scope, exclusions and implementation; join instrument to country of origin and national tariff line",
+      "references": [
+        "https://ustr.gov/issue-areas/enforcement/section-301-investigations"
+      ],
+      "enabled_in_audited_default_store": false
+    },
+    {
+      "id": 26,
+      "source_family": "[BIS Federal Register notices](https://www.bis.gov/regulations/federal-register-notices)",
+      "audit_status_and_wave": "Docs checked / 2",
+      "purpose_and_constraints": "Export controls, restricted equipment/technology and end users; critical inputs and electronics",
+      "references": [
+        "https://www.bis.gov/regulations/federal-register-notices"
+      ],
+      "enabled_in_audited_default_store": false
+    },
+    {
+      "id": 27,
+      "source_family": "[OFAC recent actions](https://ofac.treasury.gov/recent-actions)",
+      "audit_status_and_wave": "Page checked / 2",
+      "purpose_and_constraints": "Sanctions, licences and delistings; banking, oil, shipping counterparties; name-match candidates require identity review",
+      "references": [
+        "https://ofac.treasury.gov/recent-actions"
+      ],
+      "enabled_in_audited_default_store": false
+    },
+    {
+      "id": 28,
+      "source_family": "[Federal Reserve feeds](https://www.federalreserve.gov/feeds/feeds.htm)",
+      "audit_status_and_wave": "Docs checked / 1",
+      "purpose_and_constraints": "Monetary decisions, liquidity and banking; separate speech/decision/data and expectation surprises",
+      "references": [
+        "https://www.federalreserve.gov/feeds/feeds.htm"
+      ],
+      "enabled_in_audited_default_store": false
+    },
+    {
+      "id": 29,
+      "source_family": "[ECB feeds](https://www.ecb.europa.eu/home/html/rss.en.html)",
+      "audit_status_and_wave": "Docs checked / 2",
+      "purpose_and_constraints": "Euro funding and demand context; no blanket adverse tag",
+      "references": [
+        "https://www.ecb.europa.eu/home/html/rss.en.html"
+      ],
+      "enabled_in_audited_default_store": false
+    },
+    {
+      "id": 30,
+      "source_family": "EU EUR-Lex / DG Trade / TARIC / [CBAM guidance](https://taxation-customs.ec.europa.eu/carbon-border-adjustment-mechanism/cbam-legislation-and-guidance_en)",
+      "audit_status_and_wave": "CBAM checked, other adapters discovery / 2",
+      "purpose_and_constraints": "Trade remedies, regulation, carbon compliance; inspect current instruments and exemptions, never hardcode a headline rate",
+      "references": [
+        "https://taxation-customs.ec.europa.eu/carbon-border-adjustment-mechanism/cbam-legislation-and-guidance_en"
+      ],
+      "enabled_in_audited_default_store": false
+    },
+    {
+      "id": 31,
+      "source_family": "UK DBT / HMRC / Trade Remedies Authority, [UK government](https://www.gov.uk/government/organisations/department-for-business-and-trade)",
+      "audit_status_and_wave": "Discovery; tariff portal fetch failed in web tool / 3",
+      "purpose_and_constraints": "UK duties, product regulation and restrictions; document source and tariff API feasibility separately",
+      "references": [
+        "https://www.gov.uk/government/organisations/department-for-business-and-trade"
+      ],
+      "enabled_in_audited_default_store": false
+    },
+    {
+      "id": 32,
+      "source_family": "[China MOFCOM announcements](https://english.mofcom.gov.cn/Policies/AnnouncementsOrders/index.html) / GACC",
+      "audit_status_and_wave": "MOFCOM checked, GACC discovery / 2",
+      "purpose_and_constraints": "Critical minerals, export licensing and trade restrictions; original-language text plus translated representation",
+      "references": [
+        "https://english.mofcom.gov.cn/Policies/AnnouncementsOrders/index.html"
+      ],
+      "enabled_in_audited_default_store": false
+    },
+    {
+      "id": 33,
+      "source_family": "Japan METI / Korea MOTIE / Taiwan economic authorities",
+      "audit_status_and_wave": "Discovery / 3",
+      "purpose_and_constraints": "Semiconductor/electronics supply and export rules; prioritize by observed Indian dependencies",
+      "references": [],
+      "enabled_in_audited_default_store": false
+    },
+    {
+      "id": 34,
+      "source_family": "OPEC and major oil-producer official statements",
+      "audit_status_and_wave": "Discovery / 2",
+      "purpose_and_constraints": "Production announcements and actual implementation; output target does not equal realized supply",
+      "references": [],
+      "enabled_in_audited_default_store": false
+    },
+    {
+      "id": 35,
+      "source_family": "[WTO API catalogue](https://apiportal.wto.org/apis)",
+      "audit_status_and_wave": "Docs checked / 2",
+      "purpose_and_constraints": "ePing SPS/TBT and quantitative-restriction notifications; member notification delays preclude assuming breaking-news coverage",
+      "references": [
+        "https://apiportal.wto.org/apis"
+      ],
+      "enabled_in_audited_default_store": false
+    },
+    {
+      "id": 36,
+      "source_family": "[GDELT DOC](https://blog.gdeltproject.org/gdelt-doc-2-0-api-debuts/)",
+      "audit_status_and_wave": "Documentation checked / 2",
+      "purpose_and_constraints": "Broad multilingual discovery, queries by sectors/products/places; validate current limits and availability; linked publisher remains evidence authority",
+      "references": [
+        "https://blog.gdeltproject.org/gdelt-doc-2-0-api-debuts/"
+      ],
+      "enabled_in_audited_default_store": false
+    },
+    {
+      "id": 37,
+      "source_family": "[Economic Times RSS](https://economictimes.indiatimes.com/rss.cms), including relevant sector editions",
+      "audit_status_and_wave": "Docs/terms checked / licensed lane",
+      "purpose_and_constraints": "Excellent candidate breadth; published RSS terms restrict aggregation/reuse. Do not equate a public feed with permission for the intended product",
+      "references": [
+        "https://economictimes.indiatimes.com/rss.cms"
+      ],
+      "enabled_in_audited_default_store": false
+    },
+    {
+      "id": 38,
+      "source_family": "[Mint RSS](https://www.livemint.com/rss)",
+      "audit_status_and_wave": "Docs/terms checked / licensed lane",
+      "purpose_and_constraints": "Industry, companies, policy, markets; listed terms limit personal noncommercial newsreader use; obtain suitable rights before wider ingestion/display",
+      "references": [
+        "https://www.livemint.com/rss"
+      ],
+      "enabled_in_audited_default_store": false
+    },
+    {
+      "id": 39,
+      "source_family": "[Business Standard RSS directory](https://www.business-standard.com/rss-feeds/listing)",
+      "audit_status_and_wave": "Directory checked / licensed lane",
+      "purpose_and_constraints": "Economy, industry and policy; endpoint and rights validation still required",
+      "references": [
+        "https://www.business-standard.com/rss-feeds/listing"
+      ],
+      "enabled_in_audited_default_store": false
+    },
+    {
+      "id": 40,
+      "source_family": "Hindu BusinessLine / PTI / other Indian business or regional reporting",
+      "audit_status_and_wave": "Discovery / licensed lane",
+      "purpose_and_constraints": "Local industrial, commodity and regional coverage; verify supplier, wire provenance and licence",
+      "references": [],
+      "enabled_in_audited_default_store": false
+    },
+    {
+      "id": 41,
+      "source_family": "[Reuters API/services](https://reutersagency.com/)",
+      "audit_status_and_wave": "Service documentation checked / licensed option",
+      "purpose_and_constraints": "International economics, trade, companies; commercial integration and usage rights required; no subscription assumed",
+      "references": [
+        "https://reutersagency.com/"
+      ],
+      "enabled_in_audited_default_store": false
+    },
+    {
+      "id": 42,
+      "source_family": "[WHO Disease Outbreak News](https://www.who.int/emergencies/disease-outbreak-news)",
+      "audit_status_and_wave": "Page checked / 2",
+      "purpose_and_constraints": "Health hazards and dated updates; external warning evidence, not proof pillars predicted a pandemic",
+      "references": [
+        "https://www.who.int/emergencies/disease-outbreak-news"
+      ],
+      "enabled_in_audited_default_store": false
+    },
+    {
+      "id": 43,
+      "source_family": "[USGS GeoJSON feeds](https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php)",
+      "audit_status_and_wave": "Docs checked / 2",
+      "purpose_and_constraints": "Event location/magnitude and updates; proximity is potential exposure, not confirmed facility damage",
+      "references": [
+        "https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php"
+      ],
+      "enabled_in_audited_default_store": false
+    },
+    {
+      "id": 44,
+      "source_family": "[ReliefWeb API](https://apidoc.reliefweb.int/)",
+      "audit_status_and_wave": "Docs checked / 3",
+      "purpose_and_constraints": "Disaster/conflict reports with original reporting organizations; satisfy current app/access requirements; deduplicate underlying reports",
+      "references": [
+        "https://apidoc.reliefweb.int/"
+      ],
+      "enabled_in_audited_default_store": false
+    },
+    {
+      "id": 45,
+      "source_family": "[openFDA APIs](https://open.fda.gov/apis/) and FDA regulatory notices",
+      "audit_status_and_wave": "API landing checked / 2",
+      "purpose_and_constraints": "Drug recalls and related evidence; API datasets do not represent every import alert or warning letter",
+      "references": [
+        "https://open.fda.gov/apis/"
+      ],
+      "enabled_in_audited_default_store": false
+    },
+    {
+      "id": 46,
+      "source_family": "UN Comtrade / Indian official merchandise trade, [UN API catalogue](https://unstats.un.org/unsd/api/)",
+      "audit_status_and_wave": "Catalogue checked; current Comtrade access migration needs verification / 1–2",
+      "purpose_and_constraints": "Country-product imports/exports, concentration and affected trade values; record release vintage and reporting gaps",
+      "references": [
+        "https://unstats.un.org/unsd/api/"
+      ],
+      "enabled_in_audited_default_store": false
+    },
+    {
+      "id": 47,
+      "source_family": "[OECD input-output / ICIO](https://www.oecd.org/en/data/datasets/input-output-tables.html)",
+      "audit_status_and_wave": "Docs checked / 2–3",
+      "purpose_and_constraints": "Country-sector production links; aggregate scenario model only, not firm-specific supply proof",
+      "references": [
+        "https://www.oecd.org/en/data/datasets/input-output-tables.html"
+      ],
+      "enabled_in_audited_default_store": false
+    },
+    {
+      "id": 48,
+      "source_family": "[EIA API v2](https://www.eia.gov/opendata/documentation.php)",
+      "audit_status_and_wave": "Docs checked / 2",
+      "purpose_and_constraints": "Energy price/stock/output context; free API key required, release cadence and revisions retained",
+      "references": [
+        "https://www.eia.gov/opendata/documentation.php"
+      ],
+      "enabled_in_audited_default_store": false
+    }
+  ]
+}

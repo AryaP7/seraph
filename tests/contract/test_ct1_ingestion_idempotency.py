@@ -17,22 +17,32 @@ from seraph.shared_types import DailyBar, IngestBatch
 from seraph.store import StoreWriter, apply_schema, resolve_dsn
 
 
-def _db_available() -> bool:
+def _db_unavailable() -> str | None:
+    """The reason the database cannot be used, or None if it can.
+
+    Returns the real error rather than one fixed message. An authentication
+    failure, a wrong port, a missing database and a stopped container are four
+    different problems, and reporting all of them as "not reachable" sent a
+    reader back to `docker compose up -d` when the password was what was wrong.
+    """
     async def probe() -> None:
         conn = await asyncpg.connect(resolve_dsn(), timeout=3)
         await conn.close()
 
     try:
         asyncio.run(probe())
-        return True
-    except Exception:
-        return False
+        return None
+    except Exception as exc:                       # noqa: BLE001 - reported
+        return (f"database unusable: {type(exc).__name__}: {exc}. "
+                f"DB tests need a disposable seraph_test_* database with "
+                f"SERAPH_TEST_DB_DSN and SERAPH_TEST_TOKEN (see "
+                f"tests/conftest.py); `docker compose up -d` alone is not "
+                f"enough")
 
 
-pytestmark = pytest.mark.skipif(
-    not _db_available(),
-    reason="TimescaleDB not reachable — run `docker compose up -d` first",
-)
+_SKIP_REASON = _db_unavailable()
+pytestmark = pytest.mark.skipif(_SKIP_REASON is not None,
+                                reason=_SKIP_REASON or "")
 
 _SYMBOLS = ("CT1TESTA", "CT1TESTB", "CT1TESTC")
 _WATERMARK = "2020-01-03T18:00:00+05:30"

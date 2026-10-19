@@ -1,0 +1,72 @@
+[
+  {
+    "kind": "code",
+    "path": "scripts\\run_prediction_experiment.py",
+    "expected": "cfba439ee636b933bfa98c60bad33a4b91801f3c7daf943d63c1349ae01e8903",
+    "actual": "cfba439ee636b933bfa98c60bad33a4b91801f3c7daf943d63c1349ae01e8903",
+    "matches": true
+  },
+  {
+    "kind": "code",
+    "path": "EXPERIMENT.md",
+    "expected": "9c78d1b24c5aed5d03a8bb01014f85ab36c510bee7f828001788041df08de922",
+    "actual": "9c78d1b24c5aed5d03a8bb01014f85ab36c510bee7f828001788041df08de922",
+    "matches": true
+  },
+  {
+    "kind": "code",
+    "path": "seraph\\validation\\epochs.py",
+    "expected": "adb28cfb00f501cbe31d060787a6118fed8ab2f62d784f7124694868aa333cc3",
+    "actual": "adb28cfb00f501cbe31d060787a6118fed8ab2f62d784f7124694868aa333cc3",
+    "matches": true
+  },
+  {
+    "kind": "code",
+    "path": "seraph\\prediction\\models.py",
+    "expected": "6a81b50794209c32eb3af95d91f33687d1c1f4ba2760189f1fe59070f675c802",
+    "actual": "6a81b50794209c32eb3af95d91f33687d1c1f4ba2760189f1fe59070f675c802",
+    "matches": true
+  },
+  {
+    "kind": "code",
+    "path": "seraph\\prediction\\pillars.py",
+    "expected": "2ba7f87fd4c0b6d734b4bac8f477cdd8bdc8b674a4e3bd64593ec4c9bb25b06a",
+    "actual": "2ba7f87fd4c0b6d734b4bac8f477cdd8bdc8b674a4e3bd64593ec4c9bb25b06a",
+    "matches": true
+  },
+  {
+    "kind": "code",
+    "path": "seraph\\prediction\\evaluation.py",
+    "expected": "ded8805254854c4ac53ba74c3617f6ff68297a28e12d0531aecc19dcbd62edc8",
+    "actual": "ded8805254854c4ac53ba74c3617f6ff68297a28e12d0531aecc19dcbd62edc8",
+    "matches": true
+  },
+  {
+    "kind": "artifact",
+    "path": "features.parquet",
+    "expected": "47ef8097c5f9028e6132d7e92b05ce527f053ca5e1174d40a6f2a4b13ea44310",
+    "actual": "47ef8097c5f9028e6132d7e92b05ce527f053ca5e1174d40a6f2a4b13ea44310",
+    "matches": true
+  },
+  {
+    "kind": "artifact",
+    "path": "predictions.parquet",
+    "expected": "dde5efbe3e70845d3a920f09bcd81225417edab328808f064af9fe95f06d7fab",
+    "actual": "dde5efbe3e70845d3a920f09bcd81225417edab328808f064af9fe95f06d7fab",
+    "matches": true
+  },
+  {
+    "kind": "artifact",
+    "path": "fit_audit.json",
+    "expected": "990f2f1fd64e6c55e2bed92c7411cd32a4dc28db71997389ac3a176c34468339",
+    "actual": "990f2f1fd64e6c55e2bed92c7411cd32a4dc28db71997389ac3a176c34468339",
+    "matches": true
+  },
+  {
+    "kind": "data",
+    "path": "market_snapshot.parquet",
+    "actual": "0f004e2cb91a35bc11c218e5aa2e27c8d86deebae403d3c92ca655f6f9ece36f",
+    "matches": true,
+    "expected": "0f004e2cb91a35bc11c218e5aa2e27c8d86deebae403d3c92ca655f6f9ece36f"
+  }
+]

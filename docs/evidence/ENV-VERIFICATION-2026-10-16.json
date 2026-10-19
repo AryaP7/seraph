@@ -1,0 +1,121 @@
+{
+  "database": {
+    "dsn_redacted": "postgresql://seraph:***@localhost:5433/seraph",
+    "server_version": "16.15",
+    "database": "seraph",
+    "read_only_enforced": "on",
+    "size": "8663 MB",
+    "timescaledb": "2.29.2",
+    "tables": {
+      "daily_prices": {
+        "rows": 8023206,
+        "range": [
+          "1995-01-02",
+          "2026-08-21"
+        ],
+        "census_2026_10_12": 8023206,
+        "drift": 0
+      },
+      "intraday_bars": {
+        "rows": 18781302,
+        "range": [
+          "2015-02-02 09:15:00+05:30",
+          "2026-08-21 15:25:00+05:30"
+        ],
+        "census_2026_10_12": 18781302,
+        "drift": 0
+      },
+      "rmt_output": {
+        "rows": 5363,
+        "range": [
+          "2005-01-03",
+          "2026-08-21"
+        ],
+        "census_2026_10_12": 5363,
+        "drift": 0
+      },
+      "hamilton_output": {
+        "rows": 5365,
+        "range": [
+          "2005-01-03",
+          "2026-08-21"
+        ],
+        "census_2026_10_12": 5365,
+        "drift": 0
+      },
+      "universe_snapshots": {
+        "rows": 44,
+        "range": [
+          "2005-01-01",
+          "2026-07-01"
+        ],
+        "census_2026_10_12": 44,
+        "drift": 0
+      },
+      "microstructure_state": {
+        "rows": 0
+      },
+      "macro_covariates": {
+        "rows": 5363
+      },
+      "tariff_events": {
+        "rows": 0
+      },
+      "hawkes_output": {
+        "rows": 473
+      },
+      "reconciled_state": {
+        "rows": 0
+      },
+      "csrs": {
+        "rows": 4714
+      },
+      "validation_results": {
+        "rows": 0
+      },
+      "flow_aggregates": {
+        "rows": 1
+      },
+      "user_portfolio": {
+        "rows": 0
+      }
+    },
+    "missing_tables": [],
+    "integrity": {
+      "daily_prices_nonpositive_adj_close": 14,
+      "intraday_bars_nonpositive_close": 3558,
+      "daily_prices_distinct_symbols": 3524,
+      "intraday_distinct_symbols": 94,
+      "latest_universe_members": 500
+    },
+    "write_refused": true,
+    "write_refusal": "ReadOnlySQLTransactionError"
+  },
+  "kite_auth": {
+    "credentials_loaded": true,
+    "token_present": true,
+    "authenticated": true,
+    "user_id_tail": "575",
+    "broker": "ZERODHA",
+    "products": [
+      "CNC",
+      "NRML",
+      "MIS",
+      "BO",
+      "CO"
+    ],
+    "exchanges": []
+  },
+  "kiteconnect": {
+    "version": "<module 'kiteconnect.__version__' from 'C:\\\\Users\\\\Arlop\\\\Downloads\\\\SERAPH VARYA\\\\SERAPH Varya\\\\.venv\\\\Lib\\\\site-packages\\\\kiteconnect\\\\__version__.py'>",
+    "KiteTicker": true,
+    "ticker_modes": [
+      "MODE_FULL",
+      "MODE_LTP",
+      "MODE_QUOTE"
+    ],
+    "twisted": "26.4.0",
+    "autobahn": "19.11.2",
+    "seraph_adapter_importable": true
+  }
+}

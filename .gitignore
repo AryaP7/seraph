@@ -14,3 +14,5 @@ kite_credentials.tokens.json
 *.checkpoint.json
 .claude/worktrees/
 test-results/
+
+prototype_runs/

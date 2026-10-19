@@ -1,0 +1,406 @@
+{
+  "initial": {
+    "banner": "NOT A CURRENT MARKET READING \u2014 the newest observation is 2361.3 days old. Anything computed from it is a REPLAY of that period, not a statement about the market now, and must be labelled as such | observed 2020-04-30T15:30:00+05:30 \u00b7 now 2026-10-17T21:54:43+05:30 \u00b7 market not_a_session \u00b7 feed: none \u2014 not connected, unauthenticatedRUN 77cc8a2fb747507a \u00b7 2020-04-30 \u00b7 RETAIL | NEWS current_news 2026-10-17T21:54:42+05:30 | 11/11 feeds fresh | CONNECTED: SIGNALS, SECTOR_STRESS, GEOGRAPHY, ASSETS | 10 evidenced map node(s) | NEWS current_news 2026-10-17T21:54:42+05:30 | MARKET 2020-04-30T15:30:00+05:30",
+    "plan": {
+      "version": "c12.news_layer/2026-10-17.1",
+      "status": "connected",
+      "markers": [
+        {
+          "node_id": "cn",
+          "lon": 105,
+          "lat": 35,
+          "marker": "outline",
+          "scale": 2.4,
+          "precision": "country",
+          "layer": "subjects",
+          "colour": 8370336,
+          "label": "China",
+          "events": 3,
+          "meshId": "world_country:CHN"
+        },
+        {
+          "node_id": "hazard_sty_1845395a6232eab81b19",
+          "lon": 120.2824,
+          "lat": -8.1086,
+          "marker": "dot",
+          "scale": 0.9,
+          "precision": "point",
+          "layer": "origins",
+          "colour": 5941705,
+          "label": "M 4.5 - 59 km NNW of Ruteng, Indonesia",
+          "events": 1,
+          "meshId": "place_marker"
+        },
+        {
+          "node_id": "hazard_sty_521bbb3b1175b399e9c2",
+          "lon": 168.2516,
+          "lat": -15.5117,
+          "marker": "dot",
+          "scale": 0.9,
+          "precision": "point",
+          "layer": "origins",
+          "colour": 5941705,
+          "label": "M 4.8 - 110 km NE of Norsup, Vanuatu",
+          "events": 1,
+          "meshId": "place_marker"
+        },
+        {
+          "node_id": "hazard_sty_5a84ee90b2bc13a6c27a",
+          "lon": 124.3423,
+          "lat": -8.7339,
+          "marker": "dot",
+          "scale": 0.9,
+          "precision": "point",
+          "layer": "origins",
+          "colour": 5941705,
+          "label": "M 4.6 - 51 km N of Pante Makasar, Timor Leste",
+          "events": 1,
+          "meshId": "place_marker"
+        },
+        {
+          "node_id": "hazard_sty_8a44d72da14d3d345182",
+          "lon": 66.1708,
+          "lat": 28.0179,
+          "marker": "dot",
+          "scale": 0.9,
+          "precision": "point",
+          "layer": "origins",
+          "colour": 5941705,
+          "label": "M 5.7 - 48 km WNW of Khuzdar, Pakistan",
+          "events": 1,
+          "meshId": "place_marker"
+        },
+        {
+          "node_id": "in",
+          "lon": 79,
+          "lat": 22,
+          "marker": "outline",
+          "scale": 2.4,
+          "precision": "country",
+          "layer": "affected",
+          "colour": 10189780,
+          "label": "India",
+          "events": 23,
+          "meshId": "world_country:IND"
+        },
+        {
+          "node_id": "in_od_kalinganagar",
+          "lon": 86.00349,
+          "lat": 20.98481,
+          "marker": "ring",
+          "scale": 1.6,
+          "precision": "region",
+          "layer": "affected",
+          "colour": 10189780,
+          "label": "Kalinganagar",
+          "events": 1,
+          "meshId": "place_marker"
+        },
+        {
+          "node_id": "tata_kalinganagar",
+          "lon": 86.00349,
+          "lat": 20.98481,
+          "marker": "ring",
+          "scale": 1.6,
+          "precision": "region",
+          "layer": "origins",
+          "colour": 5941705,
+          "label": "Kalinganagar",
+          "events": 1,
+          "meshId": "place_marker"
+        },
+        {
+          "node_id": "us",
+          "lon": -98.5,
+          "lat": 39.76,
+          "marker": "outline",
+          "scale": 2.4,
+          "precision": "country",
+          "layer": "provenance",
+          "colour": 5941705,
+          "label": "United States",
+          "events": 17,
+          "meshId": "world_country:USA"
+        },
+        {
+          "node_id": "us_dc_washington",
+          "lon": -77.03637,
+          "lat": 38.89511,
+          "marker": "dot",
+          "scale": 0.9,
+          "precision": "city",
+          "layer": "provenance",
+          "colour": 5941705,
+          "label": "Washington D.C.",
+          "events": 27,
+          "meshId": "place_marker"
+        }
+      ],
+      "arcs": [
+        {
+          "edge_id": "cn_india_rare_earth_supply",
+          "from": [
+            105,
+            35
+          ],
+          "to": [
+            79,
+            22
+          ],
+          "colour": 8359331,
+          "hot": 12175064,
+          "confidence": "medium",
+          "mechanism": "import",
+          "animate": false
+        }
+      ],
+      "reviewCount": 0,
+      "hiddenEdges": 0,
+      "previewVisible": false,
+      "legend": [
+        {
+          "key": "provenance",
+          "label": "publisher / issuer provenance (not occurrence)",
+          "colour": 5941705
+        },
+        {
+          "key": "origins",
+          "label": "event origin",
+          "colour": 5941705
+        },
+        {
+          "key": "affected",
+          "label": "potentially affected location or asset",
+          "colour": 10189780
+        },
+        {
+          "key": "subjects",
+          "label": "goods from here are covered by the instrument",
+          "colour": 8370336
+        },
+        {
+          "key": "paths",
+          "label": "documented transmission path",
+          "colour": 8359331
+        }
+      ],
+      "notes": [
+        "news mechanisms are ordinal and evidential. They are not probabilities of financial loss and share no scale with CSRS"
+      ],
+      "asOf": "2026-10-17T21:54:42+05:30",
+      "revision": "77cc8a2fb747507a553169669d8b97b78d1b1f92eb1d7698661969525a769fcd",
+      "geometryMapVersion": "c12.globe_geometry/2026-10-17.1"
+    },
+    "signals": "current_news \u00b7 2026-10-17T21:54:42+05:30Continuation of the National Emergency With Respect to the Democratic Republic of the Congoconfirmed_statement \u00b7 unknown \u00b7 unknownday-granular publication dates. US trade actions reach Indian exposure through import parity, which is why a US register is in an Indian market-risk system at allfederal_register \u00b7 evidenceNo supported target impactFirst seen 2026-10-17T21:47:26+05:30 \u00b7 scheduled for publication 2026-10-19T00:00:00+05:30, not yet publishedCertain Steel Nails From Taiwan: Final Results of Antidumping Duty Administrative Review; 2024-2025confirmed_statement \u00b7 unknown \u00b7 adoptedday-granular publication dates. US trade actions reach Indian exposure through import parity, which is why a US register is in an Indian market-risk system at allfederal_register \u00b7 evidenceNo supported target impactFirst seen 2026-10-17T21:47:26+05:30 \u00b7 scheduled for publication 2026-10-19T00:00:00+05:30, not yet publishedBulk Manufacturer of Controlled Substances Application: National Center for Natural Products Research University of Mississippi/NCNPRconfirmed_statement \u00b7 unknown \u00b7 unknownday-granular publication dates. US trade actions reach Indian exposure through import parity, which is why a US register is in an Indian market-risk system at allfederal_register \u00b7 evidenceNo supported target impactFirst seen 2026-10-17T21:47:26+05:30 \u00b7 scheduled for publication 2026-10-19T00:00:00+05:30, not yet publishedNew Source Performance Standards and National Emission Standards for Hazardous Air Pollutants; Delegation of Authority to Northwest Clean Air Agency, Washington Stateconfirmed_statement \u00b7 unknown \u00b7 unknownday-granular publication dates. US trade actions reach Indian exposure through import parity, which is why a US register is in an Indian market-risk system at allfederal_register \u00b7 evidenceNo supported target impactFirst seen 2026-10-17T21:47:26+05:30 \u00b7 scheduled for publication 2026-10-19T00:00:00+05:30, not yet publishedFine Denier Polyester Staple Fiber From India: Preliminary Results and Rescission, in Part of Antidumping Duty Administrative Review; 2024-2025confirmed_statement \u00b7 unknown \u00b7 announcedfederal_register_india \u00b7 evidenceNo supported target impactFirst seen 2026-10-17T21:47:26+05:30 \u00b7 scheduled for publication 2026-10-19T00:00:00+05:30, not yet publishedMarine Mammals; Incidental Take of Polar Bears and Pacific Walruses in the Beaufort Sea and North Slope of Alaskaconfirmed_statement \u00b7 unknown \u00b7 unknownday-granular publication dates. US trade actions reach Indian exposure through import parity, which is why a US register is in an Indian market-risk system at allfederal_register \u00b7 evidenceNo supported target impactFirst seen 2026-10-17T21:47:26+05:30 \u00b7 scheduled for publication 2026-10-19T00:00:00+05:30, not yet publishedPrivacy Act of 1974; System of Recordsconfirmed_statement \u00b7 unknown \u00b7 unknownday-granular publication dates. US trade actions reach Indian exposure through import parity, which is why a US register is in an Indian market-risk system at allfederal_register \u00b7 evidenceNo supported target impactFirst seen 2026-10-17T21:47:26+05:30 \u00b7 scheduled for publication 2026-10-19T00:00:00+05:30, not yet publishedM 5.7 - 48 km WNW of Khuzdar, Pakistanconfirmed_statement \u00b7 unknown \u00b7 unknownthe one source that supplies its OWN coordinate. Its events are physical facts, not market claims, and nothing here converts a magnitude into a risk scoreusgs_earthquakes \u00b7 evidenceNo supported target impactFirst seen 2026-10-17T21:47:26+05:30President's Military Spouse Commission; Notice of Federal Advisory Committee Meetingconfirmed_statement \u00b7 start \u00b7 unknownday-granular publication dates. US trade actions reach Indian exposure through import parity, which is why a US register is in an Indian market-risk system at allfederal_register \u00b7 evidenceNo supported target impactFirst seen 2026-10-17T21:47:26+05:30 \u00b7 scheduled for publication 2026-10-19T00:00:00+05:30, not yet publishedContinuation of the National Emergency With Respect to Sudanconfirmed_statement \u00b7 unknown \u00b7 unknownday-granular publication dates. US trade actions reach Indian exposure through import parity, which is why a US register is in an Indian market-risk system at allfederal_register \u00b7 evidenceNo supported target impactFirst seen 2026-10-17T21:47:26+05:30 \u00b7 scheduled for publication 2026-10-19T00:00:00+05:30, not yet published\u0938\u0940\u090f\u0915\u094d\u092f\u0942\u090f\u092e \u0928\u0947 \u090f\u0928\u0938\u0940\u0906\u0930 \u092e\u0947\u0902 \u0905\u0928\u0941\u092a\u093e\u0932\u0928 \u0938\u094d\u0925\u093f\u0924\u093f \u0914\u0930 \u092a\u094d\u0930\u0935\u0930\u094d\u0924\u0928 \u0915\u093e\u0930\u094d\u0930\u0935\u093e\u0907\u092f\u094b\u0902 \u0915\u0940 \u0938\u092e\u0940\u0915\u094d\u0937\u093e \u0915\u0940; 25.09.2026 \u0938\u0947 09.10.2026 \u0915\u0947 \u092c\u0940\u091a 124 \u0928\u093f\u0930\u0940\u0915\u094d\u0937\u0923 \u0915\u093f\u090f \u0917\u090freported_unconfirmed \u00b7 unknown \u00b7 unknownProbe returned Hindi and no dates. First-seen-only; English semantic rules abstain.pib_releases \u00b7 evidenceNo supported target impactFirst seen 2026-10-17T21:47:26+05:30Bulk Manufacturer of Controlled Substances Application: Scottsdale Research Instituteconfirmed_statement \u00b7 unknown \u00b7 unknownday-granular publication dates. US trade actions reach Indian exposure through import parity, which is why a US register is in an Indian market-risk system at allfederal_register \u00b7 evidenceNo supported target impactFirst seen 2026-10-17T21:47:26+05:30 \u00b7 scheduled for publication 2026-10-19T00:00:00+05:30, not yet publishedBulk Manufacturer of Controlled Substances Application: Janssen Pharmaceuticals, Inc.confirmed_statement \u00b7 unknown \u00b7 unknownday-granular publication dates. US trade actions reach Indian exposure through import parity, which is why a US register is in an Indian market-risk system at allfederal_register \u00b7 evidenceNo supported target impactFirst seen 2026-10-17T21:47:26+05:30 \u00b7 scheduled for publication 2026-10-19T00:00:00+05:30, not yet publishedAirworthiness Directives; Airbus Helicoptersconfirmed_statement \u00b7 unknown \u00b7 unknownday-granular publication dates. US trade actions reach Indian exposure through import parity, which is why a US register is in an Indian market-risk system at allfederal_register \u00b7 evidenceNo supported target impactFirst seen 2026-10-17T21:47:26+05:30 \u00b7 scheduled for publication 2026-10-19T00:00:00+05:30, not yet publishedFee Schedules; Fee Recovery for Fiscal Year 2026confirmed_statement \u00b7 unknown \u00b7 unknownday-granular publication dates. US trade actions reach Indian exposure through import parity, which is why a US register is in an Indian market-risk system at allfederal_register \u00b7 evidenceNo supported target impactFirst seen 2026-10-17T21:47:26+05:30 \u00b7 scheduled for publication 2026-10-19T00:00:00+05:30, not yet publishedLarge Diameter Graphite Electrodes From the People's Republic of China: Postponement of Final Determination of Sales at Less-Than-Fair-Value Investigation and Extension of Provisional Measuresconfirmed_statement \u00b7 unknown \u00b7 unknownfederal_register_india \u00b7 evidenceNo supported target impactFirst seen 2026-10-17T21:47:26+05:30 \u00b7 scheduled for publication 2026-10-19T00:00:00+05:30, not yet publishedAgency Information Collection Request: Tribal Federal Employees Health Benefits (FEHB) Program Tribal Employer Application (3206-NEW)confirmed_statement \u00b7 unknown \u00b7 unknownday-granular publication dates. US trade actions reach Indian exposure through import parity, which is why a US register is in an Indian market-risk system at allfederal_register \u00b7 evidenceNo supported target impactFirst seen 2026-10-17T21:47:26+05:30 \u00b7 scheduled for publication 2026-10-19T00:00:00+05:30, not yet published\u092d\u093e\u0930\u0924 \u0915\u0940 \u0905\u0902\u0924\u0930\u093f\u0915\u094d\u0937 \u0905\u0930\u094d\u0925\u0935\u094d\u092f\u0935\u0938\u094d\u0925\u093e 7\u20138 \u0935\u0930\u094d\u0937 \u092e\u0947\u0902 40\u201345 \u0905\u0930\u092c \u0905\u092e\u0947\u0930\u093f\u0915\u0940 \u0921\u0949\u0932\u0930 \u092a\u0939\u0941\u0902\u091a \u091c\u093e\u090f\u0917\u0940; \u092a\u094d\u0930\u0927\u093e\u0928\u092e\u0902\u0924\u094d\u0930\u0940 \u092e\u094b\u0926\u0940 \u0926\u094d\u0935\u093e\u0930\u093e \u0905\u0902\u0924\u0930\u093f\u0915\u094d\u0937 \u0915\u094d\u0937\u0947\u0924\u094d\u0930 \u0915\u094b \u0916\u094b\u0932\u0928\u0947 \u0915\u0947 \u092c\u093e\u0926 \u0921\u0949. \u091c\u093f\u0924\u0947\u0928\u094d\u0926\u094d\u0930 \u0938\u093f\u0902\u0939 \u0928\u0947 \u0928\u093f\u091c\u0940 \u0928\u093f\u0935\u0947\u0936 \u092e\u0947\u0902 \u0935\u0943\u0926\u094d\u0927\u093f \u092a\u0930 \u091c\u094b\u0930 \u0926\u093f\u092f\u093ereported_unconfirmed \u00b7 unknown \u00b7 unknownProbe returned Hindi and no dates. First-seen-only; English semantic rules abstain.pib_releases \u00b7 evidenceNo supported target impactFirst seen 2026-10-17T21:47:26+05:30Erie Boulevard Hydropower, L.P.; Notice of Reasonable Period of Time for Water Quality Certification Applicationconfirmed_statement \u00b7 unknown \u00b7 unknownday-granular publication dates. US trade actions reach Indian exposure through import parity, which is why a US register is in an Indian market-risk system at allfederal_register \u00b7 evidence \u00b7 day-granular publication dates. US trade actions reach Indian exposure through import parity, which is why a US register is in an Indian market-risk system at allfederal_register \u00b7 evidenceNo supported target impactFirst seen 2026-10-17T21:47:26+05:30 \u00b7 scheduled for publication 2026-10-19T00:00:00+05:30, not yet publishedFurther Definition of \u201cSwap\u201d To Exclude Casino-Style Gambling Productsconfirmed_statement \u00b7 unknown \u00b7 unknownday-granular publication dates. US trade actions reach Indian exposure through import parity, which is why a US register is in an Indian market-risk system at allfederal_register \u00b7 evidenceNo supported target impactFirst seen 2026-10-17T21:47:26+05:30 \u00b7 scheduled for publication 2026-10-19T00:00:00+05:30, not yet publishedDunn, Keith M.; Notice of Filingconfirmed_statement \u00b7 unknown \u00b7 unknownday-granular publication dates. US trade actions reach Indian exposure through import parity, which is why a US register is in an Indian market-risk system at allfederal_register \u00b7 evidenceNo supported target impactFirst seen 2026-10-17T21:47:26+05:30 \u00b7 scheduled for publication 2026-10-19T00:00:00+05:30, not yet publishedContinuation of the National Emergency With Respect to Significant Narcotics Traffickers Centered in Colombiaconfirmed_statement \u00b7 unknown \u00b7 unknownday-granular publication dates. US trade actions reach Indian exposure through import parity, which is why a US register is in an Indian market-risk system at allfederal_register \u00b7 evidenceNo supported target impactFirst seen 2026-10-17T21:47:26+05:30 \u00b7 scheduled for publication 2026-10-19T00:00:00+05:30, not yet publishedM 4.8 - 110 km NE of Norsup, Vanuatuconfirmed_statement \u00b7 unknown \u00b7 unknownthe one source that supplies its OWN coordinate. Its events are physical facts, not market claims, and nothing here converts a magnitude into a risk scoreusgs_earthquakes \u00b7 evidenceNo supported target impactFirst seen 2026-10-17T21:47:26+05:30\u0935\u0902\u0926\u0947 \u092e\u093e\u0924\u0930\u092e\u094d \u0915\u0947 150 \u0917\u094c\u0930\u0935\u0936\u093e\u0932\u0940 \u0935\u0930\u094d\u0937 \u092a\u0942\u0930\u094d\u0923 \u0939\u094b\u0928\u0947 \u092a\u0930 \u092f\u0941\u0935\u093e \u0938\u0902\u0935\u093e\u0926 \u0915\u093e\u0930\u094d\u092f\u0915\u094d\u0930\u092e \u092e\u0947\u0902 \u0936\u093e\u092e\u093f\u0932 \u0939\u0941\u090f \u0936\u094d\u0930\u0940 \u0936\u093f\u0935\u0930\u093e\u091c \u0938\u093f\u0902\u0939 \u091a\u094c\u0939\u093e\u0928, \u0938\u093e\u0924 \u0930\u093e\u091c\u094d\u092f\u094b\u0902 \u0915\u0947 \u092f\u0941\u0935\u093e\u0913\u0902 \u0915\u0947 \u0938\u093e\u0925 \u0915\u093f\u092f\u093e \u092a\u094c\u0927\u093e\u0930\u094b\u092a\u0923reported_unconfirmed \u00b7 unknown \u00b7 unknownProbe returned Hindi and no dates. First-seen-only; English semantic rules abstain.pib_releases \u00b7 evidenceNo supported target impactFirst seen 2026-10-17T21:47:26+05:30Pacific Fishery Management Council; Public Meetingsconfirmed_statement \u00b7 unknown \u00b7 unknownday-granular publication dates. US trade actions reach Indian exposure through import parity, which is why a US register is in an Indian market-risk system at allfederal_register \u00b7 evidenceNo supported target impactFirst seen 2026-10-17T21:47:26+05:30 \u00b7 scheduled for publication 2026-10-19T00:00:00+05:30, not yet published\u0915\u0947\u0902\u0926\u094d\u0930\u0940\u092f \u092f\u0941\u0935\u093e \u0915\u093e\u0930\u094d\u092f\u0915\u094d\u0930\u092e \u090f\u0935\u0902 \u0916\u0947\u0932 \u092e\u0902\u0924\u094d\u0930\u0940 \u0921\u0949. \u092e\u0928\u0938\u0941\u0916 \u092e\u093e\u0902\u0921\u0935\u093f\u092f\u093e \u0928\u0947 \u0917\u0941\u091c\u0930\u093e\u0924 \u092e\u0947\u0902 \u2018\u0935\u093f\u0915\u0938\u093f\u0924 \u092d\u093e\u0930\u0924 \u092f\u0941\u0935\u093e \u0938\u0902\u0935\u093e\u0926\u2019 \u0915\u0947 \u0926\u094c\u0930\u093e\u0928 \u092f\u0941\u0935\u093e\u0913\u0902 \u0915\u094b \u0935\u0930\u094d\u0937 2047 \u0924\u0915 \u0935\u093f\u0915\u0938\u093f\u0924 \u092d\u093e\u0930\u0924 \u0915\u0940 \u092a\u0930\u093f\u0915\u0932\u094d\u092a\u0928\u093e \u0915\u093e \u092e\u0936\u093e\u0932 \u0935\u093e\u0939\u0915 \u092c\u0924\u093e\u092f\u093ereported_unconfirmed \u00b7 unknown \u00b7 unknownProbe returned Hindi and no dates. First-seen-only; English semantic rules abstain.pib_releases \u00b7 evidenceNo supported target impactFirst seen 2026-10-17T21:47:26+05:30Thermal Paper From the Republic of Korea: Preliminary Results and Rescission, in Part, of Antidumping Duty Administrative Review; 2024-2025confirmed_statement \u00b7 unknown \u00b7 announcedday-granular publication dates. US trade actions reach Indian exposure through import parity, which is why a US register is in an Indian market-risk system at allfederal_register \u00b7 evidenceNo supported target impactFirst seen 2026-10-17T21:47:26+05:30 \u00b7 scheduled for publication 2026-10-19T00:00:00+05:30, not yet publishedBulk Manufacturer of Controlled Substances Application: Groff Health Incconfirmed_statement \u00b7 unknown \u00b7 unknownday-granular publication dates. US trade actions reach Indian exposure through import parity, which is why a US register is in an Indian market-risk system at allfederal_register \u00b7 evidenceNo supported target impactFirst seen 2026-10-17T21:47:26+05:30 \u00b7 scheduled for publication 2026-10-19T00:00:00+05:30, not yet publishedM 4.6 - 51 km N of Pante Makasar, Timor Lesteconfirmed_statement \u00b7 unknown \u00b7 unknownthe one source that supplies its OWN coordinate. Its events are physical facts, not market claims, and nothing here converts a magnitude into a risk scoreusgs_earthquakes \u00b7 evidenceNo supported target impactFirst seen 2026-10-17T21:47:26+05:30Polyethylene Terephthalate Film, Sheet, and Strip From India: Preliminary Results of Antidumping Duty Administrative Review, and Rescission of Review, in Part; 2024-2025confirmed_statement \u00b7 unknown \u00b7 announcedfederal_register_india \u00b7 evidencesector:chemicals: ambiguous via exportFirst seen 2026-10-17T21:47:26+05:30 \u00b7 scheduled for publication 2026-10-19T00:00:00+05:30, not yet publishedImporter of Controlled Substances Application: Organic Standards Solutions International, LLCconfirmed_statement \u00b7 unknown \u00b7 unknownday-granular publication dates. US trade actions reach Indian exposure through import parity, which is why a US register is in an Indian market-risk system at allfederal_register \u00b7 evidenceNo supported target impactFirst seen 2026-10-17T21:47:26+05:30 \u00b7 scheduled for publication 2026-10-19T00:00:00+05:30, not yet publishedImporter of Controlled Substances Application: DMS Pharmaceutical Groupconfirmed_statement \u00b7 unknown \u00b7 unknownday-granular publication dates. US trade actions reach Indian exposure through import parity, which is why a US register is in an Indian market-risk system at allfederal_register \u00b7 evidenceNo supported target impactFirst seen 2026-10-17T21:47:26+05:30 \u00b7 scheduled for publication 2026-10-19T00:00:00+05:30, not yet publishedImporter of Controlled Substances Application: Halo Pharmaceutical Inc.confirmed_statement \u00b7 unknown \u00b7 unknownday-granular publication dates. US trade actions reach Indian exposure through import parity, which is why a US register is in an Indian market-risk system at allfederal_register \u00b7 evidenceNo supported target impactFirst seen 2026-10-17T21:47:26+05:30 \u00b7 scheduled for publication 2026-10-19T00:00:00+05:30, not yet published\u0930\u093e\u0937\u094d\u091f\u094d\u0930\u0940\u092f \u091c\u0948\u0935 \u0935\u093f\u0935\u093f\u0927\u0924\u093e \u092a\u094d\u0930\u093e\u0927\u093f\u0915\u0930\u0923 (\u090f\u0928\u092c\u0940\u090f) \u0928\u0947 \u092a\u0939\u0941\u0902\u091a \u0914\u0930 \u0932\u093e\u092d \u0938\u093e\u091d\u093e\u0915\u0930\u0923 \u0935\u094d\u092f\u0935\u0938\u094d\u0925\u093e \u0915\u0947 \u0905\u0902\u0924\u0930\u094d\u0917\u0924 29 \u0930\u093e\u091c\u094d\u092f \u091c\u0948\u0935 \u0935\u093f\u0935\u093f\u0927\u0924\u093e \u092a\u0930\u093f\u0937\u0926\u094b\u0902 \u0914\u0930 \u090f\u0915 \u0915\u0947\u0902\u0926\u094d\u0930 \u0936\u093e\u0938\u093f\u0924 \u092a\u094d\u0930\u0926\u0947\u0936 \u091c\u0948\u0935 \u0935\u093f\u0935\u093f\u0927\u0924\u093e \u092a\u0930\u093f\u0937\u0926 \u0915\u094b 1.19 \u0915\u0930\u094b\u0921\u093c \u0930\u0941\u092a\u092f\u0947 \u0935\u093f\u0924\u0930\u093f\u0924 \u0915\u093f\u090freported_unconfirmed \u00b7 unknown \u00b7 unknownProbe returned Hindi and no dates. First-seen-only; English semantic rules abstain.pib_releases \u00b7 evidenceNo supported target impactFirst seen 2026-10-17T21:47:26+05:30Agency Information Collection Activities; Submission to the Office of Management and Budget (OMB) for Review and Approval; Comment Request; South Pacific Tuna Actconfirmed_statement \u00b7 unknown \u00b7 unknownday-granular publication dates. US trade actions reach Indian exposure through import parity, which is why a US register is in an Indian market-risk system at allfederal_register \u00b7 evidenceNo supported target impactFirst seen 2026-10-17T21:47:26+05:30 \u00b7 scheduled for publication 2026-10-19T00:00:00+05:30, not yet publishedAgency Information Collection Activities; Submission to the Office of Management and Budget (OMB) for Review and Approval; Comment Request; Services Surveys: BE-125, Quarterly Survey of Transactions in Selected Services and Intellectual Property With Foreign Personsconfirmed_statement \u00b7 unknown \u00b7 unknownday-granular publication dates. US trade actions reach Indian exposure through import parity, which is why a US register is in an Indian market-risk system at allfederal_register \u00b7 evidenceNo supported target impactFirst seen 2026-10-17T21:47:26+05:30 \u00b7 scheduled for publication 2026-10-19T00:00:00+05:30, not yet publishedAgency Information Collection Request: FEHB Protection Act Portal, OMB Control Number (3206-NEW)confirmed_statement \u00b7 unknown \u00b7 unknownday-granular publication dates. US trade actions reach Indian exposure through import parity, which is why a US register is in an Indian market-risk system at allfederal_register \u00b7 evidenceNo supported target impactFirst seen 2026-10-17T21:47:26+05:30 \u00b7 scheduled for publication 2026-10-19T00:00:00+05:30, not yet publishedM 4.5 - 59 km NNW of Ruteng, Indonesiaconfirmed_statement \u00b7 unknown \u00b7 unknownthe one source that supplies its OWN coordinate. Its events are physical facts, not market claims, and nothing here converts a magnitude into a risk scoreusgs_earthquakes \u00b7 evidenceNo supported target impactFirst seen 2026-10-17T21:47:26+05:30\u0915\u0947\u0902\u0926\u094d\u0930\u0940\u092f \u0915\u0943\u0937\u093f \u092e\u0902\u0924\u094d\u0930\u0940 \u0936\u094d\u0930\u0940 \u0936\u093f\u0935\u0930\u093e\u091c \u0938\u093f\u0902\u0939 \u091a\u094c\u0939\u093e\u0928 \u0928\u0947 \u2018\u0916\u0947\u0924 \u092c\u091a\u093e\u0913 \u0905\u092d\u093f\u092f\u093e\u0928\u2019 \u0915\u0940 \u0924\u0948\u092f\u093e\u0930\u093f\u092f\u094b\u0902 \u0915\u0940 \u0938\u092e\u0940\u0915\u094d\u0937\u093e \u0915\u0940; 22 \u0905\u0915\u094d\u091f\u0942\u092c\u0930 \u0938\u0947 30 \u0928\u0935\u0902\u092c\u0930 \u0924\u0915 \u091a\u0932\u0947\u0917\u093e \u0905\u092d\u093f\u092f\u093e\u0928reported_unconfirmed \u00b7 unknown \u00b7 unknownProbe returned Hindi and no dates. First-seen-only; English semantic rules abstain.pib_releases \u00b7 evidenceNo supported target impactFirst seen 2026-10-17T21:47:26+05:30Sunshine Act Meetingsconfirmed_statement \u00b7 unknown \u00b7 unknownday-granular publication dates. US trade actions reach Indian exposure through import parity, which is why a US register is in an Indian market-risk system at allfederal_register \u00b7 evidenceNo supported target impactFirst seen 2026-10-17T21:47:26+05:30 \u00b7 scheduled for publication 2026-10-19T00:00:00+05:30, not yet publishedREFERENCED Perfluoroalkoxy Alkane From India: Postponement of Preliminary Determination in the Countervailing Duty InvestigationNot on this page of LATEST SIGNALS. It is kept here because an inference on screen references it.confirmed_statement \u00b7 unknown \u00b7 announcedfederal_register_india \u00b7 evidencesector:chemicals: ambiguous via exportFirst seen 2026-10-17T21:47:26+05:30 \u00b7 scheduled for publication 2026-10-19T00:00:00+05:30, not yet publishedREFERENCED Oleoresin Paprika From India: Antidumping Duty Order and Countervailing Duty OrderNot on this page of LATEST SIGNALS. It is kept here because an inference on screen references it.confirmed_statement \u00b7 unknown \u00b7 effectivefederal_register_india \u00b7 evidencesector:agriculture: adverse via exportFirst seen 2026-10-17T07:35:42+05:30REFERENCED Certain Frozen Warmwater Shrimp From India: Rescission of Antidumping Duty Administrative Review, In Part; 2025-2026Not on this page of LATEST SIGNALS. It is kept here because an inference on screen references it.confirmed_statement \u00b7 unknown \u00b7 unknownfederal_register_india \u00b7 evidencesector:agriculture: ambiguous via exportFirst seen 2026-10-17T07:35:42+05:30REFERENCED Common Alloy Aluminum Sheet From Bahrain, Brazil, Croatia, Egypt, Germany, India, Indonesia, Italy, Oman, Romania, Serbia, Slovenia, South Africa, Spain, Taiwan, and Turkey; Scheduling of Full Five-Year ReviewsNot on this page of LATEST SIGNALS. It is kept here because an inference on screen references it.confirmed_statement \u00b7 unknown \u00b7 consultationfederal_register_india \u00b7 evidencesector:aluminium: ambiguous via exportFirst seen 2026-10-17T07:35:42+05:30REFERENCED Certain Freight Rail Couplers and Parts Thereof From India: Final Affirmative Determination of Sales at Less Than Fair ValueNot on this page of LATEST SIGNALS. It is kept here because an inference on screen references it.confirmed_statement \u00b7 unknown \u00b7 adoptedfederal_register_india \u00b7 evidencesector:steel: adverse via exportFirst seen 2026-10-17T07:35:42+05:30REFERENCED Announcement No.18 of 2025 of The Ministry of Commerce and The General Administration of Customs of The People\u2019s Republic of China Announcing the decision to implement export control on some medium and heavy rare earth related itemsNot on this page of LATEST SIGNALS. It is kept here because an inference on screen references it.confirmed_statement \u00b7 start \u00b7 unknownHistorical instrument monitored for title changes; does not establish current legal status or monitor replacement instruments.mofcom_rare_earth_18_2025 \u00b7 evidencein: ambiguous via import; sector:auto: ambiguous via input_dependencyFirst seen 2026-10-17T07:35:42+05:30REFERENCED Certain Freight Rail Couplers and Parts Thereof From India: Final Affirmative Countervailing Duty DeterminationNot on this page of LATEST SIGNALS. It is kept here because an inference on screen references it.confirmed_statement \u00b7 unknown \u00b7 adoptedfederal_register_india \u00b7 evidencesector:steel: adverse via exportFirst seen 2026-10-17T07:35:42+05:30REFERENCED Chromium Trioxide From India: Final Affirmative Determination of Sales at Less Than Fair ValueNot on this page of LATEST SIGNALS. It is kept here because an inference on screen references it.confirmed_statement \u00b7 unknown \u00b7 adoptedfederal_register_india \u00b7 evidencesector:chemicals: adverse via exportFirst seen 2026-10-17T07:35:42+05:30REFERENCED Oleoresin Paprika From India; DeterminationsNot on this page of LATEST SIGNALS. It is kept here because an inference on screen references it.confirmed_statement \u00b7 unknown \u00b7 unknownfederal_register_india \u00b7 evidencesector:agriculture: ambiguous via exportFirst seen 2026-10-17T07:35:42+05:30REFERENCED Common Alloy Aluminum Sheet From the People's Republic of China, Bahrain, Brazil, Croatia, Egypt, Germany, India, Indonesia, Italy, Oman, Romania, Serbia, Slovenia, South Africa, Spain, Taiwan, and the Republic of T\u00fcrkiye: Final Results of Changed Circumstances Reviews and Revocation of the Antidumping and Countervailing Duty Orders, in PartNot on this page of LATEST SIGNALS. It is kept here because an inference on screen references it.confirmed_statement \u00b7 unknown \u00b7 repealedfederal_register_india \u00b7 evidencesector:aluminium: favourable via exportFirst seen 2026-10-17T07:35:42+05:30REFERENCED Forged Steel Fittings From India and South Korea; Cancellation of Hearing for Antidumping and Countervailing Duty ReviewsNot on this page of LATEST SIGNALS. It is kept here because an inference on screen references it.confirmed_statement \u00b7 cancel \u00b7 unknownfederal_register_india \u00b7 evidencesector:steel: ambiguous via exportFirst seen 2026-10-17T07:35:42+05:30REFERENCED Oil Country Tubular Goods From India, South Korea, Turkey, Ukraine, and Vietnam; DeterminationsNot on this page of LATEST SIGNALS. It is kept here because an inference on screen references it.confirmed_statement \u00b7 unknown \u00b7 unknownfederal_register_india \u00b7 evidencesector:steel: ambiguous via exportFirst seen 2026-10-17T07:35:42+05:30REFERENCED Chromium Trioxide From India: Final Affirmative Countervailing Duty DeterminationNot on this page of LATEST SIGNALS. It is kept here because an inference on screen references it.confirmed_statement \u00b7 unknown \u00b7 adoptedfederal_register_india \u00b7 evidencesector:chemicals: adverse via exportFirst seen 2026-10-17T07:35:42+05:30REFERENCED Polyethylene Terephthalate Film, Sheet, and Strip From India: Preliminary Results of Countervailing Duty Administrative Review, and Rescission, in Part; 2024Not on this page of LATEST SIGNALS. It is kept here because an inference on screen references it.confirmed_statement \u00b7 unknown \u00b7 announcedfederal_register_india \u00b7 evidencesector:chemicals: ambiguous via exportFirst seen 2026-10-17T07:35:42+05:30REFERENCED Perfluoroalkoxy Alkane From India; DeterminationsNot on this page of LATEST SIGNALS. It is kept here because an inference on screen references it.confirmed_statement \u00b7 unknown \u00b7 unknownfederal_register_india \u00b7 evidencesector:chemicals: ambiguous via exportFirst seen 2026-10-17T07:35:42+05:30REFERENCED Tata Steel inaugurates Phase II expansion of Kalinganagar operationsNot on this page of LATEST SIGNALS. It is kept here because an inference on screen references it.confirmed_statement \u00b7 start \u00b7 unknownHistorical corporate release; first-seen is acquisition now, not the 2025 event date.tata_kalinganagar_expansion \u00b7 evidencetata_steel: ambiguous via operation; sector:steel: ambiguous via operation; tata_kalinganagar: ambiguous via operationFirst seen 2026-10-17T07:13:35+05:30Registered sources currently coveredPilot coverage only: no licensed independent journalism; No validated Hindi interpretation; received Hindi items abstain; Exchange filings, Indian trade instruments and broader sector routes are incomplete; Pilot exposure registry is qualitative; unmapped firms and unknown sizes are not zero riskFABRICATED illustrative signalsGujaratSolar module import policy tightened; safeguard duty band widenedCRITICAL4m ago\u00b7 SolarOdishaFlat steel export duty proposal circulated to ministriesCRITICAL19m ago\u00b7 SteelWashington, DCUSTR opens Section 301 review covering PV cell importsCRITICAL41m ago\u00b7 SolarTamil NaduPLI scheme revision for auto component makers under reviewWATCH1h ago\u00b7 AutoBrusselsEU anti-dumping proceeding advances on flat steelWATCH1h ago\u00b7 SteelTelanganaGeneric drug pricing policy draft leaked to trade pressWATCH2h ago\u00b7 PharmaMumbaiRBI flags concentration risk in tariff-exposed lending booksWATCH3h ago\u00b7 BankingNew DelhiCommerce ministry convenes exporters on freight surchargeWATCH5h ago\u00b7 Multi",
+    "markerCount": 10
+  },
+  "refreshed": {
+    "banner": "NOT A CURRENT MARKET READING \u2014 the newest observation is 2361.3 days old. Anything computed from it is a REPLAY of that period, not a statement about the market now, and must be labelled as such | observed 2020-04-30T15:30:00+05:30 \u00b7 now 2026-10-17T21:55:15+05:30 \u00b7 market not_a_session \u00b7 feed: none \u2014 not connected, unauthenticatedRUN 77cc8a2fb747507a \u00b7 2020-04-30 \u00b7 RETAIL | NEWS current_news 2026-10-17T21:55:14+05:30 | 11/11 feeds fresh | CONNECTED: SIGNALS, SECTOR_STRESS, GEOGRAPHY, ASSETS | 10 evidenced map node(s) | NEWS current_news 2026-10-17T21:55:14+05:30 | MARKET 2020-04-30T15:30:00+05:30",
+    "plan": {
+      "version": "c12.news_layer/2026-10-17.1",
+      "status": "connected",
+      "markers": [
+        {
+          "node_id": "cn",
+          "lon": 105,
+          "lat": 35,
+          "marker": "outline",
+          "scale": 2.4,
+          "precision": "country",
+          "layer": "subjects",
+          "colour": 8370336,
+          "label": "China",
+          "events": 3,
+          "meshId": "world_country:CHN"
+        },
+        {
+          "node_id": "hazard_sty_1845395a6232eab81b19",
+          "lon": 120.2824,
+          "lat": -8.1086,
+          "marker": "dot",
+          "scale": 0.9,
+          "precision": "point",
+          "layer": "origins",
+          "colour": 5941705,
+          "label": "M 4.5 - 59 km NNW of Ruteng, Indonesia",
+          "events": 1,
+          "meshId": "place_marker"
+        },
+        {
+          "node_id": "hazard_sty_521bbb3b1175b399e9c2",
+          "lon": 168.2516,
+          "lat": -15.5117,
+          "marker": "dot",
+          "scale": 0.9,
+          "precision": "point",
+          "layer": "origins",
+          "colour": 5941705,
+          "label": "M 4.8 - 110 km NE of Norsup, Vanuatu",
+          "events": 1,
+          "meshId": "place_marker"
+        },
+        {
+          "node_id": "hazard_sty_5a84ee90b2bc13a6c27a",
+          "lon": 124.3423,
+          "lat": -8.7339,
+          "marker": "dot",
+          "scale": 0.9,
+          "precision": "point",
+          "layer": "origins",
+          "colour": 5941705,
+          "label": "M 4.6 - 51 km N of Pante Makasar, Timor Leste",
+          "events": 1,
+          "meshId": "place_marker"
+        },
+        {
+          "node_id": "hazard_sty_8a44d72da14d3d345182",
+          "lon": 66.1708,
+          "lat": 28.0179,
+          "marker": "dot",
+          "scale": 0.9,
+          "precision": "point",
+          "layer": "origins",
+          "colour": 5941705,
+          "label": "M 5.7 - 48 km WNW of Khuzdar, Pakistan",
+          "events": 1,
+          "meshId": "place_marker"
+        },
+        {
+          "node_id": "in",
+          "lon": 79,
+          "lat": 22,
+          "marker": "outline",
+          "scale": 2.4,
+          "precision": "country",
+          "layer": "affected",
+          "colour": 10189780,
+          "label": "India",
+          "events": 23,
+          "meshId": "world_country:IND"
+        },
+        {
+          "node_id": "in_od_kalinganagar",
+          "lon": 86.00349,
+          "lat": 20.98481,
+          "marker": "ring",
+          "scale": 1.6,
+          "precision": "region",
+          "layer": "affected",
+          "colour": 10189780,
+          "label": "Kalinganagar",
+          "events": 1,
+          "meshId": "place_marker"
+        },
+        {
+          "node_id": "tata_kalinganagar",
+          "lon": 86.00349,
+          "lat": 20.98481,
+          "marker": "ring",
+          "scale": 1.6,
+          "precision": "region",
+          "layer": "origins",
+          "colour": 5941705,
+          "label": "Kalinganagar",
+          "events": 1,
+          "meshId": "place_marker"
+        },
+        {
+          "node_id": "us",
+          "lon": -98.5,
+          "lat": 39.76,
+          "marker": "outline",
+          "scale": 2.4,
+          "precision": "country",
+          "layer": "provenance",
+          "colour": 5941705,
+          "label": "United States",
+          "events": 17,
+          "meshId": "world_country:USA"
+        },
+        {
+          "node_id": "us_dc_washington",
+          "lon": -77.03637,
+          "lat": 38.89511,
+          "marker": "dot",
+          "scale": 0.9,
+          "precision": "city",
+          "layer": "provenance",
+          "colour": 5941705,
+          "label": "Washington D.C.",
+          "events": 27,
+          "meshId": "place_marker"
+        }
+      ],
+      "arcs": [
+        {
+          "edge_id": "cn_india_rare_earth_supply",
+          "from": [
+            105,
+            35
+          ],
+          "to": [
+            79,
+            22
+          ],
+          "colour": 8359331,
+          "hot": 12175064,
+          "confidence": "medium",
+          "mechanism": "import",
+          "animate": false
+        }
+      ],
+      "reviewCount": 0,
+      "hiddenEdges": 0,
+      "previewVisible": false,
+      "legend": [
+        {
+          "key": "provenance",
+          "label": "publisher / issuer provenance (not occurrence)",
+          "colour": 5941705
+        },
+        {
+          "key": "origins",
+          "label": "event origin",
+          "colour": 5941705
+        },
+        {
+          "key": "affected",
+          "label": "potentially affected location or asset",
+          "colour": 10189780
+        },
+        {
+          "key": "subjects",
+          "label": "goods from here are covered by the instrument",
+          "colour": 8370336
+        },
+        {
+          "key": "paths",
+          "label": "documented transmission path",
+          "colour": 8359331
+        }
+      ],
+      "notes": [
+        "news mechanisms are ordinal and evidential. They are not probabilities of financial loss and share no scale with CSRS"
+      ],
+      "asOf": "2026-10-17T21:55:14+05:30",
+      "revision": "77cc8a2fb747507a553169669d8b97b78d1b1f92eb1d7698661969525a769fcd",
+      "geometryMapVersion": "c12.globe_geometry/2026-10-17.1"
+    },
+    "signals": "current_news \u00b7 2026-10-17T21:55:14+05:30Continuation of the National Emergency With Respect to the Democratic Republic of the Congoconfirmed_statement \u00b7 unknown \u00b7 unknownday-granular publication dates. US trade actions reach Indian exposure through import parity, which is why a US register is in an Indian market-risk system at allfederal_register \u00b7 evidenceNo supported target impactFirst seen 2026-10-17T21:47:26+05:30 \u00b7 scheduled for publication 2026-10-19T00:00:00+05:30, not yet publishedCertain Steel Nails From Taiwan: Final Results of Antidumping Duty Administrative Review; 2024-2025confirmed_statement \u00b7 unknown \u00b7 adoptedday-granular publication dates. US trade actions reach Indian exposure through import parity, which is why a US register is in an Indian market-risk system at allfederal_register \u00b7 evidenceNo supported target impactFirst seen 2026-10-17T21:47:26+05:30 \u00b7 scheduled for publication 2026-10-19T00:00:00+05:30, not yet publishedBulk Manufacturer of Controlled Substances Application: National Center for Natural Products Research University of Mississippi/NCNPRconfirmed_statement \u00b7 unknown \u00b7 unknownday-granular publication dates. US trade actions reach Indian exposure through import parity, which is why a US register is in an Indian market-risk system at allfederal_register \u00b7 evidenceNo supported target impactFirst seen 2026-10-17T21:47:26+05:30 \u00b7 scheduled for publication 2026-10-19T00:00:00+05:30, not yet publishedNew Source Performance Standards and National Emission Standards for Hazardous Air Pollutants; Delegation of Authority to Northwest Clean Air Agency, Washington Stateconfirmed_statement \u00b7 unknown \u00b7 unknownday-granular publication dates. US trade actions reach Indian exposure through import parity, which is why a US register is in an Indian market-risk system at allfederal_register \u00b7 evidenceNo supported target impactFirst seen 2026-10-17T21:47:26+05:30 \u00b7 scheduled for publication 2026-10-19T00:00:00+05:30, not yet publishedFine Denier Polyester Staple Fiber From India: Preliminary Results and Rescission, in Part of Antidumping Duty Administrative Review; 2024-2025confirmed_statement \u00b7 unknown \u00b7 announcedfederal_register_india \u00b7 evidenceNo supported target impactFirst seen 2026-10-17T21:47:26+05:30 \u00b7 scheduled for publication 2026-10-19T00:00:00+05:30, not yet publishedMarine Mammals; Incidental Take of Polar Bears and Pacific Walruses in the Beaufort Sea and North Slope of Alaskaconfirmed_statement \u00b7 unknown \u00b7 unknownday-granular publication dates. US trade actions reach Indian exposure through import parity, which is why a US register is in an Indian market-risk system at allfederal_register \u00b7 evidenceNo supported target impactFirst seen 2026-10-17T21:47:26+05:30 \u00b7 scheduled for publication 2026-10-19T00:00:00+05:30, not yet publishedPrivacy Act of 1974; System of Recordsconfirmed_statement \u00b7 unknown \u00b7 unknownday-granular publication dates. US trade actions reach Indian exposure through import parity, which is why a US register is in an Indian market-risk system at allfederal_register \u00b7 evidenceNo supported target impactFirst seen 2026-10-17T21:47:26+05:30 \u00b7 scheduled for publication 2026-10-19T00:00:00+05:30, not yet publishedM 5.7 - 48 km WNW of Khuzdar, Pakistanconfirmed_statement \u00b7 unknown \u00b7 unknownthe one source that supplies its OWN coordinate. Its events are physical facts, not market claims, and nothing here converts a magnitude into a risk scoreusgs_earthquakes \u00b7 evidenceNo supported target impactFirst seen 2026-10-17T21:47:26+05:30President's Military Spouse Commission; Notice of Federal Advisory Committee Meetingconfirmed_statement \u00b7 start \u00b7 unknownday-granular publication dates. US trade actions reach Indian exposure through import parity, which is why a US register is in an Indian market-risk system at allfederal_register \u00b7 evidenceNo supported target impactFirst seen 2026-10-17T21:47:26+05:30 \u00b7 scheduled for publication 2026-10-19T00:00:00+05:30, not yet publishedContinuation of the National Emergency With Respect to Sudanconfirmed_statement \u00b7 unknown \u00b7 unknownday-granular publication dates. US trade actions reach Indian exposure through import parity, which is why a US register is in an Indian market-risk system at allfederal_register \u00b7 evidenceNo supported target impactFirst seen 2026-10-17T21:47:26+05:30 \u00b7 scheduled for publication 2026-10-19T00:00:00+05:30, not yet published\u0938\u0940\u090f\u0915\u094d\u092f\u0942\u090f\u092e \u0928\u0947 \u090f\u0928\u0938\u0940\u0906\u0930 \u092e\u0947\u0902 \u0905\u0928\u0941\u092a\u093e\u0932\u0928 \u0938\u094d\u0925\u093f\u0924\u093f \u0914\u0930 \u092a\u094d\u0930\u0935\u0930\u094d\u0924\u0928 \u0915\u093e\u0930\u094d\u0930\u0935\u093e\u0907\u092f\u094b\u0902 \u0915\u0940 \u0938\u092e\u0940\u0915\u094d\u0937\u093e \u0915\u0940; 25.09.2026 \u0938\u0947 09.10.2026 \u0915\u0947 \u092c\u0940\u091a 124 \u0928\u093f\u0930\u0940\u0915\u094d\u0937\u0923 \u0915\u093f\u090f \u0917\u090freported_unconfirmed \u00b7 unknown \u00b7 unknownProbe returned Hindi and no dates. First-seen-only; English semantic rules abstain.pib_releases \u00b7 evidenceNo supported target impactFirst seen 2026-10-17T21:47:26+05:30Bulk Manufacturer of Controlled Substances Application: Scottsdale Research Instituteconfirmed_statement \u00b7 unknown \u00b7 unknownday-granular publication dates. US trade actions reach Indian exposure through import parity, which is why a US register is in an Indian market-risk system at allfederal_register \u00b7 evidenceNo supported target impactFirst seen 2026-10-17T21:47:26+05:30 \u00b7 scheduled for publication 2026-10-19T00:00:00+05:30, not yet publishedBulk Manufacturer of Controlled Substances Application: Janssen Pharmaceuticals, Inc.confirmed_statement \u00b7 unknown \u00b7 unknownday-granular publication dates. US trade actions reach Indian exposure through import parity, which is why a US register is in an Indian market-risk system at allfederal_register \u00b7 evidenceNo supported target impactFirst seen 2026-10-17T21:47:26+05:30 \u00b7 scheduled for publication 2026-10-19T00:00:00+05:30, not yet publishedAirworthiness Directives; Airbus Helicoptersconfirmed_statement \u00b7 unknown \u00b7 unknownday-granular publication dates. US trade actions reach Indian exposure through import parity, which is why a US register is in an Indian market-risk system at allfederal_register \u00b7 evidenceNo supported target impactFirst seen 2026-10-17T21:47:26+05:30 \u00b7 scheduled for publication 2026-10-19T00:00:00+05:30, not yet publishedFee Schedules; Fee Recovery for Fiscal Year 2026confirmed_statement \u00b7 unknown \u00b7 unknownday-granular publication dates. US trade actions reach Indian exposure through import parity, which is why a US register is in an Indian market-risk system at allfederal_register \u00b7 evidenceNo supported target impactFirst seen 2026-10-17T21:47:26+05:30 \u00b7 scheduled for publication 2026-10-19T00:00:00+05:30, not yet publishedLarge Diameter Graphite Electrodes From the People's Republic of China: Postponement of Final Determination of Sales at Less-Than-Fair-Value Investigation and Extension of Provisional Measuresconfirmed_statement \u00b7 unknown \u00b7 unknownfederal_register_india \u00b7 evidenceNo supported target impactFirst seen 2026-10-17T21:47:26+05:30 \u00b7 scheduled for publication 2026-10-19T00:00:00+05:30, not yet publishedAgency Information Collection Request: Tribal Federal Employees Health Benefits (FEHB) Program Tribal Employer Application (3206-NEW)confirmed_statement \u00b7 unknown \u00b7 unknownday-granular publication dates. US trade actions reach Indian exposure through import parity, which is why a US register is in an Indian market-risk system at allfederal_register \u00b7 evidenceNo supported target impactFirst seen 2026-10-17T21:47:26+05:30 \u00b7 scheduled for publication 2026-10-19T00:00:00+05:30, not yet published\u092d\u093e\u0930\u0924 \u0915\u0940 \u0905\u0902\u0924\u0930\u093f\u0915\u094d\u0937 \u0905\u0930\u094d\u0925\u0935\u094d\u092f\u0935\u0938\u094d\u0925\u093e 7\u20138 \u0935\u0930\u094d\u0937 \u092e\u0947\u0902 40\u201345 \u0905\u0930\u092c \u0905\u092e\u0947\u0930\u093f\u0915\u0940 \u0921\u0949\u0932\u0930 \u092a\u0939\u0941\u0902\u091a \u091c\u093e\u090f\u0917\u0940; \u092a\u094d\u0930\u0927\u093e\u0928\u092e\u0902\u0924\u094d\u0930\u0940 \u092e\u094b\u0926\u0940 \u0926\u094d\u0935\u093e\u0930\u093e \u0905\u0902\u0924\u0930\u093f\u0915\u094d\u0937 \u0915\u094d\u0937\u0947\u0924\u094d\u0930 \u0915\u094b \u0916\u094b\u0932\u0928\u0947 \u0915\u0947 \u092c\u093e\u0926 \u0921\u0949. \u091c\u093f\u0924\u0947\u0928\u094d\u0926\u094d\u0930 \u0938\u093f\u0902\u0939 \u0928\u0947 \u0928\u093f\u091c\u0940 \u0928\u093f\u0935\u0947\u0936 \u092e\u0947\u0902 \u0935\u0943\u0926\u094d\u0927\u093f \u092a\u0930 \u091c\u094b\u0930 \u0926\u093f\u092f\u093ereported_unconfirmed \u00b7 unknown \u00b7 unknownProbe returned Hindi and no dates. First-seen-only; English semantic rules abstain.pib_releases \u00b7 evidenceNo supported target impactFirst seen 2026-10-17T21:47:26+05:30Erie Boulevard Hydropower, L.P.; Notice of Reasonable Period of Time for Water Quality Certification Applicationconfirmed_statement \u00b7 unknown \u00b7 unknownday-granular publication dates. US trade actions reach Indian exposure through import parity, which is why a US register is in an Indian market-risk system at allfederal_register \u00b7 evidence \u00b7 day-granular publication dates. US trade actions reach Indian exposure through import parity, which is why a US register is in an Indian market-risk system at allfederal_register \u00b7 evidenceNo supported target impactFirst seen 2026-10-17T21:47:26+05:30 \u00b7 scheduled for publication 2026-10-19T00:00:00+05:30, not yet publishedFurther Definition of \u201cSwap\u201d To Exclude Casino-Style Gambling Productsconfirmed_statement \u00b7 unknown \u00b7 unknownday-granular publication dates. US trade actions reach Indian exposure through import parity, which is why a US register is in an Indian market-risk system at allfederal_register \u00b7 evidenceNo supported target impactFirst seen 2026-10-17T21:47:26+05:30 \u00b7 scheduled for publication 2026-10-19T00:00:00+05:30, not yet publishedDunn, Keith M.; Notice of Filingconfirmed_statement \u00b7 unknown \u00b7 unknownday-granular publication dates. US trade actions reach Indian exposure through import parity, which is why a US register is in an Indian market-risk system at allfederal_register \u00b7 evidenceNo supported target impactFirst seen 2026-10-17T21:47:26+05:30 \u00b7 scheduled for publication 2026-10-19T00:00:00+05:30, not yet publishedContinuation of the National Emergency With Respect to Significant Narcotics Traffickers Centered in Colombiaconfirmed_statement \u00b7 unknown \u00b7 unknownday-granular publication dates. US trade actions reach Indian exposure through import parity, which is why a US register is in an Indian market-risk system at allfederal_register \u00b7 evidenceNo supported target impactFirst seen 2026-10-17T21:47:26+05:30 \u00b7 scheduled for publication 2026-10-19T00:00:00+05:30, not yet publishedM 4.8 - 110 km NE of Norsup, Vanuatuconfirmed_statement \u00b7 unknown \u00b7 unknownthe one source that supplies its OWN coordinate. Its events are physical facts, not market claims, and nothing here converts a magnitude into a risk scoreusgs_earthquakes \u00b7 evidenceNo supported target impactFirst seen 2026-10-17T21:47:26+05:30\u0935\u0902\u0926\u0947 \u092e\u093e\u0924\u0930\u092e\u094d \u0915\u0947 150 \u0917\u094c\u0930\u0935\u0936\u093e\u0932\u0940 \u0935\u0930\u094d\u0937 \u092a\u0942\u0930\u094d\u0923 \u0939\u094b\u0928\u0947 \u092a\u0930 \u092f\u0941\u0935\u093e \u0938\u0902\u0935\u093e\u0926 \u0915\u093e\u0930\u094d\u092f\u0915\u094d\u0930\u092e \u092e\u0947\u0902 \u0936\u093e\u092e\u093f\u0932 \u0939\u0941\u090f \u0936\u094d\u0930\u0940 \u0936\u093f\u0935\u0930\u093e\u091c \u0938\u093f\u0902\u0939 \u091a\u094c\u0939\u093e\u0928, \u0938\u093e\u0924 \u0930\u093e\u091c\u094d\u092f\u094b\u0902 \u0915\u0947 \u092f\u0941\u0935\u093e\u0913\u0902 \u0915\u0947 \u0938\u093e\u0925 \u0915\u093f\u092f\u093e \u092a\u094c\u0927\u093e\u0930\u094b\u092a\u0923reported_unconfirmed \u00b7 unknown \u00b7 unknownProbe returned Hindi and no dates. First-seen-only; English semantic rules abstain.pib_releases \u00b7 evidenceNo supported target impactFirst seen 2026-10-17T21:47:26+05:30Pacific Fishery Management Council; Public Meetingsconfirmed_statement \u00b7 unknown \u00b7 unknownday-granular publication dates. US trade actions reach Indian exposure through import parity, which is why a US register is in an Indian market-risk system at allfederal_register \u00b7 evidenceNo supported target impactFirst seen 2026-10-17T21:47:26+05:30 \u00b7 scheduled for publication 2026-10-19T00:00:00+05:30, not yet published\u0915\u0947\u0902\u0926\u094d\u0930\u0940\u092f \u092f\u0941\u0935\u093e \u0915\u093e\u0930\u094d\u092f\u0915\u094d\u0930\u092e \u090f\u0935\u0902 \u0916\u0947\u0932 \u092e\u0902\u0924\u094d\u0930\u0940 \u0921\u0949. \u092e\u0928\u0938\u0941\u0916 \u092e\u093e\u0902\u0921\u0935\u093f\u092f\u093e \u0928\u0947 \u0917\u0941\u091c\u0930\u093e\u0924 \u092e\u0947\u0902 \u2018\u0935\u093f\u0915\u0938\u093f\u0924 \u092d\u093e\u0930\u0924 \u092f\u0941\u0935\u093e \u0938\u0902\u0935\u093e\u0926\u2019 \u0915\u0947 \u0926\u094c\u0930\u093e\u0928 \u092f\u0941\u0935\u093e\u0913\u0902 \u0915\u094b \u0935\u0930\u094d\u0937 2047 \u0924\u0915 \u0935\u093f\u0915\u0938\u093f\u0924 \u092d\u093e\u0930\u0924 \u0915\u0940 \u092a\u0930\u093f\u0915\u0932\u094d\u092a\u0928\u093e \u0915\u093e \u092e\u0936\u093e\u0932 \u0935\u093e\u0939\u0915 \u092c\u0924\u093e\u092f\u093ereported_unconfirmed \u00b7 unknown \u00b7 unknownProbe returned Hindi and no dates. First-seen-only; English semantic rules abstain.pib_releases \u00b7 evidenceNo supported target impactFirst seen 2026-10-17T21:47:26+05:30Thermal Paper From the Republic of Korea: Preliminary Results and Rescission, in Part, of Antidumping Duty Administrative Review; 2024-2025confirmed_statement \u00b7 unknown \u00b7 announcedday-granular publication dates. US trade actions reach Indian exposure through import parity, which is why a US register is in an Indian market-risk system at allfederal_register \u00b7 evidenceNo supported target impactFirst seen 2026-10-17T21:47:26+05:30 \u00b7 scheduled for publication 2026-10-19T00:00:00+05:30, not yet publishedBulk Manufacturer of Controlled Substances Application: Groff Health Incconfirmed_statement \u00b7 unknown \u00b7 unknownday-granular publication dates. US trade actions reach Indian exposure through import parity, which is why a US register is in an Indian market-risk system at allfederal_register \u00b7 evidenceNo supported target impactFirst seen 2026-10-17T21:47:26+05:30 \u00b7 scheduled for publication 2026-10-19T00:00:00+05:30, not yet publishedM 4.6 - 51 km N of Pante Makasar, Timor Lesteconfirmed_statement \u00b7 unknown \u00b7 unknownthe one source that supplies its OWN coordinate. Its events are physical facts, not market claims, and nothing here converts a magnitude into a risk scoreusgs_earthquakes \u00b7 evidenceNo supported target impactFirst seen 2026-10-17T21:47:26+05:30Polyethylene Terephthalate Film, Sheet, and Strip From India: Preliminary Results of Antidumping Duty Administrative Review, and Rescission of Review, in Part; 2024-2025confirmed_statement \u00b7 unknown \u00b7 announcedfederal_register_india \u00b7 evidencesector:chemicals: ambiguous via exportFirst seen 2026-10-17T21:47:26+05:30 \u00b7 scheduled for publication 2026-10-19T00:00:00+05:30, not yet publishedImporter of Controlled Substances Application: Organic Standards Solutions International, LLCconfirmed_statement \u00b7 unknown \u00b7 unknownday-granular publication dates. US trade actions reach Indian exposure through import parity, which is why a US register is in an Indian market-risk system at allfederal_register \u00b7 evidenceNo supported target impactFirst seen 2026-10-17T21:47:26+05:30 \u00b7 scheduled for publication 2026-10-19T00:00:00+05:30, not yet publishedImporter of Controlled Substances Application: DMS Pharmaceutical Groupconfirmed_statement \u00b7 unknown \u00b7 unknownday-granular publication dates. US trade actions reach Indian exposure through import parity, which is why a US register is in an Indian market-risk system at allfederal_register \u00b7 evidenceNo supported target impactFirst seen 2026-10-17T21:47:26+05:30 \u00b7 scheduled for publication 2026-10-19T00:00:00+05:30, not yet publishedImporter of Controlled Substances Application: Halo Pharmaceutical Inc.confirmed_statement \u00b7 unknown \u00b7 unknownday-granular publication dates. US trade actions reach Indian exposure through import parity, which is why a US register is in an Indian market-risk system at allfederal_register \u00b7 evidenceNo supported target impactFirst seen 2026-10-17T21:47:26+05:30 \u00b7 scheduled for publication 2026-10-19T00:00:00+05:30, not yet published\u0930\u093e\u0937\u094d\u091f\u094d\u0930\u0940\u092f \u091c\u0948\u0935 \u0935\u093f\u0935\u093f\u0927\u0924\u093e \u092a\u094d\u0930\u093e\u0927\u093f\u0915\u0930\u0923 (\u090f\u0928\u092c\u0940\u090f) \u0928\u0947 \u092a\u0939\u0941\u0902\u091a \u0914\u0930 \u0932\u093e\u092d \u0938\u093e\u091d\u093e\u0915\u0930\u0923 \u0935\u094d\u092f\u0935\u0938\u094d\u0925\u093e \u0915\u0947 \u0905\u0902\u0924\u0930\u094d\u0917\u0924 29 \u0930\u093e\u091c\u094d\u092f \u091c\u0948\u0935 \u0935\u093f\u0935\u093f\u0927\u0924\u093e \u092a\u0930\u093f\u0937\u0926\u094b\u0902 \u0914\u0930 \u090f\u0915 \u0915\u0947\u0902\u0926\u094d\u0930 \u0936\u093e\u0938\u093f\u0924 \u092a\u094d\u0930\u0926\u0947\u0936 \u091c\u0948\u0935 \u0935\u093f\u0935\u093f\u0927\u0924\u093e \u092a\u0930\u093f\u0937\u0926 \u0915\u094b 1.19 \u0915\u0930\u094b\u0921\u093c \u0930\u0941\u092a\u092f\u0947 \u0935\u093f\u0924\u0930\u093f\u0924 \u0915\u093f\u090freported_unconfirmed \u00b7 unknown \u00b7 unknownProbe returned Hindi and no dates. First-seen-only; English semantic rules abstain.pib_releases \u00b7 evidenceNo supported target impactFirst seen 2026-10-17T21:47:26+05:30Agency Information Collection Activities; Submission to the Office of Management and Budget (OMB) for Review and Approval; Comment Request; South Pacific Tuna Actconfirmed_statement \u00b7 unknown \u00b7 unknownday-granular publication dates. US trade actions reach Indian exposure through import parity, which is why a US register is in an Indian market-risk system at allfederal_register \u00b7 evidenceNo supported target impactFirst seen 2026-10-17T21:47:26+05:30 \u00b7 scheduled for publication 2026-10-19T00:00:00+05:30, not yet publishedAgency Information Collection Activities; Submission to the Office of Management and Budget (OMB) for Review and Approval; Comment Request; Services Surveys: BE-125, Quarterly Survey of Transactions in Selected Services and Intellectual Property With Foreign Personsconfirmed_statement \u00b7 unknown \u00b7 unknownday-granular publication dates. US trade actions reach Indian exposure through import parity, which is why a US register is in an Indian market-risk system at allfederal_register \u00b7 evidenceNo supported target impactFirst seen 2026-10-17T21:47:26+05:30 \u00b7 scheduled for publication 2026-10-19T00:00:00+05:30, not yet publishedAgency Information Collection Request: FEHB Protection Act Portal, OMB Control Number (3206-NEW)confirmed_statement \u00b7 unknown \u00b7 unknownday-granular publication dates. US trade actions reach Indian exposure through import parity, which is why a US register is in an Indian market-risk system at allfederal_register \u00b7 evidenceNo supported target impactFirst seen 2026-10-17T21:47:26+05:30 \u00b7 scheduled for publication 2026-10-19T00:00:00+05:30, not yet publishedM 4.5 - 59 km NNW of Ruteng, Indonesiaconfirmed_statement \u00b7 unknown \u00b7 unknownthe one source that supplies its OWN coordinate. Its events are physical facts, not market claims, and nothing here converts a magnitude into a risk scoreusgs_earthquakes \u00b7 evidenceNo supported target impactFirst seen 2026-10-17T21:47:26+05:30\u0915\u0947\u0902\u0926\u094d\u0930\u0940\u092f \u0915\u0943\u0937\u093f \u092e\u0902\u0924\u094d\u0930\u0940 \u0936\u094d\u0930\u0940 \u0936\u093f\u0935\u0930\u093e\u091c \u0938\u093f\u0902\u0939 \u091a\u094c\u0939\u093e\u0928 \u0928\u0947 \u2018\u0916\u0947\u0924 \u092c\u091a\u093e\u0913 \u0905\u092d\u093f\u092f\u093e\u0928\u2019 \u0915\u0940 \u0924\u0948\u092f\u093e\u0930\u093f\u092f\u094b\u0902 \u0915\u0940 \u0938\u092e\u0940\u0915\u094d\u0937\u093e \u0915\u0940; 22 \u0905\u0915\u094d\u091f\u0942\u092c\u0930 \u0938\u0947 30 \u0928\u0935\u0902\u092c\u0930 \u0924\u0915 \u091a\u0932\u0947\u0917\u093e \u0905\u092d\u093f\u092f\u093e\u0928reported_unconfirmed \u00b7 unknown \u00b7 unknownProbe returned Hindi and no dates. First-seen-only; English semantic rules abstain.pib_releases \u00b7 evidenceNo supported target impactFirst seen 2026-10-17T21:47:26+05:30Sunshine Act Meetingsconfirmed_statement \u00b7 unknown \u00b7 unknownday-granular publication dates. US trade actions reach Indian exposure through import parity, which is why a US register is in an Indian market-risk system at allfederal_register \u00b7 evidenceNo supported target impactFirst seen 2026-10-17T21:47:26+05:30 \u00b7 scheduled for publication 2026-10-19T00:00:00+05:30, not yet publishedREFERENCED Perfluoroalkoxy Alkane From India: Postponement of Preliminary Determination in the Countervailing Duty InvestigationNot on this page of LATEST SIGNALS. It is kept here because an inference on screen references it.confirmed_statement \u00b7 unknown \u00b7 announcedfederal_register_india \u00b7 evidencesector:chemicals: ambiguous via exportFirst seen 2026-10-17T21:47:26+05:30 \u00b7 scheduled for publication 2026-10-19T00:00:00+05:30, not yet publishedREFERENCED Oleoresin Paprika From India: Antidumping Duty Order and Countervailing Duty OrderNot on this page of LATEST SIGNALS. It is kept here because an inference on screen references it.confirmed_statement \u00b7 unknown \u00b7 effectivefederal_register_india \u00b7 evidencesector:agriculture: adverse via exportFirst seen 2026-10-17T07:35:42+05:30REFERENCED Certain Frozen Warmwater Shrimp From India: Rescission of Antidumping Duty Administrative Review, In Part; 2025-2026Not on this page of LATEST SIGNALS. It is kept here because an inference on screen references it.confirmed_statement \u00b7 unknown \u00b7 unknownfederal_register_india \u00b7 evidencesector:agriculture: ambiguous via exportFirst seen 2026-10-17T07:35:42+05:30REFERENCED Common Alloy Aluminum Sheet From Bahrain, Brazil, Croatia, Egypt, Germany, India, Indonesia, Italy, Oman, Romania, Serbia, Slovenia, South Africa, Spain, Taiwan, and Turkey; Scheduling of Full Five-Year ReviewsNot on this page of LATEST SIGNALS. It is kept here because an inference on screen references it.confirmed_statement \u00b7 unknown \u00b7 consultationfederal_register_india \u00b7 evidencesector:aluminium: ambiguous via exportFirst seen 2026-10-17T07:35:42+05:30REFERENCED Certain Freight Rail Couplers and Parts Thereof From India: Final Affirmative Determination of Sales at Less Than Fair ValueNot on this page of LATEST SIGNALS. It is kept here because an inference on screen references it.confirmed_statement \u00b7 unknown \u00b7 adoptedfederal_register_india \u00b7 evidencesector:steel: adverse via exportFirst seen 2026-10-17T07:35:42+05:30REFERENCED Announcement No.18 of 2025 of The Ministry of Commerce and The General Administration of Customs of The People\u2019s Republic of China Announcing the decision to implement export control on some medium and heavy rare earth related itemsNot on this page of LATEST SIGNALS. It is kept here because an inference on screen references it.confirmed_statement \u00b7 start \u00b7 unknownHistorical instrument monitored for title changes; does not establish current legal status or monitor replacement instruments.mofcom_rare_earth_18_2025 \u00b7 evidencein: ambiguous via import; sector:auto: ambiguous via input_dependencyFirst seen 2026-10-17T07:35:42+05:30REFERENCED Certain Freight Rail Couplers and Parts Thereof From India: Final Affirmative Countervailing Duty DeterminationNot on this page of LATEST SIGNALS. It is kept here because an inference on screen references it.confirmed_statement \u00b7 unknown \u00b7 adoptedfederal_register_india \u00b7 evidencesector:steel: adverse via exportFirst seen 2026-10-17T07:35:42+05:30REFERENCED Chromium Trioxide From India: Final Affirmative Determination of Sales at Less Than Fair ValueNot on this page of LATEST SIGNALS. It is kept here because an inference on screen references it.confirmed_statement \u00b7 unknown \u00b7 adoptedfederal_register_india \u00b7 evidencesector:chemicals: adverse via exportFirst seen 2026-10-17T07:35:42+05:30REFERENCED Oleoresin Paprika From India; DeterminationsNot on this page of LATEST SIGNALS. It is kept here because an inference on screen references it.confirmed_statement \u00b7 unknown \u00b7 unknownfederal_register_india \u00b7 evidencesector:agriculture: ambiguous via exportFirst seen 2026-10-17T07:35:42+05:30REFERENCED Common Alloy Aluminum Sheet From the People's Republic of China, Bahrain, Brazil, Croatia, Egypt, Germany, India, Indonesia, Italy, Oman, Romania, Serbia, Slovenia, South Africa, Spain, Taiwan, and the Republic of T\u00fcrkiye: Final Results of Changed Circumstances Reviews and Revocation of the Antidumping and Countervailing Duty Orders, in PartNot on this page of LATEST SIGNALS. It is kept here because an inference on screen references it.confirmed_statement \u00b7 unknown \u00b7 repealedfederal_register_india \u00b7 evidencesector:aluminium: favourable via exportFirst seen 2026-10-17T07:35:42+05:30REFERENCED Forged Steel Fittings From India and South Korea; Cancellation of Hearing for Antidumping and Countervailing Duty ReviewsNot on this page of LATEST SIGNALS. It is kept here because an inference on screen references it.confirmed_statement \u00b7 cancel \u00b7 unknownfederal_register_india \u00b7 evidencesector:steel: ambiguous via exportFirst seen 2026-10-17T07:35:42+05:30REFERENCED Oil Country Tubular Goods From India, South Korea, Turkey, Ukraine, and Vietnam; DeterminationsNot on this page of LATEST SIGNALS. It is kept here because an inference on screen references it.confirmed_statement \u00b7 unknown \u00b7 unknownfederal_register_india \u00b7 evidencesector:steel: ambiguous via exportFirst seen 2026-10-17T07:35:42+05:30REFERENCED Chromium Trioxide From India: Final Affirmative Countervailing Duty DeterminationNot on this page of LATEST SIGNALS. It is kept here because an inference on screen references it.confirmed_statement \u00b7 unknown \u00b7 adoptedfederal_register_india \u00b7 evidencesector:chemicals: adverse via exportFirst seen 2026-10-17T07:35:42+05:30REFERENCED Polyethylene Terephthalate Film, Sheet, and Strip From India: Preliminary Results of Countervailing Duty Administrative Review, and Rescission, in Part; 2024Not on this page of LATEST SIGNALS. It is kept here because an inference on screen references it.confirmed_statement \u00b7 unknown \u00b7 announcedfederal_register_india \u00b7 evidencesector:chemicals: ambiguous via exportFirst seen 2026-10-17T07:35:42+05:30REFERENCED Perfluoroalkoxy Alkane From India; DeterminationsNot on this page of LATEST SIGNALS. It is kept here because an inference on screen references it.confirmed_statement \u00b7 unknown \u00b7 unknownfederal_register_india \u00b7 evidencesector:chemicals: ambiguous via exportFirst seen 2026-10-17T07:35:42+05:30REFERENCED Tata Steel inaugurates Phase II expansion of Kalinganagar operationsNot on this page of LATEST SIGNALS. It is kept here because an inference on screen references it.confirmed_statement \u00b7 start \u00b7 unknownHistorical corporate release; first-seen is acquisition now, not the 2025 event date.tata_kalinganagar_expansion \u00b7 evidencetata_steel: ambiguous via operation; sector:steel: ambiguous via operation; tata_kalinganagar: ambiguous via operationFirst seen 2026-10-17T07:13:35+05:30Registered sources currently coveredPilot coverage only: no licensed independent journalism; No validated Hindi interpretation; received Hindi items abstain; Exchange filings, Indian trade instruments and broader sector routes are incomplete; Pilot exposure registry is qualitative; unmapped firms and unknown sizes are not zero riskFABRICATED illustrative signalsGujaratSolar module import policy tightened; safeguard duty band widenedCRITICAL4m ago\u00b7 SolarOdishaFlat steel export duty proposal circulated to ministriesCRITICAL19m ago\u00b7 SteelWashington, DCUSTR opens Section 301 review covering PV cell importsCRITICAL41m ago\u00b7 SolarTamil NaduPLI scheme revision for auto component makers under reviewWATCH1h ago\u00b7 AutoBrusselsEU anti-dumping proceeding advances on flat steelWATCH1h ago\u00b7 SteelTelanganaGeneric drug pricing policy draft leaked to trade pressWATCH2h ago\u00b7 PharmaMumbaiRBI flags concentration risk in tariff-exposed lending booksWATCH3h ago\u00b7 BankingNew DelhiCommerce ministry convenes exporters on freight surchargeWATCH5h ago\u00b7 Multi",
+    "request": "\u25cf READY",
+    "markerCount": 10
+  },
+  "clicked_evidence": {
+    "text": "EVIDENCED NEWS \u00b7 sourced documents with links and timestamps. Impact hypotheses are qualitative mechanisms, not measured losses, and are not SERAPH pillar output.issuer_provenance \u00b7 countryChinatrade_remedy_determinationCommon Alloy Aluminum Sheet From the People's Republic of China, Bahrain, Brazil, Croatia, Egypt, Germany, India, Indonesia, Italy, Oman, Romania, Serbia, Slovenia, South Africa, Spain, Taiwan, and the Republic of T\u00fcrkiye: Final Results of Changed Circumstances Reviews and Revocation of the Antidumping and Countervailing Duty Orders, in Partconfirmed_statement \u00b7 unknown \u00b7 legal: repealedPublished 2026-09-24T00:00:00+05:30 \u00b7 First seen 2026-10-17T07:35:42+05:30federal_register_india \u00b7 headline_onlyInferred favourablesector:aluminium via exportUnknowns: net economic effect requires target-specific exposure; occurrence time not evidenced; action not established; trade-remedy direction depends on the target role (exporter, competing producer, downstream buyer); the measure alone does not establish a signexport_restrictionAnnouncement No.18 of 2025 of The Ministry of Commerce and The General Administration of Customs of The People\u2019s Republic of China Announcing the decision to implement export control on some medium and heavy rare earth related itemsconfirmed_statement \u00b7 start \u00b7 legal: unknownPublished unknown \u00b7 First seen 2026-10-17T07:35:42+05:30mofcom_rare_earth_18_2025 \u00b7 headline_onlyInferred ambiguousin via importInferred ambiguoussector:auto via input_dependencyUnknowns: net economic effect requires target-specific exposure; occurrence time not evidencedtrade_remedy_determinationLarge Diameter Graphite Electrodes From the People's Republic of China: Postponement of Final Determination of Sales at Less-Than-Fair-Value Investigation and Extension of Provisional Measuresconfirmed_statement \u00b7 unknown \u00b7 legal: unknownPublished 2026-10-19T00:00:00+05:30 \u00b7 First seen 2026-10-17T21:47:26+05:30federal_register_india \u00b7 headline_onlyUnknowns: net economic effect requires target-specific exposure; occurrence time not evidenced; action not established; trade-remedy direction depends on the target role (exporter, competing producer, downstream buyer); the measure alone does not establish a signDocumented importInferred impact: ambiguous; size unknown unknownKnown since 2026-10-17T07:15:00+05:30Relationship evidence",
+    "links": [
+      "https://www.federalregister.gov/documents/2026/09/24/2026-19516/common-alloy-aluminum-sheet-from-the-peoples-republic-of-china-bahrain-brazil-croatia-egypt-germany",
+      "https://english.mofcom.gov.cn/Policies/AnnouncementsOrders/art/2025/art_0dd87cbee7b045bf93fabe6ab2faceee.html",
+      "https://www.federalregister.gov/documents/2026/10/19/2026-21294/large-diameter-graphite-electrodes-from-the-peoples-republic-of-china-postponement-of-final",
+      "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2151394"
+    ]
+  },
+  "persisted_snapshots": 391,
+  "ordinary_streamlit_flow": true,
+  "payload_injection": false,
+  "isolated_store": "C:\\Users\\Arlop\\Downloads\\SERAPH VARYA\\SERAPH Varya\\prototype_runs\\news-browser-218f91e4\\news.sqlite"
+}

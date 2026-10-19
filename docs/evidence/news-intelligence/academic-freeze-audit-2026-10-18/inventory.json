@@ -1,0 +1,440 @@
+{
+  "sources_schema": [
+    "source_id",
+    "payload",
+    "registered_at"
+  ],
+  "source_health_schema": [
+    "source_id",
+    "last_attempt_at",
+    "last_success_at",
+    "consecutive_failures",
+    "last_error",
+    "cursor"
+  ],
+  "stories_schema": [
+    "story_id",
+    "source_id",
+    "observation_id",
+    "title",
+    "url",
+    "body",
+    "first_seen_at",
+    "published_at",
+    "syndication_group",
+    "corrects",
+    "retracts",
+    "language",
+    "publication_scheduled"
+  ],
+  "worker_heartbeat_schema": [
+    "worker",
+    "beat_at",
+    "pid",
+    "status",
+    "detail",
+    "sequence",
+    "activity",
+    "deadline"
+  ],
+  "documents_schema": [
+    "source_id",
+    "url",
+    "text",
+    "document_hash",
+    "format",
+    "truncated",
+    "acquired_at",
+    "refresh_after"
+  ],
+  "stories": {
+    "total": 458,
+    "bodies": 24,
+    "latest_seen": "2026-10-18T13:46:49+05:30"
+  },
+  "source_rows": [
+    {
+      "source_id": "rbi_press_releases",
+      "last_attempt_at": "2026-10-18T13:46:49+05:30",
+      "last_success_at": "2026-10-18T13:46:49+05:30",
+      "consecutive_failures": 0,
+      "last_error": null,
+      "cursor": "2026-10-18T13:46:50+05:30"
+    },
+    {
+      "source_id": "rbi_notifications",
+      "last_attempt_at": "2026-10-18T13:02:45+05:30",
+      "last_success_at": "2026-10-18T13:02:45+05:30",
+      "consecutive_failures": 0,
+      "last_error": null,
+      "cursor": "2026-10-18T13:02:48+05:30"
+    },
+    {
+      "source_id": "rbi_speeches",
+      "last_attempt_at": "2026-10-18T13:02:12+05:30",
+      "last_success_at": "2026-10-18T13:02:12+05:30",
+      "consecutive_failures": 0,
+      "last_error": null,
+      "cursor": "2026-10-18T13:02:15+05:30"
+    },
+    {
+      "source_id": "federal_register",
+      "last_attempt_at": "2026-10-18T13:02:45+05:30",
+      "last_success_at": "2026-10-18T13:02:45+05:30",
+      "consecutive_failures": 0,
+      "last_error": null,
+      "cursor": "2026-10-18T13:02:45+05:30"
+    },
+    {
+      "source_id": "usgs_earthquakes",
+      "last_attempt_at": "2026-10-18T13:46:49+05:30",
+      "last_success_at": "2026-10-18T13:46:49+05:30",
+      "consecutive_failures": 0,
+      "last_error": null,
+      "cursor": "2026-10-18T13:46:50+05:30"
+    },
+    {
+      "source_id": "sebi_press",
+      "last_attempt_at": "2026-10-18T13:02:45+05:30",
+      "last_success_at": "2026-10-18T13:02:45+05:30",
+      "consecutive_failures": 0,
+      "last_error": null,
+      "cursor": "2026-10-18T12:02:35+05:30"
+    },
+    {
+      "source_id": "pib_releases",
+      "last_attempt_at": "2026-10-18T13:02:45+05:30",
+      "last_success_at": "2026-10-18T13:02:45+05:30",
+      "consecutive_failures": 0,
+      "last_error": null,
+      "cursor": "2026-10-18T13:02:48+05:30"
+    },
+    {
+      "source_id": "fed_press",
+      "last_attempt_at": "2026-10-18T13:02:45+05:30",
+      "last_success_at": "2026-10-18T13:02:45+05:30",
+      "consecutive_failures": 0,
+      "last_error": null,
+      "cursor": "2026-10-17T07:13:35+05:30"
+    },
+    {
+      "source_id": "tata_kalinganagar_expansion",
+      "last_attempt_at": "2026-10-18T08:38:31+05:30",
+      "last_success_at": "2026-10-18T08:38:31+05:30",
+      "consecutive_failures": 0,
+      "last_error": null,
+      "cursor": null
+    },
+    {
+      "source_id": "federal_register_india",
+      "last_attempt_at": "2026-10-18T13:02:45+05:30",
+      "last_success_at": "2026-10-18T13:02:45+05:30",
+      "consecutive_failures": 0,
+      "last_error": null,
+      "cursor": "2026-10-18T13:02:47+05:30"
+    },
+    {
+      "source_id": "mofcom_rare_earth_18_2025",
+      "last_attempt_at": "2026-10-18T09:01:59+05:30",
+      "last_success_at": "2026-10-18T09:01:59+05:30",
+      "consecutive_failures": 0,
+      "last_error": null,
+      "cursor": null
+    },
+    {
+      "source_id": "nse_corporate_announcements",
+      "last_attempt_at": "2026-10-18T13:46:49+05:30",
+      "last_success_at": "2026-10-18T13:46:49+05:30",
+      "consecutive_failures": 0,
+      "last_error": null,
+      "cursor": "2026-10-18T13:46:50+05:30"
+    },
+    {
+      "source_id": "nse_circulars",
+      "last_attempt_at": "2026-10-18T13:11:51+05:30",
+      "last_success_at": "2026-10-18T13:11:51+05:30",
+      "consecutive_failures": 0,
+      "last_error": null,
+      "cursor": "2026-10-18T13:11:53+05:30"
+    },
+    {
+      "source_id": "bse_notices",
+      "last_attempt_at": "2026-10-18T13:46:49+05:30",
+      "last_success_at": "2026-10-18T13:46:49+05:30",
+      "consecutive_failures": 0,
+      "last_error": null,
+      "cursor": "2026-10-18T13:46:49+05:30"
+    },
+    {
+      "source_id": "ustr_press",
+      "last_attempt_at": "2026-10-18T13:11:51+05:30",
+      "last_success_at": "2026-10-18T13:11:51+05:30",
+      "consecutive_failures": 0,
+      "last_error": null,
+      "cursor": "2026-10-18T13:11:56+05:30"
+    },
+    {
+      "source_id": "federalreserve_speeches",
+      "last_attempt_at": "2026-10-18T13:11:51+05:30",
+      "last_success_at": "2026-10-18T13:11:51+05:30",
+      "consecutive_failures": 0,
+      "last_error": null,
+      "cursor": "2026-10-18T13:11:53+05:30"
+    },
+    {
+      "source_id": "ec_news",
+      "last_attempt_at": "2026-10-18T13:11:51+05:30",
+      "last_success_at": "2026-10-18T13:11:51+05:30",
+      "consecutive_failures": 0,
+      "last_error": null,
+      "cursor": "2026-10-18T13:11:52+05:30"
+    }
+  ],
+  "sources": [
+    {
+      "source_id": "federal_register",
+      "payload": "{\"source_id\": \"federal_register\", \"provider\": \"US Federal Register\", \"kind\": \"official_policy\", \"url\": \"https://www.federalregister.gov/api/v1/documents.json?per_page=40&order=newest&fields[]=title&fields[]=html_url&fields[]=publication_date&fields[]=abstract&fields[]=document_number\", \"topic_coverage\": [\"trade_policy\", \"tariffs\", \"sanctions\", \"rulemaking\"], \"language\": \"en\", \"rights\": \"US Government work, not copyrightable: 17 U.S.C. 105 (https://www.govinfo.gov/about/policies). Credit the issuing agency; third-party material embedded in a government document is NOT covered. See docs/decisions/DR-10-2026-10-18-source-text-rights.md\", \"may_store_full_text\": true, \"retention_days\": null, \"poll_interval_minutes\": 120, \"failure_behaviour\": \"retry_then_report\", \"max_retries\": 3, \"accessibility_verified\": true, \"notes\": \"day-granular publication dates. US trade actions reach Indian exposure through import parity, which is why a US register is in an Indian market-risk system at all\"}",
+      "registered_at": "2026-10-17T05:08:40+05:30"
+    },
+    {
+      "source_id": "usgs_earthquakes",
+      "payload": "{\"source_id\": \"usgs_earthquakes\", \"provider\": \"US Geological Survey\", \"kind\": \"weather_advisory\", \"url\": \"https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_day.geojson\", \"topic_coverage\": [\"physical_hazard\", \"seismic\"], \"language\": \"en\", \"rights\": \"US Government work in the public domain; USGS asks that proper credit be given (https://www.usgs.gov/information-policies-and-instructions/acknowledging-or-crediting-usgs). Third-party images used by USGS with permission are NOT covered. See docs/decisions/DR-10-2026-10-18-source-text-rights.md\", \"may_store_full_text\": true, \"retention_days\": null, \"poll_interval_minutes\": 30, \"failure_behaviour\": \"retry_then_report\", \"max_retries\": 3, \"accessibility_verified\": true, \"notes\": \"the one source that supplies its OWN coordinate. Its events are physical facts, not market claims, and nothing here converts a magnitude into a risk score\"}",
+      "registered_at": "2026-10-17T05:08:40+05:30"
+    },
+    {
+      "source_id": "rbi_press_releases",
+      "payload": "{\"source_id\": \"rbi_press_releases\", \"provider\": \"Reserve Bank of India\", \"kind\": \"official_policy\", \"url\": \"https://rbi.org.in/pressreleases_rss.xml\", \"topic_coverage\": [\"monetary_policy\", \"banking_regulation\", \"forex\", \"government_securities\"], \"language\": \"en\", \"rights\": \"RBI reserves all rights: its copyright page says only '(c) Reserve Bank of India. All Rights Reserved' with no grant (https://www.rbi.org.in/Scripts/Copyright.aspx). Terms REVIEWED and full-text retention REFUSED. Headline, link, times and hash only. See docs/decisions/DR-10-2026-10-18-source-text-rights.md\", \"may_store_full_text\": false, \"retention_days\": null, \"poll_interval_minutes\": 30, \"failure_behaviour\": \"retry_then_report\", \"max_retries\": 3, \"accessibility_verified\": true, \"notes\": \"official RBI announcements; the primary policy channel\"}",
+      "registered_at": "2026-10-17T05:08:40+05:30"
+    },
+    {
+      "source_id": "rbi_notifications",
+      "payload": "{\"source_id\": \"rbi_notifications\", \"provider\": \"Reserve Bank of India\", \"kind\": \"regulator\", \"url\": \"https://rbi.org.in/notifications_rss.xml\", \"topic_coverage\": [\"banking_regulation\", \"compliance\", \"prudential_norms\"], \"language\": \"en\", \"rights\": \"RBI reserves all rights: its copyright page says only '(c) Reserve Bank of India. All Rights Reserved' with no grant (https://www.rbi.org.in/Scripts/Copyright.aspx). Terms REVIEWED and full-text retention REFUSED. Headline, link, times and hash only. See docs/decisions/DR-10-2026-10-18-source-text-rights.md\", \"may_store_full_text\": false, \"retention_days\": null, \"poll_interval_minutes\": 60, \"failure_behaviour\": \"retry_then_report\", \"max_retries\": 3, \"accessibility_verified\": true, \"notes\": \"binding circulars to regulated entities\"}",
+      "registered_at": "2026-10-17T05:08:40+05:30"
+    },
+    {
+      "source_id": "rbi_speeches",
+      "payload": "{\"source_id\": \"rbi_speeches\", \"provider\": \"Reserve Bank of India\", \"kind\": \"official_policy\", \"url\": \"https://rbi.org.in/speeches_rss.xml\", \"topic_coverage\": [\"forward_guidance\", \"monetary_policy\"], \"language\": \"en\", \"rights\": \"RBI reserves all rights: its copyright page says only '(c) Reserve Bank of India. All Rights Reserved' with no grant (https://www.rbi.org.in/Scripts/Copyright.aspx). Terms REVIEWED and full-text retention REFUSED. Headline, link, times and hash only. See docs/decisions/DR-10-2026-10-18-source-text-rights.md\", \"may_store_full_text\": false, \"retention_days\": null, \"poll_interval_minutes\": 240, \"failure_behaviour\": \"retry_then_report\", \"max_retries\": 3, \"accessibility_verified\": true, \"notes\": \"speeches are guidance, not binding instruments \\u2014 weighted accordingly downstream\"}",
+      "registered_at": "2026-10-17T05:08:40+05:30"
+    },
+    {
+      "source_id": "sebi_press",
+      "payload": "{\"source_id\": \"sebi_press\", \"provider\": \"Securities and Exchange Board of India\", \"kind\": \"regulator\", \"url\": \"https://www.sebi.gov.in/sebirss.xml\", \"topic_coverage\": [\"market_regulation\", \"enforcement\", \"listing_rules\", \"appeals\"], \"language\": \"en\", \"rights\": \"SEBI permits reproduction only AFTER permission is obtained by email (https://www.sebi.gov.in/website-policy.html). That email has not been sent, so full-text retention is REFUSED - not because the terms are unknown, but because the permission they require is not held. One email would change this. See docs/decisions/DR-10-2026-10-18-source-text-rights.md\", \"may_store_full_text\": false, \"retention_days\": null, \"poll_interval_minutes\": 60, \"failure_behaviour\": \"retry_then_report\", \"max_retries\": 3, \"accessibility_verified\": true, \"notes\": \"day-granular publication dates only; ordering WITHIN a day cannot be derived from this source\"}",
+      "registered_at": "2026-10-17T05:08:40+05:30"
+    },
+    {
+      "source_id": "pib_releases",
+      "payload": "{\"source_id\": \"pib_releases\", \"provider\": \"Press Information Bureau\", \"kind\": \"official_policy\", \"url\": \"https://pib.gov.in/RssMain.aspx?ModId=6&Lang=2&Regid=3\", \"topic_coverage\": [\"ministry_policy\", \"industry\", \"health\"], \"language\": \"hi\", \"rights\": \"PIB Copyright Policy: may be reproduced free of charge, no prior approval; source must be PROMINENTLY acknowledged; must be accurate and not used in a derogatory or misleading context; third-party material NOT covered (https://factcheck.pib.gov.in/Documents/CopyrightPolicy.pdf). See docs/decisions/DR-10-2026-10-18-source-text-rights.md\", \"may_store_full_text\": true, \"retention_days\": null, \"poll_interval_minutes\": 60, \"failure_behaviour\": \"retry_then_report\", \"max_retries\": 3, \"accessibility_verified\": true, \"notes\": \"Probe returned Hindi and no dates. First-seen-only; English semantic rules abstain.\"}",
+      "registered_at": "2026-10-17T07:13:12+05:30"
+    },
+    {
+      "source_id": "fed_press",
+      "payload": "{\"source_id\": \"fed_press\", \"provider\": \"Federal Reserve Board\", \"kind\": \"official_policy\", \"url\": \"https://www.federalreserve.gov/feeds/press_all.xml\", \"topic_coverage\": [\"monetary_policy\", \"banking_regulation\"], \"language\": \"en\", \"rights\": \"Board-authored public-domain feed text; attribution required: https://www.federalreserve.gov/disclaimer.htm\", \"may_store_full_text\": true, \"retention_days\": null, \"poll_interval_minutes\": 60, \"failure_behaviour\": \"retry_then_report\", \"max_retries\": 3, \"accessibility_verified\": true, \"notes\": null}",
+      "registered_at": "2026-10-17T07:13:12+05:30"
+    },
+    {
+      "source_id": "tata_kalinganagar_expansion",
+      "payload": "{\"source_id\": \"tata_kalinganagar_expansion\", \"provider\": \"Tata Steel\", \"kind\": \"company_filing\", \"url\": \"https://www.tatasteel.com/media/newsroom/press-releases/india/2025/tata-steel-inaugurates-phase-ii-expansion-of-kalinganagar-operations/\", \"topic_coverage\": [\"steel\", \"capacity\"], \"language\": \"en\", \"rights\": \"issuer release title/link only; no full text redistribution\", \"may_store_full_text\": false, \"retention_days\": null, \"poll_interval_minutes\": 1440, \"failure_behaviour\": \"retry_then_report\", \"max_retries\": 3, \"accessibility_verified\": true, \"notes\": \"Historical corporate release; first-seen is acquisition now, not the 2025 event date.\"}",
+      "registered_at": "2026-10-17T07:13:35+05:30"
+    },
+    {
+      "source_id": "federal_register_india",
+      "payload": "{\"source_id\": \"federal_register_india\", \"provider\": \"US Federal Register\", \"kind\": \"official_policy\", \"url\": \"https://www.federalregister.gov/api/v1/documents.json?per_page=40&order=newest&conditions[term]=India&fields[]=title&fields[]=html_url&fields[]=publication_date&fields[]=abstract&fields[]=document_number\", \"topic_coverage\": [\"india_trade\", \"tariffs\"], \"language\": \"en\", \"rights\": \"US Government work, not copyrightable: 17 U.S.C. 105 (https://www.govinfo.gov/about/policies). Credit the issuing agency; third-party material embedded in a government document is NOT covered. See docs/decisions/DR-10-2026-10-18-source-text-rights.md\", \"may_store_full_text\": true, \"retention_days\": null, \"poll_interval_minutes\": 120, \"failure_behaviour\": \"retry_then_report\", \"max_retries\": 3, \"accessibility_verified\": true, \"notes\": null}",
+      "registered_at": "2026-10-17T07:34:55+05:30"
+    },
+    {
+      "source_id": "mofcom_rare_earth_18_2025",
+      "payload": "{\"source_id\": \"mofcom_rare_earth_18_2025\", \"provider\": \"China Ministry of Commerce\", \"kind\": \"official_policy\", \"url\": \"https://english.mofcom.gov.cn/Policies/AnnouncementsOrders/art/2025/art_0dd87cbee7b045bf93fabe6ab2faceee.html\", \"topic_coverage\": [\"export_controls\", \"rare_earths\"], \"language\": \"en\", \"rights\": \"official document title/link only; no full text redistribution\", \"may_store_full_text\": false, \"retention_days\": null, \"poll_interval_minutes\": 1440, \"failure_behaviour\": \"retry_then_report\", \"max_retries\": 3, \"accessibility_verified\": true, \"notes\": \"Historical instrument monitored for title changes; does not establish current legal status or monitor replacement instruments.\"}",
+      "registered_at": "2026-10-17T07:35:21+05:30"
+    },
+    {
+      "source_id": "nse_corporate_announcements",
+      "payload": "{\"source_id\": \"nse_corporate_announcements\", \"provider\": \"National Stock Exchange of India\", \"kind\": \"company_filing\", \"url\": \"https://nsearchives.nseindia.com/content/RSS/Online_announcements.xml\", \"topic_coverage\": [\"issuer_announcement\", \"corporate_action\", \"disclosure\"], \"language\": \"en\", \"rights\": \"publicly reachable feed; redistribution terms NOT reviewed, so headline, link, times and a content hash only. Reading them is the DR-10 procedure, not an assumption\", \"may_store_full_text\": false, \"retention_days\": null, \"poll_interval_minutes\": 30, \"failure_behaviour\": \"retry_then_report\", \"max_retries\": 3, \"accessibility_verified\": true, \"notes\": \"Indian ISSUER-level announcements, the primary channel for company events in this market and previously absent entirely.\"}",
+      "registered_at": "2026-10-18T13:11:04+05:30"
+    },
+    {
+      "source_id": "nse_circulars",
+      "payload": "{\"source_id\": \"nse_circulars\", \"provider\": \"National Stock Exchange of India\", \"kind\": \"exchange_notice\", \"url\": \"https://nsearchives.nseindia.com/content/RSS/Circulars.xml\", \"topic_coverage\": [\"market_structure\", \"compliance\", \"enforcement\"], \"language\": \"en\", \"rights\": \"publicly reachable feed; redistribution terms NOT reviewed, so headline, link, times and a content hash only. Reading them is the DR-10 procedure, not an assumption\", \"may_store_full_text\": false, \"retention_days\": null, \"poll_interval_minutes\": 60, \"failure_behaviour\": \"retry_then_report\", \"max_retries\": 3, \"accessibility_verified\": true, \"notes\": \"Exchange circulars: market structure and member compliance, distinct from issuer announcements.\"}",
+      "registered_at": "2026-10-18T13:11:04+05:30"
+    },
+    {
+      "source_id": "bse_notices",
+      "payload": "{\"source_id\": \"bse_notices\", \"provider\": \"BSE Limited\", \"kind\": \"exchange_notice\", \"url\": \"https://www.bseindia.com/data/xml/notices.xml\", \"topic_coverage\": [\"issuer_announcement\", \"corporate_action\", \"market_structure\"], \"language\": \"en\", \"rights\": \"publicly reachable feed; redistribution terms NOT reviewed, so headline, link, times and a content hash only. Reading them is the DR-10 procedure, not an assumption\", \"may_store_full_text\": false, \"retention_days\": null, \"poll_interval_minutes\": 30, \"failure_behaviour\": \"retry_then_report\", \"max_retries\": 3, \"accessibility_verified\": true, \"notes\": \"Overlaps NSE for dually listed issuers, so one event may arrive twice. Two exchanges reporting one filing is NOT independent corroboration.\"}",
+      "registered_at": "2026-10-18T13:11:04+05:30"
+    },
+    {
+      "source_id": "ustr_press",
+      "payload": "{\"source_id\": \"ustr_press\", \"provider\": \"Office of the US Trade Representative\", \"kind\": \"official_policy\", \"url\": \"https://ustr.gov/rss.xml\", \"topic_coverage\": [\"trade_policy\", \"tariffs\", \"trade_negotiation\"], \"language\": \"en\", \"rights\": \"publicly reachable feed; redistribution terms NOT reviewed, so headline, link, times and a content hash only. Reading them is the DR-10 procedure, not an assumption\", \"may_store_full_text\": false, \"retention_days\": null, \"poll_interval_minutes\": 180, \"failure_behaviour\": \"retry_then_report\", \"max_retries\": 3, \"accessibility_verified\": true, \"notes\": \"USTR announces the policy; the Federal Register carries the instrument. Related, not duplicates.\"}",
+      "registered_at": "2026-10-18T13:11:04+05:30"
+    },
+    {
+      "source_id": "federalreserve_speeches",
+      "payload": "{\"source_id\": \"federalreserve_speeches\", \"provider\": \"Federal Reserve Board\", \"kind\": \"official_policy\", \"url\": \"https://www.federalreserve.gov/feeds/speeches.xml\", \"topic_coverage\": [\"forward_guidance\", \"monetary_policy\", \"banking_regulation\"], \"language\": \"en\", \"rights\": \"publicly reachable feed; redistribution terms NOT reviewed, so headline, link, times and a content hash only. Reading them is the DR-10 procedure, not an assumption\", \"may_store_full_text\": false, \"retention_days\": null, \"poll_interval_minutes\": 240, \"failure_behaviour\": \"retry_then_report\", \"max_retries\": 3, \"accessibility_verified\": true, \"notes\": \"A speech is a signal about intent, not an instrument.\"}",
+      "registered_at": "2026-10-18T13:11:04+05:30"
+    },
+    {
+      "source_id": "ec_news",
+      "payload": "{\"source_id\": \"ec_news\", \"provider\": \"European Commission\", \"kind\": \"official_policy\", \"url\": \"https://ec.europa.eu/commission/presscorner/api/rss?language=en\", \"topic_coverage\": [\"trade_policy\", \"export_controls\", \"eu_regulation\"], \"language\": \"en\", \"rights\": \"publicly reachable feed; redistribution terms NOT reviewed, so headline, link, times and a content hash only. Reading them is the DR-10 procedure, not an assumption\", \"may_store_full_text\": false, \"retention_days\": null, \"poll_interval_minutes\": 240, \"failure_behaviour\": \"retry_then_report\", \"max_retries\": 3, \"accessibility_verified\": true, \"notes\": \"Broad feed: most items are out of scope and the relevance filter is what keeps that honest.\"}",
+      "registered_at": "2026-10-18T13:11:04+05:30"
+    }
+  ],
+  "worker_heartbeat": [
+    {
+      "worker": "news.poll",
+      "beat_at": "2026-10-18T13:07:21+05:30",
+      "pid": 4772,
+      "status": "running",
+      "detail": "interval=30s",
+      "sequence": 0,
+      "activity": null,
+      "deadline": null
+    }
+  ],
+  "registry": {
+    "directory": "C:\\Users\\Arlop\\Downloads\\SERAPH VARYA\\SERAPH Varya\\seraph\\news\\curated",
+    "errors": [],
+    "entities": 22,
+    "places": 21,
+    "assets": 28,
+    "edges": 64,
+    "source_places": 10,
+    "empty": false,
+    "completeness": {
+      "undated": {
+        "places": [
+          "in",
+          "in_mh",
+          "in_mh_mumbai",
+          "us",
+          "us_dc_washington"
+        ],
+        "entities": [
+          "reserve_bank_of_india"
+        ],
+        "assets": [],
+        "edges": [],
+        "source_places": [
+          "fed_press",
+          "federal_register",
+          "federal_register_india",
+          "mofcom_policy_listing",
+          "mofcom_rare_earth_18_2025",
+          "pib_releases",
+          "rbi_notifications",
+          "rbi_press_releases",
+          "rbi_speeches",
+          "sebi_press"
+        ]
+      },
+      "undated_total": 16,
+      "counts": {
+        "entities": 22,
+        "places": 21,
+        "assets": 28,
+        "edges": 64,
+        "source_places": 10
+      },
+      "strict_replay_cost": "a strict replay excludes every row listed here, so the routes that depend on them disappear from any historical reconstruction. That is the correct behaviour and a real coverage gap, not a defect to be fixed by backdating",
+      "note": "`known_from` is the date this system curated the record. It is never the date the underlying fact became true and never the year of the document cited; inferring one from the other is how hindsight gets into a replay"
+    },
+    "issuer_sectors": {
+      "missing": 7,
+      "steel": 2,
+      "chemicals": 1,
+      "it_services": 1,
+      "energy": 3,
+      "financials": 3,
+      "telecom": 1,
+      "metals_mining": 1,
+      "defence": 1,
+      "logistics": 1,
+      "paper_packaging": 1
+    }
+  },
+  "source_summary": [
+    {
+      "source_id": "federal_register",
+      "name": null,
+      "url": "https://www.federalregister.gov/api/v1/documents.json?per_page=40&order=newest&fields[]=title&fields[]=html_url&fields[]=publication_date&fields[]=abstract&fields[]=document_number"
+    },
+    {
+      "source_id": "usgs_earthquakes",
+      "name": null,
+      "url": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_day.geojson"
+    },
+    {
+      "source_id": "rbi_press_releases",
+      "name": null,
+      "url": "https://rbi.org.in/pressreleases_rss.xml"
+    },
+    {
+      "source_id": "rbi_notifications",
+      "name": null,
+      "url": "https://rbi.org.in/notifications_rss.xml"
+    },
+    {
+      "source_id": "rbi_speeches",
+      "name": null,
+      "url": "https://rbi.org.in/speeches_rss.xml"
+    },
+    {
+      "source_id": "sebi_press",
+      "name": null,
+      "url": "https://www.sebi.gov.in/sebirss.xml"
+    },
+    {
+      "source_id": "pib_releases",
+      "name": null,
+      "url": "https://pib.gov.in/RssMain.aspx?ModId=6&Lang=2&Regid=3"
+    },
+    {
+      "source_id": "fed_press",
+      "name": null,
+      "url": "https://www.federalreserve.gov/feeds/press_all.xml"
+    },
+    {
+      "source_id": "tata_kalinganagar_expansion",
+      "name": null,
+      "url": "https://www.tatasteel.com/media/newsroom/press-releases/india/2025/tata-steel-inaugurates-phase-ii-expansion-of-kalinganagar-operations/"
+    },
+    {
+      "source_id": "federal_register_india",
+      "name": null,
+      "url": "https://www.federalregister.gov/api/v1/documents.json?per_page=40&order=newest&conditions[term]=India&fields[]=title&fields[]=html_url&fields[]=publication_date&fields[]=abstract&fields[]=document_number"
+    },
+    {
+      "source_id": "mofcom_rare_earth_18_2025",
+      "name": null,
+      "url": "https://english.mofcom.gov.cn/Policies/AnnouncementsOrders/art/2025/art_0dd87cbee7b045bf93fabe6ab2faceee.html"
+    },
+    {
+      "source_id": "nse_corporate_announcements",
+      "name": null,
+      "url": "https://nsearchives.nseindia.com/content/RSS/Online_announcements.xml"
+    },
+    {
+      "source_id": "nse_circulars",
+      "name": null,
+      "url": "https://nsearchives.nseindia.com/content/RSS/Circulars.xml"
+    },
+    {
+      "source_id": "bse_notices",
+      "name": null,
+      "url": "https://www.bseindia.com/data/xml/notices.xml"
+    },
+    {
+      "source_id": "ustr_press",
+      "name": null,
+      "url": "https://ustr.gov/rss.xml"
+    },
+    {
+      "source_id": "federalreserve_speeches",
+      "name": null,
+      "url": "https://www.federalreserve.gov/feeds/speeches.xml"
+    },
+    {
+      "source_id": "ec_news",
+      "name": null,
+      "url": "https://ec.europa.eu/commission/presscorner/api/rss?language=en"
+    }
+  ]
+}

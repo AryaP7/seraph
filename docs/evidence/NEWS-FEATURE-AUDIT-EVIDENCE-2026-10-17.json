@@ -1,0 +1,593 @@
+{
+  "scope": "2026-10-17 read-only audit; synthetic probes are counterexamples, not market validation",
+  "source_count": 3,
+  "provider_count": 1,
+  "sources": [
+    {
+      "source_id": "rbi_press_releases",
+      "provider": "Reserve Bank of India",
+      "kind": "official_policy",
+      "url": "https://rbi.org.in/pressreleases_rss.xml",
+      "topic_coverage": [
+        "monetary_policy",
+        "banking_regulation",
+        "forex",
+        "government_securities"
+      ],
+      "language": "en",
+      "rights": "public government feed; redistribution terms NOT reviewed",
+      "may_store_full_text": false,
+      "retention_days": null,
+      "poll_interval_minutes": 30,
+      "failure_behaviour": "retry_then_report",
+      "accessibility_verified": true,
+      "notes": "official RBI announcements; the primary policy channel"
+    },
+    {
+      "source_id": "rbi_notifications",
+      "provider": "Reserve Bank of India",
+      "kind": "regulator",
+      "url": "https://rbi.org.in/notifications_rss.xml",
+      "topic_coverage": [
+        "banking_regulation",
+        "compliance",
+        "prudential_norms"
+      ],
+      "language": "en",
+      "rights": "public government feed; redistribution terms NOT reviewed",
+      "may_store_full_text": false,
+      "retention_days": null,
+      "poll_interval_minutes": 60,
+      "failure_behaviour": "retry_then_report",
+      "accessibility_verified": true,
+      "notes": "binding circulars to regulated entities"
+    },
+    {
+      "source_id": "rbi_speeches",
+      "provider": "Reserve Bank of India",
+      "kind": "official_policy",
+      "url": "https://rbi.org.in/speeches_rss.xml",
+      "topic_coverage": [
+        "forward_guidance",
+        "monetary_policy"
+      ],
+      "language": "en",
+      "rights": "public government feed; redistribution terms NOT reviewed",
+      "may_store_full_text": false,
+      "retention_days": null,
+      "poll_interval_minutes": 240,
+      "failure_behaviour": "retry_then_report",
+      "accessibility_verified": true,
+      "notes": "speeches are guidance, not binding instruments — weighted accordingly downstream"
+    }
+  ],
+  "story_count": 30,
+  "stories_with_body": 0,
+  "stories_by_source": {
+    "rbi_notifications": 10,
+    "rbi_press_releases": 10,
+    "rbi_speeches": 10
+  },
+  "first_seen_range": [
+    "2026-10-16T19:38:37+05:30",
+    "2026-10-16T19:38:38+05:30"
+  ],
+  "health": [
+    {
+      "source_id": "rbi_press_releases",
+      "last_attempt_at": "2026-10-16T19:38:47+05:30",
+      "last_success_at": "2026-10-16T19:38:47+05:30",
+      "consecutive_failures": 0,
+      "last_error": null,
+      "cursor": "2026-10-16T19:38:47+05:30"
+    },
+    {
+      "source_id": "rbi_notifications",
+      "last_attempt_at": "2026-10-16T19:38:47+05:30",
+      "last_success_at": "2026-10-16T19:38:47+05:30",
+      "consecutive_failures": 0,
+      "last_error": null,
+      "cursor": "2026-10-16T19:38:47+05:30"
+    },
+    {
+      "source_id": "rbi_speeches",
+      "last_attempt_at": "2026-10-16T19:38:47+05:30",
+      "last_success_at": "2026-10-16T19:38:47+05:30",
+      "consecutive_failures": 0,
+      "last_error": null,
+      "cursor": "2026-10-16T19:38:47+05:30"
+    }
+  ],
+  "registry": {
+    "directory": "C:\\Users\\Arlop\\Downloads\\SERAPH VARYA\\SERAPH Varya\\seraph\\news\\curated",
+    "errors": [],
+    "entities": 1,
+    "places": 3,
+    "assets": 0,
+    "edges": 0,
+    "source_places": 3,
+    "empty": false
+  },
+  "real_story_extractions": [
+    {
+      "title": "Reserve Bank of India (Commercial Banks – Miscellaneous) Amendment Directions, 2026",
+      "event_type": "prudential_norms_change",
+      "direction": "adverse",
+      "affected": [
+        "reserve_bank_of_india"
+      ],
+      "locations": [
+        [
+          "in",
+          "mentioned"
+        ]
+      ]
+    },
+    {
+      "title": "Risk Management and Inter-Bank Dealings",
+      "event_type": "forex_regulation",
+      "direction": "adverse",
+      "affected": [],
+      "locations": []
+    },
+    {
+      "title": "Risk Management and Inter-Bank Dealings",
+      "event_type": "forex_regulation",
+      "direction": "adverse",
+      "affected": [],
+      "locations": []
+    },
+    {
+      "title": "Reserve Bank of India (Small Finance Banks – Prudential Norms on Capital Adequacy) Sixth Amendment Directions, 2026",
+      "event_type": "prudential_norms_change",
+      "direction": "adverse",
+      "affected": [
+        "reserve_bank_of_india"
+      ],
+      "locations": [
+        [
+          "in",
+          "mentioned"
+        ]
+      ]
+    },
+    {
+      "title": "Risk Management and Inter-Bank Dealings - Foreign Exchange Risk Reserve",
+      "event_type": "forex_regulation",
+      "direction": "adverse",
+      "affected": [],
+      "locations": []
+    },
+    {
+      "title": "Reserve Bank of India (Commercial Banks – Prudential Norms on Capital Adequacy) Twelfth Amendment Directions, 2026",
+      "event_type": "prudential_norms_change",
+      "direction": "adverse",
+      "affected": [
+        "reserve_bank_of_india"
+      ],
+      "locations": [
+        [
+          "in",
+          "mentioned"
+        ]
+      ]
+    },
+    {
+      "title": "Reserve Bank of India (Payments Banks – Prudential Norms on Capital Adequacy) Third Amendment Directions, 2026",
+      "event_type": "prudential_norms_change",
+      "direction": "adverse",
+      "affected": [
+        "reserve_bank_of_india"
+      ],
+      "locations": [
+        [
+          "in",
+          "mentioned"
+        ]
+      ]
+    },
+    {
+      "title": "Reserve Bank of India (Commercial Banks – Forthcoming Instructions) Amendment Directions, 2026",
+      "event_type": "prudential_norms_change",
+      "direction": "adverse",
+      "affected": [
+        "reserve_bank_of_india"
+      ],
+      "locations": [
+        [
+          "in",
+          "mentioned"
+        ]
+      ]
+    },
+    {
+      "title": "Reserve Bank of India (All India Financial Institutions (AIFIs) – Prudential Norms on Capital Adequacy) Fifth Amendment Directions, 2026",
+      "event_type": "prudential_norms_change",
+      "direction": "adverse",
+      "affected": [
+        "reserve_bank_of_india"
+      ],
+      "locations": [
+        [
+          "in",
+          "mentioned"
+        ]
+      ]
+    },
+    {
+      "title": "Section 42(1) of the Reserve Bank of India Act, 1934 - Change in Daily Minimum Cash Reserve Maintenance Requirement",
+      "event_type": "reserve_requirement_change",
+      "direction": "adverse",
+      "affected": [
+        "reserve_bank_of_india"
+      ],
+      "locations": []
+    },
+    {
+      "title": "Premature redemption under Sovereign Gold Bond (SGB) Scheme - Redemption Price for premature redemption of SGB 2020-21 Series VII due on October 19, 2026 (October 20, 2026, being a holiday)",
+      "event_type": "debt_instrument_event",
+      "direction": "adverse",
+      "affected": [],
+      "locations": []
+    },
+    {
+      "title": "The Indian Economy in an Ever More Volatile and Complex World - Special Address by Dr. Poonam Gupta, Deputy Governor, Reserve Bank of India at the 13<sup>th</sup> SBI Banking & Economics Conclave on September 23, 2026 -",
+      "event_type": "official_speech",
+      "direction": "adverse",
+      "affected": [
+        "reserve_bank_of_india"
+      ],
+      "locations": [
+        [
+          "in",
+          "mentioned"
+        ]
+      ]
+    },
+    {
+      "title": "Auction of State Government Securities",
+      "event_type": "liquidity_operation",
+      "direction": "adverse",
+      "affected": [],
+      "locations": []
+    },
+    {
+      "title": "Reserve Bank of India – Bulletin Weekly Statistical Supplement – Extract",
+      "event_type": "statistical_release",
+      "direction": "adverse",
+      "affected": [
+        "reserve_bank_of_india"
+      ],
+      "locations": [
+        [
+          "in",
+          "mentioned"
+        ]
+      ]
+    },
+    {
+      "title": "RBI Talks: From Paisa to Policy | Unclaimed Deposit and DEA Fund -",
+      "event_type": "official_speech",
+      "direction": "adverse",
+      "affected": [],
+      "locations": []
+    },
+    {
+      "title": "Government Stock - Auction Results: Cut-off",
+      "event_type": "liquidity_operation",
+      "direction": "adverse",
+      "affected": [],
+      "locations": []
+    },
+    {
+      "title": "Preserving Financial Stability in an Evolving World - Special Address by Shri Sanjay Malhotra, Governor, Reserve Bank of India, at the Fifth Kautilya Economic Conclave on October 3, 2026 -",
+      "event_type": "official_speech",
+      "direction": "adverse",
+      "affected": [
+        "reserve_bank_of_india"
+      ],
+      "locations": [
+        [
+          "in",
+          "mentioned"
+        ]
+      ]
+    },
+    {
+      "title": "RBI approves amalgamation of Indian branches of Emirates NBD Bank P.J.S.C. with RBL Bank Limited",
+      "event_type": "bank_resolution",
+      "direction": "adverse",
+      "affected": [
+        "reserve_bank_of_india"
+      ],
+      "locations": []
+    },
+    {
+      "title": "Government Stock - Full Auction Results",
+      "event_type": "liquidity_operation",
+      "direction": "adverse",
+      "affected": [],
+      "locations": []
+    },
+    {
+      "title": "Money Market Operations as on October 15, 2026",
+      "event_type": "liquidity_operation",
+      "direction": "adverse",
+      "affected": [],
+      "locations": []
+    },
+    {
+      "title": "Trusted Innovation: Shaping the Future of Finance - Keynote address delivered by Shri Shirish Chandra Murmu, Deputy Governor, Reserve Bank of India at the Global Fintech Fest (GFF) 2026, in Mumbai on September 11, 2026 -",
+      "event_type": "official_speech",
+      "direction": "adverse",
+      "affected": [
+        "reserve_bank_of_india"
+      ],
+      "locations": [
+        [
+          "in",
+          "mentioned"
+        ],
+        [
+          "in_mh_mumbai",
+          "mentioned"
+        ]
+      ]
+    },
+    {
+      "title": "Emerging Technologies in Finance: The Imperatives of Purpose, Prudence, and Policy - Keynote Address by Shri Rohit Jain, Deputy Governor, Reserve Bank of India at the Global Fintech Fest, 2026 in Mumbai on September 9, 2026 -",
+      "event_type": "official_speech",
+      "direction": "adverse",
+      "affected": [
+        "reserve_bank_of_india"
+      ],
+      "locations": [
+        [
+          "in",
+          "mentioned"
+        ],
+        [
+          "in_mh_mumbai",
+          "mentioned"
+        ]
+      ]
+    },
+    {
+      "title": "Result of Underwriting Auction conducted on October 16, 2026",
+      "event_type": "liquidity_operation",
+      "direction": "adverse",
+      "affected": [],
+      "locations": []
+    },
+    {
+      "title": "Marching ahead with Responsibility and Growth - Keynote Address<sup>[1]</sup> delivered by Shri Shirish Chandra Murmu, Deputy Governor, at the 7th NBFC and HFC Summit in Mumbai on September 03, 2026 -",
+      "event_type": "official_speech",
+      "direction": "adverse",
+      "affected": [],
+      "locations": [
+        [
+          "in_mh_mumbai",
+          "mentioned"
+        ]
+      ]
+    },
+    {
+      "title": "From Digital Banking to Resilient Banking – Technology, Cyber Security and AI as Pillars of Trust - Address by Shri Rohit Jain, Deputy Governor at the SBI Banking & Economic Conclave on September 24, 2026 in Mumbai -",
+      "event_type": "official_speech",
+      "direction": "adverse",
+      "affected": [],
+      "locations": [
+        [
+          "in_mh_mumbai",
+          "mentioned"
+        ]
+      ]
+    },
+    {
+      "title": "Edited Transcript of the Reserve Bank of India’s Post-Monetary Policy Press Conference: October 7, 2026 (Wednesday) -",
+      "event_type": "official_speech",
+      "direction": "adverse",
+      "affected": [
+        "reserve_bank_of_india"
+      ],
+      "locations": [
+        [
+          "in",
+          "mentioned"
+        ]
+      ]
+    },
+    {
+      "title": "Developments in India’s Balance of Payments for the Month of August 2026",
+      "event_type": "statistical_release",
+      "direction": "adverse",
+      "affected": [],
+      "locations": [
+        [
+          "in",
+          "mentioned"
+        ]
+      ]
+    },
+    {
+      "title": "Shaping the Next Decade of Finance – Technology, Trust and Innovation - Keynote Address by Shri Sanjay Malhotra, Governor, Reserve Bank of India at the Global Fintech Festival 2026, Mumbai on September 10, 2026 -",
+      "event_type": "official_speech",
+      "direction": "adverse",
+      "affected": [
+        "reserve_bank_of_india"
+      ],
+      "locations": [
+        [
+          "in",
+          "mentioned"
+        ],
+        [
+          "in_mh_mumbai",
+          "mentioned"
+        ]
+      ]
+    },
+    {
+      "title": "Auction of 91-Day, 182-Day and 364-Day Treasury Bills",
+      "event_type": "liquidity_operation",
+      "direction": "adverse",
+      "affected": [],
+      "locations": []
+    },
+    {
+      "title": "Welcome Remarks by RBI Governor in the Inaugural Session of Global FinTech Fest 2026 on September 8, 2026 -",
+      "event_type": "official_speech",
+      "direction": "adverse",
+      "affected": [],
+      "locations": []
+    }
+  ],
+  "adversarial_probes": [
+    {
+      "id": "rate_cut",
+      "input": "RBI cuts repo rate by 25 basis points",
+      "expected_property": "must not default to adverse for every target",
+      "actual": {
+        "type": "policy_rate_decision",
+        "direction": "adverse",
+        "severity": "minor",
+        "quantities": [],
+        "lifecycle": "active",
+        "occurred_at": "2026-10-17T11:00:00+05:30"
+      }
+    },
+    {
+      "id": "rate_hold",
+      "input": "RBI holds repo rate unchanged",
+      "expected_property": "not a directional shock without expectations",
+      "actual": {
+        "type": "policy_rate_decision",
+        "direction": "adverse",
+        "severity": "minor",
+        "quantities": [],
+        "lifecycle": "active",
+        "occurred_at": "2026-10-17T11:00:00+05:30"
+      }
+    },
+    {
+      "id": "subsidy_withdrawal",
+      "input": "Government withdraws subsidy for solar manufacturers",
+      "expected_property": "must not default to favourable",
+      "actual": {
+        "type": "subsidy_change",
+        "direction": "favourable",
+        "severity": "minor",
+        "quantities": [],
+        "lifecycle": "active",
+        "occurred_at": "2026-10-17T11:00:00+05:30"
+      }
+    },
+    {
+      "id": "negated_halt",
+      "input": "Factory denies reports of production halt",
+      "expected_property": "must not create a confirmed halt",
+      "actual": {
+        "type": "production_halt",
+        "direction": "adverse",
+        "severity": "major",
+        "quantities": [],
+        "lifecycle": "active",
+        "occurred_at": "2026-10-17T11:00:00+05:30"
+      }
+    },
+    {
+      "id": "proposed_tariff",
+      "input": "Government proposes 50% tariff; consultation opens",
+      "expected_property": "proposal is not enacted or effective",
+      "actual": {
+        "type": "tariff_announcement",
+        "direction": "adverse",
+        "severity": "moderate",
+        "quantities": [],
+        "lifecycle": "active",
+        "occurred_at": "2026-10-17T11:00:00+05:30"
+      }
+    },
+    {
+      "id": "tariff_reduction",
+      "input": "Import duty cut from 50% to 5%",
+      "expected_property": "old level is not a 50 percentage point increase",
+      "actual": {
+        "type": "import_duty_change",
+        "direction": "adverse",
+        "severity": "severe",
+        "quantities": [
+          [
+            "import_duty",
+            50.0,
+            "percent"
+          ],
+          [
+            "import_duty",
+            5.0,
+            "percent"
+          ]
+        ],
+        "lifecycle": "active",
+        "occurred_at": "2026-10-17T11:00:00+05:30"
+      }
+    },
+    {
+      "id": "port_routine",
+      "input": "Port publishes annual report",
+      "expected_property": "port mention is not disruption",
+      "actual": {
+        "type": "logistics_disruption",
+        "direction": "adverse",
+        "severity": "moderate",
+        "quantities": [],
+        "lifecycle": "active",
+        "occurred_at": "2026-10-17T11:00:00+05:30"
+      }
+    },
+    {
+      "id": "expansion_cancelled",
+      "input": "Company cancels new plant expansion",
+      "expected_property": "must not default to favourable",
+      "actual": {
+        "type": "capacity_expansion",
+        "direction": "favourable",
+        "severity": "minor",
+        "quantities": [],
+        "lifecycle": "active",
+        "occurred_at": "2026-10-17T11:00:00+05:30"
+      }
+    },
+    {
+      "id": "routine_statistics",
+      "input": "Weekly Statistical Supplement",
+      "expected_property": "publication itself has no adverse direction",
+      "actual": {
+        "type": "statistical_release",
+        "direction": "adverse",
+        "severity": "minor",
+        "quantities": [],
+        "lifecycle": "active",
+        "occurred_at": "2026-10-17T11:00:00+05:30"
+      }
+    },
+    {
+      "id": "official_speech",
+      "input": "Speech by Governor on financial inclusion",
+      "expected_property": "speech alone has no adverse direction",
+      "actual": {
+        "type": "official_speech",
+        "direction": "adverse",
+        "severity": "minor",
+        "quantities": [],
+        "lifecycle": "active",
+        "occurred_at": "2026-10-17T11:00:00+05:30"
+      }
+    }
+  ],
+  "confirmation_probe": {
+    "two_story_ids_count": 2,
+    "single_story_high_path_confidence": "high",
+    "expected": "story IDs are not independent reporting origins; categorical high is not calibrated probability"
+  }
+}

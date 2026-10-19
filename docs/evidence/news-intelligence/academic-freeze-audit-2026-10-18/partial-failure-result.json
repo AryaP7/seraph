@@ -1,0 +1,37 @@
+{
+  "type": "controlled contract reproduction, not a real publisher outage",
+  "one_successful_source": true,
+  "one_source_http_503": true,
+  "worker_after_partial_failure": {
+    "worker": "news.poll",
+    "state": "failed",
+    "last_beat_at": "2026-10-18T22:56:23+05:30",
+    "age_minutes": 0.0,
+    "pid": 29276,
+    "detail": "failed: RuntimeError: Partial/failed news poll: temporarily_unavailable_feed",
+    "sequence": 1,
+    "activity": "poll failed",
+    "deadline": null,
+    "dead_after_minutes": 5,
+    "beat_after_decision_time": null,
+    "note": "a stopped worker and a quiet market look identical on every other surface. This is the fact that separates them"
+  },
+  "supervisor_child_starts": 3,
+  "supervisor_terminations": 3,
+  "supervisor_exit": 1,
+  "final_state": {
+    "worker": "news.poll",
+    "state": "failed",
+    "last_beat_at": "2026-10-18T22:56:23+05:30",
+    "age_minutes": 0.0,
+    "pid": null,
+    "detail": "worker exited 1; gave up after 2 restarts. Nothing is fetching",
+    "sequence": 1,
+    "activity": null,
+    "deadline": null,
+    "dead_after_minutes": 5,
+    "beat_after_decision_time": null,
+    "note": "a stopped worker and a quiet market look identical on every other surface. This is the fact that separates them"
+  },
+  "expected": "a live progressing worker should keep good feeds acquiring; source failure stays visible"
+}

@@ -1,0 +1,45 @@
+{
+  "ticket": "T08 \u2014 current-result reader and runtime status (R12)",
+  "created_at": "2026-10-17T04:41:51+0530",
+  "finding": "the console read persisted ARCHIVE RUNS and nothing else. There was no path from a live decision to the screen, and because a replay and a live reading rendered identically, nothing on screen said which it was.",
+  "built": {
+    "seraph/dashboard/current_reader.py": [
+      "read_current(store, mode=...) \u2014 the latest decision for a CHOSEN mode",
+      "worker_health() \u2014 a separate fact from the score, never merged into it",
+      "revision() \u2014 a stable id that moves only when the screen's content moves",
+      "RefreshGate \u2014 new data applies silently unless a form is being edited, in which case it is held and announced rather than rebasing under the user's hands"
+    ],
+    "seraph/dashboard/prototype_app.py": "a LIVE RUNTIME panel with the live/replay/demo selector, the latest score and worker health side by side",
+    "seraph/live/store.py": "commit_decision takes an injectable `at`, so staleness is testable"
+  },
+  "separations_enforced": [
+    "the latest score and the worker's health are different facts and are returned side by side",
+    "an outage leaves the last score inspectable WITH ITS OWN TIMESTAMP and never reissues it as now",
+    "live / replay / demo is chosen, never fallen back to: asking for live with no committed decision says so rather than serving an archive run"
+  ],
+  "defects_found_in_the_browser": {
+    "D1": {
+      "what": "a decision timestamped after now was reported as '-340 min old' and allowed through the freshness check",
+      "fix": "a future-dated decision is refused as a clock or data defect, with the same wording the market clock already uses for a future observation; it stays inspectable",
+      "observed_after": "'339 min in the FUTURE ... nothing may be published from it'"
+    },
+    "D2": {
+      "what": "a news channel that was CONNECTED but had nothing visible at the selected decision time was captioned 'not connected', conflating two different states",
+      "observed_after": "'News channel connected, nothing visible at this decision time'"
+    }
+  },
+  "verified_in_the_real_browser": {
+    "url": "http://localhost:8515 (streamlit, SERAPH_LIVE_STORE pointed at a scratch runtime holding ONE synthetic committed decision \u2014 a UI check, not market data)",
+    "observed": {
+      "live": "CSRS 0.37, decision id, as-of, publication state 'withheld', and the refusal reason on screen",
+      "demo": "'demo mode shows the illustrative dataset only. It is never a reading of the market and no live decision is consulted' \u2014 no decision shown, health still shown",
+      "health_block": "state, last_pass_at, stream_version, undelivered_events, dead_letters, stale, note"
+    }
+  },
+  "tests": "tests/test_t08_current_reader.py (25)",
+  "not_claimed": [
+    "the decision used for the browser check was committed by hand into a SCRATCH store to exercise the panel. No live feed exists, so no real live decision has ever been committed.",
+    "the two-second fragment poll described in the plan is not yet wired: the revision id and the refresh gate exist and are tested, and the panel currently refreshes on Streamlit's own rerun.",
+    "T13's connected globe still cannot be seen on a CURRENT decision, because no persisted run reaches 2026-10-16."
+  ]
+}

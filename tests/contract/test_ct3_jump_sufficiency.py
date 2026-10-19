@@ -137,7 +137,11 @@ def _jump_frame():
     window = 20
     imbalance = np.convolve(signed, np.ones(window), mode="same") / window
     spread = np.abs(out["log_return"])
-    st = state_variable(spread, imbalance)
+    # FIX04: S_t bins are fitted causally. This counting exercise uses a
+    # training prefix so the assignment of an early bar cannot depend on
+    # bars that come after it.
+    st = state_variable(spread, imbalance, basis="train_prefix",
+                        train=max(len(close) // 2, 1))
     days = len(_ROWS) / BARS_PER_DAY
     return out, st, days
 

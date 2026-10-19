@@ -1,0 +1,24 @@
+{
+  "complete_without_report": true,
+  "complete_run_accepts_extra_date": true,
+  "report_overwrite_accepted": true,
+  "saved_test_reports": {
+    "frontend-integration.xml": {
+      "cases": 163,
+      "passed": 163,
+      "skipped_including_xfail": 0,
+      "failures": 0
+    },
+    "prototype-core.xml": {
+      "cases": 486,
+      "passed": 472,
+      "skipped_including_xfail": 14,
+      "failures": 0
+    }
+  },
+  "localhost_ports": {
+    "5433": false,
+    "5434": false,
+    "8512": true
+  }
+}

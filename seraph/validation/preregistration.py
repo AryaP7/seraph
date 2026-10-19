@@ -25,7 +25,11 @@ EPOCHS = ("gfc_2008", "taper_2013", "ilfs_2018", "covid_2020",
           "tightening_2022", "tariff_2026")
 #: Epochs with Hawkes coverage (SPEC §4). Table A is restricted to these.
 HAWKES_EPOCHS = ("ilfs_2018", "covid_2020", "tightening_2022", "tariff_2026")
-#: Pre-2015 epochs — Table B, RMT/Hamilton subsets only.
+#: Pre-2015 epochs — Table B, RMT/Hamilton subsets only. Declared and then
+#: never used for as long as `configuration_list()` built Table B from all
+#: six epochs, which is how the module came to hold both readings of FR35 at
+#: once: this constant said one thing and the code did another. DR-05 settled
+#: it and this is now the epoch set Table B is actually built from.
 PRE_HAWKES_EPOCHS = ("gfc_2008", "taper_2013")
 
 
@@ -38,11 +42,45 @@ def _subsets(pillars: tuple[str, ...]) -> tuple[tuple[str, ...], ...]:
     return tuple(sorted(out, key=lambda s: (len(s), s)))
 
 
-def configuration_list() -> list[dict]:
-    """FR35's 14 configurations: Table A is 7 subsets x 2 reconciliation modes
-    on the Hawkes-covered epochs; Table B is 3 subsets x 2 modes on the
-    pre-2015 epochs. Table A and Table B AUCs are computed over different fold
-    counts (4 vs 6) and are therefore **not directly comparable** — D5(b)."""
+#: The two readings of FR35's Table B scope that DR-05 set against each other.
+#: `two_epoch` is the owner's recorded decision (2026-10-16); `six_epoch` is
+#: ARCHITECTURE D5(b), retained as a named value so a historical row can say
+#: which reading produced it instead of being silently relabelled.
+TABLE_B_SCOPES = ("two_epoch", "six_epoch")
+
+
+def configuration_list(*, table_b_scope: str) -> list[dict]:
+    """FR35's configurations, under an explicitly chosen Table B scope.
+
+    Table A is 7 subsets x 2 reconciliation modes on the Hawkes-covered
+    epochs. Table B is 3 subsets x 2 modes x 2 xi modes on whichever epoch set
+    `table_b_scope` names. Table C is the six-epoch RMT/Hamilton run, present
+    only under the two-epoch reading, where it is the thing Table B stopped
+    being.
+
+    `table_b_scope` has **no default on purpose** (DR-05 step 1). The fold
+    count is inside the pre-registration hash, so a caller that inherits the
+    scope instead of stating it can produce a result under one reading that is
+    later read as the other. Every call site has to say which question it is
+    asking.
+
+    The three tables answer three different questions and must never be placed
+    in a single ranking:
+
+    * **A** — what the full pillar set can do where Hawkes exists (4 folds).
+    * **B** — what RMT and Hamilton can do where Hawkes *cannot* exist
+      (2 folds under the decision). Two folds is the honest weakness: it is a
+      property of the data, since only two pre-2015 labelled epochs exist.
+    * **C** — the same subsets over the whole labelled period (6 folds). A
+      legitimate full-period ablation, but not the pre-Hawkes evidence,
+      because four of its six folds are Table A's own epochs.
+    """
+    if table_b_scope not in TABLE_B_SCOPES:
+        raise ValueError(
+            f"table_b_scope must be one of {TABLE_B_SCOPES}, got "
+            f"{table_b_scope!r}. There is no default: see DR-05.")
+    table_b_epochs = (PRE_HAWKES_EPOCHS if table_b_scope == "two_epoch"
+                      else EPOCHS)
     configs = []
     for subset in _subsets(("hawkes", "rmt", "hamilton")):
         for mode in ("kalman", "forward_fill"):
@@ -55,25 +93,51 @@ def configuration_list() -> list[dict]:
         for mode in ("kalman", "forward_fill"):
             configs.append({
                 "table": "B", "pillarSubset": list(subset),
-                "reconciliationMode": mode, "epochs": list(EPOCHS),
-                "folds": len(EPOCHS),
+                "reconciliationMode": mode, "epochs": list(table_b_epochs),
+                "folds": len(table_b_epochs),
                 # R5: Hamilton is both a signal and the weighting over signals.
                 # Every Table B row needs its uniform-xi control companion.
                 "xiModes": ["hamilton", "uniform"],
             })
+    if table_b_scope == "two_epoch":
+        # DR-05 step 3: nothing is lost by narrowing Table B. The six-epoch
+        # RMT/Hamilton run is a real full-period ablation; it just is not the
+        # pre-Hawkes table, so it gets its own identity rather than being
+        # folded into one that answers a different question.
+        for subset in _subsets(("rmt", "hamilton")):
+            for mode in ("kalman", "forward_fill"):
+                configs.append({
+                    "table": "C", "pillarSubset": list(subset),
+                    "reconciliationMode": mode, "epochs": list(EPOCHS),
+                    "folds": len(EPOCHS),
+                    "xiModes": ["hamilton", "uniform"],
+                })
     return configs
 
 
 def build(
     *,
+    table_b_scope: str = "two_epoch",
     kappa_miss: float = 10.0,
     kappa_fa: float = 1.0,
     amber_threshold: float = 0.5,
     primary_metric: str = "auc",
 ) -> dict:
-    """The design to commit. Nothing here may change once results exist."""
+    """The design to commit. Nothing here may change once results exist.
+
+    `table_b_scope` defaults to the owner's recorded DR-05 decision, and is
+    written into the design body so the hash differs between the two readings
+    (DR-05 step 2). A result can then never be mistaken for one produced under
+    the other reading -- which matters because `verify()` compares hashes and
+    "a result whose hash does not match the committed file is not reportable".
+    """
     return {
         "splitPolicy": "leave_one_epoch_out",
+        "tableBScope": table_b_scope,
+        "tableBScopeDecision": (
+            "DR-05, owner decision recorded 2026-10-16: Table B is the two "
+            "pre-Hawkes epochs (gfc_2008, taper_2013). The six-epoch "
+            "RMT/Hamilton run is retained as Table C"),
         "kappaMiss": kappa_miss,
         "kappaFa": kappa_fa,
         "primaryMetric": primary_metric,
@@ -86,10 +150,14 @@ def build(
             "no configuration is selected as best and reported as a headline"
         ),
         "tableComparability": (
-            "Table A (4 folds) and Table B (6 folds) are not directly comparable "
-            "and must not be placed in a single ranking"
+            "Tables A, B and C answer three different questions, are not "
+            "directly comparable, and must not be placed in a single "
+            "ranking. A (4 folds) is the full pillar set "
+            "where Hawkes exists; B (2 folds) is RMT/Hamilton where Hawkes "
+            "cannot exist; C (6 folds) is RMT/Hamilton over the whole labelled "
+            "period, which overlaps A on four of its six folds"
         ),
-        "configurations": configuration_list(),
+        "configurations": configuration_list(table_b_scope=table_b_scope),
     }
 
 

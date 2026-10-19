@@ -1,0 +1,59 @@
+{
+  "explicit_replay_with_credentials": {
+    "selected": "KiteTickerFeed",
+    "is_live": true,
+    "network_connected": false
+  },
+  "installed_packages": {
+    "kiteconnect": true,
+    "pypdf": true,
+    "setuptools": false
+  },
+  "ports": {
+    "5433": "not accepting",
+    "5434": "accepting",
+    "5435": "accepting"
+  },
+  "database": {
+    "database": "seraph_research",
+    "public_tables": [
+      "csrs",
+      "daily_prices",
+      "flow_aggregates",
+      "hamilton_output",
+      "hawkes_output",
+      "ingestion_watermarks",
+      "intraday_bars",
+      "macro_covariates",
+      "microstructure_state",
+      "reconciled_state",
+      "regulatory_action_log",
+      "rmt_output",
+      "tariff_events",
+      "universe_snapshots",
+      "user_portfolio",
+      "validation_results"
+    ],
+    "counts": {
+      "daily_prices": 0,
+      "intraday_bars": 0,
+      "universe_membership": "absent",
+      "macro_covariates": 0,
+      "validation_results": 0
+    },
+    "read_only": true
+  },
+  "live_only_canonical_app": {
+    "info": [
+      "No persisted run. Execute scripts/run_prototype.py first."
+    ],
+    "metrics": 0,
+    "radios": 0,
+    "exceptions": []
+  },
+  "persisted_nested_csrs_panel": {
+    "exceptions": [
+      "Invalid `value` type. Expected one of: int, float, Decimal, NumPy number. Provided type: dict. Convert the value to a number type."
+    ]
+  }
+}

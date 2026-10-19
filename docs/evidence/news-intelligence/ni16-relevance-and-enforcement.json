@@ -1,0 +1,76 @@
+{
+  "ticket": "NI03/NI16",
+  "recorded_at": "2026-10-17T22:06:37+05:30",
+  "what": "relevance separated from classification; SEBI enforcement class; logistics rule narrowed",
+  "scope": {
+    "in_scope": 132,
+    "out_of_scope": 133,
+    "unclassified_in_scope": 16,
+    "note": "relevance is separate from classification. An out-of-scope event is carried, linked and counted, never deleted: a feed covering a whole jurisdiction's daily register contains far more than this system is about, and `other` is reserved for an in-scope event we could not identify"
+  },
+  "total_events": 265,
+  "in_scope_by_type": {
+    "trade_remedy_determination": 38,
+    "securities_enforcement_action": 22,
+    "other": 16,
+    "regulatory_appeal": 11,
+    "official_speech": 10,
+    "prudential_norms_change": 9,
+    "policy_rate_decision": 8,
+    "liquidity_operation": 7,
+    "forex_regulation": 3,
+    "statistical_release": 2,
+    "export_restriction": 1,
+    "tariff_announcement": 1,
+    "capacity_expansion": 1,
+    "bank_resolution": 1,
+    "debt_instrument_event": 1,
+    "reserve_requirement_change": 1
+  },
+  "enforcement_stages": {
+    "adopted": 2,
+    "announced": 2,
+    "effective": 11,
+    "expired": 2,
+    "repealed": 3,
+    "unknown": 2
+  },
+  "unidentified_in_scope": {
+    "total": 16,
+    "hindi_abstaining": 13,
+    "english": [
+      "SEBI’s PolicyTwin Prototype Wins First Place at the C:&gt;DIR Global ‘Agentic Regulator’ Hackathon",
+      "SEBI Teams win at IOSCO TechSprint 2026 on Investor Education in the Age of Artificial Intelligence (AI)",
+      "Order in the matter of Capital Stroke Investment Services Pvt. Ltd."
+    ]
+  },
+  "impacts_total": 20,
+  "impacts_by_target": {
+    "in": 1,
+    "sector:agriculture": 3,
+    "sector:aluminium": 2,
+    "sector:auto": 1,
+    "sector:chemicals": 6,
+    "sector:steel": 5,
+    "tata_kalinganagar": 1,
+    "tata_steel": 1
+  },
+  "registry": {
+    "entities": 2,
+    "places": 8,
+    "assets": 1,
+    "edges": 7,
+    "source_places": 10
+  },
+  "browser_verification": "132 in scope · 133 received but not about this system (carried and linked, never deleted) · 16 in scope and unidentified",
+  "not_claimed": [
+    "relevance labels and counts; it never filters or deletes",
+    "an enforcement action assigns no direction: most name individuals, not issuers",
+    "no news signal enters CSRS or the F1 pillar channel"
+  ],
+  "verification": {
+    "new_tests": 34,
+    "news_side_suite": 485,
+    "js_harness_checks": 31
+  }
+}

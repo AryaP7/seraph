@@ -1,0 +1,34 @@
+2026-10-18 13:29:27.445 Uvicorn server started on 127.0.0.1:58458
+
+  You can now view your Streamlit app in your browser.
+
+  URL: http://127.0.0.1:58458
+
+
+DevTools listening on ws://127.0.0.1:58459/devtools/browser/f7f1e4f5-66a6-4d8f-9bd2-002764e27490
+[20624:19000:1018/132927.991:ERROR:chrome\browser\component_updater\edge_optimization_guide_models_manifest_installer.cc:264] Edge LLM: catalog update failed: 5
+[20624:19000:1018/132927.992:ERROR:chrome\browser\component_updater\edge_language_detection_model_installer.cc:97] Edge Language Detection Model: On-demand update failed with error: 5
+[20624:19000:1018/132928.414:ERROR:components\edge_auth\edge_auth_errors.cc:553] EDGE_IDENTITY: Image Fetch FAILED: Error: Primary Error: kUrlRequestError, Secondary Error: kURLResponseNot200, Platform error: 0, Error string: [empty]
+
+[20624:2328:1018/132928.438:ERROR:components\sync\engine\get_updates_processor.cc:426] PostClientToServerMessage() failed during GetUpdates with error Network error (ERR_NAME_NOT_RESOLVED)
+[20624:19000:1018/132929.156:ERROR:chrome\browser\task_manager\providers\fallback_task_provider.cc:126] Every renderer should have at least one task provided by a primary task provider. If a "Renderer" fallback task is shown, it is a bug. If you have repro steps, please file a new bug and tag it as a dependency of crbug.com/40528867.
+[20624:24684:1018/132929.949:ERROR:components\sync\engine\get_updates_processor.cc:426] PostClientToServerMessage() failed during GetUpdates with error Network error (ERR_NAME_NOT_RESOLVED)
+SUCCESS: The process with PID 23872 (child process of PID 20624) has been terminated.
+SUCCESS: The process with PID 7556 (child process of PID 20624) has been terminated.
+SUCCESS: The process with PID 24792 (child process of PID 20624) has been terminated.
+SUCCESS: The process with PID 11112 (child process of PID 20624) has been terminated.
+SUCCESS: The process with PID 9536 (child process of PID 20624) has been terminated.
+SUCCESS: The process with PID 16224 (child process of PID 20624) has been terminated.
+SUCCESS: The process with PID 25420 (child process of PID 20624) has been terminated.
+SUCCESS: The process with PID 8292 (child process of PID 20624) has been terminated.
+SUCCESS: The process with PID 25184 (child process of PID 20624) has been terminated.
+SUCCESS: The process with PID 18108 (child process of PID 20624) has been terminated.
+SUCCESS: The process with PID 25436 (child process of PID 20624) has been terminated.
+SUCCESS: The process with PID 24332 (child process of PID 20624) has been terminated.
+SUCCESS: The process with PID 2188 (child process of PID 20624) has been terminated.
+SUCCESS: The process with PID 5484 (child process of PID 20624) has been terminated.
+SUCCESS: The process with PID 528 (child process of PID 20624) has been terminated.
+SUCCESS: The process with PID 4748 (child process of PID 20624) has been terminated.
+SUCCESS: The process with PID 20624 (child process of PID 3004) has been terminated.
+SUCCESS: The process with PID 25284 (child process of PID 15772) has been terminated.
+SUCCESS: The process with PID 15772 (child process of PID 3004) has been terminated.

@@ -18,6 +18,7 @@ dependencies = [
     "asyncpg>=0.29",
     "streamlit>=1.30",
     "requests>=2.31",
+    "pypdf>=6.21.1",
 ]
 
 [project.optional-dependencies]
@@ -34,6 +35,20 @@ dev = [
 
 [tool.setuptools.packages.find]
 include = ["seraph*", "fixtures*"]
+
+# QA03 — the canonical C12 frontend is a local Streamlit custom component, so
+# its HTML/JS/CSS and the vendored Three.js licence are runtime assets, not
+# docs. Without this they are silently dropped from a built wheel and the
+# console renders as an empty iframe. `.bak`/`.broken` scratch copies are
+# deliberately excluded.
+[tool.setuptools.package-data]
+"seraph.dashboard.console_component" = ["*.html", "*.js", "*.txt"]
+"seraph.dashboard.assets" = ["*.html", "*.js", "*.css", "*.txt"]
+"seraph.store" = ["*.sql"]
+"seraph.ingestion" = ["*.csv"]
+
+[tool.setuptools.exclude-package-data]
+"seraph.dashboard.assets" = ["*.bak", "*.broken"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

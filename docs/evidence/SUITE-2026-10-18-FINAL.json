@@ -1,0 +1,62 @@
+{
+  "recorded_at": "2026-10-18T02:50:00+05:30",
+  "command": ".venv/Scripts/python.exe -I -m pytest tests/ -q -p no:randomly",
+  "environment": {
+    "test_database": "provisioned via docker compose -f docker-compose.test.yml up -d + scripts/provision_test_db.py (tmpfs, 127.0.0.1:5435, seraph_test_local)",
+    "research_database": "127.0.0.1:5434 seraph_research (untouched by tests)",
+    "source_corpus": "volume seraphvarya_seraph_pgdata intact, 9.2GB, PG16, no container attached",
+    "note": "credentials and the guard token are deliberately not recorded here"
+  },
+  "summary": "1407 passed, 4 skipped in 1250.26s (0:20:50)",
+  "exit_code": 0,
+  "passed": 1407,
+  "skipped": 4,
+  "failed": 0,
+  "duration_seconds": 1250.26,
+  "skip_reasons": {
+    "not enough intraday bars yet - run scripts/backfill_intraday.py": {
+      "count": 4,
+      "tests": [
+        "tests\\contract\\test_ct3_jump_sufficiency.py:149",
+        "tests\\contract\\test_ct3_jump_sufficiency.py:179",
+        "tests\\contract\\test_ct3_jump_sufficiency.py:191",
+        "tests\\contract\\test_ct3_jump_sufficiency.py:198"
+      ]
+    }
+  },
+  "previous_run": {
+    "passed": 1397,
+    "skipped": 14,
+    "note": "12 of those skips were the DB-dependent tests, now running"
+  },
+  "covers": [
+    "NI11/NI12 three curated sector exposure edges (impacts 5 -> 20, two sectors -> five)",
+    "forthcoming-publication Timing fix, store migration and UI labelling",
+    "NI03/NI16 relevance separated from classification; SEBI enforcement class",
+    "logistics_disruption narrowed so a transport noun is not an event",
+    "FIX05 / DR-05 Table B two-epoch decision, Table C, xfail retired",
+    "DEFAULT_DSN drift fixed; skip reasons state the real error; conftest misconfiguration is a UsageError not an INTERNALERROR",
+    "one of my own tests had a wall-clock dependency and is fixed"
+  ],
+  "also_verified": {
+    "db_dependent_files": "98 passed, 0 skipped",
+    "guard_refusals": [
+      "DSN at seraph_research -> refused",
+      "seraph_test_* with no token -> refused",
+      "seraph_test_* with wrong token -> refused"
+    ],
+    "js_harness_checks": 31,
+    "browser": "5 sectors, 31 forthcoming labels, 56 scope reasons, 1 government link"
+  },
+  "remaining_skips_are": "environmental: 4 need an intraday backfill (scripts/backfill_intraday.py)",
+  "superseded_by": {
+    "recorded_at": "2026-10-18T03:50:00+05:30",
+    "passed": 1433,
+    "skipped": 4,
+    "failed": 0,
+    "duration_seconds": 913.22,
+    "exit_code": 0,
+    "added": "NI08 / DR-10 source text rights: 26 new tests",
+    "note": "same 4 environmental skips; nothing regressed"
+  }
+}

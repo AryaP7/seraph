@@ -47,7 +47,7 @@ from seraph.shared_types import (
     ok,
 )
 from seraph.store.bootstrap import resolve_dsn
-from seraph.universe.instrument_type import is_equity
+from seraph.universe.instrument_type import classification_status, is_equity
 
 TARGET_N = 500
 MIN_LISTING_DAYS = 1000
@@ -82,13 +82,43 @@ def build_snapshot(
     use_buffer: bool = True,
     min_listing_days: int = MIN_LISTING_DAYS,
     equities_only: bool = True,
+    allow_unclassified: bool = False,
 ) -> Ok[UniverseSnapshot] | Err:
-    """Pure core of FR52 — no I/O, so CT-2 drives it with a synthetic panel."""
+    """Pure core of FR52 — no I/O, so CT-2 drives it with a synthetic panel.
+
+    FIX09: when `equities_only` is requested but instrument classification is
+    unavailable, this returns `MISSING_DEPENDENCY`. It does not quietly build
+    an unfiltered universe. `allow_unclassified=True` is the documented,
+    visibly degraded escape hatch: the snapshot is built without the equity
+    filter and carries a `PARTIAL_COVERAGE` warning saying so.
+    """
     panel = list(panel)
     if not panel:
         return err(InsufficientHistory(
             required=min_listing_days, available=0, as_of=rebalance_date
         ))
+
+    degraded: SeraphWarning | None = None
+    classification = classification_status()
+    if equities_only and not classification.available:
+        if not allow_unclassified:
+            return err(MissingDependency(
+                entity="instrument_classification",
+                as_of=f"{rebalance_date}T00:00:00+05:30",
+            ))
+        equities_only = False
+        degraded = SeraphWarning(
+            code="PARTIAL_COVERAGE",
+            message=(
+                f"instrument classification unavailable ({classification.reason}); "
+                f"the FR52 equity filter was NOT applied at {rebalance_date}. This "
+                f"universe may contain ETFs and fund units, which inject mechanical "
+                f"correlation into C_t. Treat it as degraded, not as an equity universe"
+            ),
+            context={"source": classification.source,
+                     "symbolsLoaded": classification.symbol_count,
+                     "rebalanceDate": rebalance_date},
+        )
 
     # STEP 1 — FILTER. Must precede the rank (FR52 bug trap).
     # FR52 selects NSE *equities*: exclude ETFs and fund units, which otherwise
@@ -148,6 +178,8 @@ def build_snapshot(
     churn = (len(entrants) / len(members)) if members else 0.0
 
     warnings: list[SeraphWarning] = []
+    if degraded is not None:
+        warnings.append(degraded)
     if len(members) < target:
         warnings.append(SeraphWarning(
             code="UNIVERSE_UNDERFILLED",

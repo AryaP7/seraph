@@ -1,0 +1,153 @@
+{
+  "gate_passed": false,
+  "corpus_sufficient": false,
+  "thresholds_met": false,
+  "slices_complete": false,
+  "provisional": true,
+  "reasons": [
+    "total: 34 of 600 required",
+    "indian_policy: 3 of 120 required",
+    "foreign_trade_regulation: 9 of 120 required",
+    "company_operations: 7 of 120 required",
+    "macro_monetary: 4 of 80 required",
+    "logistics_hazards: 3 of 80 required",
+    "hard_negatives: 8 of 80 required",
+    "non_english: 3 of 100 required",
+    "locked_test: 0 of 200 required",
+    "1 reviewer(s) of 2 required: inter-annotator reliability cannot be claimed and the corpus is provisional",
+    "link_precision: UNEVALUATED (only 14 scored example(s); below the 20 minimum)",
+    "field_numeric: UNEVALUATED (only 0 scored example(s); below the 20 minimum)",
+    "field_unit: UNEVALUATED (only 0 scored example(s); below the 20 minimum)",
+    "field_action: UNEVALUATED (only 0 scored example(s); below the 20 minimum)"
+  ],
+  "thresholds": {
+    "link_precision": 0.95,
+    "class_recall": 0.9,
+    "field_numeric": 0.98,
+    "field_unit": 0.98,
+    "field_action": 0.98,
+    "field_legal_stage": 0.98,
+    "lookahead_breaches": 0
+  },
+  "required_corpus": {
+    "total": 600,
+    "indian_policy": 120,
+    "foreign_trade_regulation": 120,
+    "company_operations": 120,
+    "macro_monetary": 80,
+    "logistics_hazards": 80,
+    "hard_negatives": 80,
+    "non_english": 100,
+    "locked_test": 200,
+    "reviewers": 2
+  },
+  "required_slices": [
+    "link_precision",
+    "class_recall",
+    "field_numeric",
+    "field_unit",
+    "field_action",
+    "field_legal_stage"
+  ],
+  "corpus": {
+    "foreign_trade_regulation": 9,
+    "hard_negatives": 8,
+    "company_operations": 7,
+    "macro_monetary": 4,
+    "logistics_hazards": 3,
+    "indian_policy": 3,
+    "total": 34,
+    "non_english": 3,
+    "locked_test": 0
+  },
+  "checks": {
+    "lookahead_ran": true,
+    "lookahead_breaches": 0,
+    "adversarial_ran": true,
+    "adversarial_total": 8,
+    "adversarial_outstanding": 0
+  },
+  "slices": [
+    {
+      "name": "link_precision",
+      "correct": 14,
+      "predicted": 14,
+      "relevant": 0,
+      "abstained": 0,
+      "extra": 0,
+      "scored": 14,
+      "evaluated": false,
+      "accuracy": null,
+      "abstention_rate": null,
+      "note": "only 14 scored example(s); below the 20 minimum"
+    },
+    {
+      "name": "class_recall",
+      "correct": 34,
+      "predicted": 0,
+      "relevant": 34,
+      "abstained": 0,
+      "extra": 0,
+      "scored": 34,
+      "evaluated": true,
+      "accuracy": 1.0,
+      "abstention_rate": 0.0,
+      "note": ""
+    },
+    {
+      "name": "field_numeric",
+      "correct": 0,
+      "predicted": 0,
+      "relevant": 0,
+      "abstained": 34,
+      "extra": 0,
+      "scored": 0,
+      "evaluated": false,
+      "accuracy": null,
+      "abstention_rate": null,
+      "note": "only 0 scored example(s); below the 20 minimum"
+    },
+    {
+      "name": "field_unit",
+      "correct": 0,
+      "predicted": 0,
+      "relevant": 0,
+      "abstained": 34,
+      "extra": 0,
+      "scored": 0,
+      "evaluated": false,
+      "accuracy": null,
+      "abstention_rate": null,
+      "note": "only 0 scored example(s); below the 20 minimum"
+    },
+    {
+      "name": "field_action",
+      "correct": 0,
+      "predicted": 0,
+      "relevant": 0,
+      "abstained": 34,
+      "extra": 0,
+      "scored": 0,
+      "evaluated": false,
+      "accuracy": null,
+      "abstention_rate": null,
+      "note": "only 0 scored example(s); below the 20 minimum"
+    },
+    {
+      "name": "field_legal_stage",
+      "correct": 31,
+      "predicted": 31,
+      "relevant": 0,
+      "abstained": 3,
+      "extra": 0,
+      "scored": 31,
+      "evaluated": true,
+      "accuracy": 1.0,
+      "abstention_rate": null,
+      "note": ""
+    }
+  ],
+  "note": "gate_passed requires a sufficient corpus AND every required slice present and evaluated AND all thresholds met AND a non-provisional labelling. A missing metric fails; it does not pass by absence",
+  "labeller_note": "single labeller, and not a human one. The plan requires two independent reviewers with adjudication, so this corpus is PROVISIONAL and no inter-annotator reliability is claimed",
+  "misses": []
+}

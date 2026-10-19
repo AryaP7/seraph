@@ -1,0 +1,11 @@
+{
+  "scripts/run_news.py": "324639090291b65d4c8d9a5c8e7d4e3b3c9b89f1ffe957b5af50046aaa02612b",
+  "scripts/news_supervisor.py": "391797d7d74f3195d778f93ff39038cee422cc09dc2ce2dd62ec1e011f634ec9",
+  "seraph/news/model.py": "90c99f243b67a899c9a433b3192230548bb48dd9da8a8c781f78736a99b7880f",
+  "seraph/news/acquisition.py": "933d45c0197da92906cc2141d42a5af21b5c2a7359dd8bb3a7a4895d962f39a7",
+  "seraph/news/enrichment.py": "16e126c517b66c034afee0152b6e31659088438be35b1501a3d9c822b0cc4004",
+  "seraph/news/roles.py": "c95f2659099936514566ba9f1012f63f97fcd77a5253b849be0aa5915ef23144",
+  "seraph/news/lifecycle.py": "73c1b04adde086dce65e1ce9bcc567c6bda524595c756d925b46e6ba5837ab0f",
+  "seraph/dashboard/news_view.py": "bbe21cba233cd14475046cf5c2881a56ea28c308a98e7082511cc3ca8ce23ae9",
+  "seraph/dashboard/console_component/bridge.js": "b09e154b47ff82923a9fcebf15ff8941c36790cd133eb745db4796f6a9c0acdf"
+}

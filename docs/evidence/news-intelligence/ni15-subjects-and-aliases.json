@@ -1,0 +1,96 @@
+{
+  "ticket": "NI03/NI15 \u2014 place aliases, and the instrument's subject on the globe",
+  "created_at": "2026-10-17T21:04:36+0530",
+  "defects": {
+    "place_aliases": {
+      "observed": "official documents write countries in their long legal form, and none resolved: \"People's Republic of China\" -> unknown, while `cn` IS curated and carries an exposure edge into an Indian sector. `Entity` has had aliases from the start; `Place` had none, so a curated country could never match the name an official document uses",
+      "fix": "Place.aliases, exact-match only. 'Korea' must not quietly become 'Republic of Korea', and two places claiming one alias still abstain",
+      "after": "subject origins resolved on the real corpus rose from 13 to 15 of 28 remedies"
+    },
+    "subject_vs_issuer": {
+      "observed": "a US tariff notice put the United States in the globe's new `subjects` layer, captioned 'goods from here are covered by the instrument'. `exposure_origins` carries BOTH the subject-origin rule and the inherited issuer-jurisdiction seed, and the two are different claims",
+      "fix": "the subject origin is recorded as a location ROLE (`subject_origin`), and the rail reads that rather than the shared seed field",
+      "after": "subjects = ['cn', 'in'] \u2014 exactly the countries whose goods an instrument in this corpus covers"
+    },
+    "layer_precedence": {
+      "observed": "a country that is both a publisher's office and an instrument's subject was drawn and captioned as merely a publisher's office",
+      "fix": "`subjects` outranks `provenance`: a publisher's office is a fact about the publisher, a subject origin a fact about the instrument",
+      "preserved": "origin still beats affected (a source of a development is never drawn as one of its victims) and affected still beats subjects (a documented exposure says more than being named)",
+      "note": "the first attempt inverted the origin/affected rule and the JS harness caught it"
+    }
+  },
+  "measured": {
+    "remedies": 28,
+    "with_subject_origin": 15,
+    "subjects": {
+      "in": 13,
+      "cn": 3
+    },
+    "globe_layers": {
+      "origins": [
+        "hazard_sty_194a5ead350aefee1bcb",
+        "tata_kalinganagar"
+      ],
+      "subjects": [
+        "cn",
+        "in"
+      ],
+      "mentions": [
+        "cn",
+        "in",
+        "us"
+      ],
+      "affected": [
+        "in",
+        "in_od_kalinganagar",
+        "tata_kalinganagar"
+      ],
+      "paths": [
+        "cn_india_rare_earth_supply"
+      ]
+    },
+    "sector_rows": [
+      {
+        "sector": "auto",
+        "direction": [
+          "ambiguous"
+        ],
+        "mechanisms": [
+          "input_dependency"
+        ],
+        "events": 1
+      },
+      {
+        "sector": "steel",
+        "direction": [
+          "adverse",
+          "ambiguous"
+        ],
+        "mechanisms": [
+          "export",
+          "operation"
+        ],
+        "events": 8
+      }
+    ],
+    "review_queue": 0,
+    "counting_note": "15 events carry a subject origin; the subjects map sums to 16 because one document names both India and China (Common Alloy Aluminum Sheet From the People's Republic of China, Bahrain, Brazil, ... India ...)."
+  },
+  "verified_in_the_real_browser": {
+    "url": "http://127.0.0.1:8541 (ordinary Streamlit flow)",
+    "markers": [
+      "cn / subjects / 0x7fb8a0",
+      "in / affected / 0x9b7bd4",
+      "in_od_kalinganagar / affected",
+      "tata_kalinganagar / origins",
+      "us / provenance"
+    ],
+    "legend_gained": "goods from here are covered by the instrument",
+    "detail_card": "EVIDENCED NEWS, not FABRICATED"
+  },
+  "tests": "tests/test_ni11_trade_remedy.py (34), tests/test_ni15_sector_and_labels.py (21), tests/js/news_layer_harness.mjs (31 checks)",
+  "not_claimed": [
+    "13 of 28 remedies still resolve no subject origin: they name countries the curated registry does not hold (Taiwan, Korea, Brazil, Germany and others). Visible, not hidden \u2014 they simply place no marker.",
+    "a subject marker claims no impact. It says the instrument covers goods from there; who is affected still needs a documented exposure edge."
+  ]
+}

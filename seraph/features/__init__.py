@@ -2,13 +2,19 @@
 """Every derived series the pillars consume. Cross-sectional features (AR_t,
 BAS_t) live here and never inside C6 — see cross_sectional.py."""
 from seraph.features.jump_extraction import (
+    BIN_TRANSFORM_VERSION,
     LM_ALPHA,
     LM_WINDOW_K,
+    UNDETERMINED,
+    QuantileBins,
+    apply_quantile_bins,
     bipower_volatility,
     extract_jumps,
+    fit_quantile_bins,
     lee_mykland_threshold,
     state_variable,
     tick_test,
+    trailing_quantile_bucket,
 )
 from seraph.features.cross_sectional import (
     AR_COMPONENTS,
@@ -22,8 +28,14 @@ from seraph.features.cross_sectional import (
 )
 
 __all__ = [
+    "BIN_TRANSFORM_VERSION",
     "LM_ALPHA",
     "LM_WINDOW_K",
+    "UNDETERMINED",
+    "QuantileBins",
+    "apply_quantile_bins",
+    "fit_quantile_bins",
+    "trailing_quantile_bucket",
     "bipower_volatility",
     "extract_jumps",
     "lee_mykland_threshold",

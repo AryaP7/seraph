@@ -1,0 +1,301 @@
+{
+  "reverted_document": {
+    "ingests": [
+      {
+        "source_id": "feed",
+        "attempted_at": "2026-10-18T08:00:00+05:30",
+        "ok": true,
+        "new_observations": 1,
+        "unchanged": 0,
+        "new_stories": 1,
+        "corrections": 0,
+        "syndications": 0,
+        "attempts": 1,
+        "error": null
+      },
+      {
+        "source_id": "feed",
+        "attempted_at": "2026-10-18T09:00:00+05:30",
+        "ok": true,
+        "new_observations": 1,
+        "unchanged": 0,
+        "new_stories": 1,
+        "corrections": 1,
+        "syndications": 1,
+        "attempts": 1,
+        "error": null
+      },
+      {
+        "source_id": "feed",
+        "attempted_at": "2026-10-18T10:00:00+05:30",
+        "ok": true,
+        "new_observations": 0,
+        "unchanged": 1,
+        "new_stories": 0,
+        "corrections": 0,
+        "syndications": 0,
+        "attempts": 1,
+        "error": null
+      }
+    ],
+    "current": [
+      "Policy version B"
+    ],
+    "expected": "Policy version A"
+  },
+  "document_budget_starvation": {
+    "calls": [
+      "https://www.federalreserve.gov/news/0",
+      "https://www.federalreserve.gov/news/0",
+      "https://www.federalreserve.gov/news/0"
+    ],
+    "current": [
+      {
+        "title": "Policy 1",
+        "body": false
+      },
+      {
+        "title": "Policy 0",
+        "body": true
+      }
+    ],
+    "condition": "restarted fetcher (also models expired per-process success cache) on repeated HTTP 200 feed"
+  },
+  "abandoned_job_lease": {
+    "fetch_calls": 0,
+    "waiting": [
+      {
+        "worker": "news.poll",
+        "state": "running",
+        "last_beat_at": "2026-10-18T20:33:37+05:30",
+        "age_minutes": 0.0,
+        "pid": 20852,
+        "detail": null,
+        "sequence": 1,
+        "activity": "waiting for next poll",
+        "deadline": "2026-10-18T20:35:07+05:30",
+        "dead_after_minutes": 5,
+        "note": "a stopped worker and a quiet market look identical on every other surface. This is the fact that separates them"
+      }
+    ],
+    "job_runs": [
+      {
+        "run_id": "job_f602ac6202124313",
+        "job": "news.poll",
+        "started_at": "2026-10-18T20:33:37+05:30",
+        "finished_at": "2026-10-18T20:33:37+05:30",
+        "status": "lock_unavailable",
+        "attempt": 1,
+        "error": "news.poll is locked by aru:20852 until 2026-10-18T21:03:37+05:30 (run abandoned)",
+        "checkpoint": null,
+        "detail": null
+      }
+    ],
+    "lease": {
+      "job": "news.poll",
+      "owner": "aru:20852",
+      "acquired_at": "2026-10-18T20:33:37+05:30",
+      "expires_at": "2026-10-18T21:03:37+05:30",
+      "run_id": "abandoned"
+    }
+  },
+  "strict_replay_future_operational_data": {
+    "replay_at": "2026-10-18T08:00:00+05:30",
+    "worker": {
+      "worker": "news.poll",
+      "state": "running",
+      "last_beat_at": "2026-10-18T10:00:00+05:30",
+      "age_minutes": -120.0,
+      "pid": 42,
+      "detail": "future worker information",
+      "sequence": 0,
+      "activity": null,
+      "deadline": null,
+      "dead_after_minutes": 5,
+      "note": "a stopped worker and a quiet market look identical on every other surface. This is the fact that separates them"
+    },
+    "role_items": [
+      {
+        "kind": "coverage",
+        "covered": 0,
+        "total": 0,
+        "uncovered": [],
+        "gaps": [
+          "Pilot coverage only: no licensed independent journalism",
+          "No validated Hindi interpretation; received Hindi items abstain",
+          "Exchange filings, Indian trade instruments and broader sector routes are incomplete",
+          "Pilot exposure registry is qualitative; unmapped firms and unknown sizes are not zero risk"
+        ]
+      },
+      {
+        "kind": "acquisition",
+        "worker_state": "running",
+        "newest": null,
+        "stale": true
+      },
+      {
+        "kind": "scope",
+        "in_scope": 0,
+        "out_of_scope": 0,
+        "unidentified": 0
+      },
+      {
+        "kind": "unresolved",
+        "count": 0,
+        "sample": []
+      },
+      {
+        "kind": "collection_gaps",
+        "open": [
+          {
+            "gap_id": 1,
+            "source_id": "feed",
+            "since": "2026-10-18T09:00:00+05:30",
+            "until": "2026-10-18T10:00:00+05:30",
+            "observed_at": "2026-10-18T10:00:00+05:30",
+            "recoverable": true,
+            "next_page": null,
+            "covered_until": null,
+            "recovered_stories": 0,
+            "note": ""
+          }
+        ]
+      }
+    ]
+  },
+  "hindi_syndication_collision": {
+    "titles": [
+      "सरकार ने इस्पात पर शुल्क बढ़ाया",
+      "बंदरगाह पर काम बंद हुआ"
+    ],
+    "keys": [
+      "syn_cbe5cfdf7c2118a9",
+      "syn_cbe5cfdf7c2118a9"
+    ]
+  },
+  "unlinked_repeal": {
+    "events": [
+      {
+        "id": "evt_33e5b8db3bb26e61fcf9",
+        "title": "Certain Hot-Rolled Steel From India: Antidumping Duty Order",
+        "supersedes": null,
+        "stage": "effective"
+      },
+      {
+        "id": "evt_fb2d6cb14c24f65b446b",
+        "title": "Certain Hot-Rolled Steel From India: Revocation of the Antidumping Duty Order",
+        "supersedes": null,
+        "stage": "repealed"
+      }
+    ],
+    "states": {
+      "evt_33e5b8db3bb26e61fcf9": {
+        "current": true,
+        "band": "in_force",
+        "age_days": 0.1,
+        "horizon_days": null,
+        "basis": "an instrument in force AT THIS DECISION TIME does not age out: it is currently operating, not a report of something that happened",
+        "applicability": {
+          "state": "in_force",
+          "in_force": true,
+          "as_of": "2026-10-18T10:00:00+05:30",
+          "stage": "effective",
+          "basis": "the instrument states it is in force and names no later start date"
+        }
+      },
+      "evt_fb2d6cb14c24f65b446b": {
+        "current": false,
+        "age_days": 0.0,
+        "band": "ended",
+        "horizon_days": 365,
+        "discovery": {
+          "kind": "unknown",
+          "lag_days": null,
+          "basis": "no publication time to compare with first sighting"
+        },
+        "basis": "the measure is repealed and no longer applies",
+        "applicability": {
+          "state": "ended",
+          "in_force": false,
+          "as_of": "2026-10-18T10:00:00+05:30",
+          "stage": "repealed",
+          "basis": "the measure is repealed and no longer applies"
+        }
+      }
+    }
+  },
+  "class_recall_negative_inflation": {
+    "reported": {
+      "name": "class_recall",
+      "correct": 95,
+      "predicted": 0,
+      "relevant": 100,
+      "abstained": 5,
+      "extra": 0,
+      "scored": 100,
+      "evaluated": true,
+      "accuracy": 0.95,
+      "abstention_rate": 0.05,
+      "note": ""
+    },
+    "actual_supported_events_found": 0,
+    "actual_supported_events": 5
+  },
+  "production_read_only": {
+    "sources": 17,
+    "publishers": 12,
+    "stories": 458,
+    "nonempty_bodies": 24,
+    "source_permissions": {
+      "federal_register": true,
+      "usgs_earthquakes": true,
+      "rbi_press_releases": false,
+      "rbi_notifications": false,
+      "rbi_speeches": false,
+      "sebi_press": false,
+      "pib_releases": true,
+      "fed_press": true,
+      "tata_kalinganagar_expansion": false,
+      "federal_register_india": true,
+      "mofcom_rare_earth_18_2025": false,
+      "nse_corporate_announcements": false,
+      "nse_circulars": false,
+      "bse_notices": false,
+      "ustr_press": false,
+      "federalreserve_speeches": false,
+      "ec_news": false
+    },
+    "heartbeat": [
+      {
+        "worker": "news.poll",
+        "beat_at": "2026-10-18T13:07:21+05:30",
+        "pid": 4772,
+        "status": "running",
+        "activity": null
+      }
+    ],
+    "hindi_groups": [
+      {
+        "key": "syn_82ccbd410eb77158",
+        "count": 9
+      },
+      {
+        "key": "syn_cbe5cfdf7c2118a9",
+        "count": 28
+      }
+    ]
+  },
+  "registry": {
+    "directory": "C:\\Users\\Arlop\\Downloads\\SERAPH VARYA\\SERAPH Varya\\seraph\\news\\curated",
+    "errors": [],
+    "entities": 22,
+    "places": 21,
+    "assets": 28,
+    "edges": 64,
+    "source_places": 10,
+    "empty": false,
+    "issuers": 21,
+    "issuers_with_sector": 15,
+    "exact_asset_coordinates": 0
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "build_exit": 0,
+  "wheel": "seraph-0.1.0-py3-none-any.whl",
+  "missing_runtime_assets": [
+    "seraph/live/migrations/001_runtime.sql",
+    "seraph/store/migrations/001_evaluation_identity.sql",
+    "seraph/news/curated/assets.csv",
+    "seraph/news/curated/entities.csv",
+    "seraph/news/curated/exposure.csv",
+    "seraph/news/curated/places.csv",
+    "seraph/news/curated/source_places.csv"
+  ],
+  "probe_exit": 0,
+  "installed_payload_probe": "{\"live_error\": \"OperationalError: no such table: runtime_head\", \"master_report\": \"{'directory': 'C:\\\\\\\\Users\\\\\\\\Arlop\\\\\\\\Downloads\\\\\\\\SERAPH VARYA\\\\\\\\SERAPH Varya\\\\\\\\docs\\\\\\\\evidence\\\\\\\\engineering-audit-2026-10-18\\\\\\\\wheel-probe-cbhbsdu2\\\\\\\\installed\\\\\\\\seraph\\\\\\\\news\\\\\\\\curated', 'errors': [], 'entities': 0, 'places': 0, 'assets': 0, 'edges': 0, 'source_places': 0, 'empty': True, 'reason': 'the curated registries ship empty. Entity, asset and exposure rows each require a citation, and inventing them would put unevidenced arcs on the map. Curate seraph/news/curated/*.csv, one citation per row, then reload'}\", \"original_execution_import\": \"ok\"}",
+  "stderr": "",
+  "limitation": "Uses existing dependency environment; not a fresh dependency installation."
+}

@@ -46,6 +46,11 @@ ladder coarsens this to 3×3 = 9 states (ROADMAP Phase 5).
 """
 from __future__ import annotations
 
+import hashlib
+import json
+from dataclasses import dataclass
+from typing import Literal
+
 import numpy as np
 
 LM_WINDOW_K = 156          # Lee–Mykland default for 5-minute data (~2 NSE days)
@@ -188,8 +193,140 @@ def tick_test(close: np.ndarray, volume: np.ndarray) -> np.ndarray:
     return (signs * v).astype(np.int64)
 
 
+# --- FR6 state variable: causal, versioned quantile bins (FIX04) ----------
+#
+# Audit finding A05: `_bucket` computed its quantile edges from the ENTIRE
+# supplied array, so a bin assignment at time t depended on observations after
+# t. Appending 20 future observations changed 28 of 40 earlier assignments.
+# Every production path now declares the basis its edges were fitted on, and
+# the transform carries a content-hashed identity so a regenerated feature
+# cannot be mistaken for the old one.
+
+#: Bump when the binning algorithm changes in a way that moves assignments.
+BIN_TRANSFORM_VERSION = "2026-10-16.1"
+
+#: Code for an observation whose bin cannot be determined causally yet. It is
+#: NOT the middle bucket: unknown is unknown, not typical.
+UNDETERMINED = 0
+
+BinBasis = Literal["train_prefix", "trailing_window", "full_sample"]
+
+
+@dataclass(frozen=True)
+class QuantileBins:
+    """Fitted bin edges plus the basis they were fitted on.
+
+    `causal` is False only for `full_sample`, which is retained solely to
+    reproduce pre-FIX04 artefacts. It must never be used to produce a new
+    feature that is then described as causal.
+    """
+
+    n: int
+    edges: tuple[float, ...]
+    basis: BinBasis
+    fitted_on: int                      # observations the edges were fitted on
+    window: int | None = None           # trailing_window only
+    degenerate: bool = False            # all edges equal — no usable spread
+    version: str = BIN_TRANSFORM_VERSION
+
+    @property
+    def causal(self) -> bool:
+        return self.basis != "full_sample"
+
+    @property
+    def artefact_id(self) -> str:
+        payload = json.dumps(
+            dict(version=self.version, n=self.n, basis=self.basis,
+                 window=self.window, fitted_on=self.fitted_on,
+                 degenerate=self.degenerate,
+                 edges=[float(e) for e in self.edges]),
+            sort_keys=True, separators=(",", ":"))
+        return hashlib.sha256(payload.encode()).hexdigest()
+
+    def describe(self) -> dict:
+        return dict(version=self.version, n=self.n, basis=self.basis,
+                    window=self.window, fitted_on=self.fitted_on,
+                    degenerate=self.degenerate, causal=self.causal,
+                    artefact_id=self.artefact_id)
+
+
+def _edges(finite: np.ndarray, n: int) -> "tuple[tuple[float, ...], bool]":
+    quantiles = np.quantile(finite, [i / n for i in range(1, n)])
+    return tuple(float(q) for q in quantiles), bool(np.allclose(quantiles, quantiles[0]))
+
+
+def fit_quantile_bins(values: np.ndarray, n: int, *, basis: BinBasis,
+                      train: int | None = None,
+                      window: int | None = None) -> QuantileBins:
+    """Fit bin edges on an explicitly declared basis.
+
+    `train_prefix` uses only `values[:train]`; `full_sample` uses everything
+    and is marked non-causal.
+    """
+    v = np.asarray(values, dtype=float)
+    if basis == "train_prefix":
+        if not train or train < 1:
+            raise ValueError("train_prefix needs a positive `train` length")
+        fitting = v[:train]
+    elif basis == "full_sample":
+        fitting = v
+    else:
+        raise ValueError(f"fit_quantile_bins does not fit {basis!r}; "
+                         "trailing_window refits per index")
+    finite = fitting[np.isfinite(fitting)]
+    if finite.size == 0:
+        return QuantileBins(n=n, edges=(), basis=basis, fitted_on=0,
+                            window=window, degenerate=True)
+    edges, degenerate = _edges(finite, n)
+    return QuantileBins(n=n, edges=edges, basis=basis, fitted_on=int(finite.size),
+                        window=window, degenerate=degenerate)
+
+
+def apply_quantile_bins(values: np.ndarray, bins: QuantileBins) -> np.ndarray:
+    """Assign 1..n using FIXED edges. Never looks at the data being assigned."""
+    v = np.asarray(values, dtype=float)
+    if bins.degenerate or not bins.edges:
+        return np.full(v.size, UNDETERMINED, dtype=np.int8)
+    out = np.searchsorted(np.asarray(bins.edges), v, side="right") + 1
+    out = np.clip(out, 1, bins.n).astype(np.int8)
+    # A non-finite observation has no bin. It is undetermined, not median.
+    out[~np.isfinite(v)] = UNDETERMINED
+    return out
+
+
+def trailing_quantile_bucket(values: np.ndarray, n: int, *, window: int,
+                             min_history: int | None = None) -> np.ndarray:
+    """Assign each observation using edges fitted on its STRICTLY PAST window.
+
+    Index `i` sees `values[max(0, i - window):i]` only, so appending future
+    observations cannot change any earlier assignment. Indices without
+    `min_history` usable past observations are `UNDETERMINED`.
+    """
+    v = np.asarray(values, dtype=float)
+    floor = min_history if min_history is not None else max(n * 4, 2 * n)
+    out = np.full(v.size, UNDETERMINED, dtype=np.int8)
+    for i in range(v.size):
+        if not np.isfinite(v[i]):
+            continue
+        past = v[max(0, i - window):i]
+        finite = past[np.isfinite(past)]
+        if finite.size < floor:
+            continue
+        edges, degenerate = _edges(finite, n)
+        if degenerate:
+            continue
+        out[i] = int(np.clip(np.searchsorted(np.asarray(edges), v[i], side="right") + 1,
+                             1, n))
+    return out
+
+
 def _bucket(values: np.ndarray, n: int) -> np.ndarray:
-    """1..n bucket by empirical quantile; degenerate inputs land in the middle."""
+    """DEPRECATED, non-causal. Retained only to reproduce pre-FIX04 artefacts.
+
+    Its edges come from the whole supplied array, so an assignment at time t
+    depends on observations after t (audit finding A05). Production callers
+    use `state_variable(..., basis='train_prefix'|'trailing_window')`.
+    """
     v = np.asarray(values, dtype=float)
     mid = (n + 1) // 2
     finite = v[np.isfinite(v)]
@@ -204,18 +341,68 @@ def _bucket(values: np.ndarray, n: int) -> np.ndarray:
 
 
 def state_variable(
-    spread: np.ndarray, imbalance: np.ndarray, *, n_quantiles: int = S_T_QUINTILES
-) -> "dict[str, np.ndarray]":
-    """FR6 — discretise (spread, imbalance) into the joint state `S_t` in 1..25.
+    spread: np.ndarray, imbalance: np.ndarray, *, n_quantiles: int = S_T_QUINTILES,
+    basis: BinBasis, train: int | None = None, window: int | None = None,
+    min_history: int | None = None,
+) -> "dict[str, np.ndarray | dict]":
+    """FR6 — discretise (spread, imbalance) into the joint state `S_t`.
 
-    `n_quantiles=3` gives the 9-state coarsening from the R2 mitigation ladder
-    without any other code change.
+    `basis` is REQUIRED (FIX04): the fitting basis is never inferred.
+
+    * `train_prefix` — edges fitted on the first `train` observations, then
+      applied to everything. Cheap, and future-append invariant.
+    * `trailing_window` — edges refitted per index on its strictly past
+      `window`. Fully causal; indices without enough history are `UNDETERMINED`.
+    * `full_sample` — the pre-FIX04 behaviour. **Not causal.** Retained only to
+      reproduce existing artefacts; the returned transform says so.
+
+    `n_quantiles=3` gives the 9-state coarsening from the R2 mitigation ladder.
+    `s_t` is `UNDETERMINED` wherever either component is undetermined, because
+    a joint state with one unknown coordinate is unknown, not a middle state.
     """
-    sq = _bucket(spread, n_quantiles)
-    iq = _bucket(imbalance, n_quantiles)
+    if basis == "trailing_window":
+        if not window or window < 1:
+            raise ValueError("trailing_window needs a positive `window`")
+        sq = trailing_quantile_bucket(spread, n_quantiles, window=window,
+                                      min_history=min_history)
+        iq = trailing_quantile_bucket(imbalance, n_quantiles, window=window,
+                                      min_history=min_history)
+        transform = dict(version=BIN_TRANSFORM_VERSION, basis=basis,
+                         n=n_quantiles, window=window, min_history=min_history,
+                         causal=True, per_index_refit=True)
+        transform["artefact_id"] = hashlib.sha256(json.dumps(
+            transform, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
+    elif basis == "full_sample":
+        sq = _bucket(spread, n_quantiles)
+        iq = _bucket(imbalance, n_quantiles)
+        transform = dict(version=BIN_TRANSFORM_VERSION, basis=basis, n=n_quantiles,
+                         causal=False, per_index_refit=False,
+                         warning="edges fitted on the full sample; assignments "
+                                 "depend on future observations (audit finding A05). "
+                                 "Reproduction only — never for new causal features.")
+        transform["artefact_id"] = hashlib.sha256(json.dumps(
+            transform, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
+    else:
+        spread_bins = fit_quantile_bins(spread, n_quantiles, basis=basis, train=train)
+        imbalance_bins = fit_quantile_bins(imbalance, n_quantiles, basis=basis,
+                                           train=train)
+        sq = apply_quantile_bins(spread, spread_bins)
+        iq = apply_quantile_bins(imbalance, imbalance_bins)
+        transform = dict(version=BIN_TRANSFORM_VERSION, basis=basis, n=n_quantiles,
+                         train=train, causal=True, per_index_refit=False,
+                         spread=spread_bins.describe(),
+                         imbalance=imbalance_bins.describe())
+        transform["artefact_id"] = hashlib.sha256(
+            (spread_bins.artefact_id + imbalance_bins.artefact_id).encode()).hexdigest()
+
     s_t = (sq.astype(np.int16) - 1) * n_quantiles + iq
+    s_t[(sq == UNDETERMINED) | (iq == UNDETERMINED)] = UNDETERMINED
+    determined = int(np.count_nonzero(s_t != UNDETERMINED))
+    transform["coverage"] = dict(determined=determined, total=int(s_t.size),
+                                 undetermined=int(s_t.size) - determined)
     return {
         "spread_quintile": sq,
         "imbalance_quintile": iq,
         "s_t": s_t.astype(np.int16),
+        "transform": transform,
     }

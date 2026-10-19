@@ -1,0 +1,28 @@
+2026-10-17 21:54:40.209 Uvicorn server started on 127.0.0.1:60239
+
+  You can now view your Streamlit app in your browser.
+
+  URL: http://127.0.0.1:60239
+
+
+DevTools listening on ws://127.0.0.1:60240/devtools/browser/6a13dc0c-979b-411f-a9ac-eb4a9183045e
+[10664:7324:1017/215441.234:ERROR:chrome\browser\component_updater\edge_optimization_guide_models_manifest_installer.cc:264] Edge LLM: catalog update failed: 5
+[10664:7324:1017/215441.236:ERROR:chrome\browser\component_updater\edge_language_detection_model_installer.cc:97] Edge Language Detection Model: On-demand update failed with error: 5
+[10664:7324:1017/215444.274:ERROR:chrome\browser\task_manager\providers\fallback_task_provider.cc:126] Every renderer should have at least one task provided by a primary task provider. If a "Renderer" fallback task is shown, it is a bug. If you have repro steps, please file a new bug and tag it as a dependency of crbug.com/40528867.
+[10664:7324:1017/215444.477:ERROR:components\edge_auth\edge_auth_errors.cc:553] EDGE_IDENTITY: Image Fetch FAILED: Error: Primary Error: kUrlRequestError, Secondary Error: kURLResponseNot200, Platform error: 0, Error string: [empty]
+
+[10664:3828:1017/215444.483:ERROR:components\sync\engine\get_updates_processor.cc:426] PostClientToServerMessage() failed during GetUpdates with error Network error (ERR_NAME_NOT_RESOLVED)
+[10664:3828:1017/215445.991:ERROR:components\sync\engine\get_updates_processor.cc:426] PostClientToServerMessage() failed during GetUpdates with error Network error (ERR_NAME_NOT_RESOLVED)
+[10664:3828:1017/215448.253:ERROR:components\sync\engine\get_updates_processor.cc:426] PostClientToServerMessage() failed during GetUpdates with error Network error (ERR_NAME_NOT_RESOLVED)
+[10664:3828:1017/215453.889:ERROR:components\sync\engine\get_updates_processor.cc:426] PostClientToServerMessage() failed during GetUpdates with error Network error (ERR_NAME_NOT_RESOLVED)
+[10664:3828:1017/215507.961:ERROR:components\sync\engine\get_updates_processor.cc:426] PostClientToServerMessage() failed during GetUpdates with error Network error (ERR_NAME_NOT_RESOLVED)
+SUCCESS: The process with PID 18876 (child process of PID 10664) has been terminated.
+SUCCESS: The process with PID 19708 (child process of PID 10664) has been terminated.
+SUCCESS: The process with PID 1612 (child process of PID 10664) has been terminated.
+SUCCESS: The process with PID 3252 (child process of PID 10664) has been terminated.
+SUCCESS: The process with PID 21512 (child process of PID 10664) has been terminated.
+SUCCESS: The process with PID 5388 (child process of PID 10664) has been terminated.
+SUCCESS: The process with PID 13380 (child process of PID 10664) has been terminated.
+SUCCESS: The process with PID 10664 (child process of PID 19120) has been terminated.
+SUCCESS: The process with PID 4124 (child process of PID 19980) has been terminated.
+SUCCESS: The process with PID 19980 (child process of PID 19120) has been terminated.

@@ -1,0 +1,195 @@
+{
+  "entities": {
+    "rows": 22,
+    "unknown_known_from": 1,
+    "sectors": {
+      "unmapped": 7,
+      "steel": 2,
+      "chemicals": 1,
+      "it_services": 1,
+      "energy": 3,
+      "financials": 3,
+      "telecom": 1,
+      "metals_mining": 1,
+      "defence": 1,
+      "logistics": 1,
+      "paper_packaging": 1
+    }
+  },
+  "assets": {
+    "rows": 28,
+    "unknown_known_from": 0,
+    "column_names": [
+      "asset_id",
+      "name",
+      "kind",
+      "place_id",
+      "operator_entity_id",
+      "owner_entity_id",
+      "capacity",
+      "capacity_unit",
+      "status",
+      "lat",
+      "lon",
+      "source_ref",
+      "known_from"
+    ],
+    "operators": {
+      "tata_steel": 1,
+      "ntpc": 27
+    }
+  },
+  "exposure": {
+    "rows": 64,
+    "unknown_known_from": 0,
+    "sized": 0
+  },
+  "places": {
+    "rows": 21,
+    "unknown_known_from": 5
+  },
+  "source_places": {
+    "rows": 10,
+    "unknown_known_from": 10
+  },
+  "corpus": {
+    "documents": 395,
+    "splits": {
+      "train": 300,
+      "calibration": 95
+    },
+    "languages": {
+      "en": 382,
+      "hi": 13
+    },
+    "sources": {
+      "rbi_notifications": 9,
+      "rbi_press_releases": 10,
+      "rbi_speeches": 10,
+      "federal_register": 76,
+      "sebi_press": 35,
+      "usgs_earthquakes": 29,
+      "fed_press": 20,
+      "pib_releases": 13,
+      "tata_kalinganagar_expansion": 1,
+      "federal_register_india": 44,
+      "mofcom_rare_earth_18_2025": 1,
+      "federalreserve_speeches": 15,
+      "nse_corporate_announcements": 17,
+      "ustr_press": 10,
+      "bse_notices": 47,
+      "ec_news": 10,
+      "nse_circulars": 48
+    }
+  },
+  "store": {
+    "story_languages": {
+      "en": 410,
+      "hi": 48
+    },
+    "health": [
+      [
+        "rbi_press_releases",
+        "2026-10-18T13:46:49+05:30",
+        0,
+        null
+      ],
+      [
+        "rbi_notifications",
+        "2026-10-18T13:02:45+05:30",
+        0,
+        null
+      ],
+      [
+        "rbi_speeches",
+        "2026-10-18T13:02:12+05:30",
+        0,
+        null
+      ],
+      [
+        "federal_register",
+        "2026-10-18T13:02:45+05:30",
+        0,
+        null
+      ],
+      [
+        "usgs_earthquakes",
+        "2026-10-18T13:46:49+05:30",
+        0,
+        null
+      ],
+      [
+        "sebi_press",
+        "2026-10-18T13:02:45+05:30",
+        0,
+        null
+      ],
+      [
+        "pib_releases",
+        "2026-10-18T13:02:45+05:30",
+        0,
+        null
+      ],
+      [
+        "fed_press",
+        "2026-10-18T13:02:45+05:30",
+        0,
+        null
+      ],
+      [
+        "tata_kalinganagar_expansion",
+        "2026-10-18T08:38:31+05:30",
+        0,
+        null
+      ],
+      [
+        "federal_register_india",
+        "2026-10-18T13:02:45+05:30",
+        0,
+        null
+      ],
+      [
+        "mofcom_rare_earth_18_2025",
+        "2026-10-18T09:01:59+05:30",
+        0,
+        null
+      ],
+      [
+        "nse_corporate_announcements",
+        "2026-10-18T13:46:49+05:30",
+        0,
+        null
+      ],
+      [
+        "nse_circulars",
+        "2026-10-18T13:11:51+05:30",
+        0,
+        null
+      ],
+      [
+        "bse_notices",
+        "2026-10-18T13:46:49+05:30",
+        0,
+        null
+      ],
+      [
+        "ustr_press",
+        "2026-10-18T13:11:51+05:30",
+        0,
+        null
+      ],
+      [
+        "federalreserve_speeches",
+        "2026-10-18T13:11:51+05:30",
+        0,
+        null
+      ],
+      [
+        "ec_news",
+        "2026-10-18T13:11:51+05:30",
+        0,
+        null
+      ]
+    ]
+  }
+}

@@ -10,6 +10,7 @@ from fixtures.mock_generator import DEFAULT_START, mock_reconciled_state, mock_x
 from seraph.validation import (
     EPOCHS,
     HAWKES_EPOCHS,
+    PRE_HAWKES_EPOCHS,
     auc,
     calibrate,
     calibration_loss,
@@ -104,22 +105,24 @@ def test_d5_leakage_check_is_a_set_intersection():
 
 def test_fr35_configuration_counts_match_the_spec():
     """Table A: 7 subsets x 2 modes = 14. Table B: 3 subsets x 2 modes = 6."""
-    cfgs = configuration_list()
+    cfgs = configuration_list(table_b_scope="two_epoch")
     a = [c for c in cfgs if c["table"] == "A"]
     b = [c for c in cfgs if c["table"] == "B"]
     assert len(a) == 14 and len(b) == 6
     assert {len(c["pillarSubset"]) for c in a} == {1, 2, 3}
     # Table B never involves Hawkes — it covers the pre-2015 epochs.
     assert all("hawkes" not in c["pillarSubset"] for c in b)
-    # Fold counts differ by table and must be recorded (D5b).
+    # Fold counts differ by table and must be recorded (D5b). Table B is two
+    # folds under the owner's DR-05 decision, not six: this assertion read
+    # `len(EPOCHS)` while that question was open.
     assert {c["folds"] for c in a} == {len(HAWKES_EPOCHS)}
-    assert {c["folds"] for c in b} == {len(EPOCHS)}
+    assert {c["folds"] for c in b} == {len(PRE_HAWKES_EPOCHS)} == {2}
 
 
 def test_r5_table_b_rows_carry_a_uniform_xi_control():
     """R5 — Hamilton is both a signal and the weighting over signals, so every
     Table B row needs its uniform-xi companion."""
-    for c in configuration_list():
+    for c in configuration_list(table_b_scope="two_epoch"):
         if c["table"] == "B":
             assert c["xiModes"] == ["hamilton", "uniform"]
 

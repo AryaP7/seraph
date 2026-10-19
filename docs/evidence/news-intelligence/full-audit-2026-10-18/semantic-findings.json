@@ -1,0 +1,135 @@
+{
+  "future_named_month": {
+    "input": {
+      "title": "Import duty on steel increased effective from 1 December 2026",
+      "body": null
+    },
+    "events": [
+      {
+        "headline": "Import duty on steel increased effective from 1 December 2026",
+        "event_type": "import_duty_change",
+        "assertion": "confirmed_statement",
+        "action": "increase",
+        "stage": "adopted",
+        "effective_at": "2026-12-01T00:00:00+05:30",
+        "applicability": {
+          "state": "decided_not_yet_in_force",
+          "in_force": false,
+          "as_of": "2026-10-18T10:00:00+05:30",
+          "stage": "adopted",
+          "effective_from": "2026-12-01T00:00:00+05:30",
+          "basis": "decided, effective from 2026-12-01T00:00:00+05:30, which is after 2026-10-18T10:00:00+05:30"
+        },
+        "impacts": []
+      }
+    ]
+  },
+  "denial_in_body": {
+    "input": {
+      "title": "Tata Steel halts production",
+      "body": "Tata Steel denies production halt. Operations continue normally."
+    },
+    "events": [
+      {
+        "headline": "Tata Steel halts production",
+        "event_type": "production_halt",
+        "assertion": "denied",
+        "action": "stop",
+        "stage": "unknown",
+        "effective_at": null,
+        "applicability": {
+          "state": "pending",
+          "in_force": false,
+          "as_of": "2026-10-18T10:00:00+05:30",
+          "stage": "unknown",
+          "basis": "stage is unknown: nothing applies yet"
+        },
+        "impacts": []
+      }
+    ]
+  },
+  "repeated_claim_in_body": {
+    "input": {
+      "title": "Tata Steel halts production",
+      "body": "Tata Steel halts production at Kalinganagar."
+    },
+    "events": [
+      {
+        "headline": "Tata Steel halts production",
+        "event_type": "production_halt",
+        "assertion": "confirmed_statement",
+        "action": "stop",
+        "stage": "unknown",
+        "effective_at": null,
+        "applicability": {
+          "state": "pending",
+          "in_force": false,
+          "as_of": "2026-10-18T10:00:00+05:30",
+          "stage": "unknown",
+          "basis": "stage is unknown: nothing applies yet"
+        },
+        "impacts": [
+          {
+            "target": "tata_steel",
+            "direction": "ambiguous",
+            "confidence": "medium",
+            "limitations": [
+              "qualitative mechanism hypothesis; not a measured outcome or loss forecast",
+              "severity is an editorial event category; not calibrated economic severity",
+              "product scope was NOT established from the received text: the operative scope lives in the document body, which is not retained for this source. A product-family match may therefore include articles the measure does not cover",
+              "net direction unknown: required target role, action or applicability is not established",
+              "the size of this dependence is not recorded; the relationship is evidenced but its magnitude is unknown, which is not the same as small"
+            ]
+          },
+          {
+            "target": "sector:steel",
+            "direction": "ambiguous",
+            "confidence": "medium",
+            "limitations": [
+              "qualitative mechanism hypothesis; not a measured outcome or loss forecast",
+              "severity is an editorial event category; not calibrated economic severity",
+              "product scope was NOT established from the received text: the operative scope lives in the document body, which is not retained for this source. A product-family match may therefore include articles the measure does not cover",
+              "net direction unknown: required target role, action or applicability is not established",
+              "the size of this dependence is not recorded; the relationship is evidenced but its magnitude is unknown, which is not the same as small"
+            ]
+          },
+          {
+            "target": "tata_kalinganagar",
+            "direction": "adverse",
+            "confidence": "medium",
+            "limitations": [
+              "qualitative mechanism hypothesis; not a measured outcome or loss forecast",
+              "severity is an editorial event category; not calibrated economic severity",
+              "product scope was NOT established from the received text: the operative scope lives in the document body, which is not retained for this source. A product-family match may therefore include articles the measure does not cover",
+              "the size of this dependence is not recorded; the relationship is evidenced but its magnitude is unknown, which is not the same as small"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "body_exemption": {
+    "input": {
+      "title": "Certain Hot-Rolled Steel From India: Antidumping Duty Order",
+      "body": "This order does not apply to products from India."
+    },
+    "events": [
+      {
+        "headline": "Certain Hot-Rolled Steel From India: Antidumping Duty Order",
+        "event_type": "trade_remedy_determination",
+        "assertion": "confirmed_statement",
+        "action": "unknown",
+        "stage": "effective",
+        "effective_at": null,
+        "applicability": {
+          "state": "in_force",
+          "in_force": true,
+          "as_of": "2026-10-18T10:00:00+05:30",
+          "stage": "effective",
+          "basis": "the instrument states it is in force and names no later start date"
+        },
+        "impacts": []
+      }
+    ]
+  }
+}

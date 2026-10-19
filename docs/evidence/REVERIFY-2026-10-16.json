@@ -1,0 +1,174 @@
+{
+  "generated": "2026-10-16T12:44:35+0530",
+  "note": "Re-probe of the 2026-10-16 audit findings against the current checkout. Temporary SQLite stores only; no source database, persisted run or research artifact was modified.",
+  "findings": [
+    {
+      "finding": "A01 archive replay by calendar date vs fixed 15:30 clock",
+      "state": "fixed",
+      "detail": {
+        "muhurat_2024": {
+          "ok": true,
+          "points": 1
+        },
+        "muhurat_2025": {
+          "ok": true,
+          "points": 1
+        }
+      }
+    },
+    {
+      "finding": "A02 every absence mapped to structural",
+      "state": "fixed",
+      "detail": {
+        "masks": [
+          [
+            true,
+            true,
+            false
+          ],
+          [
+            true,
+            true,
+            false
+          ],
+          [
+            true,
+            true,
+            false
+          ]
+        ],
+        "absence_type_inferred_silently": false
+      }
+    },
+    {
+      "finding": "A03/A04 run sealing and report finalisation",
+      "state": "fixed",
+      "detail": {
+        "complete_accepts_out_of_range": false,
+        "complete_without_report": false,
+        "report_overwrite": false,
+        "revisions": [
+          1,
+          2
+        ]
+      }
+    },
+    {
+      "finding": "A05 whole-array state quantiles change past bins",
+      "state": "fixed",
+      "detail": {
+        "production_bins_changed_by_future_append": {
+          "train_prefix": 0,
+          "trailing_window": 0
+        },
+        "legacy_full_sample_bins_changed": 28,
+        "note": "the legacy _bucket path is deprecated, marked non-causal and kept only to reproduce pre-FIX04 artefacts"
+      }
+    },
+    {
+      "finding": "A13 no-op journal update raises IntegrityError",
+      "state": "fixed",
+      "detail": {
+        "ok": true,
+        "result": {
+          "noop": true,
+          "operation": "update",
+          "reason": "the command left the action unchanged; no journal event was created",
+          "journal_length": 1,
+          "last_seq": 1
+        },
+        "journal_length": 1
+      }
+    },
+    {
+      "finding": "A14 missing ISIN file makes is_equity accept everything",
+      "state": "fixed",
+      "detail": {
+        "isin_file_present": true,
+        "symbols_loaded": 3755
+      }
+    },
+    {
+      "finding": "A06 validation_results key lacks table/design identity",
+      "state": "present",
+      "detail": {
+        "path": "seraph/store/schema.sql",
+        "marker": "PRIMARY KEY (pillar_subset, reconciliation_mode, xi_mode, epoch)",
+        "marker_present": true,
+        "marker_means": "present",
+        "note": "the primary key still omits table_id, the preregistration hash and any evaluation-run identity, so Table A and Table B rows collide"
+      }
+    },
+    {
+      "finding": "A08 Hawkes writer stores no fitted parameters and a constant flag",
+      "state": "present",
+      "detail": {
+        "path": "scripts/write_hawkes_production.py",
+        "marker": "\"alpha_beta\": None",
+        "marker_present": true,
+        "marker_means": "present",
+        "note": "fitted parameters are discarded and the sector flag is hardcoded 'none'"
+      }
+    },
+    {
+      "finding": "A09 backfill selects the latest universe snapshot",
+      "state": "present",
+      "detail": {
+        "path": "scripts/write_hawkes_production.py",
+        "marker": "FROM universe_snapshots ORDER BY rebalance_date DESC LIMIT 1",
+        "marker_present": true,
+        "marker_means": "present",
+        "note": "historical windows are processed against today's membership"
+      }
+    },
+    {
+      "finding": "A11 legacy datasource claims caching it does not apply",
+      "state": "fixed",
+      "detail": {
+        "path": "seraph/dashboard/datasource.py",
+        "marker": "@st.cache_data",
+        "marker_present": true,
+        "marker_means": "fixed",
+        "note": "the decorator the old docstring claimed is now really applied"
+      }
+    },
+    {
+      "finding": "A11b legacy datasource mixes independent latest rows",
+      "state": "fixed",
+      "detail": {
+        "path": "seraph/dashboard/datasource.py",
+        "marker": "date <= $1 ORDER BY date DESC LIMIT 1",
+        "marker_present": true,
+        "marker_means": "fixed",
+        "note": "component reads are bounded by one resolved as_of date"
+      }
+    },
+    {
+      "finding": "A12 bridge pending latch with no timeout or draft preservation",
+      "state": "fixed",
+      "detail": {
+        "path": "seraph/dashboard/console_component/bridge.js",
+        "marker": "pending=false",
+        "marker_present": false,
+        "marker_means": "present",
+        "note": "a lost response leaves `pending` latched and blocks every later request"
+      }
+    },
+    {
+      "finding": "A12b bridge has a bounded timeout and same-id retry",
+      "state": "fixed",
+      "detail": {
+        "path": "seraph/dashboard/console_component/bridge.js",
+        "marker": "REQUEST_TIMEOUT_MS",
+        "marker_present": true,
+        "marker_means": "fixed",
+        "note": "the in-flight record times out, offers retry and preserves drafts"
+      }
+    }
+  ],
+  "localhost_ports": {
+    "5433": false,
+    "5434": false,
+    "8512": true
+  }
+}

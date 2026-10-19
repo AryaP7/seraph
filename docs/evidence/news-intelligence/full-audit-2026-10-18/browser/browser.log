@@ -1,0 +1,36 @@
+2026-10-18 20:34:16.410 Uvicorn server started on 127.0.0.1:53170
+
+  You can now view your Streamlit app in your browser.
+
+  URL: http://127.0.0.1:53170
+
+
+DevTools listening on ws://127.0.0.1:53171/devtools/browser/d466a9c4-61d9-4028-8eb8-01363831f535
+[3004:27312:1018/203417.087:ERROR:chrome\browser\component_updater\edge_optimization_guide_models_manifest_installer.cc:264] Edge LLM: catalog update failed: 5
+[3004:27312:1018/203417.088:ERROR:chrome\browser\component_updater\edge_language_detection_model_installer.cc:97] Edge Language Detection Model: On-demand update failed with error: 5
+[3004:27312:1018/203418.208:ERROR:components\edge_auth\edge_auth_errors.cc:553] EDGE_IDENTITY: Image Fetch FAILED: Error: Primary Error: kUrlRequestError, Secondary Error: kURLResponseNot200, Platform error: 0, Error string: [empty]
+
+[3004:27312:1018/203418.947:ERROR:chrome\browser\task_manager\providers\fallback_task_provider.cc:126] Every renderer should have at least one task provided by a primary task provider. If a "Renderer" fallback task is shown, it is a bug. If you have repro steps, please file a new bug and tag it as a dependency of crbug.com/40528867.
+[3004:24852:1018/203419.066:ERROR:components\sync\engine\get_updates_processor.cc:426] PostClientToServerMessage() failed during GetUpdates with error Network error (ERR_NAME_NOT_RESOLVED)
+[3004:24852:1018/203421.575:ERROR:components\sync\engine\get_updates_processor.cc:426] PostClientToServerMessage() failed during GetUpdates with error Network error (ERR_NAME_NOT_RESOLVED)
+[3004:24852:1018/203425.333:ERROR:components\sync\engine\get_updates_processor.cc:426] PostClientToServerMessage() failed during GetUpdates with error Network error (ERR_NAME_NOT_RESOLVED)
+SUCCESS: The process with PID 22532 (child process of PID 3004) has been terminated.
+SUCCESS: The process with PID 6052 (child process of PID 3004) has been terminated.
+SUCCESS: The process with PID 9304 (child process of PID 3004) has been terminated.
+SUCCESS: The process with PID 12152 (child process of PID 3004) has been terminated.
+SUCCESS: The process with PID 10604 (child process of PID 3004) has been terminated.
+SUCCESS: The process with PID 26304 (child process of PID 3004) has been terminated.
+SUCCESS: The process with PID 17880 (child process of PID 3004) has been terminated.
+SUCCESS: The process with PID 9044 (child process of PID 3004) has been terminated.
+SUCCESS: The process with PID 8936 (child process of PID 3004) has been terminated.
+SUCCESS: The process with PID 9436 (child process of PID 3004) has been terminated.
+SUCCESS: The process with PID 24956 (child process of PID 3004) has been terminated.
+SUCCESS: The process with PID 27052 (child process of PID 3004) has been terminated.
+SUCCESS: The process with PID 2404 (child process of PID 3004) has been terminated.
+SUCCESS: The process with PID 16400 (child process of PID 3004) has been terminated.
+SUCCESS: The process with PID 27048 (child process of PID 3004) has been terminated.
+ERROR: The process with PID 26168 (child process of PID 3004) could not be terminated.
+Reason: There is no running instance of the task.
+SUCCESS: The process with PID 3004 (child process of PID 26084) has been terminated.
+SUCCESS: The process with PID 27500 (child process of PID 26188) has been terminated.
+SUCCESS: The process with PID 26188 (child process of PID 26084) has been terminated.

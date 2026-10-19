@@ -394,4 +394,6 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    # Canonical integrated console; legacy render helpers remain for compatibility.
+    from seraph.dashboard.prototype_app import main as integrated_main
+    integrated_main()

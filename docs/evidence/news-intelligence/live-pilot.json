@@ -1,0 +1,281 @@
+{
+  "as_of": "2026-10-17T07:36:13+05:30",
+  "store": "C:\\Users\\Arlop\\Downloads\\SERAPH VARYA\\SERAPH Varya\\prototype_runs\\news-intelligence-pilot.sqlite",
+  "before_stories": 159,
+  "after_stories": 200,
+  "ingest": [
+    {
+      "source_id": "fed_press",
+      "attempted_at": "2026-10-17T07:35:42+05:30",
+      "ok": true,
+      "new_observations": 0,
+      "unchanged": 0,
+      "new_stories": 0,
+      "corrections": 0,
+      "syndications": 0,
+      "attempts": 1,
+      "error": null
+    },
+    {
+      "source_id": "federal_register",
+      "attempted_at": "2026-10-17T07:35:42+05:30",
+      "ok": true,
+      "new_observations": 0,
+      "unchanged": 40,
+      "new_stories": 0,
+      "corrections": 0,
+      "syndications": 0,
+      "attempts": 1,
+      "error": null
+    },
+    {
+      "source_id": "federal_register_india",
+      "attempted_at": "2026-10-17T07:35:42+05:30",
+      "ok": true,
+      "new_observations": 40,
+      "unchanged": 0,
+      "new_stories": 40,
+      "corrections": 0,
+      "syndications": 0,
+      "attempts": 1,
+      "error": null
+    },
+    {
+      "source_id": "mofcom_rare_earth_18_2025",
+      "attempted_at": "2026-10-17T07:35:42+05:30",
+      "ok": true,
+      "new_observations": 1,
+      "unchanged": 0,
+      "new_stories": 1,
+      "corrections": 0,
+      "syndications": 0,
+      "attempts": 1,
+      "error": null
+    },
+    {
+      "source_id": "pib_releases",
+      "attempted_at": "2026-10-17T07:35:42+05:30",
+      "ok": true,
+      "new_observations": 0,
+      "unchanged": 20,
+      "new_stories": 0,
+      "corrections": 0,
+      "syndications": 0,
+      "attempts": 1,
+      "error": null
+    },
+    {
+      "source_id": "rbi_notifications",
+      "attempted_at": "2026-10-17T07:35:42+05:30",
+      "ok": true,
+      "new_observations": 0,
+      "unchanged": 10,
+      "new_stories": 0,
+      "corrections": 0,
+      "syndications": 0,
+      "attempts": 1,
+      "error": null
+    },
+    {
+      "source_id": "rbi_press_releases",
+      "attempted_at": "2026-10-17T07:35:42+05:30",
+      "ok": true,
+      "new_observations": 0,
+      "unchanged": 10,
+      "new_stories": 0,
+      "corrections": 0,
+      "syndications": 0,
+      "attempts": 1,
+      "error": null
+    },
+    {
+      "source_id": "rbi_speeches",
+      "attempted_at": "2026-10-17T07:35:42+05:30",
+      "ok": true,
+      "new_observations": 0,
+      "unchanged": 10,
+      "new_stories": 0,
+      "corrections": 0,
+      "syndications": 0,
+      "attempts": 1,
+      "error": null
+    },
+    {
+      "source_id": "sebi_press",
+      "attempted_at": "2026-10-17T07:35:42+05:30",
+      "ok": true,
+      "new_observations": 0,
+      "unchanged": 0,
+      "new_stories": 0,
+      "corrections": 0,
+      "syndications": 0,
+      "attempts": 1,
+      "error": null
+    },
+    {
+      "source_id": "tata_kalinganagar_expansion",
+      "attempted_at": "2026-10-17T07:35:42+05:30",
+      "ok": true,
+      "new_observations": 0,
+      "unchanged": 1,
+      "new_stories": 0,
+      "corrections": 0,
+      "syndications": 0,
+      "attempts": 1,
+      "error": null
+    },
+    {
+      "source_id": "usgs_earthquakes",
+      "attempted_at": "2026-10-17T07:35:42+05:30",
+      "ok": true,
+      "new_observations": 0,
+      "unchanged": 18,
+      "new_stories": 0,
+      "corrections": 0,
+      "syndications": 0,
+      "attempts": 1,
+      "error": null
+    }
+  ],
+  "registry": {
+    "directory": "C:\\Users\\Arlop\\Downloads\\SERAPH VARYA\\SERAPH Varya\\seraph\\news\\curated",
+    "errors": [],
+    "entities": 2,
+    "places": 8,
+    "assets": 1,
+    "edges": 3,
+    "source_places": 10,
+    "empty": false
+  },
+  "coverage": {
+    "publishers": 8,
+    "registered_feeds": 11,
+    "languages": [
+      "en",
+      "hi"
+    ],
+    "covered": 11,
+    "total": 11,
+    "uncovered": [],
+    "complete": true,
+    "note": "sources that failed or were never fetched are listed. An empty map with uncovered sources is missing coverage, not a quiet market"
+  },
+  "snapshot_id": "news_8ba99cc494c109d89aa9e4c88ac7350261d1353864f3ad4245685f4ea287c6d9",
+  "events": 40,
+  "nodes": 5,
+  "edges": [
+    {
+      "edge_id": "cn_india_rare_earth_supply",
+      "event_id": "evt_adf6db7fc29ae51cb411",
+      "event_revision": null,
+      "from_node": "cn",
+      "to_node": "in",
+      "mechanism": "import",
+      "direction": "ambiguous",
+      "confidence": "medium",
+      "magnitude": null,
+      "unit": null,
+      "evidence_ids": [
+        "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2151394"
+      ],
+      "known_at": "2026-10-17T07:15:00+05:30",
+      "valid_from": null,
+      "valid_to": null,
+      "status": "observed",
+      "relationship_status": "documented",
+      "impact_status": "hypothesis",
+      "note": "a documented relationship with its own evidence, not a fitted contagion edge and not a CSRS quantity"
+    }
+  ],
+  "signals": [
+    {
+      "headline": "Announcement No.18 of 2025 of The Ministry of Commerce and The General Administration of Customs of The People\u2019s Republic of China Announcing the decision to implement export control on some medium and heavy rare earth related items",
+      "event_type": "export_restriction",
+      "impacts": [
+        {
+          "estimate_id": "est_evt_adf6db7fc29ae51cb411_in",
+          "event_id": "evt_adf6db7fc29ae51cb411",
+          "target_id": "in",
+          "target_kind": "place",
+          "severity": "moderate",
+          "evidence_confidence": "medium",
+          "exposure_magnitude": null,
+          "exposure_unit": null,
+          "direction": "ambiguous",
+          "horizon_days": 90,
+          "mechanism": "import",
+          "method": "news.exposure_walk@2026-10-16.1",
+          "path": [
+            "cn_india_rare_earth_supply"
+          ],
+          "limitations": [
+            "qualitative mechanism hypothesis; not a measured outcome or loss forecast",
+            "severity is an editorial event category; not calibrated economic severity",
+            "Documented 2024-25 national magnet imports. Exact controlled composition and current licence availability unknown; qualitative watch only.",
+            "scope watch: exact product composition, exemptions and current legal status require instrument review",
+            "net direction unknown: required target role, action or applicability is not established",
+            "indirect: reached through 1 documented relationship(s) (cn_india_rare_earth_supply)",
+            "the size of this dependence is not recorded; the relationship is evidenced but its magnitude is unknown, which is not the same as small"
+          ],
+          "not_a_loss_probability": "severity and exposure are descriptive dimensions. This is not a probability of financial loss and has no calibrated target"
+        },
+        {
+          "estimate_id": "est_evt_adf6db7fc29ae51cb411_sector_auto",
+          "event_id": "evt_adf6db7fc29ae51cb411",
+          "target_id": "sector:auto",
+          "target_kind": "sector",
+          "severity": "moderate",
+          "evidence_confidence": "medium",
+          "exposure_magnitude": null,
+          "exposure_unit": null,
+          "direction": "ambiguous",
+          "horizon_days": 90,
+          "mechanism": "input_dependency",
+          "method": "news.exposure_walk@2026-10-16.1",
+          "path": [
+            "cn_india_rare_earth_supply",
+            "india_auto_magnet_dependency"
+          ],
+          "limitations": [
+            "qualitative mechanism hypothesis; not a measured outcome or loss forecast",
+            "severity is an editorial event category; not calibrated economic severity",
+            "Automotive electric/hybrid motor dependency. National trade share is not company exposure.",
+            "scope watch: exact product composition, exemptions and current legal status require instrument review",
+            "net direction unknown: required target role, action or applicability is not established",
+            "indirect: reached through 2 documented relationship(s) (cn_india_rare_earth_supply -> india_auto_magnet_dependency)",
+            "the size of this dependence is not recorded; the relationship is evidenced but its magnitude is unknown, which is not the same as small"
+          ],
+          "not_a_loss_probability": "severity and exposure are descriptive dimensions. This is not a probability of financial loss and has no calibrated target"
+        }
+      ],
+      "interpretation": {
+        "revision_id": "rev_f3e7716c088f3bbc13c21f39",
+        "assertion_status": "confirmed_statement",
+        "action": "start",
+        "policy_status": "unknown",
+        "quantities": [],
+        "mentioned_entities": [],
+        "subjects": [],
+        "beneficiaries": [],
+        "constrained_parties": [],
+        "evidence": [
+          {
+            "story_id": "sty_c739ca2e3113b8d3e447",
+            "start": 158,
+            "end": 167,
+            "text": "implement",
+            "field": "action"
+          }
+        ],
+        "unknowns": [
+          "net economic effect requires target-specific exposure",
+          "occurrence time not evidenced"
+        ],
+        "extraction_method": "event-rules/2.0",
+        "schema_version": "EventFrameV2/2",
+        "representation_hash": "28a0ac40d88bbcfbd6af919702fe44cbc84c501c57bbd27ac2cc6bdedefdcfec",
+        "available_at": "2026-10-17T07:35:42+05:30"
+      }
+    }
+  ]
+}

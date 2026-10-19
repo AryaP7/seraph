@@ -1,0 +1,69 @@
+{
+  "ticket": "T09 \u2014 broaden news acquisition (audit finding R07)",
+  "created_at": "2026-10-17T05:22:05+0530",
+  "before": "three RBI feeds, 30 stories, one institution, one country",
+  "after": "six registered sources across three jurisdictions; 116 stories",
+  "probe": {
+    "script": "scripts/probe_news_sources.py",
+    "evidence": "docs/evidence/NEWS-SOURCE-PROBE-2026-10-17.json",
+    "candidates": 11,
+    "usable": 6,
+    "registered": [
+      "rbi_press_releases",
+      "rbi_notifications",
+      "rbi_speeches",
+      "sebi_press",
+      "federal_register",
+      "usgs_earthquakes"
+    ],
+    "acquired_on_first_poll": {
+      "federal_register": 40,
+      "sebi_press": 30,
+      "usgs_earthquakes": 16,
+      "rbi_*": "unchanged=10 each (conditional GET and dedup working)"
+    }
+  },
+  "findings_that_forced_code_changes": {
+    "sebi": {
+      "observed": "30 items parsed, ZERO with a usable date",
+      "cause": "pubDate is '16 Oct, 2026 +0530' \u2014 a real date with a real offset, in a format RFC-822 does not cover. A comma was discarding an entire market regulator",
+      "fix": "_DAY_GRANULAR formats in parse_feed_datetime, plus day_granular() so callers know the source stated a DATE and no time of day",
+      "after": "30 of 30 dated"
+    },
+    "pib": {
+      "observed": "parses as RSS, returns 20 items, 0 dated",
+      "cause": "every <item> carries only <title> and <link> \u2014 there is NO date element at all. The Lang=1 endpoint also returns Hindi titles",
+      "decision": "NOT registered, with the reason recorded in REJECTED_SOURCES. A source that vanishes from a plan looks like one nobody tried"
+    },
+    "non_feed_sources": {
+      "observed": "the Federal Register, USGS and GDELT do not publish RSS at all",
+      "fix": "seraph/news/json_feed.py \u2014 named adapters, no shape-guessing path, and JsonSourceFetcher which reuses the feed fetcher's throttle, conditional GET and item-identity rule"
+    },
+    "usgs_time": {
+      "observed": "times are epoch MILLISECONDS",
+      "why_it_matters": "read as seconds, 1760000000000 is the year 57000"
+    },
+    "gdelt_length": {
+      "observed": "seendate is '20261017T093000Z' \u2014 sixteen characters with the Z, fifteen without",
+      "fix": "accept both; pinning one length silently discarded every live timestamp"
+    }
+  },
+  "globe_effect": {
+    "before": "one origin node (Mumbai)",
+    "after": "Washington D.C. (-77.03637, 38.89511) appears as the origin of 10 Federal Register events alongside Mumbai \u2014 a real foreign-origin node on the real globe",
+    "places_added": [
+      "us / United States / GeoNames 6252001",
+      "us_dc_washington / GeoNames 4140963"
+    ],
+    "source_places_added": [
+      "federal_register -> us_dc_washington",
+      "sebi_press -> in_mh_mumbai"
+    ]
+  },
+  "tests": "tests/test_t09_source_breadth.py (27)",
+  "not_claimed": [
+    "six sources are not world coverage either. PIB (Indian government press) remains unusable for want of any publication time, and GDELT is rate-limited and unregistered.",
+    "10 of 12 visible events classify as 'other': the extractor's vocabulary was built for RBI prose and does not yet know trade-action, enforcement or seismic language. That is T11/T12 and it is now visible rather than hidden by a narrow corpus.",
+    "USGS coordinates are parsed and carried by the adapter but are not yet used to place a node; the story->event->globe path still places from the registry only."
+  ]
+}

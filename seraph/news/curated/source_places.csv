@@ -1,0 +1,40 @@
+# NEWS03 source issuing locations. Loaded by seraph/news/registry.py.
+#
+# WHY THIS FILE EXISTS. An event's ORIGIN is a different claim from the places
+# it affects, and the text of a press release rarely states its own origin in
+# a form worth parsing. What is reliably known is which body issued it, and
+# where that body issues from. That is a property of the SOURCE, curated once
+# with a citation, rather than something an extractor should infer per story.
+#
+# This is the plan's "for country-origin policy, show the issuing
+# jurisdiction": an RBI release originates with the RBI, in India, from its
+# Central Office in Mumbai. It is not a claim that anything in Mumbai is
+# affected.
+#
+# -- COLUMNS -----------------------------------------------------------------
+# source_id    as registered in the news store.
+# place_id     a place_id from places.csv.
+# basis        issuing_office | jurisdiction
+#              issuing_office is a specific address; jurisdiction is the
+#              territory the issuer acts for. They are drawn differently.
+# source_ref   REQUIRED. https://..., doc:..., ref:... or filing:...
+# known_from   OPTIONAL, "YYYY-MM-DDTHH:mm:ss+05:30". The date THIS SYSTEM
+#              curated the mapping -- never the date the underlying fact
+#              became true, and never the year of the document cited. A
+#              strict replay excludes an undated mapping, which is correct
+#              and costs a route: an undated row cannot be shown to have
+#              been knowable at the moment being reconstructed. Leave it
+#              empty rather than guess; `MasterData.registry_completeness()`
+#              lists every row still missing one.
+#
+source_id,place_id,basis,source_ref,known_from
+rbi_notifications,in_mh_mumbai,issuing_office,https://website.rbi.org.in/documents/87730/39710918/IEPR1397E0213.pdf,
+rbi_press_releases,in_mh_mumbai,issuing_office,https://website.rbi.org.in/documents/87730/39710918/IEPR1397E0213.pdf,
+rbi_speeches,in_mh_mumbai,issuing_office,https://website.rbi.org.in/documents/87730/39710918/IEPR1397E0213.pdf,
+federal_register,us_dc_washington,issuing_office,https://www.federalregister.gov/reader-aids/understanding-the-federal-register,
+sebi_press,in_mh_mumbai,issuing_office,https://www.sebi.gov.in/contact-us.html,
+mofcom_rare_earth_18_2025,cn,jurisdiction,https://english.mofcom.gov.cn/Policies/AnnouncementsOrders/art/2025/art_0dd87cbee7b045bf93fabe6ab2faceee.html,
+pib_releases,in,jurisdiction,https://www.pib.gov.in/,
+fed_press,us,jurisdiction,https://www.federalreserve.gov/,
+mofcom_policy_listing,cn,jurisdiction,https://english.mofcom.gov.cn/Policies/AnnouncementsOrders/index.html,
+federal_register_india,us,jurisdiction,https://www.federalregister.gov/,

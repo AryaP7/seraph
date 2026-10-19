@@ -1,0 +1,17 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><style>/*STYLE*/</style></head><body>
+<div id="shell"><header><div class="brand">SER<span class="b2">APH</span></div><nav>
+<a href="#" class="on" data-view="map">RISK MAP</a><a href="#" data-view="pillars">PILLARS</a><a href="#" data-view="forecasts">FORECASTS</a><a href="#" data-view="exposure">EXPOSURE</a><a href="#" data-view="method">METHOD</a>
+</nav><div class="hgap"><span id="decision"></span></div></header>
+<div class="ticker" id="ticker"></div><main>
+<div class="rail map-pane"><div class="card"><h3>COMPOSITE RISK <span class="r">DIAGNOSTIC</span></h3><div class="body" id="score"></div></div>
+<div class="card"><h3>SIGNAL EXPLANATION</h3><div class="body" id="signals"></div></div>
+<div class="card"><h3>HISTORICAL CSRS</h3><div class="body" id="history"></div></div></div>
+<div id="stage" class="map-pane"><div id="fail"></div><div class="ov" id="modes"><button id="india" class="on">INDIA</button><button id="global">GLOBAL</button></div><div class="ov" id="topright"><button id="pause">PAUSE</button><button id="clouds">CLOUDS</button></div><div class="ov" id="hint">Drag to orbit · scroll to zoom · geography only; regional stress unavailable</div></div>
+<div class="rail map-pane"><div class="card"><h3>ORIGINAL THREE PILLARS</h3><div class="body" id="pillars"></div></div><div class="card"><h3>ASTRA · SEPARATE FORECASTS</h3><div class="body" id="forecast-summary"></div></div><div class="card"><h3>COVERAGE</h3><div class="body" id="coverage"></div></div></div>
+<section class="connected-view" id="view-pillars"><h2>Original pillar diagnostics</h2><div id="pillar-details"></div></section>
+<section class="connected-view" id="view-forecasts"><h2>Astra future-target forecasts</h2><p>Experimental forecasts, separate from diagnostic CSRS. Loss10_15: 10% close-to-close loss within 15 sessions. Onset15: project crisis onset within 15 sessions.</p><div id="forecasts"></div></section>
+<section class="connected-view" id="view-exposure"><h2>Portfolio exposure</h2><div id="exposure"></div><p>Action history and recording controls are below this console in the local application.</p></section>
+<section class="connected-view" id="view-method"><h2>Run provenance and limitations</h2><div id="method"></div></section>
+</main><footer><div id="status"></div></footer></div>
+<script id="seraph-run" type="application/json">/*PAYLOAD*/</script>
+<script>/*THREE*/</script><script>/*CORE*/</script><script>/*GEOMETRY*/</script><script>/*APP*/</script></body></html>

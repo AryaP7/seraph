@@ -1,26 +1,47 @@
 # SERAPH — single-node Postgres + TimescaleDB per SPEC NFR34/NFR35.
-# One command up: `docker compose up -d`
-# Isolated research port 5434; the original SERAPH database stays on 5433.
-# DSN: postgresql://seraph:seraph@localhost:5434/seraph_research
+#
+# This is the EXPERIMENTAL research database. Three databases exist and must
+# never be confused:
+#
+#   source      the original SERAPH database (port 5433) — READ ONLY. It is
+#               not defined here and is never started or migrated from here.
+#   research    THIS one (port 5435... see below) — new production-like results.
+#   test        disposable and guarded (docker-compose.test.yml, port 5435).
+#
+# OPS03 changes from the first version of this file:
+#   * credentials come from the environment, with throwaway local defaults.
+#     Put real ones in a .env file that is gitignored, never in this file.
+#   * the port is bound to 127.0.0.1 explicitly. The previous `"5434:5432"`
+#     published on every interface, which on a laptop on a shared network
+#     exposed the database to it.
+#   * the image is pinned. `latest-pg16` silently changes the engine under a
+#     database whose results are meant to be reproducible.
+#
+# Bring it up with:  docker compose up -d
+# DSN:  postgresql://${SERAPH_DB_USER}:${SERAPH_DB_PASSWORD}@127.0.0.1:5434/${SERAPH_DB_NAME}
 services:
   timescaledb:
-    image: timescale/timescaledb:latest-pg16
+    image: timescale/timescaledb:2.17.2-pg16
     container_name: seraph-research-timescaledb
     environment:
-      POSTGRES_USER: seraph
-      POSTGRES_PASSWORD: seraph
-      POSTGRES_DB: seraph_research
+      POSTGRES_USER: ${SERAPH_DB_USER:-seraph}
+      POSTGRES_PASSWORD: ${SERAPH_DB_PASSWORD:-change-me-locally}
+      POSTGRES_DB: ${SERAPH_DB_NAME:-seraph_research}
+      # Scrypt rather than the image default; cheap, and the password never
+      # travels in the clear even on loopback.
+      POSTGRES_INITDB_ARGS: "--auth-host=scram-sha-256"
     ports:
-      - "5434:5432"
+      - "127.0.0.1:5434:5432"
     volumes:
       - seraph_research_pgdata:/var/lib/postgresql/data
       # Applied automatically on first boot; idempotent, so re-applying is safe.
       - ./seraph/store/schema.sql:/docker-entrypoint-initdb.d/schema.sql:ro
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U seraph -d seraph_research"]
+      test: ["CMD-SHELL", "pg_isready -U ${SERAPH_DB_USER:-seraph} -d ${SERAPH_DB_NAME:-seraph_research}"]
       interval: 5s
       timeout: 3s
       retries: 20
+    restart: unless-stopped
 
 volumes:
   seraph_research_pgdata:

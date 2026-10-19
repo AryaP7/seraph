@@ -1,0 +1,34 @@
+2026-10-19 01:46:29.443 Uvicorn server started on 127.0.0.1:54559
+
+  You can now view your Streamlit app in your browser.
+
+  URL: http://127.0.0.1:54559
+
+
+DevTools listening on ws://127.0.0.1:54560/devtools/browser/a372f744-9a9d-4bf3-8192-c1d8694e9a1f
+[27932:5756:1019/014629.897:ERROR:chrome\browser\component_updater\edge_optimization_guide_models_manifest_installer.cc:264] Edge LLM: catalog update failed: 5
+[27932:5756:1019/014629.902:ERROR:chrome\browser\component_updater\edge_language_detection_model_installer.cc:97] Edge Language Detection Model: On-demand update failed with error: 5
+[27932:5756:1019/014630.416:ERROR:components\edge_auth\edge_auth_errors.cc:553] EDGE_IDENTITY: Image Fetch FAILED: Error: Primary Error: kUrlRequestError, Secondary Error: kURLResponseNot200, Platform error: 0, Error string: [empty]
+
+[27932:22332:1019/014630.429:ERROR:components\sync\engine\get_updates_processor.cc:426] PostClientToServerMessage() failed during GetUpdates with error Network error (ERR_NAME_NOT_RESOLVED)
+[27932:5756:1019/014631.155:ERROR:chrome\browser\task_manager\providers\fallback_task_provider.cc:126] Every renderer should have at least one task provided by a primary task provider. If a "Renderer" fallback task is shown, it is a bug. If you have repro steps, please file a new bug and tag it as a dependency of crbug.com/40528867.
+[27932:22332:1019/014631.939:ERROR:components\sync\engine\get_updates_processor.cc:426] PostClientToServerMessage() failed during GetUpdates with error Network error (ERR_NAME_NOT_RESOLVED)
+SUCCESS: The process with PID 29104 (child process of PID 27932) has been terminated.
+SUCCESS: The process with PID 9352 (child process of PID 27932) has been terminated.
+SUCCESS: The process with PID 25868 (child process of PID 27932) has been terminated.
+SUCCESS: The process with PID 26528 (child process of PID 27932) has been terminated.
+SUCCESS: The process with PID 6816 (child process of PID 27932) has been terminated.
+SUCCESS: The process with PID 21212 (child process of PID 27932) has been terminated.
+SUCCESS: The process with PID 27076 (child process of PID 27932) has been terminated.
+SUCCESS: The process with PID 27068 (child process of PID 27932) has been terminated.
+SUCCESS: The process with PID 20216 (child process of PID 27932) has been terminated.
+SUCCESS: The process with PID 17840 (child process of PID 27932) has been terminated.
+SUCCESS: The process with PID 20208 (child process of PID 27932) has been terminated.
+SUCCESS: The process with PID 26928 (child process of PID 27932) has been terminated.
+SUCCESS: The process with PID 10788 (child process of PID 27932) has been terminated.
+SUCCESS: The process with PID 2188 (child process of PID 27932) has been terminated.
+SUCCESS: The process with PID 25652 (child process of PID 27932) has been terminated.
+SUCCESS: The process with PID 11160 (child process of PID 27932) has been terminated.
+SUCCESS: The process with PID 27932 (child process of PID 28532) has been terminated.
+SUCCESS: The process with PID 3580 (child process of PID 10484) has been terminated.
+SUCCESS: The process with PID 10484 (child process of PID 28532) has been terminated.

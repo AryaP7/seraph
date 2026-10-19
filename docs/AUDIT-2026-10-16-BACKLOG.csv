@@ -1,0 +1,60 @@
+id,priority,area,work_item,depends_on,acceptance,source
+FIX01,P0,Orchestration,Session-aware decision clock and as-of Hawkes selection,,Full supported archive replays including 2024-11-01 without future information,A01
+FIX02,P0,Orchestration,Preserve structural versus transient absence,,Temporary outage retains mask and grows appropriate uncertainty,A02
+FIX03,P1,Persistence,Seal runs and finalize reports atomically,,Out-of-range writes and incompatible report replacement rejected; crash recovery tested,A03-A04
+FIX04,P1,C4,Causal state bins,,Appending future inputs leaves old bins unchanged,A05
+FIX05,P1,C10,Version FR35 evaluation design,,Table B scope explicitly resolved with new design hash,A07
+FIX06,P1,C1,Evaluation identity migration,FIX05,Tables and repeated experiments coexist without collisions,A06
+FIX07,P1,C5,Persist fitted parameters and source universe,,Saved artifact reconstructs its intensity; training cutoff retained,A08-A09
+FIX08,P1,C11,Handle journal no-op commands,,Same-action update succeeds without duplicate event; retry returns same result,A13
+FIX09,P1,C3,Classification failure policy,,Missing ISIN file cannot silently allow all instruments,A14
+FIX10,P1,C12,Coherent reads on all supported entry points,FIX03,Views use one run/as-of contract and scoped caching,A11
+FIX11,P1,C12,Recover pending requests and preserve tool drafts,,Lost response can be retried; context switches cannot display stale results,A12
+AUTH01,P0,Identity,OIDC identity and membership registry,,Authenticated subject is bound to server-managed grants,A10
+AUTH02,P0,Authorization,Tenant and resource isolation,AUTH01,Two institutions cannot read each other's portfolios scenarios or runs,A10
+AUTH03,P1,Audit,Actor identity and revocation,AUTH01,Journal records user identity; revoked grants stop access,A10
+AUTH04,P1,User workflows,Durable portfolios preferences and watchlists,AUTH02,Owned state survives restart and is isolated by identity,Role workflow
+DATA01,P1,C1,Disposable guarded Timescale test service,,SQL checks run on isolated data with required fixtures; source is untouched,Fresh execution
+DATA02,P1,C2,Read-only source census,DATA01,Current coverage gaps and timestamps recorded from available source,Fresh execution
+DATA03,P1,C2,Daily bhavcopy and exact turnover,,Legacy and UDiFF fixtures parse; turnover provenance is explicit,FR1 FR52
+DATA04,P1,C2,Official Nifty 500 benchmark,,Benchmark version ingested with date and source metadata,FR41 FR54
+DATA05,P1,C2,Macro event-time and vintage archive,,Latest revisions cannot replace historical information sets,FR3
+DATA06,P1,C2,Populate cited tariff registry,,Every row has evidence announcement time and declared severity convention,FR4
+DATA07,P1,C4,Tariff decay and sector-weighted covariates,DATA06,Known event fixtures produce reproducible causal G_t features,FR22
+DATA08,P1,C2,Daily flow history and freshness,,Scheduled ingestion accumulates verified observations with scope definitions,FR45 FR51
+DATA09,P1,C4,Regenerate corrected features into new artifacts,DATA02,Old evidence preserved; detector/alignment changes compared,FR50
+DATA10,P2,C4,OHLC versus intraday volatility study,DATA09,Matched-date and matched-unit results include coverage and uncertainty,FR53
+PIPE01,P1,Orchestration,Complete fresh chronological original pipeline,DATA02 DATA09 FIX01 FIX02 FIX03,Raw input through warmup fitting fusion persistence and view verified,Fresh execution
+PIPE02,P1,Prediction,Refresh Astra forecasts from new data,DATA02 FIX03,Matured-label and cutoff checks hold; forecasts have immutable versions,Fresh execution
+PIPE03,P1,Operations,Idempotent scheduled jobs and recovery,PIPE01,Restart and source outage recover without duplicate or mixed-run output,Operational readiness
+PIPE04,P1,Operations,Bounded parallel pillar workers,PIPE01,Independent workers meet measured resource and latency budgets,NFR5
+NEWS01,P1,News,Source registry and raw observation acquisition,,Registered sources produce timestamped hashed observations with retry/dedup behavior,N01-N03
+NEWS02,P1,News,Event clustering and correction lifecycle,NEWS01,Syndicated copies do not multiply independent evidence; revisions retained,N04 N10
+NEWS03,P1,News,Entity place and asset master data,NEWS01,Ambiguous entities abstain; ownership/location changes have validity dates,N05-N06
+NEWS04,P1,News,First-sector exposure relationships,NEWS03,Every asset issuer sector and geographic relationship has evidence and scope,N07
+NEWS05,P1,News,Versioned impact estimation,NEWS02 NEWS04,Severity confidence exposure direction and horizon are explicit and reproducible,N08-N09
+NEWS06,P1,C12,Connect real geographic and sector overlays,NEWS05,Every real overlay links to source evidence; unknown differs from quiet,Frontend vision
+NEWS07,P1,News,Analyst correction and evaluation workspace,NEWS05 AUTH02,Review-set accuracy and source-to-display latency measured; corrections audited,N11-N12
+NEWS08,P2,External inputs,Weather and commodity integration,NEWS03,Issue/valid times units coverage and asset intersections are explicit,Frontend vision
+PORT01,P1,C11,Holdings import and identifier resolution,AUTH04,Import reconciles accepted/rejected rows and saves source version,Portfolio workflow
+PORT02,P1,C1,Position snapshots and historical valuation,PORT01,Past-date analysis uses actual past positions or clearly declared current holdings,Portfolio workflow
+PORT03,P1,C11,Measured sector flag production and portfolio joins,FIX07 PORT01,Unknown sectors stay uncovered; flagged exposure reconciles to holdings,FR14 FR43
+PORT04,P1,C11,News-to-portfolio exposure trail,NEWS04 NEWS05 PORT01,User can inspect event-to-position link without overlapping exposure inflation,Product differentiator
+PORT05,P2,C11,Measured portfolio risk engine,PORT02,Selected risk metrics have explicit units horizon assumptions and validation,Measured risk
+SCEN01,P1,C11,Saved institutional scenarios and comparisons,AUTH02 FIX03,Saved baseline assumptions and steps reproduce with reviewer history,Institutional workflow
+SCEN02,P2,C11,Economic shock propagation and portfolio valuation,SCEN01 PORT02 NEWS04,Zero shock matches baseline; every impact has a reproducible valuation path,Institutional functionality
+POL01,P2,C7,Fit and validate macro TVTP artifact,DATA05 DATA07,Model has causal fit cutoff covariate schema diagnostics and eligibility decision,FR21 FR48
+POL02,P2,C11,Connect canonical macro z-path simulator,POL01 SCEN01,Supported policy path reaches fitted projector with explicit limits,FR48
+CASE01,P1,C11,Operational case state machine,AUTH02 AUTH03 FIX08,Assignment evidence review closure and reopening survive restart,Regulator workflow
+CASE02,P2,C11,Scoped institution exposure inputs,AUTH02,Authorized submissions reconcile; institution detail is not inferred from market bars,FR42
+CASE03,P1,C11,Versioned case evidence exports,CASE01 FIX03 NEWS02,Export reproduces the information actually viewed at decision time,Regulator functionality
+VAL01,P1,C10,Prospective shadow record and independent labels,PIPE02,All eligible forecasts misses false alerts and versions retained,Scientific acceptance
+VAL02,P2,C10,Cost-aware defensive-action evaluation,PORT02 SCEN02 VAL01,Realized benefits measured against controls with costs and availability,FR46
+VAL03,P2,C10,Cross-market frozen-weight evaluation,DATA02 FIX05,Target-market coverage and unchanged-weight results documented,FR37 stretch
+OPS01,P1,Operations,Freshness failures and alert delivery monitoring,PIPE03 NEWS01,Outages missing inputs and failed notifications visible and recoverable,Operational readiness
+OPS02,P1,Operations,Migration backup and restore procedure,FIX03 DATA01 AUTH04 CASE01,Restore exercise recovers owned data artifacts and audit records,Operational readiness
+OPS03,P1,Security,Deployment transport storage and audit controls,AUTH02,Selected deployment meets agreed protection retention and audit acceptance,NFR23-NFR27
+QA01,P1,Testing,Canonical browser and cross-user tests,AUTH02 NEWS06 SCEN01,Role transitions tools live/preview status and stale context tested,Product acceptance
+QA02,P1,Testing,Performance accessibility and WebGL fallback,QA01,Agreed latency concurrency keyboard and reduced-motion criteria measured,NFR1 NFR7 NFR22
+QA03,P1,Packaging,Package frontend assets and installation smoke check,,Fresh installed distribution includes and renders canonical component assets,Release readiness
+DOC01,P1,Documentation,Current scope amendment and acceptance index,,Product vision and Astra amendments linked without changing historical evidence,Documentation

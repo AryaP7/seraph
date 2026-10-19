@@ -23,13 +23,21 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 import asyncpg  # noqa: E402
 import numpy as np  # noqa: E402
 
-from seraph.features import extract_jumps, state_variable, tick_test  # noqa: E402
+from seraph.features import (  # noqa: E402
+    UNDETERMINED,
+    extract_jumps,
+    state_variable,
+    tick_test,
+)
 from seraph.features.cross_sectional import abdi_ranaldo_spread  # noqa: E402
 from seraph.ingestion.hawkes_universe import build_symbol_list, sector_of  # noqa: E402
 from seraph.pillars.hawkes import fit_pooled, mts  # noqa: E402
 from seraph.store.bootstrap import resolve_dsn  # noqa: E402
 
 SPREAD_WIN, IMB_WIN, BARS_DAY = 75, 20, 75
+#: FIX04 — S_t bins are fitted on a strictly past trailing window, never
+#: on the whole series. One NSE month of five-minute bars.
+STATE_BIN_WINDOW = BARS_DAY * 20
 
 
 async def load(pool, symbols):
@@ -57,10 +65,17 @@ async def load(pool, symbols):
                 h[i - SPREAD_WIN:i], lo[i - SPREAD_WIN:i], c[i - SPREAD_WIN:i])
         signed = tick_test(c, v)
         imb = np.convolve(signed, np.ones(IMB_WIN), mode="same") / IMB_WIN
-        st = state_variable(spread, imb, n_quantiles=3)["s_t"]
+        state = state_variable(spread, imb, n_quantiles=3,
+                               basis="trailing_window", window=STATE_BIN_WINDOW)
+        st = state["s_t"]
 
         sec = sector_of(sym) or "market_residual"
         for i in np.flatnonzero(out["jump_sign"] == -1):
+            # An event whose state is still undetermined carries no state; it
+            # is skipped rather than pooled into a guessed middle bucket.
+            if st[i] == UNDETERMINED:
+                counts["undetermined_state"] = counts.get("undetermined_state", 0) + 1
+                continue
             events.append((ts[i], int(st[i])))
             per_sector[sec] = per_sector.get(sec, 0) + 1
     return events, per_sector, counts

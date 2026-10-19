@@ -1,0 +1,28 @@
+{
+  "ticket": "T04 (authorization freshness)",
+  "created_at": "2026-10-16T23:22:27+0530",
+  "finding": "R06 - can() trusted a cached Principal",
+  "reproduced_before_fix": {
+    "revoked_grant": "can()=True (audit)",
+    "revoked_session": "can()=True (worse than reported)",
+    "disabled_user": "can()=True (worse than reported)"
+  },
+  "after_fix": {
+    "revoked_grant": false,
+    "revoked_session": false,
+    "revoked_membership": false,
+    "disabled_user": false,
+    "expired_session": false,
+    "visible_listing": "[] for every revocation path",
+    "require": "raises StalePrincipal",
+    "scope_narrowed_mid_request": "check_revision raises StalePrincipal",
+    "regrant_restores_access": true,
+    "visible_revalidations_for_50_resources": 1
+  },
+  "design": "Principal carries authorization_revision (digest of user/grant/membership/session). can()/require()/visible() re-resolve; mutations call check_revision() inside the commit boundary. revalidate=False is opt-in and used only by visible() after one revalidation.",
+  "tests": "tests/test_t04_authorization_freshness.py (20 passed)",
+  "not_claimed": [
+    "OIDC real login deferred by owner",
+    "application service boundary not built; console still bypasses identity (T08/T14)"
+  ]
+}

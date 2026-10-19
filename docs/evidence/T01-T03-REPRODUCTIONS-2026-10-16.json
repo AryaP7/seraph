@@ -1,0 +1,92 @@
+{
+  "ticket": "T00-T03",
+  "created_at": "2026-10-16T22:52:23+0530",
+  "note": "Reproductions from docs/INDEPENDENT-PRODUCT-READINESS-AUDIT-2026-10-16.md, re-run against the repaired code. Browser observations are from the real Streamlit component in the desktop browser pane against the archive store.",
+  "R02_publication": {
+    "loop_without_evaluator": {
+      "before": {
+        "publishable": true,
+        "csrs": null
+      },
+      "after": {
+        "publishable": false,
+        "reasons": [
+          "no_valid_score",
+          "unverified_feed",
+          "warmup_incomplete"
+        ]
+      }
+    },
+    "recent_archive_point": {
+      "before": "CURRENT MARKET READING",
+      "after": "NOT A CURRENT MARKET READING",
+      "reasons": [
+        "not_live_mode",
+        "unverified_feed",
+        "feed_disconnected",
+        "warmup_incomplete",
+        "calendar_unverified"
+      ]
+    },
+    "future_observation": {
+      "before": {
+        "state": "live",
+        "age_minutes": -1435,
+        "may_publish": true
+      },
+      "after": {
+        "state": "historical_only",
+        "may_publish": false
+      }
+    },
+    "tests": "tests/test_t01_publication_gating.py (29 passed)"
+  },
+  "R03_bars": {
+    "finalized_window_reopen": {
+      "before": "re-emitted with close 999, late_ticks=0",
+      "after": "not re-emitted, late_ticks=1"
+    },
+    "watermark_after_restart": {
+      "after": "not re-emitted, late_ticks=1"
+    },
+    "volume_boundary_150_170_200": {
+      "before": 30,
+      "after": 50
+    },
+    "tests": "tests/test_t02_bar_finality.py (18 passed)"
+  },
+  "R05_role_routes": {
+    "browser": "desktop browser pane, Streamlit component at 127.0.0.1:8513",
+    "role_change": {
+      "before": "map stayed visible, no role page opened",
+      "after": {
+        "crumb": "INSTITUTIONAL HOME \u00b7 PILLARS  (landing route for this role)",
+        "main_visible": false,
+        "active_nav": [
+          "pillars"
+        ],
+        "status": "\u25cf DONE \u2014 role \u00b7 INSTITUTIONAL HOME"
+      }
+    },
+    "same_role_click": {
+      "before": "timed out after 15s and blocked later requests",
+      "after": {
+        "elapsed_ms": 1203,
+        "status": "\u25cf DONE \u2014 already institutional; opened INSTITUTIONAL HOME"
+      }
+    },
+    "not_blocked_after": {
+      "crumb": "REGULATOR HOME \u00b7 TOOLS  (landing route for this role)",
+      "active_role": [
+        "regulator"
+      ]
+    },
+    "status_bar": "global (#req-status-global), previously only inside Tools",
+    "tests": "tests/test_fix10_fix11_transport.py (29 passed) + tests/js/bridge_harness.mjs"
+  },
+  "not_claimed": [
+    "R01 live inference integration requires T06-T08",
+    "no broker connected; no real tick stream exercised",
+    "no source database written"
+  ]
+}

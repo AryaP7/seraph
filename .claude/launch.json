@@ -2,6 +2,16 @@
   "version": "0.0.1",
   "configurations": [
     {
+      "name": "seraph-console",
+      "runtimeExecutable": ".venv/Scripts/python.exe",
+      "runtimeArgs": ["-m", "streamlit", "run",
+                      "seraph/dashboard/prototype_app.py",
+                      "--server.address", "127.0.0.1",
+                      "--server.port", "8513",
+                      "--server.headless", "true"],
+      "port": 8513
+    },
+    {
       "name": "seraph-dashboard",
       "runtimeExecutable": ".venv/Scripts/python.exe",
       "runtimeArgs": ["-m", "streamlit", "run", "seraph/dashboard/app.py",

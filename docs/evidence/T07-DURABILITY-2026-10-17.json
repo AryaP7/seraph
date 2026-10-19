@@ -1,0 +1,76 @@
+{
+  "ticket": "T07 \u2014 durable runtime, crash protocol, session lifecycle (R04)",
+  "created_at": "2026-10-17T04:25:46+0530",
+  "finding": "the live path held everything in memory. A restart lost the bar accumulators, the volume baselines, the filter state and every decision since start-up, and there was no cursor, so a restart could not know which inputs it had already consumed.",
+  "the_transaction": {
+    "what_commits_together": [
+      "the checkpoint reference",
+      "the decision",
+      "the advanced runtime_head",
+      "the outbox events"
+    ],
+    "concurrency": "the writer states the head version it expected; a mismatch raises HeadConflict and nothing is applied",
+    "replay": "a repeat of a decision_id returns the stored decision and does NOT advance the head \u2014 a crash between commit and acknowledgement must not double-decide",
+    "blob_ordering": "the state blob is written to a temp file, fsynced and atomically renamed BEFORE the row that names it, so a committed reference always points at a complete file"
+  },
+  "crash_injection": {
+    "method": "a real sqlite3.Connection subclass passed as the connection factory, failing on one statement. Not a mock of the store \u2014 a test that stubs what it checks proves only that the stub works",
+    "points": [
+      "INSERT OR IGNORE INTO inference_checkpoints",
+      "INSERT INTO live_decisions",
+      "INSERT INTO runtime_head",
+      "INSERT OR IGNORE INTO outbox"
+    ],
+    "result": "at every point: no decision, head still at 0, no outbox row"
+  },
+  "restart": {
+    "verified": [
+      "a committed decision and its payload hash survive",
+      "the restored service keeps its ECDF observation counts",
+      "the restored filter state is identical",
+      "a replayed pass does not double-decide and the head does not move",
+      "bars finalized before the restart stay finalized and re-recording them is a no-op",
+      "the bar watermark survives: a late tick cannot reopen a finalized window across the restart",
+      "an undelivered outbox event outlives the process"
+    ]
+  },
+  "lifecycle": {
+    "states": [
+      "initializing",
+      "restoring",
+      "warming_up",
+      "connecting",
+      "waiting_session",
+      "collecting",
+      "draining_session",
+      "checkpointed",
+      "reconnecting",
+      "degraded",
+      "stopped"
+    ],
+    "rules_enforced": [
+      "an illegal transition raises rather than landing somewhere nothing expects",
+      "a session is closed only from draining_session: the feed is polled out first, because a late tick for the final bar is the normal case",
+      "the drain window is measured from the LAST TICK, so a feed still delivering keeps the session open",
+      "degraded keeps running and refuses to publish, and needs a reason",
+      "a reconnect does not pass through warmup \u2014 it must not look like a cold start",
+      "in-memory history is bounded (deque, 200); the durable history is the decision table"
+    ]
+  },
+  "calendar_defect_fixed": {
+    "what": "MarketClock.next_open took the day's FIRST window only, so during the lunch gap of a two-window special session it reported the market shut until the next day",
+    "verified_on": "2024-03-02, whose real windows are 09:15-10:00 and 11:30-12:30"
+  },
+  "entry_point": {
+    "--status": "reads the store, the lifecycle and the clock. Connects to no feed and starts no job, answered before anything is built",
+    "--once": "a BOUNDED WAIT for one finalized batch with an explicit timeout, not connect-and-immediately-poll. On timeout it says how long it waited, the market state and the next open",
+    "observed": "--once --replay timed out honestly after 8s: 'market is not_a_session; next open 2026-10-19T09:15:00+05:30', with the lifecycle in `degraded` because no live feed exists"
+  },
+  "tests": "tests/test_t07_durable_runtime.py (42), tests/test_t07_runtime_recovery.py (10)",
+  "not_claimed": [
+    "NO LIVE FEED. The durable path has never run against a real tick stream; every pass so far is a replay or a fixture.",
+    "delivery is AT-LEAST-ONCE with a receiver idempotency key. Exactly-once network delivery is not claimed and is not achievable by a store alone.",
+    "no delivery transport is attached, so the outbox accumulates and dead-letters after bounded retries (T15).",
+    "a PostgreSQL adapter preserving the same repository contract is not built; SQLite is the runtime boundary today."
+  ]
+}

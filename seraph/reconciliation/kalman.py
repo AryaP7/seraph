@@ -21,8 +21,8 @@ Forward-fill is retained only as the FR27/FR36 ablation baseline.
 """
 from __future__ import annotations
 
-from collections.abc import Iterable
-from datetime import date, datetime
+from collections.abc import Iterable, Mapping
+from datetime import date, datetime, time
 from math import inf
 
 import numpy as np
@@ -70,6 +70,7 @@ class KalmanReconciler:
         mode: str = "kalman",
         time_basis: str = "trading",
         session_dates: Iterable[date] | None = None,
+        session_hours: "Mapping[date, tuple[tuple[time, time], ...]] | None" = None,
     ):
         if mode not in ("kalman", "forward_fill"):
             raise ValueError(f"mode must be 'kalman' or 'forward_fill', got {mode!r}")
@@ -79,10 +80,15 @@ class KalmanReconciler:
             raise ValueError("h_bars and finite x0 must have three entries in PILLAR_ORDER")
         self._q = float(q_proc)
         self._mode = mode
-        self._clock = ReconciliationClock(
+        clock_kwargs = dict(
             time_basis=time_basis,
             session_dates=frozenset(session_dates) if session_dates is not None else None,
         )
+        if session_hours:
+            # FIX01: exact windows for Muhurat / special live sessions. Omitted
+            # dates keep regular hours, so the default clock is unchanged.
+            clock_kwargs["session_hours"] = dict(session_hours)
+        self._clock = ReconciliationClock(**clock_kwargs)
         self._noise = tuple(
             SaturatingNoise(r0_default=r0_default, r_max_ratio=r_max_ratio, h_bars=h)
             for h in h_bars

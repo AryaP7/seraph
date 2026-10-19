@@ -1,0 +1,82 @@
+{
+  "ticket": "NI15 \u2014 sector inference, provenance labels and the retrieval route",
+  "created_at": "2026-10-17T08:46:10+0530",
+  "method": "driven through the real console in a browser against the pilot store, not read from the code",
+  "store": "C:\\Users\\Arlop\\Downloads\\SERAPH VARYA\\SERAPH Varya\\prototype_runs\\news-intelligence-pilot.sqlite",
+  "defects_found_and_fixed": {
+    "D1 sector impacts were computed from the DISPLAYED PAGE": {
+      "observed": "181 eligible events, 40 per page. The documented Kalinganagar -> sector:steel exposure was absent from the sector panel entirely, which reads as 'steel has no documented exposure'",
+      "fix": "estimate_impacts now runs over every eligible event; the rail alone paginates. pagination.aggregates_cover states the difference",
+      "after": {
+        "sectors_at_page_40": [
+          "auto",
+          "steel"
+        ],
+        "sectors_at_page_1000": [
+          "auto",
+          "steel"
+        ],
+        "displayed": 40,
+        "aggregates_cover": 181
+      }
+    },
+    "D2 a sector sat in the globe's review queue": {
+      "observed": "sector:auto filed under 'no evidenced coordinate or mapped geometry', framing a deliberate rule (an industry has no coordinate) as a data gap and burying real geography failures",
+      "fix": "a sector endpoint is recorded as a sector-terminated path with its evidence and routed to the sector panel; the review queue keeps meaning 'should have geography and does not'",
+      "after": {
+        "review_queue": 0,
+        "sector_terminated": [
+          "auto"
+        ],
+        "nodes": [
+          "cn",
+          "in",
+          "in_od_kalinganagar",
+          "tata_kalinganagar",
+          "us"
+        ]
+      }
+    },
+    "D3 real evidence was labelled FABRICATED": {
+      "observed": "clicking an evidenced globe node opened a card headed 'FABRICATED PREVIEW' above sourced Federal Register headlines with working links",
+      "cause": "a blanket MutationObserver written when the panel only ever held preview content",
+      "fix": "one writeDetail(html, provenance) writer; evidenced news gets a cool-toned EVIDENCED NEWS note, preview keeps the warm FABRICATED tag, and nothing writes the panel behind the helper's back",
+      "verified_in_browser": {
+        "news_node": "EVIDENCED NEWS",
+        "preview_asset": "FABRICATED PREVIEW",
+        "back_to_news": "EVIDENCED NEWS"
+      }
+    },
+    "D4 a sector row stated no mechanism and had no evidence route": {
+      "observed": "'auto | ambiguous \u00b7 1 events | Exposure unknown'",
+      "fix": "the row names its mechanism, explains the direction, states severity, evidence confidence and whether the exposure is sized, and clicking it opens the events behind it"
+    },
+    "D5 the evidence behind an inference could be unreachable": {
+      "observed": "clicking the steel row answered 'the event behind this inference is not on the displayed page'. Honest and useless",
+      "fix": "events referenced by an on-screen inference travel with the rail however far down the eligible list they fall, badged REFERENCED",
+      "verified_in_browser": "clicking the steel sector row opened 'Tata Steel inaugurates Phase II expansion of Kalinganagar operations' with its source link"
+    }
+  },
+  "corpus": {
+    "stories": 200,
+    "eligible_events": 181,
+    "publishers": 8,
+    "registered_feeds": 11,
+    "globe_nodes": 5,
+    "globe_edges": 1
+  },
+  "tests": "tests/test_ni15_sector_and_labels.py (19); the inherited test_latest_before_pagination_and_matching_estimates asserted that estimates were a SUBSET of the displayed page \u2014 that was the defect, and it is replaced by two tests asserting the corrected property",
+  "screenshot": "docs/evidence/news-intelligence/ni15-sector-and-labels-2026-10-17.jpg",
+  "not_claimed": [
+    "three curated exposure edges are a pilot, not a transmission model. Most events still produce no sector impact, which is correct: no documented exposure reaches them.",
+    "10 of 12 visible event types remain 'other' for Federal Register prose; the extractor's vocabulary is still narrow (NI03/NI11).",
+    "nothing here is a measured loss, a probability, or evidence of predictive skill."
+  ],
+  "refresh_cost": {
+    "question": "estimating impacts over EVERY eligible event instead of the displayed page runs on each 30-second refresh. Does it cost anything operationally?",
+    "measured": "0.61-0.68 s for build_news_payload + build_globe_payload over 188 eligible events, three consecutive runs",
+    "interval_seconds": 30,
+    "duty_cycle": "about 2 per cent",
+    "conclusion": "the correctness fix is free at this corpus size. It is not free at every size: the cost is linear in eligible events, and a much larger corpus would need an incremental or cached aggregate rather than a full recompute per refresh."
+  }
+}

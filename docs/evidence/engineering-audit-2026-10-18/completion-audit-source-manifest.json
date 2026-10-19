@@ -1,0 +1,600 @@
+{
+  "captured_at": "2026-10-18T15:37:42.375590+00:00",
+  "head": "51680bb",
+  "dirty_working_tree": true,
+  "method": "Read-only source inventory; no model execution or database mutation",
+  "audit": "SERAPH-ENGINEERING-COMPLETION-AUDIT-2026-10-18.md",
+  "work_packages": [
+    "D01",
+    "D02",
+    "D03",
+    "D04",
+    "D05",
+    "D06",
+    "R01",
+    "R02",
+    "R03",
+    "R04",
+    "R05",
+    "R06",
+    "R07",
+    "R08",
+    "R09",
+    "R10",
+    "R11",
+    "R12",
+    "P01",
+    "P02",
+    "P03",
+    "P04",
+    "P05",
+    "P06",
+    "P07",
+    "P08",
+    "N01",
+    "N02",
+    "N03",
+    "N04",
+    "N05",
+    "N06",
+    "N07",
+    "N08",
+    "N09",
+    "N10",
+    "N11",
+    "N12",
+    "U01",
+    "U02",
+    "U03",
+    "U04",
+    "U05",
+    "O01",
+    "O02",
+    "O03",
+    "O04",
+    "O05",
+    "O06",
+    "O07",
+    "O08",
+    "V01",
+    "V02",
+    "V03",
+    "V04"
+  ],
+  "files": [
+    {
+      "path": ".github/workflows/astra.yml",
+      "sha256": "74d14f33c5aa67ef3abb2d552910c3bfbb3f7bbba4a923df59009ecf6440732f",
+      "size": 1829,
+      "modified": "2026-10-15T01:25:31.369446+00:00"
+    },
+    {
+      "path": "launch_prototype.ps1",
+      "sha256": "77698d32ef51910009e5afad6dd0548b66f518df2d0aaeacade3f163107e6b02",
+      "size": 2242,
+      "modified": "2026-10-18T09:11:45.241683+00:00"
+    },
+    {
+      "path": "pyproject.toml",
+      "sha256": "9b7a5b32f8233ab5b0c01c807b215b4b88d6ae884c30b71aa151c17026fdeb46",
+      "size": 1762,
+      "modified": "2026-10-18T09:35:41.882308+00:00"
+    },
+    {
+      "path": "requirements-research.lock.txt",
+      "sha256": "55026f7dfa58a323e9fd6917d5ed1b6383ee4cf08870c6a688de9b2c324dabe7",
+      "size": 1160,
+      "modified": "2026-10-15T01:25:31.487820+00:00"
+    },
+    {
+      "path": "scripts/run_live.py",
+      "sha256": "2bc64ea7861f799387acdd332d918b487dba6f62294e0ac2ebf9047406fd7a7f",
+      "size": 13890,
+      "modified": "2026-10-16T22:53:51.413575+00:00"
+    },
+    {
+      "path": "scripts/run_news.py",
+      "sha256": "08c865796d94b4d7e06f18633d2f2e348d5458e9c7dad8477620546ca80f66dd",
+      "size": 43305,
+      "modified": "2026-10-18T09:21:17.468355+00:00"
+    },
+    {
+      "path": "seraph/dashboard/__init__.py",
+      "sha256": "300fc0a47325a29a41a20b89e16d8e3763f8b2eafe8e9643f5ab4a294f3015bd",
+      "size": 328,
+      "modified": "2026-08-23T09:40:11.779693+00:00"
+    },
+    {
+      "path": "seraph/dashboard/app.py",
+      "sha256": "2842759da02835e3f71c098a34d23db9539b230528ed4c86c08d83e9eb6becfc",
+      "size": 18370,
+      "modified": "2026-10-16T01:44:22.165224+00:00"
+    },
+    {
+      "path": "seraph/dashboard/connected_frontend.py",
+      "sha256": "368cfdab6a95e68f26a0cebd74380a4f95616dabffdc0af63fc718d8b3244492",
+      "size": 1333,
+      "modified": "2026-10-15T20:44:05.439793+00:00"
+    },
+    {
+      "path": "seraph/dashboard/console_backend.py",
+      "sha256": "a07669a9ae417e7b87ad37a6a5a8f0f65eee8990fbddfbc207ffa4f0749045e2",
+      "size": 16721,
+      "modified": "2026-10-18T09:03:17.285430+00:00"
+    },
+    {
+      "path": "seraph/dashboard/console_component/bridge.js",
+      "sha256": "962f3e2bbb1af8f7a452402a04477028ad4147652f98b93cae23a6af7050c780",
+      "size": 37621,
+      "modified": "2026-10-18T09:48:18.124003+00:00"
+    },
+    {
+      "path": "seraph/dashboard/current_reader.py",
+      "sha256": "c4c697c546a29bc03846378d86fb6e3a76f9d6bcf1b4b2a7def0ee1419f2f6b7",
+      "size": 11069,
+      "modified": "2026-10-16T23:10:17.629889+00:00"
+    },
+    {
+      "path": "seraph/dashboard/datasource.py",
+      "sha256": "7c73aae2bcf7e5375e4f1aa3aacbe8504df28c621dff61a059103e383e2b34da",
+      "size": 8652,
+      "modified": "2026-10-16T06:58:17.557395+00:00"
+    },
+    {
+      "path": "seraph/dashboard/demo_data.py",
+      "sha256": "af25400e8d3d264bd4553863a73c0c8d6755ee2ce5babdada149a51b8862d97d",
+      "size": 4097,
+      "modified": "2026-08-24T08:36:19.986513+00:00"
+    },
+    {
+      "path": "seraph/dashboard/gateway.py",
+      "sha256": "dcb4278efa9b81b0786ba559e307c26d8bafb7e004747a10aaada1d994ca8fce",
+      "size": 9502,
+      "modified": "2026-10-15T16:33:08.495969+00:00"
+    },
+    {
+      "path": "seraph/dashboard/globe_payload.py",
+      "sha256": "c99a59706d3db71ee3364571a4f797448d781c6471f17087912146a6d654cfcb",
+      "size": 33465,
+      "modified": "2026-10-17T15:47:31.465208+00:00"
+    },
+    {
+      "path": "seraph/dashboard/news_view.py",
+      "sha256": "0edb287458b34b8c47beb32500e11caaa5ebd1bc312d69b3d757e9abf6b5977a",
+      "size": 28782,
+      "modified": "2026-10-18T09:09:45.061781+00:00"
+    },
+    {
+      "path": "seraph/dashboard/prototype_app.py",
+      "sha256": "deb6559a1e3ae849ba71aca93915c6f03d16dd60b8564df0152a5fbc8edca944",
+      "size": 14615,
+      "modified": "2026-10-18T04:05:42.635606+00:00"
+    },
+    {
+      "path": "seraph/dashboard/theme.py",
+      "sha256": "2b2667ca6fc86ac6134f580958d806264145aa662de79be730c5718242f216d0",
+      "size": 7598,
+      "modified": "2026-08-23T09:40:54.612906+00:00"
+    },
+    {
+      "path": "seraph/decision_support/__init__.py",
+      "sha256": "caa054ef71f601001dcbc6005eaa02d2f09782c07164d796425da925a089a54f",
+      "size": 2553,
+      "modified": "2026-10-15T16:33:08.577437+00:00"
+    },
+    {
+      "path": "seraph/decision_support/action_log.py",
+      "sha256": "494ac8dfa0eaf3d1cf73eb44359edbf8a5e0bae42c793919497dc3217aa64b70",
+      "size": 18480,
+      "modified": "2026-10-15T16:21:25.045214+00:00"
+    },
+    {
+      "path": "seraph/decision_support/artefacts.py",
+      "sha256": "72260d22dd38f43467c1850a264c1759a8b59b3638add237c575e9093818ae57",
+      "size": 9005,
+      "modified": "2026-10-15T16:33:46.361412+00:00"
+    },
+    {
+      "path": "seraph/decision_support/cases.py",
+      "sha256": "76bd74fb6510fd2cee2dfc055aea8daf47d40ecd1861d3be28e06a6393652c6a",
+      "size": 22284,
+      "modified": "2026-10-16T12:38:56.619954+00:00"
+    },
+    {
+      "path": "seraph/decision_support/exposure_trail.py",
+      "sha256": "f651793ae8bb06c69d2d6facf3441de599f03ded9c965d2146d07b57acc3b13d",
+      "size": 10220,
+      "modified": "2026-10-16T12:40:53.154084+00:00"
+    },
+    {
+      "path": "seraph/decision_support/portfolio.py",
+      "sha256": "50105c7f8fb7513cb9a7208677d1a290e77f74ac5a29a3d46156db515eb8d004",
+      "size": 19122,
+      "modified": "2026-10-15T16:21:25.016732+00:00"
+    },
+    {
+      "path": "seraph/decision_support/portfolio_io.py",
+      "sha256": "1ad08b4242ec5664d64da56bb01d266bed7a64e80997d5eb5d915860533b8240",
+      "size": 7568,
+      "modified": "2026-10-15T16:21:25.043299+00:00"
+    },
+    {
+      "path": "seraph/decision_support/scenarios.py",
+      "sha256": "c2447e67eaedc4c2c955df4221b47f738338b0b21e69091ea9212ae89aa571e0",
+      "size": 14496,
+      "modified": "2026-10-16T12:40:07.279263+00:00"
+    },
+    {
+      "path": "seraph/decision_support/workspace.py",
+      "sha256": "2871a8c95ea1cd10781ec5f4f841c445ef6cbdefe196cff09662bb42243b62b8",
+      "size": 26959,
+      "modified": "2026-10-16T12:21:53.945645+00:00"
+    },
+    {
+      "path": "seraph/identity/__init__.py",
+      "sha256": "4d0418287b8954a2de7fa5c2a92344a13f8b4fc3a1da13f422a7a165bdbe8495",
+      "size": 1294,
+      "modified": "2026-10-16T17:48:50.231759+00:00"
+    },
+    {
+      "path": "seraph/identity/model.py",
+      "sha256": "77da4adef49c64a190ed2085395f86dbb1e073df80c310a558be44b51d0db5bc",
+      "size": 7398,
+      "modified": "2026-10-16T17:48:38.857184+00:00"
+    },
+    {
+      "path": "seraph/identity/oidc.py",
+      "sha256": "fe7fa934e8043240c40ab8700b71bae1ddb112b62b7e32d23d2ab934519634c8",
+      "size": 5448,
+      "modified": "2026-10-16T12:19:33.558976+00:00"
+    },
+    {
+      "path": "seraph/identity/registry.py",
+      "sha256": "7ac84e728b741f7ff831e8abd6763724b15556f6fc88f73712bfd4bd09fa9edb",
+      "size": 21754,
+      "modified": "2026-10-16T17:48:50.230771+00:00"
+    },
+    {
+      "path": "seraph/live/__init__.py",
+      "sha256": "2398d414cfd8f31520e879fe094c83195f9fc57648e0629f201ff78ba3186c3e",
+      "size": 1381,
+      "modified": "2026-10-16T13:15:47.243024+00:00"
+    },
+    {
+      "path": "seraph/live/archive_adapter.py",
+      "sha256": "feaff1a2b193fb562f8acec0b7d4fdd892eb8e26f3659caadf5fae9fe15f450f",
+      "size": 7776,
+      "modified": "2026-10-16T18:46:19.723300+00:00"
+    },
+    {
+      "path": "seraph/live/bars.py",
+      "sha256": "9ea0b8e8d8f92dfdaaddac2f892db1d688f3613caea8e3a1b5fd4d52cededbf4",
+      "size": 15252,
+      "modified": "2026-10-16T17:15:25.364896+00:00"
+    },
+    {
+      "path": "seraph/live/clock.py",
+      "sha256": "1100ae4e0a1591c7cc93f07750470ceb2e1074849af293b9bc80968cb9c917fa",
+      "size": 13966,
+      "modified": "2026-10-16T22:49:35.888319+00:00"
+    },
+    {
+      "path": "seraph/live/engine_adapter.py",
+      "sha256": "39a2b80e7cc511c789241a50d39330f74a301b556b2db93969025ed2c92c2da9",
+      "size": 7128,
+      "modified": "2026-10-16T18:53:41.295299+00:00"
+    },
+    {
+      "path": "seraph/live/feed.py",
+      "sha256": "704459b127467207b382fc23cecfea68706735a5b5a7f4fec683f466318bbebf",
+      "size": 11330,
+      "modified": "2026-10-16T13:14:31.796293+00:00"
+    },
+    {
+      "path": "seraph/live/inference.py",
+      "sha256": "08d31e21c34bdf49874b1e88107ed56c3355a4f1fa7830ceba1d00ea15207901",
+      "size": 37073,
+      "modified": "2026-10-16T18:50:08.327607+00:00"
+    },
+    {
+      "path": "seraph/live/lifecycle.py",
+      "sha256": "876c4c21c28966be786afd6964d6c866e42e6c217390d2e0a6d5563ab757d7f7",
+      "size": 11364,
+      "modified": "2026-10-16T22:50:25.115909+00:00"
+    },
+    {
+      "path": "seraph/live/loop.py",
+      "sha256": "2426acdfe089d39098cc86fc3e9f2c51a4d7473b8d8f18634f7ef217e7423035",
+      "size": 12059,
+      "modified": "2026-10-16T22:53:51.413575+00:00"
+    },
+    {
+      "path": "seraph/live/publication.py",
+      "sha256": "255e491b9415373c1dcec7ae7caad95d99028caf5305eea8dc58681e2ae89a06",
+      "size": 9179,
+      "modified": "2026-10-16T17:17:28.029114+00:00"
+    },
+    {
+      "path": "seraph/live/store.py",
+      "sha256": "b1e0a63d51712b7a66a3a5486b94317902cf8407795510c4f7719583d0a8fc8e",
+      "size": 27041,
+      "modified": "2026-10-16T23:08:09.890464+00:00"
+    },
+    {
+      "path": "seraph/news/__init__.py",
+      "sha256": "40419c29e78419c78ced351b5486a1440b5b1d67c13237a3c50bbc364f6754fa",
+      "size": 1161,
+      "modified": "2026-10-16T12:28:07.737670+00:00"
+    },
+    {
+      "path": "seraph/news/acquisition.py",
+      "sha256": "7b0ad385aacc8d549a3027c148ece9fcde3fd894e1b15c0916fa6a243b7b362a",
+      "size": 50806,
+      "modified": "2026-10-18T09:46:09.547054+00:00"
+    },
+    {
+      "path": "seraph/news/backfill.py",
+      "sha256": "4127d3712f6b0ea83bcf29b28b15893b4f4fcb36125832188dfcd805311b8ccd",
+      "size": 8542,
+      "modified": "2026-10-18T07:23:43.840634+00:00"
+    },
+    {
+      "path": "seraph/news/currency.py",
+      "sha256": "d1c747b502d8764664be8361c6bb71b8fb2d75d3384efe265444c2501cd4276f",
+      "size": 10213,
+      "modified": "2026-10-18T09:03:16.539705+00:00"
+    },
+    {
+      "path": "seraph/news/documents.py",
+      "sha256": "72ca36f124cc1fad3d98e21702f34aac211f59052c2a8c11a7a17ea64d43f6a8",
+      "size": 4754,
+      "modified": "2026-10-17T02:04:53.944167+00:00"
+    },
+    {
+      "path": "seraph/news/enrichment.py",
+      "sha256": "46979281592a06c408e206ab4cc1495fecf5f29a002eac577f84d4c034192d06",
+      "size": 8680,
+      "modified": "2026-10-18T09:46:09.678597+00:00"
+    },
+    {
+      "path": "seraph/news/estimation.py",
+      "sha256": "44dba8deeedb006bd543636f28ae346bc35c3a8d3f26f801124071f77f849559",
+      "size": 20819,
+      "modified": "2026-10-18T15:28:27.037613+00:00"
+    },
+    {
+      "path": "seraph/news/event_frames.py",
+      "sha256": "cd74a8d82e26d8092d93b5aa54020d1fa4e89043afb02439746989aec6c55f1b",
+      "size": 27803,
+      "modified": "2026-10-18T15:28:20.138927+00:00"
+    },
+    {
+      "path": "seraph/news/extraction.py",
+      "sha256": "591f3b7257b73dcd28eeec421b8f71a481ec21f15d5d2783fe3bafcd928c10c0",
+      "size": 35908,
+      "modified": "2026-10-18T15:30:46.602902+00:00"
+    },
+    {
+      "path": "seraph/news/hindi.py",
+      "sha256": "262b375e9521b10b1d98324d255d0ae6163cdbe518f0ee932b392a8655bda5a8",
+      "size": 7142,
+      "modified": "2026-10-18T03:38:19.688025+00:00"
+    },
+    {
+      "path": "seraph/news/http_feed.py",
+      "sha256": "0ba89624437642d5dc0d7ebbd4747d8c1028f5ab3d87710561d3e5ab8797698c",
+      "size": 17190,
+      "modified": "2026-10-18T09:10:43.265033+00:00"
+    },
+    {
+      "path": "seraph/news/json_feed.py",
+      "sha256": "78190590e10278e78beabc071a8a74a6c22766ee4afe1563915717db319d514b",
+      "size": 13432,
+      "modified": "2026-10-18T04:04:01.172383+00:00"
+    },
+    {
+      "path": "seraph/news/lifecycle.py",
+      "sha256": "bc7157a0ecb909726f931c08d61cae91d3059e42dbd437ddd48ef6e467a44bc1",
+      "size": 8265,
+      "modified": "2026-10-18T09:03:16.286295+00:00"
+    },
+    {
+      "path": "seraph/news/model.py",
+      "sha256": "766b3b431eb686e4462c563beeea06b0c53f86bd584ee78b99c968890f7b4920",
+      "size": 18621,
+      "modified": "2026-10-18T03:39:04.523159+00:00"
+    },
+    {
+      "path": "seraph/news/opposing.py",
+      "sha256": "7c9d299bed029ea2290fe36419cd884fa59978d3fdc7cdfa28a44054f0a6dbf6",
+      "size": 5630,
+      "modified": "2026-10-18T07:47:07.571561+00:00"
+    },
+    {
+      "path": "seraph/news/pdf_text.py",
+      "sha256": "750b284364250dec4cb74305e9e4cc8f4a2c642a8de473ee5317ffc8e45872fc",
+      "size": 2637,
+      "modified": "2026-10-18T09:36:33.233633+00:00"
+    },
+    {
+      "path": "seraph/news/refresh.py",
+      "sha256": "6dcbc4a75bb727dcd185dc57cc8203758b3213e87a95df1b35fa0a3043354563",
+      "size": 9390,
+      "modified": "2026-10-18T09:12:24.914144+00:00"
+    },
+    {
+      "path": "seraph/news/registry.py",
+      "sha256": "ba43089ff57745bbce44f526b5d0fbb8a1cd3d22cd348cfe67ef6a38be0f021a",
+      "size": 21780,
+      "modified": "2026-10-18T09:03:16.793940+00:00"
+    },
+    {
+      "path": "seraph/news/relevance.py",
+      "sha256": "e674aa0a3554b35db1eb15b5697b275c56ad3a43ef53f2f5f45cb53c5f143b53",
+      "size": 7321,
+      "modified": "2026-10-17T16:29:36.695750+00:00"
+    },
+    {
+      "path": "seraph/news/roles.py",
+      "sha256": "43e7f2b43f4f97c7323ee4c5cddaf0b947983c26d25f14b8c15edd8d9976d67d",
+      "size": 9988,
+      "modified": "2026-10-18T09:34:25.527327+00:00"
+    },
+    {
+      "path": "seraph/news/scenarios.py",
+      "sha256": "e61095af13283ae6f897dc251e5bab93b570780b7997cdd892b52070d6155f5f",
+      "size": 2570,
+      "modified": "2026-10-17T02:07:41.254073+00:00"
+    },
+    {
+      "path": "seraph/news/scope.py",
+      "sha256": "c07004853426eda91c6eb85adcf2b4b6faf30a1224a20774a56a2f014b8b83db",
+      "size": 12712,
+      "modified": "2026-10-18T15:26:48.313749+00:00"
+    },
+    {
+      "path": "seraph/news/worker_lock.py",
+      "sha256": "7938a94b197690866a17e017987e1214b0e4f70c09aa51b652116b880f1f30b6",
+      "size": 1458,
+      "modified": "2026-10-18T09:01:35.328635+00:00"
+    },
+    {
+      "path": "seraph/operations/__init__.py",
+      "sha256": "1687de8cb9dd8dd56af787c444602b7648f02f9f5245721cde1b1107d4c0d2e5",
+      "size": 744,
+      "modified": "2026-10-16T12:58:22.848669+00:00"
+    },
+    {
+      "path": "seraph/operations/jobs.py",
+      "sha256": "391d220d32477e2c0b1308cf5b96d3626b8144c70ac70c75115b839e455356ab",
+      "size": 11539,
+      "modified": "2026-10-16T12:57:22.331366+00:00"
+    },
+    {
+      "path": "seraph/operations/monitoring.py",
+      "sha256": "24c83c943e12bb3ae60d9d0c0e7de9a15df5db7ab1b2ae2dd8e242e77db69c20",
+      "size": 12194,
+      "modified": "2026-10-16T12:58:12.334149+00:00"
+    },
+    {
+      "path": "seraph/orchestration/__init__.py",
+      "sha256": "7d2d4d7dc14887935ab306ee2077d87e39159ad8ba8c4c67a0ef9419e0e62e9f",
+      "size": 1178,
+      "modified": "2026-10-15T01:25:31.548501+00:00"
+    },
+    {
+      "path": "seraph/orchestration/adapters.py",
+      "sha256": "dd2b769a6663674667be0713cfe9543a60aac5f627e72738b2b56fd7e73c4837",
+      "size": 11557,
+      "modified": "2026-10-15T01:25:31.548501+00:00"
+    },
+    {
+      "path": "seraph/orchestration/hamilton_causal.py",
+      "sha256": "29bebdf28a5a2c112f2984b65f73b95027ab839bf52d375b616d6c9faa8a62c4",
+      "size": 8507,
+      "modified": "2026-08-24T15:07:54.030059+00:00"
+    },
+    {
+      "path": "seraph/orchestration/original_execution.py",
+      "sha256": "0e89432eb1201ad5b6a8e184fff535d78a6cb7f0ab213d0ff72d2b53618269bc",
+      "size": 6592,
+      "modified": "2026-10-16T06:25:47.133470+00:00"
+    },
+    {
+      "path": "seraph/orchestration/prototype.py",
+      "sha256": "ba0c79cdcd18e391e3173cafc678ed736dbd6396868cb5273cc02fedba833bec",
+      "size": 22970,
+      "modified": "2026-10-16T06:42:01.905992+00:00"
+    },
+    {
+      "path": "seraph/orchestration/run_store.py",
+      "sha256": "f09a497fbcf12b9a25cfc55a07862dc6a048cb47420669fc43ad798988a4c38a",
+      "size": 18749,
+      "modified": "2026-10-16T06:42:41.311158+00:00"
+    },
+    {
+      "path": "seraph/orchestration/standardize.py",
+      "sha256": "80f84c37aecb92ecb198206ec49e042645c2edcff371a8a25b738ca5e7eb0e29",
+      "size": 6663,
+      "modified": "2026-08-24T01:37:23.984122+00:00"
+    },
+    {
+      "path": "seraph/store/__init__.py",
+      "sha256": "a4a79531bd51b43ef03a9c6b99815ec8c3ee0d7ae0705aef5492dad3c43da6e2",
+      "size": 486,
+      "modified": "2026-08-22T23:38:22.580064+00:00"
+    },
+    {
+      "path": "seraph/store/bootstrap.py",
+      "sha256": "999d50719ba36599c53aab60441d8d58a4c99d3239bbaab205416bf31e1b458b",
+      "size": 1949,
+      "modified": "2026-10-17T20:33:25.058132+00:00"
+    },
+    {
+      "path": "seraph/store/migrations/__init__.py",
+      "sha256": "efb1a6d0cfe7c4900f7364d45d7f1e845748774a139df11117cc76cdb0d88fa5",
+      "size": 3141,
+      "modified": "2026-10-16T12:51:05.397847+00:00"
+    },
+    {
+      "path": "seraph/store/reader.py",
+      "sha256": "5d860b8a7baac87ececc3475d515aa0ef06df2866e3539b1813c8c0c3c5e2e45",
+      "size": 6188,
+      "modified": "2026-08-22T23:39:29.804236+00:00"
+    },
+    {
+      "path": "seraph/store/writer.py",
+      "sha256": "af2c59725080d781b5ad952b2f6db979db1569c5fdbdf4094addba1cfdb6459d",
+      "size": 13372,
+      "modified": "2026-10-15T16:33:08.739317+00:00"
+    },
+    {
+      "path": "seraph/validation/__init__.py",
+      "sha256": "7c2324302549e3fad85c60dd84d0e19103f7c55fd690ce6a2c001e96d01148a9",
+      "size": 1029,
+      "modified": "2026-10-17T16:40:11.371922+00:00"
+    },
+    {
+      "path": "seraph/validation/ablation.py",
+      "sha256": "53fcfef148c682dc6accf41eb55ae518de59a90144a9ed769baf8b3e9be2dcf1",
+      "size": 1909,
+      "modified": "2026-08-23T00:34:28.541795+00:00"
+    },
+    {
+      "path": "seraph/validation/epochs.py",
+      "sha256": "adb28cfb00f501cbe31d060787a6118fed8ab2f62d784f7124694868aa333cc3",
+      "size": 3337,
+      "modified": "2026-08-23T12:58:31.495391+00:00"
+    },
+    {
+      "path": "seraph/validation/harness.py",
+      "sha256": "2c7923d0449708aa302d91340b5b39f4c57d601949b26c67da03bb7e4bac27ea",
+      "size": 6932,
+      "modified": "2026-08-23T09:48:08.577961+00:00"
+    },
+    {
+      "path": "seraph/validation/news_benchmark_labels.py",
+      "sha256": "2dc7550469d88cb7ae05d092b9d38144a0a92c175076765fcb321d308560e9d2",
+      "size": 11025,
+      "modified": "2026-10-18T03:46:18.461785+00:00"
+    },
+    {
+      "path": "seraph/validation/news_corpus.py",
+      "sha256": "e587491fb261661a66ae5c9427d62dee1e1ea2f13a76f365eef9df939544485b",
+      "size": 16661,
+      "modified": "2026-10-18T15:20:02.555321+00:00"
+    },
+    {
+      "path": "seraph/validation/news_gate.py",
+      "sha256": "a1276f9288a7fd3750e9d2a5e4f54d0839f7a2fd89aa628c0a209aa6cce5f5d8",
+      "size": 13242,
+      "modified": "2026-10-18T15:19:38.765963+00:00"
+    },
+    {
+      "path": "seraph/validation/preregistration.py",
+      "sha256": "3abec9aeeefb3d4f3392a8e3af7768633b10cc5ce23cacd68c9d57adbc1facef",
+      "size": 9052,
+      "modified": "2026-10-17T16:39:27.621563+00:00"
+    }
+  ]
+}

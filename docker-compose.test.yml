@@ -1,0 +1,48 @@
+# DATA01 — a DISPOSABLE, GUARDED Timescale instance for integration tests.
+#
+# Separate from docker-compose.yml on purpose. Three databases exist and must
+# never be confused:
+#
+#   source       the original SERAPH database (port 5433) — READ ONLY, never
+#                started or migrated from here
+#   research     the experimental database (port 5434, docker-compose.yml)
+#   test         THIS one (port 5435) — disposable, recreated at will
+#
+# The database name must start with `seraph_test_`, and `tests/conftest.py`
+# additionally requires a `seraph_test_guard(token)` row before it will let any
+# DDL run. Provision it with:
+#
+#     docker compose -f docker-compose.test.yml up -d
+#     python scripts/provision_test_db.py
+#
+# and tear it down with `docker compose -f docker-compose.test.yml down -v`.
+# The volume is anonymous so `down -v` really does destroy it; this database is
+# not meant to hold anything worth keeping.
+# Its OWN compose project, which is not cosmetic. Both files otherwise default
+# their project name to the directory, so compose treats the research
+# container as an "orphan" of this project and suggests `--remove-orphans` --
+# a flag that would DELETE the research container. Naming this project
+# separately means the suggestion never appears and the flag cannot reach
+# across. Container and volume naming are unaffected: `container_name` is
+# explicit above and the data volume is tmpfs.
+name: seraph-test
+
+services:
+  timescaledb-test:
+    image: timescale/timescaledb:2.17.2-pg16
+    container_name: seraph-test-timescaledb
+    environment:
+      POSTGRES_USER: ${SERAPH_TEST_DB_USER:-seraph_test}
+      POSTGRES_PASSWORD: ${SERAPH_TEST_DB_PASSWORD:-seraph_test}
+      POSTGRES_DB: ${SERAPH_TEST_DB_NAME:-seraph_test_local}
+    ports:
+      # Bound to loopback: this instance is never reachable off the machine.
+      - "127.0.0.1:5435:5432"
+    tmpfs:
+      # In memory. A test database that survives a reboot is a liability.
+      - /var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${SERAPH_TEST_DB_USER:-seraph_test} -d ${SERAPH_TEST_DB_NAME:-seraph_test_local}"]
+      interval: 3s
+      timeout: 3s
+      retries: 30

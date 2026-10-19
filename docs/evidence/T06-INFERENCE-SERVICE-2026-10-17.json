@@ -1,0 +1,43 @@
+{
+  "ticket": "T06 \u2014 timestamp inference service (audit finding R01)",
+  "created_at": "2026-10-17T00:44:27+0530",
+  "finding": "the live entry point never invoked the risk engine. The only orchestration was InferenceSession.step(), keyed by a session date; calling it repeatedly to get intraday decisions would re-append the same vintage to each ECDF and shrink the uncertainty of a pillar that had produced nothing new.",
+  "built": {
+    "seraph/live/inference.py": [
+      "DecisionRequest / DecisionResult; CsrsPoint travels unchanged inside",
+      "Vintage with five times kept apart (input_end, fit_train_end, fit_completed_at, fit_deployed_at, emission_available_at)",
+      "DeploymentRegistry \u2014 a bundle trained through yesterday but available tomorrow is not usable today; an unregistered bundle is refused",
+      "StandardizerHistory \u2014 append-once on the vintage key",
+      "declared per-producer cadence; a carried-forward pillar is OMITTED from the emission batch so C8 ages it instead of re-ignoring it with a STALE_OBSERVATION every five minutes",
+      "warm_start / snapshot / restore; restore refuses a different pipeline version or session calendar, and the snapshot is plain JSON, never pickle",
+      "sessions_elapsed() \u2014 the plan's u(t) over C8's existing per-bar clock"
+    ],
+    "seraph/live/archive_adapter.py": "date-cadence compatibility + equivalence_report",
+    "seraph/live/engine_adapter.py": "attach() puts the service in LiveLoop.evaluate; NullProducers/StaticProducers",
+    "seraph/live/loop.py": "warmup_source and feed_sink, so warmup is the engine's state and the engine sees the loop's own feed provenance",
+    "scripts/verify_t06_equivalence.py": "real-archive acceptance run"
+  },
+  "acceptance": {
+    "gate": "raw replay and incremental results agree on supported configuration",
+    "sessions_compared": 5361,
+    "range": "2005-01-01 .. 2026-12-31, the whole verified archive",
+    "policies": [
+      "session_close",
+      "standard_1530"
+    ],
+    "disagreements_on_reconciled_state_or_composite": 0,
+    "warning_list_differences": "all 5361 sessions, categorised: (1) absences worded with the typed absence_reason rather than the adapter's free text; (2) a carried-forward pillar is omitted, so STALE_OBSERVATION and its PARTIAL_COVERAGE echo do not recur. The one warning with a consequence \u2014 NOISE_SATURATED, which excludes the pillar from the mask \u2014 is re-reported by the service from the resulting state.",
+    "harness_defect_found_and_fixed": "the first standard_1530 run reported 449 disagreements; the cause was the harness letting InferenceSession build its own default session_close clock, so it compared two policies. Both paths now share one clock and the count is 0.",
+    "evidence": [
+      "docs/evidence/T06-EQUIVALENCE-FULL-2026-10-17.json",
+      "docs/evidence/T06-EQUIVALENCE-1530-2026-10-17.json"
+    ]
+  },
+  "clock_decision": "DR-09 \u2014 C8's process noise is already per five-minute bar of OPEN TRADING TIME, so no conversion layer was added. Verified: a session predicted bar-by-bar accumulates exactly the covariance of one whole-session prediction (allclose, atol 1e-12); overnight and split-session breaks contribute zero.",
+  "tests": "tests/test_t06_inference_service.py (42), tests/test_t06_archive_equivalence.py (11), tests/test_t06_engine_in_the_loop.py (12); full suite 1051 passed, 14 skipped, 1 xfailed",
+  "not_claimed": [
+    "NO LIVE PILLAR PRODUCER IS CONNECTED. The loop now invokes the engine on every bar close, but NullProducers emits a structural absence for all three pillars, so a live tick produces no CSRS and the gate refuses to call anything current. That is the true state, and it is visible in the decision rather than implied by its absence.",
+    "snapshot/restore is in memory. Durable checkpoints, the crash protocol and the session lifecycle are T07.",
+    "equivalence on replayed archive inputs is not live operation and is not predictive evidence."
+  ]
+}

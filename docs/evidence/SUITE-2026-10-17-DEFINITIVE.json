@@ -1,0 +1,55 @@
+{
+  "recorded_at": "2026-10-17T22:35:00+05:30",
+  "command": ".venv/Scripts/python.exe -I -m pytest tests/ -q -p no:randomly",
+  "summary": "1397 passed, 14 skipped in 945.07s (0:15:45)",
+  "exit_code": 0,
+  "passed": 1397,
+  "skipped": 14,
+  "failed": 0,
+  "duration_seconds": 945.07,
+  "skip_reasons": {
+    "TimescaleDB not reachable - run `docker compose up -d` first": {
+      "count": 9,
+      "tests": [
+        "tests\\contract\\test_ct1_ingestion_idempotency.py:67",
+        "tests\\contract\\test_ct1_ingestion_idempotency.py:99",
+        "tests\\test_c2_macro_ingestion.py:786",
+        "tests\\test_c2_macro_ingestion.py:821",
+        "tests\\test_c2_macro_ingestion.py:863",
+        "tests\\test_c2_macro_ingestion.py:913",
+        "tests\\test_c2_macro_ingestion.py:942",
+        "tests\\test_c5_hawkes_writer.py:279",
+        "tests\\test_c5_hawkes_writer.py:333"
+      ]
+    },
+    "needs a disposable seraph_test_* database; set SERAPH_TEST_DB_DSN and SERAPH_TEST_TOKEN": {
+      "count": 1,
+      "tests": [
+        "tests\\test_fix06_evaluation_identity.py:170"
+      ]
+    },
+    "not enough intraday bars yet - run scripts/backfill_intraday.py": {
+      "count": 4,
+      "tests": [
+        "tests\\contract\\test_ct3_jump_sufficiency.py:149",
+        "tests\\contract\\test_ct3_jump_sufficiency.py:179",
+        "tests\\contract\\test_ct3_jump_sufficiency.py:191",
+        "tests\\contract\\test_ct3_jump_sufficiency.py:198"
+      ]
+    }
+  },
+  "note": "every skip is environmental, not a failure: 12 need the Docker TimescaleDB service, 4 need an intraday backfill, 1 needs a disposable seraph_test_* database whose credentials are deliberately not fabricated",
+  "covers": [
+    "NI11/NI12 sector exposure edges",
+    "forthcoming-publication Timing fix and store migration",
+    "NI03/NI16 relevance split and SEBI enforcement class",
+    "logistics_disruption narrowing",
+    "FIX05 / DR-05 Table B two-epoch decision and Table C"
+  ],
+  "also_verified": {
+    "news_side_selection": 485,
+    "validation_selection": 25,
+    "js_harness_checks": 31,
+    "browser": "scripts/verify_news_sectors_browser.py: 5 sectors, 31 forthcoming labels, 56 scope reasons, 1 government link"
+  }
+}

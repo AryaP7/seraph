@@ -1,0 +1,43 @@
+# NEWS03 place master data. Loaded by seraph/news/registry.py.
+#
+# Places carry no economic claim, but a wrong coordinate still puts an
+# incident in the wrong district, so every row names the gazetteer record
+# it came from. GeoNames IDs are stable and independently checkable:
+# https://www.geonames.org/<id>.
+#
+# -- COLUMNS -----------------------------------------------------------------
+# place_id   unique, stable, lowercase_snake (e.g. in_od_jajpur).
+# name       as the gazetteer spells it.
+# kind       country | state | district | city
+# parent_id  place_id of the containing place.
+# iso_code   ISO 3166 code where one exists.
+# lat, lon   decimal degrees, WGS84. Blank is better than approximate.
+# source_ref the gazetteer record. Not enforced by the loader (a place
+#            asserts no economic claim) but required by this file's own
+#            convention, because a coordinate from memory is a guess.
+#
+# aliases    pipe-separated alternative spellings the resolver accepts,
+#            exactly. Official documents write countries in their long
+#            legal form; a short curated name alone never matches them.
+place_id,name,kind,parent_id,iso_code,lat,lon,source_ref,known_from,aliases
+in,India,country,,IND,22.00000,79.00000,https://www.geonames.org/1269750/republic-of-india.html,,Republic of India
+in_mh,Maharashtra,state,in,,19.50000,76.00000,https://www.geonames.org/1264418/maharashtra.html,,
+in_mh_mumbai,Mumbai,city,in_mh,,19.07283,72.88261,https://www.geonames.org/1275339/mumbai.html,,
+us,United States,country,,USA,39.76000,-98.50000,https://www.geonames.org/6252001/united-states.html,,United States of America|USA
+us_dc_washington,Washington D.C.,city,us,,38.89511,-77.03637,https://www.geonames.org/4140963/washington-dc.html,,
+cn,China,country,,CHN,35,105,https://www.geonames.org/1814991/people-s-republic-of-china.html,2026-10-17T07:15:00+05:30,People's Republic of China|PRC
+in_od,Odisha,state,in,,20.5,84.41667,https://www.geonames.org/advanced-search.html?q=Odisha%2CIndia,2026-10-17T07:15:00+05:30,
+in_od_kalinganagar,Kalinganagar,district,in_od,,20.98481,86.00349,https://www.geonames.org/12683907/kalinganagar.html,2026-10-17T07:15:00+05:30,
+ntpc_state_bihar,Bihar,state,in,,,,https://ntpc.co.in/power-generation/coal-stations,2026-10-18T14:39:18+05:30,
+ntpc_state_assam,Assam,state,in,,,,https://ntpc.co.in/power-generation/coal-stations,2026-10-18T14:39:18+05:30,
+ntpc_state_uttar_pradesh,Uttar Pradesh,state,in,,,,https://ntpc.co.in/power-generation/coal-stations,2026-10-18T14:39:18+05:30,
+ntpc_state_odisha,Odisha,state,in,,,,https://ntpc.co.in/power-generation/coal-stations,2026-10-18T14:39:18+05:30,
+ntpc_state_west_bengal,West Bengal,state,in,,,,https://ntpc.co.in/power-generation/coal-stations,2026-10-18T14:39:18+05:30,
+ntpc_state_madhya_pradesh,Madhya Pradesh,state,in,,,,https://ntpc.co.in/power-generation/coal-stations,2026-10-18T14:39:18+05:30,
+ntpc_state_chhattisgarh,Chhattisgarh,state,in,,,,https://ntpc.co.in/power-generation/coal-stations,2026-10-18T14:39:18+05:30,
+ntpc_state_karnataka,Karnataka,state,in,,,,https://ntpc.co.in/power-generation/coal-stations,2026-10-18T14:39:18+05:30,
+ntpc_state_maharashtra,Maharashtra,state,in,,,,https://ntpc.co.in/power-generation/coal-stations,2026-10-18T14:39:18+05:30,
+ntpc_state_jharkhand,Jharkhand,state,in,,,,https://ntpc.co.in/power-generation/coal-stations,2026-10-18T14:39:18+05:30,
+ntpc_state_telangana,Telangana,state,in,,,,https://ntpc.co.in/power-generation/coal-stations,2026-10-18T14:39:18+05:30,
+ntpc_state_andhra_pradesh,Andhra Pradesh,state,in,,,,https://ntpc.co.in/power-generation/coal-stations,2026-10-18T14:39:18+05:30,
+ntpc_state_orissa,Orissa,state,in,,,,https://ntpc.co.in/power-generation/coal-stations,2026-10-18T14:39:18+05:30,

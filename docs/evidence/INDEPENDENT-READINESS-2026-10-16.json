@@ -1,0 +1,2711 @@
+{
+  "audit": "independent product-readiness audit",
+  "created_at": "2026-10-16T22:03:35+05:30",
+  "synthetic_probes_are_not_live_or_predictive_evidence": true,
+  "findings": {
+    "live_without_evaluator": {
+      "publishable": true,
+      "csrs": null,
+      "bars_closed": 1,
+      "defect_reproduced": true
+    },
+    "live_entrypoint_wiring": {
+      "evaluate_is_none": true,
+      "on_decision_is_none": true
+    },
+    "late_tick_after_timer_close": {
+      "first": [
+        {
+          "symbol": "AUDIT",
+          "start": "2026-10-16T11:00:00+05:30",
+          "end": "2026-10-16T11:05:00+05:30",
+          "open": 100,
+          "high": 100,
+          "low": 100,
+          "close": 100,
+          "ticks": 1,
+          "volume": null,
+          "complete": true
+        }
+      ],
+      "second": [
+        {
+          "symbol": "AUDIT",
+          "start": "2026-10-16T11:00:00+05:30",
+          "end": "2026-10-16T11:05:00+05:30",
+          "open": 999,
+          "high": 999,
+          "low": 999,
+          "close": 999,
+          "ticks": 1,
+          "volume": null,
+          "complete": true
+        }
+      ],
+      "late_ticks": 0,
+      "defect_reproduced": true
+    },
+    "volume_boundary_loss": {
+      "previous_cumulative": 150,
+      "next_cumulative": [
+        170,
+        200
+      ],
+      "second_bar_volume": 30,
+      "difference_since_previous_bar": 50,
+      "defect_reproduced": true,
+      "note": "20 units between the prior bar's last and next bar's first tick disappear"
+    },
+    "future_timestamp": {
+      "newest_observation": "2026-10-17T11:00:00+05:30",
+      "now": "2026-10-16T11:05:00+05:30",
+      "age_minutes": -1435.0,
+      "state": "live",
+      "is_live": true,
+      "may_publish_as_current": true,
+      "note": "newest observation -1435min old"
+    },
+    "recent_archive_liveness": {
+      "is_live": true,
+      "publishable_as_current": true,
+      "recency": "live",
+      "age_minutes": 1.0,
+      "observed_at": "2026-10-16T11:04:00+05:30",
+      "now": "2026-10-16T11:05:00+05:30",
+      "market_state": "open",
+      "next_open": null,
+      "feed": "none — no live market data source is configured",
+      "headline": "CURRENT MARKET READING",
+      "note": "newest observation 1min old"
+    },
+    "revoked_cached_principal": {
+      "can_read": true,
+      "workspace_read_returned": true,
+      "note": "fresh resolve denies access; existing Principal remains authorized"
+    },
+    "news_registry": {
+      "errors": [],
+      "entities": 0,
+      "places": 0,
+      "assets": 0,
+      "edges": 0,
+      "empty": true,
+      "reason": "the curated registries ship empty. Entity, asset and exposure rows each require a citation, and inventing them would put unevidenced arcs on the map. Curate seraph/news/curated/*.csv, one citation per row, then reload"
+    },
+    "local_news_store": {
+      "sources": [
+        {
+          "source_id": "rbi_press_releases",
+          "provider": "Reserve Bank of India",
+          "kind": "official_policy"
+        },
+        {
+          "source_id": "rbi_notifications",
+          "provider": "Reserve Bank of India",
+          "kind": "regulator"
+        },
+        {
+          "source_id": "rbi_speeches",
+          "provider": "Reserve Bank of India",
+          "kind": "official_policy"
+        }
+      ],
+      "counts": {
+        "stories": 30,
+        "observations": 30,
+        "ingest_log": 6
+      }
+    }
+  },
+  "inventory_counts": {
+    "seraph": 106,
+    "scripts": 63,
+    "fixtures": 2,
+    "tests": 60
+  },
+  "syntax_errors": [],
+  "source_inventory": [
+    {
+      "path": "seraph/__init__.py",
+      "sha256": "c47e42c2d07103480217e3c640f5a333d12e815d144d4c7ef62f6d19002085ac",
+      "lines": 7,
+      "imports": []
+    },
+    {
+      "path": "seraph/dashboard/__init__.py",
+      "sha256": "300fc0a47325a29a41a20b89e16d8e3763f8b2eafe8e9643f5ab4a294f3015bd",
+      "lines": 6,
+      "imports": [
+        "seraph.dashboard.gateway"
+      ]
+    },
+    {
+      "path": "seraph/dashboard/app.py",
+      "sha256": "2842759da02835e3f71c098a34d23db9539b230528ed4c86c08d83e9eb6becfc",
+      "lines": 399,
+      "imports": [
+        "__future__",
+        "pathlib",
+        "seraph.dashboard.datasource",
+        "seraph.dashboard.gateway",
+        "seraph.dashboard.prototype_app",
+        "seraph.dashboard.theme",
+        "seraph.pillars.rmt"
+      ]
+    },
+    {
+      "path": "seraph/dashboard/connected_frontend.py",
+      "sha256": "368cfdab6a95e68f26a0cebd74380a4f95616dabffdc0af63fc718d8b3244492",
+      "lines": 23,
+      "imports": [
+        "pathlib"
+      ]
+    },
+    {
+      "path": "seraph/dashboard/console_backend.py",
+      "sha256": "d4af1512d9f648a39558d82db4c3980270e84b6f7454d68a9b2e8379046d3580",
+      "lines": 160,
+      "imports": [
+        "seraph.dashboard.gateway",
+        "seraph.decision_support",
+        "seraph.live",
+        "seraph.orchestration.prototype",
+        "seraph.shared_types"
+      ]
+    },
+    {
+      "path": "seraph/dashboard/datasource.py",
+      "sha256": "7c73aae2bcf7e5375e4f1aa3aacbe8504df28c621dff61a059103e383e2b34da",
+      "lines": 216,
+      "imports": [
+        "__future__",
+        "dataclasses",
+        "datetime",
+        "seraph.dashboard.demo_data",
+        "seraph.decision_support",
+        "seraph.shared_types",
+        "seraph.store.bootstrap"
+      ]
+    },
+    {
+      "path": "seraph/dashboard/demo_data.py",
+      "sha256": "af25400e8d3d264bd4553863a73c0c8d6755ee2ce5babdada149a51b8862d97d",
+      "lines": 93,
+      "imports": [
+        "__future__",
+        "datetime",
+        "fixtures.mock_generator",
+        "seraph.decision_support"
+      ]
+    },
+    {
+      "path": "seraph/dashboard/gateway.py",
+      "sha256": "dcb4278efa9b81b0786ba559e307c26d8bafb7e004747a10aaada1d994ca8fce",
+      "lines": 231,
+      "imports": [
+        "__future__",
+        "seraph.decision_support",
+        "seraph.shared_types",
+        "typing"
+      ]
+    },
+    {
+      "path": "seraph/dashboard/news_view.py",
+      "sha256": "dd2c306d0d63234347790a1054c5af4c0266561182babf3b2fb21235814522ad",
+      "lines": 247,
+      "imports": [
+        "__future__",
+        "seraph.news.estimation",
+        "seraph.news.extraction",
+        "seraph.news.registry",
+        "seraph.product_types"
+      ]
+    },
+    {
+      "path": "seraph/dashboard/prototype_app.py",
+      "sha256": "f57425dc66ce5acc2f553d7f3e101a3a90b3e3f19d9a5315b928bfda910acc9f",
+      "lines": 106,
+      "imports": [
+        "pathlib",
+        "seraph.dashboard.console_backend",
+        "seraph.orchestration.run_store"
+      ]
+    },
+    {
+      "path": "seraph/dashboard/theme.py",
+      "sha256": "2b2667ca6fc86ac6134f580958d806264145aa662de79be730c5718242f216d0",
+      "lines": 157,
+      "imports": [
+        "__future__"
+      ]
+    },
+    {
+      "path": "seraph/decision_support/__init__.py",
+      "sha256": "caa054ef71f601001dcbc6005eaa02d2f09782c07164d796425da925a089a54f",
+      "lines": 80,
+      "imports": [
+        "seraph.decision_support.action_log",
+        "seraph.decision_support.artefacts",
+        "seraph.decision_support.portfolio",
+        "seraph.decision_support.portfolio_io"
+      ]
+    },
+    {
+      "path": "seraph/decision_support/action_log.py",
+      "sha256": "494ac8dfa0eaf3d1cf73eb44359edbf8a5e0bae42c793919497dc3217aa64b70",
+      "lines": 450,
+      "imports": [
+        "__future__",
+        "dataclasses",
+        "datetime",
+        "pydantic",
+        "seraph.shared_types",
+        "typing"
+      ]
+    },
+    {
+      "path": "seraph/decision_support/artefacts.py",
+      "sha256": "72260d22dd38f43467c1850a264c1759a8b59b3638add237c575e9093818ae57",
+      "lines": 217,
+      "imports": [
+        "__future__",
+        "seraph.fusion.score",
+        "seraph.shared_types"
+      ]
+    },
+    {
+      "path": "seraph/decision_support/cases.py",
+      "sha256": "76bd74fb6510fd2cee2dfc055aea8daf47d40ecd1861d3be28e06a6393652c6a",
+      "lines": 448,
+      "imports": [
+        "__future__",
+        "contextlib",
+        "dataclasses",
+        "datetime",
+        "pathlib",
+        "seraph.identity",
+        "seraph.shared_types",
+        "typing"
+      ]
+    },
+    {
+      "path": "seraph/decision_support/exposure_trail.py",
+      "sha256": "f651793ae8bb06c69d2d6facf3441de599f03ded9c965d2146d07b57acc3b13d",
+      "lines": 229,
+      "imports": [
+        "__future__",
+        "dataclasses",
+        "seraph.news.estimation",
+        "seraph.news.model",
+        "seraph.news.registry",
+        "seraph.product_types"
+      ]
+    },
+    {
+      "path": "seraph/decision_support/portfolio.py",
+      "sha256": "50105c7f8fb7513cb9a7208677d1a290e77f74ac5a29a3d46156db515eb8d004",
+      "lines": 432,
+      "imports": [
+        "__future__",
+        "pydantic",
+        "seraph.shared_types",
+        "typing"
+      ]
+    },
+    {
+      "path": "seraph/decision_support/portfolio_io.py",
+      "sha256": "1ad08b4242ec5664d64da56bb01d266bed7a64e80997d5eb5d915860533b8240",
+      "lines": 166,
+      "imports": [
+        "__future__",
+        "seraph.decision_support.portfolio",
+        "seraph.shared_types",
+        "typing"
+      ]
+    },
+    {
+      "path": "seraph/decision_support/scenarios.py",
+      "sha256": "c2447e67eaedc4c2c955df4221b47f738338b0b21e69091ea9212ae89aa571e0",
+      "lines": 299,
+      "imports": [
+        "__future__",
+        "contextlib",
+        "dataclasses",
+        "datetime",
+        "pathlib",
+        "seraph.identity",
+        "seraph.shared_types",
+        "typing"
+      ]
+    },
+    {
+      "path": "seraph/decision_support/workspace.py",
+      "sha256": "2871a8c95ea1cd10781ec5f4f841c445ef6cbdefe196cff09662bb42243b62b8",
+      "lines": 552,
+      "imports": [
+        "__future__",
+        "contextlib",
+        "dataclasses",
+        "datetime",
+        "pathlib",
+        "seraph.identity",
+        "seraph.shared_types"
+      ]
+    },
+    {
+      "path": "seraph/features/__init__.py",
+      "sha256": "48da55ab4e49074050076e93b16e1c6d6b5b4959ee9a22d7c4a537066c016942",
+      "lines": 52,
+      "imports": [
+        "seraph.features.cross_sectional",
+        "seraph.features.jump_extraction"
+      ]
+    },
+    {
+      "path": "seraph/features/alignment.py",
+      "sha256": "23426ad47dfba5d4f5b9fbe632bf51d99d0b9fade634634f4cf6e0f574638188",
+      "lines": 14,
+      "imports": []
+    },
+    {
+      "path": "seraph/features/cross_sectional.py",
+      "sha256": "b6baf10f83eb142d8b66c878c4edd09d12ddc90fc02cc3acda896058d05bbfb0",
+      "lines": 226,
+      "imports": [
+        "__future__"
+      ]
+    },
+    {
+      "path": "seraph/features/jump_extraction.py",
+      "sha256": "cf239ef400133e772a6b2227de50a80169c15f35f3766643a70a5e73c64a1367",
+      "lines": 408,
+      "imports": [
+        "__future__",
+        "dataclasses",
+        "typing"
+      ]
+    },
+    {
+      "path": "seraph/fusion/__init__.py",
+      "sha256": "325e0b622adc9ad53923e38c5f24544feaa78a310b4a9a6c98a69a0d22399882",
+      "lines": 19,
+      "imports": [
+        "seraph.fusion.masking",
+        "seraph.fusion.score",
+        "seraph.fusion.shapley",
+        "seraph.fusion.standardize"
+      ]
+    },
+    {
+      "path": "seraph/fusion/masking.py",
+      "sha256": "bd2750cb9b09309cbec4d0e277c630563a5dd4908c40f77df97c32379ad76b86",
+      "lines": 28,
+      "imports": [
+        "__future__",
+        "seraph.shared_types"
+      ]
+    },
+    {
+      "path": "seraph/fusion/score.py",
+      "sha256": "13fecce6fb886ed4d60b1663b599a05238bdd4373afc6ead9d6d932bc1bb2a07",
+      "lines": 109,
+      "imports": [
+        "__future__",
+        "seraph.fusion.masking",
+        "seraph.fusion.shapley",
+        "seraph.shared_types"
+      ]
+    },
+    {
+      "path": "seraph/fusion/shapley.py",
+      "sha256": "d9b2562215b2cf970a674ebb989129f168a89febcbd75b2dde3fa3c33469b6e1",
+      "lines": 45,
+      "imports": [
+        "__future__",
+        "itertools",
+        "math",
+        "seraph.fusion.masking",
+        "seraph.shared_types"
+      ]
+    },
+    {
+      "path": "seraph/fusion/standardize.py",
+      "sha256": "c7c03d40bffb216b661eee75bed1475cf9eea4e2abcd090bc910c3ab87bc38be",
+      "lines": 23,
+      "imports": [
+        "__future__"
+      ]
+    },
+    {
+      "path": "seraph/identity/__init__.py",
+      "sha256": "90ee6174c50fa9fdb22c88ee7ab27d035e691239b8f65a5ed26238defbde9df9",
+      "lines": 47,
+      "imports": [
+        "seraph.identity.model",
+        "seraph.identity.oidc",
+        "seraph.identity.registry"
+      ]
+    },
+    {
+      "path": "seraph/identity/model.py",
+      "sha256": "078db1e4d72b3690401ffd1b2907affd32a609bd3c607bad0db18b90e301c0f6",
+      "lines": 166,
+      "imports": [
+        "__future__",
+        "dataclasses",
+        "seraph.shared_types",
+        "typing"
+      ]
+    },
+    {
+      "path": "seraph/identity/oidc.py",
+      "sha256": "fe7fa934e8043240c40ab8700b71bae1ddb112b62b7e32d23d2ab934519634c8",
+      "lines": 132,
+      "imports": [
+        "__future__",
+        "dataclasses"
+      ]
+    },
+    {
+      "path": "seraph/identity/registry.py",
+      "sha256": "7ddfc0230d8e84451682115b455098057f16d135d48027cb4de127fac70f6910",
+      "lines": 349,
+      "imports": [
+        "__future__",
+        "contextlib",
+        "datetime",
+        "pathlib",
+        "seraph.identity.model",
+        "seraph.shared_types"
+      ]
+    },
+    {
+      "path": "seraph/ingestion/__init__.py",
+      "sha256": "e0083fd7246ddad585e53472ceaca85671df5c1312726948e8e486f4afbe289c",
+      "lines": 4,
+      "imports": []
+    },
+    {
+      "path": "seraph/ingestion/bhavcopy_reader.py",
+      "sha256": "f2685074e040c07afbcf0a0c9c9d1d2d0ed45cf204f4bae925c8f9ad12b6b312",
+      "lines": 284,
+      "imports": [
+        "__future__",
+        "dataclasses",
+        "datetime",
+        "typing"
+      ]
+    },
+    {
+      "path": "seraph/ingestion/eod2_client.py",
+      "sha256": "42a5772f53ed0adc8f0c9d5947075c942ad66ed44337d2bcfd3958cd0718c15f",
+      "lines": 151,
+      "imports": [
+        "__future__",
+        "datetime",
+        "pathlib",
+        "seraph.shared_types",
+        "seraph.store"
+      ]
+    },
+    {
+      "path": "seraph/ingestion/flow_client.py",
+      "sha256": "70aba7455c83f47d179dd14eb551aac71dc0fc4174a3e51fdbcca45fc9c746c7",
+      "lines": 441,
+      "imports": [
+        "__future__",
+        "dataclasses",
+        "datetime",
+        "pathlib",
+        "seraph.ingestion.macro_client",
+        "seraph.shared_types",
+        "seraph.store"
+      ]
+    },
+    {
+      "path": "seraph/ingestion/hawkes_universe.py",
+      "sha256": "448fbaee92ef15800fed0c3b50d3564036b30d0afa6bcc7389691caf5f336647",
+      "lines": 95,
+      "imports": [
+        "__future__",
+        "seraph.universe.instrument_type"
+      ]
+    },
+    {
+      "path": "seraph/ingestion/kite_client.py",
+      "sha256": "1b134c5eb6f5eb8626e8109b48b9ce220fd470ff67ec12d1a141ddccdada6349",
+      "lines": 273,
+      "imports": [
+        "__future__",
+        "dataclasses",
+        "datetime",
+        "pathlib",
+        "seraph.shared_types"
+      ]
+    },
+    {
+      "path": "seraph/ingestion/macro_client.py",
+      "sha256": "3432085f05c98d26a0726bb2e221fdaf72696ad81942e1f2288bf21d5d51a859",
+      "lines": 972,
+      "imports": [
+        "__future__",
+        "dataclasses",
+        "datetime",
+        "pathlib",
+        "seraph.shared_types",
+        "seraph.store",
+        "urllib.parse"
+      ]
+    },
+    {
+      "path": "seraph/ingestion/tariff_events.py",
+      "sha256": "deea09d6646fe2a86fd0aac0c12b48c48dcaae0bc6e994c8566ece4b6f00cecc",
+      "lines": 359,
+      "imports": [
+        "__future__",
+        "dataclasses",
+        "datetime",
+        "pathlib",
+        "seraph.shared_types",
+        "seraph.store"
+      ]
+    },
+    {
+      "path": "seraph/live/__init__.py",
+      "sha256": "2398d414cfd8f31520e879fe094c83195f9fc57648e0629f201ff78ba3186c3e",
+      "lines": 45,
+      "imports": [
+        "seraph.live.bars",
+        "seraph.live.clock",
+        "seraph.live.feed",
+        "seraph.live.loop"
+      ]
+    },
+    {
+      "path": "seraph/live/bars.py",
+      "sha256": "e69d1f60b95d427ecd6987531bedcd7fe7e8759b67b5dcab676fe3bf39b424bc",
+      "lines": 158,
+      "imports": [
+        "__future__",
+        "dataclasses",
+        "datetime",
+        "seraph.live.clock",
+        "seraph.live.feed",
+        "seraph.shared_types"
+      ]
+    },
+    {
+      "path": "seraph/live/clock.py",
+      "sha256": "659978217b5603c5cd5b3c9264cc9f83df8eeccf0bc7d347e9078c6e9460c7d5",
+      "lines": 287,
+      "imports": [
+        "__future__",
+        "dataclasses",
+        "datetime",
+        "seraph.market_calendar",
+        "seraph.shared_types",
+        "typing"
+      ]
+    },
+    {
+      "path": "seraph/live/feed.py",
+      "sha256": "704459b127467207b382fc23cecfea68706735a5b5a7f4fec683f466318bbebf",
+      "lines": 294,
+      "imports": [
+        "__future__",
+        "dataclasses",
+        "datetime",
+        "kiteconnect",
+        "seraph.ingestion.kite_client",
+        "seraph.shared_types",
+        "typing"
+      ]
+    },
+    {
+      "path": "seraph/live/loop.py",
+      "sha256": "ec0d5cdc3697b6a58f85fdf388900c7a34514c6093e61550d6e252f6389b33ac",
+      "lines": 191,
+      "imports": [
+        "__future__",
+        "dataclasses",
+        "datetime",
+        "seraph.live.bars",
+        "seraph.live.clock",
+        "seraph.live.feed",
+        "seraph.shared_types",
+        "typing"
+      ]
+    },
+    {
+      "path": "seraph/market_calendar/__init__.py",
+      "sha256": "367b88f8d53111e72099e3efe365c9d366569b83764b6c24a3a184bb752cca20",
+      "lines": 26,
+      "imports": [
+        "seraph.market_calendar.sessions"
+      ]
+    },
+    {
+      "path": "seraph/market_calendar/sessions.py",
+      "sha256": "59cf88c47539f9f18a3e0a119640850b0a0f2cf9ddd9064783d2c6c4af07cc13",
+      "lines": 255,
+      "imports": [
+        "__future__",
+        "dataclasses",
+        "datetime",
+        "seraph.shared_types",
+        "typing"
+      ]
+    },
+    {
+      "path": "seraph/news/__init__.py",
+      "sha256": "40419c29e78419c78ced351b5486a1440b5b1d67c13237a3c50bbc364f6754fa",
+      "lines": 52,
+      "imports": [
+        "seraph.news.acquisition",
+        "seraph.news.model"
+      ]
+    },
+    {
+      "path": "seraph/news/acquisition.py",
+      "sha256": "ee31a5e13a3cdcd7d2b0dca4c949c02f15dac0c3a8cc780522f3f3d82b44048b",
+      "lines": 376,
+      "imports": [
+        "__future__",
+        "contextlib",
+        "dataclasses",
+        "datetime",
+        "pathlib",
+        "seraph.news.model",
+        "seraph.product_types",
+        "seraph.shared_types"
+      ]
+    },
+    {
+      "path": "seraph/news/estimation.py",
+      "sha256": "cb5cbfd590c224efe9510aa4e317d0cc3fa2bc6d0eab4fe5ff3e808b1fe44406",
+      "lines": 280,
+      "imports": [
+        "__future__",
+        "dataclasses",
+        "seraph.news.model",
+        "seraph.news.registry",
+        "seraph.product_types"
+      ]
+    },
+    {
+      "path": "seraph/news/extraction.py",
+      "sha256": "d461351736a45cc6f567ffb51b48d2e056037db7535c24617b5f3191e97013cc",
+      "lines": 280,
+      "imports": [
+        "__future__",
+        "dataclasses",
+        "seraph.news.model",
+        "seraph.news.registry",
+        "seraph.product_types"
+      ]
+    },
+    {
+      "path": "seraph/news/http_feed.py",
+      "sha256": "28f52e0b03c0355a649b8a70e8be8add8730e02896a8c20c687e021a37b94993",
+      "lines": 245,
+      "imports": [
+        "__future__",
+        "dataclasses",
+        "datetime",
+        "email.utils",
+        "seraph.news.acquisition",
+        "seraph.news.model",
+        "seraph.shared_types",
+        "xml.etree"
+      ]
+    },
+    {
+      "path": "seraph/news/model.py",
+      "sha256": "d3732c4bc54292416f1da2100c8f1dda0ba9d9135501f57435441f2e1bb27b72",
+      "lines": 396,
+      "imports": [
+        "__future__",
+        "dataclasses",
+        "datetime",
+        "seraph.product_types",
+        "seraph.shared_types",
+        "typing"
+      ]
+    },
+    {
+      "path": "seraph/news/registry.py",
+      "sha256": "d13005398c737f25fc1502a3341ce9358b8038c86273761ab4ecda045df51c0f",
+      "lines": 272,
+      "imports": [
+        "__future__",
+        "dataclasses",
+        "pathlib",
+        "seraph.news.model",
+        "seraph.product_types",
+        "typing"
+      ]
+    },
+    {
+      "path": "seraph/operations/__init__.py",
+      "sha256": "1687de8cb9dd8dd56af787c444602b7648f02f9f5245721cde1b1107d4c0d2e5",
+      "lines": 28,
+      "imports": [
+        "seraph.operations.jobs",
+        "seraph.operations.monitoring"
+      ]
+    },
+    {
+      "path": "seraph/operations/jobs.py",
+      "sha256": "391d220d32477e2c0b1308cf5b96d3626b8144c70ac70c75115b839e455356ab",
+      "lines": 272,
+      "imports": [
+        "__future__",
+        "contextlib",
+        "dataclasses",
+        "datetime",
+        "pathlib",
+        "seraph.shared_types",
+        "typing"
+      ]
+    },
+    {
+      "path": "seraph/operations/monitoring.py",
+      "sha256": "24c83c943e12bb3ae60d9d0c0e7de9a15df5db7ab1b2ae2dd8e242e77db69c20",
+      "lines": 269,
+      "imports": [
+        "__future__",
+        "contextlib",
+        "dataclasses",
+        "datetime",
+        "pathlib",
+        "seraph.shared_types",
+        "typing"
+      ]
+    },
+    {
+      "path": "seraph/orchestration/__init__.py",
+      "sha256": "7d2d4d7dc14887935ab306ee2077d87e39159ad8ba8c4c67a0ef9419e0e62e9f",
+      "lines": 45,
+      "imports": [
+        "seraph.orchestration.adapters",
+        "seraph.orchestration.standardize"
+      ]
+    },
+    {
+      "path": "seraph/orchestration/adapters.py",
+      "sha256": "dd2b769a6663674667be0713cfe9543a60aac5f627e72738b2b56fd7e73c4837",
+      "lines": 262,
+      "imports": [
+        "__future__",
+        "seraph.orchestration.standardize",
+        "seraph.shared_types",
+        "typing"
+      ]
+    },
+    {
+      "path": "seraph/orchestration/hamilton_causal.py",
+      "sha256": "29bebdf28a5a2c112f2984b65f73b95027ab839bf52d375b616d6c9faa8a62c4",
+      "lines": 206,
+      "imports": [
+        "__future__",
+        "dataclasses",
+        "seraph.pillars.hamilton.engine"
+      ]
+    },
+    {
+      "path": "seraph/orchestration/original_execution.py",
+      "sha256": "0e89432eb1201ad5b6a8e184fff535d78a6cb7f0ab213d0ff72d2b53618269bc",
+      "lines": 115,
+      "imports": [
+        "datetime",
+        "scripts.build_observations",
+        "scripts.write_hawkes_production",
+        "seraph.features.alignment",
+        "seraph.ingestion.hawkes_universe",
+        "seraph.market_calendar",
+        "seraph.orchestration.hamilton_causal",
+        "seraph.pillars.hawkes.engine",
+        "seraph.pillars.rmt.engine"
+      ]
+    },
+    {
+      "path": "seraph/orchestration/prototype.py",
+      "sha256": "ba0c79cdcd18e391e3173cafc678ed736dbd6396868cb5273cc02fedba833bec",
+      "lines": 375,
+      "imports": [
+        "__future__",
+        "datetime",
+        "pathlib",
+        "seraph.decision_support",
+        "seraph.fusion.score",
+        "seraph.market_calendar",
+        "seraph.orchestration.original_execution",
+        "seraph.orchestration.run_store",
+        "seraph.orchestration.standardize",
+        "seraph.reconciliation.kalman",
+        "seraph.shared_types",
+        "seraph.shared_types.fusion",
+        "seraph.validation.harness"
+      ]
+    },
+    {
+      "path": "seraph/orchestration/run_store.py",
+      "sha256": "f09a497fbcf12b9a25cfc55a07862dc6a048cb47420669fc43ad798988a4c38a",
+      "lines": 366,
+      "imports": [
+        "__future__",
+        "contextlib",
+        "datetime",
+        "pathlib",
+        "seraph.dashboard.gateway",
+        "seraph.decision_support.action_log"
+      ]
+    },
+    {
+      "path": "seraph/orchestration/standardize.py",
+      "sha256": "80f84c37aecb92ecb198206ec49e042645c2edcff371a8a25b738ca5e7eb0e29",
+      "lines": 152,
+      "imports": [
+        "__future__",
+        "seraph.fusion",
+        "seraph.shared_types"
+      ]
+    },
+    {
+      "path": "seraph/pillars/__init__.py",
+      "sha256": "98dd6df35d9f48262039fd0f9ff7a94dd16a5406a7e73ba2f44e5ad4610fa26e",
+      "lines": 1,
+      "imports": []
+    },
+    {
+      "path": "seraph/pillars/hamilton/__init__.py",
+      "sha256": "95135f7f4e0f1d8b4fcf61229f350fddca5d649fbcea56d7d04e2c1e85a46a9d",
+      "lines": 12,
+      "imports": [
+        "seraph.pillars.hamilton.engine"
+      ]
+    },
+    {
+      "path": "seraph/pillars/hamilton/engine.py",
+      "sha256": "f85abd3630f7c5837ab89155994ba019610b9f45cb8e4f04698247dd35f7f309",
+      "lines": 713,
+      "imports": [
+        "__future__",
+        "seraph.shared_types",
+        "statsmodels.tsa.regime_switching.markov_switching"
+      ]
+    },
+    {
+      "path": "seraph/pillars/hawkes/__init__.py",
+      "sha256": "b8e274bafa433520e6da4ffb3831e8ed35bad34a8802c851f924f2316b76cf1d",
+      "lines": 39,
+      "imports": [
+        "seraph.pillars.hawkes.engine"
+      ]
+    },
+    {
+      "path": "seraph/pillars/hawkes/artefact.py",
+      "sha256": "4eb45295468038ba3986c0ab330aff099954fc500397f9da1190fd63e7c1288f",
+      "lines": 241,
+      "imports": [
+        "__future__",
+        "dataclasses",
+        "seraph.pillars.hawkes.engine",
+        "typing"
+      ]
+    },
+    {
+      "path": "seraph/pillars/hawkes/engine.py",
+      "sha256": "884fd2711e3f25a7826af3d6d2b7a7e49b8df5b7a5d40ef5072467fe65fe3388",
+      "lines": 519,
+      "imports": [
+        "__future__",
+        "dataclasses",
+        "scipy.optimize",
+        "scipy.special",
+        "scipy.stats",
+        "seraph.shared_types"
+      ]
+    },
+    {
+      "path": "seraph/pillars/rmt/__init__.py",
+      "sha256": "7e6fb5381d3b7fc1d4c7ddf6646b130fc14e61c470730540b64aeefdc943d8f1",
+      "lines": 25,
+      "imports": [
+        "seraph.pillars.rmt.engine"
+      ]
+    },
+    {
+      "path": "seraph/pillars/rmt/engine.py",
+      "sha256": "e0af9ee1e82f9e0a3afd8d29b4775a8a04b6d8321a0d8bc506d9f498c7f6fed7",
+      "lines": 422,
+      "imports": [
+        "__future__",
+        "seraph.shared_types"
+      ]
+    },
+    {
+      "path": "seraph/prediction/__init__.py",
+      "sha256": "330c1dd7a77925282ea6430a92b5d2a1a63430d3df2ea4b6633254f64fa53de9",
+      "lines": 1,
+      "imports": []
+    },
+    {
+      "path": "seraph/prediction/app.py",
+      "sha256": "43fd5a7d0b5b497d836b0d7846c96ab16fe8b00ead4df47147bf3dab5540a409",
+      "lines": 382,
+      "imports": [
+        "__future__",
+        "pathlib"
+      ]
+    },
+    {
+      "path": "seraph/prediction/evaluation.py",
+      "sha256": "ded8805254854c4ac53ba74c3617f6ff68297a28e12d0531aecc19dcbd62edc8",
+      "lines": 200,
+      "imports": [
+        "__future__",
+        "dataclasses",
+        "scipy.stats"
+      ]
+    },
+    {
+      "path": "seraph/prediction/hazard_watch.py",
+      "sha256": "d499622133b24ae6d5cc6ac45685208713738c984f68bf9b3090cd92c787707c",
+      "lines": 42,
+      "imports": [
+        "__future__"
+      ]
+    },
+    {
+      "path": "seraph/prediction/models.py",
+      "sha256": "6a81b50794209c32eb3af95d91f33687d1c1f4ba2760189f1fe59070f675c802",
+      "lines": 478,
+      "imports": [
+        "__future__",
+        "arch",
+        "collections.abc",
+        "dataclasses",
+        "scipy.optimize",
+        "scipy.special"
+      ]
+    },
+    {
+      "path": "seraph/prediction/pillars.py",
+      "sha256": "2ba7f87fd4c0b6d734b4bac8f477cdd8bdc8b674a4e3bd64593ec4c9bb25b06a",
+      "lines": 370,
+      "imports": [
+        "__future__",
+        "dataclasses",
+        "scipy.optimize",
+        "typing"
+      ]
+    },
+    {
+      "path": "seraph/product_types/__init__.py",
+      "sha256": "72f3f8a992e142ea4623fd503cb097d8e9a39e870f4601f48075e8da2f82edff",
+      "lines": 60,
+      "imports": [
+        "seraph.product_types.envelope",
+        "seraph.product_types.time"
+      ]
+    },
+    {
+      "path": "seraph/product_types/envelope.py",
+      "sha256": "fc058bd3233f1ddcc18032e0103b56deb87be31e405cf6bcaf88da8eef6def0e",
+      "lines": 295,
+      "imports": [
+        "__future__",
+        "dataclasses",
+        "seraph.product_types.time",
+        "seraph.shared_types",
+        "typing"
+      ]
+    },
+    {
+      "path": "seraph/product_types/time.py",
+      "sha256": "12eabe5f4e37734bab361d36b916325794c531e27268d84c1575bae6d69fb906",
+      "lines": 93,
+      "imports": [
+        "__future__",
+        "dataclasses",
+        "seraph.shared_types"
+      ]
+    },
+    {
+      "path": "seraph/reconciliation/__init__.py",
+      "sha256": "7ed752cd3cf39400c55af2db934a3f4e647268b21a0319f6427c1445ed72d237",
+      "lines": 8,
+      "imports": [
+        "seraph.reconciliation.kalman",
+        "seraph.reconciliation.noise_model"
+      ]
+    },
+    {
+      "path": "seraph/reconciliation/kalman.py",
+      "sha256": "8d401100f45095182a6db5f3cf2ecf27f98b309770a29a9e27cc25bcaca25eea",
+      "lines": 281,
+      "imports": [
+        "__future__",
+        "collections.abc",
+        "datetime",
+        "math",
+        "seraph.reconciliation.noise_model",
+        "seraph.reconciliation.time_clock",
+        "seraph.shared_types"
+      ]
+    },
+    {
+      "path": "seraph/reconciliation/noise_model.py",
+      "sha256": "495a6504a4367145e50d8f38d46137df81cf076e05715e660103e4a290a16c17",
+      "lines": 56,
+      "imports": [
+        "__future__",
+        "dataclasses",
+        "math"
+      ]
+    },
+    {
+      "path": "seraph/reconciliation/time_clock.py",
+      "sha256": "0d9fea38d04c4c962a7bfccc9f72d2b093fbc5b21f089d0347da62c4966571f0",
+      "lines": 80,
+      "imports": [
+        "__future__",
+        "dataclasses",
+        "datetime",
+        "seraph.shared_types",
+        "types",
+        "typing"
+      ]
+    },
+    {
+      "path": "seraph/shared_types/__init__.py",
+      "sha256": "4f2667ab59a3b31336af72e79b533b3eec7e1b9fed8a7b48184a23c513e28e79",
+      "lines": 141,
+      "imports": [
+        "seraph.shared_types.core",
+        "seraph.shared_types.entities",
+        "seraph.shared_types.fusion",
+        "seraph.shared_types.pillars",
+        "seraph.shared_types.reconciliation",
+        "seraph.shared_types.validation"
+      ]
+    },
+    {
+      "path": "seraph/shared_types/core.py",
+      "sha256": "f7c29961359c3b6a29e6061473fb5451cde0c1bff88870858c51bfacc41ab23d",
+      "lines": 222,
+      "imports": [
+        "__future__",
+        "datetime",
+        "pydantic",
+        "pydantic.alias_generators",
+        "typing"
+      ]
+    },
+    {
+      "path": "seraph/shared_types/entities.py",
+      "sha256": "802d96deb2d0b73fde8303ed454cbff0989f012e021414fe86ce5c82a6608a6d",
+      "lines": 191,
+      "imports": [
+        "__future__",
+        "pydantic",
+        "seraph.shared_types.core",
+        "typing"
+      ]
+    },
+    {
+      "path": "seraph/shared_types/fusion.py",
+      "sha256": "72f5e1be699d93d6cba82111b9cc54c0e891c9121b7423fdefac909137add60e",
+      "lines": 85,
+      "imports": [
+        "__future__",
+        "pydantic",
+        "seraph.shared_types.core",
+        "typing"
+      ]
+    },
+    {
+      "path": "seraph/shared_types/pillars.py",
+      "sha256": "235f94701950da7b2364c4d29f22e0fb2140498e6d47120e7621d138cd5276a9",
+      "lines": 105,
+      "imports": [
+        "__future__",
+        "pydantic",
+        "seraph.shared_types.core",
+        "typing"
+      ]
+    },
+    {
+      "path": "seraph/shared_types/reconciliation.py",
+      "sha256": "87150e716fac106edb85c3283eb4a57e3edddc4a09cded3345806c75ed7572a0",
+      "lines": 46,
+      "imports": [
+        "__future__",
+        "pydantic",
+        "seraph.shared_types.core",
+        "typing"
+      ]
+    },
+    {
+      "path": "seraph/shared_types/validation.py",
+      "sha256": "530998c88f50b1faf49539d5d38f7def8076305e54201543d8bd9b7af6445953",
+      "lines": 27,
+      "imports": [
+        "__future__",
+        "seraph.shared_types.core",
+        "seraph.shared_types.fusion",
+        "typing"
+      ]
+    },
+    {
+      "path": "seraph/store/__init__.py",
+      "sha256": "a4a79531bd51b43ef03a9c6b99815ec8c3ee0d7ae0705aef5492dad3c43da6e2",
+      "lines": 9,
+      "imports": [
+        "seraph.store.bootstrap",
+        "seraph.store.reader",
+        "seraph.store.writer"
+      ]
+    },
+    {
+      "path": "seraph/store/bootstrap.py",
+      "sha256": "6e3581c291ef990e4ac011e688253c6d8feffa8a57c33e1128017bd9089474eb",
+      "lines": 24,
+      "imports": [
+        "__future__",
+        "pathlib"
+      ]
+    },
+    {
+      "path": "seraph/store/migrations/__init__.py",
+      "sha256": "efb1a6d0cfe7c4900f7364d45d7f1e845748774a139df11117cc76cdb0d88fa5",
+      "lines": 84,
+      "imports": [
+        "__future__",
+        "pathlib"
+      ]
+    },
+    {
+      "path": "seraph/store/reader.py",
+      "sha256": "5d860b8a7baac87ececc3475d515aa0ef06df2866e3539b1813c8c0c3c5e2e45",
+      "lines": 154,
+      "imports": [
+        "__future__",
+        "datetime",
+        "seraph.shared_types",
+        "seraph.store.bootstrap"
+      ]
+    },
+    {
+      "path": "seraph/store/writer.py",
+      "sha256": "af2c59725080d781b5ad952b2f6db979db1569c5fdbdf4094addba1cfdb6459d",
+      "lines": 327,
+      "imports": [
+        "__future__",
+        "dataclasses",
+        "datetime",
+        "pydantic",
+        "seraph.shared_types",
+        "seraph.store.bootstrap"
+      ]
+    },
+    {
+      "path": "seraph/universe/__init__.py",
+      "sha256": "22b09f2f4d9787416bc9d2a55ba993a2b3e320bc895806585e6e7fed3c7d1107",
+      "lines": 33,
+      "imports": [
+        "seraph.universe.constructor",
+        "seraph.universe.instrument_type"
+      ]
+    },
+    {
+      "path": "seraph/universe/constructor.py",
+      "sha256": "39519da7f181e403b4e88fac9de9cbcbfece3b8d1d2fd2726193d0444cf44660",
+      "lines": 342,
+      "imports": [
+        "__future__",
+        "dataclasses",
+        "datetime",
+        "seraph.shared_types",
+        "seraph.store.bootstrap",
+        "seraph.universe.instrument_type"
+      ]
+    },
+    {
+      "path": "seraph/universe/instrument_type.py",
+      "sha256": "47bcaf6a468646b811c109d4d29f3c358d992d707b2a7789b8a78606cda89ac6",
+      "lines": 111,
+      "imports": [
+        "__future__",
+        "dataclasses",
+        "functools",
+        "pathlib"
+      ]
+    },
+    {
+      "path": "seraph/validation/__init__.py",
+      "sha256": "64879d52329227dea7b1bae341c7b5c3378ecf05567dc993d4290fe72f0d601a",
+      "lines": 40,
+      "imports": [
+        "seraph.validation.ablation",
+        "seraph.validation.harness",
+        "seraph.validation.preregistration"
+      ]
+    },
+    {
+      "path": "seraph/validation/ablation.py",
+      "sha256": "53fcfef148c682dc6accf41eb55ae518de59a90144a9ed769baf8b3e9be2dcf1",
+      "lines": 49,
+      "imports": [
+        "__future__",
+        "seraph.fusion.score",
+        "seraph.shared_types"
+      ]
+    },
+    {
+      "path": "seraph/validation/epochs.py",
+      "sha256": "adb28cfb00f501cbe31d060787a6118fed8ab2f62d784f7124694868aa333cc3",
+      "lines": 80,
+      "imports": [
+        "__future__"
+      ]
+    },
+    {
+      "path": "seraph/validation/harness.py",
+      "sha256": "2c7923d0449708aa302d91340b5b39f4c57d601949b26c67da03bb7e4bac27ea",
+      "lines": 174,
+      "imports": [
+        "__future__",
+        "scipy.optimize",
+        "seraph.fusion.score",
+        "seraph.shared_types",
+        "typing"
+      ]
+    },
+    {
+      "path": "seraph/validation/preregistration.py",
+      "sha256": "8959e038439cb561de7fd6484499580e95cc005ac48e9c09e52da576325c867a",
+      "lines": 121,
+      "imports": [
+        "__future__",
+        "pathlib"
+      ]
+    },
+    {
+      "path": "scripts/analyse_pillar_redundancy.py",
+      "sha256": "f8fafe2eb497a7264c97051b1cb40ef6d8c861109b1c0aaf3f276c366b5504f1",
+      "lines": 126,
+      "imports": [
+        "__future__",
+        "scipy.stats",
+        "seraph.validation.epochs"
+      ]
+    },
+    {
+      "path": "scripts/audit_event_coverage.py",
+      "sha256": "7b28bb598af2f990a3cff5df426b057e36b801044e25fd18a2a47a56023ce3e6",
+      "lines": 1077,
+      "imports": [
+        "__future__",
+        "pathlib",
+        "scipy.stats",
+        "seraph.store.bootstrap",
+        "seraph.validation.epochs",
+        "seraph.validation.harness"
+      ]
+    },
+    {
+      "path": "scripts/audit_predictive_information.py",
+      "sha256": "afb90c157d94365a0b57b236b6aa439e06c91901bf8d85c9bd59f47cae0a72b8",
+      "lines": 320,
+      "imports": [
+        "__future__",
+        "bisect",
+        "datetime",
+        "pathlib",
+        "seraph.orchestration",
+        "seraph.store.bootstrap",
+        "seraph.validation.epochs"
+      ]
+    },
+    {
+      "path": "scripts/audit_product_readiness.py",
+      "sha256": "a347fd91c3374efdb5bae425cda9e011cda0444cc9778c19f295cb5eae366328",
+      "lines": 158,
+      "imports": [
+        "__future__",
+        "collections",
+        "dataclasses",
+        "datetime",
+        "pathlib",
+        "scripts.run_live",
+        "seraph.dashboard.console_backend",
+        "seraph.decision_support.workspace",
+        "seraph.identity",
+        "seraph.live",
+        "seraph.news.registry",
+        "seraph.shared_types",
+        "unittest.mock"
+      ]
+    },
+    {
+      "path": "scripts/backfill_intraday.py",
+      "sha256": "b6d176b20b54a3723d3b73294690aa9f2389a607bb879c95ff5c4e6711dcc126",
+      "lines": 128,
+      "imports": [
+        "__future__",
+        "datetime",
+        "pathlib",
+        "seraph.ingestion.hawkes_universe",
+        "seraph.ingestion.kite_client",
+        "seraph.shared_types",
+        "seraph.store",
+        "seraph.store.bootstrap"
+      ]
+    },
+    {
+      "path": "scripts/build_observations.py",
+      "sha256": "4143a164499394c69b88a3c9d37d1d5be441cd6e839dc80c2cb840ecd36e3090",
+      "lines": 159,
+      "imports": [
+        "__future__",
+        "datetime",
+        "pathlib",
+        "seraph.features",
+        "seraph.features.alignment",
+        "seraph.store.bootstrap"
+      ]
+    },
+    {
+      "path": "scripts/build_universe.py",
+      "sha256": "f4d48fd993262239e54f40760378bc52dabf41c295ff41291fa866aea52d4720",
+      "lines": 69,
+      "imports": [
+        "__future__",
+        "pathlib",
+        "seraph.universe"
+      ]
+    },
+    {
+      "path": "scripts/calibrate_detection_claims.py",
+      "sha256": "dab07f4a71ee39211ecfdc72e8fef683e79cc80264b4971221d84e2bd31d81c7",
+      "lines": 285,
+      "imports": [
+        "__future__",
+        "pathlib",
+        "seraph.store.bootstrap",
+        "seraph.validation.epochs",
+        "seraph.validation.harness"
+      ]
+    },
+    {
+      "path": "scripts/check_invariants.py",
+      "sha256": "b79a814af9d995fea40eb2647e5b4ca9e3c3a2a427ffecf624b6991d3aa4e5ae",
+      "lines": 166,
+      "imports": [
+        "__future__",
+        "pathlib"
+      ]
+    },
+    {
+      "path": "scripts/compare_hamilton_features.py",
+      "sha256": "a014a89a0f52916b60fe35c760d29de21b32c7c79a260b28ceb70ed4309c353c",
+      "lines": 192,
+      "imports": [
+        "__future__",
+        "pathlib",
+        "seraph.features",
+        "seraph.pillars.hamilton",
+        "seraph.store.bootstrap",
+        "seraph.validation.epochs"
+      ]
+    },
+    {
+      "path": "scripts/compare_hawkes_windows.py",
+      "sha256": "6b897a0e4fe46467330b77a409956669afcdebb9893a3fe83b11589c62345153",
+      "lines": 199,
+      "imports": [
+        "__future__",
+        "pathlib",
+        "scipy.special",
+        "seraph.pillars.hawkes"
+      ]
+    },
+    {
+      "path": "scripts/compare_pillar1_models.py",
+      "sha256": "e1e15923b0dbc8789dc3f611a33dd143e1a0d27ce921878ea120eaaf4c669c25",
+      "lines": 193,
+      "imports": [
+        "__future__",
+        "scipy.optimize",
+        "scipy.special",
+        "scipy.stats"
+      ]
+    },
+    {
+      "path": "scripts/compare_rmt_production_vs_validation.py",
+      "sha256": "e44fb6e46197ce5ec8b6b5d3cb562494bbfcbff2afd9d9e63b1f5d2b64ddc1fa",
+      "lines": 141,
+      "imports": [
+        "__future__",
+        "datetime",
+        "pathlib",
+        "seraph.store.bootstrap"
+      ]
+    },
+    {
+      "path": "scripts/compare_rmt_statistics.py",
+      "sha256": "8470386223707f44d13e7c2ff45dc506ab045ac849361faac4a948760da14369",
+      "lines": 329,
+      "imports": [
+        "__future__",
+        "datetime",
+        "pathlib",
+        "seraph.pillars.rmt",
+        "seraph.pillars.rmt.engine",
+        "seraph.store.bootstrap",
+        "seraph.validation.epochs"
+      ]
+    },
+    {
+      "path": "scripts/diagnose_fr13_gate.py",
+      "sha256": "afd8b18328c7449e641042f7bbf152ba76e6bcdca0b1f66cd004e367d93dec94",
+      "lines": 62,
+      "imports": [
+        "scipy.stats",
+        "seraph.features",
+        "seraph.ingestion.hawkes_universe",
+        "seraph.store.bootstrap"
+      ]
+    },
+    {
+      "path": "scripts/diagnose_hamilton_regimes.py",
+      "sha256": "b6f7e3a399deeb73cf092e44949e294e8f72cc94d8db16d0b4b43d2bafefebce",
+      "lines": 132,
+      "imports": [
+        "__future__",
+        "pathlib",
+        "seraph.pillars.hamilton.engine",
+        "seraph.store.bootstrap"
+      ]
+    },
+    {
+      "path": "scripts/diagnose_hamilton_tvtp.py",
+      "sha256": "d6b205cd71e127195430c77ccc683b0633b94848db8841cafb5e16ead2fb5a92",
+      "lines": 220,
+      "imports": [
+        "__future__",
+        "pathlib",
+        "seraph.orchestration.hamilton_causal",
+        "seraph.pillars.hamilton.engine",
+        "seraph.store.bootstrap"
+      ]
+    },
+    {
+      "path": "scripts/diagnose_hamilton_tvtp2.py",
+      "sha256": "7f32c7d7e41919537b0128b3fe27b8558219fd943b5c160c005e111d5896f454",
+      "lines": 229,
+      "imports": [
+        "__future__",
+        "pathlib",
+        "scipy",
+        "seraph.orchestration.hamilton_causal",
+        "seraph.pillars.hamilton.engine",
+        "seraph.store.bootstrap"
+      ]
+    },
+    {
+      "path": "scripts/diagnose_inar_session_handling.py",
+      "sha256": "646010ee920cdd83063649d198bbe7f55bfc064c39d23bcfac877fb66e6117cf",
+      "lines": 79,
+      "imports": [
+        "collections",
+        "scipy.optimize",
+        "seraph.features",
+        "seraph.ingestion.hawkes_universe",
+        "seraph.store.bootstrap"
+      ]
+    },
+    {
+      "path": "scripts/diagnose_jump_process.py",
+      "sha256": "a3212c34e0c0b916b847f72adef401d147df65713c3002cf8e6336a820191366",
+      "lines": 100,
+      "imports": [
+        "collections",
+        "scipy.optimize",
+        "scipy.stats",
+        "seraph.features",
+        "seraph.ingestion.hawkes_universe",
+        "seraph.store.bootstrap"
+      ]
+    },
+    {
+      "path": "scripts/diagnose_pillar2_quantity_auc.py",
+      "sha256": "be4269f15ffcc93bccf5b704495abfbfae418085881336fdb063419312719061",
+      "lines": 121,
+      "imports": [
+        "__future__",
+        "pathlib",
+        "seraph.orchestration",
+        "seraph.store.bootstrap",
+        "seraph.validation.epochs"
+      ]
+    },
+    {
+      "path": "scripts/diagnose_pillar_signal_loss.py",
+      "sha256": "4adc559e4ce46abd1d193056882b8a75c07bafce7de0c0660971f01e2a381abe",
+      "lines": 144,
+      "imports": [
+        "__future__",
+        "scipy.stats",
+        "seraph.orchestration",
+        "seraph.store.bootstrap",
+        "seraph.validation.epochs"
+      ]
+    },
+    {
+      "path": "scripts/diagnose_rmt_findings.py",
+      "sha256": "3e0dc21ec841165d6ce4877dc5055ae636d382792b53405758eeae33149fe7c4",
+      "lines": 265,
+      "imports": [
+        "__future__",
+        "datetime",
+        "pathlib",
+        "seraph.pillars.rmt",
+        "seraph.pillars.rmt.engine",
+        "seraph.store.bootstrap",
+        "seraph.validation.epochs"
+      ]
+    },
+    {
+      "path": "scripts/early_warning_power.py",
+      "sha256": "2091327799a0ec3bcb216c9a0332071c3e32c706535a3a32333af437eaa80e91",
+      "lines": 334,
+      "imports": [
+        "__future__",
+        "pathlib",
+        "seraph.store.bootstrap",
+        "seraph.validation.epochs",
+        "seraph.validation.harness"
+      ]
+    },
+    {
+      "path": "scripts/evaluate_csrs_research.py",
+      "sha256": "93a4b9d100cbe93a3d819199d421c5372613a8abc77a668258f076c7ce7a2604",
+      "lines": 196,
+      "imports": [
+        "__future__",
+        "pathlib",
+        "seraph.store.bootstrap",
+        "seraph.validation.epochs",
+        "seraph.validation.harness"
+      ]
+    },
+    {
+      "path": "scripts/fit_hamilton.py",
+      "sha256": "dbc040adf48faae422cdf5ae810812dd4ec9b3b5184e9061e94515b7d2dd60a8",
+      "lines": 191,
+      "imports": [
+        "__future__",
+        "datetime",
+        "pathlib",
+        "seraph.pillars.hamilton",
+        "seraph.store.bootstrap",
+        "seraph.validation.epochs"
+      ]
+    },
+    {
+      "path": "scripts/fit_hawkes.py",
+      "sha256": "91b62f07e1a0715533d839fb929d3509578d1447c9eb9b8580afad3e5df51bb9",
+      "lines": 144,
+      "imports": [
+        "__future__",
+        "datetime",
+        "pathlib",
+        "seraph.features",
+        "seraph.features.cross_sectional",
+        "seraph.ingestion.hawkes_universe",
+        "seraph.pillars.hawkes",
+        "seraph.store.bootstrap"
+      ]
+    },
+    {
+      "path": "scripts/fusion_architecture_search.py",
+      "sha256": "4855685677d6a497f0b0e28377c7ccf03c863416c9e517e30d3d29ea9aabd746",
+      "lines": 1048,
+      "imports": [
+        "__future__",
+        "bisect",
+        "datetime",
+        "pathlib",
+        "seraph.orchestration",
+        "seraph.reconciliation.kalman",
+        "seraph.shared_types",
+        "seraph.store.bootstrap",
+        "seraph.validation.epochs"
+      ]
+    },
+    {
+      "path": "scripts/fusion_weight_uncertainty.py",
+      "sha256": "b4e449b0c5872236accb6b71c6b43826fd8ebbccff0e6aaa81a5f5451def8fe3",
+      "lines": 167,
+      "imports": [
+        "__future__",
+        "datetime",
+        "pathlib"
+      ]
+    },
+    {
+      "path": "scripts/hamilton_surrogate_null.py",
+      "sha256": "cc4aa5b83b5cbf611865505658de5c5ce843a42ca74aebeb93a0c56d05f48a3e",
+      "lines": 263,
+      "imports": [
+        "__future__",
+        "pathlib",
+        "seraph.pillars.hamilton.engine",
+        "seraph.store.bootstrap"
+      ]
+    },
+    {
+      "path": "scripts/kite_login.py",
+      "sha256": "c612e9f174ced469b837267276e0336e26b5b9a2ca5506e40aca16a928f75f86",
+      "lines": 75,
+      "imports": [
+        "__future__",
+        "http.server",
+        "pathlib",
+        "seraph.ingestion.kite_client",
+        "urllib.parse"
+      ]
+    },
+    {
+      "path": "scripts/probe_news_sources.py",
+      "sha256": "f6c7c32668c499b9c080fd31ad4c24b7c6c0b87b0fe5b8b53b0adfab82e57001",
+      "lines": 81,
+      "imports": [
+        "__future__",
+        "pathlib",
+        "seraph.news.http_feed"
+      ]
+    },
+    {
+      "path": "scripts/provision_test_db.py",
+      "sha256": "dcefed84bccc6d7b9e7d1d0403ee58bd2e8379806793284bfdff54e2c402ba65",
+      "lines": 135,
+      "imports": [
+        "__future__",
+        "pathlib",
+        "seraph.store",
+        "urllib.parse"
+      ]
+    },
+    {
+      "path": "scripts/rank_predictive_candidates.py",
+      "sha256": "9d97ee3b2aaeff9b872d830087c72462d85a25cfb0d52f4f46ba68cc258cd197",
+      "lines": 187,
+      "imports": [
+        "__future__",
+        "datetime",
+        "pathlib",
+        "seraph.store.bootstrap",
+        "seraph.validation.epochs"
+      ]
+    },
+    {
+      "path": "scripts/replay_crisis_warnings.py",
+      "sha256": "f7a3f4d7489222d9205e42f4bc5f885d31723660d63ce5ba299604a745a24f2b",
+      "lines": 702,
+      "imports": [
+        "__future__",
+        "bisect",
+        "datetime",
+        "pathlib",
+        "seraph.fusion.score",
+        "seraph.orchestration",
+        "seraph.orchestration.standardize",
+        "seraph.reconciliation.kalman",
+        "seraph.shared_types",
+        "seraph.shared_types.fusion",
+        "seraph.store.bootstrap",
+        "seraph.validation.epochs"
+      ]
+    },
+    {
+      "path": "scripts/replay_operational_value.py",
+      "sha256": "1f3d0e0298371d1605e7d619e6a558a202f75e6cb68af435b97091d848b05b38",
+      "lines": 256,
+      "imports": [
+        "__future__",
+        "datetime",
+        "pathlib",
+        "seraph.validation.epochs"
+      ]
+    },
+    {
+      "path": "scripts/replay_threshold_sensitivity.py",
+      "sha256": "f0bec9f8cf096ef32ae4baa60791e66cfedadec3a100e0ebdd8c90ae1cf7d7a1",
+      "lines": 123,
+      "imports": [
+        "__future__",
+        "datetime",
+        "seraph.validation.epochs"
+      ]
+    },
+    {
+      "path": "scripts/replay_warning_null.py",
+      "sha256": "2fe21ef434e494173c39b3364bcefa3c246756259e9c9939261497eb7acb5ad9",
+      "lines": 266,
+      "imports": [
+        "__future__",
+        "datetime",
+        "pathlib",
+        "seraph.validation.epochs"
+      ]
+    },
+    {
+      "path": "scripts/reverify_audit_findings.py",
+      "sha256": "13087b220acfb2681d0a0f33a5c56c16ea3055c3322287313719f640c2f415fc",
+      "lines": 237,
+      "imports": [
+        "__future__",
+        "pathlib",
+        "seraph.features.jump_extraction",
+        "seraph.orchestration.prototype",
+        "seraph.orchestration.run_store"
+      ]
+    },
+    {
+      "path": "scripts/run_csrs_research.py",
+      "sha256": "4b2b873e2a0ddf5d0ddc3f5cbe825621a2ff606ceff8b70d9f89684584a43b45",
+      "lines": 417,
+      "imports": [
+        "__future__",
+        "bisect",
+        "datetime",
+        "pathlib",
+        "seraph.fusion.score",
+        "seraph.orchestration",
+        "seraph.reconciliation.kalman",
+        "seraph.shared_types",
+        "seraph.shared_types.fusion",
+        "seraph.store.bootstrap"
+      ]
+    },
+    {
+      "path": "scripts/run_hazard_watch.py",
+      "sha256": "5ecaa0cf8f1a1e6213b3edc7e5a5f6217f9d35ac1544cea32c1e14c46733e69f",
+      "lines": 99,
+      "imports": [
+        "__future__",
+        "pathlib",
+        "seraph.prediction.evaluation",
+        "seraph.prediction.hazard_watch",
+        "seraph.validation.epochs"
+      ]
+    },
+    {
+      "path": "scripts/run_live.py",
+      "sha256": "04550aa2c2e76681f6562440c150f9ef7afe8a01be541848d0c4520525ba84ce",
+      "lines": 126,
+      "imports": [
+        "__future__",
+        "pathlib",
+        "seraph.live",
+        "seraph.operations"
+      ]
+    },
+    {
+      "path": "scripts/run_news.py",
+      "sha256": "051012d90efb7ea8cf71b473449ad46be8a9dd482bd451e42ca749008aae7ecd",
+      "lines": 181,
+      "imports": [
+        "__future__",
+        "pathlib",
+        "seraph.news",
+        "seraph.news.http_feed",
+        "seraph.operations"
+      ]
+    },
+    {
+      "path": "scripts/run_prediction_experiment.py",
+      "sha256": "cfba439ee636b933bfa98c60bad33a4b91801f3c7daf943d63c1349ae01e8903",
+      "lines": 219,
+      "imports": [
+        "__future__",
+        "dataclasses",
+        "datetime",
+        "pathlib",
+        "seraph.prediction.evaluation",
+        "seraph.prediction.models",
+        "seraph.prediction.pillars",
+        "seraph.validation.epochs"
+      ]
+    },
+    {
+      "path": "scripts/run_prototype.py",
+      "sha256": "5154377adfac56e6b52ff1494e39b78b6691e0189013648ab2a80cbc6552c32e",
+      "lines": 32,
+      "imports": [
+        "pathlib",
+        "seraph.market_calendar",
+        "seraph.orchestration.prototype"
+      ]
+    },
+    {
+      "path": "scripts/run_rmt.py",
+      "sha256": "feee4b9440cf60084f57fb819d813450d8b6e4e591abd205be60bf29f15ddf66",
+      "lines": 244,
+      "imports": [
+        "__future__",
+        "datetime",
+        "pathlib",
+        "seraph.pillars.rmt",
+        "seraph.pillars.rmt.engine",
+        "seraph.store.bootstrap"
+      ]
+    },
+    {
+      "path": "scripts/screen_financial_sector_stress.py",
+      "sha256": "95acc3a2eaa83c2bf5a99db0be98f8b2b3f53c1865bc5f18d8f7546a2f3433dd",
+      "lines": 302,
+      "imports": [
+        "__future__",
+        "datetime",
+        "pathlib",
+        "seraph.store.bootstrap",
+        "seraph.validation.epochs"
+      ]
+    },
+    {
+      "path": "scripts/screen_hawkes_intensity.py",
+      "sha256": "730736b9226ea9f87f737e1e3db22030a48d963b628bc3bc8f716997b5487b66",
+      "lines": 292,
+      "imports": [
+        "__future__",
+        "collections",
+        "datetime",
+        "pathlib",
+        "seraph.features.jump_extraction",
+        "seraph.store.bootstrap",
+        "seraph.validation.epochs"
+      ]
+    },
+    {
+      "path": "scripts/snapshot_research_data.py",
+      "sha256": "7495ca002320f3b261b29404ad8035444f493b29df13a20587e30071b3fd7651",
+      "lines": 102,
+      "imports": [
+        "__future__",
+        "datetime",
+        "pathlib"
+      ]
+    },
+    {
+      "path": "scripts/study_stress_candidates.py",
+      "sha256": "223d31d9da6eeec5fc02976b3067220aaa05930aedaa054bb14f7ae070978dd5",
+      "lines": 277,
+      "imports": [
+        "__future__",
+        "pathlib",
+        "seraph.store.bootstrap",
+        "seraph.validation.epochs",
+        "seraph.validation.harness"
+      ]
+    },
+    {
+      "path": "scripts/t3_power_persistent_alternatives.py",
+      "sha256": "a4f0e67bb7dc4f14b9a5f612fd45346b02541df64c22221b8c1a09e427157231",
+      "lines": 553,
+      "imports": [
+        "__future__",
+        "pathlib",
+        "seraph.store.bootstrap",
+        "seraph.validation.epochs"
+      ]
+    },
+    {
+      "path": "scripts/test_excess_risk_prediction.py",
+      "sha256": "a2d3f5f5b64d480ab1d9bca0046486b2b70806ff91ab063af2d965820ddb47d3",
+      "lines": 201,
+      "imports": [
+        "__future__",
+        "scipy.optimize",
+        "scipy.special",
+        "scipy.stats"
+      ]
+    },
+    {
+      "path": "scripts/test_hamilton_observation_d.py",
+      "sha256": "3e62e4ad972c2f8f3254de56a6a5a99c3eb245d8f68dd7b0d044adae9e283f83",
+      "lines": 158,
+      "imports": [
+        "__future__",
+        "pathlib",
+        "seraph.store.bootstrap"
+      ]
+    },
+    {
+      "path": "scripts/test_omega_t_advance_warning.py",
+      "sha256": "7b98deedc0429b6d96009311d7921bc5ab1c023c6b03fafccad2c70f7d142a87",
+      "lines": 144,
+      "imports": [
+        "__future__",
+        "pathlib",
+        "seraph.orchestration",
+        "seraph.store.bootstrap",
+        "seraph.validation.epochs"
+      ]
+    },
+    {
+      "path": "scripts/test_tvtp_hamilton.py",
+      "sha256": "4996f89e3837a75709490103b866cee7005dd7ff63eba6b2c87477e06a591e32",
+      "lines": 133,
+      "imports": [
+        "__future__",
+        "pathlib",
+        "seraph.pillars.hamilton.engine",
+        "seraph.store.bootstrap"
+      ]
+    },
+    {
+      "path": "scripts/validate_acceleration_signals.py",
+      "sha256": "121d4198fc1dbe711fe37e49b104914c7c4e03f2247018b9dcba5b5586e4300a",
+      "lines": 1093,
+      "imports": [
+        "__future__",
+        "pathlib",
+        "seraph.fusion.standardize",
+        "seraph.orchestration.standardize",
+        "seraph.store.bootstrap",
+        "seraph.validation.epochs",
+        "seraph.validation.harness"
+      ]
+    },
+    {
+      "path": "scripts/validate_hamilton_regimes.py",
+      "sha256": "a34f801b11869ce87d4d9cceb6febdb152b8b0c01b248b96b321cacb4b4ab00e",
+      "lines": 402,
+      "imports": [
+        "__future__",
+        "pathlib",
+        "seraph.pillars.hamilton.engine",
+        "seraph.store.bootstrap"
+      ]
+    },
+    {
+      "path": "scripts/validate_rmt_production.py",
+      "sha256": "d7bc5e4a2018408e71e9542912653f5ca07108f6fb742730e7bab3014321684a",
+      "lines": 330,
+      "imports": [
+        "__future__",
+        "datetime",
+        "pathlib",
+        "seraph.pillars.rmt",
+        "seraph.pillars.rmt.engine",
+        "seraph.store.bootstrap"
+      ]
+    },
+    {
+      "path": "scripts/verify_fix01_fix02.py",
+      "sha256": "b3d67fe97ea32d03ef7fc6cd43f655f51c95c691d6f61ab6c04c854ae88bbea5",
+      "lines": 144,
+      "imports": [
+        "__future__",
+        "pathlib",
+        "seraph.orchestration.prototype",
+        "seraph.orchestration.run_store"
+      ]
+    },
+    {
+      "path": "scripts/verify_hawkes_production.py",
+      "sha256": "fd1653be12cf6de0812e622e022bdf3bfb689309425148b3125f26819d811a87",
+      "lines": 42,
+      "imports": [
+        "seraph.pillars.hawkes",
+        "seraph.reconciliation",
+        "seraph.shared_types"
+      ]
+    },
+    {
+      "path": "scripts/verify_packaging.py",
+      "sha256": "830212888523dfdf7016aa663e583952162f02e36fe4435f1baf1b319850e8cd",
+      "lines": 155,
+      "imports": [
+        "__future__",
+        "pathlib"
+      ]
+    },
+    {
+      "path": "scripts/verify_research_artifacts.py",
+      "sha256": "c10fe73e9894958db9268343a53fff9fe52a2eb7569df43fe9e7f569d31e9341",
+      "lines": 80,
+      "imports": [
+        "__future__",
+        "pathlib"
+      ]
+    },
+    {
+      "path": "scripts/write_hawkes_production.py",
+      "sha256": "ddbd10e9690cda672bfa52183cc4fc620702a24e15f3d6209dcfaa2618bd5839",
+      "lines": 347,
+      "imports": [
+        "__future__",
+        "collections",
+        "pathlib",
+        "seraph.features",
+        "seraph.ingestion.hawkes_universe",
+        "seraph.pillars.hawkes",
+        "seraph.pillars.hawkes.artefact",
+        "seraph.pillars.hawkes.engine",
+        "seraph.store.bootstrap"
+      ]
+    },
+    {
+      "path": "fixtures/__init__.py",
+      "sha256": "09208b22217f6e217e096b3e542765ffdfb821e7da86623bb33486ec2bfd8d85",
+      "lines": 1,
+      "imports": []
+    },
+    {
+      "path": "fixtures/mock_generator.py",
+      "sha256": "b3c7f4a09efb5d2f4b8d9e44cd50e67e4143821e63c87791bf7e2ec9b0e3ad9c",
+      "lines": 328,
+      "imports": [
+        "__future__",
+        "datetime",
+        "seraph.shared_types"
+      ]
+    },
+    {
+      "path": "tests/conftest.py",
+      "sha256": "1e664ad01412ecbf55b7409e8c9cadd5bba1f9b5770300af1d3b17d60d0cb2cb",
+      "lines": 44,
+      "imports": [
+        "urllib.parse"
+      ]
+    },
+    {
+      "path": "tests/contract/test_ct10_rotation_artefact.py",
+      "sha256": "ed443a69d9ff9b17f620e1b69079d3c10d64b0ca8cdf9aefd2634c8bbff431cb",
+      "lines": 170,
+      "imports": [
+        "__future__",
+        "seraph.pillars.rmt.engine"
+      ]
+    },
+    {
+      "path": "tests/contract/test_ct1_ingestion_idempotency.py",
+      "sha256": "f9a1a8b0b901dc17a79e15f23ce7341f3ececf6ea17a6338a85546fc8449ddbf",
+      "lines": 112,
+      "imports": [
+        "__future__",
+        "seraph.shared_types",
+        "seraph.store"
+      ]
+    },
+    {
+      "path": "tests/contract/test_ct2_universe_cardinality.py",
+      "sha256": "60848052c37301d394cc208556f8b31ec5f21fad0798808042bfe8e03aeece15",
+      "lines": 127,
+      "imports": [
+        "__future__",
+        "seraph.universe",
+        "seraph.universe.constructor"
+      ]
+    },
+    {
+      "path": "tests/contract/test_ct3_jump_sufficiency.py",
+      "sha256": "679d17c5ea566ec552282ada6f991b4cf591d6adf09d112d3ad756e4fcf7e20e",
+      "lines": 203,
+      "imports": [
+        "__future__",
+        "seraph.features",
+        "seraph.store.bootstrap"
+      ]
+    },
+    {
+      "path": "tests/contract/test_ct4_structural_absence.py",
+      "sha256": "fc79585a2f139d599c87b7069d8f44273faea7d97004e523152c358f53197eef",
+      "lines": 130,
+      "imports": [
+        "__future__",
+        "datetime",
+        "fixtures.mock_generator",
+        "pydantic",
+        "seraph.shared_types"
+      ]
+    },
+    {
+      "path": "tests/contract/test_ct5_covariance_propagation.py",
+      "sha256": "c5252fb5f80e25d84c3a372b7fd11735751a42f4533bd229e7c088ffbdd16dda",
+      "lines": 73,
+      "imports": [
+        "__future__",
+        "fixtures.mock_generator",
+        "pydantic",
+        "seraph.shared_types"
+      ]
+    },
+    {
+      "path": "tests/contract/test_ct6_purity_leakage.py",
+      "sha256": "5925518e0b95a07699017deede695756e1c668fb9ae5daed3c075cac7b1f0284",
+      "lines": 81,
+      "imports": [
+        "__future__",
+        "fixtures.mock_generator",
+        "pydantic",
+        "seraph.shared_types"
+      ]
+    },
+    {
+      "path": "tests/contract/test_ct7_simulator_consistency.py",
+      "sha256": "5f6ffd0f31482a256195f944b6589a78f19ba26e06b289c899702343ca377f2f",
+      "lines": 129,
+      "imports": [
+        "__future__",
+        "fixtures.mock_generator",
+        "seraph.decision_support",
+        "seraph.fusion.score",
+        "seraph.pillars.hamilton"
+      ]
+    },
+    {
+      "path": "tests/contract/test_ct8_rbac.py",
+      "sha256": "b0f3e30a5f582cbe58e3d5fabb65d2c9c2851e39b93b3d94421a4872993af029",
+      "lines": 76,
+      "imports": [
+        "__future__",
+        "fixtures.mock_generator",
+        "seraph.dashboard.gateway"
+      ]
+    },
+    {
+      "path": "tests/contract/test_ct9_mask_renormalization.py",
+      "sha256": "698046e4faa3dd03726c2f2ff7d8dcac42c064ed31698c0a12d223bf4fe45936",
+      "lines": 110,
+      "imports": [
+        "__future__",
+        "fixtures.mock_generator",
+        "seraph.shared_types"
+      ]
+    },
+    {
+      "path": "tests/test_acceleration_signal_causality.py",
+      "sha256": "e3def1af3cf070d0fb4f279d3c471ea507e6e13014285758c161a4ce5c583d69",
+      "lines": 383,
+      "imports": [
+        "__future__",
+        "pathlib",
+        "seraph.fusion.standardize",
+        "seraph.orchestration.standardize",
+        "seraph.validation.epochs"
+      ]
+    },
+    {
+      "path": "tests/test_auth_identity_and_tenancy.py",
+      "sha256": "7b75d3cdefe2d74d94b41bb6a86efd13b953f855619504af92af5153de39e47c",
+      "lines": 288,
+      "imports": [
+        "__future__",
+        "seraph.decision_support.workspace",
+        "seraph.identity"
+      ]
+    },
+    {
+      "path": "tests/test_c10_harness.py",
+      "sha256": "81e87d6cdd48c31fd278f519fef16ee312651e90fb78e8f20f4d958eb617ac6e",
+      "lines": 152,
+      "imports": [
+        "__future__",
+        "fixtures.mock_generator",
+        "seraph.validation",
+        "seraph.validation.preregistration"
+      ]
+    },
+    {
+      "path": "tests/test_c11_action_log.py",
+      "sha256": "0fb9e579302551f588fcb684e0079b03ad5d6d892fa45b8ceeabeacfba20eef5",
+      "lines": 514,
+      "imports": [
+        "__future__",
+        "pydantic",
+        "seraph.dashboard.gateway",
+        "seraph.decision_support"
+      ]
+    },
+    {
+      "path": "tests/test_c11_portfolio.py",
+      "sha256": "14cd656a2a7e7a753a96fc7fbc6e66b67d98b932190a5978b0b2504f481be4b7",
+      "lines": 333,
+      "imports": [
+        "__future__",
+        "fixtures.mock_generator",
+        "hypothesis",
+        "seraph.decision_support",
+        "seraph.shared_types"
+      ]
+    },
+    {
+      "path": "tests/test_c11_portfolio_io.py",
+      "sha256": "42fdb24c736d23adff07b948e0e4476b144241a216cf796374f3b08d3e981ef5",
+      "lines": 373,
+      "imports": [
+        "__future__",
+        "seraph.decision_support.portfolio",
+        "seraph.decision_support.portfolio_io",
+        "seraph.shared_types"
+      ]
+    },
+    {
+      "path": "tests/test_c12_dashboard.py",
+      "sha256": "537a7b188d15a59cfe79b0c7e341734b3b3d70e476fba60399d9b7bafedc03f8",
+      "lines": 101,
+      "imports": [
+        "__future__",
+        "seraph.dashboard.app",
+        "seraph.dashboard.theme"
+      ]
+    },
+    {
+      "path": "tests/test_c2_macro_ingestion.py",
+      "sha256": "b3a109396835fcbeb27c416b9535a2ecc08d0d43238f58d09269fa1762c4e499",
+      "lines": 983,
+      "imports": [
+        "__future__",
+        "datetime",
+        "pathlib",
+        "seraph.ingestion",
+        "seraph.ingestion.macro_client",
+        "seraph.shared_types",
+        "seraph.store"
+      ]
+    },
+    {
+      "path": "tests/test_c4_cross_sectional.py",
+      "sha256": "b1052ea60e96b5071eaff2c16f173a9aa2eaf55fedb72f9cf1ff3e33ced093e0",
+      "lines": 115,
+      "imports": [
+        "__future__",
+        "seraph.features"
+      ]
+    },
+    {
+      "path": "tests/test_c4_lee_mykland_calibration.py",
+      "sha256": "1cbafa6ec54d504261de4274d4339a61097ce0816ec0654ca64f81a360233769",
+      "lines": 109,
+      "imports": [
+        "__future__",
+        "seraph.features.jump_extraction"
+      ]
+    },
+    {
+      "path": "tests/test_c5_hawkes.py",
+      "sha256": "eb25f90bffa363b3b6ec6d788dcf437d75097e1cf9ca546b326aac9d248d34af",
+      "lines": 328,
+      "imports": [
+        "__future__",
+        "seraph.pillars.hawkes",
+        "seraph.pillars.hawkes.engine",
+        "seraph.shared_types"
+      ]
+    },
+    {
+      "path": "tests/test_c5_hawkes_writer.py",
+      "sha256": "0d164088d2dc8e2eb30b0a9f321075e1c695cc7f5ca55ab6935bdb4e2c0f6b9f",
+      "lines": 331,
+      "imports": [
+        "__future__",
+        "datetime",
+        "pathlib",
+        "seraph.store.bootstrap"
+      ]
+    },
+    {
+      "path": "tests/test_c6_rmt.py",
+      "sha256": "07d7c6ca56d46b572fa1214e329d0508d80ef17ec3ac3ad1a105925be69236f6",
+      "lines": 109,
+      "imports": [
+        "__future__",
+        "seraph.pillars.rmt.engine"
+      ]
+    },
+    {
+      "path": "tests/test_c7_hamilton.py",
+      "sha256": "be45e652d108b2fa25d2ea81b592a4edda3cb4ca7768a3da35fa773e16da7b9b",
+      "lines": 124,
+      "imports": [
+        "__future__",
+        "seraph.pillars.hamilton"
+      ]
+    },
+    {
+      "path": "tests/test_c7_hamilton_causal.py",
+      "sha256": "607754acb5002f67318b2c209ca96e79792428e37ec764ce5c80d2cd3e1e7176",
+      "lines": 226,
+      "imports": [
+        "__future__",
+        "seraph.orchestration.hamilton_causal",
+        "seraph.pillars.hamilton.engine"
+      ]
+    },
+    {
+      "path": "tests/test_c7_hamilton_regime_recovery.py",
+      "sha256": "8f76293bf844fa95d8c289ee35f099a29953259911a99ae54e3ec954840ac346",
+      "lines": 345,
+      "imports": [
+        "__future__",
+        "seraph.pillars.hamilton.engine"
+      ]
+    },
+    {
+      "path": "tests/test_case_workflow.py",
+      "sha256": "aca834792213a6bcfa28619bf789915f5d051ad2f4005e490202e8a428e067ee",
+      "lines": 315,
+      "imports": [
+        "__future__",
+        "seraph.decision_support.cases",
+        "seraph.identity"
+      ]
+    },
+    {
+      "path": "tests/test_connected_frontend.py",
+      "sha256": "93840abb9232ace4cc865e1ce7d831bc905258136f45816ed95b940a1886a96a",
+      "lines": 32,
+      "imports": [
+        "seraph.dashboard.connected_frontend"
+      ]
+    },
+    {
+      "path": "tests/test_console_backend.py",
+      "sha256": "90506fcd4e3a83458df42404c574e0167d179431c293a091b3ffce2924983645",
+      "lines": 94,
+      "imports": [
+        "seraph.dashboard.console_backend",
+        "seraph.decision_support",
+        "seraph.fusion.score",
+        "seraph.orchestration.prototype",
+        "seraph.orchestration.run_store",
+        "seraph.shared_types"
+      ]
+    },
+    {
+      "path": "tests/test_csrs_research_driver.py",
+      "sha256": "ff39d4dbdaccf436198a39ccce2779179abe252828fde72d50707cb9551ff1da",
+      "lines": 111,
+      "imports": [
+        "__future__",
+        "pathlib"
+      ]
+    },
+    {
+      "path": "tests/test_data03_bhavcopy.py",
+      "sha256": "e46602bc24f5e67754afe44611ab460b94f698df398b4f2165344f49175ccd85",
+      "lines": 192,
+      "imports": [
+        "__future__",
+        "seraph.ingestion.bhavcopy_reader"
+      ]
+    },
+    {
+      "path": "tests/test_fix01_session_clock.py",
+      "sha256": "ad206ea97c9a1588515d517a669f529331eca719213bcc64d14fd3515ca16c37",
+      "lines": 216,
+      "imports": [
+        "__future__",
+        "datetime",
+        "seraph.market_calendar",
+        "seraph.orchestration.prototype",
+        "seraph.reconciliation.time_clock",
+        "seraph.shared_types"
+      ]
+    },
+    {
+      "path": "tests/test_fix02_absence_semantics.py",
+      "sha256": "3f33f94c9dc62113e707f95aa34d0e3b3195eef7eac79f5880113f27e801ff37",
+      "lines": 143,
+      "imports": [
+        "__future__",
+        "seraph.orchestration.prototype"
+      ]
+    },
+    {
+      "path": "tests/test_fix03_fix08_persistence.py",
+      "sha256": "46ec7fdaf76155f415d4fe93817a4e66cc32913f7430007c222ec24f8f3ac655",
+      "lines": 255,
+      "imports": [
+        "__future__",
+        "seraph.orchestration.run_store"
+      ]
+    },
+    {
+      "path": "tests/test_fix04_causal_state_bins.py",
+      "sha256": "6901a48a2bdfca2fcbb4052c835272395ea9e498c9dc7ac2eceedc000c6c49af",
+      "lines": 166,
+      "imports": [
+        "__future__",
+        "seraph.features.jump_extraction"
+      ]
+    },
+    {
+      "path": "tests/test_fix06_evaluation_identity.py",
+      "sha256": "bfc8b24a2705c53e5f09ca240b9fd2546f73a5e6d55a1d0941f44a26d41d0fd2",
+      "lines": 220,
+      "imports": [
+        "__future__",
+        "pathlib",
+        "seraph.store"
+      ]
+    },
+    {
+      "path": "tests/test_fix07_hawkes_artefact.py",
+      "sha256": "5c1dd73a0eea301b3caad276849feffdd626b87a784b8d21b7a8cb7768be5c2d",
+      "lines": 224,
+      "imports": [
+        "__future__",
+        "seraph.pillars.hawkes.artefact",
+        "seraph.pillars.hawkes.engine"
+      ]
+    },
+    {
+      "path": "tests/test_fix09_classification_policy.py",
+      "sha256": "4edb09ba2ca430a4caf12d6c383cae8af213257bbf79252cad44f214a061de85",
+      "lines": 112,
+      "imports": [
+        "__future__",
+        "pathlib",
+        "seraph.ingestion.hawkes_universe",
+        "seraph.universe",
+        "seraph.universe.constructor"
+      ]
+    },
+    {
+      "path": "tests/test_fix10_fix11_transport.py",
+      "sha256": "3c165dfe66c2450fe017e73e82e3cbb3b4dde5dac98b103f5937a9ff34b924e4",
+      "lines": 278,
+      "imports": [
+        "__future__",
+        "datetime",
+        "pathlib",
+        "seraph.dashboard",
+        "seraph.dashboard.console_backend",
+        "seraph.orchestration.prototype",
+        "seraph.orchestration.run_store",
+        "seraph.shared_types"
+      ]
+    },
+    {
+      "path": "tests/test_fr35_ablation_design_pins.py",
+      "sha256": "9ea0a0da7fa46864882b4cd5f15a8bae1ed0718fe027ef35f15d5d651fa50c9f",
+      "lines": 168,
+      "imports": [
+        "__future__",
+        "seraph.validation.preregistration"
+      ]
+    },
+    {
+      "path": "tests/test_fusion_learning_leakage.py",
+      "sha256": "69a0f1cf5bbb9284c5093bbe26e29866ec2449e55e872f2a2ce5940bd5c9998a",
+      "lines": 248,
+      "imports": [
+        "__future__",
+        "pathlib"
+      ]
+    },
+    {
+      "path": "tests/test_fusion_variance_math.py",
+      "sha256": "8166a2d7ef7489f0e1b352a6c2454258fdc3bc0c5cae8aa0602ce7162b5ed2cc",
+      "lines": 54,
+      "imports": [
+        "fixtures.mock_generator",
+        "seraph.fusion.score"
+      ]
+    },
+    {
+      "path": "tests/test_hazard_watch.py",
+      "sha256": "5e4da78cc8de0721745292db423e3de4a0c786e9654bf6b728c4f4b7fe741037",
+      "lines": 34,
+      "imports": [
+        "seraph.prediction.hazard_watch"
+      ]
+    },
+    {
+      "path": "tests/test_live_market_path.py",
+      "sha256": "102c8ab78acfcd077c6e71d6cd6eed2fb37b426354ee0b0279f1b459906ea0c4",
+      "lines": 314,
+      "imports": [
+        "__future__",
+        "datetime",
+        "seraph.live",
+        "seraph.shared_types"
+      ]
+    },
+    {
+      "path": "tests/test_news06_overlays.py",
+      "sha256": "fe7ee7143387239da2b0c64f6b2214678253940f4f98333f188fe2219bf2333c",
+      "lines": 212,
+      "imports": [
+        "__future__",
+        "seraph.dashboard.news_view",
+        "seraph.news",
+        "seraph.news.model",
+        "seraph.news.registry",
+        "seraph.product_types"
+      ]
+    },
+    {
+      "path": "tests/test_news_pipeline.py",
+      "sha256": "d3b0613cedcf07d00e353b4364767cf4e6b89e92a2d5981222cbd5386dc9d0c0",
+      "lines": 453,
+      "imports": [
+        "__future__",
+        "seraph.news",
+        "seraph.news.estimation",
+        "seraph.news.extraction",
+        "seraph.news.registry",
+        "seraph.product_types"
+      ]
+    },
+    {
+      "path": "tests/test_ops_jobs_and_monitoring.py",
+      "sha256": "9a62f8d61df18a3046878ed292b959efc5117f89b97e2f5ff4fbe5494e3672b7",
+      "lines": 271,
+      "imports": [
+        "__future__",
+        "datetime",
+        "seraph.news",
+        "seraph.operations",
+        "seraph.operations.jobs",
+        "seraph.shared_types"
+      ]
+    },
+    {
+      "path": "tests/test_port01_port02_workspace.py",
+      "sha256": "6ea629a918e15674230ff84d5e48ad53abfdcfdff16d7c298236d9de3cdc4316",
+      "lines": 259,
+      "imports": [
+        "__future__",
+        "seraph.decision_support.portfolio",
+        "seraph.decision_support.workspace",
+        "seraph.identity"
+      ]
+    },
+    {
+      "path": "tests/test_prediction_evaluation.py",
+      "sha256": "7e798d64909fd8042a48a84aab8ec45aef050ccd6ea2cec7477f90a933030feb",
+      "lines": 229,
+      "imports": [
+        "seraph.prediction.evaluation"
+      ]
+    },
+    {
+      "path": "tests/test_prediction_models.py",
+      "sha256": "45a6c4f449af2ac7d1457420c46887e445a84dc31f778cd18383ae550dfc02d6",
+      "lines": 185,
+      "imports": [
+        "seraph.prediction.models"
+      ]
+    },
+    {
+      "path": "tests/test_prediction_pillars.py",
+      "sha256": "842ba7bc6b0f19fb6969ef44fb22a37a2d191f797bd6f2fa1ed1cc0da4889f2d",
+      "lines": 130,
+      "imports": [
+        "seraph.prediction.pillars"
+      ]
+    },
+    {
+      "path": "tests/test_product_types_envelope.py",
+      "sha256": "3ade5381ee3249b42987ba3b4ef63844bac4525f0ed7058c7ff0636ccc727a4d",
+      "lines": 212,
+      "imports": [
+        "__future__",
+        "seraph.product_types",
+        "seraph.product_types.envelope"
+      ]
+    },
+    {
+      "path": "tests/test_prototype_integration.py",
+      "sha256": "dc8bbdc4e24440934864f80156cd6f711d6ba94809730977a54a3c6f596e0f32",
+      "lines": 123,
+      "imports": [
+        "conftest",
+        "seraph.decision_support",
+        "seraph.features.alignment",
+        "seraph.orchestration.original_execution",
+        "seraph.orchestration.prototype",
+        "seraph.orchestration.run_store",
+        "seraph.store.writer"
+      ]
+    },
+    {
+      "path": "tests/test_prototype_viewer.py",
+      "sha256": "8446f4be2bb2a1b37e1ac93c796444d677347c68064dfa39880cb6977f05b4b9",
+      "lines": 28,
+      "imports": [
+        "pathlib",
+        "seraph.orchestration.prototype",
+        "seraph.orchestration.run_store",
+        "streamlit.testing.v1"
+      ]
+    },
+    {
+      "path": "tests/test_reconciliation_math.py",
+      "sha256": "0f203d7f455a76ee397236cb2add036a71f78dfe9419a52f58b00236c45082f9",
+      "lines": 186,
+      "imports": [
+        "datetime",
+        "seraph.reconciliation.kalman",
+        "seraph.reconciliation.noise_model",
+        "seraph.reconciliation.time_clock",
+        "seraph.shared_types"
+      ]
+    },
+    {
+      "path": "tests/test_replay_causality.py",
+      "sha256": "a3cb44b9cdcb1c6bec9eb00a35d2951b88fc6d6d94363a726ad8121a25f9c89d",
+      "lines": 240,
+      "imports": [
+        "__future__",
+        "pathlib"
+      ]
+    },
+    {
+      "path": "tests/test_research_viewer.py",
+      "sha256": "28c0a7315073b1f424a2542481da50e271804879fcb8be86928f8c65338ab301",
+      "lines": 113,
+      "imports": [
+        "pathlib",
+        "seraph.prediction.app",
+        "streamlit.testing.v1"
+      ]
+    },
+    {
+      "path": "tests/test_scen01_port04.py",
+      "sha256": "00445e7aa1e041841c09fe473f477c8094e1944a43c5bb0512a1b59bde6f224a",
+      "lines": 390,
+      "imports": [
+        "__future__",
+        "seraph.decision_support.exposure_trail",
+        "seraph.decision_support.scenarios",
+        "seraph.identity",
+        "seraph.news.extraction",
+        "seraph.news.model",
+        "seraph.news.registry",
+        "seraph.product_types"
+      ]
+    },
+    {
+      "path": "tests/test_t0_mock_conformance.py",
+      "sha256": "934cf65438a80c4893b5f4f171b46f8a39483e83cfb77348352ec2d059df0231",
+      "lines": 152,
+      "imports": [
+        "__future__",
+        "datetime",
+        "fixtures.mock_generator",
+        "pydantic",
+        "seraph.shared_types"
+      ]
+    }
+  ]
+}

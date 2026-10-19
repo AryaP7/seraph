@@ -1,0 +1,45 @@
+{
+  "created_at": "2026-10-18T22:11:54.916970+05:30",
+  "numerical_tests": {
+    "tests": 180,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "passed": 180,
+    "duration_seconds": 1234.582,
+    "failures_detail": [],
+    "report": "tests.xml"
+  },
+  "invariant_checker": {
+    "command": ".venv/Scripts/python.exe scripts/check_invariants.py",
+    "exit_code": 0,
+    "checks": [
+      "PILLAR_ORDER consistency",
+      "C9 purity",
+      "AR_t placement",
+      "Explicit IST timestamps",
+      "shared_types frozen audit (informational)"
+    ]
+  },
+  "audit": {
+    "original_research_hashes_match": true,
+    "baseline_and_combined_replication_absolute_tolerance": 1e-12,
+    "recorded_mature_label_cutoff_violations": 0,
+    "mathematical_counterexamples": "diagnostics.json and supplement.json",
+    "forecast_configurations": 20,
+    "supervised_configurations": 18,
+    "no_predictive_success_claim": true
+  },
+  "environment": {
+    "python": "3.12.14 (main, Aug 14 2026, 15:40:22) [MSC v.1944 64 bit (AMD64)]",
+    "libraries": {
+      "numpy": "2.5.4",
+      "scipy": "1.18.1",
+      "pandas": "3.0.6",
+      "statsmodels": "0.15.0",
+      "pyarrow": "25.0.1",
+      "pytest": "9.1.1"
+    }
+  },
+  "scope": "Targeted numerical/causality tests, not the full repository suite. No database accessed by the audit."
+}

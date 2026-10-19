@@ -1,0 +1,77 @@
+{
+  "ticket": "T13 \u2014 news to globe (audit findings R07/R08)",
+  "created_at": "2026-10-17T04:01:26+0530",
+  "finding": "build_news_payload() ran against the real store and nothing called it. The map drew a hardcoded fabricated dataset and the payload carried one flat string, news_status='FABRICATED PREVIEW', for every surface at once.",
+  "built": {
+    "seraph/dashboard/globe_payload.py": [
+      "to_globe() \u2014 the one lon/lat->world adapter, identical arithmetic to the renderer's toXYZ",
+      "GeometryResolver \u2014 asset/place/country/state rules; a record that cannot be placed goes to the review queue, never to a headquarters or centroid",
+      "WindowManifest-style transport branch: revision, as_of, sources_health, signals, nodes, edges, sector_aggregates, coverage, limitations",
+      "layers origins / mentions / affected / paths / market_diagnostics / preview, each with its own legend and semantics",
+      "bounded, deterministic edge visibility with hidden counts",
+      "node_detail() \u2014 role-scoped click detail computed once, server side"
+    ],
+    "seraph/dashboard/console_component/news_layer.js": "the pure plan() the renderer consumes; cool palette disjoint from the CSRS amber band",
+    "seraph/dashboard/console_component/index.html": "SERAPH_GLOBE_API.applyNews, a separate THREE group, DOM markers under the same horizon rule as the state labels, and the honest banner",
+    "seraph/dashboard/console_backend.py": "news_branch() replaces the flat news_status; renderer_geometry() reads the mesh vocabulary from the component the browser loads",
+    "seraph/dashboard/prototype_app.py": "the canonical app now passes the news store and registry"
+  },
+  "defects_found_by_running_on_real_data": {
+    "D1": {
+      "what": "the mention 'India' resolved to the ENTITY reserve_bank_of_india, because partial matching accepted any substring and 'india' sits inside 'reserve bank of india'",
+      "fix": "partial matching is now a contiguous whole-token run with a two-token floor (registry._token_subsequence)",
+      "after": "'India' -> unknown as an entity, resolved as the place 'in'; 'Reserve Bank', 'RBI' and the full name still resolve to the body"
+    },
+    "D2": {
+      "what": "'Mumbai', named in the title of a speech, was recorded as an AFFECTED place. A venue, a dateline and a registered address are indistinguishable to a name matcher",
+      "fix": "located records are Event.locations with role 'mentioned', not affected, and are drawn in their own dimmer layer whose legend says the role is not established"
+    },
+    "D3": {
+      "what": "a marker was captioned with a whole press-release headline",
+      "fix": "labels name the place; the headline is in the click detail"
+    }
+  },
+  "reference_data_curated": {
+    "places.csv": [
+      "in / India / GeoNames 1269750 / 22.00000, 79.00000",
+      "in_mh / Maharashtra / GeoNames 1264418 / 19.50000, 76.00000",
+      "in_mh_mumbai / Mumbai / GeoNames 1275339 / 19.07283, 72.88261"
+    ],
+    "entities.csv": [
+      "reserve_bank_of_india, cited to an RBI-hosted press release PDF on website.rbi.org.in"
+    ],
+    "source_places.csv": [
+      "new file: where a SOURCE issues from, curated once with a citation, which is what gives an event its origin without guessing at the prose. All three RBI feeds -> in_mh_mumbai, basis issuing_office"
+    ],
+    "note": "every coordinate names its gazetteer record; every entity and source row carries a first-party citation. No exposure edge is curated, so the paths layer is legitimately empty."
+  },
+  "verified_in_the_real_browser": {
+    "url": "http://localhost:8513 (streamlit, seraph-console)",
+    "payload": "the real news branch at decision 2026-10-18, 30 RBI stories",
+    "observed": {
+      "markers": "India (79.0, 22.0, country) and Mumbai (72.88261, 19.07283, city) drawn on the original globe",
+      "palette": "news markers cyan 0x5aa9c9 / 0x5c6b78; the fabricated preview markers remain amber and keep their FABRICATED PREVIEW legend. Both layers on screen together",
+      "banner": "'2 evidenced nodes \u00b7 0 documented paths'",
+      "click": "the Mumbai marker opens real RBI headlines with their event types and BOTH published_at and first_seen_at",
+      "legend": [
+        "event origin",
+        "named in the story \u2014 role not established"
+      ],
+      "per_surface_status": "at the 2020-04-30 archive decision the banner correctly reads FABRICATED PREVIEW for every surface, because no story was first seen yet"
+    },
+    "screenshot": "docs/evidence/T13-GLOBE-BROWSER-2026-10-17.jpg"
+  },
+  "tests": "tests/test_t13_globe_payload.py (37), tests/test_t13_origin_and_resolution.py (17), tests/js/news_layer_harness.mjs (27 checks); the Python adapter is cross-checked against the renderer's own JavaScript toXYZ under node",
+  "browser_acceptance": {
+    "1_new_source_item_appears_with_stable_id_and_link": "met \u2014 real RBI items with stable event ids reach Signals and the click detail",
+    "2_foreign_origin_resolves_an_evidenced_path": "NOT met \u2014 no exposure edge is curated, so no path exists to draw. The paths layer is empty and says so rather than inventing an arc",
+    "3_domestic_incident_locates_the_site": "property held in tests; NOT demonstrated on real data, because no facility is curated yet",
+    "4_outage_or_retraction_updates_freshness_without_erasing_history": "source coverage is carried and reported; retraction handling is unchanged by this ticket",
+    "5_missing_geography_stays_unresolved": "met \u2014 the review queue is the only destination for an unplaceable record, and it is deduplicated by node"
+  },
+  "not_claimed": [
+    "the connected globe has not been seen inside a HISTORICAL console run, because no persisted run reaches 2026-10-16 when these stories were first seen. The renderer was driven with the real payload through the component's own API in the real browser; showing it on a current decision needs T08.",
+    "three RBI feeds are not world news coverage.",
+    "nothing here is a probability of financial loss, and the news layer shares no colour scale with CSRS."
+  ]
+}

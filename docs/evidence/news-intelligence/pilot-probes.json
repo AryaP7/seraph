@@ -1,0 +1,62 @@
+{
+  "pib_delhi": {
+    "url": "https://pib.gov.in/RssMain.aspx?ModId=6&Lang=1&Regid=1",
+    "reachable": true,
+    "usable": false,
+    "items": 0,
+    "dated_items": 0,
+    "newest_published": null,
+    "http_status": 200,
+    "latency_ms": 939.7,
+    "sample_title": null,
+    "checked_at": "2026-10-17T07:09:07+05:30",
+    "publication_mode": "first_seen_only",
+    "replay_eligible": false,
+    "note": "parsed, but no item carries a usable publication time"
+  },
+  "pib_english": {
+    "url": "https://pib.gov.in/RssMain.aspx?ModId=6&Lang=2&Regid=3",
+    "reachable": true,
+    "usable": true,
+    "items": 20,
+    "dated_items": 0,
+    "newest_published": null,
+    "http_status": 200,
+    "latency_ms": 660.1,
+    "sample_title": "ITRA, \u091c\u093e\u092e\u0928\u0917\u0930 \u0928\u0947 \u092e\u0928\u093e\u092f\u093e \u091b\u0920\u093e \u0938\u094d\u0925\u093e\u092a\u0928\u093e \u0926\u093f\u0935\u0938 \u2018ITRA \u0926\u093f\u0935\u0938\u2019; \u0906\u092f\u0941\u0930\u094d\u0935\u0947\u0926 \u0936\u093f\u0915\u094d\u0937\u093e, \u0905\u0928\u0941\u0938\u0902\u0927\u093e\u0928 \u0914\u0930 \u091c\u0928 \u0938\u094d\u0935\u093e\u0938\u094d\u0925\u094d\u092f \u0915\u0947 \u0915\u094d\u0937\u0947\u0924\u094d\u0930 \u092e\u0947\u0902 \u0938\u0902\u0938\u094d\u0925\u093e\u0928 \u0915\u0940 ",
+    "checked_at": "2026-10-17T07:09:08+05:30",
+    "publication_mode": "first_seen_only",
+    "replay_eligible": false,
+    "note": "parsed, but no item carries a usable publication time"
+  },
+  "fed": {
+    "url": "https://www.federalreserve.gov/feeds/press_all.xml",
+    "reachable": true,
+    "usable": true,
+    "items": 20,
+    "dated_items": 20,
+    "newest_published": "2026-10-16T20:30:00+05:30",
+    "http_status": 200,
+    "latency_ms": 90.3,
+    "sample_title": "Federal Reserve Board announces termination of enforcement actions with Gardner Bancshares, Inc. and Small Business Bank",
+    "checked_at": "2026-10-17T07:09:08+05:30",
+    "publication_mode": "source_timestamp",
+    "replay_eligible": true,
+    "note": "parsed as a feed with dated items"
+  },
+  "nse": {
+    "url": "https://nsearchives.nseindia.com/content/RSS/Online_announcements.xml",
+    "reachable": true,
+    "usable": true,
+    "items": 174,
+    "dated_items": 0,
+    "newest_published": null,
+    "http_status": 200,
+    "latency_ms": 131.2,
+    "sample_title": "HDFC NIFTY Bank ETF",
+    "checked_at": "2026-10-17T07:09:08+05:30",
+    "publication_mode": "first_seen_only",
+    "replay_eligible": false,
+    "note": "parsed, but no item carries a usable publication time"
+  }
+}

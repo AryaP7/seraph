@@ -1,0 +1,43 @@
+{
+  "generated_at": "2026-10-18T13:48:49+05:30",
+  "acquisition": {
+    "registered_sources": 17,
+    "stories": 458,
+    "store_full_text": 5,
+    "uncovered_now": 0,
+    "worker_state": "stopped",
+    "open_collection_gaps": 0
+  },
+  "interpretation": {
+    "eligible_events": 417,
+    "in_scope": 135,
+    "out_of_scope": 282,
+    "in_scope_unidentified": 15,
+    "current": 417,
+    "expired": 0
+  },
+  "exposure": {
+    "entities": 21,
+    "issuers": 20,
+    "issuers_with_sector": 14,
+    "assets": 1,
+    "edges": 10,
+    "impacts": 24,
+    "sectors_reached": 8,
+    "sized_edges": 0
+  },
+  "targets": {
+    "issuers": 20,
+    "facilities": 20,
+    "relationships": 50
+  },
+  "gate": {
+    "passed": false,
+    "corpus_sufficient": false,
+    "thresholds_met": false,
+    "slices_complete": false,
+    "provisional": true,
+    "labelled": 34,
+    "required": 600
+  }
+}

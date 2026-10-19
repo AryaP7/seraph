@@ -1,0 +1,150 @@
+{
+  "source": "https://ntpc.co.in/power-generation/coal-stations",
+  "fetched_at": "2026-10-18T14:39:18+05:30",
+  "source_hash": "3460e351a27227bb8609c34118dfa918c439fbeef22dbf5d62671c95e670efbb",
+  "rows": [
+    {
+      "name": "Barauni",
+      "state": "Bihar",
+      "commissioned_capacity_mw": 500.0
+    },
+    {
+      "name": "Barh",
+      "state": "Bihar",
+      "commissioned_capacity_mw": 3300.0
+    },
+    {
+      "name": "Bongaigaon",
+      "state": "Assam",
+      "commissioned_capacity_mw": 750.0
+    },
+    {
+      "name": "Dadri",
+      "state": "Uttar Pradesh",
+      "commissioned_capacity_mw": 1840.0
+    },
+    {
+      "name": "Darlipali",
+      "state": "Odisha",
+      "commissioned_capacity_mw": 1600.0
+    },
+    {
+      "name": "Farakka",
+      "state": "West Bengal",
+      "commissioned_capacity_mw": 2100.0
+    },
+    {
+      "name": "Feroze Gandhi,Unchahar",
+      "state": "Uttar Pradesh",
+      "commissioned_capacity_mw": 1550.0
+    },
+    {
+      "name": "Gadarwara",
+      "state": "Madhya Pradesh",
+      "commissioned_capacity_mw": 1600.0
+    },
+    {
+      "name": "Kahalgaon",
+      "state": "Bihar",
+      "commissioned_capacity_mw": 2340.0
+    },
+    {
+      "name": "Kanti",
+      "state": "Bihar",
+      "commissioned_capacity_mw": 390.0
+    },
+    {
+      "name": "Khargone",
+      "state": "Madhya Pradesh",
+      "commissioned_capacity_mw": 1320.0
+    },
+    {
+      "name": "Korba",
+      "state": "Chhattisgarh",
+      "commissioned_capacity_mw": 2600.0
+    },
+    {
+      "name": "Kudgi",
+      "state": "Karnataka",
+      "commissioned_capacity_mw": 2400.0
+    },
+    {
+      "name": "Lara",
+      "state": "Chhattisgarh",
+      "commissioned_capacity_mw": 1600.0
+    },
+    {
+      "name": "Mouda",
+      "state": "Maharashtra",
+      "commissioned_capacity_mw": 2320.0
+    },
+    {
+      "name": "Nabinagar-NPGC",
+      "state": "Bihar",
+      "commissioned_capacity_mw": 1980.0
+    },
+    {
+      "name": "North Karanpura",
+      "state": "Jharkhand",
+      "commissioned_capacity_mw": 1980.0
+    },
+    {
+      "name": "Ramagundam",
+      "state": "Telangana",
+      "commissioned_capacity_mw": 2600.0
+    },
+    {
+      "name": "Rihand",
+      "state": "Uttar Pradesh",
+      "commissioned_capacity_mw": 3000.0
+    },
+    {
+      "name": "Simhadri",
+      "state": "Andhra Pradesh",
+      "commissioned_capacity_mw": 2000.0
+    },
+    {
+      "name": "Singrauli",
+      "state": "Uttar Pradesh",
+      "commissioned_capacity_mw": 2000.0
+    },
+    {
+      "name": "Sipat",
+      "state": "Chhattisgarh",
+      "commissioned_capacity_mw": 2980.0
+    },
+    {
+      "name": "Solapur",
+      "state": "Maharashtra",
+      "commissioned_capacity_mw": 1320.0
+    },
+    {
+      "name": "Talcher Kaniha",
+      "state": "Orissa",
+      "commissioned_capacity_mw": 3000.0
+    },
+    {
+      "name": "Tanda",
+      "state": "Uttar Pradesh",
+      "commissioned_capacity_mw": 1320.0
+    },
+    {
+      "name": "Telangana",
+      "state": "Telangana",
+      "commissioned_capacity_mw": 1600.0
+    },
+    {
+      "name": "Vindhyachal",
+      "state": "Madhya Pradesh",
+      "commissioned_capacity_mw": 4760.0
+    }
+  ],
+  "added": {
+    "entities": 1,
+    "places": 13,
+    "assets": 27,
+    "edges": 54
+  },
+  "coordinate_precision": "state only; no exact facility pins",
+  "note": "Ownership and sector participation are distinct relationships; event/target aggregation must deduplicate overlapping paths. This expands energy coverage, not foreign supply-chain coverage."
+}

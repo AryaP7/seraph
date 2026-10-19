@@ -90,7 +90,7 @@ def test_fr35_table_shape_is_spec_literal():
     would restrict Table A to Hawkes-containing subsets (8 configurations) and
     contradict SPEC's explicit "7 subsets".
     """
-    cfgs = configuration_list()
+    cfgs = configuration_list(table_b_scope="two_epoch")
     a = [c for c in cfgs if c["table"] == "A"]
     b = [c for c in cfgs if c["table"] == "B"]
 
@@ -106,7 +106,13 @@ def test_fr35_table_shape_is_spec_literal():
     assert len(subsets_b) == 3, (
         f"SPEC FR35 says Table B is 3 subsets; got {len(subsets_b)}"
     )
-    assert len(a) == 14 and len(b) == 6 and len(cfgs) == 20
+    assert len(a) == 14 and len(b) == 6
+    # Table C (DR-05) is the six-epoch RMT/Hamilton run that Table B stopped
+    # being: 3 subsets x 2 modes again, so 26 rows in all. SPEC FR35's
+    # "20 configurations" counted A and B, and A and B still total 20.
+    c = [cfg for cfg in cfgs if cfg["table"] == "C"]
+    assert len(c) == 6
+    assert len(a) + len(b) == 20 and len(cfgs) == 26
 
     # Table A must retain the non-Hawkes subsets: they are the within-table
     # baseline that makes Hawkes's marginal contribution differenceable.
@@ -118,49 +124,104 @@ def test_fr35_table_shape_is_spec_literal():
     assert {c["folds"] for c in a} == {len(HAWKES_EPOCHS)} == {4}
 
 
-@pytest.mark.xfail(
-    strict=True,
-    reason=(
-        "PINS AN OPEN QUESTION — see BLOCKER-TRIAGE.md §D-2. SPEC FR35 [v2] "
-        "puts Table B 'on the 2 pre-2015 epochs' (2 folds); ARCHITECTURE D5(b) "
-        "says Table B 'use all 6 -> 6 folds'. configuration_list() implements "
-        "D5(b)'s 6, while preregistration.PRE_HAWKES_EPOCHS encodes SPEC's "
-        "reading and is never used. This needs an explicit owner decision "
-        "BEFORE preregistration.json is committed and hashed (D5(d)): the "
-        "fold count is inside the hash and a mismatched hash is not "
-        "reportable. Not decided by Workstream D - C10 is another owner's "
-        "component."
-    ),
-)
-def test_fr35_table_b_fold_count_is_the_open_question():
-    """SPEC FR35's literal Table B scope: the 2 pre-2015 epochs, 2 folds."""
+def test_fr35_table_b_is_the_two_pre_hawkes_epochs():
+    """**Was an `xfail(strict=True)` pinning an open question.** The owner
+    decided it on 2026-10-16 (DR-05): Table B is SPEC FR35's literal reading,
+    the 2 pre-2015 epochs, and the six-epoch RMT/Hamilton run is retained as
+    Table C.
+
+    DR-05 was explicit that the *shape* of this retirement matters, because
+    making the xfail pass meant editing either the code or the test, and
+    either one would have resolved a scientific question in favour of
+    whichever was easier to change. It is retired here because the question
+    was answered, not because the marker was inconvenient.
+    """
     assert PRE_HAWKES_EPOCHS == ("gfc_2008", "taper_2013")
     assert len(PRE_HAWKES_EPOCHS) == 2 and len(EPOCHS) == 6
 
-    b = [c for c in configuration_list() if c["table"] == "B"]
+    b = [c for c in configuration_list(table_b_scope="two_epoch")
+         if c["table"] == "B"]
     assert b, "Table B must exist"
-    assert {c["folds"] for c in b} == {len(PRE_HAWKES_EPOCHS)}, (
-        "SPEC FR35 [v2] scopes Table B to the 2 pre-2015 epochs; "
-        f"configuration_list() uses {sorted({c['folds'] for c in b})} folds "
-        f"per ARCHITECTURE D5(b)"
-    )
+    assert {c["folds"] for c in b} == {len(PRE_HAWKES_EPOCHS)} == {2}
     assert {tuple(c["epochs"]) for c in b} == {PRE_HAWKES_EPOCHS}
 
 
-def test_fr35_pre_hawkes_epochs_is_documented_as_table_b_but_unused():
-    """A read-only diagnostic: the two readings coexist in one module.
+def test_the_scope_has_no_default_so_every_caller_states_it():
+    """DR-05 step 1. The fold count is inside the pre-registration hash, so a
+    caller that inherits the scope can produce a result under one reading
+    that is later read as the other."""
+    with pytest.raises(TypeError):
+        configuration_list()                        # type: ignore[call-arg]
+    with pytest.raises(ValueError, match="no default"):
+        configuration_list(table_b_scope="whatever_is_convenient")
 
-    `PRE_HAWKES_EPOCHS` is documented as Table B's epoch set and exported, but
-    `configuration_list()` builds Table B from `EPOCHS`. This test does not
-    judge which is right — it records that the contradiction is in the code,
-    so the §D-2 decision cannot be mistaken for a docs-only quibble.
+
+def test_the_two_readings_hash_differently():
+    """DR-05 step 2. If both readings hashed the same, a result produced under
+    one could be verified against a design committed under the other, and
+    `verify()`'s whole guarantee would be vacuous."""
+    from seraph.validation.preregistration import build, content_hash
+    two = content_hash(build(table_b_scope="two_epoch"))
+    six = content_hash(build(table_b_scope="six_epoch"))
+    assert two != six
+
+
+def test_table_c_exists_under_the_decision_and_is_the_six_epoch_run():
+    """DR-05 step 3: nothing is lost by narrowing Table B. The six-epoch
+    RMT/Hamilton run is a legitimate full-period ablation — it just is not the
+    pre-Hawkes table, so it gets its own identity."""
+    cfgs = configuration_list(table_b_scope="two_epoch")
+    c = [cfg for cfg in cfgs if cfg["table"] == "C"]
+    assert c, "Table C must exist under the two-epoch decision"
+    assert {tuple(cfg["epochs"]) for cfg in c} == {EPOCHS}
+    assert {cfg["folds"] for cfg in c} == {6}
+    assert all("hawkes" not in cfg["pillarSubset"] for cfg in c)
+
+
+def test_table_c_is_absent_under_the_six_epoch_reading():
+    """Under D5(b)'s reading Table B already *is* the six-epoch run, so a
+    Table C would be the same rows twice under two names."""
+    cfgs = configuration_list(table_b_scope="six_epoch")
+    assert not [cfg for cfg in cfgs if cfg["table"] == "C"]
+    b = [cfg for cfg in cfgs if cfg["table"] == "B"]
+    assert {cfg["folds"] for cfg in b} == {6}
+
+
+def test_the_three_tables_are_disjoint_questions():
+    """A and B must not overlap at all — that overlap was the whole argument
+    against the six-epoch reading. C overlaps A by design, and the design body
+    has to say so."""
+    cfgs = configuration_list(table_b_scope="two_epoch")
+    epochs_of = lambda t: {e for cfg in cfgs if cfg["table"] == t
+                           for e in cfg["epochs"]}
+    assert epochs_of("A").isdisjoint(epochs_of("B"))
+    assert epochs_of("A") < epochs_of("C")        # C strictly contains A's
+
+    from seraph.validation.preregistration import build
+    note = build(table_b_scope="two_epoch")["tableComparability"]
+    assert "must not" in note and "three different questions" in note
+
+
+def test_pre_hawkes_epochs_is_now_reached_by_a_code_path():
+    """The historical contradiction, kept as a record rather than deleted.
+
+    For as long as Table B was built from `EPOCHS`, this module held **both**
+    readings of FR35 at once: `PRE_HAWKES_EPOCHS` was documented as Table B's
+    epoch set, exported from the package, and never used by any code path. A
+    constant saying one thing while the code did another is how the conflict
+    survived unnoticed long enough to need a decision record.
+
+    This test used to assert the contradiction still existed. It now asserts
+    it is gone, which is the same guard pointing the other way: if Table B
+    ever stops being built from `PRE_HAWKES_EPOCHS` without DR-05 being
+    revisited, this fails.
     """
-    b = [c for c in configuration_list() if c["table"] == "B"]
-    epoch_sets = {tuple(c["epochs"]) for c in b}
-    assert epoch_sets == {EPOCHS}, (
-        "if this flips to PRE_HAWKES_EPOCHS the §D-2 decision has been taken; "
-        "retire this test and the xfail above together"
-    )
+    b = [c for c in configuration_list(table_b_scope="two_epoch")
+         if c["table"] == "B"]
+    assert {tuple(c["epochs"]) for c in b} == {PRE_HAWKES_EPOCHS}, (
+        "Table B must be built from PRE_HAWKES_EPOCHS under DR-05; if this "
+        "fails, either the decision was reversed without updating DR-05 or "
+        "the constant drifted out of the code path again")
     assert set(PRE_HAWKES_EPOCHS).issubset(set(EPOCHS))
     assert set(PRE_HAWKES_EPOCHS).isdisjoint(set(HAWKES_EPOCHS)), (
         "the six epochs must partition into Hawkes-covered and pre-2015"

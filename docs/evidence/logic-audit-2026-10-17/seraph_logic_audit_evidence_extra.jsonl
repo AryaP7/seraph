@@ -1,0 +1,10 @@
+{"check": "same_timestamp_down_tick", "accepted": 1, "partial": {"symbol": "X", "start": "2026-10-16T10:00:00+05:30", "end": "2026-10-16T10:05:00+05:30", "open": 100, "high": 100, "low": 100, "close": 100, "ticks": 1, "volume": null, "complete": false, "volume_quality": "uncertain", "session_id": "2026-10-16"}, "quarantine": [{"symbol": "X", "ts": "2026-10-16T10:00:01+05:30", "reason": "out_of_order", "note": "", "price": 99}]}
+{"check": "bar_restart_duplicate", "continuous_ticks": 1, "resumed_ticks": 2}
+{"check": "nonfinite_tick", "input": "nan", "accepted": true, "close": "nan"}
+{"check": "nonfinite_tick", "input": "inf", "accepted": true, "close": "inf"}
+{"check": "invalid_portfolio_number", "input": [{"symbol": "X", "quantity": 2, "price": -10}], "accepted": 1, "total": "-20.0", "rejected": 0}
+{"check": "invalid_portfolio_number", "input": [{"symbol": "X", "value": "NaN"}], "accepted": 1, "total": "nan", "rejected": 0}
+{"check": "conflicting_sector_merge", "first_sector": "steel", "result_sector": "steel", "warnings": []}
+{"check": "conflicting_sector_merge", "first_sector": "it", "result_sector": "it", "warnings": []}
+{"check": "future_and_unvalued_holdings", "basis": "current", "effective": "2099-01-01T10:00:00+05:30", "holdings": [{"symbol": "X", "isin": null, "quantity": 10.0, "value": 0.0, "price": null, "currency": "INR", "sector": "unclassified", "cash": false, "account": null}], "total": 0.0, "preview_warnings": ["1 holding(s) have no value and no price (X): they contribute 0 to the total and will show as unvalued, not as zero-worth"]}
+{"check": "preview_not_bound_to_bytes", "uploaded_value": 100, "stored_value": 999.0, "hash_check_passed": true}

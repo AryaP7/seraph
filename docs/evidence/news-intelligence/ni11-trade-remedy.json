@@ -1,0 +1,137 @@
+{
+  "ticket": "NI03/NI05/NI11/NI12 \u2014 trade remedies reach a sector, gated by legal stage",
+  "created_at": "2026-10-17T09:13:01+0530",
+  "problem": "125 of 181 events classified as `other`, and the largest group among them were US anti-dumping and countervailing determinations naming Indian products \u2014 the class that carries a foreign measure and an Indian product in one sentence, and the one the plan asks for as 'at least one complete foreign-policy-to-Indian-sector path'",
+  "built": {
+    "event_class": "trade_remedy_determination, ordered ahead of the generic tariff rule because 'anti-dumping' appears in both and a determination is a stage in a proceeding, not a new tariff",
+    "legal_stage": "consultation (initiated) / announced (preliminary) / adopted (final) / effective (order) / expired (sunset) / repealed (revocation) \u2014 read from the instrument",
+    "subject_origin": "'<Product> From <Country>:' is the Federal Register's documented title form. The country is the subject origin of the goods, resolved against the curated place registry only, with an evidence span. It is NOT marked `affected`: it seeds a scoped exposure query",
+    "direction_rule": "role-based and stage-gated. Only `adopted` or `effective` establishes a measure; `exporter` is adverse and `domestic_producer` favourable, because the same measure protects the producer competing with the imports it restricts",
+    "exposure_edge": "one cited, UNSIZED edge in -> sector:steel, keyed to trade_remedy_determination and steel product terms, target_role exporter"
+  },
+  "citations": {
+    "edge": "https://www.federalregister.gov/documents/2026/06/05/2026-11356/forged-steel-fittings-from-india-and-south-korea-scheduling-of-full-five-year-reviews",
+    "corroborating": "https://www.federalregister.gov/documents/2026/04/15/2026-07312/forged-steel-fittings-from-india-final-results-of-the-expedited-first-sunset-review-of-the",
+    "what_they_support": "US duty orders exist on an Indian steel product. NOT a revenue share, NOT a company exposure, NOT a loss \u2014 the edge carries no magnitude so none can be derived"
+  },
+  "defect_found_while_building": {
+    "what": "a PRELIMINARY determination was classified `adopted`, because its title reads 'Preliminary Affirmative Determination ..., Postponement of Final Determination, and Extension of Provisional Measures' and the final-stage rule matched 'Final Determination' inside 'Postponement of Final Determination'",
+    "consequence": "a false adverse signal for Indian steel: 'no duty yet' read as an imposed duty",
+    "fix": "preliminary is tested before final, and the final rule is guarded against a preceding postponement / extension / scheduling"
+  },
+  "measured": {
+    "event_types": {
+      "other": 116,
+      "trade_remedy_determination": 28,
+      "official_speech": 10,
+      "liquidity_operation": 7,
+      "prudential_norms_change": 6,
+      "forex_regulation": 3,
+      "physical_hazard": 2,
+      "statistical_release": 2
+    },
+    "trade_remedies": 28,
+    "with_subject_origin": 13,
+    "steel_sector_impacts": [
+      {
+        "direction": "adverse",
+        "stage": "adopted",
+        "headline": "Certain Freight Rail Couplers and Parts Thereof From India: Final Affi"
+      },
+      {
+        "direction": "ambiguous",
+        "stage": "announced",
+        "headline": "Large Diameter Graphite Electrodes From India: Preliminary Affirmative"
+      },
+      {
+        "direction": "adverse",
+        "stage": "adopted",
+        "headline": "Certain Freight Rail Couplers and Parts Thereof From India: Final Affi"
+      },
+      {
+        "direction": "adverse",
+        "stage": "adopted",
+        "headline": "Chromium Trioxide From India: Final Affirmative Determination of Sales"
+      },
+      {
+        "direction": "ambiguous",
+        "stage": "unknown",
+        "headline": "Forged Steel Fittings From India and South Korea; Cancellation of Hear"
+      },
+      {
+        "direction": "adverse",
+        "stage": "adopted",
+        "headline": "Chromium Trioxide From India: Final Affirmative Countervailing Duty De"
+      },
+      {
+        "direction": "ambiguous",
+        "stage": "announced",
+        "headline": "Large Diameter Graphite Electrodes From India: Preliminary Affirmative"
+      },
+      {
+        "direction": "ambiguous",
+        "stage": "unknown",
+        "headline": "Tata Steel inaugurates Phase II expansion of Kalinganagar operations"
+      }
+    ],
+    "sector_rows": [
+      {
+        "sector": "auto",
+        "direction": [
+          "ambiguous"
+        ],
+        "mechanisms": [
+          "input_dependency"
+        ],
+        "events": 1
+      },
+      {
+        "sector": "steel",
+        "direction": [
+          "adverse",
+          "ambiguous"
+        ],
+        "mechanisms": [
+          "export",
+          "operation"
+        ],
+        "events": 8
+      }
+    ],
+    "globe_nodes": [
+      "cn",
+      "in",
+      "in_od_kalinganagar",
+      "tata_kalinganagar",
+      "us"
+    ],
+    "globe_edges": [
+      "cn_india_rare_earth_supply"
+    ],
+    "sector_terminated": [
+      "auto",
+      "steel"
+    ],
+    "steel_sector_impacts_after_scope_correction": 4,
+    "with_subject_origin_note": "measured at 13 of 28 BEFORE the place-alias fix recorded in ni15-subjects-and-aliases.json, which took it to 15 of 28 by letting 'People's Republic of China' resolve. The two records are not in conflict; they are the same measurement before and after that fix."
+  },
+  "verified_in_the_real_browser": {
+    "url": "http://127.0.0.1:8530 (ordinary Streamlit flow, no payload injection)",
+    "sector_row": "steel | export, operation | 'adverse for this sector; direction unknown \u2014 opposing or unestablished mechanisms' | severity minor \u00b7 evidence medium \u00b7 size unknown \u00b7 8 unsized relationship(s) | 8 event(s) \u2014 click for the documents",
+    "click_result": "8 of 8 source events opened in LATEST SIGNALS, each linking to its Federal Register document",
+    "screenshot": "docs/evidence/news-intelligence/ni11-trade-remedy-to-sector-2026-10-17.jpg"
+  },
+  "tests": "tests/test_ni11_trade_remedy.py (29); news-side suite 219 passed",
+  "not_claimed": [
+    "one unsized edge is not a transmission model. The steel row says 'size unknown' and '8 unsized relationships' because that is what the evidence supports.",
+    "'adverse for the exporter' is a qualitative mechanism direction, not a measured effect on any listed company, and not a prediction.",
+    "116 events still classify as `other`. The remaining classes (agency information collections, debarment orders, drug pricing models) are correctly outside the trade-remedy vocabulary.",
+    "15 of 28 remedies name a country the curated registry does not hold, so they resolve no subject origin \u2014 visible, not hidden."
+  ],
+  "product_scope_correction": {
+    "found": "the first version of this edge matched chromium and graphite electrode, and both produced \"adverse for the steel sector\"",
+    "why_wrong": "chromium trioxide is a metal-finishing chemical; large-diameter graphite electrodes are a consumable INPUT to electric-arc steelmaking. A US duty on either is a duty on a different Indian industry, not on Indian steel exports",
+    "after": "steel articles only: steel | corrosion-resistant | oil country tubular | rail coupler | forged steel fittings",
+    "effect": "steel sector events fell from 8 to 4; every remaining one is a steel article"
+  }
+}

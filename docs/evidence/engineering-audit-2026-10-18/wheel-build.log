@@ -1,0 +1,542 @@
+running bdist_wheel
+running build
+running build_py
+creating build/lib/fixtures
+copying fixtures/mock_generator.py -> build/lib/fixtures
+copying fixtures/__init__.py -> build/lib/fixtures
+creating build/lib/seraph
+copying seraph/__init__.py -> build/lib/seraph
+creating build/lib/seraph/dashboard
+copying seraph/dashboard/app.py -> build/lib/seraph/dashboard
+copying seraph/dashboard/connected_frontend.py -> build/lib/seraph/dashboard
+copying seraph/dashboard/console_backend.py -> build/lib/seraph/dashboard
+copying seraph/dashboard/current_reader.py -> build/lib/seraph/dashboard
+copying seraph/dashboard/datasource.py -> build/lib/seraph/dashboard
+copying seraph/dashboard/demo_data.py -> build/lib/seraph/dashboard
+copying seraph/dashboard/gateway.py -> build/lib/seraph/dashboard
+copying seraph/dashboard/globe_payload.py -> build/lib/seraph/dashboard
+copying seraph/dashboard/news_view.py -> build/lib/seraph/dashboard
+copying seraph/dashboard/prototype_app.py -> build/lib/seraph/dashboard
+copying seraph/dashboard/theme.py -> build/lib/seraph/dashboard
+copying seraph/dashboard/__init__.py -> build/lib/seraph/dashboard
+creating build/lib/seraph/decision_support
+copying seraph/decision_support/action_log.py -> build/lib/seraph/decision_support
+copying seraph/decision_support/artefacts.py -> build/lib/seraph/decision_support
+copying seraph/decision_support/cases.py -> build/lib/seraph/decision_support
+copying seraph/decision_support/exposure_trail.py -> build/lib/seraph/decision_support
+copying seraph/decision_support/portfolio.py -> build/lib/seraph/decision_support
+copying seraph/decision_support/portfolio_io.py -> build/lib/seraph/decision_support
+copying seraph/decision_support/scenarios.py -> build/lib/seraph/decision_support
+copying seraph/decision_support/workspace.py -> build/lib/seraph/decision_support
+copying seraph/decision_support/__init__.py -> build/lib/seraph/decision_support
+creating build/lib/seraph/features
+copying seraph/features/alignment.py -> build/lib/seraph/features
+copying seraph/features/cross_sectional.py -> build/lib/seraph/features
+copying seraph/features/jump_extraction.py -> build/lib/seraph/features
+copying seraph/features/__init__.py -> build/lib/seraph/features
+creating build/lib/seraph/fusion
+copying seraph/fusion/masking.py -> build/lib/seraph/fusion
+copying seraph/fusion/score.py -> build/lib/seraph/fusion
+copying seraph/fusion/shapley.py -> build/lib/seraph/fusion
+copying seraph/fusion/standardize.py -> build/lib/seraph/fusion
+copying seraph/fusion/__init__.py -> build/lib/seraph/fusion
+creating build/lib/seraph/identity
+copying seraph/identity/model.py -> build/lib/seraph/identity
+copying seraph/identity/oidc.py -> build/lib/seraph/identity
+copying seraph/identity/registry.py -> build/lib/seraph/identity
+copying seraph/identity/__init__.py -> build/lib/seraph/identity
+creating build/lib/seraph/ingestion
+copying seraph/ingestion/bhavcopy_reader.py -> build/lib/seraph/ingestion
+copying seraph/ingestion/eod2_client.py -> build/lib/seraph/ingestion
+copying seraph/ingestion/flow_client.py -> build/lib/seraph/ingestion
+copying seraph/ingestion/hawkes_universe.py -> build/lib/seraph/ingestion
+copying seraph/ingestion/kite_client.py -> build/lib/seraph/ingestion
+copying seraph/ingestion/macro_client.py -> build/lib/seraph/ingestion
+copying seraph/ingestion/tariff_events.py -> build/lib/seraph/ingestion
+copying seraph/ingestion/__init__.py -> build/lib/seraph/ingestion
+creating build/lib/seraph/live
+copying seraph/live/archive_adapter.py -> build/lib/seraph/live
+copying seraph/live/bars.py -> build/lib/seraph/live
+copying seraph/live/clock.py -> build/lib/seraph/live
+copying seraph/live/engine_adapter.py -> build/lib/seraph/live
+copying seraph/live/feed.py -> build/lib/seraph/live
+copying seraph/live/inference.py -> build/lib/seraph/live
+copying seraph/live/lifecycle.py -> build/lib/seraph/live
+copying seraph/live/loop.py -> build/lib/seraph/live
+copying seraph/live/publication.py -> build/lib/seraph/live
+copying seraph/live/store.py -> build/lib/seraph/live
+copying seraph/live/__init__.py -> build/lib/seraph/live
+creating build/lib/seraph/market_calendar
+copying seraph/market_calendar/sessions.py -> build/lib/seraph/market_calendar
+copying seraph/market_calendar/__init__.py -> build/lib/seraph/market_calendar
+creating build/lib/seraph/news
+copying seraph/news/acquisition.py -> build/lib/seraph/news
+copying seraph/news/backfill.py -> build/lib/seraph/news
+copying seraph/news/currency.py -> build/lib/seraph/news
+copying seraph/news/documents.py -> build/lib/seraph/news
+copying seraph/news/enrichment.py -> build/lib/seraph/news
+copying seraph/news/estimation.py -> build/lib/seraph/news
+copying seraph/news/event_frames.py -> build/lib/seraph/news
+copying seraph/news/extraction.py -> build/lib/seraph/news
+copying seraph/news/hindi.py -> build/lib/seraph/news
+copying seraph/news/http_feed.py -> build/lib/seraph/news
+copying seraph/news/json_feed.py -> build/lib/seraph/news
+copying seraph/news/lifecycle.py -> build/lib/seraph/news
+copying seraph/news/model.py -> build/lib/seraph/news
+copying seraph/news/opposing.py -> build/lib/seraph/news
+copying seraph/news/pdf_text.py -> build/lib/seraph/news
+copying seraph/news/refresh.py -> build/lib/seraph/news
+copying seraph/news/registry.py -> build/lib/seraph/news
+copying seraph/news/relevance.py -> build/lib/seraph/news
+copying seraph/news/roles.py -> build/lib/seraph/news
+copying seraph/news/scenarios.py -> build/lib/seraph/news
+copying seraph/news/scope.py -> build/lib/seraph/news
+copying seraph/news/worker_lock.py -> build/lib/seraph/news
+copying seraph/news/__init__.py -> build/lib/seraph/news
+creating build/lib/seraph/operations
+copying seraph/operations/jobs.py -> build/lib/seraph/operations
+copying seraph/operations/monitoring.py -> build/lib/seraph/operations
+copying seraph/operations/__init__.py -> build/lib/seraph/operations
+creating build/lib/seraph/orchestration
+copying seraph/orchestration/adapters.py -> build/lib/seraph/orchestration
+copying seraph/orchestration/hamilton_causal.py -> build/lib/seraph/orchestration
+copying seraph/orchestration/original_execution.py -> build/lib/seraph/orchestration
+copying seraph/orchestration/prototype.py -> build/lib/seraph/orchestration
+copying seraph/orchestration/run_store.py -> build/lib/seraph/orchestration
+copying seraph/orchestration/standardize.py -> build/lib/seraph/orchestration
+copying seraph/orchestration/__init__.py -> build/lib/seraph/orchestration
+creating build/lib/seraph/pillars
+copying seraph/pillars/__init__.py -> build/lib/seraph/pillars
+creating build/lib/seraph/prediction
+copying seraph/prediction/app.py -> build/lib/seraph/prediction
+copying seraph/prediction/evaluation.py -> build/lib/seraph/prediction
+copying seraph/prediction/hazard_watch.py -> build/lib/seraph/prediction
+copying seraph/prediction/models.py -> build/lib/seraph/prediction
+copying seraph/prediction/pillars.py -> build/lib/seraph/prediction
+copying seraph/prediction/__init__.py -> build/lib/seraph/prediction
+creating build/lib/seraph/product_types
+copying seraph/product_types/envelope.py -> build/lib/seraph/product_types
+copying seraph/product_types/time.py -> build/lib/seraph/product_types
+copying seraph/product_types/__init__.py -> build/lib/seraph/product_types
+creating build/lib/seraph/reconciliation
+copying seraph/reconciliation/kalman.py -> build/lib/seraph/reconciliation
+copying seraph/reconciliation/noise_model.py -> build/lib/seraph/reconciliation
+copying seraph/reconciliation/time_clock.py -> build/lib/seraph/reconciliation
+copying seraph/reconciliation/__init__.py -> build/lib/seraph/reconciliation
+creating build/lib/seraph/shared_types
+copying seraph/shared_types/core.py -> build/lib/seraph/shared_types
+copying seraph/shared_types/entities.py -> build/lib/seraph/shared_types
+copying seraph/shared_types/fusion.py -> build/lib/seraph/shared_types
+copying seraph/shared_types/pillars.py -> build/lib/seraph/shared_types
+copying seraph/shared_types/reconciliation.py -> build/lib/seraph/shared_types
+copying seraph/shared_types/validation.py -> build/lib/seraph/shared_types
+copying seraph/shared_types/__init__.py -> build/lib/seraph/shared_types
+creating build/lib/seraph/store
+copying seraph/store/bootstrap.py -> build/lib/seraph/store
+copying seraph/store/reader.py -> build/lib/seraph/store
+copying seraph/store/writer.py -> build/lib/seraph/store
+copying seraph/store/__init__.py -> build/lib/seraph/store
+creating build/lib/seraph/universe
+copying seraph/universe/constructor.py -> build/lib/seraph/universe
+copying seraph/universe/instrument_type.py -> build/lib/seraph/universe
+copying seraph/universe/__init__.py -> build/lib/seraph/universe
+creating build/lib/seraph/validation
+copying seraph/validation/ablation.py -> build/lib/seraph/validation
+copying seraph/validation/epochs.py -> build/lib/seraph/validation
+copying seraph/validation/harness.py -> build/lib/seraph/validation
+copying seraph/validation/news_benchmark_labels.py -> build/lib/seraph/validation
+copying seraph/validation/news_corpus.py -> build/lib/seraph/validation
+copying seraph/validation/news_gate.py -> build/lib/seraph/validation
+copying seraph/validation/preregistration.py -> build/lib/seraph/validation
+copying seraph/validation/__init__.py -> build/lib/seraph/validation
+creating build/lib/seraph/pillars/hamilton
+copying seraph/pillars/hamilton/engine.py -> build/lib/seraph/pillars/hamilton
+copying seraph/pillars/hamilton/__init__.py -> build/lib/seraph/pillars/hamilton
+creating build/lib/seraph/pillars/hawkes
+copying seraph/pillars/hawkes/artefact.py -> build/lib/seraph/pillars/hawkes
+copying seraph/pillars/hawkes/basket_stream.py -> build/lib/seraph/pillars/hawkes
+copying seraph/pillars/hawkes/engine.py -> build/lib/seraph/pillars/hawkes
+copying seraph/pillars/hawkes/__init__.py -> build/lib/seraph/pillars/hawkes
+creating build/lib/seraph/pillars/rmt
+copying seraph/pillars/rmt/engine.py -> build/lib/seraph/pillars/rmt
+copying seraph/pillars/rmt/__init__.py -> build/lib/seraph/pillars/rmt
+creating build/lib/seraph/store/migrations
+copying seraph/store/migrations/__init__.py -> build/lib/seraph/store/migrations
+running egg_info
+creating seraph.egg-info
+writing seraph.egg-info/PKG-INFO
+writing dependency_links to seraph.egg-info/dependency_links.txt
+writing requirements to seraph.egg-info/requires.txt
+writing top-level names to seraph.egg-info/top_level.txt
+writing manifest file 'seraph.egg-info/SOURCES.txt'
+reading manifest file 'seraph.egg-info/SOURCES.txt'
+writing manifest file 'seraph.egg-info/SOURCES.txt'
+copying seraph/ingestion/tariff_events.curated.csv -> build/lib/seraph/ingestion
+copying seraph/store/schema.sql -> build/lib/seraph/store
+creating build/lib/seraph/dashboard/assets
+copying seraph/dashboard/assets/THREE-LICENSE.txt -> build/lib/seraph/dashboard/assets
+copying seraph/dashboard/assets/connected.css -> build/lib/seraph/dashboard/assets
+copying seraph/dashboard/assets/connected.html -> build/lib/seraph/dashboard/assets
+copying seraph/dashboard/assets/connected.js -> build/lib/seraph/dashboard/assets
+copying seraph/dashboard/assets/console.html -> build/lib/seraph/dashboard/assets
+copying seraph/dashboard/assets/frontend.html -> build/lib/seraph/dashboard/assets
+copying seraph/dashboard/assets/globe.html -> build/lib/seraph/dashboard/assets
+copying seraph/dashboard/assets/globe_core.js -> build/lib/seraph/dashboard/assets
+copying seraph/dashboard/assets/globe_geometry.js -> build/lib/seraph/dashboard/assets
+copying seraph/dashboard/assets/three.r128.min.js -> build/lib/seraph/dashboard/assets
+creating build/lib/seraph/dashboard/console_component
+copying seraph/dashboard/console_component/THREE-LICENSE.txt -> build/lib/seraph/dashboard/console_component
+copying seraph/dashboard/console_component/bridge.js -> build/lib/seraph/dashboard/console_component
+copying seraph/dashboard/console_component/index.html -> build/lib/seraph/dashboard/console_component
+copying seraph/dashboard/console_component/news_layer.js -> build/lib/seraph/dashboard/console_component
+copying seraph/dashboard/console_component/preview_pillars.js -> build/lib/seraph/dashboard/console_component
+copying seraph/dashboard/console_component/three.r128.min.js -> build/lib/seraph/dashboard/console_component
+installing to build/bdist.linux-x86_64/wheel
+running install
+running install_lib
+creating build/bdist.linux-x86_64/wheel
+creating build/bdist.linux-x86_64/wheel/fixtures
+copying build/lib/fixtures/mock_generator.py -> build/bdist.linux-x86_64/wheel/./fixtures
+copying build/lib/fixtures/__init__.py -> build/bdist.linux-x86_64/wheel/./fixtures
+creating build/bdist.linux-x86_64/wheel/seraph
+creating build/bdist.linux-x86_64/wheel/seraph/dashboard
+copying build/lib/seraph/dashboard/app.py -> build/bdist.linux-x86_64/wheel/./seraph/dashboard
+creating build/bdist.linux-x86_64/wheel/seraph/dashboard/assets
+copying build/lib/seraph/dashboard/assets/connected.css -> build/bdist.linux-x86_64/wheel/./seraph/dashboard/assets
+copying build/lib/seraph/dashboard/assets/connected.html -> build/bdist.linux-x86_64/wheel/./seraph/dashboard/assets
+copying build/lib/seraph/dashboard/assets/connected.js -> build/bdist.linux-x86_64/wheel/./seraph/dashboard/assets
+copying build/lib/seraph/dashboard/assets/console.html -> build/bdist.linux-x86_64/wheel/./seraph/dashboard/assets
+copying build/lib/seraph/dashboard/assets/frontend.html -> build/bdist.linux-x86_64/wheel/./seraph/dashboard/assets
+copying build/lib/seraph/dashboard/assets/globe.html -> build/bdist.linux-x86_64/wheel/./seraph/dashboard/assets
+copying build/lib/seraph/dashboard/assets/globe_core.js -> build/bdist.linux-x86_64/wheel/./seraph/dashboard/assets
+copying build/lib/seraph/dashboard/assets/globe_geometry.js -> build/bdist.linux-x86_64/wheel/./seraph/dashboard/assets
+copying build/lib/seraph/dashboard/assets/THREE-LICENSE.txt -> build/bdist.linux-x86_64/wheel/./seraph/dashboard/assets
+copying build/lib/seraph/dashboard/assets/three.r128.min.js -> build/bdist.linux-x86_64/wheel/./seraph/dashboard/assets
+copying build/lib/seraph/dashboard/connected_frontend.py -> build/bdist.linux-x86_64/wheel/./seraph/dashboard
+copying build/lib/seraph/dashboard/console_backend.py -> build/bdist.linux-x86_64/wheel/./seraph/dashboard
+creating build/bdist.linux-x86_64/wheel/seraph/dashboard/console_component
+copying build/lib/seraph/dashboard/console_component/bridge.js -> build/bdist.linux-x86_64/wheel/./seraph/dashboard/console_component
+copying build/lib/seraph/dashboard/console_component/index.html -> build/bdist.linux-x86_64/wheel/./seraph/dashboard/console_component
+copying build/lib/seraph/dashboard/console_component/news_layer.js -> build/bdist.linux-x86_64/wheel/./seraph/dashboard/console_component
+copying build/lib/seraph/dashboard/console_component/preview_pillars.js -> build/bdist.linux-x86_64/wheel/./seraph/dashboard/console_component
+copying build/lib/seraph/dashboard/console_component/THREE-LICENSE.txt -> build/bdist.linux-x86_64/wheel/./seraph/dashboard/console_component
+copying build/lib/seraph/dashboard/console_component/three.r128.min.js -> build/bdist.linux-x86_64/wheel/./seraph/dashboard/console_component
+copying build/lib/seraph/dashboard/current_reader.py -> build/bdist.linux-x86_64/wheel/./seraph/dashboard
+copying build/lib/seraph/dashboard/datasource.py -> build/bdist.linux-x86_64/wheel/./seraph/dashboard
+copying build/lib/seraph/dashboard/demo_data.py -> build/bdist.linux-x86_64/wheel/./seraph/dashboard
+copying build/lib/seraph/dashboard/gateway.py -> build/bdist.linux-x86_64/wheel/./seraph/dashboard
+copying build/lib/seraph/dashboard/globe_payload.py -> build/bdist.linux-x86_64/wheel/./seraph/dashboard
+copying build/lib/seraph/dashboard/news_view.py -> build/bdist.linux-x86_64/wheel/./seraph/dashboard
+copying build/lib/seraph/dashboard/prototype_app.py -> build/bdist.linux-x86_64/wheel/./seraph/dashboard
+copying build/lib/seraph/dashboard/theme.py -> build/bdist.linux-x86_64/wheel/./seraph/dashboard
+copying build/lib/seraph/dashboard/__init__.py -> build/bdist.linux-x86_64/wheel/./seraph/dashboard
+creating build/bdist.linux-x86_64/wheel/seraph/decision_support
+copying build/lib/seraph/decision_support/action_log.py -> build/bdist.linux-x86_64/wheel/./seraph/decision_support
+copying build/lib/seraph/decision_support/artefacts.py -> build/bdist.linux-x86_64/wheel/./seraph/decision_support
+copying build/lib/seraph/decision_support/cases.py -> build/bdist.linux-x86_64/wheel/./seraph/decision_support
+copying build/lib/seraph/decision_support/exposure_trail.py -> build/bdist.linux-x86_64/wheel/./seraph/decision_support
+copying build/lib/seraph/decision_support/portfolio.py -> build/bdist.linux-x86_64/wheel/./seraph/decision_support
+copying build/lib/seraph/decision_support/portfolio_io.py -> build/bdist.linux-x86_64/wheel/./seraph/decision_support
+copying build/lib/seraph/decision_support/scenarios.py -> build/bdist.linux-x86_64/wheel/./seraph/decision_support
+copying build/lib/seraph/decision_support/workspace.py -> build/bdist.linux-x86_64/wheel/./seraph/decision_support
+copying build/lib/seraph/decision_support/__init__.py -> build/bdist.linux-x86_64/wheel/./seraph/decision_support
+creating build/bdist.linux-x86_64/wheel/seraph/features
+copying build/lib/seraph/features/alignment.py -> build/bdist.linux-x86_64/wheel/./seraph/features
+copying build/lib/seraph/features/cross_sectional.py -> build/bdist.linux-x86_64/wheel/./seraph/features
+copying build/lib/seraph/features/jump_extraction.py -> build/bdist.linux-x86_64/wheel/./seraph/features
+copying build/lib/seraph/features/__init__.py -> build/bdist.linux-x86_64/wheel/./seraph/features
+creating build/bdist.linux-x86_64/wheel/seraph/fusion
+copying build/lib/seraph/fusion/masking.py -> build/bdist.linux-x86_64/wheel/./seraph/fusion
+copying build/lib/seraph/fusion/score.py -> build/bdist.linux-x86_64/wheel/./seraph/fusion
+copying build/lib/seraph/fusion/shapley.py -> build/bdist.linux-x86_64/wheel/./seraph/fusion
+copying build/lib/seraph/fusion/standardize.py -> build/bdist.linux-x86_64/wheel/./seraph/fusion
+copying build/lib/seraph/fusion/__init__.py -> build/bdist.linux-x86_64/wheel/./seraph/fusion
+creating build/bdist.linux-x86_64/wheel/seraph/identity
+copying build/lib/seraph/identity/model.py -> build/bdist.linux-x86_64/wheel/./seraph/identity
+copying build/lib/seraph/identity/oidc.py -> build/bdist.linux-x86_64/wheel/./seraph/identity
+copying build/lib/seraph/identity/registry.py -> build/bdist.linux-x86_64/wheel/./seraph/identity
+copying build/lib/seraph/identity/__init__.py -> build/bdist.linux-x86_64/wheel/./seraph/identity
+creating build/bdist.linux-x86_64/wheel/seraph/ingestion
+copying build/lib/seraph/ingestion/bhavcopy_reader.py -> build/bdist.linux-x86_64/wheel/./seraph/ingestion
+copying build/lib/seraph/ingestion/eod2_client.py -> build/bdist.linux-x86_64/wheel/./seraph/ingestion
+copying build/lib/seraph/ingestion/flow_client.py -> build/bdist.linux-x86_64/wheel/./seraph/ingestion
+copying build/lib/seraph/ingestion/hawkes_universe.py -> build/bdist.linux-x86_64/wheel/./seraph/ingestion
+copying build/lib/seraph/ingestion/kite_client.py -> build/bdist.linux-x86_64/wheel/./seraph/ingestion
+copying build/lib/seraph/ingestion/macro_client.py -> build/bdist.linux-x86_64/wheel/./seraph/ingestion
+copying build/lib/seraph/ingestion/tariff_events.curated.csv -> build/bdist.linux-x86_64/wheel/./seraph/ingestion
+copying build/lib/seraph/ingestion/tariff_events.py -> build/bdist.linux-x86_64/wheel/./seraph/ingestion
+copying build/lib/seraph/ingestion/__init__.py -> build/bdist.linux-x86_64/wheel/./seraph/ingestion
+creating build/bdist.linux-x86_64/wheel/seraph/live
+copying build/lib/seraph/live/archive_adapter.py -> build/bdist.linux-x86_64/wheel/./seraph/live
+copying build/lib/seraph/live/bars.py -> build/bdist.linux-x86_64/wheel/./seraph/live
+copying build/lib/seraph/live/clock.py -> build/bdist.linux-x86_64/wheel/./seraph/live
+copying build/lib/seraph/live/engine_adapter.py -> build/bdist.linux-x86_64/wheel/./seraph/live
+copying build/lib/seraph/live/feed.py -> build/bdist.linux-x86_64/wheel/./seraph/live
+copying build/lib/seraph/live/inference.py -> build/bdist.linux-x86_64/wheel/./seraph/live
+copying build/lib/seraph/live/lifecycle.py -> build/bdist.linux-x86_64/wheel/./seraph/live
+copying build/lib/seraph/live/loop.py -> build/bdist.linux-x86_64/wheel/./seraph/live
+copying build/lib/seraph/live/publication.py -> build/bdist.linux-x86_64/wheel/./seraph/live
+copying build/lib/seraph/live/store.py -> build/bdist.linux-x86_64/wheel/./seraph/live
+copying build/lib/seraph/live/__init__.py -> build/bdist.linux-x86_64/wheel/./seraph/live
+creating build/bdist.linux-x86_64/wheel/seraph/market_calendar
+copying build/lib/seraph/market_calendar/sessions.py -> build/bdist.linux-x86_64/wheel/./seraph/market_calendar
+copying build/lib/seraph/market_calendar/__init__.py -> build/bdist.linux-x86_64/wheel/./seraph/market_calendar
+creating build/bdist.linux-x86_64/wheel/seraph/news
+copying build/lib/seraph/news/acquisition.py -> build/bdist.linux-x86_64/wheel/./seraph/news
+copying build/lib/seraph/news/backfill.py -> build/bdist.linux-x86_64/wheel/./seraph/news
+copying build/lib/seraph/news/currency.py -> build/bdist.linux-x86_64/wheel/./seraph/news
+copying build/lib/seraph/news/documents.py -> build/bdist.linux-x86_64/wheel/./seraph/news
+copying build/lib/seraph/news/enrichment.py -> build/bdist.linux-x86_64/wheel/./seraph/news
+copying build/lib/seraph/news/estimation.py -> build/bdist.linux-x86_64/wheel/./seraph/news
+copying build/lib/seraph/news/event_frames.py -> build/bdist.linux-x86_64/wheel/./seraph/news
+copying build/lib/seraph/news/extraction.py -> build/bdist.linux-x86_64/wheel/./seraph/news
+copying build/lib/seraph/news/hindi.py -> build/bdist.linux-x86_64/wheel/./seraph/news
+copying build/lib/seraph/news/http_feed.py -> build/bdist.linux-x86_64/wheel/./seraph/news
+copying build/lib/seraph/news/json_feed.py -> build/bdist.linux-x86_64/wheel/./seraph/news
+copying build/lib/seraph/news/lifecycle.py -> build/bdist.linux-x86_64/wheel/./seraph/news
+copying build/lib/seraph/news/model.py -> build/bdist.linux-x86_64/wheel/./seraph/news
+copying build/lib/seraph/news/opposing.py -> build/bdist.linux-x86_64/wheel/./seraph/news
+copying build/lib/seraph/news/pdf_text.py -> build/bdist.linux-x86_64/wheel/./seraph/news
+copying build/lib/seraph/news/refresh.py -> build/bdist.linux-x86_64/wheel/./seraph/news
+copying build/lib/seraph/news/registry.py -> build/bdist.linux-x86_64/wheel/./seraph/news
+copying build/lib/seraph/news/relevance.py -> build/bdist.linux-x86_64/wheel/./seraph/news
+copying build/lib/seraph/news/roles.py -> build/bdist.linux-x86_64/wheel/./seraph/news
+copying build/lib/seraph/news/scenarios.py -> build/bdist.linux-x86_64/wheel/./seraph/news
+copying build/lib/seraph/news/scope.py -> build/bdist.linux-x86_64/wheel/./seraph/news
+copying build/lib/seraph/news/worker_lock.py -> build/bdist.linux-x86_64/wheel/./seraph/news
+copying build/lib/seraph/news/__init__.py -> build/bdist.linux-x86_64/wheel/./seraph/news
+creating build/bdist.linux-x86_64/wheel/seraph/operations
+copying build/lib/seraph/operations/jobs.py -> build/bdist.linux-x86_64/wheel/./seraph/operations
+copying build/lib/seraph/operations/monitoring.py -> build/bdist.linux-x86_64/wheel/./seraph/operations
+copying build/lib/seraph/operations/__init__.py -> build/bdist.linux-x86_64/wheel/./seraph/operations
+creating build/bdist.linux-x86_64/wheel/seraph/orchestration
+copying build/lib/seraph/orchestration/adapters.py -> build/bdist.linux-x86_64/wheel/./seraph/orchestration
+copying build/lib/seraph/orchestration/hamilton_causal.py -> build/bdist.linux-x86_64/wheel/./seraph/orchestration
+copying build/lib/seraph/orchestration/original_execution.py -> build/bdist.linux-x86_64/wheel/./seraph/orchestration
+copying build/lib/seraph/orchestration/prototype.py -> build/bdist.linux-x86_64/wheel/./seraph/orchestration
+copying build/lib/seraph/orchestration/run_store.py -> build/bdist.linux-x86_64/wheel/./seraph/orchestration
+copying build/lib/seraph/orchestration/standardize.py -> build/bdist.linux-x86_64/wheel/./seraph/orchestration
+copying build/lib/seraph/orchestration/__init__.py -> build/bdist.linux-x86_64/wheel/./seraph/orchestration
+creating build/bdist.linux-x86_64/wheel/seraph/pillars
+creating build/bdist.linux-x86_64/wheel/seraph/pillars/hamilton
+copying build/lib/seraph/pillars/hamilton/engine.py -> build/bdist.linux-x86_64/wheel/./seraph/pillars/hamilton
+copying build/lib/seraph/pillars/hamilton/__init__.py -> build/bdist.linux-x86_64/wheel/./seraph/pillars/hamilton
+creating build/bdist.linux-x86_64/wheel/seraph/pillars/hawkes
+copying build/lib/seraph/pillars/hawkes/artefact.py -> build/bdist.linux-x86_64/wheel/./seraph/pillars/hawkes
+copying build/lib/seraph/pillars/hawkes/basket_stream.py -> build/bdist.linux-x86_64/wheel/./seraph/pillars/hawkes
+copying build/lib/seraph/pillars/hawkes/engine.py -> build/bdist.linux-x86_64/wheel/./seraph/pillars/hawkes
+copying build/lib/seraph/pillars/hawkes/__init__.py -> build/bdist.linux-x86_64/wheel/./seraph/pillars/hawkes
+creating build/bdist.linux-x86_64/wheel/seraph/pillars/rmt
+copying build/lib/seraph/pillars/rmt/engine.py -> build/bdist.linux-x86_64/wheel/./seraph/pillars/rmt
+copying build/lib/seraph/pillars/rmt/__init__.py -> build/bdist.linux-x86_64/wheel/./seraph/pillars/rmt
+copying build/lib/seraph/pillars/__init__.py -> build/bdist.linux-x86_64/wheel/./seraph/pillars
+creating build/bdist.linux-x86_64/wheel/seraph/prediction
+copying build/lib/seraph/prediction/app.py -> build/bdist.linux-x86_64/wheel/./seraph/prediction
+copying build/lib/seraph/prediction/evaluation.py -> build/bdist.linux-x86_64/wheel/./seraph/prediction
+copying build/lib/seraph/prediction/hazard_watch.py -> build/bdist.linux-x86_64/wheel/./seraph/prediction
+copying build/lib/seraph/prediction/models.py -> build/bdist.linux-x86_64/wheel/./seraph/prediction
+copying build/lib/seraph/prediction/pillars.py -> build/bdist.linux-x86_64/wheel/./seraph/prediction
+copying build/lib/seraph/prediction/__init__.py -> build/bdist.linux-x86_64/wheel/./seraph/prediction
+creating build/bdist.linux-x86_64/wheel/seraph/product_types
+copying build/lib/seraph/product_types/envelope.py -> build/bdist.linux-x86_64/wheel/./seraph/product_types
+copying build/lib/seraph/product_types/time.py -> build/bdist.linux-x86_64/wheel/./seraph/product_types
+copying build/lib/seraph/product_types/__init__.py -> build/bdist.linux-x86_64/wheel/./seraph/product_types
+creating build/bdist.linux-x86_64/wheel/seraph/reconciliation
+copying build/lib/seraph/reconciliation/kalman.py -> build/bdist.linux-x86_64/wheel/./seraph/reconciliation
+copying build/lib/seraph/reconciliation/noise_model.py -> build/bdist.linux-x86_64/wheel/./seraph/reconciliation
+copying build/lib/seraph/reconciliation/time_clock.py -> build/bdist.linux-x86_64/wheel/./seraph/reconciliation
+copying build/lib/seraph/reconciliation/__init__.py -> build/bdist.linux-x86_64/wheel/./seraph/reconciliation
+creating build/bdist.linux-x86_64/wheel/seraph/shared_types
+copying build/lib/seraph/shared_types/core.py -> build/bdist.linux-x86_64/wheel/./seraph/shared_types
+copying build/lib/seraph/shared_types/entities.py -> build/bdist.linux-x86_64/wheel/./seraph/shared_types
+copying build/lib/seraph/shared_types/fusion.py -> build/bdist.linux-x86_64/wheel/./seraph/shared_types
+copying build/lib/seraph/shared_types/pillars.py -> build/bdist.linux-x86_64/wheel/./seraph/shared_types
+copying build/lib/seraph/shared_types/reconciliation.py -> build/bdist.linux-x86_64/wheel/./seraph/shared_types
+copying build/lib/seraph/shared_types/validation.py -> build/bdist.linux-x86_64/wheel/./seraph/shared_types
+copying build/lib/seraph/shared_types/__init__.py -> build/bdist.linux-x86_64/wheel/./seraph/shared_types
+creating build/bdist.linux-x86_64/wheel/seraph/store
+copying build/lib/seraph/store/bootstrap.py -> build/bdist.linux-x86_64/wheel/./seraph/store
+creating build/bdist.linux-x86_64/wheel/seraph/store/migrations
+copying build/lib/seraph/store/migrations/__init__.py -> build/bdist.linux-x86_64/wheel/./seraph/store/migrations
+copying build/lib/seraph/store/reader.py -> build/bdist.linux-x86_64/wheel/./seraph/store
+copying build/lib/seraph/store/schema.sql -> build/bdist.linux-x86_64/wheel/./seraph/store
+copying build/lib/seraph/store/writer.py -> build/bdist.linux-x86_64/wheel/./seraph/store
+copying build/lib/seraph/store/__init__.py -> build/bdist.linux-x86_64/wheel/./seraph/store
+creating build/bdist.linux-x86_64/wheel/seraph/universe
+copying build/lib/seraph/universe/constructor.py -> build/bdist.linux-x86_64/wheel/./seraph/universe
+copying build/lib/seraph/universe/instrument_type.py -> build/bdist.linux-x86_64/wheel/./seraph/universe
+copying build/lib/seraph/universe/__init__.py -> build/bdist.linux-x86_64/wheel/./seraph/universe
+creating build/bdist.linux-x86_64/wheel/seraph/validation
+copying build/lib/seraph/validation/ablation.py -> build/bdist.linux-x86_64/wheel/./seraph/validation
+copying build/lib/seraph/validation/epochs.py -> build/bdist.linux-x86_64/wheel/./seraph/validation
+copying build/lib/seraph/validation/harness.py -> build/bdist.linux-x86_64/wheel/./seraph/validation
+copying build/lib/seraph/validation/news_benchmark_labels.py -> build/bdist.linux-x86_64/wheel/./seraph/validation
+copying build/lib/seraph/validation/news_corpus.py -> build/bdist.linux-x86_64/wheel/./seraph/validation
+copying build/lib/seraph/validation/news_gate.py -> build/bdist.linux-x86_64/wheel/./seraph/validation
+copying build/lib/seraph/validation/preregistration.py -> build/bdist.linux-x86_64/wheel/./seraph/validation
+copying build/lib/seraph/validation/__init__.py -> build/bdist.linux-x86_64/wheel/./seraph/validation
+copying build/lib/seraph/__init__.py -> build/bdist.linux-x86_64/wheel/./seraph
+running install_egg_info
+Copying seraph.egg-info to build/bdist.linux-x86_64/wheel/./seraph-0.1.0.egg-info
+running install_scripts
+creating build/bdist.linux-x86_64/wheel/seraph-0.1.0.dist-info/WHEEL
+creating '/mnt/c/Users/Arlop/Downloads/SERAPH VARYA/SERAPH Varya/docs/evidence/engineering-audit-2026-10-18/wheel-probe-cbhbsdu2/source/dist/.tmp-0tq6enur/seraph-0.1.0-py3-none-any.whl' and adding 'build/bdist.linux-x86_64/wheel' to it
+adding 'fixtures/__init__.py'
+adding 'fixtures/mock_generator.py'
+adding 'seraph/__init__.py'
+adding 'seraph/dashboard/__init__.py'
+adding 'seraph/dashboard/app.py'
+adding 'seraph/dashboard/connected_frontend.py'
+adding 'seraph/dashboard/console_backend.py'
+adding 'seraph/dashboard/current_reader.py'
+adding 'seraph/dashboard/datasource.py'
+adding 'seraph/dashboard/demo_data.py'
+adding 'seraph/dashboard/gateway.py'
+adding 'seraph/dashboard/globe_payload.py'
+adding 'seraph/dashboard/news_view.py'
+adding 'seraph/dashboard/prototype_app.py'
+adding 'seraph/dashboard/theme.py'
+adding 'seraph/dashboard/assets/THREE-LICENSE.txt'
+adding 'seraph/dashboard/assets/connected.css'
+adding 'seraph/dashboard/assets/connected.html'
+adding 'seraph/dashboard/assets/connected.js'
+adding 'seraph/dashboard/assets/console.html'
+adding 'seraph/dashboard/assets/frontend.html'
+adding 'seraph/dashboard/assets/globe.html'
+adding 'seraph/dashboard/assets/globe_core.js'
+adding 'seraph/dashboard/assets/globe_geometry.js'
+adding 'seraph/dashboard/assets/three.r128.min.js'
+adding 'seraph/dashboard/console_component/THREE-LICENSE.txt'
+adding 'seraph/dashboard/console_component/bridge.js'
+adding 'seraph/dashboard/console_component/index.html'
+adding 'seraph/dashboard/console_component/news_layer.js'
+adding 'seraph/dashboard/console_component/preview_pillars.js'
+adding 'seraph/dashboard/console_component/three.r128.min.js'
+adding 'seraph/decision_support/__init__.py'
+adding 'seraph/decision_support/action_log.py'
+adding 'seraph/decision_support/artefacts.py'
+adding 'seraph/decision_support/cases.py'
+adding 'seraph/decision_support/exposure_trail.py'
+adding 'seraph/decision_support/portfolio.py'
+adding 'seraph/decision_support/portfolio_io.py'
+adding 'seraph/decision_support/scenarios.py'
+adding 'seraph/decision_support/workspace.py'
+adding 'seraph/features/__init__.py'
+adding 'seraph/features/alignment.py'
+adding 'seraph/features/cross_sectional.py'
+adding 'seraph/features/jump_extraction.py'
+adding 'seraph/fusion/__init__.py'
+adding 'seraph/fusion/masking.py'
+adding 'seraph/fusion/score.py'
+adding 'seraph/fusion/shapley.py'
+adding 'seraph/fusion/standardize.py'
+adding 'seraph/identity/__init__.py'
+adding 'seraph/identity/model.py'
+adding 'seraph/identity/oidc.py'
+adding 'seraph/identity/registry.py'
+adding 'seraph/ingestion/__init__.py'
+adding 'seraph/ingestion/bhavcopy_reader.py'
+adding 'seraph/ingestion/eod2_client.py'
+adding 'seraph/ingestion/flow_client.py'
+adding 'seraph/ingestion/hawkes_universe.py'
+adding 'seraph/ingestion/kite_client.py'
+adding 'seraph/ingestion/macro_client.py'
+adding 'seraph/ingestion/tariff_events.curated.csv'
+adding 'seraph/ingestion/tariff_events.py'
+adding 'seraph/live/__init__.py'
+adding 'seraph/live/archive_adapter.py'
+adding 'seraph/live/bars.py'
+adding 'seraph/live/clock.py'
+adding 'seraph/live/engine_adapter.py'
+adding 'seraph/live/feed.py'
+adding 'seraph/live/inference.py'
+adding 'seraph/live/lifecycle.py'
+adding 'seraph/live/loop.py'
+adding 'seraph/live/publication.py'
+adding 'seraph/live/store.py'
+adding 'seraph/market_calendar/__init__.py'
+adding 'seraph/market_calendar/sessions.py'
+adding 'seraph/news/__init__.py'
+adding 'seraph/news/acquisition.py'
+adding 'seraph/news/backfill.py'
+adding 'seraph/news/currency.py'
+adding 'seraph/news/documents.py'
+adding 'seraph/news/enrichment.py'
+adding 'seraph/news/estimation.py'
+adding 'seraph/news/event_frames.py'
+adding 'seraph/news/extraction.py'
+adding 'seraph/news/hindi.py'
+adding 'seraph/news/http_feed.py'
+adding 'seraph/news/json_feed.py'
+adding 'seraph/news/lifecycle.py'
+adding 'seraph/news/model.py'
+adding 'seraph/news/opposing.py'
+adding 'seraph/news/pdf_text.py'
+adding 'seraph/news/refresh.py'
+adding 'seraph/news/registry.py'
+adding 'seraph/news/relevance.py'
+adding 'seraph/news/roles.py'
+adding 'seraph/news/scenarios.py'
+adding 'seraph/news/scope.py'
+adding 'seraph/news/worker_lock.py'
+adding 'seraph/operations/__init__.py'
+adding 'seraph/operations/jobs.py'
+adding 'seraph/operations/monitoring.py'
+adding 'seraph/orchestration/__init__.py'
+adding 'seraph/orchestration/adapters.py'
+adding 'seraph/orchestration/hamilton_causal.py'
+adding 'seraph/orchestration/original_execution.py'
+adding 'seraph/orchestration/prototype.py'
+adding 'seraph/orchestration/run_store.py'
+adding 'seraph/orchestration/standardize.py'
+adding 'seraph/pillars/__init__.py'
+adding 'seraph/pillars/hamilton/__init__.py'
+adding 'seraph/pillars/hamilton/engine.py'
+adding 'seraph/pillars/hawkes/__init__.py'
+adding 'seraph/pillars/hawkes/artefact.py'
+adding 'seraph/pillars/hawkes/basket_stream.py'
+adding 'seraph/pillars/hawkes/engine.py'
+adding 'seraph/pillars/rmt/__init__.py'
+adding 'seraph/pillars/rmt/engine.py'
+adding 'seraph/prediction/__init__.py'
+adding 'seraph/prediction/app.py'
+adding 'seraph/prediction/evaluation.py'
+adding 'seraph/prediction/hazard_watch.py'
+adding 'seraph/prediction/models.py'
+adding 'seraph/prediction/pillars.py'
+adding 'seraph/product_types/__init__.py'
+adding 'seraph/product_types/envelope.py'
+adding 'seraph/product_types/time.py'
+adding 'seraph/reconciliation/__init__.py'
+adding 'seraph/reconciliation/kalman.py'
+adding 'seraph/reconciliation/noise_model.py'
+adding 'seraph/reconciliation/time_clock.py'
+adding 'seraph/shared_types/__init__.py'
+adding 'seraph/shared_types/core.py'
+adding 'seraph/shared_types/entities.py'
+adding 'seraph/shared_types/fusion.py'
+adding 'seraph/shared_types/pillars.py'
+adding 'seraph/shared_types/reconciliation.py'
+adding 'seraph/shared_types/validation.py'
+adding 'seraph/store/__init__.py'
+adding 'seraph/store/bootstrap.py'
+adding 'seraph/store/reader.py'
+adding 'seraph/store/schema.sql'
+adding 'seraph/store/writer.py'
+adding 'seraph/store/migrations/__init__.py'
+adding 'seraph/universe/__init__.py'
+adding 'seraph/universe/constructor.py'
+adding 'seraph/universe/instrument_type.py'
+adding 'seraph/validation/__init__.py'
+adding 'seraph/validation/ablation.py'
+adding 'seraph/validation/epochs.py'
+adding 'seraph/validation/harness.py'
+adding 'seraph/validation/news_benchmark_labels.py'
+adding 'seraph/validation/news_corpus.py'
+adding 'seraph/validation/news_gate.py'
+adding 'seraph/validation/preregistration.py'
+adding 'seraph-0.1.0.dist-info/METADATA'
+adding 'seraph-0.1.0.dist-info/WHEEL'
+adding 'seraph-0.1.0.dist-info/top_level.txt'
+adding 'seraph-0.1.0.dist-info/RECORD'
+removing build/bdist.linux-x86_64/wheel

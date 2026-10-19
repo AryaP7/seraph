@@ -1,0 +1,50 @@
+{
+  "ticket": "T05 \u2014 Hawkes per-window basket (audit finding R11)",
+  "created_at": "2026-10-17T00:07:07+0530",
+  "finding": "the writer resolved the universe once at the corpus end, pooled one stream from it and sliced that for every window, while separately writing a point-in-time basket into the artefact. The metadata described a membership that had not produced the numbers beside it.",
+  "reproduced_on_the_real_corpus": {
+    "script": "scripts/compare_hawkes_basket_selection.py",
+    "corpus": "source PostgreSQL 5433, read-only; 213,751 bars, 2,862 sessions",
+    "universe": "44 snapshots 2005-01-01..2026-07-01; 312 symbols ever a member, 95 in the terminal basket, 91 with intraday bars",
+    "refit_points": 473,
+    "windows_whose_pooled_counts_differed": "465 / 473",
+    "windows_identical": "the 8 after the 2026-07-01 rebalance, where the terminal basket IS the correct basket",
+    "contributor_inflation": "mean 1.406x, max 1.569x",
+    "negative_event_inflation": "mean 1.424x, max 1.546x",
+    "symbols_wrongly_included_max": 33,
+    "symbols_wrongly_excluded_max": 0,
+    "branching_ratio_delta": "12 fitted points, mean +0.01842, max +0.03242 (against a corpus n of mean ~0.108, sd ~0.0193)"
+  },
+  "direction_of_error": {
+    "survivorship": "zero symbols in this corpus \u2014 the intraday backfill was itself scoped to today's universe, so no exited symbol has bars. The corrected loader reads the union of every basket that ever existed, so widening the intraday universe needs no further correction.",
+    "composition_inflation": "large: up to 33 non-members per window"
+  },
+  "fix": {
+    "new": [
+      "seraph/pillars/hawkes/basket_stream.py \u2014 StreamBuilder, PooledStream, WindowManifest, membership_segments, verify_manifest, basket_digest, segments_digest",
+      "scripts/compare_hawkes_basket_selection.py"
+    ],
+    "changed": [
+      "seraph/ingestion/hawkes_universe.py \u2014 BasketTimeline/BasketSnapshot",
+      "scripts/write_hawkes_production.py \u2014 per-window pooling, manifest guard, --policy, --namespace, --limit, --manifest-out",
+      "tests/test_c5_hawkes_writer.py \u2014 migrated to the PooledStream API, every original claim retained"
+    ],
+    "policy": "fixed_at_fit_cutoff adopted (DR-08); fixed_at_window_start and day_varying implemented and selectable",
+    "manifest_fields": [
+      "basket_id (segment-aware)",
+      "membership_policy",
+      "members_declared / members_contributing / members_without_data / coverage",
+      "input_row_hash (XOR-merkle over per-session close digests plus structural identity)",
+      "event_hash (the exact count vectors)",
+      "detector_version",
+      "window bounds and session count"
+    ],
+    "guard": "the writer calls verify_manifest() before fitting; a window whose manifest does not describe its counts is refused, not emitted"
+  },
+  "tests": "tests/test_t05_hawkes_basket.py (37 passed); full suite 985 passed, 14 skipped, 1 xfailed; 5 mechanical invariants; git diff --check clean",
+  "not_claimed": [
+    "the corrected rows are NOT persisted \u2014 the source database is read-only, so --write needs the research instance on 5434. C8 still reads the 473 pre-T05 rows computed from the terminal basket.",
+    "a regeneration writes to scope_id='basket_v2'; the pre-T05 rows under scope_id='' are preserved, and overwriting them needs --namespace legacy-overwrite spelled out.",
+    "this repairs an input. It is not evidence that either version predicts anything; the original advance-warning claim remains unestablished."
+  ]
+}

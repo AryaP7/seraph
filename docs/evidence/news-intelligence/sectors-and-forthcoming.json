@@ -1,0 +1,48 @@
+{
+  "opposing_rendered": true,
+  "worker_warning_rendered": true,
+  "stale_warning_rendered": false,
+  "banner_excerpt": "NOT A CURRENT MARKET READING \u2014 the newest observation is 2361.9 days old. Anything computed from it is a REPLAY of that period, not a statement about the market now, and must be labelled as such | observed 2020-04-30T15:30:00+05:30 \u00b7 now 2026-10-18T13:29:30+05:30 \u00b7 market not_a_session \u00b7 feed: none ",
+  "scope_line": "135 in scope \u00b7 279 received but not about this system (carried and linked, never deleted) \u00b7 15 in scope and unidentified",
+  "scope_reason_labels": 61,
+  "sector_panel_rows": [
+    "agricultureexportadverse for this sector; direction unknown \u2014 opposing or unestablished mechanismsseverity minor \u00b7 evidence medium \u00b7 size unknown \u00b7 3 unsized relationship(s)3 event(s) \u2014 click for the documents",
+    "aluminiumexportdirection unknown \u2014 opposing or unestablished mechanisms; favourable for this sectorseverity minor \u00b7 evidence medium \u00b7 size unknown \u00b7 2 unsized relationship(s)2 event(s) \u2014 click for the documents",
+    "autoinput_dependencydirection unknown \u2014 opposing or unestablished mechanismsseverity moderate \u00b7 evidence medium \u00b7 size unknown \u00b7 1 unsized relationship(s)1 event(s) \u2014 click for the documents",
+    "chemicalsexportadverse for this sector; direction unknown \u2014 opposing or unestablished mechanismsseverity minor \u00b7 evidence medium \u00b7 size unknown \u00b7 6 unsized relationship(s)6 event(s) \u2014 click for the documents",
+    "industrial_materialsexportdirection unknown \u2014 opposing or unestablished mechanismsseverity minor \u00b7 evidence medium \u00b7 size unknown \u00b7 2 unsized relationship(s)2 event(s) \u2014 click for the documents",
+    "paper_packagingexportdirection unknown \u2014 opposing or unestablished mechanismsseverity minor \u00b7 evidence medium \u00b7 size unknown \u00b7 1 unsized relationship(s)1 event(s) \u2014 click for the documents",
+    "steelexport, operationadverse for this sector; direction unknown \u2014 opposing or unestablished mechanismsseverity minor \u00b7 evidence medium \u00b7 size unknown \u00b7 5 unsized relationship(s)5 event(s) \u2014 click for the documents",
+    "textilesexportdirection unknown \u2014 opposing or unestablished mechanismsseverity minor \u00b7 evidence medium \u00b7 size unknown \u00b7 1 unsized relationship(s)1 event(s) \u2014 click for the documents"
+  ],
+  "sectors_named": {
+    "sector:agriculture": true,
+    "sector:aluminium": true,
+    "sector:auto": true,
+    "sector:chemicals": true,
+    "sector:steel": true,
+    "sector:textiles": true,
+    "sector:paper_packaging": true,
+    "sector:industrial_materials": true
+  },
+  "sectors_named_count": 8,
+  "forthcoming_labels": [
+    "scheduled for publication 2026-10-19T00:00:00+05:30, not yet publishedREFERENCED Polyethylene Terephthalate Film, Sheet, and Strip From India: Preliminary Results of Antidumping Duty Administrative Review, and Rescission of Review, in Part; 2024-2025Not on this page of LATEST SIGNALS. It is kept here because an inference on screen references it.confirmed_statement ",
+    "scheduled for publication 2026-10-19T00:00:00+05:30, not yet publishedREFERENCED Perfluoroalkoxy Alkane From India: Postponement of Preliminary Determination in the Countervailing Duty InvestigationNot on this page of LATEST SIGNALS. It is kept here because an inference on screen references it.confirmed_statement ",
+    "scheduled for publication 2026-10-19T00:00:00+05:30, not yet publishedREFERENCED Oleoresin Paprika From India: Antidumping Duty Order and Countervailing Duty OrderNot on this page of LATEST SIGNALS. It is kept here because an inference on screen references it.confirmed_statement "
+  ],
+  "forthcoming_label_count": 3,
+  "rail_says_published_without_qualifier": false,
+  "clicked_event": {
+    "opened": true,
+    "links": [
+      "https://nsearchives.nseindia.com/content/circulars/COM76924.pdf"
+    ],
+    "publisher_links": [
+      "https://nsearchives.nseindia.com/content/circulars/COM76924.pdf"
+    ]
+  },
+  "ordinary_streamlit_flow": true,
+  "payload_injection": false,
+  "isolated_store": "C:\\Users\\Arlop\\Downloads\\SERAPH VARYA\\SERAPH Varya\\prototype_runs\\news-sectors-0652bf87\\news.sqlite"
+}
