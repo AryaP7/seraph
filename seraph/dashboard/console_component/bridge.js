@@ -129,7 +129,82 @@ const detailTag=()=>{for(const id of ['dbody','siteinfo']){const n=q(id);
   ?EVIDENCED_NOTE
   :tag+' News/asset estimation preview; not SERAPH pillar output.');}};
 new MutationObserver(detailTag).observe(q('dbody'),{childList:true});new MutationObserver(detailTag).observe(q('siteinfo'),{childList:true});
-function spark(history){let paths=[],s=[];history.forEach((h,i)=>{if(h.csrs==null){if(s.length)paths.push(s);s=[];}else s.push((i/Math.max(1,history.length-1)*600)+','+(70-h.csrs*65));});if(s.length)paths.push(s);return '<svg viewBox="0 0 600 80" width="100%">'+paths.map(s=>'<polyline points="'+s.join(' ')+'" fill="none" stroke="#c9a63a" stroke-width="2"/>').join('')+'</svg>';}
+/* F01. `history` is an OBJECT -- {rows, series, units, coverage,
+   representativeness, note} -- since the FR41 benchmark overlay landed in
+   `console_backend._history_with_benchmark`. This function still called
+   `history.forEach`, so every render threw
+
+     TypeError: history.forEach is not a function
+
+   and because `renderConsole()` is called before the role toggles, the
+   liveness banner, `applyNewsLayer()` and `show()`, the whole handler
+   aborted. The console rendered nothing and news never updated.
+
+   Normalised in ONE place rather than shape-checked per chart. A legacy
+   list becomes {rows: list} with the benchmark declared unavailable, so an
+   old payload renders a CSRS line instead of crashing. */
+function historyOf(h){
+ if(!h)return {rows:[],series:{available:false},units:{},coverage:{}};
+ if(Array.isArray(h))return {rows:h,series:{available:false,
+   label:'benchmark',source:'legacy payload carried no benchmark series'},
+   units:{},coverage:{csrs_dates:h.length,matched:0,benchmark_missing:h.length}};
+ return {rows:h.rows||[],series:h.series||{available:false},
+   units:h.units||{},coverage:h.coverage||{},
+   representativeness:h.representativeness,note:h.note};
+}
+
+/* One polyline per unbroken run, so a null stays a GAP. Forward-filling a
+   missing index observation would draw a flat segment where there is no
+   measurement, which is the specific thing FR41's overlay must not do. */
+function polylines(values,scale,colour){
+ let paths=[],s=[];
+ values.forEach((v,i)=>{
+  if(v==null){if(s.length>1)paths.push(s);s=[];return;}
+  s.push((i/Math.max(1,values.length-1)*600)+','+scale(v));});
+ if(s.length>1)paths.push(s);
+ return paths.map(pts=>'<polyline points="'+pts.join(' ')
+  +'" fill="none" stroke="'+colour+'" stroke-width="2"/>').join('');
+}
+
+function spark(h){
+ const hist=historyOf(h),rows=hist.rows;
+ if(!rows.length)return '<p class="muted">No scored dates in this run.</p>';
+ /* CSRS is 0..1 by construction; the benchmark is a simple return centred on
+    zero. Two different units, so two labelled scales -- a shared axis would
+    make the benchmark look flat and invite reading one off the other. */
+ const csrs=rows.map(r=>r.csrs==null?null:r.csrs);
+ const ret=rows.map(r=>(r.benchmark_available&&r.benchmark_return!=null)
+   ?r.benchmark_return:null);
+ const seen=ret.filter(v=>v!=null).map(Math.abs);
+ const span=seen.length?Math.max(0.01,Math.max.apply(null,seen)):0.01;
+ const csrsChart='<svg viewBox="0 0 600 80" width="100%" role="img"'
+  +' aria-label="CSRS history">'
+  +polylines(csrs,v=>70-v*65,'#c9a63a')+'</svg>';
+ let out='<div class="chart-row"><span class="axis">CSRS 0..1</span>'
+  +csrsChart+'</div>';
+ if(hist.series.available&&seen.length){
+  out+='<div class="chart-row"><span class="axis">'
+   +esc(hist.series.label||'benchmark')+' return &plusmn;'
+   +(span*100).toFixed(1)+'%</span>'
+   +'<svg viewBox="0 0 600 80" width="100%" role="img" aria-label="benchmark'
+   +' return history"><line x1="0" y1="40" x2="600" y2="40"'
+   +' stroke="#444" stroke-width="1"/>'
+   +polylines(ret,v=>40-(v/span)*34,'#6a9ad8')+'</svg></div>';
+  const cov=hist.coverage||{};
+  out+=kv('Benchmark',esc(hist.series.source||'')+' · '
+   +(cov.matched||0)+' of '+(cov.csrs_dates||0)+' dates matched'
+   +(cov.benchmark_missing?(' · '+cov.benchmark_missing+' missing from '
+     +esc(cov.first_missing||'')+', shown as gaps'):''));
+  if(hist.units&&hist.units.benchmark)out+=kv('Units',esc(hist.units.benchmark));
+  if(hist.representativeness)out+=kv('Representativeness',
+    esc(typeof hist.representativeness==='string'?hist.representativeness
+        :JSON.stringify(hist.representativeness)));
+ }else{
+  out+=kv('Benchmark',esc(hist.note||hist.series.source
+    ||'the official index series is not available for these dates'));
+ }
+ return out;
+}
 function renderConsole(){const v=data.view;
  q('c_csrs').textContent=num(v.csrs);q('c_ci').textContent=num(v.ciLower)+' – '+num(v.ciUpper);
  q('c_level').textContent=(v.alertLevel||'unavailable').toUpperCase();q('c_level').style.color=({red:'#d8776a',amber:'#c9a63a',green:'#4f9e6a'})[v.alertLevel]||'#888';
@@ -146,11 +221,38 @@ function renderConsole(){const v=data.view;
  document.querySelectorAll('[data-field]').forEach(n=>{const field={shapley:'shapley',mask:'pillarScores',xi_src:'regimeProbabilities',mode:'reconciliationMode',ci:'ciLower'}[n.dataset.field];n.classList.toggle('locked',field&&!(field in v));});
 }
 function renderPillars(){['hawkes','rmt','hamilton'].forEach(name=>{const item=data.pillars?.[name];const preview=PREVIEW_PILLARS[name];q('p_'+name).innerHTML=card(name.toUpperCase(),item?kv('Source',item.origin)+kv('Model',item.model)+kv('Value',num(item.value))+kv('Timestamp',item.information_timestamp)+kv('Score eligible',item.score_eligible)+json(item.detail||{}):'Model internals are not supplied to this role.')+(item&&item.value==null?card('Unfilled design preview',tag+kv(preview.label,num(preview.val))+preview.rows.map(([k,v])=>kv(k,v)).join('')+'<p>Preview values are not used for scoring.</p>'):'');});}
+/* F01. These were three fabricated numbers -- `FII net (example) -1200`,
+   `DII net (example) 900`, `Residual share (example) 0.72` -- sitting where a
+   measurement belongs. `console_backend.market_flow` has read real published
+   prints from E14 since FR45/FR51 landed, and the payload has carried
+   `data.flow` all along; the panel just never looked at it.
+
+   `market_flow` already filters `date <= as_of`, so a historical decision
+   cannot show a later print. Unavailability renders as the reason, not a
+   placeholder: an empty panel that says why is honest, and an example number
+   in a measurement's place is not, however it is labelled. */
+function flowHTML(){
+ const f=data.flow;
+ if(!f)return '<p>No flow payload in this run.</p>';
+ if(!f.available)return '<p>'+esc(f.reason||'flow unavailable')+'</p>'
+  +(f.date?kv('Last stored print',esc(f.date)):'');
+ let html=kv('FII net',num2(f.fiiNet))+kv('DII net',num2(f.diiNet))
+  +kv('Residual share',num2(f.residualFlowShare));
+ if(f.totalTurnoverCrore!=null)html+=kv('Cash turnover',num2(f.totalTurnoverCrore));
+ html+=kv('As of',esc(f.date||'unknown'))+kv('Units',esc(f.units||''));
+ if(f.basis)html+=kv('Basis',esc(f.basis));
+ html+='<p>'+esc(f.scope||'')+'</p>';
+ (f.warnings||[]).forEach(w=>{html+='<p class="warn">'+esc(w)+'</p>';});
+ return html;
+}
+
+function num2(x){return x==null?'unavailable':(Math.round(x*100)/100).toString();}
+
 function renderMethod(){q('m_flow').innerHTML=kv('Run',data.run_id)+kv('Decision',data.timestamp)+kv('Cutoff',data.cutoff)+kv('Mode',data.mode);q('m_std').textContent='Existing causal standardisation, reconciliation and CSRS pipeline. News estimates are a separate subsystem, not a source of these pillar scores.';q('m_status').innerHTML=kv('Engineering','Historical persisted integration')+kv('Predictive validation','Not established')+kv('News ingestion / estimator',newsConnectionLine())+kv('Authentication','Local role demo only');q('m_limits').innerHTML=json(data.limitations||['Experimental warnings; predictive skill unvalidated.'])+(data.manifest?json(data.manifest):'');}
 function table(rows){if(!rows?.length)return 'No saved outputs.';const keys=Object.keys(rows[0]);return '<table><thead><tr>'+keys.map(k=>'<th>'+esc(k)+'</th>').join('')+'</tr></thead><tbody>'+rows.map(r=>'<tr>'+keys.map(k=>'<td>'+esc(typeof r[k]==='object'?JSON.stringify(r[k]):r[k])+'</td>').join('')+'</tr>').join('')+'</tbody></table>';}
 function resultView(result){if(!result)return 'No operation submitted for this run/date/role.';if(Array.isArray(result.value)&&(result.kind==='shock'||result.kind==='policy'))return '<p>'+esc(result.basis)+'</p>'+table(result.value.map((r,i)=>({step:i+1,csrs:num(r.csrs),warning:r.alert_level,conditional_lower:num(r.ci_lower),conditional_upper:num(r.ci_upper)})))+'<details><summary>Scenario metadata</summary>'+json(result)+'</details>';return json(result);}
 function tools(){const professional=data.role!=='retail',reg=data.role==='regulator';let html=card('Portfolio holdings','<p>Enter current holdings as JSON: symbol, value, sector, optional quantity. Real exposure calculation uses no fabricated news flags.</p><textarea id="holdings" placeholder="Paste your holdings JSON list"></textarea><button id="portfolio-go">Calculate coverage</button>');
- if(professional)html+=card('Pillar shock simulator · C11 / C9','<p>Hypothetical ECDF-rank shock; excluded pillars remain excluded.</p><select id="shock-pillar"><option>hawkes</option><option>rmt</option><option>hamilton</option></select><input id="magnitude" type="number" min="-1" max="1" step="0.05" value="0.1" aria-label="Shock magnitude"><input id="horizon" type="number" min="1" max="60" value="5" aria-label="Horizon"><button id="shock-go">Run shock</button>')+card('Defensive playbook',json(data.view.playbook)+'<p>Measured drawdown reduction unavailable. Guidance is not an evaluated trading result.</p>')+card('Institutional / residual flow',tag+'<p>Market aggregate feed not present in this saved run. No per-instrument retail attribution.</p>'+kv('FII net (example)','-1200')+kv('DII net (example)','900')+kv('Residual share (example)','0.72'));
+ if(professional)html+=card('Pillar shock simulator · C11 / C9','<p>Hypothetical ECDF-rank shock; excluded pillars remain excluded.</p><select id="shock-pillar"><option>hawkes</option><option>rmt</option><option>hamilton</option></select><input id="magnitude" type="number" min="-1" max="1" step="0.05" value="0.1" aria-label="Shock magnitude"><input id="horizon" type="number" min="1" max="60" value="5" aria-label="Horizon"><button id="shock-go">Run shock</button>')+card('Defensive playbook',json(data.view.playbook)+'<p>Measured drawdown reduction unavailable. Guidance is not an evaluated trading result.</p>')+card('Institutional / residual flow',tag+flowHTML());
  if(reg)html+=card('Counterfactual policy simulator','<p>Macro z-to-regime fitted mapping unavailable. Run an explicit hypothetical regime path through C11 instead; equal regime weights may give an unchanged score.</p><textarea id="xi-path">[[0.8,0.15,0.05],[0.2,0.5,0.3]]</textarea><button id="policy-go">Run regime-path scenario</button>')+card('Regulator action journal','<p>Annotations for this historical alert; no real trading or circuit breaker execution.</p><select id="action-op"><option>create</option><option>update</option><option>delete</option></select><select id="action-value"><option>none</option><option>soft_warning</option><option>circuit_breaker</option></select><button id="action-go">Record action</button>'+json(data.action_log))+card('Institution / contagion preview',tag+'<p>Institution-level decomposition and contagion network are not produced by this run.</p>'+kv('Institution A (example exposure)','35%')+kv('Institution B (example exposure)','65%'));
  html+=card('Last operation','<div id="req-status"></div>'+discardedView()+resultView(data.result));return html;}
 function discardedView(){const d=data.discarded_result;if(!d)return '';
@@ -638,7 +740,20 @@ function show(view){active=view;if(!data)return;
  else if(contextMoved){clearInflight();setStatus('discarded','the run, date or role changed while the request was in flight; its result is not shown here');}
  else if(inflight){setStatus('pending',inflight.op);}
  else if(data.discarded_result){setStatus('discarded',data.discarded_result.reason);}
- renderConsole();renderPillars();renderMethod();q('extra-content').innerHTML='';
+ /* F01. These used to run bare, so ONE throwing chart aborted the whole
+    handler -- the role toggles, the liveness banner, `applyNewsLayer()` and
+    `show()` all sit below this line, and a history-shape error took every one
+    of them with it. Each renderer now reports its own failure visibly and the
+    rest of the update proceeds. This is a boundary around the known failure,
+    not a redesign. */
+ [['console',renderConsole,'c_trends'],['pillars',renderPillars,'viewPillars'],
+  ['method',renderMethod,'m_limits']].forEach(([name,fn,slot])=>{
+  try{fn();}catch(err){
+   try{q(slot).innerHTML='<p class="warn">The '+name+' view failed to render: '
+    +esc(String(err&&err.message||err))
+    +'. Other panels and the news layer are unaffected.</p>';}catch(e){}
+   try{console.error('seraph: '+name+' render failed',err);}catch(e){}}});
+ q('extra-content').innerHTML='';
  document.querySelectorAll('#roles button').forEach(b=>b.classList.toggle('on',b.dataset.role===data.role));
  /* The liveness banner. CSRS is specified as a CURRENT market risk score, and
     every score this system can produce today comes from an archive. That has

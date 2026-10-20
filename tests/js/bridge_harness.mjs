@@ -9,152 +9,15 @@
  * Nothing here is shipped: it exists only so "a lost response can be retried"
  * is a tested claim rather than a grep for the word "retry".
  */
-import { readFileSync } from "node:fs";
-import { fileURLToPath } from "node:url";
-import { dirname, resolve } from "node:path";
-import vm from "node:vm";
+import { build } from "./console_sandbox.mjs";
 
-const here = dirname(fileURLToPath(import.meta.url));
-const bridgePath = resolve(here, "../../seraph/dashboard/console_component/bridge.js");
-
-// ---------------------------------------------------------------- tiny DOM
-let now = 0;
-const timers = new Map();
-let timerId = 1;
-
-class Node {
-  constructor(id = "", tag = "div") {
-    this.id = id;
-    this.tagName = tag.toUpperCase();
-    this._html = "";
-    this.value = "";
-    this.children = [];
-    this.dataset = {};
-    this.style = {};
-    this.classList = {
-      _set: new Set(),
-      add: (c) => this.classList._set.add(c),
-      remove: (c) => this.classList._set.delete(c),
-      toggle: (c, on) => (on ? this.classList._set.add(c) : this.classList._set.delete(c)),
-      contains: (c) => this.classList._set.has(c),
-    };
-    this.onclick = null;
-    this.oninput = null;
-    this.onchange = null;
-    this.childNodes = [];
-  }
-  get innerHTML() { return this._html; }
-  set innerHTML(v) {
-    this._html = String(v);
-    // Re-materialise any element the bridge will look up by id afterwards.
-    for (const m of this._html.matchAll(/id="([a-zA-Z0-9_-]+)"/g)) {
-      const id = m[1];
-      if (!registry.has(id)) registry.set(id, new Node(id));
-    }
-  }
-  get textContent() { return this._html; }
-  set textContent(v) { this._html = String(v); }
-  insertAdjacentHTML(_where, html) { this._html += html; }
-  setAttribute(k, v) { this[k] = v; }
-  querySelector() { return new Node(); }
-  querySelectorAll() { return []; }
-  appendChild(n) { this.children.push(n); return n; }
-}
-
-const registry = new Map();
-const ensure = (id) => {
-  if (!registry.has(id)) registry.set(id, new Node(id));
-  return registry.get(id);
-};
-// Elements the bridge touches unconditionally at load.
-for (const id of ["ticker", "online", "beaconKey", "dbody", "siteinfo", "stage",
-                  "preview-banner", "extra-content", "extra-title", "signals",
-                  "exposure", "viewConsole", "viewPillars", "viewMethod", "viewExtra",
-                  "c_csrs", "c_ci", "c_level", "c_mode", "c_plain", "c_fill", "c_tick",
-                  "c_sigcount", "c_signals", "c_trends", "c_mask", "c_shapley",
-                  "c_stack", "c_slabels", "c_fields", "c_access",
-                  "p_hawkes", "p_rmt", "p_hamilton",
-                  "m_flow", "m_std", "m_status", "m_limits"]) ensure(id);
-
-const sent = [];
-const requests = () =>
-  sent.filter((m) => m.type === "streamlit:setComponentValue");
-const document = {
-  getElementById: (id) => registry.get(id) ?? null,
-  querySelector: () => new Node(),
-  querySelectorAll: () => [],
-  createElement: (tag) => {
-    const n = new Node("", tag);
-    // Mirror a real DOM: once it has an id and is attached, getElementById
-    // finds it. The bridge creates its global status bar this way.
-    const define = Object.getOwnPropertyDescriptor(Node.prototype, "id");
-    Object.defineProperty(n, "id", {
-      get() { return n._id ?? ""; },
-      set(v) { n._id = v; if (v) registry.set(v, n); },
-      configurable: true,
-    });
-    return n;
-  },
-  body: new Node("body"),
-};
-const listeners = [];
-const sandbox = {
-  document,
-  console,
-  PREVIEW_PILLARS: { hawkes: { label: "x", val: 0, rows: [] },
-                     rmt: { label: "x", val: 0, rows: [] },
-                     hamilton: { label: "x", val: 0, rows: [] } },
-  crypto: { randomUUID: () => "req-fixed-id" },
-  parent: { postMessage: (msg) => sent.push(msg) },
-  MutationObserver: class { observe() {} },
-  window: {
-    addEventListener: (type, fn) => listeners.push({ type, fn }),
-    dispatchEvent: () => {},
-  },
-  Event: class { constructor(t) { this.type = t; } },
-  setTimeout: (fn, ms) => { const id = timerId++; timers.set(id, { fn, at: now + ms }); return id; },
-  clearTimeout: (id) => timers.delete(id),
-};
-sandbox.globalThis = sandbox;
-// Pre-declare the bridge's test hook; without this it exposes nothing.
-sandbox.__SERAPH_BRIDGE_TEST__ = null;
-sandbox.window.document = document;
-
-function advance(ms) {
-  now += ms;
-  for (const [id, t] of [...timers]) {
-    if (t.at <= now) { timers.delete(id); t.fn(); }
-  }
-}
-
-function render(payload) {
-  for (const l of listeners) {
-    if (l.type === "message") {
-      l.fn({ source: sandbox.parent, data: { type: "streamlit:render", args: { payload } } });
-    }
-  }
-}
-
-// Role buttons must exist BEFORE the bridge loads: it binds their onclick
-// handlers once, at load time.
-for (const id of ["roles", "route-crumb"]) ensure(id);
-const roleButtons = {};
-for (const role of ["retail", "institutional", "regulator"]) {
-  const b = new Node("", "button");
-  b.dataset.role = role;
-  roleButtons[role] = b;
-}
-document.querySelector = (sel) => {
-  const m = /#roles button\[data-role="([a-z]+)"\]/.exec(sel);
-  if (m) return roleButtons[m[1]] ?? null;
-  return new Node();
-};
-document.querySelectorAll = (sel) =>
-  sel === "#roles button" ? Object.values(roleButtons) : [];
-
-// -------------------------------------------------------------- run bridge
-vm.createContext(sandbox);
-vm.runInContext(readFileSync(bridgePath, "utf8"), sandbox, { filename: "bridge.js" });
+/* The browser stub lives in `console_sandbox.mjs`, shared with
+   `history_harness.mjs`. It used to be inline here; the moment a second
+   harness needed it the copy diverged — missing `insertAdjacentHTML`, then
+   `MutationObserver` — so a harness was testing the fidelity of its own stub
+   instead of the bridge. One definition now. */
+const env = build();
+const { registry, sent, requests, sandbox, render, advance, ensure } = env;
 
 const base = {
   run_id: "run-a", date: "2020-01-01", role: "institutional",
@@ -256,7 +119,9 @@ out.role_change_left_map = api.active() !== "map";
 
 // The SAME role: acknowledged at once, no request, no timeout.
 sent.length = 0;
-const beforeSameRole = now;
+// (The harness clock was captured here and never read; the shared
+//  sandbox owns the clock now and `advance` is the only thing that
+//  needs it.)
 api.clickRole("institutional");
 out.same_role_sends_no_request = requests().length === 0;
 out.same_role_acknowledged = globalStatusText().includes("DONE");

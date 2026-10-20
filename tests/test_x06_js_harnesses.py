@@ -83,13 +83,46 @@ class TestX06TheManifestExists:
         assert "news_layer_harness.mjs" in script
 
     def test_every_harness_in_the_directory_is_wired_up(self):
-        """A harness nobody runs is the defect. If one is added, it must be
-        added to the manifest and to this file."""
+        """A harness nobody runs is the defect. Three legitimate ways to be
+        run, because not every file here is a bare `npm test` harness:
+
+        * in `package.json`'s test script -- the self-contained harnesses;
+        * driven by a Python test -- `history_harness.mjs` needs a real
+          `project_run` payload as an argument, which is the whole point of
+          it, so it cannot run bare and pytest supplies the payload;
+        * imported by another harness -- `console_sandbox.mjs` is the shared
+          browser stub, not a harness, and running it alone would do nothing.
+
+        Anything matching none of those is genuinely unreferenced.
+        """
         present = {p.name for p in HARNESS_DIR.glob("*.mjs")}
         manifest = json.loads((ROOT / "package.json").read_text(encoding="utf-8"))
         script = manifest["scripts"]["test"]
-        unwired = sorted(n for n in present if n not in script)
+
+        python_sources = "\n".join(
+            p.read_text(encoding="utf-8")
+            for p in (ROOT / "tests").glob("test_*.py"))
+        imported = "\n".join(p.read_text(encoding="utf-8")
+                             for p in HARNESS_DIR.glob("*.mjs"))
+
+        unwired = sorted(
+            name for name in present
+            if name not in script
+            and name not in python_sources
+            and f'"./{name}"' not in imported
+            and f"./{name}" not in imported)
         assert unwired == [], f"harnesses with no runner: {unwired}"
+
+    def test_the_shared_sandbox_is_actually_shared(self):
+        """It exists to stop a second harness copying the browser stub. A
+        private copy was tried first and diverged immediately -- missing
+        `insertAdjacentHTML`, then `MutationObserver` -- so the harness was
+        testing its own stub rather than the bridge."""
+        users = [p.name for p in HARNESS_DIR.glob("*_harness.mjs")
+                 if "console_sandbox.mjs" in p.read_text(encoding="utf-8")]
+        assert len(users) >= 2, (
+            f"only {users} import the shared sandbox; a stub copied into a "
+            f"harness drifts from the one the other harnesses use")
 
 
 # --------------------------------------------------------- FIX11 the bridge
