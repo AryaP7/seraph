@@ -185,14 +185,23 @@ def run_scheduled(day: str | None = None) -> dict:
 
 
 def run_all(day: str | None = None) -> dict:
+    # Acquisition FIRST, and the corpus is read AFTER it. The session read
+    # used to happen before any step, so with acquisition added the vintages
+    # and the forecast would have been computed for the pre-acquisition date
+    # -- a run that fetched today's prices and then scored yesterday.
+    acquisition = _run("fresh market data",
+                       ["scripts/run_acquisition.py"], timeout=2400)
+
     session, detail = asyncio.run(_latest_session())
     if session is None:
-        report = dict(generated=_stamp(), ok=False, blocked=detail, steps=[])
+        report = dict(generated=_stamp(), ok=False, blocked=detail,
+                      steps=[acquisition])
         _write(report)
         return report
 
     target = day or session
     steps = [
+        acquisition,
         # The daily pillar vintages. RMT is computed here (about two
         # minutes: FR17 needs two windows and FR19 bootstraps each 1,000
         # times); Hamilton records its standing exclusion; Hawkes is the
@@ -224,6 +233,10 @@ def run_all(day: str | None = None) -> dict:
     previous = read_status()
     data = freshness(previous_session=previous.get("session") if previous.get("ran") else None,
                      current_session=session)
+    # The acquisition step is the authority on whether a new OBSERVATION
+    # arrived, as opposed to the corpus merely differing from the last run's
+    # record. Its own report is read rather than inferred from dates.
+    data["acquisition"] = _acquisition_summary()
     report = dict(generated=_stamp(), ok=all(s["ok"] for s in steps),
                   execution_ok=all(s["ok"] for s in steps),
                   session=target, corpus=detail, steps=steps, data=data,
@@ -239,6 +252,31 @@ def run_all(day: str | None = None) -> dict:
                         "`--replay --once` or a live run."))
     _write(report)
     return report
+
+
+def _acquisition_summary() -> dict:
+    """What the acquisition step reported, read from its own status file."""
+    import importlib.util
+
+    spec = importlib.util.spec_from_file_location(
+        "_seraph_acquisition", ROOT / "scripts" / "run_acquisition.py")
+    try:
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        saved = module.status()
+    except Exception as exc:                                # noqa: BLE001
+        return dict(ran=False, note=f"acquisition status unreadable: {exc}")
+    if not saved.get("ran"):
+        return dict(ran=False, note=saved.get("note", ""))
+    inner = saved.get("acquisition") or {}
+    return dict(ran=True, ok=saved.get("ok"), acquired=saved.get("acquired"),
+                generated=saved.get("generated"),
+                latest_before=inner.get("latest_before"),
+                latest_after=inner.get("latest_after"),
+                stored_sessions=inner.get("stored_sessions") or [],
+                rows_written=inner.get("rows_written"),
+                failures=inner.get("failures") or [],
+                note=saved.get("note", ""))
 
 
 def _write(report: dict) -> None:

@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-20T12:22:47+05:30",
+  "generated": "2026-10-20T14:15:39+05:30",
   "summary": {
     "journeys_checked": 11,
     "working": 11,
@@ -13,10 +13,10 @@
       "requirement": "FR1, FR7, FR8",
       "works": true,
       "evidence": {
-        "rows": 7385306,
-        "symbols": 3524,
+        "rows": 7489028,
+        "symbols": 3584,
         "first": "2005-01-03",
-        "last": "2026-08-21"
+        "last": "2026-10-19"
       },
       "note": "real NSE daily OHLCV from the vendored EOD2 snapshot"
     },
@@ -52,7 +52,7 @@
         "hamilton": {
           "origin": "absent",
           "value": null,
-          "input_end": "2026-08-21T15:30:00+05:30",
+          "input_end": "2026-10-19T15:30:00+05:30",
           "absence": "structural"
         },
         "hawkes": {
@@ -63,8 +63,8 @@
         },
         "rmt": {
           "origin": "computed",
-          "value": 0.2331952692153683,
-          "input_end": "2026-08-21T15:30:00+05:30",
+          "value": 0.23226551062022777,
+          "input_end": "2026-10-19T15:30:00+05:30",
           "absence": null
         }
       },
@@ -88,7 +88,7 @@
         "warnings": [
           "hamilton: bundle original hamilton is not registered; its vintage was withheld and the previous one carried fo",
           "hawkes: bundle original hawkes (research snapshot) is not registered; its vintage was withheld and the previou",
-          "hawkes: the carried-forward vintage 2026-08-20T15:30:00+05:30 is stale enough that R has reached its ceiling; "
+          "hawkes: the carried-forward vintage 2026-10-18T15:30:00+05:30 is stale enough that R has reached its ceiling; "
         ]
       },
       "note": "warm start here is synthetic, so the SCORE is a path demonstration; the vintages and the mask are real"
@@ -144,7 +144,7 @@
         "operations": 21,
         "holdings": 1,
         "scenario_run": true,
-        "case": "case_cd9da76c509",
+        "case": "case_edf9716fc44",
         "identity": "local demonstration identity, not authenticated. State is du"
       },
       "note": "durable and owner-scoped; local demo identity, not auth"
@@ -187,14 +187,14 @@
       "requirement": "C9, C10, C12",
       "works": true,
       "evidence": {
-        "as_of": "2026-08-21",
-        "probability": 0.04620450377601309,
+        "as_of": "2026-10-19",
+        "probability": 0.06228860880129451,
         "horizon_sessions": 15,
         "loss_barrier": 0.1,
         "warning_level": "no_warning",
-        "threshold": 0.12964291398540212,
-        "labels_matured_through": "2026-05-14",
-        "training_rows": 5292,
+        "threshold": 0.12515297086121419,
+        "labels_matured_through": "2026-08-13",
+        "training_rows": 5229,
         "pillars": [
           "hamilton",
           "hawkes",
@@ -202,10 +202,10 @@
           "volatility baseline"
         ],
         "realised": {
-          "brier": 0.06954325881857248,
-          "auc": 0.6587949810606061,
-          "forecasts": 4576,
-          "false_episodes_per_year": 1.4617169373549883
+          "brier": 0.06344888116106705,
+          "auc": 0.6371863594091008,
+          "forecasts": 4489,
+          "false_episodes_per_year": 1.0144447075538716
         },
         "feature_set_drift": null,
         "validation": "unvalidated"

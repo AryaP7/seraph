@@ -337,7 +337,8 @@ def run(snapshot_path, *, pillar_config=None, alert_config=None,
         snapshot=dict(
             path=str(snapshot_path),
             sha256=hashlib.sha256(snapshot_path.read_bytes()).hexdigest(),
-            rows=len(dates), first_session=dates[0], last_session=dates[last]),
+            rows=len(dates), first_session=dates[0], last_session=dates[last],
+            **snapshot_provenance(snapshot_path)),
         protocol=dict(
             horizon=HORIZON, loss_barrier=LOSS_BARRIER,
             pillar_config=asdict(pillar_config),
@@ -350,6 +351,53 @@ def run(snapshot_path, *, pillar_config=None, alert_config=None,
 
 
 DEFAULT_STATE_PATH = Path("prototype_runs/prediction/state.json")
+
+
+#: Where the operational snapshot lives, and where the frozen experiment's
+#: input lives. They are deliberately separate files.
+#:
+#: `research_data/market_snapshot.parquet` is the input `research_results/v1`
+#: was produced from, and its sha256 is recorded in that run's own manifest.
+#: Rebuilding it in place to get fresh data would make the frozen experiment
+#: unreproducible -- so fresh acquisition writes `research_data/current/`
+#: instead and the operational path prefers it.
+CURRENT_SNAPSHOT = Path("research_data") / "current" / "market_snapshot.parquet"
+FROZEN_SNAPSHOT = Path("research_data") / "market_snapshot.parquet"
+
+
+def snapshot_path() -> Path:
+    """The freshest snapshot available. `SERAPH_MARKET_SNAPSHOT` wins.
+
+    Prefers the rebuilt one and falls back to the frozen experiment input, so
+    an installation that has never run acquisition still produces a forecast
+    -- a stale one, which `prediction_staleness` then marks.
+    """
+    import os
+
+    override = os.environ.get("SERAPH_MARKET_SNAPSHOT")
+    if override:
+        return Path(override)
+    root = Path(__file__).resolve().parents[2]
+    current = root / CURRENT_SNAPSHOT
+    return current if current.exists() else root / FROZEN_SNAPSHOT
+
+
+def snapshot_provenance(path) -> dict:
+    """Which snapshot this is, so a reader can tell fresh from frozen."""
+    path = Path(path)
+    root = Path(__file__).resolve().parents[2]
+    if path == root / CURRENT_SNAPSHOT:
+        kind, note = "rebuilt", (
+            "rebuilt from the live corpus by scripts/snapshot_research_data.py "
+            "after fresh acquisition")
+    elif path == root / FROZEN_SNAPSHOT:
+        kind, note = "frozen_experiment_input", (
+            "the frozen experiment's own input, used because no rebuilt "
+            "snapshot exists yet. Its last session is the vendored EOD2 "
+            "snapshot's, not today's")
+    else:
+        kind, note = "supplied", "an explicitly supplied snapshot path"
+    return dict(kind=kind, note=note)
 
 
 def state_path() -> Path:

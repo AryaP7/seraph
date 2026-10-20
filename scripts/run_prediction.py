@@ -32,7 +32,15 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-DEFAULT_SNAPSHOT = ROOT / 'research_data' / 'market_snapshot.parquet'
+def default_snapshot() -> Path:
+    """The package decides, so the job and the console agree.
+
+    Prefers the rebuilt snapshot over the frozen experiment input; see
+    `operational.snapshot_path`.
+    """
+    from seraph.prediction import operational
+
+    return operational.snapshot_path()
 DEFAULT_STATE = ROOT / 'prototype_runs' / 'prediction' / 'state.json'
 
 
@@ -137,7 +145,8 @@ def main(argv=None) -> int:
                         help='read the saved state; run nothing')
     parser.add_argument('--print', dest='print_only', action='store_true',
                         help='run and print, but save nothing')
-    parser.add_argument('--snapshot', type=Path, default=DEFAULT_SNAPSHOT)
+    parser.add_argument('--snapshot', type=Path, default=None,
+                        help='default: the freshest available')
     parser.add_argument('--out', type=Path, default=None,
                         help=f'where to save (default {DEFAULT_STATE})')
     args = parser.parse_args(argv)
@@ -153,7 +162,7 @@ def main(argv=None) -> int:
         return 0
 
     out = None if args.print_only else (args.out or state_path())
-    outcome = run(args.snapshot, out)
+    outcome = run(args.snapshot or default_snapshot(), out)
     if not outcome['ok']:
         print(f"REFUSED: {outcome['error']}")
         return 2

@@ -23,3 +23,14 @@ prototype_runs/
 # scripts/check_invariants.py); two lockfiles at the root would be two
 # answers to one question.
 uv.lock
+
+# Fresh-acquisition working data. Both are DERIVED and regenerable, and both
+# grow every trading day:
+#   - the raw bhavcopy ZIPs are a fetch cache; each row's provenance is the
+#     sha256 recorded in the acquisition report, not the archive itself, and
+#     ~200KB per session per day would bloat the history for no gain.
+#   - research_data/current/ is rebuilt from the corpus on every acquisition.
+#     The FROZEN research_data/*.parquet stays tracked: it is the hashed input
+#     research_results/v1 was produced from.
+artefacts/bhavcopy_raw/
+research_data/current/

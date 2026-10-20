@@ -780,14 +780,46 @@ def health_panel():
         else:
             execution = ('skipped' if last.get('skipped')
                          else ('ok' if last.get('execution_ok') else 'FAILED'))
+            # Two different comparisons, labelled so they cannot be read as
+            # contradicting each other: `corpus vs last record` can say
+            # "fresh" on a run that itself acquired nothing, if the corpus
+            # moved by some other means since the last recorded firing.
             st.caption(
                 f"Last firing {last.get('generated')} — execution "
-                f"**{execution}** · data **{data.get('acquired', 'unknown')} / "
-                f"{data.get('currency', 'unknown')}** · session "
+                f"**{execution}** · corpus vs last record "
+                f"**{data.get('acquired', 'unknown')}** · currency "
+                f"**{data.get('currency', 'unknown')}** · session "
                 f"{last.get('session') or '--'} · expected "
                 f"{schedule.get('expected_session')}")
             if data.get('detail'):
                 st.caption(data['detail'])
+            # Acquisition's own verdict, not inferred from dates. This is the
+            # row that answers "did a new observation actually arrive".
+            acquisition = data.get('acquisition') or {}
+            if acquisition.get('ran'):
+                stored = acquisition.get('stored_sessions') or []
+                if acquisition.get('acquired'):
+                    st.success(
+                        f"Acquired {len(stored)} new session(s) "
+                        f"({acquisition.get('latest_before')} to "
+                        f"{acquisition.get('latest_after')}), "
+                        f"{acquisition.get('rows_written') or 0:,} rows")
+                elif acquisition.get('ok'):
+                    st.info('**This run acquired nothing** — already current, '
+                            'or the day was an exchange holiday. Executing is '
+                            'not acquiring, and this row is about THIS run, '
+                            'not about how the corpus compares with the last '
+                            'recorded one.')
+                else:
+                    st.error(f"Acquisition FAILED — "
+                             f"{acquisition.get('note', '')[:300]}")
+                for failure in acquisition.get('failures', ())[:4]:
+                    st.caption(f"  {failure.get('day')}: "
+                               f"{failure.get('status')} — "
+                               f"{str(failure.get('detail'))[:160]}")
+            else:
+                st.warning('Fresh data acquisition has never run, so the '
+                           'corpus only holds what was loaded by hand.')
             failed = [s['step'] for s in last.get('steps', ())
                       if s.get('ok') is False]
             if failed:
