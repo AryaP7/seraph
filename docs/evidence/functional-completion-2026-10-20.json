@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-20T10:33:02+05:30",
+  "generated": "2026-10-20T12:22:47+05:30",
   "summary": {
     "journeys_checked": 11,
     "working": 11,
@@ -144,7 +144,7 @@
         "operations": 21,
         "holdings": 1,
         "scenario_run": true,
-        "case": "case_2be2dff3c90",
+        "case": "case_cd9da76c509",
         "identity": "local demonstration identity, not authenticated. State is du"
       },
       "note": "durable and owner-scoped; local demo identity, not auth"

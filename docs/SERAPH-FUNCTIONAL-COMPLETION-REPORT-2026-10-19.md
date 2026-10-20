@@ -18,7 +18,7 @@ Machine-readable evidence:
 | **Integration completion** | **11 of 17** | those 11 plus the blocked items in §4 |
 | **Demo readiness** | **yes, for the market/data/archive/workflow story** — no, for a live broker feed | §3 |
 | **Engineering backlog** | 28 of 77 rows done before this session; **T02–T07 and the three role workflows added since** | the 2026-10-18 plan's backlog |
-| Test suite | **2,468 passed, 14 skipped, 0 failed** — everything together, 22m08s | — |
+| Test suite | **2,471 passed, 14 skipped, 0 failed** — everything together, 24m44s | — |
 | New regression tests this session | **+177** (T03 24, T04 22, T05/08/09 33 + 17 UI, T06/07 20, C15 17, R10 20, plus earlier) | — |
 
 The single most important change: **the project now runs on its own real
@@ -181,8 +181,8 @@ into a confident-looking 0.79. Reverted; the fix belongs in the cutoff.
 
 ## 6. Honest accounting of the test suite
 
-- **Passing: 2,468, with nothing excluded** — the whole suite in one run,
-  22m08s, 0 failed. It was 2,247 before T10, which added 90 tests for the
+- **Passing: 2,471, with nothing excluded** — the whole suite in one run,
+  24m44s, 0 failed. It was 2,247 before T10, which added 90 tests for the
   FR35 runner, the FR37 transfer, the FR34 sweep and the FR38 archive, and
   34 more for the two console panels that reach them. Earlier in the session
   it was 2,193.
@@ -193,7 +193,7 @@ into a confident-looking 0.79. Reverted; the fix belongs in the cutoff.
 - **Split out for runtime, not excluded: 4 modules** (`test_c7_hamilton*`,
   `ct7_simulator_consistency`), 34 tests, 15m49s. The CI matrix runs them on
   their own leg; both that leg and the single combined run are green, so the
-  2,468 figure needs no caveat.
+  2,471 figure needs no caveat.
 - **Untested external dependencies:** the broker websocket, a real identity
   provider, and the three new CI jobs, which cannot be exercised from a
   developer machine — which is V02's whole point.
