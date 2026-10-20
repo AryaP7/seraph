@@ -45,10 +45,16 @@ sys.path.insert(0, str(ROOT))
 from seraph.shared_types import IST, ist_timestamp                # noqa: E402
 
 #: Where the console reads what this run achieved.
-from seraph.operations.market_jobs_status import status_path as _status_path
+from seraph.operations.market_jobs_status import (
+    read_status,
+    status_path as _status_path,
+)
+from seraph.operations.schedule import freshness
 
-#: The package decides, so an override reaches writer and reader
-#: alike rather than only whichever one reads the env var.
+#: Resolved once at import for backwards compatibility. Everything that
+#: WRITES or READS calls `_status_path()` per use instead: a constant cannot
+#: see an override applied after this module was imported, and that
+#: divergence is how a writer and a reader end up on different files.
 STATUS_PATH = _status_path()
 
 
@@ -100,6 +106,84 @@ def _run(label: str, argv: list[str], *, timeout: int) -> dict:
                 output=tail[-6:])
 
 
+def _skip(decision: dict, *, note: str, **extra) -> dict:
+    """Record a firing that did no work WITHOUT erasing the last real run.
+
+    The first version wrote a fresh report with `session: None`, which blanked
+    the console's panel every weekend and -- worse -- made the next weekday
+    compare its corpus against nothing, so a Monday with no new data reported
+    `first_run` instead of `unchanged`. A skip is an event about the schedule,
+    not a replacement for what the pipeline last achieved.
+    """
+    previous = read_status()
+    kept = {key: previous[key] for key in
+            ("session", "corpus", "steps", "data", "execution_ok", "job_run")
+            if key in previous}
+    report = dict(kept, generated=_stamp(), ok=True, skipped=True,
+                  schedule=decision, note=note, **extra)
+    if "session" in kept:
+        report["note"] += (f". The fields above describe the last run that did "
+                           f"work, for session {kept['session']}")
+    _write(report)
+    return report
+
+
+def run_scheduled(day: str | None = None) -> dict:
+    """What the scheduler invokes: trading-day gate, then one fenced run.
+
+    The gate and the lease are the two things a schedule needs and a manual
+    run does not. Both reuse machinery that already exists -- the weekday
+    plus session-registry rule from `MarketClock`, and `JobStore`'s lease,
+    which also records the run in the ledger the HEALTH panel reads.
+    """
+    from seraph.operations.jobs import JobStore
+    from seraph.operations.schedule import JOB_NAME, should_run
+
+    decision = should_run(day)
+    if not decision["run"]:
+        return _skip(decision, note=("skipped, not failed: "
+                                     + decision["reason"]))
+
+    store = JobStore(ROOT / "prototype_runs" / "jobs.sqlite")
+    # One run at a time. A second firing while the first is still estimating
+    # RMT would duplicate the work and interleave two writes to one status
+    # file.
+    #
+    # `JobStore.run` CATCHES LockUnavailable and records a run with that
+    # status rather than raising it, so the overlap case is a status to
+    # inspect. An `except LockUnavailable` around this call was dead code --
+    # the overlap test is what found it.
+    record = store.run(JOB_NAME, lambda context: run_all(day),
+                       max_attempts=1)
+    if record.status == "lock_unavailable":
+        return _skip(decision, overlap=record.error,
+                     note=("skipped, not failed: another run of this job "
+                           "holds the lease, so this firing stood aside "
+                           "rather than duplicating the work"))
+
+    # Write the ledger linkage back, not just onto the returned dict. The
+    # first version set it on the return value only, so the status file --
+    # which is what the console and the HEALTH panel read -- never carried
+    # the run id, and a scheduled run could not be traced to its ledger row.
+    saved = read_status()
+    saved["job_run"] = dict(run_id=record.run_id, status=record.status,
+                            attempt=record.attempt, error=record.error)
+    saved["schedule"] = decision
+    if record.status != "succeeded":
+        # `run_all` raised before reaching `_write`, so every field below
+        # describes an EARLIER run. Saying so matters: otherwise the previous
+        # session and its green steps read as this firing's result.
+        saved["ok"] = False
+        saved["execution_ok"] = False
+        saved["note"] = (
+            f"the run FAILED under the lease: {record.error}. Any session, "
+            f"steps or freshness shown here describe the last run that "
+            f"completed, not this firing.")
+    persisted = {k: v for k, v in saved.items() if k not in ("ran", "path")}
+    _write(persisted)
+    return saved
+
+
 def run_all(day: str | None = None) -> dict:
     session, detail = asyncio.run(_latest_session())
     if session is None:
@@ -133,13 +217,24 @@ def run_all(day: str | None = None) -> dict:
         _run("prediction and early warning",
              ["scripts/run_prediction.py"], timeout=600),
     ]
+    # Two separate facts (O03). The steps above can all succeed while the
+    # corpus has not moved -- an exchange holiday, or nobody ran the loader.
+    # Reporting one number for both is how a green panel ends up sitting on
+    # a corpus that stopped updating.
+    previous = read_status()
+    data = freshness(previous_session=previous.get("session") if previous.get("ran") else None,
+                     current_session=session)
     report = dict(generated=_stamp(), ok=all(s["ok"] for s in steps),
-                  session=target, corpus=detail, steps=steps,
+                  execution_ok=all(s["ok"] for s in steps),
+                  session=target, corpus=detail, steps=steps, data=data,
                   note=("every step is idempotent, so this is safe to run on "
-                        "each launch, from a scheduler, or by hand. The live "
-                        "tick loop is NOT started here: opening a broker "
-                        "connection is an operator decision, not a side "
-                        "effect of opening a dashboard. Start it with "
+                        "each launch, from a scheduler, or by hand. "
+                        "`ok`/`execution_ok` says whether the steps ran; "
+                        "`data` says separately whether new data arrived and "
+                        "whether the corpus is current. The live tick loop is "
+                        "NOT started here: opening a broker connection is an "
+                        "operator decision, not a side effect of opening a "
+                        "dashboard. Start it with "
                         "`python scripts/run_live.py --status` first, then "
                         "`--replay --once` or a live run."))
     _write(report)
@@ -174,13 +269,20 @@ def main(argv: list[str] | None = None) -> int:
                                       "defaults to the newest in the corpus")
     parser.add_argument("--status", action="store_true",
                         help="report the last run; compute nothing")
+    parser.add_argument("--scheduled", action="store_true",
+                        help=("run as the scheduler does: skip non-trading "
+                              "days and hold a lease so two firings cannot "
+                              "overlap"))
     args = parser.parse_args(argv)
 
     if args.status:
         print(json.dumps(status(), indent=2, default=str))
         return 0
 
-    report = run_all(args.day)
+    report = run_scheduled(args.day) if args.scheduled else run_all(args.day)
+    if report.get("skipped"):
+        print(f"[market] skipped: {report['note']}", flush=True)
+        return 0
     if report.get("blocked"):
         print(f"[market] BLOCKED: {report['blocked']}", flush=True)
         return 2
@@ -192,7 +294,17 @@ def main(argv: list[str] | None = None) -> int:
         if not step["ok"]:
             print(f"[market]          {step.get('error') or step.get('output')}",
                   flush=True)
-    print(f"[market] status: {STATUS_PATH.relative_to(ROOT)}", flush=True)
+    # Resolved here and formatted defensively. A module constant captured at
+    # import ignores a later override, and `relative_to` RAISES for a path
+    # outside the tree -- so a completely successful pipeline exited 1 on a
+    # print, which is exactly the shape of failure that makes a scheduled run
+    # look broken when the work landed.
+    written = _status_path()
+    try:
+        shown = written.relative_to(ROOT)
+    except ValueError:
+        shown = written
+    print(f"[market] status: {shown}", flush=True)
     return 0 if report["ok"] else 1
 
 

@@ -964,6 +964,11 @@ def health_surface(at=None):
             f'no job ledger at {jobs_path}: no job has ever been recorded, '
             f'which reads as never_run rather than ok')
 
+    # O03: the schedule is part of health. A pipeline that is never invoked
+    # produces no failures at all, which is the quietest way for a system to
+    # stop working.
+    out['schedule'] = _schedule_health()
+
     if checks:
         out.update(monitoring.overall(checks))
     else:
@@ -1027,8 +1032,79 @@ def prediction_surface():
 
     level = state['warning'].get('level')
     label, style = WARNING_LEVELS.get(level, (str(level).upper(), 'warning'))
+
+    # O03: a failed or missed refresh keeps the last valid forecast -- the
+    # panel still shows it -- but it must not be presented as current. The
+    # staleness is computed against the expected session, not against the
+    # file's mtime, because a re-run that produces the same date is not a
+    # fresher forecast.
+    from seraph.operations.schedule import prediction_staleness
+
+    staleness = prediction_staleness(state.get('as_of'))
     return dict(available=True, path=saved['path'], state=state,
                 as_of=state.get('as_of'),
                 generated_at=state.get('generated_at'),
                 warning_label=label, warning_style=style,
-                level_known=level in WARNING_LEVELS)
+                level_known=level in WARNING_LEVELS,
+                staleness=staleness)
+
+
+def _schedule_health() -> dict:
+    """Is the daily pipeline actually scheduled, and did it acquire data?
+
+    Three separate questions, because each can be yes while the next is no:
+    registered / executed / acquired fresh data. Reporting them as one status
+    is how a green banner ends up sitting on a corpus that stopped updating.
+    """
+    import subprocess
+    import sys
+
+    from seraph.operations import schedule
+    from seraph.operations.market_jobs_status import read_status
+
+    name = schedule.task_name_override()
+    out = dict(task_name=name, expected_session=schedule.expected_session(),
+               at_ist=schedule.RUN_AT_IST.strftime('%H:%M'),
+               registered=None, registration_detail='')
+
+    if not sys.platform.startswith('win'):
+        out['registration_detail'] = (
+            'not checked: this is not Windows. `crontab -l` shows what is '
+            'installed; `python scripts/schedule_market_jobs.py --cron` '
+            'prints the line.')
+    else:
+        try:
+            done = subprocess.run(schedule.query_command(name),
+                                  capture_output=True, text=True, timeout=20)
+            out['registered'] = done.returncode == 0
+            if done.returncode != 0:
+                out['registration_detail'] = (
+                    'no scheduled task with this name. The pipeline runs only '
+                    'when something invokes it; register it with '
+                    '`python scripts/schedule_market_jobs.py --register`.')
+            else:
+                for line in (done.stdout or '').splitlines():
+                    if line.split(':', 1)[0].strip() in (
+                            'Next Run Time', 'Last Run Time', 'Last Result',
+                            'Scheduled Task State'):
+                        out.setdefault('task', []).append(line.strip())
+        except (OSError, subprocess.SubprocessError) as exc:
+            out['registration_detail'] = f'could not query the scheduler: {exc}'
+
+    last = read_status()
+    out['last_run'] = dict(
+        ran=last.get('ran', False),
+        generated=last.get('generated'),
+        execution_ok=last.get('execution_ok', last.get('ok')),
+        skipped=bool(last.get('skipped')),
+        session=last.get('session'),
+        steps=[dict(step=s.get('step'), ok=s.get('ok'))
+               for s in last.get('steps', [])],
+        note=last.get('note', ''))
+    out['data'] = last.get('data') or dict(
+        acquired='unknown', currency='unknown',
+        detail='the last run recorded no freshness information')
+    out['note'] = ('registered, executed and acquired-fresh-data are three '
+                   'different facts. A task can be registered and never fire; '
+                   'a run can succeed and bring no new data.')
+    return out

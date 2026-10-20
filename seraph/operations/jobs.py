@@ -160,6 +160,42 @@ class JobStore:
                     position TEXT NOT NULL, updated_at TEXT NOT NULL,
                     PRIMARY KEY(job, stream));
             ''')
+            self._add_missing_columns(db)
+
+    @staticmethod
+    def _add_missing_columns(db) -> None:
+        """Bring an EXISTING ledger up to the current shape.
+
+        `CREATE TABLE IF NOT EXISTS` does nothing to a table that already
+        exists, so R10's `generation` column never reached any database
+        created before it. Every R10 test used a fresh `tmp_path` ledger and
+        so never saw it; the first real lease acquisition on this
+        installation's own `prototype_runs/jobs.sqlite` failed with
+        `table job_locks has 5 columns but 6 values were supplied`.
+
+        That is worse than a crash: lease fencing is a correctness mechanism,
+        and on any pre-existing installation it could not acquire a lease at
+        all. Additive and idempotent, so it is safe on every run.
+        """
+        wanted = {
+            'job_locks': (
+                ('generation', 'INTEGER NOT NULL DEFAULT 1'),
+            ),
+            'job_runs': (
+                ('attempt', 'INTEGER NOT NULL DEFAULT 1'),
+                ('error', 'TEXT'),
+                ('detail', 'TEXT'),
+            ),
+        }
+        for table, columns in wanted.items():
+            rows = db.execute(f'PRAGMA table_info({table})').fetchall()
+            if not rows:                      # the table was just created
+                continue
+            present = {row[1] for row in rows}
+            for name, declaration in columns:
+                if name not in present:
+                    db.execute(f'ALTER TABLE {table} '
+                               f'ADD COLUMN {name} {declaration}')
 
     @contextmanager
     def connect(self):

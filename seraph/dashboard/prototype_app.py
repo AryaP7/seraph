@@ -594,7 +594,15 @@ def prediction_panel():
     predicted, warning = state['predicted'], state['warning']
     validation = state['validation']
 
-    # The warning first: it is the thing a reader needs in one glance.
+    # Staleness before the warning: a two-month-old "no warning" read as
+    # current is worse than no reading at all. The forecast is still shown --
+    # it is the last valid one and discarding it would lose information --
+    # but it is labelled first.
+    staleness = surface.get('staleness') or {}
+    if staleness.get('stale'):
+        st.warning(f"**STALE** — {staleness['detail']}")
+
+    # The warning next: it is the thing a reader needs in one glance.
     label, style = surface['warning_label'], surface['warning_style']
     draw = {'error': st.error, 'warning': st.warning,
             'success': st.success}.get(style, st.info)
@@ -612,6 +620,8 @@ def prediction_panel():
                   else f"{warning['threshold']:.2%}")
     right.metric('Horizon', f"{predicted['horizon_sessions']} sessions")
 
+    if not staleness.get('stale') and staleness.get('days_behind'):
+        st.caption(f"Within the refresh allowance: {staleness['detail']}")
     st.caption(f"Decision date **{state['as_of']}** · computed "
                f"{surface['generated_at']} · "
                f"snapshot {state['snapshot']['sha256'][:12]} "
@@ -747,6 +757,43 @@ def health_panel():
 
     for problem in surface.get('problems', ()):
         st.error(problem)
+
+    schedule = surface.get('schedule') or {}
+    if schedule:
+        st.markdown('**Daily schedule**')
+        registered = schedule.get('registered')
+        if registered is True:
+            st.success(f"Registered: **{schedule['task_name']}**, "
+                       f"{schedule['at_ist']} IST on weekdays")
+            for line in schedule.get('task', ()):
+                st.caption(line)
+        elif registered is False:
+            st.error(f"**Not registered** — {schedule['registration_detail']}")
+        else:
+            st.info(schedule.get('registration_detail')
+                    or 'registration not checked on this platform')
+
+        last = schedule.get('last_run') or {}
+        data = schedule.get('data') or {}
+        if not last.get('ran'):
+            st.warning('The pipeline has never run in this installation.')
+        else:
+            execution = ('skipped' if last.get('skipped')
+                         else ('ok' if last.get('execution_ok') else 'FAILED'))
+            st.caption(
+                f"Last firing {last.get('generated')} — execution "
+                f"**{execution}** · data **{data.get('acquired', 'unknown')} / "
+                f"{data.get('currency', 'unknown')}** · session "
+                f"{last.get('session') or '--'} · expected "
+                f"{schedule.get('expected_session')}")
+            if data.get('detail'):
+                st.caption(data['detail'])
+            failed = [s['step'] for s in last.get('steps', ())
+                      if s.get('ok') is False]
+            if failed:
+                st.error('Failed steps: ' + ', '.join(failed))
+        st.caption(schedule.get('note', ''))
+        st.divider()
 
     checks = surface.get('checks', [])
     if not checks:
