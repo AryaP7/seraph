@@ -354,6 +354,68 @@ for the probability, an abstained threshold is never drawn as a quiet
 all-clear, and nothing under `seraph/` imports a module from `scripts/` —
 which is what an installed wheel cannot do.
 
+**14. Show that it refreshes itself.**
+
+```bash
+python scripts/schedule_market_jobs.py --status
+```
+
+On the machine this runbook was written against:
+
+```
+registration  REGISTERED
+  TaskName:              \SERAPH Daily Market Jobs
+  Next Run Time:         10/20/2026 6:30:00 PM
+  Last Result:           0
+  Scheduled Task State:  Enabled
+  Schedule Type:         Weekly
+  Days:                  MON, TUE, WED, THU, FRI
+```
+
+The task runs `run_market_jobs.py --scheduled` at 18:30 IST on weekdays —
+three hours after the regular close, with room for the end-of-day files to
+publish. It adds no pipeline logic: the trading-day gate reuses
+`MarketClock`'s weekday-plus-registry rule, and overlap prevention reuses
+`JobStore`'s lease, which also puts each run in the ledger the HEALTH panel
+reads. A hand-run and a scheduled run behave identically.
+
+Register it on a fresh machine with `--register`; `--cron` prints the
+equivalent crontab line for the other supported environments; `--unregister`
+removes it.
+
+The **HEALTH** panel now opens with a *Daily schedule* section, and it is
+worth reading aloud because it separates three facts that are routinely
+collapsed into one green light:
+
+| Fact | Right now |
+|---|---|
+| **Registered?** | yes, next run 18:30 |
+| **Executed?** | yes, all four steps ok, ledger run succeeded |
+| **Acquired fresh data?** | **no** — unchanged, and 59 days behind |
+
+That third row is the point. The vendored snapshot ends 2026-08-21, so the
+pipeline can run perfectly and still bring nothing new, and the panel says
+so: *"a gap this wide is the extent of the loaded corpus, not a holiday —
+extending it needs an ingestion run, not another scheduled execution."* The
+PREDICTION panel independently marks its forecast **STALE** while still
+showing it, because the last valid forecast is information and discarding it
+would lose that, but presenting it as current would be a lie.
+
+**Holidays.** No exchange holiday calendar exists in this repository, so the
+trigger is Mon–Fri — the two days that are certainly not sessions — and the
+job decides the rest from the corpus at run time. On an unregistered NSE
+holiday the task fires and records *executed, data unchanged*. Inventing a
+holiday table would be fabricating exchange data; say that rather than
+claiming holiday awareness the system does not have.
+
+```bash
+python -m pytest tests/test_o03_scheduling.py -q
+```
+
+47 cases: the trading-day gate, overlap refusal, the freshness vocabulary,
+staleness marking, recovery from an abandoned lease, and the ledger
+migration that R10's fencing turned out to need.
+
 ---
 
 ## 5. What does not work, and who can unblock it
