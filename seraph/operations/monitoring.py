@@ -126,12 +126,31 @@ def job_checks(job_store, jobs: dict[str, int], *, at: str) -> list[Check]:
             continue
         latest = succeeded[0]
         age = _age_minutes(latest.finished_at or latest.started_at, at)
-        failures_since = sum(1 for r in runs
-                             if r.started_at > latest.started_at
-                             and r.status == "failed")
-        if failures_since:
-            level = "failing" if failures_since >= 3 else "degraded"
-            detail = f"{failures_since} failure(s) since the last success"
+        since = [r for r in runs if r.started_at > latest.started_at
+                 and r.status == "failed"]
+        # An abandoned lease that a replacement cleared is a RECOVERY, not a
+        # failure of the work: `reconcile_lock` records it with
+        # `detail["reconciled"]`. Both still mean the job is not completing,
+        # so neither reads as ok -- but the remedy differs, and a reader told
+        # "3 failures" goes looking for a bug when the cause is a killed
+        # process. Classified on the structured marker, not on the prose of
+        # the error.
+        reconciled = sum(1 for r in since
+                         if isinstance(r.detail, dict)
+                         and r.detail.get("reconciled"))
+        genuine = len(since) - reconciled
+        if since:
+            level = "failing" if len(since) >= 3 else "degraded"
+            if genuine and reconciled:
+                detail = (f"{genuine} failure(s) and {reconciled} abandoned "
+                          f"lease(s) since the last success")
+            elif reconciled:
+                detail = (f"{reconciled} abandoned lease(s) since the last "
+                          f"success: the holder died and a replacement took "
+                          f"over, so the work stopped rather than erred; "
+                          f"restart the worker")
+            else:
+                detail = f"{genuine} failure(s) since the last success"
         elif age > budget:
             level, detail = "stale", (f"last success {age:.0f}min ago, past its "
                                       f"{budget}min budget")

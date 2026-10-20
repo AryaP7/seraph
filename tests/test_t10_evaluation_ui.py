@@ -409,3 +409,83 @@ class TestTheHealthSurfaceIsWired:
         body = source.split('def health_panel', 1)[1].split('\ndef ', 1)[0]
         for forbidden in ('acquire(', 'JobStore(', 'poll(', 'run('):
             assert forbidden not in body, forbidden
+
+
+class TestAnAbandonedLeaseIsNotAWorkFailure:
+    """The health panel's first real reading said "3 failure(s) since the
+    last success" for `news.poll`. All three were R10 lease reconciliations:
+    a worker process was killed and a replacement cleared the abandoned
+    lease. Neither reads as ok -- the job is not completing either way -- but
+    the remedy differs, and a reader told "failures" goes looking for a bug
+    when the cause is a dead process.
+    """
+
+    @staticmethod
+    def _store(tmp_path, runs):
+        from seraph.operations.jobs import JobStore
+
+        store = JobStore(tmp_path / 'jobs.sqlite')
+        for record in runs:
+            store._record(record)
+        return store
+
+    @staticmethod
+    def _run(job, started, status, detail=None, finished=None):
+        from seraph.operations.jobs import JobRun
+
+        return JobRun(run_id=f'r-{started}', job=job, started_at=started,
+                      finished_at=finished or started, status=status,
+                      error=None if status == 'succeeded' else 'stopped',
+                      detail=detail)
+
+    def test_a_reconciled_lease_is_named_as_such(self, tmp_path):
+        from seraph.operations import monitoring
+
+        store = self._store(tmp_path, [
+            self._run('p', '2026-10-20T01:00:00+05:30', 'succeeded'),
+            self._run('p', '2026-10-20T02:00:00+05:30', 'failed',
+                      detail=dict(reconciled=True, previous_owner='a:1')),
+            self._run('p', '2026-10-20T02:30:00+05:30', 'failed',
+                      detail=dict(reconciled=True, previous_owner='a:2')),
+        ])
+        check, = monitoring.job_checks(store, {'p': 60},
+                                       at='2026-10-20T03:00:00+05:30')
+        assert 'abandoned lease' in check.detail
+        assert 'restart the worker' in check.detail
+        assert check.health != 'ok', 'the job still is not completing'
+
+    def test_a_genuine_failure_is_still_called_a_failure(self, tmp_path):
+        from seraph.operations import monitoring
+
+        store = self._store(tmp_path, [
+            self._run('p', '2026-10-20T01:00:00+05:30', 'succeeded'),
+            self._run('p', '2026-10-20T02:00:00+05:30', 'failed'),
+        ])
+        check, = monitoring.job_checks(store, {'p': 60},
+                                       at='2026-10-20T03:00:00+05:30')
+        assert check.detail == '1 failure(s) since the last success'
+
+    def test_a_mixture_reports_both(self, tmp_path):
+        from seraph.operations import monitoring
+
+        store = self._store(tmp_path, [
+            self._run('p', '2026-10-20T01:00:00+05:30', 'succeeded'),
+            self._run('p', '2026-10-20T02:00:00+05:30', 'failed'),
+            self._run('p', '2026-10-20T02:30:00+05:30', 'failed',
+                      detail=dict(reconciled=True, previous_owner='a:1')),
+        ])
+        check, = monitoring.job_checks(store, {'p': 60},
+                                       at='2026-10-20T03:00:00+05:30')
+        assert '1 failure(s) and 1 abandoned lease(s)' in check.detail
+
+    def test_a_lock_unavailable_run_is_not_counted_at_all(self, tmp_path):
+        """Another worker holding the lease is normal operation."""
+        from seraph.operations import monitoring
+
+        store = self._store(tmp_path, [
+            self._run('p', '2026-10-20T02:50:00+05:30', 'succeeded'),
+            self._run('p', '2026-10-20T02:55:00+05:30', 'lock_unavailable'),
+        ])
+        check, = monitoring.job_checks(store, {'p': 60},
+                                       at='2026-10-20T03:00:00+05:30')
+        assert check.health == 'ok'
