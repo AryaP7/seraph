@@ -247,6 +247,43 @@ no threshold, a leaking fold, a single-class fold, a subset that outruns its
 epoch's coverage, a transfer that would be in-sample, and a sweep whose
 designs do not actually differ.
 
+**In the browser**, the same run is the **EVALUATION** panel under the run/date
+selection, as an institutional or regulator role. It shows the three tables
+with their measured/declared fold counts, the comparability warning above
+them, the absence census and the count of rows the published contract cannot
+carry. It deliberately offers **no commit control and no run control**: the
+design belongs in a person's hands (D5(d), DR-05 step 5) and a full ablation
+calibrates once per fold, so a button would make either a side effect of
+opening a page. Retail is told whose tool it is rather than shown an empty
+panel.
+
+**12. Show that the console can say what is broken.**
+
+Open the **HEALTH** panel. It reads `operations/monitoring.py`, whose own rule
+is that silence is never health: a source never fetched is `never_succeeded`
+and a job never run is `never_run`, and neither is drawn as success.
+
+On the installation this runbook was written against it reports, truthfully:
+`news.poll` **failing**, with three abandoned leases since its last success at
+22:13 the previous evening, and **14 of 19 sources stale**. The detail names
+the cause and the remedy — a worker process was killed and a replacement
+cleared the lease, so the work stopped rather than erred; restart the worker —
+rather than reporting three code failures, which is what it said before the
+reconciled-lease case was separated out.
+
+That is the panel working. Point at it deliberately: a console that cannot
+report its own staleness is the specific thing a green banner hides, and this
+one was that console until these panels existed.
+
+```bash
+python -m pytest tests/test_t10_evaluation_ui.py -q
+```
+
+34 cases: both panels render, the role gate fires before the design is even
+consulted, an edited design and an edited artefact are both refused, an
+unreadable artefact does not take the page down, and the control assertions
+parse the panel's call graph rather than its text.
+
 ---
 
 ## 5. What does not work, and who can unblock it
