@@ -45,7 +45,11 @@ sys.path.insert(0, str(ROOT))
 from seraph.shared_types import IST, ist_timestamp                # noqa: E402
 
 #: Where the console reads what this run achieved.
-STATUS_PATH = ROOT / "prototype_runs" / "market-jobs-status.json"
+from seraph.operations.market_jobs_status import status_path as _status_path
+
+#: The package decides, so an override reaches writer and reader
+#: alike rather than only whichever one reads the env var.
+STATUS_PATH = _status_path()
 
 
 def _stamp() -> str:
@@ -120,6 +124,14 @@ def run_all(day: str | None = None) -> dict:
         # an immature outcome, so this is safe to run every time.
         _run("settle matured forecasts",
              ["scripts/run_forecast.py", "--settle"], timeout=300),
+        # Prediction and early warning: the actual engine, on the market
+        # snapshot, about twenty seconds. This is what makes the console's
+        # PREDICTION panel current rather than whatever was last computed by
+        # hand -- the refresh schedule the system is supposed to have.
+        # Overwrites its state file by design: a warning is current status,
+        # not evidence of a particular run.
+        _run("prediction and early warning",
+             ["scripts/run_prediction.py"], timeout=600),
     ]
     report = dict(generated=_stamp(), ok=all(s["ok"] for s in steps),
                   session=target, corpus=detail, steps=steps,
@@ -135,24 +147,25 @@ def run_all(day: str | None = None) -> dict:
 
 
 def _write(report: dict) -> None:
-    STATUS_PATH.parent.mkdir(parents=True, exist_ok=True)
-    STATUS_PATH.write_text(json.dumps(report, indent=2, default=str),
-                           encoding="utf-8")
+    # Resolved here, not at import: a module-level constant captured at
+    # import time ignores a later SERAPH_MARKET_JOBS_STATUS, which would let
+    # the writer and the console's reader disagree about the file.
+    path = _status_path()
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(report, indent=2, default=str),
+                    encoding="utf-8")
 
 
 def status() -> dict:
-    """What the last run achieved, for the console's startup panel."""
-    if not STATUS_PATH.is_file():
-        return dict(ran=False,
-                    note=("the market jobs have not run in this "
-                          "installation. The launcher runs them; "
-                          "`python scripts/run_market_jobs.py` runs them by "
-                          "hand"))
-    try:
-        body = json.loads(STATUS_PATH.read_text(encoding="utf-8"))
-    except (OSError, ValueError) as exc:
-        return dict(ran=False, note=f"status file unreadable: {exc}")
-    return dict(ran=True, **body)
+    """What the last run achieved. The package owns the read.
+
+    One definition of where the status lives, so the writer here and the
+    console's reader cannot drift -- and so the console does not need this
+    script on its import path.
+    """
+    from seraph.operations.market_jobs_status import read_status
+
+    return read_status()
 
 
 def main(argv: list[str] | None = None) -> int:

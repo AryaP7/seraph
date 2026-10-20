@@ -519,14 +519,13 @@ def market_jobs_panel():
     triggered a two-minute RMT estimate on page render would make every
     refresh a cliff.
     """
-    import sys as _sys
-    from pathlib import Path as _Path
-    _scripts = _Path(__file__).resolve().parents[2] / 'scripts'
-    if str(_scripts) not in _sys.path:
-        _sys.path.insert(0, str(_scripts))
-    import run_market_jobs
+    # Through the package, not by importing the job script: an installed
+    # wheel has no `scripts/`, and this import is what made the canonical
+    # console fail to render in one -- `verify_packaging.py` caught it as
+    # `No module named 'run_market_jobs'`.
+    from seraph.operations.market_jobs_status import read_status
 
-    state = run_market_jobs.status()
+    state = read_status()
     if not state.get('ran'):
         st.info(state.get('note', 'the market jobs have not run'))
         return
@@ -549,6 +548,166 @@ def market_jobs_panel():
                'market feed is an operator decision. `python '
                'scripts/run_live.py --status` reports what it would do '
                'without connecting to anything.')
+
+
+def prediction_panel():
+    """SERAPH's prediction and early-warning surface (C9/C10 -> C12).
+
+    This is the system's stated purpose, and until now the engine reached the
+    user only as backend code, a CLI experiment and a separate read-only
+    parquet viewer. The panel shows what the actual engine produced on the
+    actual market snapshot: `scripts/run_prediction.py` runs
+    `build_pillar_features`, `walk_forward_predict` and `calibrate_alerts`
+    and persists the state; `run_market_jobs.py` refreshes it daily.
+
+    **Three headings, because they are three different claims**, and running
+    them together is how a research instrument starts sounding like an
+    oracle:
+
+    * *Measured* -- the pillar feature values at the decision close.
+      Observations and arithmetic.
+    * *Predicted* -- one probability, from one model, point-in-time.
+    * *Warning* -- whether that probability crossed a threshold calibrated on
+      past out-of-sample scores under a declared false-alarm budget. A
+      policy, not a proof.
+
+    The realised history is shown as retrospective replay, and the
+    reliability table is the uncertainty statement the model actually
+    supports: the logistic challenger yields no interval, so inventing one
+    would be worse than showing whether days it called 5% turned out 5%.
+    This installation's own table shows it over-predicting, which is the
+    reason to display it rather than a reason to hide it.
+    """
+    from seraph.dashboard.console_backend import prediction_surface
+
+    surface = prediction_surface()
+    if not surface['available']:
+        st.warning('No prediction state has been computed yet, so there is '
+                   'no forecast and no warning to show.')
+        if surface.get('error'):
+            st.error(surface['error'])
+        st.caption(surface['note'])
+        st.code(surface['command'], language='bash')
+        return
+
+    state = surface['state']
+    predicted, warning = state['predicted'], state['warning']
+    validation = state['validation']
+
+    # The warning first: it is the thing a reader needs in one glance.
+    label, style = surface['warning_label'], surface['warning_style']
+    draw = {'error': st.error, 'warning': st.warning,
+            'success': st.success}.get(style, st.info)
+    draw(f"**{label}** — {warning['reason']}")
+    if not surface['level_known']:
+        st.caption('This warning level is not one the console knows how to '
+                   'draw; it is shown verbatim rather than mapped to a colour.')
+
+    left, middle, right = st.columns(3)
+    probability = predicted['probability']
+    left.metric('Predicted probability',
+                '--' if probability is None else f"{probability:.2%}")
+    middle.metric('Warning threshold',
+                  '--' if warning['threshold'] is None
+                  else f"{warning['threshold']:.2%}")
+    right.metric('Horizon', f"{predicted['horizon_sessions']} sessions")
+
+    st.caption(f"Decision date **{state['as_of']}** · computed "
+               f"{surface['generated_at']} · "
+               f"snapshot {state['snapshot']['sha256'][:12]} "
+               f"({state['snapshot']['rows']} sessions, "
+               f"{state['snapshot']['first_session']} to "
+               f"{state['snapshot']['last_session']})")
+
+    # --- the honesty banner, before any number is interpreted -----------
+    st.error(f"**{validation['status'].upper()}** — {validation['note']}")
+
+    st.markdown('**What is predicted**')
+    st.write(predicted['definition'])
+    st.caption(
+        f"Model: {predicted['model']} · fit {predicted['fit_status']} on "
+        f"{predicted['training_count']} rows, using labels matured through "
+        f"{predicted['train_end_date']} (fitted {predicted['fitted_at_date']}, "
+        f"{predicted['refits']} refits over the series). "
+        f"{predicted['observed_features']} of "
+        f"{len(predicted['features'])} features were observed at this date.")
+
+    st.markdown('**Measured — the three pillars at this close**')
+    rows = []
+    for name, item in state['measured']['pillar_features'].items():
+        rows.append({'pillar': item['pillar'], 'indicator': name,
+                     'value': item['value']})
+    st.dataframe(rows, hide_index=True, width='stretch')
+    st.caption(state['measured']['note'])
+
+    st.markdown('**Warning policy**')
+    budget = warning['budget']
+    st.caption(
+        f"The threshold is recalibrated from past out-of-sample scores and "
+        f"matured outcomes only, to hold at most "
+        f"{budget['false_episodes_per_year']} false episodes per year and "
+        f"keep at most {budget['max_alarm_fraction']:.0%} of sessions in "
+        f"alarm, over a {budget['lookback_sessions']}-session lookback "
+        f"needing {budget['min_calibration']} matured outcomes. "
+        f"{warning['calibrations']} recalibrations so far. {warning['note']}")
+    if warning['threshold_is_abstention']:
+        st.warning('The calibration abstained: no finite threshold met the '
+                   'declared budget on recent history, so no warning can be '
+                   'issued rather than one being issued on a threshold that '
+                   'does not meet the policy.')
+
+    history = state['history']
+    metrics, stats = history['metrics'], history['alarm_stats']
+    st.markdown('**Realised history — retrospective replay, not foresight**')
+    a, b, c, d = st.columns(4)
+    a.metric('Brier', '--' if metrics['brier'] is None
+             else f"{metrics['brier']:.4f}")
+    b.metric('AUC', '--' if metrics['auc'] is None else f"{metrics['auc']:.3f}")
+    c.metric('Base rate', '--' if metrics.get('base_rate') is None
+             else f"{metrics['base_rate']:.2%}")
+    d.metric('False episodes/yr',
+             '--' if stats['false_episodes_per_year'] is None
+             else f"{stats['false_episodes_per_year']:.2f}")
+    st.caption(
+        f"{metrics['n']} forecasts with matured outcomes, "
+        f"{metrics['positives']} of them positive. Alarms on "
+        f"{stats['alarm_fraction']:.2%} of assessable sessions across "
+        f"{stats['episodes']} episodes. {history['note']}")
+
+    st.markdown('**Calibration — did days it called *p* turn out *p*?**')
+    st.caption('The uncertainty this model supports. It yields no interval, '
+               'so this is the honest substitute: predicted against realised '
+               'frequency, on matured labels only.')
+    st.dataframe([
+        {
+            'predicted range': f"{row['lower']:.0%}–{row['upper']:.0%}",
+            'sessions': row['count'],
+            'mean predicted': (None if row['mean_predicted'] is None
+                               else round(row['mean_predicted'], 4)),
+            'realised rate': (None if row['realised_rate'] is None
+                              else round(row['realised_rate'], 4)),
+        }
+        for row in history['reliability'] if row['count']
+    ], hide_index=True, width='stretch')
+
+    series = state.get('series') or []
+    if series:
+        st.markdown('**Forecast against its warning threshold**')
+        import pandas as _pd
+
+        frame = _pd.DataFrame(series)
+        frame['date'] = _pd.to_datetime(frame['date'], errors='coerce')
+        st.line_chart(frame.set_index('date')[['probability', 'threshold']])
+        alarms = int(frame['alarm'].sum())
+        st.caption(f"The last {len(series)} sessions. {alarms} of them were "
+                   f"in alarm. A gap in either line is a session the engine "
+                   f"declined to score or could not calibrate, which is "
+                   f"shown rather than interpolated.")
+
+    if history.get('episodes'):
+        st.markdown('**Most recent alarm episodes**')
+        st.dataframe(history['episodes'], hide_index=True,
+                     width='stretch')
 
 
 #: How each health level is drawn. Nothing maps to "success" except `ok`:
@@ -610,7 +769,7 @@ def health_panel():
             'detail': c['detail'],
         }
         for c in ranked
-    ], hide_index=True, use_container_width=True)
+    ], hide_index=True, width='stretch')
 
     by_health = surface.get('by_health', {})
     if by_health:
@@ -733,7 +892,7 @@ def experiment_panel(role: str):
                              or '--'),
             }
             for c in rows
-        ], hide_index=True, use_container_width=True)
+        ], hide_index=True, width='stretch')
 
     if report['absences']:
         st.markdown('**Unavailable cells** — each is a result, not a gap')
@@ -808,7 +967,7 @@ def acquisition_panel(news_path: Path):
     st.caption(f'PER-SOURCE OUTCOMES — {sum(1 for r in rows if r["consecutive_failures"])} '
                f'of {len(rows)} source(s) currently failing. A failing source '
                f'is degraded coverage; the others keep acquiring.')
-    st.dataframe(rows, use_container_width=True, hide_index=True)
+    st.dataframe(rows, width='stretch', hide_index=True)
 
 
 def news_only_panel(news_path: Path, role: str):
@@ -890,6 +1049,14 @@ def main():
     # call -- is what guarantees there is only ever one.
     from seraph.dashboard import news_service
     news_service.ensure_worker(paths['news'])
+
+    # First, and open by default: prediction and early warning is what SERAPH
+    # is for. It sat behind a CLI and a separate research viewer while the
+    # console opened on news acquisition, which inverted the system's own
+    # stated purpose.
+    with st.expander('PREDICTION & EARLY WARNING', expanded=True):
+        prediction_panel()
+
     with st.expander('NEWS ACQUISITION', expanded=False):
         acquisition_panel(paths['news'])
 

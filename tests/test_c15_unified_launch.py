@@ -68,8 +68,8 @@ class TestMarketJobsStatus:
     def test_an_unrun_installation_says_so_rather_than_looking_healthy(self,
                                                                        tmp_path,
                                                                        monkeypatch):
-        monkeypatch.setattr(run_market_jobs, "STATUS_PATH",
-                            tmp_path / "absent.json")
+        monkeypatch.setenv("SERAPH_MARKET_JOBS_STATUS",
+                           str(tmp_path / "absent.json"))
         state = run_market_jobs.status()
         assert state["ran"] is False
         assert "have not run" in state["note"]
@@ -78,14 +78,14 @@ class TestMarketJobsStatus:
                                                                  monkeypatch):
         broken = tmp_path / "broken.json"
         broken.write_text("{not json", encoding="utf-8")
-        monkeypatch.setattr(run_market_jobs, "STATUS_PATH", broken)
+        monkeypatch.setenv("SERAPH_MARKET_JOBS_STATUS", str(broken))
         state = run_market_jobs.status()
         assert state["ran"] is False
         assert "unreadable" in state["note"]
 
     def test_a_real_run_records_each_step(self, tmp_path, monkeypatch):
         written = tmp_path / "status.json"
-        monkeypatch.setattr(run_market_jobs, "STATUS_PATH", written)
+        monkeypatch.setenv("SERAPH_MARKET_JOBS_STATUS", str(written))
         run_market_jobs._write(dict(
             generated="2026-10-20T02:00:00+05:30", ok=True,
             session="2026-08-21", corpus="7,385,306 daily rows",
@@ -99,7 +99,7 @@ class TestMarketJobsStatus:
                                                               monkeypatch):
         """A failed forecast must not erase the vintages that succeeded."""
         written = tmp_path / "status.json"
-        monkeypatch.setattr(run_market_jobs, "STATUS_PATH", written)
+        monkeypatch.setenv("SERAPH_MARKET_JOBS_STATUS", str(written))
         run_market_jobs._write(dict(
             generated="x", ok=False, session="2026-08-21", corpus="rows",
             steps=[dict(step="daily vintages", ok=True),
@@ -170,8 +170,12 @@ class TestTheConsoleReportsIt:
         body = (ROOT / "seraph/dashboard/prototype_app.py").read_text(
             encoding="utf-8")
         panel = body.split("def market_jobs_panel", 1)[1].split("def ", 1)[0]
-        assert "run_market_jobs.status()" in panel
+        # The seam moved into the package so an installed wheel, which has
+        # no `scripts/`, can still draw this panel. Same requirement: read a
+        # status file, never start a two-minute estimate.
+        assert "read_status()" in panel
         assert "run_all" not in panel
+        assert "import run_market_jobs" not in panel
 
     def test_the_panel_says_the_live_loop_is_not_started(self):
         body = (ROOT / "seraph/dashboard/prototype_app.py").read_text(

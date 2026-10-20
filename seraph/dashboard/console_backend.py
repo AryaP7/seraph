@@ -970,3 +970,65 @@ def health_surface(at=None):
         out['note'] = ('no check could be run, which is itself not health: '
                        'see the problems listed beside this')
     return out
+
+
+# --- C12: prediction and early warning (the core functional requirement) --
+
+#: Warning levels, worst first, with how the console should draw each. A
+#: level the engine can produce and this map does not carry would be drawn as
+#: nothing, so the panel checks membership rather than using .get().
+WARNING_LEVELS = {
+    'warning': ('WARNING', 'error'),
+    'abstained': ('ABSTAINED', 'warning'),
+    'unassessable': ('UNASSESSABLE', 'warning'),
+    'no_warning': ('NO WARNING', 'success'),
+}
+
+
+def prediction_surface():
+    """The current forecast and warning state, read from the job's output.
+
+    SERAPH is a prediction and early-warning system, and its engine existed
+    only as backend code, a CLI experiment and a separate read-only artifact
+    viewer. This is the main application's path to it.
+
+    Reads; never fits. `scripts/run_prediction.py` runs the actual engine --
+    `build_pillar_features`, `walk_forward_predict`, `calibrate_alerts` -- in
+    about twenty seconds and persists the state, and `run_market_jobs.py`
+    invokes it in the daily sequence. A page render that refitted
+    seventy-three models would make every refresh a cliff, which is the same
+    reason MARKET JOBS reads a status file.
+
+    The three claims arrive separately and stay separate: `measured` is
+    observation, `predicted` is one model output, `warning` is a policy
+    decision. `validation` travels with all of them.
+    """
+    from seraph.prediction import operational
+
+    # Through the package, not through `scripts/`: an installed wheel has no
+    # scripts directory, and `verify_packaging.py` installs one and probes
+    # it. Reading the core feature's state must not depend on running from a
+    # source checkout.
+    saved = operational.load_state()
+    if not saved.get('ran'):
+        return dict(available=False, path=saved.get('path'),
+                    error=saved.get('error'),
+                    note=saved.get('note', 'no prediction state is saved'),
+                    command='python scripts/run_prediction.py')
+
+    state = saved['state']
+    required = ('predicted', 'warning', 'measured', 'history', 'validation')
+    missing = [key for key in required if key not in state]
+    if missing:
+        return dict(available=False, path=saved['path'],
+                    note=(f'the saved prediction state is missing {missing}; '
+                          f're-run the job to regenerate it'),
+                    command='python scripts/run_prediction.py')
+
+    level = state['warning'].get('level')
+    label, style = WARNING_LEVELS.get(level, (str(level).upper(), 'warning'))
+    return dict(available=True, path=saved['path'], state=state,
+                as_of=state.get('as_of'),
+                generated_at=state.get('generated_at'),
+                warning_label=label, warning_style=style,
+                level_known=level in WARNING_LEVELS)
