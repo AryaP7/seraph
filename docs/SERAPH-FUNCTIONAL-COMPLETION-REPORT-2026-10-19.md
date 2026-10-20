@@ -187,13 +187,13 @@ into a confident-looking 0.79. Reverted; the fix belongs in the cutoff.
   34 more for the two console panels that reach them. Earlier in the session
   it was 2,193.
 - **Skipped, not passed: 5**, down from 15. The ten DB-gated tests now run:
-  the "disposable  database" they needed was never an external
+  the "disposable `seraph_test_*` database" they needed was never an external
   dependency, just a database name and a guard row, and creating it also
   **verified migration 002 against a real PostgreSQL** (see
-   §1). What still skips is four
-   cases, which need intraday bars and so wait on the
+  `UNBLOCKING-GUIDE-2026-10-20.md` §1). What still skips is four
+  `ct3_jump_sufficiency` cases, which need intraday bars and so wait on the
   Kite subscription, and one live NSE acquisition test gated on
-   so the suite never silently depends on an exchange
+  `SERAPH_LIVE_NSE=1` so the suite never silently depends on an exchange
   being reachable.
 - **Split out for runtime, not excluded: 4 modules** (`test_c7_hamilton*`,
   `ct7_simulator_consistency`), 34 tests, 15m49s. The CI matrix runs them on
