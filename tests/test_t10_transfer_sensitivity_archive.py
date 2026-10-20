@@ -21,6 +21,7 @@ Each has a way of going quietly wrong, and that is what these cover:
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
 
 import pytest
@@ -520,3 +521,156 @@ class TestTheRendererDoesNotInviteARanking:
     def test_it_reports_what_cannot_be_published(self, report):
         text = experiment_store.render(report)
         assert "cannot carry" in text
+
+REAL_DB = os.environ.get('SERAPH_TEST_DB_DSN')
+
+
+@pytest.mark.skipif(not REAL_DB,
+                    reason=('needs a disposable seraph_test_* database; set '
+                            'SERAPH_TEST_DB_DSN and SERAPH_TEST_TOKEN'))
+class TestMigration002OnARealDatabase:
+    """The half of migration 002 that static assertions cannot reach.
+
+    Everything above checks the SQL text. This applies it to a real
+    PostgreSQL and asserts the behaviour the text is supposed to produce --
+    the only check that would catch a DO block which parses and silently
+    does nothing.
+
+    Each test does all of its database work inside ONE `asyncio.run`. An
+    asyncpg connection is bound to the loop that created it, so a fixture
+    that opened a connection in one loop and handed it to tests running in
+    another failed with `another operation is in progress` followed by
+    `Event loop is closed`.
+    """
+
+    COLUMNS = ('evaluation_run_id,table_id,pillar_subset,reconciliation_mode,'
+               'xi_mode,epoch,availability,unavailable_reason,auc,'
+               'mean_lead_time_days,precision_at_recall,declared_folds,'
+               'pre_registration_hash')
+    RUN = 'pytest-002'
+
+    @classmethod
+    async def _prepared(cls, conn):
+        from seraph.store import migrations
+
+        schema = Path('seraph/store/schema.sql').read_text(encoding='utf-8')
+        try:
+            await conn.execute(schema)
+        except Exception:                           # already created
+            pass
+        applied = await migrations.migrate(conn)
+        await conn.execute(
+            "insert into evaluation_runs (evaluation_run_id, "
+            "pre_registration_hash, design_label, table_b_scope) "
+            f"values ('{cls.RUN}','h','pytest','two_epoch') "
+            "on conflict do nothing")
+        await conn.execute("delete from validation_results "
+                           f"where evaluation_run_id='{cls.RUN}'")
+        return applied
+
+    @classmethod
+    def _with_db(cls, body):
+        """`body(conn)` inside one loop, with the schema and migrations in
+        place and this run's rows cleared."""
+        import asyncio
+
+        import asyncpg
+
+        async def main():
+            conn = await asyncpg.connect(REAL_DB, timeout=10)
+            try:
+                await cls._prepared(conn)
+                return await body(conn)
+            finally:
+                await conn.execute("delete from validation_results "
+                                   f"where evaluation_run_id='{cls.RUN}'")
+                await conn.close()
+
+        return asyncio.run(main())
+
+    @classmethod
+    def _insert(cls, conn, values: str):
+        return conn.execute(f"insert into validation_results ({cls.COLUMNS}) "
+                            f"values ({values})")
+
+    def test_both_migrations_are_recorded(self):
+        async def body(conn):
+            return [row['name'] for row in await conn.fetch(
+                'select name from schema_migrations order by name')]
+
+        recorded = self._with_db(body)
+        assert '001_evaluation_identity.sql' in recorded
+        assert '002_experiment_rows.sql' in recorded
+
+    def test_a_table_c_row_is_accepted(self):
+        """DR-05 created Table C and the old CHECK (A, B) refused it
+        outright, so six of twenty-six configurations could not be
+        archived at all."""
+        async def body(conn):
+            await self._insert(
+                conn, f"'{self.RUN}','C','rmt+hamilton','kalman','hamilton',"
+                      f"'gfc_2008','measured',null,0.71,4.0,0.6,6,'h'")
+            return await conn.fetchval(
+                "select count(*) from validation_results "
+                f"where evaluation_run_id='{self.RUN}' and table_id='C'")
+
+        assert self._with_db(body) == 1
+
+    def test_an_unavailable_row_with_no_metrics_is_accepted(self):
+        """The old NOT NULLs meant the only way to store a cell with no
+        measurement was to invent a number for it."""
+        async def body(conn):
+            await self._insert(
+                conn, f"'{self.RUN}','A','hawkes','kalman','hamilton',"
+                      f"'covid_2020','unavailable','single_class_fold',"
+                      f"null,null,null,4,'h'")
+            return await conn.fetchval(
+                "select auc from validation_results "
+                f"where evaluation_run_id='{self.RUN}'")
+
+        assert self._with_db(body) is None
+
+    def test_a_measured_row_without_an_auc_is_refused(self):
+        import asyncpg
+
+        async def body(conn):
+            with pytest.raises(asyncpg.exceptions.CheckViolationError):
+                await self._insert(
+                    conn, f"'{self.RUN}','A','rmt','kalman','hamilton',"
+                          f"'ilfs_2018','measured',null,null,null,null,4,'h'")
+
+        self._with_db(body)
+
+    def test_an_unavailable_row_carrying_an_auc_is_refused(self):
+        """Each state stays whole, so `measured` always means a number is
+        present and `unavailable` never carries one."""
+        import asyncpg
+
+        async def body(conn):
+            with pytest.raises(asyncpg.exceptions.CheckViolationError):
+                await self._insert(
+                    conn, f"'{self.RUN}','B','rmt','kalman','hamilton',"
+                          f"'taper_2013','unavailable','single_class_fold',"
+                          f"0.5,1.0,0.5,2,'h'")
+
+        self._with_db(body)
+
+    def test_the_table_domain_is_still_bounded(self):
+        """Widened to A/B/C, not opened."""
+        import asyncpg
+
+        async def body(conn):
+            with pytest.raises(asyncpg.exceptions.CheckViolationError):
+                await self._insert(
+                    conn, f"'{self.RUN}','D','rmt','kalman','hamilton',"
+                          f"'taper_2013','measured',null,0.6,1.0,0.5,2,'h'")
+
+        self._with_db(body)
+
+    def test_applying_it_twice_changes_nothing(self):
+        async def body(conn):
+            from seraph.store import migrations
+
+            return await migrations.migrate(conn)
+
+        assert self._with_db(body)['applied'] == []
