@@ -779,3 +779,194 @@ def _dispatch(store, point, role, event):
         results=unwrap(simulate_policy(reconciled=state,weights=weights,xi_path=[tuple(x) for x in path]))
         note='Explicit hypothetical regime path, not a fitted macro-policy forecast. Equal regime weights can make the result unchanged. Macro z-to-xi mapping remains unavailable.'
     return dict(kind=op,value=[(r.model_copy(update={'xi_mode':'uniform'}) if op=='shock' else r).model_dump(mode='json') for r in results],basis=note,regime_source='uniform baseline' if op=='shock' else 'user-supplied hypothetical path')
+
+
+# --- C12: the FR35 evaluation surface (T10) ------------------------------
+
+#: Who may read an ablation table. Validation output is a research surface:
+#: it reports what the instrument can and cannot do, which is the
+#: institutional and regulatory question, not the retail traffic-light one
+#: (FR42). Retail is told where it lives rather than shown an empty panel.
+EXPERIMENT_ROLES = ('institutional', 'regulator')
+
+
+def experiment_surface(root=None, role='retail'):
+    """What the console can say about the FR35 ablation, and why.
+
+    Reads only. The pre-registration is deliberately NOT committable from
+    here: D5(d) makes a committed design the precondition for any AUC, and
+    DR-05 step 5 left committing it to a person precisely so that it cannot
+    happen as a side effect of something else. A button on a dashboard is
+    exactly the "build step" that record refused.
+
+    Returns a dict the panel renders, never a raised exception, so a console
+    with no artefacts still draws.
+    """
+    import json
+    import os
+    from pathlib import Path
+
+    from seraph.validation import experiment_store
+    from seraph.validation.preregistration import DEFAULT_PATH, verify
+
+    root = Path(root) if root else Path(__file__).resolve().parents[2]
+    design_path = Path(os.environ.get('SERAPH_PREREGISTRATION',
+                                      str(root / DEFAULT_PATH)))
+
+    out = {
+        'permitted': role in EXPERIMENT_ROLES,
+        'role': role,
+        'design': {'path': str(design_path), 'committed': design_path.exists()},
+        'reports': [],
+        'commit_hint': (
+            'python -c "from seraph.validation.preregistration import commit; '
+            'print(commit())"'),
+        'note': (
+            'The design is committed by a person, once, before the first AUC '
+            'exists (D5(d), DR-05 step 5). This panel cannot do it: a control '
+            'here would make the design a side effect of opening a page.'),
+    }
+
+    if design_path.exists():
+        intact, digest = verify(design_path)
+        out['design'].update(intact=intact, hash=digest)
+        try:
+            blob = json.loads(design_path.read_text(encoding='utf-8'))
+            design = blob.get('design', {})
+            out['design'].update(
+                table_b_scope=design.get('tableBScope'),
+                configurations=len(design.get('configurations', [])),
+                amber_threshold=design.get('amberThreshold'),
+                calibration_max_iter=design.get('calibrationMaxIter'))
+        except (ValueError, OSError) as exc:
+            out['design']['unreadable'] = str(exc)
+
+    # Saved report artefacts, newest first. A directory rather than one file,
+    # because save() refuses to overwrite -- each run is its own evidence.
+    reports_dir = Path(os.environ.get(
+        'SERAPH_EXPERIMENT_REPORTS', str(root / 'prototype_runs/experiments')))
+    out['reports_dir'] = str(reports_dir)
+    if reports_dir.exists():
+        for path in sorted(reports_dir.glob('*.json'), reverse=True):
+            try:
+                report, digest, ok = experiment_store.load(path)
+            except (ValueError, OSError, KeyError) as exc:
+                out['reports'].append(dict(name=path.name, readable=False,
+                                           error=str(exc)))
+                continue
+            out['reports'].append(dict(
+                name=path.name, readable=True, artefact_id=digest, intact=ok,
+                pre_registration_hash=report.pre_registration_hash,
+                table_b_scope=report.table_b_scope,
+                calibration_max_iter=report.calibration_max_iter,
+                comparability=report.comparability,
+                measured=len(report.measured()),
+                unavailable=len(report.unavailable()),
+                unpublishable=report.unpublishable_rows,
+                absences=report.absence_census(),
+                rendered=experiment_store.render(report),
+                configurations=[
+                    dict(table=s.table, subset='+'.join(s.pillar_subset),
+                         mode=s.reconciliation_mode, xi_mode=s.xi_mode,
+                         declared_folds=s.declared_folds,
+                         measured_folds=s.measured_folds,
+                         mean_auc=s.mean_auc, auc_min=s.auc_min,
+                         auc_max=s.auc_max, complete=s.complete,
+                         mean_lead_time_days=s.mean_lead_time_days,
+                         unavailable_folds=s.unavailable_folds)
+                    for s in report.configurations()],
+            ))
+    return out
+
+
+# --- OPS01: the health surface -------------------------------------------
+
+#: How many minutes may pass between successes before a LEDGER job reads as
+#: stale. These are the console's declared expectations, not the jobs' own
+#: schedules -- there is no scheduler yet (O03), so a budget here is what a
+#: reader should expect if someone is running them, and a stale reading is
+#: the honest answer when nobody is.
+#:
+#: Only jobs that actually go through `operations.jobs` belong here. The
+#: market jobs (daily vintages, prospective forecast) write a status file
+#: that the MARKET JOBS panel reads instead, so listing them would report
+#: `never_run` for work that has run -- a false alarm, which is the mirror of
+#: the false green banner this surface exists to prevent. Every other job
+#: found in the ledger is reported too, under DEFAULT_JOB_BUDGET, so nothing
+#: recorded there is invisible.
+JOB_BUDGET_MINUTES = {
+    'news.poll': 180,
+}
+DEFAULT_JOB_BUDGET = 1440
+
+
+def health_surface(at=None):
+    """What is stale, what is broken, and who was told (OPS01).
+
+    `operations/monitoring.py` was written as a health reader and says in its
+    own docstring that "an empty dashboard with a green banner is the
+    specific failure this prevents" -- and then nothing in the dashboard read
+    it. This is that reader, surfaced.
+
+    Its first rule is the one worth preserving through the UI: **silence is
+    never health.** A source that has never been fetched is
+    `never_succeeded`, a job with no run is `never_run`, and neither is `ok`.
+    So a console with nothing running must show that, not an empty green
+    panel.
+    """
+    import os
+    from datetime import datetime
+    from pathlib import Path
+
+    from seraph.shared_types import IST
+    from seraph.operations import monitoring
+
+    at = at or datetime.now(IST).replace(microsecond=0).isoformat()
+    root = Path(__file__).resolve().parents[2]
+    news_path = Path(os.environ.get(
+        'SERAPH_NEWS_STORE',
+        str(root / 'prototype_runs/news-intelligence-pilot.sqlite')))
+    jobs_path = Path(os.environ.get('SERAPH_JOB_STORE',
+                                    str(root / 'prototype_runs/jobs.sqlite')))
+
+    out = {'at': at, 'checks': [], 'status': 'unknown', 'stores': {
+        'news': str(news_path), 'jobs': str(jobs_path)}, 'problems': []}
+
+    checks = []
+    if news_path.exists():
+        try:
+            from seraph.news.acquisition import NewsStore
+
+            checks.extend(monitoring.source_checks(NewsStore(news_path), at=at))
+        except Exception as exc:                       # noqa: BLE001
+            out['problems'].append(f'news sources unreadable: {exc}')
+    else:
+        out['problems'].append(
+            f'no news store at {news_path}: nothing has ever been fetched, '
+            f'which reads as never_succeeded rather than ok')
+
+    if jobs_path.exists():
+        try:
+            from seraph.operations.jobs import JobStore
+
+            store = JobStore(jobs_path)
+            # Names from the ledger, not a guess. The first version of this
+            # hard-coded `news_poll` while the ledger records `news.poll`, so
+            # it reported never_run for a job with hundreds of runs.
+            recorded = {r.job for r in store.runs(None, limit=1000)}
+            budgets = {job: DEFAULT_JOB_BUDGET for job in recorded}
+            budgets.update(JOB_BUDGET_MINUTES)
+            checks.extend(monitoring.job_checks(store, budgets, at=at))
+        except Exception as exc:                       # noqa: BLE001
+            out['problems'].append(f'job ledger unreadable: {exc}')
+    else:
+        out['problems'].append(
+            f'no job ledger at {jobs_path}: no job has ever been recorded, '
+            f'which reads as never_run rather than ok')
+
+    if checks:
+        out.update(monitoring.overall(checks))
+    else:
+        out['note'] = ('no check could be run, which is itself not health: '
+                       'see the problems listed beside this')
+    return out

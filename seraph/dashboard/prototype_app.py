@@ -551,6 +551,209 @@ def market_jobs_panel():
                'without connecting to anything.')
 
 
+#: How each health level is drawn. Nothing maps to "success" except `ok`:
+#: the module's own rule is that silence is never health, and a grey or green
+#: badge for `never_run` would undo it in the one place a reader looks.
+_HEALTH_STYLE = {
+    'ok': ('✓', 'caption'),
+    'degraded': ('!', 'warning'),
+    'stale': ('!', 'warning'),
+    'never_run': ('?', 'warning'),
+    'never_succeeded': ('?', 'warning'),
+    'failing': ('×', 'error'),
+}
+
+
+def health_panel():
+    """What is stale, what is broken (OPS01).
+
+    `operations/monitoring.py` was written as a health reader -- "outages,
+    missing inputs and failed notifications must be visible and recoverable"
+    -- and says in its own docstring that "an empty dashboard with a green
+    banner is the specific failure this prevents". Nothing in the dashboard
+    read it until this panel, so the console was that empty dashboard.
+
+    Shown to every role: this is the state of the installation, not
+    privileged market content. It reads stores and computes nothing.
+    """
+    from seraph.dashboard.console_backend import health_surface
+
+    surface = health_surface()
+    status = surface.get('status', 'unknown')
+    glyph, _ = _HEALTH_STYLE.get(status, ('?', 'warning'))
+    if status == 'ok':
+        st.success(f"{glyph} every check is ok")
+    else:
+        st.warning(f"{glyph} worst check: **{status}**")
+
+    for problem in surface.get('problems', ()):
+        st.error(problem)
+
+    checks = surface.get('checks', [])
+    if not checks:
+        st.caption(surface.get('note', 'no check could be run'))
+        return
+
+    # Worst first: a reader scanning twenty green rows for the one red one is
+    # the failure mode of a flat list.
+    order = ['failing', 'never_succeeded', 'never_run', 'stale', 'degraded',
+             'ok']
+    ranked = sorted(checks, key=lambda c: (order.index(c['health'])
+                                           if c['health'] in order else 99,
+                                           c['kind'], c['name']))
+    st.dataframe([
+        {
+            'kind': c['kind'],
+            'name': c['name'],
+            'health': c['health'],
+            'age (min)': c['age_minutes'],
+            'detail': c['detail'],
+        }
+        for c in ranked
+    ], hide_index=True, use_container_width=True)
+
+    by_health = surface.get('by_health', {})
+    if by_health:
+        st.caption(' · '.join(f"{k} {len(v)}" for k, v in by_health.items()))
+    st.caption(surface.get('note', ''))
+    st.caption(f"as of {surface.get('at')} · there is no scheduler yet (O03), "
+               f"so a stale reading means nobody is running the job, not that "
+               f"the job is broken.")
+
+
+def experiment_panel(role: str):
+    """The FR35 ablation, in the browser (T10, closing C12).
+
+    T10 was built as a library and a CLI, and left disconnected from the
+    console -- which reproduces the exact defect the audit named, "capable
+    backend modules remain disconnected". The checklist files this item under
+    C12 and asks for an "execution/report journey", so a text renderer behind
+    a script is not it.
+
+    Read-only, and deliberately so in two places:
+
+    * **No commit control.** D5(d) makes a committed design the precondition
+      for any AUC, and DR-05 step 5 left committing it to a person so that it
+      cannot happen as a side effect. A button here would be that side
+      effect. The panel prints the command instead.
+    * **No run control.** A full ablation calibrates once per fold; starting
+      one on page render would make every refresh a cliff, the same reason
+      MARKET JOBS reads a status file rather than estimating.
+
+    What it does show is the thing a reader needs and a table of numbers
+    hides: how many of each configuration's declared folds were actually
+    measured, and which absence accounts for the rest.
+    """
+    from seraph.dashboard.console_backend import experiment_surface
+
+    surface = experiment_surface(role=role)
+    if not surface['permitted']:
+        st.info('The evaluation surface is an institutional or regulator '
+                'tool: an ablation table reports what the instrument can and '
+                'cannot do, not a current risk level. Switch role in the '
+                'console sidebar to open it.')
+        return
+
+    design = surface['design']
+    if not design['committed']:
+        st.warning('No pre-registered design is committed, so **no AUC can '
+                   'be computed at all**.')
+        st.caption(surface['note'])
+        st.code(surface['commit_hint'], language='bash')
+        st.caption(f"Expected at {design['path']} · override with "
+                   f"SERAPH_PREREGISTRATION")
+        return
+
+    if not design.get('intact', True):
+        st.error('The committed design no longer matches its own recorded '
+                 'hash: it was edited after it was committed, so no result '
+                 'produced under it is reportable.')
+        return
+
+    st.caption(
+        f"Design {str(design.get('hash', ''))[:16]} · "
+        f"Table-B scope {design.get('table_b_scope')} · "
+        f"{design.get('configurations')} configurations · "
+        f"amber {design.get('amber_threshold')} · "
+        f"calibration budget {design.get('calibration_max_iter')}")
+
+    reports = surface['reports']
+    if not reports:
+        st.info('The design is committed and no run has been saved yet. '
+                '`python scripts/run_experiment.py --dataset fixture --out '
+                '<path>` writes one; this panel reads every artefact in '
+                f"{surface['reports_dir']}.")
+        return
+
+    names = [r['name'] for r in reports]
+    chosen = st.selectbox('Saved evaluation run', names,
+                          key='experiment_report')
+    report = next(r for r in reports if r['name'] == chosen)
+
+    if not report['readable']:
+        st.error(f"{report['name']} could not be read: {report['error']}")
+        return
+    if not report['intact']:
+        st.error('This artefact does not match its own content hash — it was '
+                 'edited after it was written. Do not quote these numbers.')
+
+    left, middle, right = st.columns(3)
+    left.metric('Measured cells', report['measured'])
+    middle.metric('Unavailable cells', report['unavailable'])
+    right.metric('Not publishable', report['unpublishable'])
+
+    st.caption(f"artefact {report['artefact_id'][:16]} · design "
+               f"{report['pre_registration_hash'][:16]} · budget "
+               f"{report['calibration_max_iter']}")
+
+    # Above the tables, not below them: the one thing a reader will do with
+    # three tables is rank them together.
+    if report['comparability']:
+        st.warning(report['comparability'])
+
+    for table in sorted({c['table'] for c in report['configurations']}):
+        rows = [c for c in report['configurations'] if c['table'] == table]
+        declared = rows[0]['declared_folds']
+        st.markdown(f"**Table {table}** — {declared} folds declared")
+        st.dataframe([
+            {
+                'subset': c['subset'],
+                'mode': c['mode'],
+                'xi': c['xi_mode'],
+                'folds': f"{c['measured_folds']}/{c['declared_folds']}",
+                'mean AUC': (None if not c['measured_folds']
+                             else round(c['mean_auc'], 4)),
+                'spread': ('--' if c['auc_min'] is None
+                           else f"{c['auc_min']:.3f}..{c['auc_max']:.3f}"),
+                'lead (d)': (None
+                             if c['mean_lead_time_days'] != c['mean_lead_time_days']
+                             else round(c['mean_lead_time_days'], 1)),
+                'absences': (', '.join(f"{k} x{v}" for k, v
+                                       in c['unavailable_folds'].items())
+                             or '--'),
+            }
+            for c in rows
+        ], hide_index=True, use_container_width=True)
+
+    if report['absences']:
+        st.markdown('**Unavailable cells** — each is a result, not a gap')
+        for reason, count in report['absences'].items():
+            st.write(f"- `{reason}` × {count}")
+    else:
+        st.caption('Every declared fold was measured.')
+
+    if report['unpublishable']:
+        st.caption(f"{report['unpublishable']} of "
+                   f"{report['measured'] + report['unavailable']} rows cannot "
+                   f"be carried by the published EvaluationRow contract: "
+                   f"Table C has no place in its table Literal and an "
+                   f"unavailable cell has no fields there. They are counted, "
+                   f"not dropped (DR-12 section 6).")
+
+    with st.expander('The run as text'):
+        st.code(report['rendered'])
+
+
 def acquisition_panel(news_path: Path):
     """Who is fetching news, and what each source actually returned.
 
@@ -748,6 +951,14 @@ def main():
     with st.expander('MY WORKSPACE — portfolios, scenarios, cases',
                      expanded=False):
         workflows_panel(store, point, role)
+    # The FR35 evaluation surface. Last because it answers a different
+    # question from everything above it: not "what is the risk now" but "what
+    # has this instrument been shown to do", which is the question the
+    # ablation exists for and the one a reader should reach deliberately.
+    with st.expander('EVALUATION — FR35 ablation tables', expanded=False):
+        experiment_panel(role)
+    with st.expander('HEALTH — what is stale, what is broken', expanded=False):
+        health_panel()
     st.caption(f'News: {news_mode} · {(payload.get("news") or {}).get("as_of", "unavailable")} · Market decision: {point["evaluation_timestamp"]}')
     # What the last manual refresh actually achieved. A refresh that could not
     # reach every source must say which ones, or it implies a completeness it
