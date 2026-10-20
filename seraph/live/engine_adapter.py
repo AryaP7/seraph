@@ -106,6 +106,42 @@ class NullProducers:
         return dict(kind="null", connected=[], reason=self.reason)
 
 
+def registry_from_store(store, *, producers=None):
+    """A `DeploymentRegistry` built from the vintages the store actually holds.
+
+    `run_live.py` constructed `InferenceService` with no deployments, so the
+    registry was empty and `reason_unusable` refused every real vintage with
+    `bundle original rmt is not registered`. The producer handed over a
+    stored, available vintage and the service then withheld it — the daily
+    pillars could not reach the current-risk path at all.
+
+    Registering from the store is the honest fix rather than hardcoding the
+    names: a bundle exists here **because a vintage was produced by it**, and
+    every field comes from that row's own provenance. A bundle nobody has
+    produced a vintage for stays unregistered, which is what the refusal is
+    for.
+
+    `available_at` is the EARLIEST `emission_available_at` seen for the
+    bundle, not the latest. The latest would make the bundle unusable for
+    every decision before its most recent emission — refusing exactly the
+    historical decisions it was available for.
+    """
+    from seraph.live.inference import DeploymentRegistry, ModelBundle
+
+    registry = DeploymentRegistry()
+    for row in store.daily_vintage_bundles():
+        if producers and row["producer"] not in producers:
+            continue
+        registry.register(ModelBundle(
+            bundle_id=row["bundle_id"], producer=row["producer"],
+            trained_through=row["trained_through"],
+            available_at=row["available_at"],
+            notes=(f"registered from the {row['vintages']} stored vintage(s) "
+                   f"this bundle produced; available_at is the earliest "
+                   f"emission seen")))
+    return registry
+
+
 @dataclass
 class DailyVintageProducer:
     """The real producer (R01/T03): daily pillar vintages, read from the store.

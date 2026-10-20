@@ -48,7 +48,8 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from seraph.live import LiveLoop, MarketClock, ReplayFeed, resolve_feed  # noqa: E402
-from seraph.live.engine_adapter import (                                  # noqa: E402
+from seraph.live.engine_adapter import (
+    registry_from_store,                                  # noqa: E402
     DailyVintageProducer, NullProducers, attach)
 from seraph.live.inference import InferenceService                        # noqa: E402
 from seraph.live.lifecycle import SessionLifecycle, next_session_window   # noqa: E402
@@ -97,7 +98,17 @@ def build(*, replay: bool, store: LiveStore, clock: MarketClock,
                         if replay else None)
     mode = "historical_replay" if replay else "live_shadow"
     loop = LiveLoop(feed, clock=clock, mode=mode)
-    service = InferenceService(session_dates=session_dates(clock))
+    # The deployment registry is built from the vintages the store actually
+    # holds. It used to be left empty, so `reason_unusable` refused every
+    # real vintage with `bundle original rmt is not registered`: the producer
+    # handed over a stored, available vintage and the service then withheld
+    # it, which kept the daily pillars out of the current-risk path
+    # entirely. A bundle is registered because a vintage was produced by it,
+    # so one nobody has produced for is still correctly refused.
+    deployments = (registry_from_store(store) if producers == "daily"
+                   else None)
+    service = InferenceService(session_dates=session_dates(clock),
+                               deployments=deployments)
     attached = (DailyVintageProducer(store=store) if producers == "daily"
                 else NullProducers())
     # The stream is part of the decision identity (X04), so a replay's

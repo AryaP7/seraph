@@ -440,3 +440,120 @@ class TestAgainstTheLiveSource:
         assert len(result.rows) > client.MIN_PLAUSIBLE_ROWS
         assert result.traded_value_basis == 'exact_TOTTRDVAL'
         assert len(digest) == 64
+
+
+class TestTheDailyVintagesReachTheCurrentRiskPath:
+    """`run_live.py` built `InferenceService` with no deployments, so the
+    registry was empty and `reason_unusable` refused every real vintage with
+    `bundle original rmt is not registered`. The producer handed over a
+    stored, available vintage and the service then withheld it -- the daily
+    pillars could not reach the current-risk path at all.
+
+    Found by a concurrent session's engineering audit, which named the exact
+    line numbers. The fix registers from the store, so a bundle exists
+    because a vintage was produced by it.
+    """
+
+    @staticmethod
+    def _store(tmp_path):
+        from seraph.live.store import LiveStore
+
+        store = LiveStore(tmp_path / 'live.sqlite')
+        for producer, bundle, input_end, available in (
+                ('rmt', 'original rmt', '2026-10-16T15:30:00+05:30',
+                 '2026-10-16T16:00:00+05:30'),
+                ('rmt', 'original rmt', '2026-10-19T15:30:00+05:30',
+                 '2026-10-19T16:00:00+05:30'),
+                ('hamilton', 'original hamilton', '2026-10-19T15:30:00+05:30',
+                 '2026-10-19T16:00:00+05:30')):
+            store.record_daily_vintage(
+                producer=producer, bundle_id=bundle, input_end=input_end,
+                emission_available_at=available, value=0.3, variance=0.01,
+                quality='ok', coverage=1.0, origin='computed')
+        return store
+
+    def test_an_empty_registry_refuses_a_real_vintage(self, tmp_path):
+        """The defect, reproduced, so the fix is not asserted against
+        nothing."""
+        from datetime import datetime
+
+        from seraph.live.inference import DeploymentRegistry
+
+        self._store(tmp_path)
+        reason = DeploymentRegistry().reason_unusable(
+            'original rmt', datetime.fromisoformat('2026-10-19T16:00:00+05:30'))
+        assert reason == 'bundle original rmt is not registered'
+
+    def test_a_registry_from_the_store_admits_it(self, tmp_path):
+        from datetime import datetime
+
+        from seraph.live.engine_adapter import registry_from_store
+
+        registry = registry_from_store(self._store(tmp_path))
+        moment = datetime.fromisoformat('2026-10-19T16:00:00+05:30')
+        assert registry.reason_unusable('original rmt', moment) is None
+        assert registry.reason_unusable('original hamilton', moment) is None
+
+    def test_a_bundle_nobody_produced_is_still_refused(self, tmp_path):
+        """Registering from the store must not become registering
+        everything: the refusal is the point."""
+        from datetime import datetime
+
+        from seraph.live.engine_adapter import registry_from_store
+
+        registry = registry_from_store(self._store(tmp_path))
+        reason = registry.reason_unusable(
+            'invented bundle',
+            datetime.fromisoformat('2026-10-19T16:00:00+05:30'))
+        assert reason == 'bundle invented bundle is not registered'
+
+    def test_availability_is_the_earliest_emission_not_the_latest(self,
+                                                                  tmp_path):
+        """Using the latest would make a bundle unusable for every decision
+        before its most recent emission -- refusing exactly the historical
+        decisions it was available for."""
+        from datetime import datetime
+
+        from seraph.live.engine_adapter import registry_from_store
+
+        registry = registry_from_store(self._store(tmp_path))
+        earlier = datetime.fromisoformat('2026-10-16T16:00:00+05:30')
+        assert registry.reason_unusable('original rmt', earlier) is None
+
+    def test_a_bundle_is_still_refused_before_it_existed(self, tmp_path):
+        from datetime import datetime
+
+        from seraph.live.engine_adapter import registry_from_store
+
+        registry = registry_from_store(self._store(tmp_path))
+        before = datetime.fromisoformat('2026-10-15T16:00:00+05:30')
+        reason = registry.reason_unusable('original rmt', before)
+        assert reason and 'becomes available at' in reason
+
+    def test_the_store_query_groups_by_bundle(self, tmp_path):
+        rows = self._store(tmp_path).daily_vintage_bundles()
+        by_id = {row['bundle_id']: row for row in rows}
+        assert set(by_id) == {'original rmt', 'original hamilton'}
+        assert by_id['original rmt']['vintages'] == 2
+        assert by_id['original rmt']['available_at'] \
+            == '2026-10-16T16:00:00+05:30'
+        assert by_id['original rmt']['trained_through'] \
+            == '2026-10-19T15:30:00+05:30'
+
+    def test_an_unstamped_vintage_needs_no_registration(self, tmp_path):
+        """A vintage with no bundle id is admitted by `reason_unusable`
+        already; it must not create a nameless bundle."""
+        from seraph.live.store import LiveStore
+
+        store = LiveStore(tmp_path / 'live.sqlite')
+        store.record_daily_vintage(
+            producer='rmt', bundle_id='',
+            input_end='2026-10-19T15:30:00+05:30',
+            emission_available_at='2026-10-19T16:00:00+05:30', value=0.3,
+            variance=0.01, quality='ok', coverage=1.0, origin='computed')
+        assert store.daily_vintage_bundles() == []
+
+    def test_run_live_passes_the_registry(self):
+        source = (SCRIPTS / 'run_live.py').read_text(encoding='utf-8')
+        assert 'registry_from_store(store)' in source
+        assert 'deployments=deployments' in source

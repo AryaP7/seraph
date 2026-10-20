@@ -333,6 +333,31 @@ class LiveStore:
             newest.setdefault(row["producer"], _vintage_row(row))
         return [newest[p] for p in sorted(newest)]
 
+    def daily_vintage_bundles(self) -> list[dict]:
+        """One row per bundle that has actually produced a vintage.
+
+        `available_at` is the EARLIEST emission seen for the bundle and
+        `trained_through` the latest input it saw. `daily_vintages()` returns
+        only the newest vintage per pillar, which cannot answer the first of
+        those — and using the newest emission as a bundle's availability
+        would make it unusable for every decision before it, refusing the
+        historical decisions it was in fact available for.
+
+        This exists so `DeploymentRegistry` can be built from what the store
+        holds rather than from hardcoded bundle names.
+        """
+        with self.connect() as db:
+            rows = db.execute(
+                "SELECT bundle_id, producer, "
+                "       MIN(emission_available_at) AS available_at, "
+                "       MAX(input_end) AS trained_through, "
+                "       COUNT(*) AS vintages "
+                "FROM daily_vintages "
+                "WHERE bundle_id IS NOT NULL AND TRIM(bundle_id) <> '' "
+                "GROUP BY bundle_id, producer "
+                "ORDER BY bundle_id").fetchall()
+        return [dict(row) for row in rows]
+
     def vintage_history(self, producer: str, *, limit: int = 50) -> list[dict]:
         with self.connect() as db:
             rows = db.execute(
