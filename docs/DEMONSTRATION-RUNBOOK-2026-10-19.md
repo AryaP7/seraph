@@ -191,8 +191,9 @@ the stream-scoped decision id `historical_replay:replay:<bar end>`.
 python scripts/verify_packaging.py
 ```
 Builds a wheel, installs it outside the checkout and probes it: the runtime
-store creates its own schema and the curated registry loads 22 entities, 21
-places, 28 assets and 64 edges.
+store creates its own schema and the curated registry loads 22 entities, 19
+places, 28 assets and 64 edges. Places was 21 until X12's two duplicated
+rows (Maharashtra, Odisha) were merged into their canonical entries.
 
 **10. Show the crash recovery.**
 ```bash

@@ -1,9 +1,9 @@
 {
-  "generated": "2026-10-20T10:28:41+0530",
+  "generated": "2026-10-20T11:54:19+0530",
   "store_used_for_render": "C:\\Users\\Arlop\\Downloads\\SERAPH VARYA\\SERAPH Varya\\prototype_runs\\fix01-covid-window.sqlite",
   "wheel": {
     "name": "seraph-0.1.0-py3-none-any.whl",
-    "entries": 185,
+    "entries": 186,
     "payload": [
       "seraph/dashboard/assets/THREE-LICENSE.txt",
       "seraph/dashboard/assets/connected.css",
@@ -40,7 +40,7 @@
   },
   "install_ok": true,
   "fresh_environment": {
-    "installed_from": "C:\\Users\\Arlop\\AppData\\Local\\Temp\\tmpprnustny\\env\\Lib\\site-packages\\seraph",
+    "installed_from": "C:\\Users\\Arlop\\AppData\\Local\\Temp\\tmpdqqnrum2\\env\\Lib\\site-packages\\seraph",
     "is_site_packages": true,
     "component_files": [
       "THREE-LICENSE.txt",
@@ -66,7 +66,7 @@
     "live_store_error": null,
     "curated": {
       "entities": 22,
-      "places": 21,
+      "places": 19,
       "assets": 28,
       "edges": 64,
       "empty": false,
@@ -80,7 +80,7 @@
       "004_prospective_forecasts.sql"
     ],
     "live_migration_bytes": 12901,
-    "declared_component_path": "C:\\Users\\Arlop\\AppData\\Local\\Temp\\tmpprnustny\\env\\Lib\\site-packages\\seraph\\dashboard\\console_component",
+    "declared_component_path": "C:\\Users\\Arlop\\AppData\\Local\\Temp\\tmpdqqnrum2\\env\\Lib\\site-packages\\seraph\\dashboard\\console_component",
     "declared_path_is_installed": true,
     "render_exception": null,
     "run_selected": "37bccf329742",

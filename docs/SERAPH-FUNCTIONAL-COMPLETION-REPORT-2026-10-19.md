@@ -224,9 +224,6 @@ A passing suite is not functional correctness, which is why
   `seraph/shared_types/` — ask-gated in `CLAUDE.md` because all twelve
   components import from it. DR-12 §6 states the choice. The archive was
   widened, because FR38 requires it; publishing is the open half.
-- **X12** — two duplicated curated place rows (Maharashtra, Odisha) make
-  those states unresolvable. Recorded with a test pinning its blast radius;
-  fixing it is a curated-data migration with citation implications.
 - **W0-B** — the Kite token is still in the repository root. The
   externalised configuration, the warning and the invariant check are
   implemented; **rotating the credential is yours.**

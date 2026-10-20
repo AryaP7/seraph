@@ -200,40 +200,67 @@ class TestX02bTheShippedRegistryExercisesNonLatinNames:
         ("Maharashtra", "in_mh"),
         ("Odisha", "in_od"),
     ])
-    def test_a_duplicated_state_row_abstains_and_names_both_candidates(
-            self, master, state, canonical):
-        """X12, a PRE-EXISTING data defect this work uncovered and did not
-        cause. Exactly two states carry two rows each -- the canonical `in_*`
-        row and an `ntpc_state_*` row created for the NTPC facility mapping
-        -- so the resolver correctly abstains on their names. Verified
-        against the OLD normalisation rule too: both rules match both rows,
-        so this is curated-data duplication, not a normalisation change.
+    def test_a_previously_duplicated_state_now_resolves(self, master, state,
+                                                        canonical):
+        """X12, FIXED. These two tests used to assert the defect existed.
 
-        The resolver's behaviour is right ("two places claiming the same
-        alias still abstain"). The DATA is wrong, and the consequence is that
-        Maharashtra and Odisha -- two of the states where NTPC assets
-        actually sit -- cannot be resolved from a mention at all. Recorded as
-        X12 for the owner: merging the rows and repointing the asset
-        references is a curated-data migration with citation implications,
-        not a normalisation fix, and it changes registry counts.
+        Exactly two states carried two rows each -- the canonical `in_*` row
+        and an `ntpc_state_*` row created for the NTPC facility mapping -- so
+        the resolver correctly abstained and neither Maharashtra nor Odisha
+        could be resolved from a mention at all. The resolver was right; the
+        DATA was wrong.
+
+        The merge was unambiguous once the citations were read. The `in_*`
+        rows carry coordinates, a geonames citation and child places parented
+        to them. The `ntpc_state_*` rows carried no coordinates and cited
+        NTPC's coal-stations page -- which is an ASSET fact ("NTPC has a
+        station here"), not a geographic one, and it already sits on each
+        asset row. So the duplicates were dropped, the three asset rows were
+        repointed to the canonical places, and no citation was lost: the
+        NTPC URL stayed where it belongs and the place kept geonames.
         """
         resolution = master.resolve_place(state)
-        assert resolution.status == "ambiguous"
-        assert set(resolution.candidates) == {canonical, f"ntpc_state_{state.lower()}"}
+        assert resolution.status == "resolved"
+        assert resolution.entity_id == canonical
 
-    def test_x12_scope_is_exactly_two_states(self, master):
-        """Pins X12's blast radius so the backlog entry stays accurate. If
-        this fails, the duplication has spread (or been fixed) and the
-        finding needs rewriting rather than silently widening."""
+    def test_no_place_name_is_duplicated_any_more(self, master):
+        """The inverse of the old blast-radius pin: the scan must now find
+        nothing. If a duplicate reappears, this fails rather than a resolver
+        silently abstaining on a state nobody checks."""
         from collections import defaultdict
         by_name = defaultdict(list)
         for place in master.places.values():
             by_name[(place.name.strip().lower(), place.kind)].append(place.place_id)
         duplicates = {k: sorted(v) for k, v in by_name.items() if len(v) > 1}
-        assert sorted(name for name, _ in duplicates) == ["maharashtra", "odisha"]
-        for ids in duplicates.values():
-            assert len(ids) == 2
-            assert sum(1 for i in ids if i.startswith("ntpc_state_")) == 1
+        assert duplicates == {}, f"duplicated place rows are back: {duplicates}"
+
+    def test_the_repointed_assets_sit_in_the_canonical_places(self, master):
+        """The three NTPC stations that referenced the dropped rows. A merge
+        that removed the places without repointing these would leave assets
+        pointing at a place_id that no longer exists -- which only shows up
+        at load time, or not at all."""
+        expected = {"ntpc_darlipali": "in_od", "ntpc_mouda": "in_mh",
+                    "ntpc_solapur": "in_mh"}
+        for asset_id, place_id in expected.items():
+            asset = master.assets[asset_id]
+            assert getattr(asset, "place_id", None) == place_id, asset_id
+
+    def test_every_asset_points_at_a_place_that_exists(self, master):
+        """The general form, so the next curated edit cannot dangle."""
+        dangling = [a for a in master.assets.values()
+                    if getattr(a, "place_id", None)
+                    and a.place_id not in master.places]
+        assert dangling == [], f"assets point at missing places: {dangling}"
+
+    def test_the_ntpc_citation_survived_on_the_assets(self, master):
+        """No citation was dropped by the merge: the NTPC page still backs
+        each station, which is the claim it actually supports."""
+        for asset_id in ("ntpc_darlipali", "ntpc_mouda", "ntpc_solapur"):
+            asset = master.assets[asset_id]
+            source = getattr(asset, "source", None) or getattr(
+                asset, "known_from", None)
+            assert source is not None, asset_id
+            assert "ntpc.co.in" in str(source), asset_id
 
     def test_the_unduplicated_ntpc_states_still_resolve(self, master):
         """Most `ntpc_state_*` rows have no canonical twin and work fine, so
@@ -247,10 +274,16 @@ class TestX02bTheShippedRegistryExercisesNonLatinNames:
         assert (master.resolve_place(BHARAT).entity_id
                 != master.resolve_place(MUMBAI_HI).entity_id)
 
-    def test_registry_counts_are_unchanged(self, master):
-        """Aliases were added to existing rows, not new rows, so nothing that
-        asserts a registry size is disturbed."""
+    def test_registry_counts(self, master):
+        """Places dropped from 21 to 19 when X12's two duplicate rows were
+        merged away. Nothing else moved: the assets were repointed, not
+        removed, and no entity or edge was touched.
+
+        If this fails after a curated edit, re-derive the numbers from the
+        loader rather than adjusting them to whatever came out -- the whole
+        point of asserting a count is that a silent row loss is caught.
+        """
         assert len(master.entities) == 22
-        assert len(master.places) == 21
+        assert len(master.places) == 19
         assert len(master.assets) == 28
         assert len(master.edges) == 64
