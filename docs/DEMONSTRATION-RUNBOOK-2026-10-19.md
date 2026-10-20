@@ -31,9 +31,26 @@ snapshot that ships in the repository.
 python -m seraph.ingestion.eod2_client
 ```
 
-Loads the daily corpus. ~8 minutes, and idempotent — a second run reports
-`inserted: 0`. Produces **7,385,306 rows across 3,524 symbols,
-2005-01-03 → 2026-08-21**.
+Loads the vendored historical corpus. ~8 minutes, and idempotent — a second
+run reports `inserted: 0`. Produces **7,385,306 rows across 3,524 symbols,
+2005-01-03 → 2026-08-21**, which is where the vendored EOD2 snapshot ends.
+
+```bash
+python scripts/run_acquisition.py
+```
+
+Brings it up to date from **NSE's own public bhavcopy archive — no
+credentials**. On this installation that added 38 sessions and 101,083 rows,
+taking the corpus to **7,489,028 rows through 2026-10-19**. Two days came
+back `not_published` (2026-09-14 and 2026-10-02, real NSE holidays), which is
+the designed outcome of having no holiday calendar rather than a failure.
+
+Kite Connect is needed for **intraday** bars — FR1's five-minute cadence, and
+therefore the Hawkes pillar. It is not needed for end-of-day data, which is
+why the daily pillars and the prediction engine run fresh while Hawkes stays
+blocked on the subscription. Rows acquired this way also carry the exchange's
+exact `TOTTRDVAL` rather than EOD2's `close × volume` proxy, which is what
+FR52 ranks the universe on.
 
 ```bash
 python scripts/build_universe.py --from 2005 --to 2026
@@ -416,6 +433,73 @@ python -m pytest tests/test_o03_scheduling.py -q
 47 cases: the trading-day gate, overlap refusal, the freshness vocabulary,
 staleness marking, recovery from an abandoned lease, and the ledger
 migration that R10's fencing turned out to need.
+
+**15. Show that it acquires, not just executes.**
+
+This is the step that separates a working pipeline from a working *system*.
+Everything before today ran correctly on a snapshot ending 2026-08-21 and
+produced a two-month-old forecast: every step green, the scheduler firing,
+and no new observation ever entering the store.
+
+```bash
+python scripts/run_acquisition.py --dry-run
+```
+
+Says what it would fetch and why, without fetching. Then the real thing:
+
+```bash
+python scripts/run_acquisition.py
+```
+
+Three things as one unit, because acquiring data and *using* it are not the
+same act:
+
+1. **Acquire** the missing sessions from NSE's archive.
+2. **Re-flag the universe** for the years that gained sessions. This was the
+   actual integration gap — a fresh `daily_prices` row has
+   `universe_member_flag = false` until C3 applies membership, and the market
+   panel is built only from flagged rows, so the new sessions existed and
+   were *invisible*. Acquisition alone changed nothing downstream.
+3. **Rebuild the market snapshot** the prediction engine reads.
+
+Steps 2 and 3 run only when step 1 stored something.
+
+Then open the console. **PREDICTION & EARLY WARNING** now reads:
+
+| | |
+|---|---|
+| Decision date | **2026-10-19** |
+| Predicted probability | 6.23% |
+| Warning threshold | 12.52% |
+| Warning level | NO WARNING |
+| Snapshot | `rebuilt`, 2005-07-01 → 2026-10-19 |
+
+and the **STALE** banner is gone. The protocol is unchanged — horizon 15,
+barrier 10%, the same combined feature set, the same alert budget — so this
+is the same instrument on current inputs, not a different one.
+
+The **HEALTH** panel separates four facts that a single green light would
+collapse, and they do not always agree:
+
+- **registered** — the task exists and is enabled
+- **executed** — the steps ran
+- **acquired fresh data** — a new observation actually entered the store
+- **failed** — acquisition tried and could not
+
+Point at the fourth: a failed acquisition leaves the last valid forecast in
+place and marks its age, rather than discarding it or presenting it as
+current.
+
+```bash
+python -m pytest tests/test_fresh_data_acquisition.py -q
+```
+
+54 cases, offline against a synthesised bhavcopy: five refusals (a file
+dated differently from the day requested, an empty file, an implausibly small
+one, impossible OHLC, a non-positive price), the listing-day carry-forward
+FR52 depends on, and the bundle admission that had kept the daily vintages
+out of the current-risk path. One live test is gated on `SERAPH_LIVE_NSE=1`,
+so the suite never silently depends on an exchange being reachable.
 
 ---
 

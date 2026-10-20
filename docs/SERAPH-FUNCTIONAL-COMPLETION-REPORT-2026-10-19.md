@@ -18,7 +18,7 @@ Machine-readable evidence:
 | **Integration completion** | **11 of 17** | those 11 plus the blocked items in §4 |
 | **Demo readiness** | **yes, for the market/data/archive/workflow story** — no, for a live broker feed | §3 |
 | **Engineering backlog** | 28 of 77 rows done before this session; **T02–T07 and the three role workflows added since** | the 2026-10-18 plan's backlog |
-| Test suite | **2,471 passed, 14 skipped, 0 failed** — everything together, 24m44s | — |
+| Test suite | **2,525 passed, 15 skipped, 0 failed** — everything together, 23m12s | — |
 | New regression tests this session | **+177** (T03 24, T04 22, T05/08/09 33 + 17 UI, T06/07 20, C15 17, R10 20, plus earlier) | — |
 
 The single most important change: **the project now runs on its own real
@@ -181,19 +181,21 @@ into a confident-looking 0.79. Reverted; the fix belongs in the cutoff.
 
 ## 6. Honest accounting of the test suite
 
-- **Passing: 2,471, with nothing excluded** — the whole suite in one run,
-  24m44s, 0 failed. It was 2,247 before T10, which added 90 tests for the
+- **Passing: 2,525, with nothing excluded** — the whole suite in one run,
+  23m12s, 0 failed. It was 2,247 before T10, which added 90 tests for the
   FR35 runner, the FR37 transfer, the FR34 sweep and the FR38 archive, and
   34 more for the two console panels that reach them. Earlier in the session
   it was 2,193.
-- **Skipped, not passed: 14.** Four `ct3_jump_sufficiency` (need intraday
+- **Skipped, not passed: 15.** One is the live NSE acquisition test, gated
+  on  so the suite never silently depends on an exchange
+  being reachable; it passes when run. Four `ct3_jump_sufficiency` (need intraday
   bars — the same Kite blocker) and ten DB-gated cases needing a disposable
   `seraph_test_*` Postgres. V02's CI `migrations` job runs exactly those ten
   and **fails if any skip**.
 - **Split out for runtime, not excluded: 4 modules** (`test_c7_hamilton*`,
   `ct7_simulator_consistency`), 34 tests, 15m49s. The CI matrix runs them on
   their own leg; both that leg and the single combined run are green, so the
-  2,471 figure needs no caveat.
+  2,525 figure needs no caveat.
 - **Untested external dependencies:** the broker websocket, a real identity
   provider, and the three new CI jobs, which cannot be exercised from a
   developer machine — which is V02's whole point.
@@ -227,6 +229,18 @@ A passing suite is not functional correctness, which is why
 - **W0-B** — the Kite token is still in the repository root. The
   externalised configuration, the warning and the invariant check are
   implemented; **rotating the credential is yours.**
+
+**Fresh market data is closed.** The corpus reached 2026-08-21 — the
+vendored EOD2 snapshot's end — and every downstream step ran correctly on it,
+producing a two-month-old forecast. NSE's bhavcopy archive turned out to be
+public and reachable, so no subscription was needed: Kite Connect is for
+*intraday* bars, not end-of-day. 38 sessions and 101,083 rows later the
+corpus runs through **2026-10-19** and the prediction is for that session.
+The integration gap was not acquisition but what follows it — a fresh row is
+not a universe member until C3 says so, and the market panel is built only
+from members, so the new sessions were invisible until the flags and the
+snapshot were re-derived. Hawkes remains blocked, now for the precise reason:
+it needs five-minute bars, which the subscription gates.
 
 **O03 is closed.** The daily sequence is registered with Windows Task
 Scheduler (weekdays 18:30 IST), has been fired and observed to completion
