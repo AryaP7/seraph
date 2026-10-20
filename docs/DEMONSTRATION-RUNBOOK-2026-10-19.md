@@ -4,7 +4,7 @@ Written 19 October 2026 against branch `seraph/engineering-completion`.
 Every command here was run on this checkout and its output is recorded in
 [functional-completion-2026-10-19.json](evidence/functional-completion-2026-10-19.json).
 
-Verified state: **10 of 10 checked journeys work; 8 are blocked** on a paid
+Verified state: **11 of 11 checked journeys work; 8 are blocked** on a paid
 subscription or an owner decision. §5 lists them precisely. The three items
 that were blocked on a concurrent editing session are now closed: its news
 work was landed, and the launcher, the workflow controls and the job-lease
@@ -120,6 +120,11 @@ is an operator's decision, not a side effect of opening a dashboard.
 
 Each step below is something that works. Nothing here needs a broker
 connection or a paid subscription.
+
+**If you have five minutes, lead with step 13.** Prediction and early warning
+is what SERAPH is for, it is the console's first panel, and it is the one step
+that shows the whole chain — market data through features, models, a forecast
+and a warning decision — in one place.
 
 **1. Show the data foundation is real.**
 ```bash
@@ -283,6 +288,71 @@ python -m pytest tests/test_t10_evaluation_ui.py -q
 consulted, an edited design and an edited artefact are both refused, an
 unreadable artefact does not take the page down, and the control assertions
 parse the panel's call graph rather than its text.
+
+**13. Show the prediction and the warning — the system's purpose.**
+
+Open the console. **PREDICTION & EARLY WARNING** is the first panel and it is
+already expanded. On the data this runbook was written against it reads:
+
+| | |
+|---|---|
+| Decision date | 2026-08-21 |
+| Predicted probability | **4.62%** |
+| Warning threshold | 12.96% |
+| Warning level | **NO WARNING** |
+| Horizon | 15 sessions |
+
+The forecast is the probability that the research market index falls 10% or
+more from that close at any close in the next 15 sessions. It is produced by
+the actual engine — `build_pillar_features`, `walk_forward_predict`,
+`calibrate_alerts` — over 5,361 sessions from 2005-01-03, in about eighteen
+seconds:
+
+```bash
+python scripts/run_prediction.py
+```
+
+`run_market_jobs.py` runs it as the fourth daily step, so the panel is current
+on a schedule rather than whenever somebody ran it by hand.
+
+Four things to point at, in this order:
+
+- **The three headings are three different claims.** *Measured* is the pillar
+  feature values at that close — one row each for Hawkes, RMT and Hamilton,
+  plus the volatility baseline. *Predicted* is one model output. *Warning* is a
+  policy decision against a threshold calibrated on **past** out-of-sample
+  scores under a declared budget: at most 2 false episodes per year and at
+  most 10% of sessions in alarm. Conflating those three is how a research
+  instrument starts sounding like an oracle.
+- **The UNVALIDATED banner sits above every number**, not in a footnote. No
+  advance-warning skill has been demonstrated; AMENDMENT-03 measured Pillar 1
+  at approximately no skill at every intraday horizon.
+- **The realised history is labelled retrospective.** Brier 0.0695, AUC 0.659
+  over 4,576 matured forecasts against a 7.69% base rate, and 1.46 false
+  episodes per year — inside the 2.0 budget. That is what the instrument
+  *would have* produced, which is implementation behaviour, not foresight.
+- **The calibration table shows the model over-predicting.** Days it called
+  7.5% came in at 5.4%; days it called 28% came in at 19%. This is the
+  uncertainty the model actually supports — the logistic challenger yields no
+  interval, so inventing one would be worse than showing whether days it
+  called *p* turned out *p*. Show it rather than explaining it away.
+
+```bash
+python scripts/run_prediction.py --status
+```
+
+Prints the same state in the terminal, computing nothing.
+
+```bash
+python -m pytest tests/test_prediction_integration.py -q
+```
+
+50 cases, including: the operational feature set still matches the frozen
+experiment's `combined` candidate, all three pillar families are present,
+training labels are purged by the horizon, no confidence interval is claimed
+for the probability, an abstained threshold is never drawn as a quiet
+all-clear, and nothing under `seraph/` imports a module from `scripts/` —
+which is what an installed wheel cannot do.
 
 ---
 

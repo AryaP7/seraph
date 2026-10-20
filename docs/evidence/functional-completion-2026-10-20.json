@@ -1,8 +1,8 @@
 {
-  "generated": "2026-10-20T03:49:58+05:30",
+  "generated": "2026-10-20T10:33:02+05:30",
   "summary": {
-    "journeys_checked": 10,
-    "working": 10,
+    "journeys_checked": 11,
+    "working": 11,
     "not_working": 0,
     "blocked_elsewhere": 8,
     "resolved_since_first_run": 3
@@ -144,7 +144,7 @@
         "operations": 21,
         "holdings": 1,
         "scenario_run": true,
-        "case": "case_1b861320966",
+        "case": "case_2be2dff3c90",
         "identity": "local demonstration identity, not authenticated. State is du"
       },
       "note": "durable and owner-scoped; local demo identity, not auth"
@@ -183,6 +183,36 @@
       "note": "outcome stays null until the horizon elapses"
     },
     {
+      "journey": "prediction and early warning",
+      "requirement": "C9, C10, C12",
+      "works": true,
+      "evidence": {
+        "as_of": "2026-08-21",
+        "probability": 0.04620450377601309,
+        "horizon_sessions": 15,
+        "loss_barrier": 0.1,
+        "warning_level": "no_warning",
+        "threshold": 0.12964291398540212,
+        "labels_matured_through": "2026-05-14",
+        "training_rows": 5292,
+        "pillars": [
+          "hamilton",
+          "hawkes",
+          "rmt",
+          "volatility baseline"
+        ],
+        "realised": {
+          "brier": 0.06954325881857248,
+          "auc": 0.6587949810606061,
+          "forecasts": 4576,
+          "false_episodes_per_year": 1.4617169373549883
+        },
+        "feature_set_drift": null,
+        "validation": "unvalidated"
+      },
+      "note": "a probability and a warning decision, both point-in-time. The realised metrics are a retrospective replay and the status is unvalidated: no advance-warning skill has been demonstrated"
+    },
+    {
       "journey": "installed distribution",
       "requirement": "O01, O02",
       "works": true,
@@ -196,7 +226,7 @@
         "migration_sql_readable_from_installed_package": true,
         "passed": true
       },
-      "note": "from PACKAGING-2026-10-19.json"
+      "note": "from PACKAGING-2026-10-20.json"
     }
   ],
   "blocked": [

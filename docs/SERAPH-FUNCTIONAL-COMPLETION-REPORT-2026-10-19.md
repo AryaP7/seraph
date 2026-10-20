@@ -15,10 +15,10 @@ Machine-readable evidence:
 | Measure | Result | Denominator |
 |---|---|---|
 | **Functional completion** | **10 of 10 checked journeys work** | the journeys the originally intended scope needs and this installation can reach |
-| **Integration completion** | **10 of 16** | those 10 plus the 6 blocked items in §4 |
+| **Integration completion** | **11 of 17** | those 11 plus the blocked items in §4 |
 | **Demo readiness** | **yes, for the market/data/archive/workflow story** — no, for a live broker feed | §3 |
 | **Engineering backlog** | 28 of 77 rows done before this session; **T02–T07 and the three role workflows added since** | the 2026-10-18 plan's backlog |
-| Test suite | **2,371 passed, 14 skipped, 0 failed** — everything together, 22m33s | — |
+| Test suite | **2,421 passed, 14 skipped, 0 failed** — everything together, 21m44s | — |
 | New regression tests this session | **+177** (T03 24, T04 22, T05/08/09 33 + 17 UI, T06/07 20, C15 17, R10 20, plus earlier) | — |
 
 The single most important change: **the project now runs on its own real
@@ -181,8 +181,8 @@ into a confident-looking 0.79. Reverted; the fix belongs in the cutoff.
 
 ## 6. Honest accounting of the test suite
 
-- **Passing: 2,371, with nothing excluded** — the whole suite in one run,
-  22m33s, 0 failed. It was 2,247 before T10, which added 90 tests for the
+- **Passing: 2,421, with nothing excluded** — the whole suite in one run,
+  21m44s, 0 failed. It was 2,247 before T10, which added 90 tests for the
   FR35 runner, the FR37 transfer, the FR34 sweep and the FR38 archive, and
   34 more for the two console panels that reach them. Earlier in the session
   it was 2,193.
@@ -193,7 +193,7 @@ into a confident-looking 0.79. Reverted; the fix belongs in the cutoff.
 - **Split out for runtime, not excluded: 4 modules** (`test_c7_hamilton*`,
   `ct7_simulator_consistency`), 34 tests, 15m49s. The CI matrix runs them on
   their own leg; both that leg and the single combined run are green, so the
-  2,371 figure needs no caveat.
+  2,421 figure needs no caveat.
 - **Untested external dependencies:** the broker websocket, a real identity
   provider, and the three new CI jobs, which cannot be exercised from a
   developer machine — which is V02's whole point.
@@ -205,6 +205,16 @@ A passing suite is not functional correctness, which is why
 
 - **T11**, **T12**, **T13** — all P2 and all blocked on the model/data
   contracts in §4.
+- **The second half of X10.** `seraph.prediction` is now integrated: the
+  console's first panel runs the real engine through
+  `seraph/prediction/operational.py`, refreshed by the daily job sequence,
+  and `verify_functional_completion.py` checks it as a journey. What remains
+  is a different question with the same backlog id — `seraph/dashboard/app.py`
+  is a second dashboard beside the canonical `prototype_app.py`, and
+  `seraph/prediction/app.py` is a read-only viewer of saved research
+  artefacts. Neither is the prediction capability, which is wired; both are
+  duplicate surfaces whose fate is an owner call. **Prediction is not
+  research-only**, and nothing here classifies it that way.
 - **A real FR35 result.** T10 built the runner; the design it would run
   under is still uncommitted, and that is deliberately the owner's act
   rather than a build step — DR-05 step 5, and D5(d) gates every AUC on it.
@@ -238,10 +248,22 @@ The concurrent session was resolved, which unlocked the browser controls and
 the single-command launch. **No mandatory requirement now remains
 unimplemented for want of engineering effort.**
 
-T10 closed the last of those: `EvaluationRow` had no producer anywhere in
-the repository, and the FR35 ablation now has a runner, an FR37 transfer
-path, an FR34 sensitivity sweep and an FR38 archive. What it does not have
-is a result, for the one reason above.
+T10 closed one of those: `EvaluationRow` had no producer anywhere in the
+repository, and the FR35 ablation now has a runner, an FR37 transfer path,
+an FR34 sensitivity sweep and an FR38 archive. What it does not have is a
+result, for the one reason above.
+
+The larger one was prediction. SERAPH is a risk prediction and early-warning
+system, and its engine reached the user only as backend code, a CLI
+experiment and a separate parquet viewer — `seraph.prediction` was
+unreachable from `seraph/dashboard/` entirely. It is now the console's first
+panel, driven by the actual engine on 5,361 real sessions and refreshed by
+the daily job sequence. On the current data it reads a 4.62% probability
+against a calibrated 12.96% threshold, so no warning, with Brier 0.0695 and
+AUC 0.659 over 4,576 matured forecasts — and a calibration table showing the
+model over-predicting in every populated bin. All of that is displayed,
+including the over-prediction, under an UNVALIDATED banner that sits above
+the numbers rather than beneath them.
 
 No feature above is claimed as working that this report has not verified,
 and nothing simulated is presented as real.

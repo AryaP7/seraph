@@ -272,6 +272,69 @@ def forecasts() -> dict:
                 note="outcome stays null until the horizon elapses")
 
 
+@check("prediction and early warning", "C9, C10, C12")
+def prediction() -> dict:
+    """The system's stated purpose, end to end.
+
+    Checks the engine's own state, not a page: that a forecast exists for
+    the snapshot's last session, that it was fitted on horizon-purged
+    labels, that a warning decision was taken against a calibrated
+    threshold, that the console can read it through the PACKAGE (an
+    installed wheel has no `scripts/`), and that the unvalidated status
+    travels with the number.
+    """
+    from seraph.dashboard.console_backend import WARNING_LEVELS
+    from seraph.prediction import operational
+
+    saved = operational.load_state()
+    if not saved.get("ran"):
+        return dict(works=False, evidence=dict(path=saved.get("path")),
+                    note=(saved.get("note", "no prediction state") +
+                          " -- run scripts/run_prediction.py, or let "
+                          "run_market_jobs.py do it in the daily sequence"))
+    state = saved["state"]
+    predicted, warning = state["predicted"], state["warning"]
+    history = state["history"]
+
+    # The feature set must still be the frozen experiment's combined model.
+    drift = None
+    try:
+        operational.assert_matches_experiment()
+    except AssertionError as exc:
+        drift = str(exc)
+
+    purged = (predicted.get("train_end_date") is not None
+              and predicted["train_end_date"] < state["as_of"])
+    works = bool(
+        predicted.get("probability") is not None
+        and warning.get("level") in WARNING_LEVELS
+        and purged and drift is None
+        and state["validation"]["status"] == "unvalidated")
+    return dict(
+        works=works,
+        evidence=dict(
+            as_of=state["as_of"],
+            probability=predicted["probability"],
+            horizon_sessions=predicted["horizon_sessions"],
+            loss_barrier=predicted["loss_barrier"],
+            warning_level=warning["level"],
+            threshold=warning["threshold"],
+            labels_matured_through=predicted["train_end_date"],
+            training_rows=predicted["training_count"],
+            pillars=sorted({item["pillar"] for item
+                            in state["measured"]["pillar_features"].values()}),
+            realised=dict(brier=history["metrics"]["brier"],
+                          auc=history["metrics"]["auc"],
+                          forecasts=history["metrics"]["n"],
+                          false_episodes_per_year=history["alarm_stats"][
+                              "false_episodes_per_year"]),
+            feature_set_drift=drift,
+            validation=state["validation"]["status"]),
+        note=("a probability and a warning decision, both point-in-time. The "
+              "realised metrics are a retrospective replay and the status is "
+              "unvalidated: no advance-warning skill has been demonstrated"))
+
+
 @check("installed distribution", "O01, O02")
 def packaging() -> dict:
     latest = sorted((ROOT / "docs" / "evidence").glob("PACKAGING-*.json"))
@@ -383,7 +446,7 @@ RESOLVED = [
 ]
 
 CHECKS = [corpus, universe, classification, vintages, decision_path, overlay,
-          flow, workflows, forecasts, packaging]
+          flow, workflows, forecasts, prediction, packaging]
 
 
 def main() -> int:
