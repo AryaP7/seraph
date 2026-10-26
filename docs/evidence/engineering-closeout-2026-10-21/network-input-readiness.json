@@ -1,0 +1,26 @@
+{
+  "bars": 10641,
+  "nodes": [
+    "aluminium",
+    "auto_components",
+    "pharmaceuticals",
+    "solar",
+    "steel"
+  ],
+  "complete_nodes": [
+    "aluminium",
+    "auto_components",
+    "pharmaceuticals",
+    "solar",
+    "steel"
+  ],
+  "negative_events": {
+    "aluminium": 136.0,
+    "auto_components": 62.0,
+    "pharmaceuticals": 151.0,
+    "solar": 40.0,
+    "steel": 135.0
+  },
+  "native_rows": 243872,
+  "note": "Actual input readiness only; no network fit or parameter adoption"
+}

@@ -1,0 +1,11 @@
+{
+  "attempted_at": "2026-10-21T21:36:22.194574+05:30",
+  "symbols": [
+    "TATASTEEL",
+    "INFY"
+  ],
+  "start": "2019-10-01",
+  "end": "2020-04-30",
+  "mode": "actual broker acquisition; no synthetic fallback",
+  "exit_code": 0
+}

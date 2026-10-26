@@ -89,7 +89,10 @@ class MarketClock:
                  bar_minutes: int = BAR_MINUTES,
                  delayed_after_minutes: int = 15,
                  stale_after_minutes: int = 90):
-        self.calendar = calendar or SessionCalendar()
+        if calendar is None:
+            from seraph.market_calendar.exchange import configured
+            calendar = configured()
+        self.calendar = calendar
         self.bar_minutes = bar_minutes
         self.delayed_after_minutes = delayed_after_minutes
         self.stale_after_minutes = stale_after_minutes
@@ -116,9 +119,7 @@ class MarketClock:
         a session with no data, which the recency check then catches. It never
         silently invents trading on a holiday.
         """
-        if self.calendar.is_special(day):
-            return True
-        return date.fromisoformat(day).weekday() < 5
+        return self.calendar.is_session(day)
 
     # -------------------------------------------------------------- state
 

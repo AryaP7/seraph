@@ -1,0 +1,826 @@
+{
+  "mode": "actual archived prices; explicit demo submissions; hypothetical actions",
+  "resumed_workspace": "docs\\evidence\\engineering-closeout-2026-10-21\\browser-12\\isolated\\workspace",
+  "javascript_exceptions": [],
+  "forecast_id_visible": true,
+  "roles": {
+    "retail": {
+      "role": "retail",
+      "banner": "NOT A CURRENT MARKET READING \u2014 the newest observation is 2365.2 days old. Anything computed from it is a REPLAY of that period, not a statement about the market now, and must be labelled as such | observed 2020-04-30T15:30:00+05:30 \u00b7 now 2026-10-21T19:41:15+05:30 \u00b7 market closed_for_day \u00b7 feed: none \u2014 not connected, unauthenticatedRUN 02e4bcf491bd603a \u00b7 2020-04-30 \u00b7 RETAIL | WORKER STOPPED \u2014 last heartbeat 29.5 h old. Nothing is fetching. STALE \u2014 newest item 29.5 h old; 18 of 19 sources past the freshness policy they declared. Nothing on screen reflects what has happened since. | NEWS current_news 2026-10-21T19:41:02+05:30 | 1/19 feeds fresh | CONNECTED: SIGNALS, SECTOR_STRESS, GEOGRAPHY, ASSETS | 18 evidenced map node(s) | NEWS current_news 2026-10-21T19:41:02+05:30 | MARKET 2020-04-30T15:30:00+05:30",
+      "news": "RETAIL NEWS INTELLIGENCE0 holding(s) have a documented route from news; 0 mapped holdings have no current matched event; 0 do not have a usable mapping. An unmapped holding is one this system cannot speak about, not one that is unaffecteddirections are qualitative hypotheses about mechanism. None of this is a probability of loss or a position recommendationAdd your holdings in Tools to see portfolio-specific news routes.",
+      "canvas": true
+    },
+    "institutional": {
+      "role": "institutional",
+      "banner": "NOT A CURRENT MARKET READING \u2014 the newest observation is 2365.2 days old. Anything computed from it is a REPLAY of that period, not a statement about the market now, and must be labelled as such | observed 2020-04-30T15:30:00+05:30 \u00b7 now 2026-10-21T19:41:48+05:30 \u00b7 market closed_for_day \u00b7 feed: none \u2014 not connected, unauthenticatedRUN 02e4bcf491bd603a \u00b7 2020-04-30 \u00b7 INSTITUTIONAL | WORKER STOPPED \u2014 last heartbeat 29.5 h old. Nothing is fetching. STALE \u2014 newest item 29.5 h old; 18 of 19 sources past the freshness policy they declared. Nothing on screen reflects what has happened since. | NEWS current_news 2026-10-21T19:41:35+05:30 | 1/19 feeds fresh | CONNECTED: SIGNALS, SECTOR_STRESS, GEOGRAPHY, ASSETS | 18 evidenced map node(s) | NEWS current_news 2026-10-21T19:41:35+05:30 | MARKET 2020-04-30T15:30:00+05:30",
+      "news": "INSTITUTIONAL NEWS INTELLIGENCE22 of 22 documented relationship(s) are UNSIZED. A direction without a size supports a question, not a position0 route(s) carry an accounting scenario. A scenario states the change in the landed cost of the covered article from the instrument's own rates; it is not a loss, a return or a forecast, and it carries no monetary range because no relationship here has a financial denominatorwhere an instrument has opposing sides, both are listed and the net is not computed: it needs sizes this system does not holdsector:steel \u00b7 adverse \u00b7 exportEvidence confidencemediumExposure sizeUNSIZEDOpposing mechanisms{\n  \"constrained_roles\": [\n    \"exporter\",\n    \"downstream_buyer_in_importing_country\"\n  ],\n  \"benefiting_roles\": [\n    \"domestic_producer\"\n  ],\n  \"mechanism\": \"a duty raises the landed cost of the covered product\",\n  \"reversed_by_status\": false,\n  \"basis\": \"for this class of instrument, a duty raises the landed cost of the covered product\",\n  \"net_effect\": \"NOT COMPUTED. Both sides are consequences of one instrument; which dominates depends on sizes this system does not hold, so no net is asserted\"\n}No accounting scenario: the document states no ad-valorem duty ratenet economic effect requires target-specific exposureoccurrence time not evidencedaction not establishedtrade-remedy direction depends on the target role (exporter, competing producer, downstream buyer); the measure alone does not establish a sign14 further sentence(s) in this document make the same claim about the same parties (assertion status seen: confirmed_statement); the weakest is what the document establishesqualitative mechanism hypothesis; not a measured outcome or loss forecastseverity is an editorial event category; not calibrated economic severityUS duty orders exist on an Indian steel product (forged steel fittings): USITC 2026-11356 schedules five-year reviews of the countervailing duty order on India and the antidumping duty orders on India and Korea. This establishes that Indian steel products face US trade measures. It is NOT a revenue share and NOT a company exposure; the edge is deliberately unsized. Product scope is steel articles only: chromium trioxide is a metal-finishing chemical and graphite electrodes are a consumable INPUT to electric-arc steelmaking - a duty on either is not a duty on Indian steel exports and both were removed after they matched.product scope was NOT established from the received text: the operative scope lives in the document body, which is not retained for this item. A product-family match may therefore include articles the measure does not coverindirect: reached through 1 documented relationship(s) (india_steel_us_trade_remedy)the size of this dependence is not recorded; the relationship is evidenced but its magnitude is unknown, which is not the same as smallindia_steel_us_trade_remedyfederal_register_indiaOpen source eventssector:agriculture \u00b7 ambiguous \u00b7 exportEvidence confidencemediumExposure sizeUNSIZEDOpposing mechanisms{\n  \"constrained_roles\": [\n    \"exporter\",\n    \"downstream_buyer_in_importing_country\"\n  ],\n  \"benefiting_roles\": [\n    \"domestic_producer\"\n  ],\n  \"mechanism\": \"a duty raises the landed cost of the covered product\",\n  \"reversed_by_status\": false,\n  \"basis\": \"for this class of instrument, a duty raises the landed cost of the covered product\",\n  \"net_effect\": \"NOT COMPUTED. Both sides are consequences of one instrument; which dominates depends on sizes this system does not hold, so no net is asserted\"\n}No accounting scenario: legal stage is 'unknown': nothing is decided that could change a landed cost; the document states no ad-valorem duty ratenet economic effect requires target-specific exposureoccurrence time not evidencedaction not establishedtrade-remedy direction depends on the target role (exporter, competing producer, downstream buyer); the measure alone does not establish a sign34 further sentence(s) in this document make the same claim about the same parties (assertion status seen: confirmed_statement); the weakest is what the document establishesqualitative mechanism hypothesis; not a measured outcome or loss forecastseverity is an editorial event category; not calibrated economic severityUS duty orders cover Indian agricultural and marine products, which establishes the export trade exists. Unsized, and a product-level measure is not sector revenue exposure.product scope was NOT established from the received text: the operative scope lives in the document body, which is not retained for this item. A product-family match may therefore include articles the measure does not covernet direction unknown: required target role, action or applicability is not establishedindirect: reached through 1 documented relationship(s) (india_agriculture_us_trade_remedy)the size of this dependence is not recorded; the relationship is evidenced but its magnitude is unknown, which is not the same as smallindia_agriculture_us_trade_remedyfederal_register_indiaOpen source eventssector:chemicals \u00b7 adverse \u00b7 exportEvidence confidencemediumExposure sizeUNSIZEDOpposing mechanisms{\n  \"constrained_roles\": [\n    \"exporter\",\n    \"downstream_buyer_in_importing_country\"\n  ],\n  \"benefiting_roles\": [\n    \"domestic_producer\"\n  ],\n  \"mechanism\": \"a duty raises the landed cost of the covered product\",\n  \"reversed_by_status\": false,\n  \"basis\": \"for this class of instrument, a duty raises the landed cost of the covered product\",\n  \"net_effect\": \"NOT COMPUTED. Both sides are consequences of one instrument; which dominates depends on sizes this system does not hold, so no net is asserted\"\n}No accounting scenario: the document states no ad-valorem duty rate; the issuing jurisdiction is not established, so the destination market of the duty is unknownnet economic effect requires target-specific exposureoccurrence time not evidencedaction not establishedtrade-remedy direction depends on the target role (exporter, competing producer, downstream buyer); the measure alone does not establish a sign20 further sentence(s) in this document make the same claim about the same parties (assertion status seen: confirmed_statement); the weakest is what the document establishesqualitative mechanism hypothesis; not a measured outcome or loss forecastseverity is an editorial event category; not calibrated economic severityUS anti-dumping and countervailing proceedings cover chemical products from India, which establishes the import trade exists. It is NOT a revenue share and NOT a company exposure; the edge is unsized. Chromium trioxide is a metal-finishing chemical, not a steel article.product scope was NOT established from the received text: the operative scope lives in the document body, which is not retained for this item. A product-family match may therefore include articles the measure does not coverindirect: reached through 1 documented relationship(s) (india_chemicals_us_trade_remedy)the size of this dependence is not recorded; the relationship is evidenced but its magnitude is unknown, which is not the same as smallindia_chemicals_us_trade_remedyfederal_register_ita \u00b7 federal_register_indiaOpen source eventssector:chemicals \u00b7 adverse \u00b7 exportEvidence confidencemediumExposure sizeUNSIZEDOpposing mechanisms{\n  \"constrained_roles\": [\n    \"exporter\",\n    \"downstream_buyer_in_importing_country\"\n  ],\n  \"benefiting_roles\": [\n    \"domestic_producer\"\n  ],\n  \"mechanism\": \"a duty raises the landed cost of the covered product\",\n  \"reversed_by_status\": false,\n  \"basis\": \"for this class of instrument, a duty raises the landed cost of the covered product\",\n  \"net_effect\": \"NOT COMPUTED. Both sides are consequences of one instrument; which dominates depends on sizes this system does not hold, so no net is asserted\"\n}No accounting scenario: the document states no ad-valorem duty rate; the issuing jurisdiction is not established, so the destination market of the duty is unknownnet economic effect requires target-specific exposureoccurrence time not evidencedaction not establishedtrade-remedy direction depends on the target role (exporter, competing producer, downstream buyer); the measure alone does not establish a sign15 further sentence(s) in this document make the same claim about the same parties (assertion status seen: confirmed_statement); the weakest is what the document establishesqualitative mechanism hypothesis; not a measured outcome or loss forecastseverity is an editorial event category; not calibrated economic severityUS anti-dumping and countervailing proceedings cover chemical products from India, which establishes the import trade exists. It is NOT a revenue share and NOT a company exposure; the edge is unsized. Chromium trioxide is a metal-finishing chemical, not a steel article.product scope was NOT established from the received text: the operative scope lives in the document body, which is not retained for this item. A product-family match may therefore include articles the measure does not coverindirect: reached through 1 documented relationship(s) (india_chemicals_us_trade_remedy)the size of this dependence is not recorded; the relationship is evidenced but its magnitude is unknown, which is not the same as smallindia_chemicals_us_trade_remedyfederal_register_ita \u00b7 federal_register_indiaOpen source eventssector:textiles \u00b7 ambiguous \u00b7 exportEvidence confidencemediumExposure sizeUNSIZEDOpposing mechanisms{\n  \"constrained_roles\": [\n    \"exporter\",\n    \"downstream_buyer_in_importing_country\"\n  ],\n  \"benefiting_roles\": [\n    \"domestic_producer\"\n  ],\n  \"mechanism\": \"a duty raises the landed cost of the covered product\",\n  \"reversed_by_status\": false,\n  \"basis\": \"for this class of instrument, a duty raises the landed cost of the covered product\",\n  \"net_effect\": \"NOT COMPUTED. Both sides are consequences of one instrument; which dominates depends on sizes this system does not hold, so no net is asserted\"\n}No accounting scenario: legal stage is 'announced': nothing is decided that could change a landed cost; the document states no ad-valorem duty ratenet economic effect requires target-specific exposureoccurrence time not evidencedaction not establishedtrade-remedy direction depends on the target role (exporter, competing producer, downstream buyer); the measure alone does not establish a signpreliminary or initiated stage: no duty is established by this documentqualitative mechanism hypothesis; not a measured outcome or loss forecastseverity is an editorial event category; not calibrated economic severityUS anti-dumping proceedings cover Indian man-made fibre, which establishes the export trade exists. Unsized: the notice names no Indian volume or share.product scope was NOT established from the received text: the operative scope lives in the document body, which is not retained for this item. A product-family match may therefore include articles the measure does not covernet direction unknown: required target role, action or applicability is not establishedindirect: reached through 1 documented relationship(s) (india_textiles_us_trade_remedy)the size of this dependence is not recorded; the relationship is evidenced but its magnitude is unknown, which is not the same as smallindia_textiles_us_trade_remedyfederal_register_india \u00b7 federal_register_ita \u00b7 federal_registerOpen source eventssector:chemicals \u00b7 ambiguous \u00b7 exportEvidence confidencemediumExposure sizeUNSIZEDOpposing mechanisms{\n  \"constrained_roles\": [\n    \"exporter\",\n    \"downstream_buyer_in_importing_country\"\n  ],\n  \"benefiting_roles\": [\n    \"domestic_producer\"\n  ],\n  \"mechanism\": \"a duty raises the landed cost of the covered product\",\n  \"reversed_by_status\": false,\n  \"basis\": \"for this class of instrument, a duty raises the landed cost of the covered product\",\n  \"net_effect\": \"NOT COMPUTED. Both sides are consequences of one instrument; which dominates depends on sizes this system does not hold, so no net is asserted\"\n}No accounting scenario: legal stage is 'announced': nothing is decided that could change a landed cost; the document states no ad-valorem duty ratenet economic effect requires target-specific exposureoccurrence time not evidencedaction not establishedtrade-remedy direction depends on the target role (exporter, competing producer, downstream buyer); the measure alone does not establish a signpreliminary or initiated stage: no duty is established by this documentqualitative mechanism hypothesis; not a measured outcome or loss forecastseverity is an editorial event category; not calibrated economic severityUS anti-dumping and countervailing proceedings cover chemical products from India, which establishes the import trade exists. It is NOT a revenue share and NOT a company exposure; the edge is unsized. Chromium trioxide is a metal-finishing chemical, not a steel article.product scope was NOT established from the received text: the operative scope lives in the document body, which is not retained for this item. A product-family match may therefore include articles the measure does not covernet direction unknown: required target role, action or applicability is not establishedindirect: reached through 1 documented relationship(s) (india_chemicals_us_trade_remedy)the size of this dependence is not recorded; the relationship is evidenced but its magnitude is unknown, which is not the same as smallindia_chemicals_us_trade_remedyfederal_register_india \u00b7 federal_register_ita \u00b7 federal_registerOpen source eventssector:chemicals \u00b7 ambiguous \u00b7 exportEvidence confidencemediumExposure sizeUNSIZEDOpposing mechanisms{\n  \"constrained_roles\": [\n    \"exporter\",\n    \"downstream_buyer_in_importing_country\"\n  ],\n  \"benefiting_roles\": [\n    \"domestic_producer\"\n  ],\n  \"mechanism\": \"a duty raises the landed cost of the covered product\",\n  \"reversed_by_status\": false,\n  \"basis\": \"for this class of instrument, a duty raises the landed cost of the covered product\",\n  \"net_effect\": \"NOT COMPUTED. Both sides are consequences of one instrument; which dominates depends on sizes this system does not hold, so no net is asserted\"\n}No accounting scenario: legal stage is 'announced': nothing is decided that could change a landed cost; the document states no ad-valorem duty ratenet economic effect requires target-specific exposureoccurrence time not evidencedaction not establishedtrade-remedy direction depends on the target role (exporter, competing producer, downstream buyer); the measure alone does not establish a signpreliminary or initiated stage: no duty is established by this documentqualitative mechanism hypothesis; not a measured outcome or loss forecastseverity is an editorial event category; not calibrated economic severityUS anti-dumping and countervailing proceedings cover chemical products from India, which establishes the import trade exists. It is NOT a revenue share and NOT a company exposure; the edge is unsized. Chromium trioxide is a metal-finishing chemical, not a steel article.product scope was NOT established from the received text: the operative scope lives in the document body, which is not retained for this item. A product-family match may therefore include articles the measure does not covernet direction unknown: required target role, action or applicability is not establishedindirect: reached through 1 documented relationship(s) (india_chemicals_us_trade_remedy)the size of this dependence is not recorded; the relationship is evidenced but its magnitude is unknown, which is not the same as smallindia_chemicals_us_trade_remedyfederal_register_india \u00b7 federal_register_ita \u00b7 federal_registerOpen source eventssector:agriculture \u00b7 adverse \u00b7 exportEvidence confidencemediumExposure sizeUNSIZEDOpposing mechanisms{\n  \"constrained_roles\": [\n    \"exporter\",\n    \"downstream_buyer_in_importing_country\"\n  ],\n  \"benefiting_roles\": [\n    \"domestic_producer\"\n  ],\n  \"mechanism\": \"a duty raises the landed cost of the covered product\",\n  \"reversed_by_status\": false,\n  \"basis\": \"for this class of instrument, a duty raises the landed cost of the covered product\",\n  \"net_effect\": \"NOT COMPUTED. Both sides are consequences of one instrument; which dominates depends on sizes this system does not hold, so no net is asserted\"\n}No accounting scenario: the document states no ad-valorem duty ratenet economic effect requires target-specific exposureoccurrence time not evidencedaction not establishedtrade-remedy direction depends on the target role (exporter, competing producer, downstream buyer); the measure alone does not establish a signqualitative mechanism hypothesis; not a measured outcome or loss forecastseverity is an editorial event category; not calibrated economic severityUS duty orders cover Indian agricultural and marine products, which establishes the export trade exists. Unsized, and a product-level measure is not sector revenue exposure.product scope was NOT established from the received text: the operative scope lives in the document body, which is not retained for this item. A product-family match may therefore include articles the measure does not coverindirect: reached through 1 documented relationship(s) (india_agriculture_us_trade_remedy)the size of this dependence is not recorded; the relationship is evidenced but its magnitude is unknown, which is not the same as smallindia_agriculture_us_trade_remedyfederal_register_indiaOpen source eventssector:aluminium \u00b7 ambiguous \u00b7 exportEvidence confidencemediumExposure sizeUNSIZEDOpposing mechanisms{\n  \"constrained_roles\": [\n    \"exporter\",\n    \"downstream_buyer_in_importing_country\"\n  ],\n  \"benefiting_roles\": [\n    \"domestic_producer\"\n  ],\n  \"mechanism\": \"a duty raises the landed cost of the covered product\",\n  \"reversed_by_status\": false,\n  \"basis\": \"for this class of instrument, a duty raises the landed cost of the covered product\",\n  \"net_effect\": \"NOT COMPUTED. Both sides are consequences of one instrument; which dominates depends on sizes this system does not hold, so no net is asserted\"\n}No accounting scenario: legal stage is 'consultation': nothing is decided that could change a landed cost; the document states no ad-valorem duty ratenet economic effect requires target-specific exposureoccurrence time not evidencedaction not establishedtrade-remedy direction depends on the target role (exporter, competing producer, downstream buyer); the measure alone does not establish a signpreliminary or initiated stage: no duty is established by this documentqualitative mechanism hypothesis; not a measured outcome or loss forecastseverity is an editorial event category; not calibrated economic severityA US five-year review covers common alloy aluminium sheet from a group of countries including India, which establishes the import trade exists. Unsized: the review names no Indian volume or share.product scope was NOT established from the received text: the operative scope lives in the document body, which is not retained for this item. A product-family match may therefore include articles the measure does not covernet direction unknown: required target role, action or applicability is not establishedindirect: reached through 1 documented relationship(s) (india_aluminium_us_trade_remedy)the size of this dependence is not recorded; the relationship is evidenced but its magnitude is unknown, which is not the same as smallindia_aluminium_us_trade_remedyfederal_register_indiaOpen source eventssector:industrial_materials \u00b7 ambiguous \u00b7 exportEvidence confidencemediumExposure sizeUNSIZEDOpposing mechanisms{\n  \"constrained_roles\": [\n    \"exporter\",\n    \"downstream_buyer_in_importing_country\"\n  ],\n  \"benefiting_roles\": [\n    \"domestic_producer\"\n  ],\n  \"mechanism\": \"a duty raises the landed cost of the covered product\",\n  \"reversed_by_status\": false,\n  \"basis\": \"for this class of instrument, a duty raises the landed cost of the covered product\",\n  \"net_effect\": \"NOT COMPUTED. Both sides are consequences of one instrument; which dominates depends on sizes this system does not hold, so no net is asserted\"\n}No accounting scenario: legal stage is 'announced': nothing is decided that could change a landed cost; the document states no ad-valorem duty ratenet economic effect requires target-specific exposureoccurrence time not evidencedaction not establishedtrade-remedy direction depends on the target role (exporter, competing producer, downstream buyer); the measure alone does not establish a signpreliminary or initiated stage: no duty is established by this documentqualitative mechanism hypothesis; not a measured outcome or loss forecastseverity is an editorial event category; not calibrated economic severityUS proceedings cover Indian graphite electrodes, which establishes the export trade exists. These are a consumable INPUT to electric-arc steelmaking, not a steel article: the exposed party is the Indian electrode producer, not Indian steelmakers. Unsized.product scope was NOT established from the received text: the operative scope lives in the document body, which is not retained for this item. A product-family match may therefore include articles the measure does not covernet direction unknown: required target role, action or applicability is not establishedindirect: reached through 1 documented relationship(s) (india_industrial_materials_us_trade_remedy)the size of this dependence is not recorded; the relationship is evidenced but its magnitude is unknown, which is not the same as smallindia_industrial_materials_us_trade_remedyfederal_register_indiaOpen source eventsin \u00b7 ambiguous \u00b7 importEvidence confidencemediumExposure sizeUNSIZEDOpposing mechanisms{\n  \"constrained_roles\": [\n    \"exporter\",\n    \"downstream_buyer_abroad\"\n  ],\n  \"benefiting_roles\": [\n    \"domestic_buyer\"\n  ],\n  \"mechanism\": \"restricting exports keeps supply at home and withholds it abroad\",\n  \"reversed_by_status\": false,\n  \"basis\": \"for this class of instrument, restricting exports keeps supply at home and withholds it abroad\",\n  \"net_effect\": \"NOT COMPUTED. Both sides are consequences of one instrument; which dominates depends on sizes this system does not hold, so no net is asserted\"\n}net economic effect requires target-specific exposureoccurrence time not evidencedqualitative mechanism hypothesis; not a measured outcome or loss forecastseverity is an editorial event category; not calibrated economic severityDocumented 2024-25 national magnet imports. Exact controlled composition and current licence availability unknown; qualitative watch only.product scope was NOT established from the received text: the operative scope lives in the document body, which is not retained for this item. A product-family match may therefore include articles the measure does not coverscope watch: exact product composition, exemptions and current legal status require instrument reviewnet direction unknown: required target role, action or applicability is not establishedindirect: reached through 1 documented relationship(s) (cn_india_rare_earth_supply)the size of this dependence is not recorded; the relationship is evidenced but its magnitude is unknown, which is not the same as smallcn_india_rare_earth_supplymofcom_rare_earth_18_2025Open source eventssector:auto \u00b7 ambiguous \u00b7 input_dependencyEvidence confidencemediumExposure sizeUNSIZEDOpposing mechanisms{\n  \"constrained_roles\": [\n    \"exporter\",\n    \"downstream_buyer_abroad\"\n  ],\n  \"benefiting_roles\": [\n    \"domestic_buyer\"\n  ],\n  \"mechanism\": \"restricting exports keeps supply at home and withholds it abroad\",\n  \"reversed_by_status\": false,\n  \"basis\": \"for this class of instrument, restricting exports keeps supply at home and withholds it abroad\",\n  \"net_effect\": \"NOT COMPUTED. Both sides are consequences of one instrument; which dominates depends on sizes this system does not hold, so no net is asserted\"\n}net economic effect requires target-specific exposureoccurrence time not evidencedqualitative mechanism hypothesis; not a measured outcome or loss forecastseverity is an editorial event category; not calibrated economic severityAutomotive electric/hybrid motor dependency. National trade share is not company exposure.product scope was NOT established from the received text: the operative scope lives in the document body, which is not retained for this item. A product-family match may therefore include articles the measure does not coverscope watch: exact product composition, exemptions and current legal status require instrument reviewnet direction unknown: required target role, action or applicability is not establishedindirect: reached through 2 documented relationship(s) (cn_india_rare_earth_supply -> india_auto_magnet_dependency)the size of this dependence is not recorded; the relationship is evidenced but its magnitude is unknown, which is not the same as smallcn_india_rare_earth_supply \u2192 india_auto_magnet_dependencymofcom_rare_earth_18_2025Open source eventssector:agriculture \u00b7 ambiguous \u00b7 exportEvidence confidencemediumExposure sizeUNSIZEDOpposing mechanisms{\n  \"constrained_roles\": [\n    \"exporter\",\n    \"downstream_buyer_in_importing_country\"\n  ],\n  \"benefiting_roles\": [\n    \"domestic_producer\"\n  ],\n  \"mechanism\": \"a duty raises the landed cost of the covered product\",\n  \"reversed_by_status\": false,\n  \"basis\": \"for this class of instrument, a duty raises the landed cost of the covered product\",\n  \"net_effect\": \"NOT COMPUTED. Both sides are consequences of one instrument; which dominates depends on sizes this system does not hold, so no net is asserted\"\n}No accounting scenario: legal stage is 'unknown': nothing is decided that could change a landed cost; the document states no ad-valorem duty ratenet economic effect requires target-specific exposureoccurrence time not evidencedaction not establishedtrade-remedy direction depends on the target role (exporter, competing producer, downstream buyer); the measure alone does not establish a signqualitative mechanism hypothesis; not a measured outcome or loss forecastseverity is an editorial event category; not calibrated economic severityUS duty orders cover Indian agricultural and marine products, which establishes the export trade exists. Unsized, and a product-level measure is not sector revenue exposure.product scope was NOT established from the received text: the operative scope lives in the document body, which is not retained for this item. A product-family match may therefore include articles the measure does not covernet direction unknown: required target role, action or applicability is not establishedindirect: reached through 1 documented relationship(s) (india_agriculture_us_trade_remedy)the size of this dependence is not recorded; the relationship is evidenced but its magnitude is unknown, which is not the same as smallindia_agriculture_us_trade_remedyfederal_register_indiaOpen source eventssector:steel \u00b7 ambiguous \u00b7 exportEvidence confidencemediumExposure sizeUNSIZEDOpposing mechanisms{\n  \"constrained_roles\": [\n    \"exporter\",\n    \"downstream_buyer_in_importing_country\"\n  ],\n  \"benefiting_roles\": [\n    \"domestic_producer\"\n  ],\n  \"mechanism\": \"a duty raises the landed cost of the covered product\",\n  \"reversed_by_status\": false,\n  \"basis\": \"for this class of instrument, a duty raises the landed cost of the covered product\",\n  \"net_effect\": \"NOT COMPUTED. Both sides are consequences of one instrument; which dominates depends on sizes this system does not hold, so no net is asserted\"\n}No accounting scenario: legal stage is 'unknown': nothing is decided that could change a landed cost; the document states no ad-valorem duty ratenet economic effect requires target-specific exposureoccurrence time not evidencedtrade-remedy direction depends on the target role (exporter, competing producer, downstream buyer); the measure alone does not establish a signqualitative mechanism hypothesis; not a measured outcome or loss forecastseverity is an editorial event category; not calibrated economic severityUS duty orders exist on an Indian steel product (forged steel fittings): USITC 2026-11356 schedules five-year reviews of the countervailing duty order on India and the antidumping duty orders on India and Korea. This establishes that Indian steel products face US trade measures. It is NOT a revenue share and NOT a company exposure; the edge is deliberately unsized. Product scope is steel articles only: chromium trioxide is a metal-finishing chemical and graphite electrodes are a consumable INPUT to electric-arc steelmaking - a duty on either is not a duty on Indian steel exports and both were removed after they matched.product scope was NOT established from the received text: the operative scope lives in the document body, which is not retained for this item. A product-family match may therefore include articles the measure does not covernet direction unknown: required target role, action or applicability is not establishedindirect: reached through 1 documented relationship(s) (india_steel_us_trade_remedy)the size of this dependence is not recorded; the relationship is evidenced but its magnitude is unknown, which is not the same as smallindia_steel_us_trade_remedyfederal_register_indiaOpen source eventssector:paper_packaging \u00b7 ambiguous \u00b7 exportEvidence confidencemediumExposure sizeUNSIZEDOpposing mechanisms{\n  \"constrained_roles\": [\n    \"exporter\",\n    \"downstream_buyer_in_importing_country\"\n  ],\n  \"benefiting_roles\": [\n    \"domestic_producer\"\n  ],\n  \"mechanism\": \"a duty raises the landed cost of the covered product\",\n  \"reversed_by_status\": false,\n  \"basis\": \"for this class of instrument, a duty raises the landed cost of the covered product\",\n  \"net_effect\": \"NOT COMPUTED. Both sides are consequences of one instrument; which dominates depends on sizes this system does not hold, so no net is asserted\"\n}No accounting scenario: legal stage is 'announced': nothing is decided that could change a landed cost; the document states no ad-valorem duty ratenet economic effect requires target-specific exposureoccurrence time not evidencedaction not establishedtrade-remedy direction depends on the target role (exporter, competing producer, downstream buyer); the measure alone does not establish a signpreliminary or initiated stage: no duty is established by this documentqualitative mechanism hypothesis; not a measured outcome or loss forecastseverity is an editorial event category; not calibrated economic severityUS duty proceedings cover Indian paper packaging, which establishes the export trade exists. Unsized.product scope was NOT established from the received text: the operative scope lives in the document body, which is not retained for this item. A product-family match may therefore include articles the measure does not covernet direction unknown: required target role, action or applicability is not establishedindirect: reached through 1 documented relationship(s) (india_paper_us_trade_remedy)the size of this dependence is not recorded; the relationship is evidenced but its magnitude is unknown, which is not the same as smallindia_paper_us_trade_remedyfederal_register_indiaOpen source eventssector:steel \u00b7 ambiguous \u00b7 exportEvidence confidencemediumExposure sizeUNSIZEDOpposing mechanisms{\n  \"constrained_roles\": [\n    \"exporter\",\n    \"downstream_buyer_in_importing_country\"\n  ],\n  \"benefiting_roles\": [\n    \"domestic_producer\"\n  ],\n  \"mechanism\": \"a duty raises the landed cost of the covered product\",\n  \"reversed_by_status\": false,\n  \"basis\": \"for this class of instrument, a duty raises the landed cost of the covered product\",\n  \"net_effect\": \"NOT COMPUTED. Both sides are consequences of one instrument; which dominates depends on sizes this system does not hold, so no net is asserted\"\n}No accounting scenario: legal stage is 'unknown': nothing is decided that could change a landed cost; the document states no ad-valorem duty ratenet economic effect requires target-specific exposureoccurrence time not evidencedaction not establishedtrade-remedy direction depends on the target role (exporter, competing producer, downstream buyer); the measure alone does not establish a signqualitative mechanism hypothesis; not a measured outcome or loss forecastseverity is an editorial event category; not calibrated economic severityUS duty orders exist on an Indian steel product (forged steel fittings): USITC 2026-11356 schedules five-year reviews of the countervailing duty order on India and the antidumping duty orders on India and Korea. This establishes that Indian steel products face US trade measures. It is NOT a revenue share and NOT a company exposure; the edge is deliberately unsized. Product scope is steel articles only: chromium trioxide is a metal-finishing chemical and graphite electrodes are a consumable INPUT to electric-arc steelmaking - a duty on either is not a duty on Indian steel exports and both were removed after they matched.product scope was NOT established from the received text: the operative scope lives in the document body, which is not retained for this item. A product-family match may therefore include articles the measure does not covernet direction unknown: required target role, action or applicability is not establishedindirect: reached through 1 documented relationship(s) (india_steel_us_trade_remedy)the size of this dependence is not recorded; the relationship is evidenced but its magnitude is unknown, which is not the same as smallindia_steel_us_trade_remedyfederal_register_indiaOpen source eventssector:chemicals \u00b7 ambiguous \u00b7 exportEvidence confidencemediumExposure sizeUNSIZEDOpposing mechanisms{\n  \"constrained_roles\": [\n    \"exporter\",\n    \"downstream_buyer_in_importing_country\"\n  ],\n  \"benefiting_roles\": [\n    \"domestic_producer\"\n  ],\n  \"mechanism\": \"a duty raises the landed cost of the covered product\",\n  \"reversed_by_status\": false,\n  \"basis\": \"for this class of instrument, a duty raises the landed cost of the covered product\",\n  \"net_effect\": \"NOT COMPUTED. Both sides are consequences of one instrument; which dominates depends on sizes this system does not hold, so no net is asserted\"\n}No accounting scenario: legal stage is 'announced': nothing is decided that could change a landed cost; the document states no ad-valorem duty ratenet economic effect requires target-specific exposureoccurrence time not evidencedaction not establishedtrade-remedy direction depends on the target role (exporter, competing producer, downstream buyer); the measure alone does not establish a signpreliminary or initiated stage: no duty is established by this documentqualitative mechanism hypothesis; not a measured outcome or loss forecastseverity is an editorial event category; not calibrated economic severityUS anti-dumping and countervailing proceedings cover chemical products from India, which establishes the import trade exists. It is NOT a revenue share and NOT a company exposure; the edge is unsized. Chromium trioxide is a metal-finishing chemical, not a steel article.product scope was NOT established from the received text: the operative scope lives in the document body, which is not retained for this item. A product-family match may therefore include articles the measure does not covernet direction unknown: required target role, action or applicability is not establishedindirect: reached through 1 documented relationship(s) (india_chemicals_us_trade_remedy)the size of this dependence is not recorded; the relationship is evidenced but its magnitude is unknown, which is not the same as smallindia_chemicals_us_trade_remedyfederal_register_india \u00b7 federal_register_itaOpen source eventssector:chemicals \u00b7 ambiguous \u00b7 exportEvidence confidencemediumExposure sizeUNSIZEDOpposing mechanisms{\n  \"constrained_roles\": [\n    \"exporter\",\n    \"downstream_buyer_in_importing_country\"\n  ],\n  \"benefiting_roles\": [\n    \"domestic_producer\"\n  ],\n  \"mechanism\": \"a duty raises the landed cost of the covered product\",\n  \"reversed_by_status\": false,\n  \"basis\": \"for this class of instrument, a duty raises the landed cost of the covered product\",\n  \"net_effect\": \"NOT COMPUTED. Both sides are consequences of one instrument; which dominates depends on sizes this system does not hold, so no net is asserted\"\n}No accounting scenario: legal stage is 'unknown': nothing is decided that could change a landed cost; the document states no ad-valorem duty ratenet economic effect requires target-specific exposureoccurrence time not evidencedaction not establishedtrade-remedy direction depends on the target role (exporter, competing producer, downstream buyer); the measure alone does not establish a signqualitative mechanism hypothesis; not a measured outcome or loss forecastseverity is an editorial event category; not calibrated economic severityUS anti-dumping and countervailing proceedings cover chemical products from India, which establishes the import trade exists. It is NOT a revenue share and NOT a company exposure; the edge is unsized. Chromium trioxide is a metal-finishing chemical, not a steel article.product scope was NOT established from the received text: the operative scope lives in the document body, which is not retained for this item. A product-family match may therefore include articles the measure does not covernet direction unknown: required target role, action or applicability is not establishedindirect: reached through 1 documented relationship(s) (india_chemicals_us_trade_remedy)the size of this dependence is not recorded; the relationship is evidenced but its magnitude is unknown, which is not the same as smallindia_chemicals_us_trade_remedyfederal_register_indiaOpen source eventssector:industrial_materials \u00b7 ambiguous \u00b7 exportEvidence confidencemediumExposure sizeUNSIZEDOpposing mechanisms{\n  \"constrained_roles\": [\n    \"exporter\",\n    \"downstream_buyer_in_importing_country\"\n  ],\n  \"benefiting_roles\": [\n    \"domestic_producer\"\n  ],\n  \"mechanism\": \"a duty raises the landed cost of the covered product\",\n  \"reversed_by_status\": false,\n  \"basis\": \"for this class of instrument, a duty raises the landed cost of the covered product\",\n  \"net_effect\": \"NOT COMPUTED. Both sides are consequences of one instrument; which dominates depends on sizes this system does not hold, so no net is asserted\"\n}No accounting scenario: legal stage is 'announced': nothing is decided that could change a landed cost; the document states no ad-valorem duty ratenet economic effect requires target-specific exposureoccurrence time not evidencedaction not establishedtrade-remedy direction depends on the target role (exporter, competing producer, downstream buyer); the measure alone does not establish a signpreliminary or initiated stage: no duty is established by this documentqualitative mechanism hypothesis; not a measured outcome or loss forecastseverity is an editorial event category; not calibrated economic severityUS proceedings cover Indian graphite electrodes, which establishes the export trade exists. These are a consumable INPUT to electric-arc steelmaking, not a steel article: the exposed party is the Indian electrode producer, not Indian steelmakers. Unsized.product scope was NOT established from the received text: the operative scope lives in the document body, which is not retained for this item. A product-family match may therefore include articles the measure does not covernet direction unknown: required target role, action or applicability is not establishedindirect: reached through 1 documented relationship(s) (india_industrial_materials_us_trade_remedy)the size of this dependence is not recorded; the relationship is evidenced but its magnitude is unknown, which is not the same as smallindia_industrial_materials_us_trade_remedyfederal_register_indiaOpen source eventstata_steel \u00b7 ambiguous \u00b7 operationEvidence confidencemediumExposure sizeUNSIZEDnet economic effect requires target-specific exposureoccurrence time not evidencedqualitative mechanism hypothesis; not a measured outcome or loss forecastseverity is an editorial event category; not calibrated economic severityproduct scope was NOT established from the received text: the operative scope lives in the document body, which is not retained for this item. A product-family match may therefore include articles the measure does not covernet direction unknown: required target role, action or applicability is not establishedthe size of this dependence is not recorded; the relationship is evidenced but its magnitude is unknown, which is not the same as smalltata_kalinganagar_expansionOpen source eventssector:steel \u00b7 ambiguous \u00b7 operationEvidence confidencemediumExposure sizeUNSIZEDnet economic effect requires target-specific exposureoccurrence time not evidencedqualitative mechanism hypothesis; not a measured outcome or loss forecastseverity is an editorial event category; not calibrated economic severityproduct scope was NOT established from the received text: the operative scope lives in the document body, which is not retained for this item. A product-family match may therefore include articles the measure does not covernet direction unknown: required target role, action or applicability is not establishedthe size of this dependence is not recorded; the relationship is evidenced but its magnitude is unknown, which is not the same as smalltata_kalinganagar_expansionOpen source eventstata_kalinganagar \u00b7 ambiguous \u00b7 operationEvidence confidencemediumExposure sizeUNSIZEDnet economic effect requires target-specific exposureoccurrence time not evidencedqualitative mechanism hypothesis; not a measured outcome or loss forecastseverity is an editorial event category; not calibrated economic severityproduct scope was NOT established from the received text: the operative scope lives in the document body, which is not retained for this item. A product-family match may therefore include articles the measure does not covernet direction unknown: required target role, action or applicability is not establishedthe size of this dependence is not recorded; the relationship is evidenced but its magnitude is unknown, which is not the same as smalltata_kalinganagar_expansionOpen source eventsPRODUCT \u00d7 COUNTRY EXPOSURE27 documented pair(s); 27 unsized. every cell is a documented exposure relationship with its own evidence and validity window. A product/origin pair that is NOT here has no documented route in this registry, which is not a finding that no exposure exists. Unsized cells carry a direction and no magnitude; that is the registry's state, not a rounding to zeroproductorigintargetmechanismrolesizeeventsconfidencerare earthChinainimportinput_userUNSIZED1mediumrare-earthChinainimportinput_userUNSIZED1mediumpermanent magnetChinainimportinput_userUNSIZED1mediumoleoresin paprikaIndiasector:agricultureexportexporterUNSIZED3mediumwarmwater shrimpIndiasector:agricultureexportexporterUNSIZED3mediumshrimpIndiasector:agricultureexportexporterUNSIZED3mediumaluminum sheetIndiasector:aluminiumexportexporterUNSIZED1mediumaluminium sheetIndiasector:aluminiumexportexporterUNSIZED1mediumcommon alloyIndiasector:aluminiumexportexporterUNSIZED1mediumrare earthIndiasector:autoinput_dependencyinput_userUNSIZED1mediumrare-earthIndiasector:autoinput_dependencyinput_userUNSIZED1mediumpermanent magnetIndiasector:autoinput_dependencyinput_userUNSIZED1mediumchromium trioxideIndiasector:chemicalsexportexporterUNSIZED6mediumperfluoroalkoxyIndiasector:chemicalsexportexporterUNSIZED6mediumpolyethylene terephthalateIndiasector:chemicalsexportexporterUNSIZED6mediumgraphite electrodeIndiasector:industrial_materialsexportexporterUNSIZED2mediumgraphite electrodesIndiasector:industrial_materialsexportexporterUNSIZED2mediumpaper shopping bagsIndiasector:paper_packagingexportexporterUNSIZED1mediumshopping bagsIndiasector:paper_packagingexportexporterUNSIZED1mediumsteelIndiasector:steelexportexporterUNSIZED3mediumcorrosion-resistantIndiasector:steelexportexporterUNSIZED3mediumoil country tubularIndiasector:steelexportexporterUNSIZED3mediumrail couplerIndiasector:steelexportexporterUNSIZED3mediumforged steel fittingsIndiasector:steelexportexporterUNSIZED3mediumpolyester staple fiberIndiasector:textilesexportexporterUNSIZED1mediumdenier polyesterIndiasector:textilesexportexporterUNSIZED1mediumpolyester stapleIndiasector:textilesexportexporterUNSIZED1mediumCOMPARE INSTRUMENTSPairs that cite the same instrument identifier. A similar headline is not evidence that two documents are the same measure.recovery_certificate:3965 OF 2021 \u2014 Release of attachment on immovable property under RC No. 396 \u2192 Release Order for RC No.3965 of 2021-Ram Kishore Taparia (PArecovery_certificate:8924 OF 2025 \u2014 Completion of RC No. 8924 of 2025 issued against Yuvika Trad \u2192 Release Order dated October 15, 2026 for RC 8924 of 2025 issCompareCONDITIONAL SCENARIOLanded-cost arithmetic from the instrument\u2019s own stated rates. The two inputs below are YOUR assumptions, recorded as such \u2014 they are not observed company data. Leave them blank for the rate change alone; with no old-duty-inclusive covered component cost there is no monetary range. The historical example is a curated June 2025 calculation, not a live policy claim.HISTORICAL EXAMPLE \u00b7 India-origin covered steel \u00b7 June 2025 \u00b7 25% to 50%sector:steel \u00b7 exportsector:agriculture \u00b7 exportsector:chemicals \u00b7 exportsector:chemicals \u00b7 exportsector:textiles \u00b7 exportsector:chemicals \u00b7 exportsector:chemicals \u00b7 exportsector:agriculture \u00b7 exportsector:aluminium \u00b7 exportsector:industrial_materials \u00b7 exportin \u00b7 importsector:agriculture \u00b7 exportsector:steel \u00b7 exportsector:paper_packaging \u00b7 exportsector:steel \u00b7 exportsector:chemicals \u00b7 exportsector:chemicals \u00b7 exportsector:industrial_materials \u00b7 exporttata_steel \u00b7 operationRun scenarioEXPORT ANALYSISThe displayed analysis with its evidence links, input assumptions, processing manifest and limitations \u2014 so a reader who disagrees can find the documents and the versions that produced it.Exports the current role matrix and evidence.Export displayed analysis",
+      "canvas": true
+    },
+    "regulator": {
+      "role": "regulator",
+      "banner": "NOT A CURRENT MARKET READING \u2014 the newest observation is 2365.2 days old. Anything computed from it is a REPLAY of that period, not a statement about the market now, and must be labelled as such | observed 2020-04-30T15:30:00+05:30 \u00b7 now 2026-10-21T19:42:23+05:30 \u00b7 market closed_for_day \u00b7 feed: none \u2014 not connected, unauthenticatedRUN 02e4bcf491bd603a \u00b7 2020-04-30 \u00b7 REGULATOR | WORKER STOPPED \u2014 last heartbeat 29.5 h old. Nothing is fetching. STALE \u2014 newest item 29.5 h old; 18 of 19 sources past the freshness policy they declared. Nothing on screen reflects what has happened since. | NEWS current_news 2026-10-21T19:42:11+05:30 | 1/19 feeds fresh | CONNECTED: SIGNALS, SECTOR_STRESS, GEOGRAPHY, ASSETS | 18 evidenced map node(s) | NEWS current_news 2026-10-21T19:42:11+05:30 | MARKET 2020-04-30T15:30:00+05:30",
+      "news": "",
+      "canvas": true
+    }
+  },
+  "backtest": "Retrospective saved-run comparison; not a new fit or evidence of general predictive edge.Comparison details not available to this role.CSRS 0..1NIFTY 500 (official NSE index close) return \u00b112.8%Benchmarkvendor/eod2/src/eod2_data/daily/nifty 500.csv \u00b7 81 of 81 dates matchedUnitssimple close-to-close returnRepresentativeness{&quot;available&quot;:true,&quot;pairs&quot;:81,&quot;correlation&quot;:0.00734025850542705,&quot;note&quot;:&quot;descriptive correlation of CSRS against official benchmark returns over the paired dates. Not a validation result and not an advance-warning claim&quot;}",
+  "tools": "Portfolio holdingsEnter current holdings as JSON: symbol, value, sector, optional quantity. Real exposure calculation uses no fabricated news flags.Calculate coveragePillar shock simulator \u00b7 C11 / C9Hypothetical ECDF-rank shock; excluded pillars remain excluded.hawkesrmthamiltonRun shockDefensive playbook{\n  \"action\": \"raise index-put overlay; diversification is failing\",\n  \"drawdownReductionPct\": null,\n  \"status\": \"awaiting C10 back-test calibration\"\n}Open MY WORKSPACE to run a saved defensive comparison with supplied historical prices and costs. Guidance here remains distinct from that evaluated result.Institutional / residual flowFABRICATED PREVIEWno FII/DII print has been ingested yet. Run `python -m seraph.ingestion.flow_client`; NSE serves no free bulk history, so the series accumulates forward from first captureLast operation\u25cf DONE \u2014 role \u00b7 INSTITUTIONAL HOMENo operation submitted for this run/date/role.",
+  "workspace_dom": {
+    "text": "Skip to main content\nDeploy\nSERAPH\n\nHistorical model outputs + explicitly tagged fabricated previews. Local role switching is not authentication. Experimental warnings are not validated crisis predictions.\n\nkeyboard_arrow_down\n\nPREDICTION & EARLY WARNING\n\nForecast ledger ID: 3d354ab45a270dc7f3e922de091ca95e86cc60ef35aa8eaf41839167a890a5ae \u00b7 issued 2026-10-21T18:33:02.019117+05:30 \u00b7 operational\n\nNO WARNING \u2014 the forecast 0.0696 is below the calibrated threshold 0.1252\n\nPredicted probability\n\n6.96%\n\nWarning threshold\n\n12.52%\n\nHorizon\n\n15 sessions\n\nDecision date 2026-10-21 \u00b7 computed 2026-10-21T13:03:01+00:00 \u00b7 snapshot 7af479a001c7 (5275 sessions, 2005-07-01 to 2026-10-21)\n\nUNVALIDATED \u2014 No advance-warning skill, calibration or economic effect size has been demonstrated. AMENDMENT-03 measured Pillar 1 at approximately no skill at every intraday horizon and reclassified it as a contagion diagnostic, and the research replay records empirical_acceptance as unvalidated. These are honest limitations of a working instrument, not grounds for treating its output as a validated forecast.\n\nWhat is predicted\n\nprobability that the research market index falls 10% or more from this decision close at any close within the next 15 sessions\n\nModel: combined (EWMA volatility + one feature per pillar family) \u00b7 fit fitted on 5229 rows, using labels matured through 2026-08-13 (fitted 2026-09-03, 72 refits over the series). 5 of 5 features were observed at this date.\n\nMeasured \u2014 the three pillars at this close\n\nfeature values at the decision date, computed from data available at that close; parameters estimated through t-1\n\nWarning policy\n\nThe threshold is recalibrated from past out-of-sample scores and matured outcomes only, to hold at most 2.0 false episodes per year and keep at most 10% of sessions in alarm, over a 1260-session lookback needing 252 matured outcomes. 68 recalibrations so far. the threshold is chosen from past out-of-sample scores and matured outcomes only. A frozen threshold is a policy, not a proof that the future false-alarm budget will be met\n\nRealised history \u2014 retrospective replay, not foresight\n\nBrier\n\n0.0634\n\nAUC\n\n0.637\n\nBase rate\n\n6.84%\n\nFalse episodes/yr\n\n1.01\n\n4490 forecasts with matured outcomes, 307 of them positive. Alarms on 2.60% of assessable sessions across 19 episodes. retrospective replay over the available history. It shows what the instrument would have produced, which is implementation behaviour rather than demonstrated foresight\n\nCalibration \u2014 did days it called p turn out p?\n\nThe uncertainty this model supports. It yields no interval, so this is the honest substitute: predicted against realised frequency, on matured labels only.\n\nForecast against its warning threshold\n\nOctober\nNovember\nDecember\n2022\nFebruary\nMarch\nApril\nMay\nJune\nJuly\nAugust\nSeptember\nOctober\nNovember\nDecember\n2023\nFebruary\nMarch\nApril\nMay\nJune\nJuly\nAugust\nSeptember\nOctober\nNovember\nDecember\n2024\nFebruary\nMarch\nApril\nMay\nJune\nJuly\nAugust\nSeptember\nOctober\nNovember\nDecember\n2025\nFebruary\nMarch\nApril\nMay\nJune\nJuly\nAugust\nSeptember\nOctober\nNovember\nDecember\n2026\nFebruary\nMarch\nApril\nMay\nJune\nJuly\nAugust\nSeptember\nOctober\n0.00\n0.02\n0.04\n0.06\n0.08\n0.10\n0.12\n0.14\n0.16\n0.18\n0.20\nprobability\nthreshold\n\nThe last 1260 sessions. 17 of them were in alarm. A gap in either line is a session the engine declined to score or could not calibrate, which is shown rather than interpolated.\n\nMost recent alarm episodes\n\nkeyboard_arrow_right\n\nNEWS ACQUISITION\n\nkeyboard_arrow_right\n\nMARKET JOBS\n\nkeyboard_arrow_down\n\nLIVE RUNTIME\n\nView mode\n\nlive\n\nreplay\n\ndemo\n\nLATEST SCORE\n\nno decision has been committed in this runtime. Asking for live does NOT fall back to an archive run \u2014 an archive run is a replay and would be mislabelled here\n\nWORKER HEALTH \u2014 a separate fact from the score\n\n{\n\"state\":\"unknown\"\n\"last_pass_at\":NULL\n\"stream_version\":0\n\"undelivered_events\":1\n\"dead_letters\":0\n\"stale\":true\n\"note\":\"the worker has never committed a pass\"\n}\n\nRun\n\nHistorical decision date\n\nNews clock\n\ncurrent_news\n\nhistorical_decision\n\nNews page (40 events per page)\n\nkeyboard_arrow_right\n\nMEASURED SECTOR ACTIVITY \u2014 FR14\n\nRun 02e4bcf491bd603a \u00b7 decision 2020-04-30T15:30:00+05:30 \u00b7 role institutional\n\nkeyboard_arrow_down\n\nMY WORKSPACE \u2014 portfolios, scenarios, cases\n\nlocal demonstration identity, not authenticated. State is durable and owner-scoped; it does not establish who is using it\n\nPORTFOLIOS\n\nSCENARIOS\n\nREGULATOR CASES\n\nNo portfolio yet.\n\nNew portfolio name\n\nCreate portfolio\n\nkeyboard_arrow_right\n\nWatchlist\n\nkeyboard_arrow_right\n\nEVALUATION \u2014 FR35 ablation tables\n\nkeyboard_arrow_right\n\nHEALTH \u2014 what is stale, what is broken\n\nNews: historical_decision \u00b7 2020-04-30T15:30:00+05:30 \u00b7 Market decision: 2020-04-30T15:30:00+05:30\n\nNo user holdings supplied. Use TOOLS in the console to calculate portfolio coverage.\n\nNews channel connected, nothing visible at this decision time (the news store holds nothing visible at this decision time). Map/sector previews remain fabricated.",
+    "buttons": [
+      "Deploy",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "Create portfolio",
+      "Save watchlist",
+      "",
+      "Run",
+      "History",
+      "",
+      "Review",
+      "Export",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "uploadUpload",
+      "",
+      "",
+      "",
+      "Download editable comparison inputs",
+      "Save defensive comparison",
+      "",
+      "Save scenario",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "summaries": [
+      "<summary class=\"st-emotion-cache-4bm6i2 e1u8u9eb10\"><span class=\"st-emotion-cache-nwb5ao e1u8u9eb3\"><span class=\"st-emotion-cache-28gi3v e1fmktau2\"><span color=\"inherit\" data-testid=\"stIconMaterial\" aria-hidden=\"true\" translate=\"no\" class=\"st-emotion-cache-1dkvzay e1vmumty0\">keyboard_arrow_down</span></span><div class=\"st-emotion-cache-fj8n3n e1u8u9eb4\"><div class=\"st-emotion-cache-1bpuen8 e12uj6qz0\" data-testid=\"stMarkdownContainer\"><p>PREDICTION &amp; EARLY WARNING</p></div></div></span></summary>",
+      "<summary class=\"st-emotion-cache-cm9vbh e1u8u9eb10\"><span class=\"st-emotion-cache-nwb5ao e1u8u9eb3\"><span class=\"st-emotion-cache-28gi3v e1fmktau2\"><span color=\"inherit\" data-testid=\"stIconMaterial\" aria-hidden=\"true\" translate=\"no\" class=\"st-emotion-cache-1dkvzay e1vmumty0\">keyboard_arrow_right</span></span><div class=\"st-emotion-cache-fj8n3n e1u8u9eb4\"><div class=\"st-emotion-cache-1bpuen8 e12uj6qz0\" data-testid=\"stMarkdownContainer\"><p>NEWS ACQUISITION</p></div></div></span></summary>",
+      "<summary class=\"st-emotion-cache-cm9vbh e1u8u9eb10\"><span class=\"st-emotion-cache-nwb5ao e1u8u9eb3\"><span class=\"st-emotion-cache-28gi3v e1fmktau2\"><span color=\"inherit\" data-testid=\"stIconMaterial\" aria-hidden=\"true\" translate=\"no\" class=\"st-emotion-cache-1dkvzay e1vmumty0\">keyboard_arrow_right</span></span><div class=\"st-emotion-cache-fj8n3n e1u8u9eb4\"><div class=\"st-emotion-cache-1bpuen8 e12uj6qz0\" data-testid=\"stMarkdownContainer\"><p>MARKET JOBS</p></div></div></span></summary>",
+      "<summary class=\"st-emotion-cache-4bm6i2 e1u8u9eb10\"><span class=\"st-emotion-cache-nwb5ao e1u8u9eb3\"><span class=\"st-emotion-cache-28gi3v e1fmktau2\"><span color=\"inherit\" data-testid=\"stIconMaterial\" aria-hidden=\"true\" translate=\"no\" class=\"st-emotion-cache-1dkvzay e1vmumty0\">keyboard_arrow_down</span></span><div class=\"st-emotion-cache-fj8n3n e1u8u9eb4\"><div class=\"st-emotion-cache-1bpuen8 e12uj6qz0\" data-testid=\"stMarkdownContainer\"><p>LIVE RUNTIME</p></div></div></span></summary>",
+      "<summary class=\"st-emotion-cache-cm9vbh e1u8u9eb10\"><span class=\"st-emotion-cache-nwb5ao e1u8u9eb3\"><span class=\"st-emotion-cache-28gi3v e1fmktau2\"><span color=\"inherit\" data-testid=\"stIconMaterial\" aria-hidden=\"true\" translate=\"no\" class=\"st-emotion-cache-1dkvzay e1vmumty0\">keyboard_arrow_right</span></span><div class=\"st-emotion-cache-fj8n3n e1u8u9eb4\"><div class=\"st-emotion-cache-1bpuen8 e12uj6qz0\" data-testid=\"stMarkdownContainer\"><p>MEASURED SECTOR ACTIVITY \u2014 FR14</p></div></div></span></summary>",
+      "<summary class=\"st-emotion-cache-4bm6i2 e1u8u9eb10\"><span class=\"st-emotion-cache-nwb5ao e1u8u9eb3\"><span class=\"st-emotion-cache-28gi3v e1fmktau2\"><span color=\"inherit\" data-testid=\"stIconMaterial\" aria-hidden=\"true\" translate=\"no\" class=\"st-emotion-cache-1dkvzay e1vmumty0\">keyboard_arrow_down</span></span><div class=\"st-emotion-cache-fj8n3n e1u8u9eb4\"><div class=\"st-emotion-cache-1bpuen8 e12uj6qz0\" data-testid=\"stMarkdownContainer\"><p>MY WORKSPACE \u2014 portfolios, scenarios, cases</p></div></div></span></summary>",
+      "<summary class=\"st-emotion-cache-cm9vbh e1u8u9eb10\"><span class=\"st-emotion-cache-nwb5ao e1u8u9eb3\"><span class=\"st-emotion-cache-28gi3v e1fmktau2\"><span color=\"inherit\" data-testid=\"stIconMaterial\" aria-hidden=\"true\" translate=\"no\" class=\"st-emotion-cache-1dkvzay e1vmumty0\">keyboard_arrow_right</span></span><div class=\"st-emotion-cache-fj8n3n e1u8u9eb4\"><div class=\"st-emotion-cache-1bpuen8 e12uj6qz0\" data-testid=\"stMarkdownContainer\"><p>Watchlist</p></div></div></span></summary>",
+      "<summary class=\"st-emotion-cache-cm9vbh e1u8u9eb10\"><span class=\"st-emotion-cache-nwb5ao e1u8u9eb3\"><span class=\"st-emotion-cache-28gi3v e1fmktau2\"><span color=\"inherit\" data-testid=\"stIconMaterial\" aria-hidden=\"true\" translate=\"no\" class=\"st-emotion-cache-1dkvzay e1vmumty0\">keyboard_arrow_right</span></span><div class=\"st-emotion-cache-fj8n3n e1u8u9eb4\"><div class=\"st-emotion-cache-1bpuen8 e12uj6qz0\" data-testid=\"stMarkdownContainer\"><p>Recorded inputs and complete result</p></div></div></span></summary>",
+      "<summary class=\"st-emotion-cache-cm9vbh e1u8u9eb10\"><span class=\"st-emotion-cache-nwb5ao e1u8u9eb3\"><span class=\"st-emotion-cache-28gi3v e1fmktau2\"><span color=\"inherit\" data-testid=\"stIconMaterial\" aria-hidden=\"true\" translate=\"no\" class=\"st-emotion-cache-1dkvzay e1vmumty0\">keyboard_arrow_right</span></span><div class=\"st-emotion-cache-fj8n3n e1u8u9eb4\"><div class=\"st-emotion-cache-1bpuen8 e12uj6qz0\" data-testid=\"stMarkdownContainer\"><p>Save a fitted macro-path scenario</p></div></div></span></summary>",
+      "<summary class=\"st-emotion-cache-cm9vbh e1u8u9eb10\"><span class=\"st-emotion-cache-nwb5ao e1u8u9eb3\"><span class=\"st-emotion-cache-28gi3v e1fmktau2\"><span color=\"inherit\" data-testid=\"stIconMaterial\" aria-hidden=\"true\" translate=\"no\" class=\"st-emotion-cache-1dkvzay e1vmumty0\">keyboard_arrow_right</span></span><div class=\"st-emotion-cache-fj8n3n e1u8u9eb4\"><div class=\"st-emotion-cache-1bpuen8 e12uj6qz0\" data-testid=\"stMarkdownContainer\"><p>Save a defensive action comparison</p></div></div></span></summary>",
+      "<summary class=\"st-emotion-cache-cm9vbh e1u8u9eb10\"><span class=\"st-emotion-cache-nwb5ao e1u8u9eb3\"><span class=\"st-emotion-cache-28gi3v e1fmktau2\"><span color=\"inherit\" data-testid=\"stIconMaterial\" aria-hidden=\"true\" translate=\"no\" class=\"st-emotion-cache-1dkvzay e1vmumty0\">keyboard_arrow_right</span></span><div class=\"st-emotion-cache-fj8n3n e1u8u9eb4\"><div class=\"st-emotion-cache-1bpuen8 e12uj6qz0\" data-testid=\"stMarkdownContainer\"><p>Save a new rank-shock scenario</p></div></div></span></summary>",
+      "<summary class=\"st-emotion-cache-cm9vbh e1u8u9eb10\"><span class=\"st-emotion-cache-nwb5ao e1u8u9eb3\"><span class=\"st-emotion-cache-28gi3v e1fmktau2\"><span color=\"inherit\" data-testid=\"stIconMaterial\" aria-hidden=\"true\" translate=\"no\" class=\"st-emotion-cache-1dkvzay e1vmumty0\">keyboard_arrow_right</span></span><div class=\"st-emotion-cache-fj8n3n e1u8u9eb4\"><div class=\"st-emotion-cache-1bpuen8 e12uj6qz0\" data-testid=\"stMarkdownContainer\"><p>EVALUATION \u2014 FR35 ablation tables</p></div></div></span></summary>",
+      "<summary class=\"st-emotion-cache-cm9vbh e1u8u9eb10\"><span class=\"st-emotion-cache-nwb5ao e1u8u9eb3\"><span class=\"st-emotion-cache-28gi3v e1fmktau2\"><span color=\"inherit\" data-testid=\"stIconMaterial\" aria-hidden=\"true\" translate=\"no\" class=\"st-emotion-cache-1dkvzay e1vmumty0\">keyboard_arrow_right</span></span><div class=\"st-emotion-cache-fj8n3n e1u8u9eb4\"><div class=\"st-emotion-cache-1bpuen8 e12uj6qz0\" data-testid=\"stMarkdownContainer\"><p>HEALTH \u2014 what is stale, what is broken</p></div></div></span></summary>"
+    ]
+  },
+  "defensive_rendered": "Skip to main content\nStop\nDeploy\nSERAPH\n\nHistorical model outputs + explicitly tagged fabricated previews. Local role switching is not authentication. Experimental warnings are not validated crisis predictions.\n\nkeyboard_arrow_down\n\nPREDICTION & EARLY WARNING\n\nForecast ledger ID: 3d354ab45a270dc7f3e922de091ca95e86cc60ef35aa8eaf41839167a890a5ae \u00b7 issued 2026-10-21T18:33:02.019117+05:30 \u00b7 operational\n\nNO WARNING \u2014 the forecast 0.0696 is below the calibrated threshold 0.1252\n\nPredicted probability\n\n6.96%\n\nWarning threshold\n\n12.52%\n\nHorizon\n\n15 sessions\n\nDecision date 2026-10-21 \u00b7 computed 2026-10-21T13:03:01+00:00 \u00b7 snapshot 7af479a001c7 (5275 sessions, 2005-07-01 to 2026-10-21)\n\nUNVALIDATED \u2014 No advance-warning skill, calibration or economic effect size has been demonstrated. AMENDMENT-03 measured Pillar 1 at approximately no skill at every intraday horizon and reclassified it as a contagion diagnostic, and the research replay records empirical_acceptance as unvalidated. These are honest limitations of a working instrument, not grounds for treating its output as a validated forecast.\n\nWhat is predicted\n\nprobability that the research market index falls 10% or more from this decision close at any close within the next 15 sessions\n\nModel: combined (EWMA volatility + one feature per pillar family) \u00b7 fit fitted on 5229 rows, using labels matured through 2026-08-13 (fitted 2026-09-03, 72 refits over the series). 5 of 5 features were observed at this date.\n\nMeasured \u2014 the three pillars at this close\n\nfeature values at the decision date, computed from data available at that close; parameters estimated through t-1\n\nWarning policy\n\nThe threshold is recalibrated from past out-of-sample scores and matured outcomes only, to hold at most 2.0 false episodes per year and keep at most 10% of sessions in alarm, over a 1260-session lookback needing 252 matured outcomes. 68 recalibrations so far. the threshold is chosen from past out-of-sample scores and matured outcomes only. A frozen threshold is a policy, not a proof that the future false-alarm budget will be met\n\nRealised history \u2014 retrospective replay, not foresight\n\nBrier\n\n0.0634\n\nAUC\n\n0.637\n\nBase rate\n\n6.84%\n\nFalse episodes/yr\n\n1.01\n\n4490 forecasts with matured outcomes, 307 of them positive. Alarms on 2.60% of assessable sessions across 19 episodes. retrospective replay over the available history. It shows what the instrument would have produced, which is implementation behaviour rather than demonstrated foresight\n\nCalibration \u2014 did days it called p turn out p?\n\nThe uncertainty this model supports. It yields no interval, so this is the honest substitute: predicted against realised frequency, on matured labels only.\n\nForecast against its warning threshold\n\nOctober\nNovember\nDecember\n2022\nFebruary\nMarch\nApril\nMay\nJune\nJuly\nAugust\nSeptember\nOctober\nNovember\nDecember\n2023\nFebruary\nMarch\nApril\nMay\nJune\nJuly\nAugust\nSeptember\nOctober\nNovember\nDecember\n2024\nFebruary\nMarch\nApril\nMay\nJune\nJuly\nAugust\nSeptember\nOctober\nNovember\nDecember\n2025\nFebruary\nMarch\nApril\nMay\nJune\nJuly\nAugust\nSeptember\nOctober\nNovember\nDecember\n2026\nFebruary\nMarch\nApril\nMay\nJune\nJuly\nAugust\nSeptember\nOctober\n0.00\n0.02\n0.04\n0.06\n0.08\n0.10\n0.12\n0.14\n0.16\n0.18\n0.20\nprobability\nthreshold\n\nThe last 1260 sessions. 17 of them were in alarm. A gap in either line is a session the engine declined to score or could not calibrate, which is shown rather than interpolated.\n\nMost recent alarm episodes\n\nkeyboard_arrow_right\n\nNEWS ACQUISITION\n\nkeyboard_arrow_right\n\nMARKET JOBS\n\nkeyboard_arrow_down\n\nLIVE RUNTIME\n\nView mode\n\nlive\n\nreplay\n\ndemo\n\nLATEST SCORE\n\nno decision has been committed in this runtime. Asking for live does NOT fall back to an archive run \u2014 an archive run is a replay and would be mislabelled here\n\nWORKER HEALTH \u2014 a separate fact from the score\n\n{\n\"state\":\"unknown\"\n\"last_pass_at\":NULL\n\"stream_version\":0\n\"undelivered_events\":1\n\"dead_letters\":0\n\"stale\":true\n\"note\":\"the worker has never committed a pass\"\n}\n\nRun\n\nHistorical decision date\n\nNews clock\n\ncurrent_news\n\nhistorical_decision\n\nNews page (40 events per page)\n\nkeyboard_arrow_right\n\nMEASURED SECTOR ACTIVITY \u2014 FR14\n\nRun 02e4bcf491bd603a \u00b7 decision 2020-04-30T15:30:00+05:30 \u00b7 role institutional\n\nkeyboard_arrow_down\n\nMY WORKSPACE \u2014 portfolios, scenarios, cases\n\nlocal demonstration identity, not authenticated. State is durable and owner-scoped; it does not establish who is using it\n\nPORTFOLIOS\n\nSCENARIOS\n\nREGULATOR CASES\n\nScenario\n\nRun\n\nHistory\n\nReview\n\nExport\n\nRan.\n\nSaved execution sc_2874c4d6c2424dca:e6ccaa3219da522b\n\ncovid_2020 \u00b7 INR \u00b7 historical_observation\n\nBaseline maximum drawdown: 33.9061%\n\nEx-post ranking among evaluated actions: reduce_to_cash\n\nEx-post comparison among supplied actions, not a prospective recommendation.\n\nBuy-and-hold baseline, one execution, supplied prices, no inferred dividends or financing.\n\nSector/index paths are conditional notional exposures unless an executable instrument is supplied.\n\nDeclared cash rate accrues per supplied valuation interval; hedge margin is held constant and cash-settled.\n\nkeyboard_arrow_right\n\nRecorded inputs and complete result\n\nkeyboard_arrow_right\n\nSave a fitted macro-path scenario\n\nkeyboard_arrow_right\n\nSave a defensive action comparison\n\nkeyboard_arrow_right\n\nSave a new rank-shock scenario\n\nkeyboard_arrow_right\n\nEVALUATION \u2014 FR35 ablation tables\n\nkeyboard_arrow_right\n\nHEALTH \u2014 what is stale, what is broken\n\nNews: historical_decision \u00b7 2020-04-30T15:30:00+05:30 \u00b7 Market decision: 2020-04-30T15:30:00+05:30\n\nNo user holdings supplied. Use TOOLS in the console to calculate portfolio coverage.\n\nNews channel connected, nothing visible at this decision time (the news store holds nothing visible at this decision time). Map/sector previews remain fabricated.",
+  "defensive_history": "Skip to main content\nStop\nDeploy\nSERAPH\n\nHistorical model outputs + explicitly tagged fabricated previews. Local role switching is not authentication. Experimental warnings are not validated crisis predictions.\n\nkeyboard_arrow_down\n\nPREDICTION & EARLY WARNING\n\nForecast ledger ID: 3d354ab45a270dc7f3e922de091ca95e86cc60ef35aa8eaf41839167a890a5ae \u00b7 issued 2026-10-21T18:33:02.019117+05:30 \u00b7 operational\n\nNO WARNING \u2014 the forecast 0.0696 is below the calibrated threshold 0.1252\n\nPredicted probability\n\n6.96%\n\nWarning threshold\n\n12.52%\n\nHorizon\n\n15 sessions\n\nDecision date 2026-10-21 \u00b7 computed 2026-10-21T13:03:01+00:00 \u00b7 snapshot 7af479a001c7 (5275 sessions, 2005-07-01 to 2026-10-21)\n\nUNVALIDATED \u2014 No advance-warning skill, calibration or economic effect size has been demonstrated. AMENDMENT-03 measured Pillar 1 at approximately no skill at every intraday horizon and reclassified it as a contagion diagnostic, and the research replay records empirical_acceptance as unvalidated. These are honest limitations of a working instrument, not grounds for treating its output as a validated forecast.\n\nWhat is predicted\n\nprobability that the research market index falls 10% or more from this decision close at any close within the next 15 sessions\n\nModel: combined (EWMA volatility + one feature per pillar family) \u00b7 fit fitted on 5229 rows, using labels matured through 2026-08-13 (fitted 2026-09-03, 72 refits over the series). 5 of 5 features were observed at this date.\n\nMeasured \u2014 the three pillars at this close\n\nfeature values at the decision date, computed from data available at that close; parameters estimated through t-1\n\nWarning policy\n\nThe threshold is recalibrated from past out-of-sample scores and matured outcomes only, to hold at most 2.0 false episodes per year and keep at most 10% of sessions in alarm, over a 1260-session lookback needing 252 matured outcomes. 68 recalibrations so far. the threshold is chosen from past out-of-sample scores and matured outcomes only. A frozen threshold is a policy, not a proof that the future false-alarm budget will be met\n\nRealised history \u2014 retrospective replay, not foresight\n\nBrier\n\n0.0634\n\nAUC\n\n0.637\n\nBase rate\n\n6.84%\n\nFalse episodes/yr\n\n1.01\n\n4490 forecasts with matured outcomes, 307 of them positive. Alarms on 2.60% of assessable sessions across 19 episodes. retrospective replay over the available history. It shows what the instrument would have produced, which is implementation behaviour rather than demonstrated foresight\n\nCalibration \u2014 did days it called p turn out p?\n\nThe uncertainty this model supports. It yields no interval, so this is the honest substitute: predicted against realised frequency, on matured labels only.\n\nForecast against its warning threshold\n\nOctober\nNovember\nDecember\n2022\nFebruary\nMarch\nApril\nMay\nJune\nJuly\nAugust\nSeptember\nOctober\nNovember\nDecember\n2023\nFebruary\nMarch\nApril\nMay\nJune\nJuly\nAugust\nSeptember\nOctober\nNovember\nDecember\n2024\nFebruary\nMarch\nApril\nMay\nJune\nJuly\nAugust\nSeptember\nOctober\nNovember\nDecember\n2025\nFebruary\nMarch\nApril\nMay\nJune\nJuly\nAugust\nSeptember\nOctober\nNovember\nDecember\n2026\nFebruary\nMarch\nApril\nMay\nJune\nJuly\nAugust\nSeptember\nOctober\n0.00\n0.02\n0.04\n0.06\n0.08\n0.10\n0.12\n0.14\n0.16\n0.18\n0.20\nprobability\nthreshold\n\nThe last 1260 sessions. 17 of them were in alarm. A gap in either line is a session the engine declined to score or could not calibrate, which is shown rather than interpolated.\n\nMost recent alarm episodes\n\nkeyboard_arrow_right\n\nNEWS ACQUISITION\n\nkeyboard_arrow_right\n\nMARKET JOBS\n\nkeyboard_arrow_down\n\nLIVE RUNTIME\n\nView mode\n\nlive\n\nreplay\n\ndemo\n\nLATEST SCORE\n\nno decision has been committed in this runtime. Asking for live does NOT fall back to an archive run \u2014 an archive run is a replay and would be mislabelled here\n\nWORKER HEALTH \u2014 a separate fact from the score\n\n{\n\"state\":\"unknown\"\n\"last_pass_at\":NULL\n\"stream_version\":0\n\"undelivered_events\":1\n\"dead_letters\":0\n\"stale\":true\n\"note\":\"the worker has never committed a pass\"\n}\n\nRun\n\nHistorical decision date\n\nNews clock\n\ncurrent_news\n\nhistorical_decision\n\nNews page (40 events per page)\n\nkeyboard_arrow_right\n\nMEASURED SECTOR ACTIVITY \u2014 FR14\n\nRun 02e4bcf491bd603a \u00b7 decision 2020-04-30T15:30:00+05:30 \u00b7 role institutional\n\nkeyboard_arrow_down\n\nMY WORKSPACE \u2014 portfolios, scenarios, cases\n\nlocal demonstration identity, not authenticated. State is durable and owner-scoped; it does not establish who is using it\n\nPORTFOLIOS\n\nSCENARIOS\n\nREGULATOR CASES\n\nScenario\n\nRun\n\nHistory\n\nReview\n\nExport\n\nSaved execution sc_2874c4d6c2424dca:e6ccaa3219da522b\n\ncovid_2020 \u00b7 INR \u00b7 historical_observation\n\ncovid_2020 \u00b7 INR \u00b7 historical_observation\n\nBaseline maximum drawdown: 33.9061%\n\nEx-post ranking among evaluated actions: reduce_to_cash\n\nEx-post comparison among supplied actions, not a prospective recommendation.\n\nBuy-and-hold baseline, one execution, supplied prices, no inferred dividends or financing.\n\nSector/index paths are conditional notional exposures unless an executable instrument is supplied.\n\nDeclared cash rate accrues per supplied valuation interval; hedge margin is held constant and cash-settled.\n\nkeyboard_arrow_right\n\nRecorded inputs and complete result\n\nkeyboard_arrow_right\n\nSave a fitted macro-path scenario\n\nkeyboard_arrow_right\n\nSave a defensive action comparison\n\nkeyboard_arrow_right\n\nSave a new rank-shock scenario\n\nkeyboard_arrow_right\n\nEVALUATION \u2014 FR35 ablation tables\n\nkeyboard_arrow_right\n\nHEALTH \u2014 what is stale, what is broken\n\nNews: historical_decision \u00b7 2020-04-30T15:30:00+05:30 \u00b7 Market decision: 2020-04-30T15:30:00+05:30\n\nNo user holdings supplied. Use TOOLS in the console to calculate portfolio coverage.\n\nNews channel connected, nothing visible at this decision time (the news store holds nothing visible at this decision time). Map/sector previews remain fabricated.",
+  "scenario_reopened": true,
+  "latest_institution_saved": "DEMO-B",
+  "institutions_reopened": "Skip to main content\nDeploy\nSERAPH\n\nHistorical model outputs + explicitly tagged fabricated previews. Local role switching is not authentication. Experimental warnings are not validated crisis predictions.\n\nkeyboard_arrow_down\n\nPREDICTION & EARLY WARNING\n\nForecast ledger ID: 3d354ab45a270dc7f3e922de091ca95e86cc60ef35aa8eaf41839167a890a5ae \u00b7 issued 2026-10-21T18:33:02.019117+05:30 \u00b7 operational\n\nNO WARNING \u2014 the forecast 0.0696 is below the calibrated threshold 0.1252\n\nPredicted probability\n\n6.96%\n\nWarning threshold\n\n12.52%\n\nHorizon\n\n15 sessions\n\nDecision date 2026-10-21 \u00b7 computed 2026-10-21T13:03:01+00:00 \u00b7 snapshot 7af479a001c7 (5275 sessions, 2005-07-01 to 2026-10-21)\n\nUNVALIDATED \u2014 No advance-warning skill, calibration or economic effect size has been demonstrated. AMENDMENT-03 measured Pillar 1 at approximately no skill at every intraday horizon and reclassified it as a contagion diagnostic, and the research replay records empirical_acceptance as unvalidated. These are honest limitations of a working instrument, not grounds for treating its output as a validated forecast.\n\nWhat is predicted\n\nprobability that the research market index falls 10% or more from this decision close at any close within the next 15 sessions\n\nModel: combined (EWMA volatility + one feature per pillar family) \u00b7 fit fitted on 5229 rows, using labels matured through 2026-08-13 (fitted 2026-09-03, 72 refits over the series). 5 of 5 features were observed at this date.\n\nMeasured \u2014 the three pillars at this close\n\nfeature values at the decision date, computed from data available at that close; parameters estimated through t-1\n\nWarning policy\n\nThe threshold is recalibrated from past out-of-sample scores and matured outcomes only, to hold at most 2.0 false episodes per year and keep at most 10% of sessions in alarm, over a 1260-session lookback needing 252 matured outcomes. 68 recalibrations so far. the threshold is chosen from past out-of-sample scores and matured outcomes only. A frozen threshold is a policy, not a proof that the future false-alarm budget will be met\n\nRealised history \u2014 retrospective replay, not foresight\n\nBrier\n\n0.0634\n\nAUC\n\n0.637\n\nBase rate\n\n6.84%\n\nFalse episodes/yr\n\n1.01\n\n4490 forecasts with matured outcomes, 307 of them positive. Alarms on 2.60% of assessable sessions across 19 episodes. retrospective replay over the available history. It shows what the instrument would have produced, which is implementation behaviour rather than demonstrated foresight\n\nCalibration \u2014 did days it called p turn out p?\n\nThe uncertainty this model supports. It yields no interval, so this is the honest substitute: predicted against realised frequency, on matured labels only.\n\nForecast against its warning threshold\n\nOctober\nNovember\nDecember\n2022\nFebruary\nMarch\nApril\nMay\nJune\nJuly\nAugust\nSeptember\nOctober\nNovember\nDecember\n2023\nFebruary\nMarch\nApril\nMay\nJune\nJuly\nAugust\nSeptember\nOctober\nNovember\nDecember\n2024\nFebruary\nMarch\nApril\nMay\nJune\nJuly\nAugust\nSeptember\nOctober\nNovember\nDecember\n2025\nFebruary\nMarch\nApril\nMay\nJune\nJuly\nAugust\nSeptember\nOctober\nNovember\nDecember\n2026\nFebruary\nMarch\nApril\nMay\nJune\nJuly\nAugust\nSeptember\nOctober\n0.00\n0.02\n0.04\n0.06\n0.08\n0.10\n0.12\n0.14\n0.16\n0.18\n0.20\nprobability\nthreshold\n\nThe last 1260 sessions. 17 of them were in alarm. A gap in either line is a session the engine declined to score or could not calibrate, which is shown rather than interpolated.\n\nMost recent alarm episodes\n\nkeyboard_arrow_right\n\nNEWS ACQUISITION\n\nkeyboard_arrow_right\n\nMARKET JOBS\n\nkeyboard_arrow_down\n\nLIVE RUNTIME\n\nView mode\n\nlive\n\nreplay\n\ndemo\n\nLATEST SCORE\n\nno decision has been committed in this runtime. Asking for live does NOT fall back to an archive run \u2014 an archive run is a replay and would be mislabelled here\n\nWORKER HEALTH \u2014 a separate fact from the score\n\n{\n\"state\":\"unknown\"\n\"last_pass_at\":NULL\n\"stream_version\":0\n\"undelivered_events\":1\n\"dead_letters\":0\n\"stale\":true\n\"note\":\"the worker has never committed a pass\"\n}\n\nRun\n\nHistorical decision date\n\nNews clock\n\ncurrent_news\n\nhistorical_decision\n\nNews page (40 events per page)\n\nkeyboard_arrow_down\n\nINSTITUTION EXPOSURES \u2014 regulator submissions\n\nlocal demonstration identity, not authenticated. State is durable and owner-scoped; it does not establish who is using it\n\nINR long-only holdings. Values are submitted exposures, not predicted losses.\n\nInstitution ID\n\nInstitution display name\n\nSubmission source\n\nSubmission effective at (IST)\n\nInstitution holdings CSV or JSON\n\nupload\n\nUpload\n\n200MB per file \u2022 CSV, JSON\n\nOr paste holdings CSV\n\nPreview institution submission\n\nAccept institution submission\n\nSubmission cutoff (IST)\n\nKnown submitted value (INR)\n\n3000.0\n\nMarket-value exposure shares, not loss or CSRS contributions. Demo/user-supplied positions retain their source labels.\n\nUnsized positions: 0 \u00b7 unmapped value: 0.0 \u00b7 measured flag coverage: 0\n\nkeyboard_arrow_right\n\nDemonstration B \u00b7 demo \u00b7 revision 1\n\nkeyboard_arrow_right\n\nDemonstration A \u00b7 demo \u00b7 revision 1\n\nExport institution decomposition\n\nkeyboard_arrow_right\n\nDIRECTED MARKET NETWORK \u2014 measured native sector counts\n\nkeyboard_arrow_right\n\nMEASURED SECTOR ACTIVITY \u2014 FR14\n\nRun 02e4bcf491bd603a \u00b7 decision 2020-04-30T15:30:00+05:30 \u00b7 role regulator\n\nkeyboard_arrow_right\n\nMY WORKSPACE \u2014 portfolios, scenarios, cases\n\nkeyboard_arrow_right\n\nEVALUATION \u2014 FR35 ablation tables\n\nkeyboard_arrow_right\n\nHEALTH \u2014 what is stale, what is broken\n\nNews: historical_decision \u00b7 2020-04-30T15:30:00+05:30 \u00b7 Market decision: 2020-04-30T15:30:00+05:30\n\nNo user holdings supplied. Use TOOLS in the console to calculate portfolio coverage.\n\nNews channel connected, nothing visible at this decision time (the news store holds nothing visible at this decision time). Map/sector previews remain fabricated.",
+  "downloads": {
+    "seraph-institution-decomposition-v1.json": {
+      "schema": "institution-decomposition/1",
+      "cutoff": "2026-10-21T19:45:11+05:30",
+      "currency": "INR",
+      "total_known_value": 3000.0,
+      "institutions": [
+        {
+          "currency": "INR",
+          "effective_at": "2026-10-21T19:44:24+05:30",
+          "institution_id": "DEMO-B",
+          "name": "Demonstration B",
+          "owner_scope": "org_demo",
+          "positions": [
+            {
+              "account": null,
+              "cash": false,
+              "currency": "INR",
+              "index": 1,
+              "isin": null,
+              "price": null,
+              "quantity": 20.0,
+              "raw": {
+                "quantity": "20",
+                "sector": "technology",
+                "symbol": "INFY",
+                "value": "2000"
+              },
+              "sector": "technology",
+              "symbol": "INFY",
+              "value": 2000.0
+            }
+          ],
+          "schema": "institution-submission/1",
+          "source": "demo",
+          "source_sha256": "2f36bc91cae30274b7e4d5b79b3a961d9223333fa10c7cef3e4cc02db455dde5",
+          "submitter": "usr_5e6e1a448bfd478e",
+          "valuation_basis": "caller-supplied position values; no FX conversion",
+          "revision": 1,
+          "received_at": "2026-10-21T19:44:24+05:30",
+          "content_hash": "e0373599594c52169cdbb659b5f6ac6a576bd1555b02d68f4991cac5511ca3ea",
+          "total_value": 2000.0,
+          "unsized_positions": 0,
+          "sectors": {
+            "technology": 2000.0
+          },
+          "share_pct": 66.66666666666667
+        },
+        {
+          "currency": "INR",
+          "effective_at": "2026-10-21T19:44:16+05:30",
+          "institution_id": "DEMO-A",
+          "name": "Demonstration A",
+          "owner_scope": "org_demo",
+          "positions": [
+            {
+              "account": null,
+              "cash": false,
+              "currency": "INR",
+              "index": 1,
+              "isin": null,
+              "price": null,
+              "quantity": 10.0,
+              "raw": {
+                "quantity": "10",
+                "sector": "steel",
+                "symbol": "TATASTEEL",
+                "value": "1000"
+              },
+              "sector": "steel",
+              "symbol": "TATASTEEL",
+              "value": 1000.0
+            }
+          ],
+          "schema": "institution-submission/1",
+          "source": "demo",
+          "source_sha256": "2df5772a81a552eb76ce1ed925ba0d29aece3af54a9c1d2db990fe7cdba080d2",
+          "submitter": "usr_5e6e1a448bfd478e",
+          "valuation_basis": "caller-supplied position values; no FX conversion",
+          "revision": 1,
+          "received_at": "2026-10-21T19:44:16+05:30",
+          "content_hash": "bba14857a1c0a2050d791eae90785e8fa189647860f889dc72f8233fba5cfd5d",
+          "total_value": 1000.0,
+          "unsized_positions": 0,
+          "sectors": {
+            "steel": 1000.0
+          },
+          "share_pct": 33.333333333333336
+        }
+      ],
+      "sectors": [
+        {
+          "sector": "steel",
+          "value": 1000.0,
+          "share_pct": 33.333333333333336,
+          "flag": null,
+          "covered": false
+        },
+        {
+          "sector": "technology",
+          "value": 2000.0,
+          "share_pct": 66.66666666666667,
+          "flag": null,
+          "covered": false
+        }
+      ],
+      "unsized_positions": 0,
+      "unmapped_value": 0.0,
+      "covered_value": 0,
+      "note": "Market-value exposure shares, not loss or CSRS contributions. Demo/user-supplied positions retain their source labels."
+    },
+    "seraph-scenario-sc_2874c4d6c2424dca.json": {
+      "scenario": {
+        "scenario_id": "sc_2874c4d6c2424dca",
+        "owner_user_id": "usr_4ac48eaa4680448d",
+        "org_id": "org_demo",
+        "name": "Closeout actual-index cash reduction",
+        "kind": "defensive",
+        "baseline": {
+          "run_id": "02e4bcf491bd603a1fd55c87c32d635ef3fd9938a65e8075192612a89479bf0e",
+          "date": "2020-04-30",
+          "weights_artefact_id": "349a6874e8bc68848ff437796be15ba9d4bf996d69f94c223b6add1592ce18a7",
+          "reconciled_hash": "0fefda0572354f7eb8c7a7bd85d141e9502fe5d1ea90ff505ae2251712c870c3",
+          "artefact_id": "52612092f03babb23b1b9bd950461cc90f541a7b7f1ee1b83830470f2469ddd0"
+        },
+        "assumptions": [
+          {
+            "key": "execution_and_costs",
+            "value": [
+              {
+                "id": "reduce_to_cash",
+                "type": "reduce_to_cash",
+                "execution_at": "2020-02-24T15:30:00+05:30",
+                "fraction": 0.5,
+                "transaction_cost_bps": 10.0,
+                "fixed_cost": 0.0,
+                "carry_per_session": 0.0
+              }
+            ],
+            "unit": "INR",
+            "justification": "Hypothetical one-unit index exposure, next observed close, 50% reduction, 10 bps, zero cash return; actual stored COVID prices.",
+            "source": null
+          }
+        ],
+        "steps": [
+          {
+            "request": {
+              "epoch": "covid_2020",
+              "currency": "INR",
+              "valuation_times": [
+                "2020-02-20T15:30:00+05:30",
+                "2020-02-24T15:30:00+05:30",
+                "2020-02-25T15:30:00+05:30",
+                "2020-02-26T15:30:00+05:30",
+                "2020-02-27T15:30:00+05:30",
+                "2020-02-28T15:30:00+05:30",
+                "2020-03-02T15:30:00+05:30",
+                "2020-03-03T15:30:00+05:30",
+                "2020-03-04T15:30:00+05:30",
+                "2020-03-05T15:30:00+05:30",
+                "2020-03-06T15:30:00+05:30",
+                "2020-03-09T15:30:00+05:30",
+                "2020-03-11T15:30:00+05:30",
+                "2020-03-12T15:30:00+05:30",
+                "2020-03-13T15:30:00+05:30",
+                "2020-03-16T15:30:00+05:30",
+                "2020-03-17T15:30:00+05:30",
+                "2020-03-18T15:30:00+05:30",
+                "2020-03-19T15:30:00+05:30",
+                "2020-03-20T15:30:00+05:30",
+                "2020-03-23T15:30:00+05:30",
+                "2020-03-24T15:30:00+05:30",
+                "2020-03-25T15:30:00+05:30",
+                "2020-03-26T15:30:00+05:30",
+                "2020-03-27T15:30:00+05:30",
+                "2020-03-30T15:30:00+05:30",
+                "2020-03-31T15:30:00+05:30",
+                "2020-04-01T15:30:00+05:30",
+                "2020-04-03T15:30:00+05:30",
+                "2020-04-07T15:30:00+05:30",
+                "2020-04-08T15:30:00+05:30",
+                "2020-04-09T15:30:00+05:30",
+                "2020-04-13T15:30:00+05:30",
+                "2020-04-15T15:30:00+05:30",
+                "2020-04-16T15:30:00+05:30",
+                "2020-04-17T15:30:00+05:30",
+                "2020-04-20T15:30:00+05:30"
+              ],
+              "decision_at": "2020-02-20T15:30:00+05:30",
+              "positions": [
+                {
+                  "instrument": "NIFTY500",
+                  "quantity": 1.0
+                }
+              ],
+              "initial_cash": 1000.0,
+              "cash_rate_per_session": 0.0,
+              "series": {
+                "NIFTY500": {
+                  "kind": "index",
+                  "currency": "INR",
+                  "multiplier": 1.0,
+                  "price_basis": "official index close; conditional notional exposure, not an executable share",
+                  "source": {
+                    "path": "vendor/eod2/src/eod2_data/daily/nifty 500.csv",
+                    "sha256": "ace0133113ce46a63c6bf9d6d2ef89ab216d4050f37ea059981613fecf436326"
+                  },
+                  "mode": "historical_observation",
+                  "prices": [
+                    {
+                      "at": "2020-02-20T15:30:00+05:30",
+                      "price": 9958.65
+                    },
+                    {
+                      "at": "2020-02-24T15:30:00+05:30",
+                      "price": 9758.2
+                    },
+                    {
+                      "at": "2020-02-25T15:30:00+05:30",
+                      "price": 9724.7
+                    },
+                    {
+                      "at": "2020-02-26T15:30:00+05:30",
+                      "price": 9622.7
+                    },
+                    {
+                      "at": "2020-02-27T15:30:00+05:30",
+                      "price": 9579.35
+                    },
+                    {
+                      "at": "2020-02-28T15:30:00+05:30",
+                      "price": 9236.05
+                    },
+                    {
+                      "at": "2020-03-02T15:30:00+05:30",
+                      "price": 9178.8
+                    },
+                    {
+                      "at": "2020-03-03T15:30:00+05:30",
+                      "price": 9324.3
+                    },
+                    {
+                      "at": "2020-03-04T15:30:00+05:30",
+                      "price": 9258.25
+                    },
+                    {
+                      "at": "2020-03-05T15:30:00+05:30",
+                      "price": 9280.15
+                    },
+                    {
+                      "at": "2020-03-06T15:30:00+05:30",
+                      "price": 9059.95
+                    },
+                    {
+                      "at": "2020-03-09T15:30:00+05:30",
+                      "price": 8631.35
+                    },
+                    {
+                      "at": "2020-03-11T15:30:00+05:30",
+                      "price": 8618.05
+                    },
+                    {
+                      "at": "2020-03-12T15:30:00+05:30",
+                      "price": 7901.35
+                    },
+                    {
+                      "at": "2020-03-13T15:30:00+05:30",
+                      "price": 8163.0
+                    },
+                    {
+                      "at": "2020-03-16T15:30:00+05:30",
+                      "price": 7591.9
+                    },
+                    {
+                      "at": "2020-03-17T15:30:00+05:30",
+                      "price": 7417.65
+                    },
+                    {
+                      "at": "2020-03-18T15:30:00+05:30",
+                      "price": 7010.55
+                    },
+                    {
+                      "at": "2020-03-19T15:30:00+05:30",
+                      "price": 6807.2
+                    },
+                    {
+                      "at": "2020-03-20T15:30:00+05:30",
+                      "price": 7160.1
+                    },
+                    {
+                      "at": "2020-03-23T15:30:00+05:30",
+                      "price": 6243.0
+                    },
+                    {
+                      "at": "2020-03-24T15:30:00+05:30",
+                      "price": 6365.45
+                    },
+                    {
+                      "at": "2020-03-25T15:30:00+05:30",
+                      "price": 6724.0
+                    },
+                    {
+                      "at": "2020-03-26T15:30:00+05:30",
+                      "price": 6993.85
+                    },
+                    {
+                      "at": "2020-03-27T15:30:00+05:30",
+                      "price": 7003.3
+                    },
+                    {
+                      "at": "2020-03-30T15:30:00+05:30",
+                      "price": 6749.2
+                    },
+                    {
+                      "at": "2020-03-31T15:30:00+05:30",
+                      "price": 6996.75
+                    },
+                    {
+                      "at": "2020-04-01T15:30:00+05:30",
+                      "price": 6761.95
+                    },
+                    {
+                      "at": "2020-04-03T15:30:00+05:30",
+                      "price": 6638.45
+                    },
+                    {
+                      "at": "2020-04-07T15:30:00+05:30",
+                      "price": 7149.0
+                    },
+                    {
+                      "at": "2020-04-08T15:30:00+05:30",
+                      "price": 7161.45
+                    },
+                    {
+                      "at": "2020-04-09T15:30:00+05:30",
+                      "price": 7441.65
+                    },
+                    {
+                      "at": "2020-04-13T15:30:00+05:30",
+                      "price": 7360.35
+                    },
+                    {
+                      "at": "2020-04-15T15:30:00+05:30",
+                      "price": 7344.35
+                    },
+                    {
+                      "at": "2020-04-16T15:30:00+05:30",
+                      "price": 7412.3
+                    },
+                    {
+                      "at": "2020-04-17T15:30:00+05:30",
+                      "price": 7614.4
+                    },
+                    {
+                      "at": "2020-04-20T15:30:00+05:30",
+                      "price": 7614.6
+                    }
+                  ]
+                }
+              },
+              "actions": [
+                {
+                  "id": "reduce_to_cash",
+                  "type": "reduce_to_cash",
+                  "execution_at": "2020-02-24T15:30:00+05:30",
+                  "fraction": 0.5,
+                  "transaction_cost_bps": 10.0,
+                  "fixed_cost": 0.0,
+                  "carry_per_session": 0.0
+                }
+              ]
+            }
+          }
+        ],
+        "assumption_version": 1,
+        "created_at": "2026-10-21T14:50:45+05:30",
+        "created_by": "usr_4ac48eaa4680448d",
+        "reviews": [],
+        "semantics": "Ex-post wealth comparison under supplied executable prices, timing and costs; not a prospective trading recommendation."
+      },
+      "assumption_history": [
+        {
+          "version": 1,
+          "assumptions": [
+            {
+              "key": "execution_and_costs",
+              "value": [
+                {
+                  "id": "reduce_to_cash",
+                  "type": "reduce_to_cash",
+                  "execution_at": "2020-02-24T15:30:00+05:30",
+                  "fraction": 0.5,
+                  "transaction_cost_bps": 10.0,
+                  "fixed_cost": 0.0,
+                  "carry_per_session": 0.0
+                }
+              ],
+              "unit": "INR",
+              "justification": "Hypothetical one-unit index exposure, next observed close, 50% reduction, 10 bps, zero cash return; actual stored COVID prices.",
+              "source": null
+            }
+          ],
+          "revised_at": "2026-10-21T14:50:45+05:30",
+          "revised_by": "usr_4ac48eaa4680448d"
+        }
+      ],
+      "runs": [
+        {
+          "run_key": "sc_2874c4d6c2424dca:e6ccaa3219da522b",
+          "executed_at": "2026-10-21T14:50:50+05:30",
+          "engine_version": "c11.scenario/2026-10-21.1",
+          "results": [
+            {
+              "kind": "defensive",
+              "schema": "defensive-comparison/1",
+              "epoch": "covid_2020",
+              "currency": "INR",
+              "valuation_times": [
+                "2020-02-20T15:30:00+05:30",
+                "2020-02-24T15:30:00+05:30",
+                "2020-02-25T15:30:00+05:30",
+                "2020-02-26T15:30:00+05:30",
+                "2020-02-27T15:30:00+05:30",
+                "2020-02-28T15:30:00+05:30",
+                "2020-03-02T15:30:00+05:30",
+                "2020-03-03T15:30:00+05:30",
+                "2020-03-04T15:30:00+05:30",
+                "2020-03-05T15:30:00+05:30",
+                "2020-03-06T15:30:00+05:30",
+                "2020-03-09T15:30:00+05:30",
+                "2020-03-11T15:30:00+05:30",
+                "2020-03-12T15:30:00+05:30",
+                "2020-03-13T15:30:00+05:30",
+                "2020-03-16T15:30:00+05:30",
+                "2020-03-17T15:30:00+05:30",
+                "2020-03-18T15:30:00+05:30",
+                "2020-03-19T15:30:00+05:30",
+                "2020-03-20T15:30:00+05:30",
+                "2020-03-23T15:30:00+05:30",
+                "2020-03-24T15:30:00+05:30",
+                "2020-03-25T15:30:00+05:30",
+                "2020-03-26T15:30:00+05:30",
+                "2020-03-27T15:30:00+05:30",
+                "2020-03-30T15:30:00+05:30",
+                "2020-03-31T15:30:00+05:30",
+                "2020-04-01T15:30:00+05:30",
+                "2020-04-03T15:30:00+05:30",
+                "2020-04-07T15:30:00+05:30",
+                "2020-04-08T15:30:00+05:30",
+                "2020-04-09T15:30:00+05:30",
+                "2020-04-13T15:30:00+05:30",
+                "2020-04-15T15:30:00+05:30",
+                "2020-04-16T15:30:00+05:30",
+                "2020-04-17T15:30:00+05:30",
+                "2020-04-20T15:30:00+05:30"
+              ],
+              "input_sha256": "0fae1875d7a9a7c0bad98f2223da254687474ceb6eaacd2637a5f2a2331c44e5",
+              "baseline": {
+                "wealth": [
+                  10958.65,
+                  10758.2,
+                  10724.7,
+                  10622.7,
+                  10579.35,
+                  10236.05,
+                  10178.8,
+                  10324.3,
+                  10258.25,
+                  10280.15,
+                  10059.95,
+                  9631.35,
+                  9618.05,
+                  8901.35,
+                  9163.0,
+                  8591.9,
+                  8417.65,
+                  8010.55,
+                  7807.2,
+                  8160.1,
+                  7243.0,
+                  7365.45,
+                  7724.0,
+                  7993.85,
+                  8003.3,
+                  7749.2,
+                  7996.75,
+                  7761.95,
+                  7638.45,
+                  8149.0,
+                  8161.45,
+                  8441.65,
+                  8360.35,
+                  8344.35,
+                  8412.3,
+                  8614.4,
+                  8614.6
+                ],
+                "drawdown": [
+                  0.0,
+                  0.018291486633846277,
+                  0.02134843251677887,
+                  0.030656148339439526,
+                  0.03461192756407028,
+                  0.0659387789554371,
+                  0.07116296259119514,
+                  0.05788577972651743,
+                  0.06391298198226969,
+                  0.061914560643874905,
+                  0.08200827656691279,
+                  0.12111893344526925,
+                  0.12233258658685153,
+                  0.1877329780584287,
+                  0.16385686193098603,
+                  0.2159709453262948,
+                  0.23187162652334004,
+                  0.2690203629096649,
+                  0.2875764806796458,
+                  0.25537360897555805,
+                  0.3390609244751862,
+                  0.327887102882198,
+                  0.2951686567232278,
+                  0.2705442732453358,
+                  0.26968194075000107,
+                  0.2928691034023352,
+                  0.2702796421092014,
+                  0.2917056389245025,
+                  0.30297527523919465,
+                  0.25638650746214176,
+                  0.2552504186190817,
+                  0.22968157574153747,
+                  0.23710037276489337,
+                  0.23856040661942846,
+                  0.23235982534345023,
+                  0.21391777271835488,
+                  0.21389952229517317
+                ],
+                "maximum_drawdown": 0.3390609244751862
+              },
+              "actions": [
+                {
+                  "id": "reduce_to_cash",
+                  "type": "reduce_to_cash",
+                  "status": "available",
+                  "wealth": [
+                    10958.65,
+                    10753.3209,
+                    10736.5709,
+                    10685.5709,
+                    10663.8959,
+                    10492.2459,
+                    10463.6209,
+                    10536.3709,
+                    10503.3459,
+                    10514.295900000001,
+                    10404.1959,
+                    10189.8959,
+                    10183.2459,
+                    9824.8959,
+                    9955.7209,
+                    9670.170900000001,
+                    9583.045900000001,
+                    9379.4959,
+                    9277.8209,
+                    9454.2709,
+                    8995.7209,
+                    9056.9459,
+                    9236.2209,
+                    9371.1459,
+                    9375.8709,
+                    9248.8209,
+                    9372.5959,
+                    9255.1959,
+                    9193.4459,
+                    9448.7209,
+                    9454.9459,
+                    9595.045900000001,
+                    9554.3959,
+                    9546.3959,
+                    9580.3709,
+                    9681.420900000001,
+                    9681.5209
+                  ],
+                  "cash": [
+                    1000.0,
+                    5874.2209,
+                    5874.2209,
+                    5874.2209,
+                    5874.2209,
+                    5874.2209,
+                    5874.2209,
+                    5874.2209,
+                    5874.2209,
+                    5874.2209,
+                    5874.2209,
+                    5874.2209,
+                    5874.2209,
+                    5874.2209,
+                    5874.2209,
+                    5874.2209,
+                    5874.2209,
+                    5874.2209,
+                    5874.2209,
+                    5874.2209,
+                    5874.2209,
+                    5874.2209,
+                    5874.2209,
+                    5874.2209,
+                    5874.2209,
+                    5874.2209,
+                    5874.2209,
+                    5874.2209,
+                    5874.2209,
+                    5874.2209,
+                    5874.2209,
+                    5874.2209,
+                    5874.2209,
+                    5874.2209,
+                    5874.2209,
+                    5874.2209,
+                    5874.2209
+                  ],
+                  "drawdown": [
+                    0.0,
+                    0.018736714832575108,
+                    0.020265187774041404,
+                    0.024919045685371732,
+                    0.02689693529768722,
+                    0.04256036099337046,
+                    0.045172452811249486,
+                    0.03853386137891068,
+                    0.04154746250678687,
+                    0.040548251837589366,
+                    0.05059510979910842,
+                    0.0701504382382867,
+                    0.07075726480907774,
+                    0.10345746054486638,
+                    0.09151940248114498,
+                    0.11757644417879931,
+                    0.12552678477732193,
+                    0.14410115297048454,
+                    0.15337921185547476,
+                    0.13727777600343105,
+                    0.17912143375324507,
+                    0.17353452295675098,
+                    0.15717529987726586,
+                    0.14486310813831993,
+                    0.14443194189065256,
+                    0.1560255232168195,
+                    0.14473079257025268,
+                    0.15544379097790317,
+                    0.16107860913524918,
+                    0.13778422524672285,
+                    0.13721618082519282,
+                    0.1244317593864207,
+                    0.12814115789809877,
+                    0.12887117482536625,
+                    0.12577088418737703,
+                    0.1165498578748293,
+                    0.11654073266323861
+                  ],
+                  "maximum_drawdown": 0.17912143375324507,
+                  "reduction_percentage_points": 15.993949072194113,
+                  "relative_reduction_pct": 47.1713132291793,
+                  "transactions": [
+                    {
+                      "at": "2020-02-24T15:30:00+05:30",
+                      "instrument": "NIFTY500",
+                      "quantity": -0.5,
+                      "amount": 4879.1
+                    }
+                  ],
+                  "transaction_cost": 4.8791,
+                  "carry_cost": 0.0,
+                  "ending_positions": {
+                    "NIFTY500": 0.5
+                  },
+                  "hedge_units": 0.0,
+                  "required_cash_margin": 0.0
+                }
+              ],
+              "ex_post_ranking": [
+                "reduce_to_cash"
+              ],
+              "evidence_modes": [
+                "historical_observation"
+              ],
+              "limitations": [
+                "Ex-post comparison among supplied actions, not a prospective recommendation.",
+                "Buy-and-hold baseline, one execution, supplied prices, no inferred dividends or financing.",
+                "Sector/index paths are conditional notional exposures unless an executable instrument is supplied.",
+                "Declared cash rate accrues per supplied valuation interval; hedge margin is held constant and cash-settled."
+              ]
+            }
+          ],
+          "inputs_hash": "e6ccaa3219da522bc8b1afb0a92e9178d111054364634505d026d0ded72c5056",
+          "executed_by": "usr_4ac48eaa4680448d"
+        }
+      ],
+      "exported_at": "2026-10-21T19:43:54+05:30",
+      "identity": {
+        "identity": "local-demo-institutional",
+        "organisation": "org_demo",
+        "role": "institutional",
+        "authenticated": false,
+        "note": "local demonstration identity, not authenticated. State is durable and owner-scoped; it does not establish who is using it",
+        "directory": "C:\\Users\\Arlop\\Downloads\\SERAPH VARYA\\SERAPH Varya\\docs\\evidence\\engineering-closeout-2026-10-21\\browser-13\\isolated\\workspace"
+      },
+      "limitations": [
+        "Scenario assumptions and data modes are recorded with each result; historical action comparisons are ex-post, not an economic forecast or a prospective recommendation.",
+        "local demonstration identity, not authenticated. State is durable and owner-scoped; it does not establish who is using it"
+      ]
+    }
+  },
+  "regulator_console": "",
+  "error": "",
+  "failure_context": null
+}

@@ -144,7 +144,7 @@ def issue(store: LiveStore, as_of: str, *, results: Path) -> dict:
                        if row.get("threshold") is not None else None),
             alarm=(bool(row["alarm"]) if row.get("alarm") is not None else None),
             inputs_hash=fit,
-            detail=dict(train_end=row.get("train_end"),
+            detail=dict(issue_mode="historical_import", train_end=row.get("train_end"),
                         source=str(results.relative_to(ROOT))))
         issued.append(dict(model=row["model"], target=row["target"],
                            stored=written["stored"],

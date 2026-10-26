@@ -1,0 +1,31 @@
+2026-10-21 14:35:34.194 Uvicorn server started on 127.0.0.1:49778
+
+  You can now view your Streamlit app in your browser.
+
+  URL: http://127.0.0.1:49778
+
+
+DevTools listening on ws://127.0.0.1:49779/devtools/browser/7ac0bcf0-90a5-4459-a02d-61c485ad9ac3
+[8704:2640:1021/143534.798:ERROR:chrome\browser\component_updater\edge_optimization_guide_models_manifest_installer.cc:264] Edge LLM: catalog update failed: 5
+[8704:2640:1021/143534.806:ERROR:chrome\browser\component_updater\edge_language_detection_model_installer.cc:97] Edge Language Detection Model: On-demand update failed with error: 5
+[8704:2640:1021/143536.420:ERROR:components\edge_auth\edge_auth_errors.cc:553] EDGE_IDENTITY: Image Fetch FAILED: Error: Primary Error: kUrlRequestError, Secondary Error: kURLResponseNot200, Platform error: 0, Error string: [empty]
+
+[8704:27656:1021/143537.025:ERROR:components\sync\engine\get_updates_processor.cc:426] PostClientToServerMessage() failed during GetUpdates with error Network error (ERR_NAME_NOT_RESOLVED)
+[8704:2640:1021/143537.161:ERROR:chrome\browser\task_manager\providers\fallback_task_provider.cc:126] Every renderer should have at least one task provided by a primary task provider. If a "Renderer" fallback task is shown, it is a bug. If you have repro steps, please file a new bug and tag it as a dependency of crbug.com/40528867.
+[8704:27656:1021/143538.536:ERROR:components\sync\engine\get_updates_processor.cc:426] PostClientToServerMessage() failed during GetUpdates with error Network error (ERR_NAME_NOT_RESOLVED)
+[8704:20376:1021/143542.255:ERROR:components\media_router\common\providers\cast\certificate\cast_crl.cc:446] CRL - Verification failed.
+[8704:27656:1021/143542.303:ERROR:components\sync\engine\get_updates_processor.cc:426] PostClientToServerMessage() failed during GetUpdates with error Network error (ERR_NAME_NOT_RESOLVED)
+[8704:27656:1021/143551.685:ERROR:components\sync\engine\get_updates_processor.cc:426] PostClientToServerMessage() failed during GetUpdates with error Network error (ERR_NAME_NOT_RESOLVED)
+SUCCESS: The process with PID 20608 (child process of PID 8704) has been terminated.
+SUCCESS: The process with PID 28860 (child process of PID 8704) has been terminated.
+SUCCESS: The process with PID 22848 (child process of PID 8704) has been terminated.
+SUCCESS: The process with PID 31896 (child process of PID 8704) has been terminated.
+SUCCESS: The process with PID 33884 (child process of PID 8704) has been terminated.
+SUCCESS: The process with PID 20060 (child process of PID 8704) has been terminated.
+SUCCESS: The process with PID 18792 (child process of PID 8704) has been terminated.
+SUCCESS: The process with PID 21656 (child process of PID 8704) has been terminated.
+SUCCESS: The process with PID 7012 (child process of PID 8704) has been terminated.
+SUCCESS: The process with PID 29152 (child process of PID 8704) has been terminated.
+SUCCESS: The process with PID 8704 (child process of PID 33676) has been terminated.
+SUCCESS: The process with PID 22416 (child process of PID 28112) has been terminated.
+SUCCESS: The process with PID 28112 (child process of PID 33676) has been terminated.

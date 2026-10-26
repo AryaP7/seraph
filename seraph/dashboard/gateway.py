@@ -69,6 +69,7 @@ def build_view(
     portfolio_exposure_pct: float | None = None,
     action_log: list | None = None,
     playbook: dict | None = None,
+    institution_decomposition: dict | None = None,
 ) -> Ok[dict] | Err:
     """Assemble the payload for `role`, containing only that role's fields.
 
@@ -102,7 +103,7 @@ def build_view(
         "playbook": playbook,
         "weightsArtefactId": point.weights_artefact_id,
         "contagionNetwork": contagion_network,
-        "institutionDecomposition": None,   # regulator-only slot; FR42
+        "institutionDecomposition": institution_decomposition,
         "actionLog": action_log or [],
         "preRegistrationHash": None,
     }

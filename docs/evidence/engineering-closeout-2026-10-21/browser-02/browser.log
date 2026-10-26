@@ -1,0 +1,21 @@
+2026-10-21 09:39:20.955 Uvicorn server started on 127.0.0.1:57384
+
+  You can now view your Streamlit app in your browser.
+
+  URL: http://127.0.0.1:57384
+
+
+DevTools listening on ws://127.0.0.1:57385/devtools/browser/3d7f58f5-2cbb-4b9b-8e2a-33f394c96787
+[7792:32200:1021/093922.704:ERROR:chrome\browser\task_manager\providers\fallback_task_provider.cc:126] Every renderer should have at least one task provided by a primary task provider. If a "Renderer" fallback task is shown, it is a bug. If you have repro steps, please file a new bug and tag it as a dependency of crbug.com/40528867.
+[7792:17176:1021/093928.047:ERROR:components\media_router\common\providers\cast\certificate\cast_crl.cc:446] CRL - Verification failed.
+SUCCESS: The process with PID 31828 (child process of PID 7792) has been terminated.
+SUCCESS: The process with PID 14572 (child process of PID 7792) has been terminated.
+SUCCESS: The process with PID 8092 (child process of PID 7792) has been terminated.
+SUCCESS: The process with PID 30572 (child process of PID 7792) has been terminated.
+SUCCESS: The process with PID 33332 (child process of PID 7792) has been terminated.
+SUCCESS: The process with PID 22640 (child process of PID 7792) has been terminated.
+SUCCESS: The process with PID 20224 (child process of PID 7792) has been terminated.
+SUCCESS: The process with PID 22440 (child process of PID 7792) has been terminated.
+SUCCESS: The process with PID 7792 (child process of PID 30684) has been terminated.
+SUCCESS: The process with PID 34040 (child process of PID 24552) has been terminated.
+SUCCESS: The process with PID 24552 (child process of PID 30684) has been terminated.

@@ -33,7 +33,7 @@ Visibility = Literal["private", "org", "shared", "public"]
 #: `IdentityRegistry.can` denies unknown kinds rather than guessing.
 RESOURCE_KINDS = (
     "run", "portfolio", "holdings_snapshot", "scenario", "case",
-    "news_annotation", "export", "watchlist", "preference",
+    "news_annotation", "export", "watchlist", "preference", "institution_submission",
 )
 
 

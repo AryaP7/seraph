@@ -1,0 +1,496 @@
+{
+  "amber_multiple": 2.0,
+  "artifact_id": "eaa2d2d8d387da847e86c0ae835bdc0cd47c9671b66eaf97c3b100a7438eab84",
+  "available": true,
+  "available_at": "2026-10-21T21:41:29.295106+05:30",
+  "baseline": {
+    "end": "2019-12-31",
+    "start": "2019-10-01"
+  },
+  "detector": "lee_mykland/k=156,alpha=0.01,block=75",
+  "flags": {
+    "aluminium": "amber",
+    "auto_components": "none",
+    "pharmaceuticals": "none",
+    "solar": "amber",
+    "steel": "none"
+  },
+  "input_end": "2020-04-30",
+  "limitations": [
+    "Intensity flags describe observed jump activity; they are not loss forecasts.",
+    "Coverage refers to the supplied native bar grid, not a certified exchange-session archive."
+  ],
+  "mapping_basis": "existing provisional tariff-representative basket; not an NSE sector index",
+  "membership_policy": "fixed_at_fit_cutoff",
+  "observation": {
+    "end": "2020-04-30",
+    "start": "2020-01-01"
+  },
+  "schema": "c5-sector-observations/1",
+  "sectors": [
+    {
+      "baseline_count": 35,
+      "baseline_rate": 0.5737704918032787,
+      "baseline_sessions": 61,
+      "contributors": [
+        "HINDALCO",
+        "HINDZINC",
+        "NATIONALUM"
+      ],
+      "covered": true,
+      "declared_members": [
+        "HINDALCO",
+        "HINDZINC",
+        "NATIONALUM"
+      ],
+      "excluded_members": [],
+      "flag": "amber",
+      "manifests": [
+        {
+          "as_of": "2019-12-31",
+          "basket_basis": "existing provisional tariff-representative basket; not an NSE sector index",
+          "basket_id": "3cb36c242a1bcf7fad002ec6f4837c52094122647e4233e3aa47a43f950b976c",
+          "detector_version": "lee_mykland/k=156,alpha=0.01,block=75",
+          "end_index": 4511,
+          "event_hash": "2056b2a4411cbe6db8d22c3106fe24a0c8675bb28d91af8d5ab150d315ef72b3",
+          "input_row_hash": "c7f75af81106d072151ace7a8193ffe04134cd50768498213463871d243024aa",
+          "members_contributing": 3,
+          "members_declared": 3,
+          "members_without_data": [],
+          "membership_policy": "fixed_at_fit_cutoff",
+          "n_bars": 4512,
+          "n_neg": 35,
+          "n_pos": 82,
+          "n_sessions": 61,
+          "rebalance_date": "2020-01-01",
+          "segments": [
+            {
+              "contributing": 3,
+              "declared": 3,
+              "end": "2019-12-31",
+              "start": "2019-10-01"
+            }
+          ],
+          "start_index": 0,
+          "stream_version": "c5.basket_stream/2026-10-16.1",
+          "training_start": "2019-10-01"
+        },
+        {
+          "as_of": "2020-04-30",
+          "basket_basis": "existing provisional tariff-representative basket; not an NSE sector index",
+          "basket_id": "3cb36c242a1bcf7fad002ec6f4837c52094122647e4233e3aa47a43f950b976c",
+          "detector_version": "lee_mykland/k=156,alpha=0.01,block=75",
+          "end_index": 10640,
+          "event_hash": "be37d572367a6a7c7ce57dcd50ae829d2a3bbbaaf26a73bf195b2b47ce5545c1",
+          "input_row_hash": "14fb6a9983a72fbed3c67807793ecaced6ed17fc3b628ad21d480e967fd55979",
+          "members_contributing": 3,
+          "members_declared": 3,
+          "members_without_data": [],
+          "membership_policy": "fixed_at_fit_cutoff",
+          "n_bars": 6129,
+          "n_neg": 101,
+          "n_pos": 117,
+          "n_sessions": 82,
+          "rebalance_date": "2020-01-01",
+          "segments": [
+            {
+              "contributing": 3,
+              "declared": 3,
+              "end": "2020-04-30",
+              "start": "2020-01-01"
+            }
+          ],
+          "start_index": 4512,
+          "stream_version": "c5.basket_stream/2026-10-16.1",
+          "training_start": "2020-01-01"
+        }
+      ],
+      "observed_count": 101,
+      "observed_sessions": 82,
+      "ratio": 2.1466898954703835,
+      "reason": null,
+      "sector": "aluminium"
+    },
+    {
+      "baseline_count": 17,
+      "baseline_rate": 0.2786885245901639,
+      "baseline_sessions": 61,
+      "contributors": [
+        "MOTHERSON"
+      ],
+      "covered": true,
+      "declared_members": [
+        "BHARATFORG",
+        "BOSCHLTD",
+        "EXIDEIND",
+        "MOTHERSON",
+        "SUNDRMFAST"
+      ],
+      "excluded_members": [
+        "BHARATFORG",
+        "BOSCHLTD",
+        "EXIDEIND",
+        "SUNDRMFAST"
+      ],
+      "flag": "none",
+      "manifests": [
+        {
+          "as_of": "2019-12-31",
+          "basket_basis": "existing provisional tariff-representative basket; not an NSE sector index",
+          "basket_id": "3cb36c242a1bcf7fad002ec6f4837c52094122647e4233e3aa47a43f950b976c",
+          "detector_version": "lee_mykland/k=156,alpha=0.01,block=75",
+          "end_index": 4511,
+          "event_hash": "1d7f639da7aaec8041dbf668f180b44a33e3f4cab716e031a7d9bfc38e215a02",
+          "input_row_hash": "68f7eeaa818f84c809b284c0951c1d35188fe346d096d412c8fd890963b3de71",
+          "members_contributing": 1,
+          "members_declared": 5,
+          "members_without_data": [
+            "BHARATFORG",
+            "BOSCHLTD",
+            "EXIDEIND",
+            "SUNDRMFAST"
+          ],
+          "membership_policy": "fixed_at_fit_cutoff",
+          "n_bars": 4512,
+          "n_neg": 17,
+          "n_pos": 25,
+          "n_sessions": 61,
+          "rebalance_date": "2020-01-01",
+          "segments": [
+            {
+              "contributing": 1,
+              "declared": 1,
+              "end": "2019-12-31",
+              "start": "2019-10-01"
+            }
+          ],
+          "start_index": 0,
+          "stream_version": "c5.basket_stream/2026-10-16.1",
+          "training_start": "2019-10-01"
+        },
+        {
+          "as_of": "2020-04-30",
+          "basket_basis": "existing provisional tariff-representative basket; not an NSE sector index",
+          "basket_id": "3cb36c242a1bcf7fad002ec6f4837c52094122647e4233e3aa47a43f950b976c",
+          "detector_version": "lee_mykland/k=156,alpha=0.01,block=75",
+          "end_index": 10640,
+          "event_hash": "fad5eebe89054b64d0552417fc980669829dbd87f4d1eadc6ad2b73ae6dad764",
+          "input_row_hash": "3c398f41e4213bf4b04cd7f5077095911ee0cc107de0a949eaa63a05af8fc0ff",
+          "members_contributing": 1,
+          "members_declared": 5,
+          "members_without_data": [
+            "BHARATFORG",
+            "BOSCHLTD",
+            "EXIDEIND",
+            "SUNDRMFAST"
+          ],
+          "membership_policy": "fixed_at_fit_cutoff",
+          "n_bars": 6129,
+          "n_neg": 45,
+          "n_pos": 33,
+          "n_sessions": 82,
+          "rebalance_date": "2020-01-01",
+          "segments": [
+            {
+              "contributing": 1,
+              "declared": 1,
+              "end": "2020-04-30",
+              "start": "2020-01-01"
+            }
+          ],
+          "start_index": 4512,
+          "stream_version": "c5.basket_stream/2026-10-16.1",
+          "training_start": "2020-01-01"
+        }
+      ],
+      "observed_count": 45,
+      "observed_sessions": 82,
+      "ratio": 1.9691535150645627,
+      "reason": null,
+      "sector": "auto_components"
+    },
+    {
+      "baseline_count": 56,
+      "baseline_rate": 0.9180327868852459,
+      "baseline_sessions": 61,
+      "contributors": [
+        "AUROPHARMA",
+        "CIPLA",
+        "TORNTPHARM"
+      ],
+      "covered": true,
+      "declared_members": [
+        "AUROPHARMA",
+        "CIPLA",
+        "DRREDDY",
+        "LUPIN",
+        "SUNPHARMA",
+        "TORNTPHARM"
+      ],
+      "excluded_members": [
+        "DRREDDY",
+        "LUPIN",
+        "SUNPHARMA"
+      ],
+      "flag": "none",
+      "manifests": [
+        {
+          "as_of": "2019-12-31",
+          "basket_basis": "existing provisional tariff-representative basket; not an NSE sector index",
+          "basket_id": "3cb36c242a1bcf7fad002ec6f4837c52094122647e4233e3aa47a43f950b976c",
+          "detector_version": "lee_mykland/k=156,alpha=0.01,block=75",
+          "end_index": 4511,
+          "event_hash": "add3f68be9225366566434d0b083e63ca210c7ee9dccbd880f94f5563baaec3f",
+          "input_row_hash": "70ddfb1d40f06f593a2509461ce3b8246134adea286719a7742f3b6b40668d4a",
+          "members_contributing": 3,
+          "members_declared": 6,
+          "members_without_data": [
+            "DRREDDY",
+            "LUPIN",
+            "SUNPHARMA"
+          ],
+          "membership_policy": "fixed_at_fit_cutoff",
+          "n_bars": 4512,
+          "n_neg": 56,
+          "n_pos": 69,
+          "n_sessions": 61,
+          "rebalance_date": "2020-01-01",
+          "segments": [
+            {
+              "contributing": 3,
+              "declared": 3,
+              "end": "2019-12-31",
+              "start": "2019-10-01"
+            }
+          ],
+          "start_index": 0,
+          "stream_version": "c5.basket_stream/2026-10-16.1",
+          "training_start": "2019-10-01"
+        },
+        {
+          "as_of": "2020-04-30",
+          "basket_basis": "existing provisional tariff-representative basket; not an NSE sector index",
+          "basket_id": "3cb36c242a1bcf7fad002ec6f4837c52094122647e4233e3aa47a43f950b976c",
+          "detector_version": "lee_mykland/k=156,alpha=0.01,block=75",
+          "end_index": 10640,
+          "event_hash": "d1a3d87957599008eaca63ec5af6d27ba838c1ee06773325b5501db2923c0be5",
+          "input_row_hash": "aa8a9ac9a24d0cc794f97af61308ebeb23684f5cb41e55c6b7510071228ccc39",
+          "members_contributing": 3,
+          "members_declared": 6,
+          "members_without_data": [
+            "DRREDDY",
+            "LUPIN",
+            "SUNPHARMA"
+          ],
+          "membership_policy": "fixed_at_fit_cutoff",
+          "n_bars": 6129,
+          "n_neg": 95,
+          "n_pos": 137,
+          "n_sessions": 82,
+          "rebalance_date": "2020-01-01",
+          "segments": [
+            {
+              "contributing": 3,
+              "declared": 3,
+              "end": "2020-04-30",
+              "start": "2020-01-01"
+            }
+          ],
+          "start_index": 4512,
+          "stream_version": "c5.basket_stream/2026-10-16.1",
+          "training_start": "2020-01-01"
+        }
+      ],
+      "observed_count": 95,
+      "observed_sessions": 82,
+      "ratio": 1.2619773519163762,
+      "reason": null,
+      "sector": "pharmaceuticals"
+    },
+    {
+      "baseline_count": 6,
+      "baseline_rate": 0.09836065573770492,
+      "baseline_sessions": 61,
+      "contributors": [
+        "SUZLON"
+      ],
+      "covered": true,
+      "declared_members": [
+        "BORORENEW",
+        "INOXWIND",
+        "SUZLON",
+        "WEBELSOLAR"
+      ],
+      "excluded_members": [
+        "BORORENEW",
+        "INOXWIND",
+        "WEBELSOLAR"
+      ],
+      "flag": "amber",
+      "manifests": [
+        {
+          "as_of": "2019-12-31",
+          "basket_basis": "existing provisional tariff-representative basket; not an NSE sector index",
+          "basket_id": "3cb36c242a1bcf7fad002ec6f4837c52094122647e4233e3aa47a43f950b976c",
+          "detector_version": "lee_mykland/k=156,alpha=0.01,block=75",
+          "end_index": 4511,
+          "event_hash": "659ed05aff217855f6f901c5096f0014a7041d0ac16e51616de7eb3eac53a4c1",
+          "input_row_hash": "33e0475f4148fe83082173756197dd80277c83a288b117d512aa46fcd52e0b63",
+          "members_contributing": 1,
+          "members_declared": 4,
+          "members_without_data": [
+            "BORORENEW",
+            "INOXWIND",
+            "WEBELSOLAR"
+          ],
+          "membership_policy": "fixed_at_fit_cutoff",
+          "n_bars": 4512,
+          "n_neg": 6,
+          "n_pos": 4,
+          "n_sessions": 61,
+          "rebalance_date": "2020-01-01",
+          "segments": [
+            {
+              "contributing": 1,
+              "declared": 1,
+              "end": "2019-12-31",
+              "start": "2019-10-01"
+            }
+          ],
+          "start_index": 0,
+          "stream_version": "c5.basket_stream/2026-10-16.1",
+          "training_start": "2019-10-01"
+        },
+        {
+          "as_of": "2020-04-30",
+          "basket_basis": "existing provisional tariff-representative basket; not an NSE sector index",
+          "basket_id": "3cb36c242a1bcf7fad002ec6f4837c52094122647e4233e3aa47a43f950b976c",
+          "detector_version": "lee_mykland/k=156,alpha=0.01,block=75",
+          "end_index": 10640,
+          "event_hash": "ed907a016af64d2a01a0e863e3a90f9fe7d0342c5c6c25ed344975f9a98df68f",
+          "input_row_hash": "b08d8c307cb85a9e9a2b8aeecbaf4c09ae40126b68adfe251cad1f006f3829a0",
+          "members_contributing": 1,
+          "members_declared": 4,
+          "members_without_data": [
+            "BORORENEW",
+            "INOXWIND",
+            "WEBELSOLAR"
+          ],
+          "membership_policy": "fixed_at_fit_cutoff",
+          "n_bars": 6129,
+          "n_neg": 34,
+          "n_pos": 33,
+          "n_sessions": 82,
+          "rebalance_date": "2020-01-01",
+          "segments": [
+            {
+              "contributing": 1,
+              "declared": 1,
+              "end": "2020-04-30",
+              "start": "2020-01-01"
+            }
+          ],
+          "start_index": 4512,
+          "stream_version": "c5.basket_stream/2026-10-16.1",
+          "training_start": "2020-01-01"
+        }
+      ],
+      "observed_count": 34,
+      "observed_sessions": 82,
+      "ratio": 4.215447154471544,
+      "reason": null,
+      "sector": "solar"
+    },
+    {
+      "baseline_count": 37,
+      "baseline_rate": 0.6065573770491803,
+      "baseline_sessions": 61,
+      "contributors": [
+        "JINDALSTEL",
+        "JSWSTEEL",
+        "TATASTEEL"
+      ],
+      "covered": true,
+      "declared_members": [
+        "JINDALSTEL",
+        "JSWSTEEL",
+        "SAIL",
+        "TATASTEEL"
+      ],
+      "excluded_members": [
+        "SAIL"
+      ],
+      "flag": "none",
+      "manifests": [
+        {
+          "as_of": "2019-12-31",
+          "basket_basis": "existing provisional tariff-representative basket; not an NSE sector index",
+          "basket_id": "3cb36c242a1bcf7fad002ec6f4837c52094122647e4233e3aa47a43f950b976c",
+          "detector_version": "lee_mykland/k=156,alpha=0.01,block=75",
+          "end_index": 4511,
+          "event_hash": "e7e7135c83367955f94168cab9a61d7890faf53083e7f6cd7932988681765696",
+          "input_row_hash": "3751525d4b2e6b53c50a9976df28cd150a57caca80b83c10db513ee2491fca4d",
+          "members_contributing": 3,
+          "members_declared": 4,
+          "members_without_data": [
+            "SAIL"
+          ],
+          "membership_policy": "fixed_at_fit_cutoff",
+          "n_bars": 4512,
+          "n_neg": 37,
+          "n_pos": 83,
+          "n_sessions": 61,
+          "rebalance_date": "2020-01-01",
+          "segments": [
+            {
+              "contributing": 3,
+              "declared": 3,
+              "end": "2019-12-31",
+              "start": "2019-10-01"
+            }
+          ],
+          "start_index": 0,
+          "stream_version": "c5.basket_stream/2026-10-16.1",
+          "training_start": "2019-10-01"
+        },
+        {
+          "as_of": "2020-04-30",
+          "basket_basis": "existing provisional tariff-representative basket; not an NSE sector index",
+          "basket_id": "3cb36c242a1bcf7fad002ec6f4837c52094122647e4233e3aa47a43f950b976c",
+          "detector_version": "lee_mykland/k=156,alpha=0.01,block=75",
+          "end_index": 10640,
+          "event_hash": "e9640e081da20602fce8417f1ebd3652c77cf86ce27db5da6ab00f31f9a808dc",
+          "input_row_hash": "ed75f298d4c988d2e918310fdd9c1f36ff9c24bca5d34530bdb3dfea6f2654a4",
+          "members_contributing": 3,
+          "members_declared": 4,
+          "members_without_data": [
+            "SAIL"
+          ],
+          "membership_policy": "fixed_at_fit_cutoff",
+          "n_bars": 6129,
+          "n_neg": 98,
+          "n_pos": 104,
+          "n_sessions": 82,
+          "rebalance_date": "2020-01-01",
+          "segments": [
+            {
+              "contributing": 3,
+              "declared": 3,
+              "end": "2020-04-30",
+              "start": "2020-01-01"
+            }
+          ],
+          "start_index": 4512,
+          "stream_version": "c5.basket_stream/2026-10-16.1",
+          "training_start": "2020-01-01"
+        }
+      ],
+      "observed_count": 98,
+      "observed_sessions": 82,
+      "ratio": 1.9703361898483849,
+      "reason": null,
+      "sector": "steel"
+    }
+  ],
+  "units": "negative jumps per observed session in the same eligible basket"
+}

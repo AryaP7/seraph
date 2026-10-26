@@ -1,0 +1,31 @@
+2026-10-21 21:29:31.527 Uvicorn server started on 127.0.0.1:56906
+
+  You can now view your Streamlit app in your browser.
+
+  URL: http://127.0.0.1:56906
+
+
+DevTools listening on ws://127.0.0.1:56907/devtools/browser/c33aa030-45fd-4d2c-995b-199a0922d751
+[17132:32200:1021/212932.493:ERROR:chrome\browser\component_updater\edge_optimization_guide_models_manifest_installer.cc:264] Edge LLM: catalog update failed: 5
+[17132:32200:1021/212932.495:ERROR:chrome\browser\component_updater\edge_language_detection_model_installer.cc:97] Edge Language Detection Model: On-demand update failed with error: 5
+[17132:32200:1021/212933.910:ERROR:components\edge_auth\edge_auth_errors.cc:553] EDGE_IDENTITY: Image Fetch FAILED: Error: Primary Error: kUrlRequestError, Secondary Error: kURLResponseNot200, Platform error: 0, Error string: [empty]
+
+[17132:20052:1021/212934.519:ERROR:components\sync\engine\get_updates_processor.cc:426] PostClientToServerMessage() failed during GetUpdates with error Network error (ERR_NAME_NOT_RESOLVED)
+[17132:32200:1021/212934.642:ERROR:chrome\browser\task_manager\providers\fallback_task_provider.cc:126] Every renderer should have at least one task provided by a primary task provider. If a "Renderer" fallback task is shown, it is a bug. If you have repro steps, please file a new bug and tag it as a dependency of crbug.com/40528867.
+[17132:20052:1021/212936.021:ERROR:components\sync\engine\get_updates_processor.cc:426] PostClientToServerMessage() failed during GetUpdates with error Network error (ERR_NAME_NOT_RESOLVED)
+[17132:20052:1021/212938.287:ERROR:components\sync\engine\get_updates_processor.cc:426] PostClientToServerMessage() failed during GetUpdates with error Network error (ERR_NAME_NOT_RESOLVED)
+[17132:20052:1021/212941.671:ERROR:components\sync\engine\get_updates_processor.cc:426] PostClientToServerMessage() failed during GetUpdates with error Network error (ERR_NAME_NOT_RESOLVED)
+[17132:20052:1021/212950.115:ERROR:components\sync\engine\get_updates_processor.cc:426] PostClientToServerMessage() failed during GetUpdates with error Network error (ERR_NAME_NOT_RESOLVED)
+[17132:20052:1021/213002.787:ERROR:components\sync\engine\get_updates_processor.cc:426] PostClientToServerMessage() failed during GetUpdates with error Network error (ERR_NAME_NOT_RESOLVED)
+[17132:20052:1021/213034.439:ERROR:components\sync\engine\get_updates_processor.cc:426] PostClientToServerMessage() failed during GetUpdates with error Network error (ERR_NAME_NOT_RESOLVED)
+SUCCESS: The process with PID 38100 (child process of PID 17132) has been terminated.
+SUCCESS: The process with PID 10412 (child process of PID 17132) has been terminated.
+SUCCESS: The process with PID 15548 (child process of PID 17132) has been terminated.
+SUCCESS: The process with PID 36976 (child process of PID 17132) has been terminated.
+SUCCESS: The process with PID 32168 (child process of PID 17132) has been terminated.
+SUCCESS: The process with PID 24024 (child process of PID 17132) has been terminated.
+SUCCESS: The process with PID 17700 (child process of PID 17132) has been terminated.
+SUCCESS: The process with PID 25668 (child process of PID 17132) has been terminated.
+SUCCESS: The process with PID 17132 (child process of PID 28228) has been terminated.
+SUCCESS: The process with PID 37328 (child process of PID 28876) has been terminated.
+SUCCESS: The process with PID 28876 (child process of PID 28228) has been terminated.

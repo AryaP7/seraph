@@ -1,0 +1,28 @@
+2026-10-21 19:49:35.257 Uvicorn server started on 127.0.0.1:51812
+
+  You can now view your Streamlit app in your browser.
+
+  URL: http://127.0.0.1:51812
+
+
+DevTools listening on ws://127.0.0.1:51813/devtools/browser/6a3f2157-d092-456f-aa60-dcb808cc35e8
+[39248:39288:1021/194935.877:ERROR:chrome\browser\component_updater\edge_optimization_guide_models_manifest_installer.cc:264] Edge LLM: catalog update failed: 5
+[39248:39288:1021/194935.879:ERROR:chrome\browser\component_updater\edge_language_detection_model_installer.cc:97] Edge Language Detection Model: On-demand update failed with error: 5
+[39248:39288:1021/194936.778:ERROR:components\edge_auth\edge_auth_errors.cc:553] EDGE_IDENTITY: Image Fetch FAILED: Error: Primary Error: kUrlRequestError, Secondary Error: kURLResponseNot200, Platform error: 0, Error string: [empty]
+
+[39248:31704:1021/194936.804:ERROR:components\sync\engine\get_updates_processor.cc:426] PostClientToServerMessage() failed during GetUpdates with error Network error (ERR_NAME_NOT_RESOLVED)
+[39248:39288:1021/194937.511:ERROR:chrome\browser\task_manager\providers\fallback_task_provider.cc:126] Every renderer should have at least one task provided by a primary task provider. If a "Renderer" fallback task is shown, it is a bug. If you have repro steps, please file a new bug and tag it as a dependency of crbug.com/40528867.
+[39248:25852:1021/194939.308:ERROR:components\sync\engine\get_updates_processor.cc:426] PostClientToServerMessage() failed during GetUpdates with error Network error (ERR_NAME_NOT_RESOLVED)
+[39248:35524:1021/194940.350:ERROR:components\media_router\common\providers\cast\certificate\cast_crl.cc:446] CRL - Verification failed.
+[39248:25852:1021/194945.573:ERROR:components\sync\engine\get_updates_processor.cc:426] PostClientToServerMessage() failed during GetUpdates with error Network error (ERR_NAME_NOT_RESOLVED)
+[39248:25852:1021/195001.211:ERROR:components\sync\engine\get_updates_processor.cc:426] PostClientToServerMessage() failed during GetUpdates with error Network error (ERR_NAME_NOT_RESOLVED)
+SUCCESS: The process with PID 35692 (child process of PID 39248) has been terminated.
+SUCCESS: The process with PID 37064 (child process of PID 39248) has been terminated.
+SUCCESS: The process with PID 37752 (child process of PID 39248) has been terminated.
+SUCCESS: The process with PID 37216 (child process of PID 39248) has been terminated.
+SUCCESS: The process with PID 38952 (child process of PID 39248) has been terminated.
+SUCCESS: The process with PID 34868 (child process of PID 39248) has been terminated.
+SUCCESS: The process with PID 32536 (child process of PID 39248) has been terminated.
+SUCCESS: The process with PID 39248 (child process of PID 37100) has been terminated.
+SUCCESS: The process with PID 38980 (child process of PID 37688) has been terminated.
+SUCCESS: The process with PID 37688 (child process of PID 37100) has been terminated.

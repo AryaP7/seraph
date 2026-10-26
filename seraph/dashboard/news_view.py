@@ -555,14 +555,14 @@ def sector_panel(channel: dict, *, hawkes_sector_flags=None) -> dict:
 
     if hawkes_sector_flags:
         hawkes_rows = [dict(sector=sector, channel="hawkes", flag=flag,
-                            unit="sector branching ratio flag", status="derived")
+                            unit="negative-jump intensity versus historical baseline", status="derived")
                        for sector, flag in sorted(hawkes_sector_flags.items())]
         hawkes_block = dict(status="derived", rows=hawkes_rows)
     else:
         hawkes_block = dict(
             status="unavailable", absence="structural", rows=[],
-            reason=("no measured per-sector Hawkes intensity is produced by this "
-                    "run; FR14 sector baselines are not yet persisted (FIX07)"))
+            reason=("No eligible measured sector intensity flags at the selected analysis cutoff; "
+                    "missing coverage is not a measured zero."))
 
     return dict(
         surface="sector_stress", version=VIEW_VERSION,

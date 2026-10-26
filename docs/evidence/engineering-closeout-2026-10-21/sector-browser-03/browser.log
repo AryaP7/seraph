@@ -1,0 +1,30 @@
+2026-10-22 00:47:03.522 Uvicorn server started on 127.0.0.1:49588
+
+  You can now view your Streamlit app in your browser.
+
+  URL: http://127.0.0.1:49588
+
+
+DevTools listening on ws://127.0.0.1:49589/devtools/browser/f5784e19-770b-4b4a-9217-59e25fb577e6
+[38580:35404:1022/004704.078:ERROR:chrome\browser\component_updater\edge_optimization_guide_models_manifest_installer.cc:264] Edge LLM: catalog update failed: 5
+[38580:35404:1022/004704.091:ERROR:chrome\browser\component_updater\edge_language_detection_model_installer.cc:97] Edge Language Detection Model: On-demand update failed with error: 5
+[38580:35404:1022/004705.595:ERROR:components\edge_auth\edge_auth_errors.cc:553] EDGE_IDENTITY: Image Fetch FAILED: Error: Primary Error: kUrlRequestError, Secondary Error: kURLResponseNot200, Platform error: 0, Error string: [empty]
+
+[38580:18940:1022/004706.195:ERROR:components\sync\engine\get_updates_processor.cc:426] PostClientToServerMessage() failed during GetUpdates with error Network error (ERR_NAME_NOT_RESOLVED)
+[38580:35404:1022/004706.324:ERROR:chrome\browser\task_manager\providers\fallback_task_provider.cc:126] Every renderer should have at least one task provided by a primary task provider. If a "Renderer" fallback task is shown, it is a bug. If you have repro steps, please file a new bug and tag it as a dependency of crbug.com/40528867.
+[38580:18940:1022/004708.710:ERROR:components\sync\engine\get_updates_processor.cc:426] PostClientToServerMessage() failed during GetUpdates with error Network error (ERR_NAME_NOT_RESOLVED)
+[38580:18940:1022/004712.467:ERROR:components\sync\engine\get_updates_processor.cc:426] PostClientToServerMessage() failed during GetUpdates with error Network error (ERR_NAME_NOT_RESOLVED)
+[38580:18940:1022/004721.845:ERROR:components\sync\engine\get_updates_processor.cc:426] PostClientToServerMessage() failed during GetUpdates with error Network error (ERR_NAME_NOT_RESOLVED)
+SUCCESS: The process with PID 39524 (child process of PID 38580) has been terminated.
+SUCCESS: The process with PID 19304 (child process of PID 38580) has been terminated.
+SUCCESS: The process with PID 35612 (child process of PID 38580) has been terminated.
+SUCCESS: The process with PID 24112 (child process of PID 38580) has been terminated.
+SUCCESS: The process with PID 36852 (child process of PID 38580) has been terminated.
+SUCCESS: The process with PID 5268 (child process of PID 38580) has been terminated.
+SUCCESS: The process with PID 24900 (child process of PID 38580) has been terminated.
+SUCCESS: The process with PID 6132 (child process of PID 38580) has been terminated.
+SUCCESS: The process with PID 28016 (child process of PID 38580) has been terminated.
+SUCCESS: The process with PID 34880 (child process of PID 38580) has been terminated.
+SUCCESS: The process with PID 38580 (child process of PID 37280) has been terminated.
+SUCCESS: The process with PID 39280 (child process of PID 21508) has been terminated.
+SUCCESS: The process with PID 21508 (child process of PID 37280) has been terminated.

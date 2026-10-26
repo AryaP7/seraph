@@ -1,0 +1,1597 @@
+[news] registered federal_register_india (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register_ita (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register (US Federal Register, json/federal_register, every 120min)
+[news] registered usgs_earthquakes (US Geological Survey, json/usgs_earthquakes, every 30min)
+[news] NOT registered: pib_all â€” returns zero items
+[news] NOT registered: rbi_index_page â€” an HTML landing page, not a feed
+[news] NOT registered: gdelt_doc â€” HTTP 429 at probe time. Rate limiting is not a permanent failure; the adapter exists and is tested, and this needs a politeness budget and a retry schedule before it is registered
+[news] registered nse_corporate_announcements (National Stock Exchange of India, every 30min, store_full_text=False)
+[news] registered nse_circulars (National Stock Exchange of India, every 60min, store_full_text=False)
+[news] registered bse_notices (BSE Limited, every 30min, store_full_text=False)
+[news] registered ustr_press (Office of the US Trade Representative, every 180min, store_full_text=False)
+[news] registered federalreserve_speeches (Federal Reserve Board, every 240min, store_full_text=True)
+[news] registered wto_news (World Trade Organization, every 120min, store_full_text=False)
+[news] registered ec_news (European Commission, every 240min, store_full_text=False)
+[news] NOT registered: dgft_notifications - HTTP 403. Indian trade instruments remain UNCOVERED.
+[news] NOT registered: cbic_whats_new - SSL CERTIFICATE_VERIFY_FAILED. Customs duty changes remain UNCOVERED. Certificate verification is NOT disabled to work around this.
+[news] NOT registered: mospi_releases - SSL CERTIFICATE_VERIFY_FAILED. Official statistics remain UNCOVERED.
+[news] NOT registered: imd_warnings - SSL CERTIFICATE_VERIFY_FAILED. Weather warnings remain UNCOVERED.
+[news] NOT registered: posoco_grid - HTTP 502. Grid operations remain UNCOVERED.
+[news] NOT registered: cea_reports - not a feed this parser understands. Power reporting remains UNCOVERED.
+[news] registered rbi_press_releases (Reserve Bank of India, every 30min, store_full_text=False)
+[news] registered rbi_notifications (Reserve Bank of India, every 60min, store_full_text=False)
+[news] registered rbi_speeches (Reserve Bank of India, every 240min, store_full_text=False)
+[news] registered sebi_press (Securities and Exchange Board of India, every 60min, store_full_text=False)
+[news] registered pib_releases (Press Information Bureau, every 60min, store_full_text=True)
+[news] registered fed_press (Federal Reserve Board, every 60min, store_full_text=True)
+[news] catch-up: current news fetched; historical backfill runs after the first steady pass, not before it
+[news] cleared an abandoned news.poll lease: lease owner aru:31692 is gone; the abandoned run is recorded as failed
+[news] polling every 30s; Ctrl+C to stop
+[news] pass: {'started_at': '2026-10-19T12:41:11+05:30', 'fetched': [], 'unchanged': [], 'failed': {}, 'timed_out': [], 'skipped_for_budget': [], 'polled': [], 'new_stories': 0, 'seconds': 0.06, 'budget_seconds': 90, 'complete': True, 'note': "`skipped_for_budget` were NEVER CONTACTED and their data is exactly as old as before; `timed_out` did not answer in the time left; `failed` answered with an error. These are different facts and none of them is 'refreshed'"}
+[news] registered federal_register_india (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register_ita (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register (US Federal Register, json/federal_register, every 120min)
+[news] registered usgs_earthquakes (US Geological Survey, json/usgs_earthquakes, every 30min)
+[news] NOT registered: pib_all — returns zero items
+[news] NOT registered: rbi_index_page — an HTML landing page, not a feed
+[news] NOT registered: gdelt_doc — HTTP 429 at probe time. Rate limiting is not a permanent failure; the adapter exists and is tested, and this needs a politeness budget and a retry schedule before it is registered
+[news] registered nse_corporate_announcements (National Stock Exchange of India, every 30min, store_full_text=False)
+[news] registered nse_circulars (National Stock Exchange of India, every 60min, store_full_text=False)
+[news] registered bse_notices (BSE Limited, every 30min, store_full_text=False)
+[news] registered ustr_press (Office of the US Trade Representative, every 180min, store_full_text=False)
+[news] registered federalreserve_speeches (Federal Reserve Board, every 240min, store_full_text=True)
+[news] registered wto_news (World Trade Organization, every 120min, store_full_text=False)
+[news] registered ec_news (European Commission, every 240min, store_full_text=False)
+[news] NOT registered: dgft_notifications - HTTP 403. Indian trade instruments remain UNCOVERED.
+[news] NOT registered: cbic_whats_new - SSL CERTIFICATE_VERIFY_FAILED. Customs duty changes remain UNCOVERED. Certificate verification is NOT disabled to work around this.
+[news] NOT registered: mospi_releases - SSL CERTIFICATE_VERIFY_FAILED. Official statistics remain UNCOVERED.
+[news] NOT registered: imd_warnings - SSL CERTIFICATE_VERIFY_FAILED. Weather warnings remain UNCOVERED.
+[news] NOT registered: posoco_grid - HTTP 502. Grid operations remain UNCOVERED.
+[news] NOT registered: cea_reports - not a feed this parser understands. Power reporting remains UNCOVERED.
+[news] registered rbi_press_releases (Reserve Bank of India, every 30min, store_full_text=False)
+[news] registered rbi_notifications (Reserve Bank of India, every 60min, store_full_text=False)
+[news] registered rbi_speeches (Reserve Bank of India, every 240min, store_full_text=False)
+[news] registered sebi_press (Securities and Exchange Board of India, every 60min, store_full_text=False)
+[news] registered pib_releases (Press Information Bureau, every 60min, store_full_text=True)
+[news] registered fed_press (Federal Reserve Board, every 60min, store_full_text=True)
+[news] mofcom_rare_earth_18_2025: ok=False new=0 unchanged=0 stories=0 corrections=0 — FeedFetchError: could not reach https://english.mofcom.gov.cn/Policies/AnnouncementsOrders/art/2025/art_0dd87cbee7b045bf93fabe6ab2faceee.html: [WinError 10054] An existing connection was forcibly closed by the remote host (deadline 4.7s exhausted after 1 attempt(s); not retrying)
+[news] pib_releases: ok=True new=0 unchanged=21 stories=0 corrections=0
+[news] rbi_notifications: ok=True new=0 unchanged=10 stories=0 corrections=0
+[news] sebi_press: ok=True new=0 unchanged=0 stories=0 corrections=0
+[news] bse_notices: ok=True new=0 unchanged=3 stories=0 corrections=0
+[news] nse_corporate_announcements: ok=True new=17 unchanged=98 stories=246 corrections=229
+[news] rbi_press_releases: ok=True new=0 unchanged=10 stories=0 corrections=0
+[news] usgs_earthquakes: ok=True new=0 unchanged=11 stories=0 corrections=0
+[news] federal_register_ita: ok=True new=3 unchanged=37 stories=3 corrections=3
+[news] wto_news: ok=True new=0 unchanged=0 stories=0 corrections=0
+[news] fed_press: ok=True new=3 unchanged=9 stories=3 corrections=3
+[news] nse_circulars: ok=True new=0 unchanged=58 stories=0 corrections=0
+[news] ustr_press: ok=True new=0 unchanged=10 stories=0 corrections=0
+[news] federal_register: ok=True new=0 unchanged=66 stories=0 corrections=0
+[news] registered federal_register_india (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register_ita (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register (US Federal Register, json/federal_register, every 120min)
+[news] registered usgs_earthquakes (US Geological Survey, json/usgs_earthquakes, every 30min)
+[news] NOT registered: pib_all — returns zero items
+[news] NOT registered: rbi_index_page — an HTML landing page, not a feed
+[news] NOT registered: gdelt_doc — HTTP 429 at probe time. Rate limiting is not a permanent failure; the adapter exists and is tested, and this needs a politeness budget and a retry schedule before it is registered
+[news] registered nse_corporate_announcements (National Stock Exchange of India, every 30min, store_full_text=False)
+[news] registered nse_circulars (National Stock Exchange of India, every 60min, store_full_text=False)
+[news] registered bse_notices (BSE Limited, every 30min, store_full_text=False)
+[news] registered ustr_press (Office of the US Trade Representative, every 180min, store_full_text=False)
+[news] registered federalreserve_speeches (Federal Reserve Board, every 240min, store_full_text=True)
+[news] registered wto_news (World Trade Organization, every 120min, store_full_text=False)
+[news] registered ec_news (European Commission, every 240min, store_full_text=False)
+[news] NOT registered: dgft_notifications - HTTP 403. Indian trade instruments remain UNCOVERED.
+[news] NOT registered: cbic_whats_new - SSL CERTIFICATE_VERIFY_FAILED. Customs duty changes remain UNCOVERED. Certificate verification is NOT disabled to work around this.
+[news] NOT registered: mospi_releases - SSL CERTIFICATE_VERIFY_FAILED. Official statistics remain UNCOVERED.
+[news] NOT registered: imd_warnings - SSL CERTIFICATE_VERIFY_FAILED. Weather warnings remain UNCOVERED.
+[news] NOT registered: posoco_grid - HTTP 502. Grid operations remain UNCOVERED.
+[news] NOT registered: cea_reports - not a feed this parser understands. Power reporting remains UNCOVERED.
+[news] registered rbi_press_releases (Reserve Bank of India, every 30min, store_full_text=False)
+[news] registered rbi_notifications (Reserve Bank of India, every 60min, store_full_text=False)
+[news] registered rbi_speeches (Reserve Bank of India, every 240min, store_full_text=False)
+[news] registered sebi_press (Securities and Exchange Board of India, every 60min, store_full_text=False)
+[news] registered pib_releases (Press Information Bureau, every 60min, store_full_text=True)
+[news] registered fed_press (Federal Reserve Board, every 60min, store_full_text=True)
+[news] catch-up: recorded 17 collection gap(s) before polling could hide them
+[news] bse_notices: ok=True new=44 unchanged=3 stories=44 corrections=0
+[news] nse_corporate_announcements: ok=True new=697 unchanged=123 stories=927 corrections=281
+[news] rbi_press_releases: ok=True new=6 unchanged=4 stories=6 corrections=0
+[news] usgs_earthquakes: ok=True new=20 unchanged=6 stories=20 corrections=0
+[news] fed_press: ok=True new=2 unchanged=9 stories=2 corrections=2
+[news] nse_circulars: ok=True new=25 unchanged=0 stories=25 corrections=0
+[news] pib_releases: ok=True new=20 unchanged=21 stories=20 corrections=0
+[news] rbi_notifications: ok=True new=3 unchanged=7 stories=3 corrections=0
+[news] sebi_press: ok=True new=6 unchanged=24 stories=6 corrections=0
+[news] federal_register_india: ok=True new=4 unchanged=34 stories=6 corrections=6
+[news] federal_register: ok=True new=0 unchanged=69 stories=0 corrections=0
+[news] federal_register_ita: ok=True new=3 unchanged=37 stories=3 corrections=3
+[news] wto_news: ok=True new=1 unchanged=9 stories=1 corrections=0
+[news] ustr_press: ok=True new=1 unchanged=9 stories=1 corrections=1
+[news] ec_news: ok=True new=9 unchanged=1 stories=9 corrections=0
+[news] rbi_speeches: ok=True new=0 unchanged=10 stories=0 corrections=0
+[news] federalreserve_speeches: ok=True new=3 unchanged=0 stories=3 corrections=3
+[news] mofcom_rare_earth_18_2025: ok=False new=0 unchanged=0 stories=0 corrections=0 — FeedFetchError: could not reach https://english.mofcom.gov.cn/Policies/AnnouncementsOrders/art/2025/art_0dd87cbee7b045bf93fabe6ab2faceee.html: [WinError 10054] An existing connection was forcibly closed by the remote host (deadline 15.0s exhausted after 1 attempt(s); not retrying)
+[news] tata_kalinganagar_expansion: ok=True new=0 unchanged=1 stories=0 corrections=0
+[news] pass: {'started_at': '2026-10-19T22:12:32+05:30', 'fetched': ['bse_notices', 'nse_corporate_announcements', 'rbi_press_releases', 'usgs_earthquakes', 'fed_press', 'nse_circulars', 'pib_releases', 'rbi_notifications', 'sebi_press', 'federal_register_india', 'federal_register_ita', 'wto_news', 'ustr_press', 'ec_news', 'federalreserve_speeches'], 'unchanged': ['federal_register', 'rbi_speeches', 'tata_kalinganagar_expansion'], 'failed': {'mofcom_rare_earth_18_2025': 'FeedFetchError: could not reach https://english.mofcom.gov.cn/Policies/AnnouncementsOrders/art/2025/art_0dd87cbee7b045bf93fabe6ab2faceee.html: [WinError 10054] An existing connection was forcibly closed by the remote host (deadline 15.0s exhausted after 1 attempt(s); not retrying)'}, 'timed_out': [], 'skipped_for_budget': [], 'polled': ['bse_notices', 'nse_corporate_announcements', 'rbi_press_releases', 'usgs_earthquakes', 'fed_press', 'nse_circulars', 'pib_releases', 'rbi_notifications', 'sebi_press', 'federal_register_india', 'federal_register_ita', 'wto_news', 'ustr_press', 'ec_news', 'federalreserve_speeches', 'federal_register', 'rbi_speeches', 'tata_kalinganagar_expansion', 'mofcom_rare_earth_18_2025'], 'new_stories': 1076, 'seconds': 61.42, 'budget_seconds': 90, 'complete': True, 'note': "`skipped_for_budget` were NEVER CONTACTED and their data is exactly as old as before; `timed_out` did not answer in the time left; `failed` answered with an error. These are different facts and none of them is 'refreshed'"}
+[news] catch-up: these sources failed and are reported as uncovered, not as a quiet market: mofcom_rare_earth_18_2025
+[news] catch-up: current news fetched; historical backfill runs after the first steady pass, not before it
+[news] polling every 30s; Ctrl+C to stop
+[news] pass: {'started_at': '2026-10-19T22:13:34+05:30', 'fetched': [], 'unchanged': [], 'failed': {}, 'timed_out': [], 'skipped_for_budget': [], 'polled': [], 'new_stories': 0, 'seconds': 0.05, 'budget_seconds': 90, 'complete': True, 'note': "`skipped_for_budget` were NEVER CONTACTED and their data is exactly as old as before; `timed_out` did not answer in the time left; `failed` answered with an error. These are different facts and none of them is 'refreshed'"}
+[news] registered federal_register_india (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register_ita (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register (US Federal Register, json/federal_register, every 120min)
+[news] registered usgs_earthquakes (US Geological Survey, json/usgs_earthquakes, every 30min)
+[news] NOT registered: pib_all — returns zero items
+[news] NOT registered: rbi_index_page — an HTML landing page, not a feed
+[news] NOT registered: gdelt_doc — HTTP 429 at probe time. Rate limiting is not a permanent failure; the adapter exists and is tested, and this needs a politeness budget and a retry schedule before it is registered
+[news] registered nse_corporate_announcements (National Stock Exchange of India, every 30min, store_full_text=False)
+[news] registered nse_circulars (National Stock Exchange of India, every 60min, store_full_text=False)
+[news] registered bse_notices (BSE Limited, every 30min, store_full_text=False)
+[news] registered ustr_press (Office of the US Trade Representative, every 180min, store_full_text=False)
+[news] registered federalreserve_speeches (Federal Reserve Board, every 240min, store_full_text=True)
+[news] registered wto_news (World Trade Organization, every 120min, store_full_text=False)
+[news] registered ec_news (European Commission, every 240min, store_full_text=False)
+[news] NOT registered: dgft_notifications - HTTP 403. Indian trade instruments remain UNCOVERED.
+[news] NOT registered: cbic_whats_new - SSL CERTIFICATE_VERIFY_FAILED. Customs duty changes remain UNCOVERED. Certificate verification is NOT disabled to work around this.
+[news] NOT registered: mospi_releases - SSL CERTIFICATE_VERIFY_FAILED. Official statistics remain UNCOVERED.
+[news] NOT registered: imd_warnings - SSL CERTIFICATE_VERIFY_FAILED. Weather warnings remain UNCOVERED.
+[news] NOT registered: posoco_grid - HTTP 502. Grid operations remain UNCOVERED.
+[news] NOT registered: cea_reports - not a feed this parser understands. Power reporting remains UNCOVERED.
+[news] registered rbi_press_releases (Reserve Bank of India, every 30min, store_full_text=False)
+[news] registered rbi_notifications (Reserve Bank of India, every 60min, store_full_text=False)
+[news] registered rbi_speeches (Reserve Bank of India, every 240min, store_full_text=False)
+[news] registered sebi_press (Securities and Exchange Board of India, every 60min, store_full_text=False)
+[news] registered pib_releases (Press Information Bureau, every 60min, store_full_text=True)
+[news] registered fed_press (Federal Reserve Board, every 60min, store_full_text=True)
+[news] catch-up: recorded 17 collection gap(s) before polling could hide them
+[news] bse_notices: ok=True new=49 unchanged=0 stories=49 corrections=0
+[news] ec_news: ok=True new=10 unchanged=0 stories=10 corrections=0
+[news] fed_press: ok=True new=20 unchanged=0 stories=20 corrections=0
+[news] federal_register: ok=True new=40 unchanged=0 stories=40 corrections=0
+[news] registered federal_register_india (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register_ita (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register (US Federal Register, json/federal_register, every 120min)
+[news] registered usgs_earthquakes (US Geological Survey, json/usgs_earthquakes, every 30min)
+[news] NOT registered: pib_all — returns zero items
+[news] NOT registered: rbi_index_page — an HTML landing page, not a feed
+[news] NOT registered: gdelt_doc — HTTP 429 at probe time. Rate limiting is not a permanent failure; the adapter exists and is tested, and this needs a politeness budget and a retry schedule before it is registered
+[news] registered nse_corporate_announcements (National Stock Exchange of India, every 30min, store_full_text=False)
+[news] registered nse_circulars (National Stock Exchange of India, every 60min, store_full_text=False)
+[news] registered bse_notices (BSE Limited, every 30min, store_full_text=False)
+[news] registered ustr_press (Office of the US Trade Representative, every 180min, store_full_text=False)
+[news] registered federalreserve_speeches (Federal Reserve Board, every 240min, store_full_text=True)
+[news] registered wto_news (World Trade Organization, every 120min, store_full_text=False)
+[news] registered ec_news (European Commission, every 240min, store_full_text=False)
+[news] NOT registered: dgft_notifications - HTTP 403. Indian trade instruments remain UNCOVERED.
+[news] NOT registered: cbic_whats_new - SSL CERTIFICATE_VERIFY_FAILED. Customs duty changes remain UNCOVERED. Certificate verification is NOT disabled to work around this.
+[news] NOT registered: mospi_releases - SSL CERTIFICATE_VERIFY_FAILED. Official statistics remain UNCOVERED.
+[news] NOT registered: imd_warnings - SSL CERTIFICATE_VERIFY_FAILED. Weather warnings remain UNCOVERED.
+[news] NOT registered: posoco_grid - HTTP 502. Grid operations remain UNCOVERED.
+[news] NOT registered: cea_reports - not a feed this parser understands. Power reporting remains UNCOVERED.
+[news] registered rbi_press_releases (Reserve Bank of India, every 30min, store_full_text=False)
+[news] registered rbi_notifications (Reserve Bank of India, every 60min, store_full_text=False)
+[news] registered rbi_speeches (Reserve Bank of India, every 240min, store_full_text=False)
+[news] registered sebi_press (Securities and Exchange Board of India, every 60min, store_full_text=False)
+[news] registered pib_releases (Press Information Bureau, every 60min, store_full_text=True)
+[news] registered fed_press (Federal Reserve Board, every 60min, store_full_text=True)
+[news] catch-up: recorded 17 collection gap(s) before polling could hide them
+[news] catch-up: current news fetched; historical backfill runs after the first steady pass, not before it
+[news] cleared an abandoned news.poll lease: lease owner aru:21052 is gone; the abandoned run is recorded as failed
+[news] polling every 30s; Ctrl+C to stop
+[news] bse_notices: ok=True new=49 unchanged=0 stories=49 corrections=0
+[news] ec_news: ok=True new=10 unchanged=0 stories=10 corrections=0
+[news] fed_press: ok=True new=20 unchanged=0 stories=20 corrections=0
+[news] federal_register: ok=True new=40 unchanged=0 stories=40 corrections=0
+[news] federal_register_india: ok=True new=40 unchanged=0 stories=40 corrections=0
+[news] registered federal_register_india (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register_ita (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register (US Federal Register, json/federal_register, every 120min)
+[news] registered usgs_earthquakes (US Geological Survey, json/usgs_earthquakes, every 30min)
+[news] NOT registered: pib_all — returns zero items
+[news] NOT registered: rbi_index_page — an HTML landing page, not a feed
+[news] NOT registered: gdelt_doc — HTTP 429 at probe time. Rate limiting is not a permanent failure; the adapter exists and is tested, and this needs a politeness budget and a retry schedule before it is registered
+[news] registered nse_corporate_announcements (National Stock Exchange of India, every 30min, store_full_text=False)
+[news] registered nse_circulars (National Stock Exchange of India, every 60min, store_full_text=False)
+[news] registered bse_notices (BSE Limited, every 30min, store_full_text=False)
+[news] registered ustr_press (Office of the US Trade Representative, every 180min, store_full_text=False)
+[news] registered federalreserve_speeches (Federal Reserve Board, every 240min, store_full_text=True)
+[news] registered wto_news (World Trade Organization, every 120min, store_full_text=False)
+[news] registered ec_news (European Commission, every 240min, store_full_text=False)
+[news] NOT registered: dgft_notifications - HTTP 403. Indian trade instruments remain UNCOVERED.
+[news] NOT registered: cbic_whats_new - SSL CERTIFICATE_VERIFY_FAILED. Customs duty changes remain UNCOVERED. Certificate verification is NOT disabled to work around this.
+[news] NOT registered: mospi_releases - SSL CERTIFICATE_VERIFY_FAILED. Official statistics remain UNCOVERED.
+[news] NOT registered: imd_warnings - SSL CERTIFICATE_VERIFY_FAILED. Weather warnings remain UNCOVERED.
+[news] NOT registered: posoco_grid - HTTP 502. Grid operations remain UNCOVERED.
+[news] NOT registered: cea_reports - not a feed this parser understands. Power reporting remains UNCOVERED.
+[news] registered rbi_press_releases (Reserve Bank of India, every 30min, store_full_text=False)
+[news] registered rbi_notifications (Reserve Bank of India, every 60min, store_full_text=False)
+[news] registered rbi_speeches (Reserve Bank of India, every 240min, store_full_text=False)
+[news] registered sebi_press (Securities and Exchange Board of India, every 60min, store_full_text=False)
+[news] registered pib_releases (Press Information Bureau, every 60min, store_full_text=True)
+[news] registered fed_press (Federal Reserve Board, every 60min, store_full_text=True)
+[news] catch-up: recorded 17 collection gap(s) before polling could hide them
+[news] catch-up: current news fetched; historical backfill runs after the first steady pass, not before it
+[news] cleared an abandoned news.poll lease: lease owner aru:28484 is gone; the abandoned run is recorded as failed
+[news] polling every 30s; Ctrl+C to stop
+[news] bse_notices: ok=True new=49 unchanged=0 stories=49 corrections=0
+[news] ec_news: ok=True new=10 unchanged=0 stories=10 corrections=0
+[news] fed_press: ok=True new=20 unchanged=0 stories=20 corrections=0
+[news] federal_register: ok=True new=40 unchanged=0 stories=40 corrections=0
+[news] registered federal_register_india (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register_ita (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register (US Federal Register, json/federal_register, every 120min)
+[news] registered usgs_earthquakes (US Geological Survey, json/usgs_earthquakes, every 30min)
+[news] NOT registered: pib_all — returns zero items
+[news] NOT registered: rbi_index_page — an HTML landing page, not a feed
+[news] NOT registered: gdelt_doc — HTTP 429 at probe time. Rate limiting is not a permanent failure; the adapter exists and is tested, and this needs a politeness budget and a retry schedule before it is registered
+[news] registered nse_corporate_announcements (National Stock Exchange of India, every 30min, store_full_text=False)
+[news] registered nse_circulars (National Stock Exchange of India, every 60min, store_full_text=False)
+[news] registered bse_notices (BSE Limited, every 30min, store_full_text=False)
+[news] registered ustr_press (Office of the US Trade Representative, every 180min, store_full_text=False)
+[news] registered federalreserve_speeches (Federal Reserve Board, every 240min, store_full_text=True)
+[news] registered wto_news (World Trade Organization, every 120min, store_full_text=False)
+[news] registered ec_news (European Commission, every 240min, store_full_text=False)
+[news] NOT registered: dgft_notifications - HTTP 403. Indian trade instruments remain UNCOVERED.
+[news] NOT registered: cbic_whats_new - SSL CERTIFICATE_VERIFY_FAILED. Customs duty changes remain UNCOVERED. Certificate verification is NOT disabled to work around this.
+[news] NOT registered: mospi_releases - SSL CERTIFICATE_VERIFY_FAILED. Official statistics remain UNCOVERED.
+[news] NOT registered: imd_warnings - SSL CERTIFICATE_VERIFY_FAILED. Weather warnings remain UNCOVERED.
+[news] NOT registered: posoco_grid - HTTP 502. Grid operations remain UNCOVERED.
+[news] NOT registered: cea_reports - not a feed this parser understands. Power reporting remains UNCOVERED.
+[news] registered rbi_press_releases (Reserve Bank of India, every 30min, store_full_text=False)
+[news] registered rbi_notifications (Reserve Bank of India, every 60min, store_full_text=False)
+[news] registered rbi_speeches (Reserve Bank of India, every 240min, store_full_text=False)
+[news] registered sebi_press (Securities and Exchange Board of India, every 60min, store_full_text=False)
+[news] registered pib_releases (Press Information Bureau, every 60min, store_full_text=True)
+[news] registered fed_press (Federal Reserve Board, every 60min, store_full_text=True)
+[news] catch-up: recorded 13 collection gap(s) before polling could hide them
+[news] catch-up: current news fetched; historical backfill runs after the first steady pass, not before it
+[news] cleared an abandoned news.poll lease: lease owner aru:31148 is gone; the abandoned run is recorded as failed
+[news] polling every 30s; Ctrl+C to stop
+Traceback (most recent call last):
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 938, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 682, in main
+    return _run_worker(args, store)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 845, in _run_worker
+    outcome = jobs.run(JOB, work, max_attempts=1)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\seraph\operations\jobs.py", line 442, in run
+    lease = self.acquire(job, run_id, lease_minutes=lease_minutes, now=now)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\seraph\operations\jobs.py", line 205, in acquire
+    db.execute('INSERT OR REPLACE INTO job_locks VALUES (?,?,?,?,?,?)',
+sqlite3.OperationalError: table job_locks has 5 columns but 6 values were supplied
+[news] registered federal_register_india (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register_ita (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register (US Federal Register, json/federal_register, every 120min)
+[news] registered usgs_earthquakes (US Geological Survey, json/usgs_earthquakes, every 30min)
+[news] NOT registered: pib_all — returns zero items
+[news] NOT registered: rbi_index_page — an HTML landing page, not a feed
+[news] NOT registered: gdelt_doc — HTTP 429 at probe time. Rate limiting is not a permanent failure; the adapter exists and is tested, and this needs a politeness budget and a retry schedule before it is registered
+[news] registered nse_corporate_announcements (National Stock Exchange of India, every 30min, store_full_text=False)
+[news] registered nse_circulars (National Stock Exchange of India, every 60min, store_full_text=False)
+[news] registered bse_notices (BSE Limited, every 30min, store_full_text=False)
+[news] registered ustr_press (Office of the US Trade Representative, every 180min, store_full_text=False)
+[news] registered federalreserve_speeches (Federal Reserve Board, every 240min, store_full_text=True)
+[news] registered wto_news (World Trade Organization, every 120min, store_full_text=False)
+[news] registered ec_news (European Commission, every 240min, store_full_text=False)
+[news] NOT registered: dgft_notifications - HTTP 403. Indian trade instruments remain UNCOVERED.
+[news] NOT registered: cbic_whats_new - SSL CERTIFICATE_VERIFY_FAILED. Customs duty changes remain UNCOVERED. Certificate verification is NOT disabled to work around this.
+[news] NOT registered: mospi_releases - SSL CERTIFICATE_VERIFY_FAILED. Official statistics remain UNCOVERED.
+[news] NOT registered: imd_warnings - SSL CERTIFICATE_VERIFY_FAILED. Weather warnings remain UNCOVERED.
+[news] NOT registered: posoco_grid - HTTP 502. Grid operations remain UNCOVERED.
+[news] NOT registered: cea_reports - not a feed this parser understands. Power reporting remains UNCOVERED.
+[news] registered rbi_press_releases (Reserve Bank of India, every 30min, store_full_text=False)
+[news] registered rbi_notifications (Reserve Bank of India, every 60min, store_full_text=False)
+[news] registered rbi_speeches (Reserve Bank of India, every 240min, store_full_text=False)
+[news] registered sebi_press (Securities and Exchange Board of India, every 60min, store_full_text=False)
+[news] registered pib_releases (Press Information Bureau, every 60min, store_full_text=True)
+[news] registered fed_press (Federal Reserve Board, every 60min, store_full_text=True)
+Traceback (most recent call last):
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 938, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 682, in main
+    return _run_worker(args, store)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 758, in _run_worker
+    jobs.run(JOB, _work_forced(store, fetcher), max_attempts=1)
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\seraph\operations\jobs.py", line 442, in run
+    lease = self.acquire(job, run_id, lease_minutes=lease_minutes, now=now)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\seraph\operations\jobs.py", line 205, in acquire
+    db.execute('INSERT OR REPLACE INTO job_locks VALUES (?,?,?,?,?,?)',
+sqlite3.OperationalError: table job_locks has 5 columns but 6 values were supplied
+[news] registered federal_register_india (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register_ita (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register (US Federal Register, json/federal_register, every 120min)
+[news] registered usgs_earthquakes (US Geological Survey, json/usgs_earthquakes, every 30min)
+[news] NOT registered: pib_all — returns zero items
+[news] NOT registered: rbi_index_page — an HTML landing page, not a feed
+[news] NOT registered: gdelt_doc — HTTP 429 at probe time. Rate limiting is not a permanent failure; the adapter exists and is tested, and this needs a politeness budget and a retry schedule before it is registered
+[news] registered nse_corporate_announcements (National Stock Exchange of India, every 30min, store_full_text=False)
+[news] registered nse_circulars (National Stock Exchange of India, every 60min, store_full_text=False)
+[news] registered bse_notices (BSE Limited, every 30min, store_full_text=False)
+[news] registered ustr_press (Office of the US Trade Representative, every 180min, store_full_text=False)
+[news] registered federalreserve_speeches (Federal Reserve Board, every 240min, store_full_text=True)
+[news] registered wto_news (World Trade Organization, every 120min, store_full_text=False)
+[news] registered ec_news (European Commission, every 240min, store_full_text=False)
+[news] NOT registered: dgft_notifications - HTTP 403. Indian trade instruments remain UNCOVERED.
+[news] NOT registered: cbic_whats_new - SSL CERTIFICATE_VERIFY_FAILED. Customs duty changes remain UNCOVERED. Certificate verification is NOT disabled to work around this.
+[news] NOT registered: mospi_releases - SSL CERTIFICATE_VERIFY_FAILED. Official statistics remain UNCOVERED.
+[news] NOT registered: imd_warnings - SSL CERTIFICATE_VERIFY_FAILED. Weather warnings remain UNCOVERED.
+[news] NOT registered: posoco_grid - HTTP 502. Grid operations remain UNCOVERED.
+[news] NOT registered: cea_reports - not a feed this parser understands. Power reporting remains UNCOVERED.
+[news] registered rbi_press_releases (Reserve Bank of India, every 30min, store_full_text=False)
+[news] registered rbi_notifications (Reserve Bank of India, every 60min, store_full_text=False)
+[news] registered rbi_speeches (Reserve Bank of India, every 240min, store_full_text=False)
+[news] registered sebi_press (Securities and Exchange Board of India, every 60min, store_full_text=False)
+[news] registered pib_releases (Press Information Bureau, every 60min, store_full_text=True)
+[news] registered fed_press (Federal Reserve Board, every 60min, store_full_text=True)
+Traceback (most recent call last):
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 938, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 682, in main
+    return _run_worker(args, store)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 758, in _run_worker
+    jobs.run(JOB, _work_forced(store, fetcher), max_attempts=1)
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\seraph\operations\jobs.py", line 442, in run
+    lease = self.acquire(job, run_id, lease_minutes=lease_minutes, now=now)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\seraph\operations\jobs.py", line 205, in acquire
+    db.execute('INSERT OR REPLACE INTO job_locks VALUES (?,?,?,?,?,?)',
+sqlite3.OperationalError: table job_locks has 5 columns but 6 values were supplied
+[news] registered federal_register_india (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register_ita (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register (US Federal Register, json/federal_register, every 120min)
+[news] registered usgs_earthquakes (US Geological Survey, json/usgs_earthquakes, every 30min)
+[news] NOT registered: pib_all — returns zero items
+[news] NOT registered: rbi_index_page — an HTML landing page, not a feed
+[news] NOT registered: gdelt_doc — HTTP 429 at probe time. Rate limiting is not a permanent failure; the adapter exists and is tested, and this needs a politeness budget and a retry schedule before it is registered
+[news] registered nse_corporate_announcements (National Stock Exchange of India, every 30min, store_full_text=False)
+[news] registered nse_circulars (National Stock Exchange of India, every 60min, store_full_text=False)
+[news] registered bse_notices (BSE Limited, every 30min, store_full_text=False)
+[news] registered ustr_press (Office of the US Trade Representative, every 180min, store_full_text=False)
+[news] registered federalreserve_speeches (Federal Reserve Board, every 240min, store_full_text=True)
+[news] registered wto_news (World Trade Organization, every 120min, store_full_text=False)
+[news] registered ec_news (European Commission, every 240min, store_full_text=False)
+[news] NOT registered: dgft_notifications - HTTP 403. Indian trade instruments remain UNCOVERED.
+[news] NOT registered: cbic_whats_new - SSL CERTIFICATE_VERIFY_FAILED. Customs duty changes remain UNCOVERED. Certificate verification is NOT disabled to work around this.
+[news] NOT registered: mospi_releases - SSL CERTIFICATE_VERIFY_FAILED. Official statistics remain UNCOVERED.
+[news] NOT registered: imd_warnings - SSL CERTIFICATE_VERIFY_FAILED. Weather warnings remain UNCOVERED.
+[news] NOT registered: posoco_grid - HTTP 502. Grid operations remain UNCOVERED.
+[news] NOT registered: cea_reports - not a feed this parser understands. Power reporting remains UNCOVERED.
+[news] registered rbi_press_releases (Reserve Bank of India, every 30min, store_full_text=False)
+[news] registered rbi_notifications (Reserve Bank of India, every 60min, store_full_text=False)
+[news] registered rbi_speeches (Reserve Bank of India, every 240min, store_full_text=False)
+[news] registered sebi_press (Securities and Exchange Board of India, every 60min, store_full_text=False)
+[news] registered pib_releases (Press Information Bureau, every 60min, store_full_text=True)
+[news] registered fed_press (Federal Reserve Board, every 60min, store_full_text=True)
+Traceback (most recent call last):
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 938, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 682, in main
+    return _run_worker(args, store)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 758, in _run_worker
+    jobs.run(JOB, _work_forced(store, fetcher), max_attempts=1)
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\seraph\operations\jobs.py", line 442, in run
+    lease = self.acquire(job, run_id, lease_minutes=lease_minutes, now=now)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\seraph\operations\jobs.py", line 205, in acquire
+    db.execute('INSERT OR REPLACE INTO job_locks VALUES (?,?,?,?,?,?)',
+sqlite3.OperationalError: table job_locks has 5 columns but 6 values were supplied
+[news] registered federal_register_india (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register_ita (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register (US Federal Register, json/federal_register, every 120min)
+[news] registered usgs_earthquakes (US Geological Survey, json/usgs_earthquakes, every 30min)
+[news] NOT registered: pib_all — returns zero items
+[news] NOT registered: rbi_index_page — an HTML landing page, not a feed
+[news] NOT registered: gdelt_doc — HTTP 429 at probe time. Rate limiting is not a permanent failure; the adapter exists and is tested, and this needs a politeness budget and a retry schedule before it is registered
+[news] registered nse_corporate_announcements (National Stock Exchange of India, every 30min, store_full_text=False)
+[news] registered nse_circulars (National Stock Exchange of India, every 60min, store_full_text=False)
+[news] registered bse_notices (BSE Limited, every 30min, store_full_text=False)
+[news] registered ustr_press (Office of the US Trade Representative, every 180min, store_full_text=False)
+[news] registered federalreserve_speeches (Federal Reserve Board, every 240min, store_full_text=True)
+[news] registered wto_news (World Trade Organization, every 120min, store_full_text=False)
+[news] registered ec_news (European Commission, every 240min, store_full_text=False)
+[news] NOT registered: dgft_notifications - HTTP 403. Indian trade instruments remain UNCOVERED.
+[news] NOT registered: cbic_whats_new - SSL CERTIFICATE_VERIFY_FAILED. Customs duty changes remain UNCOVERED. Certificate verification is NOT disabled to work around this.
+[news] NOT registered: mospi_releases - SSL CERTIFICATE_VERIFY_FAILED. Official statistics remain UNCOVERED.
+[news] NOT registered: imd_warnings - SSL CERTIFICATE_VERIFY_FAILED. Weather warnings remain UNCOVERED.
+[news] NOT registered: posoco_grid - HTTP 502. Grid operations remain UNCOVERED.
+[news] NOT registered: cea_reports - not a feed this parser understands. Power reporting remains UNCOVERED.
+[news] registered rbi_press_releases (Reserve Bank of India, every 30min, store_full_text=False)
+[news] registered rbi_notifications (Reserve Bank of India, every 60min, store_full_text=False)
+[news] registered rbi_speeches (Reserve Bank of India, every 240min, store_full_text=False)
+[news] registered sebi_press (Securities and Exchange Board of India, every 60min, store_full_text=False)
+[news] registered pib_releases (Press Information Bureau, every 60min, store_full_text=True)
+[news] registered fed_press (Federal Reserve Board, every 60min, store_full_text=True)
+Traceback (most recent call last):
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 938, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 682, in main
+    return _run_worker(args, store)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 758, in _run_worker
+    jobs.run(JOB, _work_forced(store, fetcher), max_attempts=1)
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\seraph\operations\jobs.py", line 442, in run
+    lease = self.acquire(job, run_id, lease_minutes=lease_minutes, now=now)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\seraph\operations\jobs.py", line 205, in acquire
+    db.execute('INSERT OR REPLACE INTO job_locks VALUES (?,?,?,?,?,?)',
+sqlite3.OperationalError: table job_locks has 5 columns but 6 values were supplied
+[news] registered federal_register_india (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register_ita (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register (US Federal Register, json/federal_register, every 120min)
+[news] registered usgs_earthquakes (US Geological Survey, json/usgs_earthquakes, every 30min)
+[news] NOT registered: pib_all — returns zero items
+[news] NOT registered: rbi_index_page — an HTML landing page, not a feed
+[news] NOT registered: gdelt_doc — HTTP 429 at probe time. Rate limiting is not a permanent failure; the adapter exists and is tested, and this needs a politeness budget and a retry schedule before it is registered
+[news] registered nse_corporate_announcements (National Stock Exchange of India, every 30min, store_full_text=False)
+[news] registered nse_circulars (National Stock Exchange of India, every 60min, store_full_text=False)
+[news] registered bse_notices (BSE Limited, every 30min, store_full_text=False)
+[news] registered ustr_press (Office of the US Trade Representative, every 180min, store_full_text=False)
+[news] registered federalreserve_speeches (Federal Reserve Board, every 240min, store_full_text=True)
+[news] registered wto_news (World Trade Organization, every 120min, store_full_text=False)
+[news] registered ec_news (European Commission, every 240min, store_full_text=False)
+[news] NOT registered: dgft_notifications - HTTP 403. Indian trade instruments remain UNCOVERED.
+[news] NOT registered: cbic_whats_new - SSL CERTIFICATE_VERIFY_FAILED. Customs duty changes remain UNCOVERED. Certificate verification is NOT disabled to work around this.
+[news] NOT registered: mospi_releases - SSL CERTIFICATE_VERIFY_FAILED. Official statistics remain UNCOVERED.
+[news] NOT registered: imd_warnings - SSL CERTIFICATE_VERIFY_FAILED. Weather warnings remain UNCOVERED.
+[news] NOT registered: posoco_grid - HTTP 502. Grid operations remain UNCOVERED.
+[news] NOT registered: cea_reports - not a feed this parser understands. Power reporting remains UNCOVERED.
+[news] registered rbi_press_releases (Reserve Bank of India, every 30min, store_full_text=False)
+[news] registered rbi_notifications (Reserve Bank of India, every 60min, store_full_text=False)
+[news] registered rbi_speeches (Reserve Bank of India, every 240min, store_full_text=False)
+[news] registered sebi_press (Securities and Exchange Board of India, every 60min, store_full_text=False)
+[news] registered pib_releases (Press Information Bureau, every 60min, store_full_text=True)
+[news] registered fed_press (Federal Reserve Board, every 60min, store_full_text=True)
+Traceback (most recent call last):
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 938, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 682, in main
+    return _run_worker(args, store)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 758, in _run_worker
+    jobs.run(JOB, _work_forced(store, fetcher), max_attempts=1)
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\seraph\operations\jobs.py", line 442, in run
+    lease = self.acquire(job, run_id, lease_minutes=lease_minutes, now=now)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\seraph\operations\jobs.py", line 205, in acquire
+    db.execute('INSERT OR REPLACE INTO job_locks VALUES (?,?,?,?,?,?)',
+sqlite3.OperationalError: table job_locks has 5 columns but 6 values were supplied
+[news] registered federal_register_india (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register_ita (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register (US Federal Register, json/federal_register, every 120min)
+[news] registered usgs_earthquakes (US Geological Survey, json/usgs_earthquakes, every 30min)
+[news] NOT registered: pib_all — returns zero items
+[news] NOT registered: rbi_index_page — an HTML landing page, not a feed
+[news] NOT registered: gdelt_doc — HTTP 429 at probe time. Rate limiting is not a permanent failure; the adapter exists and is tested, and this needs a politeness budget and a retry schedule before it is registered
+[news] registered nse_corporate_announcements (National Stock Exchange of India, every 30min, store_full_text=False)
+[news] registered nse_circulars (National Stock Exchange of India, every 60min, store_full_text=False)
+[news] registered bse_notices (BSE Limited, every 30min, store_full_text=False)
+[news] registered ustr_press (Office of the US Trade Representative, every 180min, store_full_text=False)
+[news] registered federalreserve_speeches (Federal Reserve Board, every 240min, store_full_text=True)
+[news] registered wto_news (World Trade Organization, every 120min, store_full_text=False)
+[news] registered ec_news (European Commission, every 240min, store_full_text=False)
+[news] NOT registered: dgft_notifications - HTTP 403. Indian trade instruments remain UNCOVERED.
+[news] NOT registered: cbic_whats_new - SSL CERTIFICATE_VERIFY_FAILED. Customs duty changes remain UNCOVERED. Certificate verification is NOT disabled to work around this.
+[news] NOT registered: mospi_releases - SSL CERTIFICATE_VERIFY_FAILED. Official statistics remain UNCOVERED.
+[news] NOT registered: imd_warnings - SSL CERTIFICATE_VERIFY_FAILED. Weather warnings remain UNCOVERED.
+[news] NOT registered: posoco_grid - HTTP 502. Grid operations remain UNCOVERED.
+[news] NOT registered: cea_reports - not a feed this parser understands. Power reporting remains UNCOVERED.
+[news] registered rbi_press_releases (Reserve Bank of India, every 30min, store_full_text=False)
+[news] registered rbi_notifications (Reserve Bank of India, every 60min, store_full_text=False)
+[news] registered rbi_speeches (Reserve Bank of India, every 240min, store_full_text=False)
+[news] registered sebi_press (Securities and Exchange Board of India, every 60min, store_full_text=False)
+[news] registered pib_releases (Press Information Bureau, every 60min, store_full_text=True)
+[news] registered fed_press (Federal Reserve Board, every 60min, store_full_text=True)
+Traceback (most recent call last):
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 938, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 682, in main
+    return _run_worker(args, store)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 758, in _run_worker
+    jobs.run(JOB, _work_forced(store, fetcher), max_attempts=1)
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\seraph\operations\jobs.py", line 442, in run
+    lease = self.acquire(job, run_id, lease_minutes=lease_minutes, now=now)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\seraph\operations\jobs.py", line 205, in acquire
+    db.execute('INSERT OR REPLACE INTO job_locks VALUES (?,?,?,?,?,?)',
+sqlite3.OperationalError: table job_locks has 5 columns but 6 values were supplied
+[news] registered federal_register_india (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register_ita (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register (US Federal Register, json/federal_register, every 120min)
+[news] registered usgs_earthquakes (US Geological Survey, json/usgs_earthquakes, every 30min)
+[news] NOT registered: pib_all — returns zero items
+[news] NOT registered: rbi_index_page — an HTML landing page, not a feed
+[news] NOT registered: gdelt_doc — HTTP 429 at probe time. Rate limiting is not a permanent failure; the adapter exists and is tested, and this needs a politeness budget and a retry schedule before it is registered
+[news] registered nse_corporate_announcements (National Stock Exchange of India, every 30min, store_full_text=False)
+[news] registered nse_circulars (National Stock Exchange of India, every 60min, store_full_text=False)
+[news] registered bse_notices (BSE Limited, every 30min, store_full_text=False)
+[news] registered ustr_press (Office of the US Trade Representative, every 180min, store_full_text=False)
+[news] registered federalreserve_speeches (Federal Reserve Board, every 240min, store_full_text=True)
+[news] registered wto_news (World Trade Organization, every 120min, store_full_text=False)
+[news] registered ec_news (European Commission, every 240min, store_full_text=False)
+[news] NOT registered: dgft_notifications - HTTP 403. Indian trade instruments remain UNCOVERED.
+[news] NOT registered: cbic_whats_new - SSL CERTIFICATE_VERIFY_FAILED. Customs duty changes remain UNCOVERED. Certificate verification is NOT disabled to work around this.
+[news] NOT registered: mospi_releases - SSL CERTIFICATE_VERIFY_FAILED. Official statistics remain UNCOVERED.
+[news] NOT registered: imd_warnings - SSL CERTIFICATE_VERIFY_FAILED. Weather warnings remain UNCOVERED.
+[news] NOT registered: posoco_grid - HTTP 502. Grid operations remain UNCOVERED.
+[news] NOT registered: cea_reports - not a feed this parser understands. Power reporting remains UNCOVERED.
+[news] registered rbi_press_releases (Reserve Bank of India, every 30min, store_full_text=False)
+[news] registered rbi_notifications (Reserve Bank of India, every 60min, store_full_text=False)
+[news] registered rbi_speeches (Reserve Bank of India, every 240min, store_full_text=False)
+[news] registered sebi_press (Securities and Exchange Board of India, every 60min, store_full_text=False)
+[news] registered pib_releases (Press Information Bureau, every 60min, store_full_text=True)
+[news] registered fed_press (Federal Reserve Board, every 60min, store_full_text=True)
+Traceback (most recent call last):
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 938, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 682, in main
+    return _run_worker(args, store)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 758, in _run_worker
+    jobs.run(JOB, _work_forced(store, fetcher), max_attempts=1)
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\seraph\operations\jobs.py", line 442, in run
+    lease = self.acquire(job, run_id, lease_minutes=lease_minutes, now=now)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\seraph\operations\jobs.py", line 205, in acquire
+    db.execute('INSERT OR REPLACE INTO job_locks VALUES (?,?,?,?,?,?)',
+sqlite3.OperationalError: table job_locks has 5 columns but 6 values were supplied
+[news] registered federal_register_india (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register_ita (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register (US Federal Register, json/federal_register, every 120min)
+[news] registered usgs_earthquakes (US Geological Survey, json/usgs_earthquakes, every 30min)
+[news] NOT registered: pib_all — returns zero items
+[news] NOT registered: rbi_index_page — an HTML landing page, not a feed
+[news] NOT registered: gdelt_doc — HTTP 429 at probe time. Rate limiting is not a permanent failure; the adapter exists and is tested, and this needs a politeness budget and a retry schedule before it is registered
+[news] registered nse_corporate_announcements (National Stock Exchange of India, every 30min, store_full_text=False)
+[news] registered nse_circulars (National Stock Exchange of India, every 60min, store_full_text=False)
+[news] registered bse_notices (BSE Limited, every 30min, store_full_text=False)
+[news] registered ustr_press (Office of the US Trade Representative, every 180min, store_full_text=False)
+[news] registered federalreserve_speeches (Federal Reserve Board, every 240min, store_full_text=True)
+[news] registered wto_news (World Trade Organization, every 120min, store_full_text=False)
+[news] registered ec_news (European Commission, every 240min, store_full_text=False)
+[news] NOT registered: dgft_notifications - HTTP 403. Indian trade instruments remain UNCOVERED.
+[news] NOT registered: cbic_whats_new - SSL CERTIFICATE_VERIFY_FAILED. Customs duty changes remain UNCOVERED. Certificate verification is NOT disabled to work around this.
+[news] NOT registered: mospi_releases - SSL CERTIFICATE_VERIFY_FAILED. Official statistics remain UNCOVERED.
+[news] NOT registered: imd_warnings - SSL CERTIFICATE_VERIFY_FAILED. Weather warnings remain UNCOVERED.
+[news] NOT registered: posoco_grid - HTTP 502. Grid operations remain UNCOVERED.
+[news] NOT registered: cea_reports - not a feed this parser understands. Power reporting remains UNCOVERED.
+[news] registered rbi_press_releases (Reserve Bank of India, every 30min, store_full_text=False)
+[news] registered rbi_notifications (Reserve Bank of India, every 60min, store_full_text=False)
+[news] registered rbi_speeches (Reserve Bank of India, every 240min, store_full_text=False)
+[news] registered sebi_press (Securities and Exchange Board of India, every 60min, store_full_text=False)
+[news] registered pib_releases (Press Information Bureau, every 60min, store_full_text=True)
+[news] registered fed_press (Federal Reserve Board, every 60min, store_full_text=True)
+Traceback (most recent call last):
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 938, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 682, in main
+    return _run_worker(args, store)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 758, in _run_worker
+    jobs.run(JOB, _work_forced(store, fetcher), max_attempts=1)
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\seraph\operations\jobs.py", line 442, in run
+    lease = self.acquire(job, run_id, lease_minutes=lease_minutes, now=now)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\seraph\operations\jobs.py", line 205, in acquire
+    db.execute('INSERT OR REPLACE INTO job_locks VALUES (?,?,?,?,?,?)',
+sqlite3.OperationalError: table job_locks has 5 columns but 6 values were supplied
+[news] registered federal_register_india (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register_ita (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register (US Federal Register, json/federal_register, every 120min)
+[news] registered usgs_earthquakes (US Geological Survey, json/usgs_earthquakes, every 30min)
+[news] NOT registered: pib_all — returns zero items
+[news] NOT registered: rbi_index_page — an HTML landing page, not a feed
+[news] NOT registered: gdelt_doc — HTTP 429 at probe time. Rate limiting is not a permanent failure; the adapter exists and is tested, and this needs a politeness budget and a retry schedule before it is registered
+[news] registered nse_corporate_announcements (National Stock Exchange of India, every 30min, store_full_text=False)
+[news] registered nse_circulars (National Stock Exchange of India, every 60min, store_full_text=False)
+[news] registered bse_notices (BSE Limited, every 30min, store_full_text=False)
+[news] registered ustr_press (Office of the US Trade Representative, every 180min, store_full_text=False)
+[news] registered federalreserve_speeches (Federal Reserve Board, every 240min, store_full_text=True)
+[news] registered wto_news (World Trade Organization, every 120min, store_full_text=False)
+[news] registered ec_news (European Commission, every 240min, store_full_text=False)
+[news] NOT registered: dgft_notifications - HTTP 403. Indian trade instruments remain UNCOVERED.
+[news] NOT registered: cbic_whats_new - SSL CERTIFICATE_VERIFY_FAILED. Customs duty changes remain UNCOVERED. Certificate verification is NOT disabled to work around this.
+[news] NOT registered: mospi_releases - SSL CERTIFICATE_VERIFY_FAILED. Official statistics remain UNCOVERED.
+[news] NOT registered: imd_warnings - SSL CERTIFICATE_VERIFY_FAILED. Weather warnings remain UNCOVERED.
+[news] NOT registered: posoco_grid - HTTP 502. Grid operations remain UNCOVERED.
+[news] NOT registered: cea_reports - not a feed this parser understands. Power reporting remains UNCOVERED.
+[news] registered rbi_press_releases (Reserve Bank of India, every 30min, store_full_text=False)
+[news] registered rbi_notifications (Reserve Bank of India, every 60min, store_full_text=False)
+[news] registered rbi_speeches (Reserve Bank of India, every 240min, store_full_text=False)
+[news] registered sebi_press (Securities and Exchange Board of India, every 60min, store_full_text=False)
+[news] registered pib_releases (Press Information Bureau, every 60min, store_full_text=True)
+[news] registered fed_press (Federal Reserve Board, every 60min, store_full_text=True)
+Traceback (most recent call last):
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 938, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 682, in main
+    return _run_worker(args, store)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 758, in _run_worker
+    jobs.run(JOB, _work_forced(store, fetcher), max_attempts=1)
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\seraph\operations\jobs.py", line 442, in run
+    lease = self.acquire(job, run_id, lease_minutes=lease_minutes, now=now)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\seraph\operations\jobs.py", line 205, in acquire
+    db.execute('INSERT OR REPLACE INTO job_locks VALUES (?,?,?,?,?,?)',
+sqlite3.OperationalError: table job_locks has 5 columns but 6 values were supplied
+[news] registered federal_register_india (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register_ita (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register (US Federal Register, json/federal_register, every 120min)
+[news] registered usgs_earthquakes (US Geological Survey, json/usgs_earthquakes, every 30min)
+[news] NOT registered: pib_all — returns zero items
+[news] NOT registered: rbi_index_page — an HTML landing page, not a feed
+[news] NOT registered: gdelt_doc — HTTP 429 at probe time. Rate limiting is not a permanent failure; the adapter exists and is tested, and this needs a politeness budget and a retry schedule before it is registered
+[news] registered nse_corporate_announcements (National Stock Exchange of India, every 30min, store_full_text=False)
+[news] registered nse_circulars (National Stock Exchange of India, every 60min, store_full_text=False)
+[news] registered bse_notices (BSE Limited, every 30min, store_full_text=False)
+[news] registered ustr_press (Office of the US Trade Representative, every 180min, store_full_text=False)
+[news] registered federalreserve_speeches (Federal Reserve Board, every 240min, store_full_text=True)
+[news] registered wto_news (World Trade Organization, every 120min, store_full_text=False)
+[news] registered ec_news (European Commission, every 240min, store_full_text=False)
+[news] NOT registered: dgft_notifications - HTTP 403. Indian trade instruments remain UNCOVERED.
+[news] NOT registered: cbic_whats_new - SSL CERTIFICATE_VERIFY_FAILED. Customs duty changes remain UNCOVERED. Certificate verification is NOT disabled to work around this.
+[news] NOT registered: mospi_releases - SSL CERTIFICATE_VERIFY_FAILED. Official statistics remain UNCOVERED.
+[news] NOT registered: imd_warnings - SSL CERTIFICATE_VERIFY_FAILED. Weather warnings remain UNCOVERED.
+[news] NOT registered: posoco_grid - HTTP 502. Grid operations remain UNCOVERED.
+[news] NOT registered: cea_reports - not a feed this parser understands. Power reporting remains UNCOVERED.
+[news] registered rbi_press_releases (Reserve Bank of India, every 30min, store_full_text=False)
+[news] registered rbi_notifications (Reserve Bank of India, every 60min, store_full_text=False)
+[news] registered rbi_speeches (Reserve Bank of India, every 240min, store_full_text=False)
+[news] registered sebi_press (Securities and Exchange Board of India, every 60min, store_full_text=False)
+[news] registered pib_releases (Press Information Bureau, every 60min, store_full_text=True)
+[news] registered fed_press (Federal Reserve Board, every 60min, store_full_text=True)
+Traceback (most recent call last):
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 938, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 682, in main
+    return _run_worker(args, store)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 758, in _run_worker
+    jobs.run(JOB, _work_forced(store, fetcher), max_attempts=1)
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\seraph\operations\jobs.py", line 442, in run
+    lease = self.acquire(job, run_id, lease_minutes=lease_minutes, now=now)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\seraph\operations\jobs.py", line 205, in acquire
+    db.execute('INSERT OR REPLACE INTO job_locks VALUES (?,?,?,?,?,?)',
+sqlite3.OperationalError: table job_locks has 5 columns but 6 values were supplied
+[news] registered federal_register_india (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register_ita (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register (US Federal Register, json/federal_register, every 120min)
+[news] registered usgs_earthquakes (US Geological Survey, json/usgs_earthquakes, every 30min)
+[news] NOT registered: pib_all — returns zero items
+[news] NOT registered: rbi_index_page — an HTML landing page, not a feed
+[news] NOT registered: gdelt_doc — HTTP 429 at probe time. Rate limiting is not a permanent failure; the adapter exists and is tested, and this needs a politeness budget and a retry schedule before it is registered
+[news] registered nse_corporate_announcements (National Stock Exchange of India, every 30min, store_full_text=False)
+[news] registered nse_circulars (National Stock Exchange of India, every 60min, store_full_text=False)
+[news] registered bse_notices (BSE Limited, every 30min, store_full_text=False)
+[news] registered ustr_press (Office of the US Trade Representative, every 180min, store_full_text=False)
+[news] registered federalreserve_speeches (Federal Reserve Board, every 240min, store_full_text=True)
+[news] registered wto_news (World Trade Organization, every 120min, store_full_text=False)
+[news] registered ec_news (European Commission, every 240min, store_full_text=False)
+[news] NOT registered: dgft_notifications - HTTP 403. Indian trade instruments remain UNCOVERED.
+[news] NOT registered: cbic_whats_new - SSL CERTIFICATE_VERIFY_FAILED. Customs duty changes remain UNCOVERED. Certificate verification is NOT disabled to work around this.
+[news] NOT registered: mospi_releases - SSL CERTIFICATE_VERIFY_FAILED. Official statistics remain UNCOVERED.
+[news] NOT registered: imd_warnings - SSL CERTIFICATE_VERIFY_FAILED. Weather warnings remain UNCOVERED.
+[news] NOT registered: posoco_grid - HTTP 502. Grid operations remain UNCOVERED.
+[news] NOT registered: cea_reports - not a feed this parser understands. Power reporting remains UNCOVERED.
+[news] registered rbi_press_releases (Reserve Bank of India, every 30min, store_full_text=False)
+[news] registered rbi_notifications (Reserve Bank of India, every 60min, store_full_text=False)
+[news] registered rbi_speeches (Reserve Bank of India, every 240min, store_full_text=False)
+[news] registered sebi_press (Securities and Exchange Board of India, every 60min, store_full_text=False)
+[news] registered pib_releases (Press Information Bureau, every 60min, store_full_text=True)
+[news] registered fed_press (Federal Reserve Board, every 60min, store_full_text=True)
+Traceback (most recent call last):
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 938, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 682, in main
+    return _run_worker(args, store)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 758, in _run_worker
+    jobs.run(JOB, _work_forced(store, fetcher), max_attempts=1)
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\seraph\operations\jobs.py", line 442, in run
+    lease = self.acquire(job, run_id, lease_minutes=lease_minutes, now=now)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\seraph\operations\jobs.py", line 205, in acquire
+    db.execute('INSERT OR REPLACE INTO job_locks VALUES (?,?,?,?,?,?)',
+sqlite3.OperationalError: table job_locks has 5 columns but 6 values were supplied
+[news] registered federal_register_india (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register_ita (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register (US Federal Register, json/federal_register, every 120min)
+[news] registered usgs_earthquakes (US Geological Survey, json/usgs_earthquakes, every 30min)
+[news] NOT registered: pib_all — returns zero items
+[news] NOT registered: rbi_index_page — an HTML landing page, not a feed
+[news] NOT registered: gdelt_doc — HTTP 429 at probe time. Rate limiting is not a permanent failure; the adapter exists and is tested, and this needs a politeness budget and a retry schedule before it is registered
+[news] registered nse_corporate_announcements (National Stock Exchange of India, every 30min, store_full_text=False)
+[news] registered nse_circulars (National Stock Exchange of India, every 60min, store_full_text=False)
+[news] registered bse_notices (BSE Limited, every 30min, store_full_text=False)
+[news] registered ustr_press (Office of the US Trade Representative, every 180min, store_full_text=False)
+[news] registered federalreserve_speeches (Federal Reserve Board, every 240min, store_full_text=True)
+[news] registered wto_news (World Trade Organization, every 120min, store_full_text=False)
+[news] registered ec_news (European Commission, every 240min, store_full_text=False)
+[news] NOT registered: dgft_notifications - HTTP 403. Indian trade instruments remain UNCOVERED.
+[news] NOT registered: cbic_whats_new - SSL CERTIFICATE_VERIFY_FAILED. Customs duty changes remain UNCOVERED. Certificate verification is NOT disabled to work around this.
+[news] NOT registered: mospi_releases - SSL CERTIFICATE_VERIFY_FAILED. Official statistics remain UNCOVERED.
+[news] NOT registered: imd_warnings - SSL CERTIFICATE_VERIFY_FAILED. Weather warnings remain UNCOVERED.
+[news] NOT registered: posoco_grid - HTTP 502. Grid operations remain UNCOVERED.
+[news] NOT registered: cea_reports - not a feed this parser understands. Power reporting remains UNCOVERED.
+[news] registered rbi_press_releases (Reserve Bank of India, every 30min, store_full_text=False)
+[news] registered rbi_notifications (Reserve Bank of India, every 60min, store_full_text=False)
+[news] registered rbi_speeches (Reserve Bank of India, every 240min, store_full_text=False)
+[news] registered sebi_press (Securities and Exchange Board of India, every 60min, store_full_text=False)
+[news] registered pib_releases (Press Information Bureau, every 60min, store_full_text=True)
+[news] registered fed_press (Federal Reserve Board, every 60min, store_full_text=True)
+Traceback (most recent call last):
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 938, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 682, in main
+    return _run_worker(args, store)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 758, in _run_worker
+    jobs.run(JOB, _work_forced(store, fetcher), max_attempts=1)
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\seraph\operations\jobs.py", line 442, in run
+    lease = self.acquire(job, run_id, lease_minutes=lease_minutes, now=now)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\seraph\operations\jobs.py", line 205, in acquire
+    db.execute('INSERT OR REPLACE INTO job_locks VALUES (?,?,?,?,?,?)',
+sqlite3.OperationalError: table job_locks has 5 columns but 6 values were supplied
+[news] registered federal_register_india (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register_ita (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register (US Federal Register, json/federal_register, every 120min)
+[news] registered usgs_earthquakes (US Geological Survey, json/usgs_earthquakes, every 30min)
+[news] NOT registered: pib_all — returns zero items
+[news] NOT registered: rbi_index_page — an HTML landing page, not a feed
+[news] NOT registered: gdelt_doc — HTTP 429 at probe time. Rate limiting is not a permanent failure; the adapter exists and is tested, and this needs a politeness budget and a retry schedule before it is registered
+[news] registered nse_corporate_announcements (National Stock Exchange of India, every 30min, store_full_text=False)
+[news] registered nse_circulars (National Stock Exchange of India, every 60min, store_full_text=False)
+[news] registered bse_notices (BSE Limited, every 30min, store_full_text=False)
+[news] registered ustr_press (Office of the US Trade Representative, every 180min, store_full_text=False)
+[news] registered federalreserve_speeches (Federal Reserve Board, every 240min, store_full_text=True)
+[news] registered wto_news (World Trade Organization, every 120min, store_full_text=False)
+[news] registered ec_news (European Commission, every 240min, store_full_text=False)
+[news] NOT registered: dgft_notifications - HTTP 403. Indian trade instruments remain UNCOVERED.
+[news] NOT registered: cbic_whats_new - SSL CERTIFICATE_VERIFY_FAILED. Customs duty changes remain UNCOVERED. Certificate verification is NOT disabled to work around this.
+[news] NOT registered: mospi_releases - SSL CERTIFICATE_VERIFY_FAILED. Official statistics remain UNCOVERED.
+[news] NOT registered: imd_warnings - SSL CERTIFICATE_VERIFY_FAILED. Weather warnings remain UNCOVERED.
+[news] NOT registered: posoco_grid - HTTP 502. Grid operations remain UNCOVERED.
+[news] NOT registered: cea_reports - not a feed this parser understands. Power reporting remains UNCOVERED.
+[news] registered rbi_press_releases (Reserve Bank of India, every 30min, store_full_text=False)
+[news] registered rbi_notifications (Reserve Bank of India, every 60min, store_full_text=False)
+[news] registered rbi_speeches (Reserve Bank of India, every 240min, store_full_text=False)
+[news] registered sebi_press (Securities and Exchange Board of India, every 60min, store_full_text=False)
+[news] registered pib_releases (Press Information Bureau, every 60min, store_full_text=True)
+[news] registered fed_press (Federal Reserve Board, every 60min, store_full_text=True)
+Traceback (most recent call last):
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 938, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 682, in main
+    return _run_worker(args, store)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 758, in _run_worker
+    jobs.run(JOB, _work_forced(store, fetcher), max_attempts=1)
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\seraph\operations\jobs.py", line 442, in run
+    lease = self.acquire(job, run_id, lease_minutes=lease_minutes, now=now)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\seraph\operations\jobs.py", line 205, in acquire
+    db.execute('INSERT OR REPLACE INTO job_locks VALUES (?,?,?,?,?,?)',
+sqlite3.OperationalError: table job_locks has 5 columns but 6 values were supplied
+[news] registered federal_register_india (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register_ita (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register (US Federal Register, json/federal_register, every 120min)
+[news] registered usgs_earthquakes (US Geological Survey, json/usgs_earthquakes, every 30min)
+[news] NOT registered: pib_all — returns zero items
+[news] NOT registered: rbi_index_page — an HTML landing page, not a feed
+[news] NOT registered: gdelt_doc — HTTP 429 at probe time. Rate limiting is not a permanent failure; the adapter exists and is tested, and this needs a politeness budget and a retry schedule before it is registered
+[news] registered nse_corporate_announcements (National Stock Exchange of India, every 30min, store_full_text=False)
+[news] registered nse_circulars (National Stock Exchange of India, every 60min, store_full_text=False)
+[news] registered bse_notices (BSE Limited, every 30min, store_full_text=False)
+[news] registered ustr_press (Office of the US Trade Representative, every 180min, store_full_text=False)
+[news] registered federalreserve_speeches (Federal Reserve Board, every 240min, store_full_text=True)
+[news] registered wto_news (World Trade Organization, every 120min, store_full_text=False)
+[news] registered ec_news (European Commission, every 240min, store_full_text=False)
+[news] NOT registered: dgft_notifications - HTTP 403. Indian trade instruments remain UNCOVERED.
+[news] NOT registered: cbic_whats_new - SSL CERTIFICATE_VERIFY_FAILED. Customs duty changes remain UNCOVERED. Certificate verification is NOT disabled to work around this.
+[news] NOT registered: mospi_releases - SSL CERTIFICATE_VERIFY_FAILED. Official statistics remain UNCOVERED.
+[news] NOT registered: imd_warnings - SSL CERTIFICATE_VERIFY_FAILED. Weather warnings remain UNCOVERED.
+[news] NOT registered: posoco_grid - HTTP 502. Grid operations remain UNCOVERED.
+[news] NOT registered: cea_reports - not a feed this parser understands. Power reporting remains UNCOVERED.
+[news] registered rbi_press_releases (Reserve Bank of India, every 30min, store_full_text=False)
+[news] registered rbi_notifications (Reserve Bank of India, every 60min, store_full_text=False)
+[news] registered rbi_speeches (Reserve Bank of India, every 240min, store_full_text=False)
+[news] registered sebi_press (Securities and Exchange Board of India, every 60min, store_full_text=False)
+[news] registered pib_releases (Press Information Bureau, every 60min, store_full_text=True)
+[news] registered fed_press (Federal Reserve Board, every 60min, store_full_text=True)
+Traceback (most recent call last):
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 938, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 682, in main
+    return _run_worker(args, store)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 758, in _run_worker
+    jobs.run(JOB, _work_forced(store, fetcher), max_attempts=1)
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\seraph\operations\jobs.py", line 442, in run
+    lease = self.acquire(job, run_id, lease_minutes=lease_minutes, now=now)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\seraph\operations\jobs.py", line 205, in acquire
+    db.execute('INSERT OR REPLACE INTO job_locks VALUES (?,?,?,?,?,?)',
+sqlite3.OperationalError: table job_locks has 5 columns but 6 values were supplied
+[news] registered federal_register_india (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register_ita (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register (US Federal Register, json/federal_register, every 120min)
+[news] registered usgs_earthquakes (US Geological Survey, json/usgs_earthquakes, every 30min)
+[news] NOT registered: pib_all — returns zero items
+[news] NOT registered: rbi_index_page — an HTML landing page, not a feed
+[news] NOT registered: gdelt_doc — HTTP 429 at probe time. Rate limiting is not a permanent failure; the adapter exists and is tested, and this needs a politeness budget and a retry schedule before it is registered
+[news] registered nse_corporate_announcements (National Stock Exchange of India, every 30min, store_full_text=False)
+[news] registered nse_circulars (National Stock Exchange of India, every 60min, store_full_text=False)
+[news] registered bse_notices (BSE Limited, every 30min, store_full_text=False)
+[news] registered ustr_press (Office of the US Trade Representative, every 180min, store_full_text=False)
+[news] registered federalreserve_speeches (Federal Reserve Board, every 240min, store_full_text=True)
+[news] registered wto_news (World Trade Organization, every 120min, store_full_text=False)
+[news] registered ec_news (European Commission, every 240min, store_full_text=False)
+[news] NOT registered: dgft_notifications - HTTP 403. Indian trade instruments remain UNCOVERED.
+[news] NOT registered: cbic_whats_new - SSL CERTIFICATE_VERIFY_FAILED. Customs duty changes remain UNCOVERED. Certificate verification is NOT disabled to work around this.
+[news] NOT registered: mospi_releases - SSL CERTIFICATE_VERIFY_FAILED. Official statistics remain UNCOVERED.
+[news] NOT registered: imd_warnings - SSL CERTIFICATE_VERIFY_FAILED. Weather warnings remain UNCOVERED.
+[news] NOT registered: posoco_grid - HTTP 502. Grid operations remain UNCOVERED.
+[news] NOT registered: cea_reports - not a feed this parser understands. Power reporting remains UNCOVERED.
+[news] registered rbi_press_releases (Reserve Bank of India, every 30min, store_full_text=False)
+[news] registered rbi_notifications (Reserve Bank of India, every 60min, store_full_text=False)
+[news] registered rbi_speeches (Reserve Bank of India, every 240min, store_full_text=False)
+[news] registered sebi_press (Securities and Exchange Board of India, every 60min, store_full_text=False)
+[news] registered pib_releases (Press Information Bureau, every 60min, store_full_text=True)
+[news] registered fed_press (Federal Reserve Board, every 60min, store_full_text=True)
+Traceback (most recent call last):
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 938, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 682, in main
+    return _run_worker(args, store)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 758, in _run_worker
+    jobs.run(JOB, _work_forced(store, fetcher), max_attempts=1)
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\seraph\operations\jobs.py", line 442, in run
+    lease = self.acquire(job, run_id, lease_minutes=lease_minutes, now=now)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\seraph\operations\jobs.py", line 205, in acquire
+    db.execute('INSERT OR REPLACE INTO job_locks VALUES (?,?,?,?,?,?)',
+sqlite3.OperationalError: table job_locks has 5 columns but 6 values were supplied
+[supervisor] worker pid=31424 (restart 0/5)
+[supervisor] worker exited 1; restart 1/5 in 5s
+[supervisor] worker pid=8676 (restart 1/5)
+[supervisor] worker exited 1; restart 2/5 in 10s
+[supervisor] worker pid=29936 (restart 2/5)
+[supervisor] worker exited 1; restart 3/5 in 20s
+[supervisor] worker pid=11676 (restart 3/5)
+[supervisor] worker exited 1; restart 4/5 in 40s
+[supervisor] worker pid=30588 (restart 4/5)
+[supervisor] worker exited 1; restart 5/5 in 80s
+[supervisor] worker pid=30544 (restart 5/5)
+[supervisor] worker exited 1; gave up after 5 restarts. Nothing is fetching
+[news] registered federal_register_india (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register_ita (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register (US Federal Register, json/federal_register, every 120min)
+[news] registered usgs_earthquakes (US Geological Survey, json/usgs_earthquakes, every 30min)
+[news] NOT registered: pib_all — returns zero items
+[news] NOT registered: rbi_index_page — an HTML landing page, not a feed
+[news] NOT registered: gdelt_doc — HTTP 429 at probe time. Rate limiting is not a permanent failure; the adapter exists and is tested, and this needs a politeness budget and a retry schedule before it is registered
+[news] registered nse_corporate_announcements (National Stock Exchange of India, every 30min, store_full_text=False)
+[news] registered nse_circulars (National Stock Exchange of India, every 60min, store_full_text=False)
+[news] registered bse_notices (BSE Limited, every 30min, store_full_text=False)
+[news] registered ustr_press (Office of the US Trade Representative, every 180min, store_full_text=False)
+[news] registered federalreserve_speeches (Federal Reserve Board, every 240min, store_full_text=True)
+[news] registered wto_news (World Trade Organization, every 120min, store_full_text=False)
+[news] registered ec_news (European Commission, every 240min, store_full_text=False)
+[news] NOT registered: dgft_notifications - HTTP 403. Indian trade instruments remain UNCOVERED.
+[news] NOT registered: cbic_whats_new - SSL CERTIFICATE_VERIFY_FAILED. Customs duty changes remain UNCOVERED. Certificate verification is NOT disabled to work around this.
+[news] NOT registered: mospi_releases - SSL CERTIFICATE_VERIFY_FAILED. Official statistics remain UNCOVERED.
+[news] NOT registered: imd_warnings - SSL CERTIFICATE_VERIFY_FAILED. Weather warnings remain UNCOVERED.
+[news] NOT registered: posoco_grid - HTTP 502. Grid operations remain UNCOVERED.
+[news] NOT registered: cea_reports - not a feed this parser understands. Power reporting remains UNCOVERED.
+[news] registered rbi_press_releases (Reserve Bank of India, every 30min, store_full_text=False)
+[news] registered rbi_notifications (Reserve Bank of India, every 60min, store_full_text=False)
+[news] registered rbi_speeches (Reserve Bank of India, every 240min, store_full_text=False)
+[news] registered sebi_press (Securities and Exchange Board of India, every 60min, store_full_text=False)
+[news] registered pib_releases (Press Information Bureau, every 60min, store_full_text=True)
+[news] registered fed_press (Federal Reserve Board, every 60min, store_full_text=True)
+[news] catch-up: recorded 1 collection gap(s) before polling could hide them
+Traceback (most recent call last):
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 938, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 682, in main
+    return _run_worker(args, store)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 758, in _run_worker
+    jobs.run(JOB, _work_forced(store, fetcher), max_attempts=1)
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\seraph\operations\jobs.py", line 442, in run
+    lease = self.acquire(job, run_id, lease_minutes=lease_minutes, now=now)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\seraph\operations\jobs.py", line 205, in acquire
+    db.execute('INSERT OR REPLACE INTO job_locks VALUES (?,?,?,?,?,?)',
+sqlite3.OperationalError: table job_locks has 5 columns but 6 values were supplied
+[news] registered federal_register_india (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register_ita (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register (US Federal Register, json/federal_register, every 120min)
+[news] registered usgs_earthquakes (US Geological Survey, json/usgs_earthquakes, every 30min)
+[news] NOT registered: pib_all — returns zero items
+[news] NOT registered: rbi_index_page — an HTML landing page, not a feed
+[news] NOT registered: gdelt_doc — HTTP 429 at probe time. Rate limiting is not a permanent failure; the adapter exists and is tested, and this needs a politeness budget and a retry schedule before it is registered
+[news] registered nse_corporate_announcements (National Stock Exchange of India, every 30min, store_full_text=False)
+[news] registered nse_circulars (National Stock Exchange of India, every 60min, store_full_text=False)
+[news] registered bse_notices (BSE Limited, every 30min, store_full_text=False)
+[news] registered ustr_press (Office of the US Trade Representative, every 180min, store_full_text=False)
+[news] registered federalreserve_speeches (Federal Reserve Board, every 240min, store_full_text=True)
+[news] registered wto_news (World Trade Organization, every 120min, store_full_text=False)
+[news] registered ec_news (European Commission, every 240min, store_full_text=False)
+[news] NOT registered: dgft_notifications - HTTP 403. Indian trade instruments remain UNCOVERED.
+[news] NOT registered: cbic_whats_new - SSL CERTIFICATE_VERIFY_FAILED. Customs duty changes remain UNCOVERED. Certificate verification is NOT disabled to work around this.
+[news] NOT registered: mospi_releases - SSL CERTIFICATE_VERIFY_FAILED. Official statistics remain UNCOVERED.
+[news] NOT registered: imd_warnings - SSL CERTIFICATE_VERIFY_FAILED. Weather warnings remain UNCOVERED.
+[news] NOT registered: posoco_grid - HTTP 502. Grid operations remain UNCOVERED.
+[news] NOT registered: cea_reports - not a feed this parser understands. Power reporting remains UNCOVERED.
+[news] registered rbi_press_releases (Reserve Bank of India, every 30min, store_full_text=False)
+[news] registered rbi_notifications (Reserve Bank of India, every 60min, store_full_text=False)
+[news] registered rbi_speeches (Reserve Bank of India, every 240min, store_full_text=False)
+[news] registered sebi_press (Securities and Exchange Board of India, every 60min, store_full_text=False)
+[news] registered pib_releases (Press Information Bureau, every 60min, store_full_text=True)
+[news] registered fed_press (Federal Reserve Board, every 60min, store_full_text=True)
+Traceback (most recent call last):
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 938, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 682, in main
+    return _run_worker(args, store)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 758, in _run_worker
+    jobs.run(JOB, _work_forced(store, fetcher), max_attempts=1)
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\seraph\operations\jobs.py", line 442, in run
+    lease = self.acquire(job, run_id, lease_minutes=lease_minutes, now=now)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\seraph\operations\jobs.py", line 205, in acquire
+    db.execute('INSERT OR REPLACE INTO job_locks VALUES (?,?,?,?,?,?)',
+sqlite3.OperationalError: table job_locks has 5 columns but 6 values were supplied
+[news] registered federal_register_india (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register_ita (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register (US Federal Register, json/federal_register, every 120min)
+[news] registered usgs_earthquakes (US Geological Survey, json/usgs_earthquakes, every 30min)
+[news] NOT registered: pib_all — returns zero items
+[news] NOT registered: rbi_index_page — an HTML landing page, not a feed
+[news] NOT registered: gdelt_doc — HTTP 429 at probe time. Rate limiting is not a permanent failure; the adapter exists and is tested, and this needs a politeness budget and a retry schedule before it is registered
+[news] registered nse_corporate_announcements (National Stock Exchange of India, every 30min, store_full_text=False)
+[news] registered nse_circulars (National Stock Exchange of India, every 60min, store_full_text=False)
+[news] registered bse_notices (BSE Limited, every 30min, store_full_text=False)
+[news] registered ustr_press (Office of the US Trade Representative, every 180min, store_full_text=False)
+[news] registered federalreserve_speeches (Federal Reserve Board, every 240min, store_full_text=True)
+[news] registered wto_news (World Trade Organization, every 120min, store_full_text=False)
+[news] registered ec_news (European Commission, every 240min, store_full_text=False)
+[news] NOT registered: dgft_notifications - HTTP 403. Indian trade instruments remain UNCOVERED.
+[news] NOT registered: cbic_whats_new - SSL CERTIFICATE_VERIFY_FAILED. Customs duty changes remain UNCOVERED. Certificate verification is NOT disabled to work around this.
+[news] NOT registered: mospi_releases - SSL CERTIFICATE_VERIFY_FAILED. Official statistics remain UNCOVERED.
+[news] NOT registered: imd_warnings - SSL CERTIFICATE_VERIFY_FAILED. Weather warnings remain UNCOVERED.
+[news] NOT registered: posoco_grid - HTTP 502. Grid operations remain UNCOVERED.
+[news] NOT registered: cea_reports - not a feed this parser understands. Power reporting remains UNCOVERED.
+[news] registered rbi_press_releases (Reserve Bank of India, every 30min, store_full_text=False)
+[news] registered rbi_notifications (Reserve Bank of India, every 60min, store_full_text=False)
+[news] registered rbi_speeches (Reserve Bank of India, every 240min, store_full_text=False)
+[news] registered sebi_press (Securities and Exchange Board of India, every 60min, store_full_text=False)
+[news] registered pib_releases (Press Information Bureau, every 60min, store_full_text=True)
+[news] registered fed_press (Federal Reserve Board, every 60min, store_full_text=True)
+Traceback (most recent call last):
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 938, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 682, in main
+    return _run_worker(args, store)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 758, in _run_worker
+    jobs.run(JOB, _work_forced(store, fetcher), max_attempts=1)
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\seraph\operations\jobs.py", line 442, in run
+    lease = self.acquire(job, run_id, lease_minutes=lease_minutes, now=now)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\seraph\operations\jobs.py", line 205, in acquire
+    db.execute('INSERT OR REPLACE INTO job_locks VALUES (?,?,?,?,?,?)',
+sqlite3.OperationalError: table job_locks has 5 columns but 6 values were supplied
+[news] registered federal_register_india (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register_ita (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register (US Federal Register, json/federal_register, every 120min)
+[news] registered usgs_earthquakes (US Geological Survey, json/usgs_earthquakes, every 30min)
+[news] NOT registered: pib_all — returns zero items
+[news] NOT registered: rbi_index_page — an HTML landing page, not a feed
+[news] NOT registered: gdelt_doc — HTTP 429 at probe time. Rate limiting is not a permanent failure; the adapter exists and is tested, and this needs a politeness budget and a retry schedule before it is registered
+[news] registered nse_corporate_announcements (National Stock Exchange of India, every 30min, store_full_text=False)
+[news] registered nse_circulars (National Stock Exchange of India, every 60min, store_full_text=False)
+[news] registered bse_notices (BSE Limited, every 30min, store_full_text=False)
+[news] registered ustr_press (Office of the US Trade Representative, every 180min, store_full_text=False)
+[news] registered federalreserve_speeches (Federal Reserve Board, every 240min, store_full_text=True)
+[news] registered wto_news (World Trade Organization, every 120min, store_full_text=False)
+[news] registered ec_news (European Commission, every 240min, store_full_text=False)
+[news] NOT registered: dgft_notifications - HTTP 403. Indian trade instruments remain UNCOVERED.
+[news] NOT registered: cbic_whats_new - SSL CERTIFICATE_VERIFY_FAILED. Customs duty changes remain UNCOVERED. Certificate verification is NOT disabled to work around this.
+[news] NOT registered: mospi_releases - SSL CERTIFICATE_VERIFY_FAILED. Official statistics remain UNCOVERED.
+[news] NOT registered: imd_warnings - SSL CERTIFICATE_VERIFY_FAILED. Weather warnings remain UNCOVERED.
+[news] NOT registered: posoco_grid - HTTP 502. Grid operations remain UNCOVERED.
+[news] NOT registered: cea_reports - not a feed this parser understands. Power reporting remains UNCOVERED.
+[news] registered rbi_press_releases (Reserve Bank of India, every 30min, store_full_text=False)
+[news] registered rbi_notifications (Reserve Bank of India, every 60min, store_full_text=False)
+[news] registered rbi_speeches (Reserve Bank of India, every 240min, store_full_text=False)
+[news] registered sebi_press (Securities and Exchange Board of India, every 60min, store_full_text=False)
+[news] registered pib_releases (Press Information Bureau, every 60min, store_full_text=True)
+[news] registered fed_press (Federal Reserve Board, every 60min, store_full_text=True)
+Traceback (most recent call last):
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 938, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 682, in main
+    return _run_worker(args, store)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 758, in _run_worker
+    jobs.run(JOB, _work_forced(store, fetcher), max_attempts=1)
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\seraph\operations\jobs.py", line 442, in run
+    lease = self.acquire(job, run_id, lease_minutes=lease_minutes, now=now)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\seraph\operations\jobs.py", line 205, in acquire
+    db.execute('INSERT OR REPLACE INTO job_locks VALUES (?,?,?,?,?,?)',
+sqlite3.OperationalError: table job_locks has 5 columns but 6 values were supplied
+[news] registered federal_register_india (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register_ita (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register (US Federal Register, json/federal_register, every 120min)
+[news] registered usgs_earthquakes (US Geological Survey, json/usgs_earthquakes, every 30min)
+[news] NOT registered: pib_all — returns zero items
+[news] NOT registered: rbi_index_page — an HTML landing page, not a feed
+[news] NOT registered: gdelt_doc — HTTP 429 at probe time. Rate limiting is not a permanent failure; the adapter exists and is tested, and this needs a politeness budget and a retry schedule before it is registered
+[news] registered nse_corporate_announcements (National Stock Exchange of India, every 30min, store_full_text=False)
+[news] registered nse_circulars (National Stock Exchange of India, every 60min, store_full_text=False)
+[news] registered bse_notices (BSE Limited, every 30min, store_full_text=False)
+[news] registered ustr_press (Office of the US Trade Representative, every 180min, store_full_text=False)
+[news] registered federalreserve_speeches (Federal Reserve Board, every 240min, store_full_text=True)
+[news] registered wto_news (World Trade Organization, every 120min, store_full_text=False)
+[news] registered ec_news (European Commission, every 240min, store_full_text=False)
+[news] NOT registered: dgft_notifications - HTTP 403. Indian trade instruments remain UNCOVERED.
+[news] NOT registered: cbic_whats_new - SSL CERTIFICATE_VERIFY_FAILED. Customs duty changes remain UNCOVERED. Certificate verification is NOT disabled to work around this.
+[news] NOT registered: mospi_releases - SSL CERTIFICATE_VERIFY_FAILED. Official statistics remain UNCOVERED.
+[news] NOT registered: imd_warnings - SSL CERTIFICATE_VERIFY_FAILED. Weather warnings remain UNCOVERED.
+[news] NOT registered: posoco_grid - HTTP 502. Grid operations remain UNCOVERED.
+[news] NOT registered: cea_reports - not a feed this parser understands. Power reporting remains UNCOVERED.
+[news] registered rbi_press_releases (Reserve Bank of India, every 30min, store_full_text=False)
+[news] registered rbi_notifications (Reserve Bank of India, every 60min, store_full_text=False)
+[news] registered rbi_speeches (Reserve Bank of India, every 240min, store_full_text=False)
+[news] registered sebi_press (Securities and Exchange Board of India, every 60min, store_full_text=False)
+[news] registered pib_releases (Press Information Bureau, every 60min, store_full_text=True)
+[news] registered fed_press (Federal Reserve Board, every 60min, store_full_text=True)
+Traceback (most recent call last):
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 938, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 682, in main
+    return _run_worker(args, store)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 758, in _run_worker
+    jobs.run(JOB, _work_forced(store, fetcher), max_attempts=1)
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\seraph\operations\jobs.py", line 442, in run
+    lease = self.acquire(job, run_id, lease_minutes=lease_minutes, now=now)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\seraph\operations\jobs.py", line 205, in acquire
+    db.execute('INSERT OR REPLACE INTO job_locks VALUES (?,?,?,?,?,?)',
+sqlite3.OperationalError: table job_locks has 5 columns but 6 values were supplied
+[news] registered federal_register_india (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register_ita (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register (US Federal Register, json/federal_register, every 120min)
+[news] registered usgs_earthquakes (US Geological Survey, json/usgs_earthquakes, every 30min)
+[news] NOT registered: pib_all — returns zero items
+[news] NOT registered: rbi_index_page — an HTML landing page, not a feed
+[news] NOT registered: gdelt_doc — HTTP 429 at probe time. Rate limiting is not a permanent failure; the adapter exists and is tested, and this needs a politeness budget and a retry schedule before it is registered
+[news] registered nse_corporate_announcements (National Stock Exchange of India, every 30min, store_full_text=False)
+[news] registered nse_circulars (National Stock Exchange of India, every 60min, store_full_text=False)
+[news] registered bse_notices (BSE Limited, every 30min, store_full_text=False)
+[news] registered ustr_press (Office of the US Trade Representative, every 180min, store_full_text=False)
+[news] registered federalreserve_speeches (Federal Reserve Board, every 240min, store_full_text=True)
+[news] registered wto_news (World Trade Organization, every 120min, store_full_text=False)
+[news] registered ec_news (European Commission, every 240min, store_full_text=False)
+[news] NOT registered: dgft_notifications - HTTP 403. Indian trade instruments remain UNCOVERED.
+[news] NOT registered: cbic_whats_new - SSL CERTIFICATE_VERIFY_FAILED. Customs duty changes remain UNCOVERED. Certificate verification is NOT disabled to work around this.
+[news] NOT registered: mospi_releases - SSL CERTIFICATE_VERIFY_FAILED. Official statistics remain UNCOVERED.
+[news] NOT registered: imd_warnings - SSL CERTIFICATE_VERIFY_FAILED. Weather warnings remain UNCOVERED.
+[news] NOT registered: posoco_grid - HTTP 502. Grid operations remain UNCOVERED.
+[news] NOT registered: cea_reports - not a feed this parser understands. Power reporting remains UNCOVERED.
+[news] registered rbi_press_releases (Reserve Bank of India, every 30min, store_full_text=False)
+[news] registered rbi_notifications (Reserve Bank of India, every 60min, store_full_text=False)
+[news] registered rbi_speeches (Reserve Bank of India, every 240min, store_full_text=False)
+[news] registered sebi_press (Securities and Exchange Board of India, every 60min, store_full_text=False)
+[news] registered pib_releases (Press Information Bureau, every 60min, store_full_text=True)
+[news] registered fed_press (Federal Reserve Board, every 60min, store_full_text=True)
+Traceback (most recent call last):
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 938, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 682, in main
+    return _run_worker(args, store)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 758, in _run_worker
+    jobs.run(JOB, _work_forced(store, fetcher), max_attempts=1)
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\seraph\operations\jobs.py", line 442, in run
+    lease = self.acquire(job, run_id, lease_minutes=lease_minutes, now=now)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\seraph\operations\jobs.py", line 205, in acquire
+    db.execute('INSERT OR REPLACE INTO job_locks VALUES (?,?,?,?,?,?)',
+sqlite3.OperationalError: table job_locks has 5 columns but 6 values were supplied
+[supervisor] worker pid=24704 (restart 0/5)
+[supervisor] worker exited 1; restart 1/5 in 5s
+[supervisor] worker pid=16760 (restart 1/5)
+[supervisor] worker exited 1; restart 2/5 in 10s
+[supervisor] worker pid=8612 (restart 2/5)
+[supervisor] worker exited 1; restart 3/5 in 20s
+[supervisor] worker pid=15224 (restart 3/5)
+[supervisor] worker exited 1; restart 4/5 in 40s
+[supervisor] worker pid=31524 (restart 4/5)
+[supervisor] worker exited 1; restart 5/5 in 80s
+[supervisor] worker pid=9272 (restart 5/5)
+[supervisor] worker exited 1; gave up after 5 restarts. Nothing is fetching
+[news] registered federal_register_india (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register_ita (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register (US Federal Register, json/federal_register, every 120min)
+[news] registered usgs_earthquakes (US Geological Survey, json/usgs_earthquakes, every 30min)
+[news] NOT registered: pib_all — returns zero items
+[news] NOT registered: rbi_index_page — an HTML landing page, not a feed
+[news] NOT registered: gdelt_doc — HTTP 429 at probe time. Rate limiting is not a permanent failure; the adapter exists and is tested, and this needs a politeness budget and a retry schedule before it is registered
+[news] registered nse_corporate_announcements (National Stock Exchange of India, every 30min, store_full_text=False)
+[news] registered nse_circulars (National Stock Exchange of India, every 60min, store_full_text=False)
+[news] registered bse_notices (BSE Limited, every 30min, store_full_text=False)
+[news] registered ustr_press (Office of the US Trade Representative, every 180min, store_full_text=False)
+[news] registered federalreserve_speeches (Federal Reserve Board, every 240min, store_full_text=True)
+[news] registered wto_news (World Trade Organization, every 120min, store_full_text=False)
+[news] registered ec_news (European Commission, every 240min, store_full_text=False)
+[news] NOT registered: dgft_notifications - HTTP 403. Indian trade instruments remain UNCOVERED.
+[news] NOT registered: cbic_whats_new - SSL CERTIFICATE_VERIFY_FAILED. Customs duty changes remain UNCOVERED. Certificate verification is NOT disabled to work around this.
+[news] NOT registered: mospi_releases - SSL CERTIFICATE_VERIFY_FAILED. Official statistics remain UNCOVERED.
+[news] NOT registered: imd_warnings - SSL CERTIFICATE_VERIFY_FAILED. Weather warnings remain UNCOVERED.
+[news] NOT registered: posoco_grid - HTTP 502. Grid operations remain UNCOVERED.
+[news] NOT registered: cea_reports - not a feed this parser understands. Power reporting remains UNCOVERED.
+[news] registered rbi_press_releases (Reserve Bank of India, every 30min, store_full_text=False)
+[news] registered rbi_notifications (Reserve Bank of India, every 60min, store_full_text=False)
+[news] registered rbi_speeches (Reserve Bank of India, every 240min, store_full_text=False)
+[news] registered sebi_press (Securities and Exchange Board of India, every 60min, store_full_text=False)
+[news] registered pib_releases (Press Information Bureau, every 60min, store_full_text=True)
+[news] registered fed_press (Federal Reserve Board, every 60min, store_full_text=True)
+[news] catch-up: recorded 4 collection gap(s) before polling could hide them
+Traceback (most recent call last):
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 938, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 682, in main
+    return _run_worker(args, store)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 758, in _run_worker
+    jobs.run(JOB, _work_forced(store, fetcher), max_attempts=1)
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\seraph\operations\jobs.py", line 442, in run
+    lease = self.acquire(job, run_id, lease_minutes=lease_minutes, now=now)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\seraph\operations\jobs.py", line 205, in acquire
+    db.execute('INSERT OR REPLACE INTO job_locks VALUES (?,?,?,?,?,?)',
+sqlite3.OperationalError: table job_locks has 5 columns but 6 values were supplied
+[news] registered federal_register_india (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register_ita (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register (US Federal Register, json/federal_register, every 120min)
+[news] registered usgs_earthquakes (US Geological Survey, json/usgs_earthquakes, every 30min)
+[news] NOT registered: pib_all — returns zero items
+[news] NOT registered: rbi_index_page — an HTML landing page, not a feed
+[news] NOT registered: gdelt_doc — HTTP 429 at probe time. Rate limiting is not a permanent failure; the adapter exists and is tested, and this needs a politeness budget and a retry schedule before it is registered
+[news] registered nse_corporate_announcements (National Stock Exchange of India, every 30min, store_full_text=False)
+[news] registered nse_circulars (National Stock Exchange of India, every 60min, store_full_text=False)
+[news] registered bse_notices (BSE Limited, every 30min, store_full_text=False)
+[news] registered ustr_press (Office of the US Trade Representative, every 180min, store_full_text=False)
+[news] registered federalreserve_speeches (Federal Reserve Board, every 240min, store_full_text=True)
+[news] registered wto_news (World Trade Organization, every 120min, store_full_text=False)
+[news] registered ec_news (European Commission, every 240min, store_full_text=False)
+[news] NOT registered: dgft_notifications - HTTP 403. Indian trade instruments remain UNCOVERED.
+[news] NOT registered: cbic_whats_new - SSL CERTIFICATE_VERIFY_FAILED. Customs duty changes remain UNCOVERED. Certificate verification is NOT disabled to work around this.
+[news] NOT registered: mospi_releases - SSL CERTIFICATE_VERIFY_FAILED. Official statistics remain UNCOVERED.
+[news] NOT registered: imd_warnings - SSL CERTIFICATE_VERIFY_FAILED. Weather warnings remain UNCOVERED.
+[news] NOT registered: posoco_grid - HTTP 502. Grid operations remain UNCOVERED.
+[news] NOT registered: cea_reports - not a feed this parser understands. Power reporting remains UNCOVERED.
+[news] registered rbi_press_releases (Reserve Bank of India, every 30min, store_full_text=False)
+[news] registered rbi_notifications (Reserve Bank of India, every 60min, store_full_text=False)
+[news] registered rbi_speeches (Reserve Bank of India, every 240min, store_full_text=False)
+[news] registered sebi_press (Securities and Exchange Board of India, every 60min, store_full_text=False)
+[news] registered pib_releases (Press Information Bureau, every 60min, store_full_text=True)
+[news] registered fed_press (Federal Reserve Board, every 60min, store_full_text=True)
+Traceback (most recent call last):
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 938, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 682, in main
+    return _run_worker(args, store)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 758, in _run_worker
+    jobs.run(JOB, _work_forced(store, fetcher), max_attempts=1)
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\seraph\operations\jobs.py", line 442, in run
+    lease = self.acquire(job, run_id, lease_minutes=lease_minutes, now=now)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\seraph\operations\jobs.py", line 205, in acquire
+    db.execute('INSERT OR REPLACE INTO job_locks VALUES (?,?,?,?,?,?)',
+sqlite3.OperationalError: table job_locks has 5 columns but 6 values were supplied
+[news] registered federal_register_india (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register_ita (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register (US Federal Register, json/federal_register, every 120min)
+[news] registered usgs_earthquakes (US Geological Survey, json/usgs_earthquakes, every 30min)
+[news] NOT registered: pib_all — returns zero items
+[news] NOT registered: rbi_index_page — an HTML landing page, not a feed
+[news] NOT registered: gdelt_doc — HTTP 429 at probe time. Rate limiting is not a permanent failure; the adapter exists and is tested, and this needs a politeness budget and a retry schedule before it is registered
+[news] registered nse_corporate_announcements (National Stock Exchange of India, every 30min, store_full_text=False)
+[news] registered nse_circulars (National Stock Exchange of India, every 60min, store_full_text=False)
+[news] registered bse_notices (BSE Limited, every 30min, store_full_text=False)
+[news] registered ustr_press (Office of the US Trade Representative, every 180min, store_full_text=False)
+[news] registered federalreserve_speeches (Federal Reserve Board, every 240min, store_full_text=True)
+[news] registered wto_news (World Trade Organization, every 120min, store_full_text=False)
+[news] registered ec_news (European Commission, every 240min, store_full_text=False)
+[news] NOT registered: dgft_notifications - HTTP 403. Indian trade instruments remain UNCOVERED.
+[news] NOT registered: cbic_whats_new - SSL CERTIFICATE_VERIFY_FAILED. Customs duty changes remain UNCOVERED. Certificate verification is NOT disabled to work around this.
+[news] NOT registered: mospi_releases - SSL CERTIFICATE_VERIFY_FAILED. Official statistics remain UNCOVERED.
+[news] NOT registered: imd_warnings - SSL CERTIFICATE_VERIFY_FAILED. Weather warnings remain UNCOVERED.
+[news] NOT registered: posoco_grid - HTTP 502. Grid operations remain UNCOVERED.
+[news] NOT registered: cea_reports - not a feed this parser understands. Power reporting remains UNCOVERED.
+[news] registered rbi_press_releases (Reserve Bank of India, every 30min, store_full_text=False)
+[news] registered rbi_notifications (Reserve Bank of India, every 60min, store_full_text=False)
+[news] registered rbi_speeches (Reserve Bank of India, every 240min, store_full_text=False)
+[news] registered sebi_press (Securities and Exchange Board of India, every 60min, store_full_text=False)
+[news] registered pib_releases (Press Information Bureau, every 60min, store_full_text=True)
+[news] registered fed_press (Federal Reserve Board, every 60min, store_full_text=True)
+Traceback (most recent call last):
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 938, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 682, in main
+    return _run_worker(args, store)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 758, in _run_worker
+    jobs.run(JOB, _work_forced(store, fetcher), max_attempts=1)
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\seraph\operations\jobs.py", line 442, in run
+    lease = self.acquire(job, run_id, lease_minutes=lease_minutes, now=now)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\seraph\operations\jobs.py", line 205, in acquire
+    db.execute('INSERT OR REPLACE INTO job_locks VALUES (?,?,?,?,?,?)',
+sqlite3.OperationalError: table job_locks has 5 columns but 6 values were supplied
+[news] registered federal_register_india (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register_ita (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register (US Federal Register, json/federal_register, every 120min)
+[news] registered usgs_earthquakes (US Geological Survey, json/usgs_earthquakes, every 30min)
+[news] NOT registered: pib_all — returns zero items
+[news] NOT registered: rbi_index_page — an HTML landing page, not a feed
+[news] NOT registered: gdelt_doc — HTTP 429 at probe time. Rate limiting is not a permanent failure; the adapter exists and is tested, and this needs a politeness budget and a retry schedule before it is registered
+[news] registered nse_corporate_announcements (National Stock Exchange of India, every 30min, store_full_text=False)
+[news] registered nse_circulars (National Stock Exchange of India, every 60min, store_full_text=False)
+[news] registered bse_notices (BSE Limited, every 30min, store_full_text=False)
+[news] registered ustr_press (Office of the US Trade Representative, every 180min, store_full_text=False)
+[news] registered federalreserve_speeches (Federal Reserve Board, every 240min, store_full_text=True)
+[news] registered wto_news (World Trade Organization, every 120min, store_full_text=False)
+[news] registered ec_news (European Commission, every 240min, store_full_text=False)
+[news] NOT registered: dgft_notifications - HTTP 403. Indian trade instruments remain UNCOVERED.
+[news] NOT registered: cbic_whats_new - SSL CERTIFICATE_VERIFY_FAILED. Customs duty changes remain UNCOVERED. Certificate verification is NOT disabled to work around this.
+[news] NOT registered: mospi_releases - SSL CERTIFICATE_VERIFY_FAILED. Official statistics remain UNCOVERED.
+[news] NOT registered: imd_warnings - SSL CERTIFICATE_VERIFY_FAILED. Weather warnings remain UNCOVERED.
+[news] NOT registered: posoco_grid - HTTP 502. Grid operations remain UNCOVERED.
+[news] NOT registered: cea_reports - not a feed this parser understands. Power reporting remains UNCOVERED.
+[news] registered rbi_press_releases (Reserve Bank of India, every 30min, store_full_text=False)
+[news] registered rbi_notifications (Reserve Bank of India, every 60min, store_full_text=False)
+[news] registered rbi_speeches (Reserve Bank of India, every 240min, store_full_text=False)
+[news] registered sebi_press (Securities and Exchange Board of India, every 60min, store_full_text=False)
+[news] registered pib_releases (Press Information Bureau, every 60min, store_full_text=True)
+[news] registered fed_press (Federal Reserve Board, every 60min, store_full_text=True)
+Traceback (most recent call last):
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 938, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 682, in main
+    return _run_worker(args, store)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 758, in _run_worker
+    jobs.run(JOB, _work_forced(store, fetcher), max_attempts=1)
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\seraph\operations\jobs.py", line 442, in run
+    lease = self.acquire(job, run_id, lease_minutes=lease_minutes, now=now)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\seraph\operations\jobs.py", line 205, in acquire
+    db.execute('INSERT OR REPLACE INTO job_locks VALUES (?,?,?,?,?,?)',
+sqlite3.OperationalError: table job_locks has 5 columns but 6 values were supplied
+[news] registered federal_register_india (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register_ita (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register (US Federal Register, json/federal_register, every 120min)
+[news] registered usgs_earthquakes (US Geological Survey, json/usgs_earthquakes, every 30min)
+[news] NOT registered: pib_all — returns zero items
+[news] NOT registered: rbi_index_page — an HTML landing page, not a feed
+[news] NOT registered: gdelt_doc — HTTP 429 at probe time. Rate limiting is not a permanent failure; the adapter exists and is tested, and this needs a politeness budget and a retry schedule before it is registered
+[news] registered nse_corporate_announcements (National Stock Exchange of India, every 30min, store_full_text=False)
+[news] registered nse_circulars (National Stock Exchange of India, every 60min, store_full_text=False)
+[news] registered bse_notices (BSE Limited, every 30min, store_full_text=False)
+[news] registered ustr_press (Office of the US Trade Representative, every 180min, store_full_text=False)
+[news] registered federalreserve_speeches (Federal Reserve Board, every 240min, store_full_text=True)
+[news] registered wto_news (World Trade Organization, every 120min, store_full_text=False)
+[news] registered ec_news (European Commission, every 240min, store_full_text=False)
+[news] NOT registered: dgft_notifications - HTTP 403. Indian trade instruments remain UNCOVERED.
+[news] NOT registered: cbic_whats_new - SSL CERTIFICATE_VERIFY_FAILED. Customs duty changes remain UNCOVERED. Certificate verification is NOT disabled to work around this.
+[news] NOT registered: mospi_releases - SSL CERTIFICATE_VERIFY_FAILED. Official statistics remain UNCOVERED.
+[news] NOT registered: imd_warnings - SSL CERTIFICATE_VERIFY_FAILED. Weather warnings remain UNCOVERED.
+[news] NOT registered: posoco_grid - HTTP 502. Grid operations remain UNCOVERED.
+[news] NOT registered: cea_reports - not a feed this parser understands. Power reporting remains UNCOVERED.
+[news] registered rbi_press_releases (Reserve Bank of India, every 30min, store_full_text=False)
+[news] registered rbi_notifications (Reserve Bank of India, every 60min, store_full_text=False)
+[news] registered rbi_speeches (Reserve Bank of India, every 240min, store_full_text=False)
+[news] registered sebi_press (Securities and Exchange Board of India, every 60min, store_full_text=False)
+[news] registered pib_releases (Press Information Bureau, every 60min, store_full_text=True)
+[news] registered fed_press (Federal Reserve Board, every 60min, store_full_text=True)
+Traceback (most recent call last):
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 938, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 682, in main
+    return _run_worker(args, store)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 758, in _run_worker
+    jobs.run(JOB, _work_forced(store, fetcher), max_attempts=1)
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\seraph\operations\jobs.py", line 442, in run
+    lease = self.acquire(job, run_id, lease_minutes=lease_minutes, now=now)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\seraph\operations\jobs.py", line 205, in acquire
+    db.execute('INSERT OR REPLACE INTO job_locks VALUES (?,?,?,?,?,?)',
+sqlite3.OperationalError: table job_locks has 5 columns but 6 values were supplied
+[news] registered federal_register_india (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register_ita (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register (US Federal Register, json/federal_register, every 120min)
+[news] registered usgs_earthquakes (US Geological Survey, json/usgs_earthquakes, every 30min)
+[news] NOT registered: pib_all — returns zero items
+[news] NOT registered: rbi_index_page — an HTML landing page, not a feed
+[news] NOT registered: gdelt_doc — HTTP 429 at probe time. Rate limiting is not a permanent failure; the adapter exists and is tested, and this needs a politeness budget and a retry schedule before it is registered
+[news] registered nse_corporate_announcements (National Stock Exchange of India, every 30min, store_full_text=False)
+[news] registered nse_circulars (National Stock Exchange of India, every 60min, store_full_text=False)
+[news] registered bse_notices (BSE Limited, every 30min, store_full_text=False)
+[news] registered ustr_press (Office of the US Trade Representative, every 180min, store_full_text=False)
+[news] registered federalreserve_speeches (Federal Reserve Board, every 240min, store_full_text=True)
+[news] registered wto_news (World Trade Organization, every 120min, store_full_text=False)
+[news] registered ec_news (European Commission, every 240min, store_full_text=False)
+[news] NOT registered: dgft_notifications - HTTP 403. Indian trade instruments remain UNCOVERED.
+[news] NOT registered: cbic_whats_new - SSL CERTIFICATE_VERIFY_FAILED. Customs duty changes remain UNCOVERED. Certificate verification is NOT disabled to work around this.
+[news] NOT registered: mospi_releases - SSL CERTIFICATE_VERIFY_FAILED. Official statistics remain UNCOVERED.
+[news] NOT registered: imd_warnings - SSL CERTIFICATE_VERIFY_FAILED. Weather warnings remain UNCOVERED.
+[news] NOT registered: posoco_grid - HTTP 502. Grid operations remain UNCOVERED.
+[news] NOT registered: cea_reports - not a feed this parser understands. Power reporting remains UNCOVERED.
+[news] registered rbi_press_releases (Reserve Bank of India, every 30min, store_full_text=False)
+[news] registered rbi_notifications (Reserve Bank of India, every 60min, store_full_text=False)
+[news] registered rbi_speeches (Reserve Bank of India, every 240min, store_full_text=False)
+[news] registered sebi_press (Securities and Exchange Board of India, every 60min, store_full_text=False)
+[news] registered pib_releases (Press Information Bureau, every 60min, store_full_text=True)
+[news] registered fed_press (Federal Reserve Board, every 60min, store_full_text=True)
+Traceback (most recent call last):
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 938, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 682, in main
+    return _run_worker(args, store)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 758, in _run_worker
+    jobs.run(JOB, _work_forced(store, fetcher), max_attempts=1)
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\seraph\operations\jobs.py", line 442, in run
+    lease = self.acquire(job, run_id, lease_minutes=lease_minutes, now=now)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\seraph\operations\jobs.py", line 205, in acquire
+    db.execute('INSERT OR REPLACE INTO job_locks VALUES (?,?,?,?,?,?)',
+sqlite3.OperationalError: table job_locks has 5 columns but 6 values were supplied
+[supervisor] worker pid=29976 (restart 0/5)
+[supervisor] worker exited 1; restart 1/5 in 5s
+[supervisor] worker pid=5268 (restart 1/5)
+[supervisor] worker exited 1; restart 2/5 in 10s
+[supervisor] worker pid=21464 (restart 2/5)
+[supervisor] worker exited 1; restart 3/5 in 20s
+[supervisor] worker pid=9528 (restart 3/5)
+[supervisor] worker exited 1; restart 4/5 in 40s
+[supervisor] worker pid=24776 (restart 4/5)
+[supervisor] worker exited 1; restart 5/5 in 80s
+[supervisor] worker pid=29492 (restart 5/5)
+[supervisor] worker exited 1; gave up after 5 restarts. Nothing is fetching
+[news] registered federal_register_india (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register_ita (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register (US Federal Register, json/federal_register, every 120min)
+[news] registered usgs_earthquakes (US Geological Survey, json/usgs_earthquakes, every 30min)
+[news] NOT registered: pib_all — returns zero items
+[news] NOT registered: rbi_index_page — an HTML landing page, not a feed
+[news] NOT registered: gdelt_doc — HTTP 429 at probe time. Rate limiting is not a permanent failure; the adapter exists and is tested, and this needs a politeness budget and a retry schedule before it is registered
+[news] registered nse_corporate_announcements (National Stock Exchange of India, every 30min, store_full_text=False)
+[news] registered nse_circulars (National Stock Exchange of India, every 60min, store_full_text=False)
+[news] registered bse_notices (BSE Limited, every 30min, store_full_text=False)
+[news] registered ustr_press (Office of the US Trade Representative, every 180min, store_full_text=False)
+[news] registered federalreserve_speeches (Federal Reserve Board, every 240min, store_full_text=True)
+[news] registered wto_news (World Trade Organization, every 120min, store_full_text=False)
+[news] registered ec_news (European Commission, every 240min, store_full_text=False)
+[news] NOT registered: dgft_notifications - HTTP 403. Indian trade instruments remain UNCOVERED.
+[news] NOT registered: cbic_whats_new - SSL CERTIFICATE_VERIFY_FAILED. Customs duty changes remain UNCOVERED. Certificate verification is NOT disabled to work around this.
+[news] NOT registered: mospi_releases - SSL CERTIFICATE_VERIFY_FAILED. Official statistics remain UNCOVERED.
+[news] NOT registered: imd_warnings - SSL CERTIFICATE_VERIFY_FAILED. Weather warnings remain UNCOVERED.
+[news] NOT registered: posoco_grid - HTTP 502. Grid operations remain UNCOVERED.
+[news] NOT registered: cea_reports - not a feed this parser understands. Power reporting remains UNCOVERED.
+[news] registered rbi_press_releases (Reserve Bank of India, every 30min, store_full_text=False)
+[news] registered rbi_notifications (Reserve Bank of India, every 60min, store_full_text=False)
+[news] registered rbi_speeches (Reserve Bank of India, every 240min, store_full_text=False)
+[news] registered sebi_press (Securities and Exchange Board of India, every 60min, store_full_text=False)
+[news] registered pib_releases (Press Information Bureau, every 60min, store_full_text=True)
+[news] registered fed_press (Federal Reserve Board, every 60min, store_full_text=True)
+Traceback (most recent call last):
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 938, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 682, in main
+    return _run_worker(args, store)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 758, in _run_worker
+    jobs.run(JOB, _work_forced(store, fetcher), max_attempts=1)
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\seraph\operations\jobs.py", line 442, in run
+    lease = self.acquire(job, run_id, lease_minutes=lease_minutes, now=now)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\seraph\operations\jobs.py", line 205, in acquire
+    db.execute('INSERT OR REPLACE INTO job_locks VALUES (?,?,?,?,?,?)',
+sqlite3.OperationalError: table job_locks has 5 columns but 6 values were supplied
+[news] registered federal_register_india (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register_ita (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register (US Federal Register, json/federal_register, every 120min)
+[news] registered usgs_earthquakes (US Geological Survey, json/usgs_earthquakes, every 30min)
+[news] NOT registered: pib_all — returns zero items
+[news] NOT registered: rbi_index_page — an HTML landing page, not a feed
+[news] NOT registered: gdelt_doc — HTTP 429 at probe time. Rate limiting is not a permanent failure; the adapter exists and is tested, and this needs a politeness budget and a retry schedule before it is registered
+[news] registered nse_corporate_announcements (National Stock Exchange of India, every 30min, store_full_text=False)
+[news] registered nse_circulars (National Stock Exchange of India, every 60min, store_full_text=False)
+[news] registered bse_notices (BSE Limited, every 30min, store_full_text=False)
+[news] registered ustr_press (Office of the US Trade Representative, every 180min, store_full_text=False)
+[news] registered federalreserve_speeches (Federal Reserve Board, every 240min, store_full_text=True)
+[news] registered wto_news (World Trade Organization, every 120min, store_full_text=False)
+[news] registered ec_news (European Commission, every 240min, store_full_text=False)
+[news] NOT registered: dgft_notifications - HTTP 403. Indian trade instruments remain UNCOVERED.
+[news] NOT registered: cbic_whats_new - SSL CERTIFICATE_VERIFY_FAILED. Customs duty changes remain UNCOVERED. Certificate verification is NOT disabled to work around this.
+[news] NOT registered: mospi_releases - SSL CERTIFICATE_VERIFY_FAILED. Official statistics remain UNCOVERED.
+[news] NOT registered: imd_warnings - SSL CERTIFICATE_VERIFY_FAILED. Weather warnings remain UNCOVERED.
+[news] NOT registered: posoco_grid - HTTP 502. Grid operations remain UNCOVERED.
+[news] NOT registered: cea_reports - not a feed this parser understands. Power reporting remains UNCOVERED.
+[news] registered rbi_press_releases (Reserve Bank of India, every 30min, store_full_text=False)
+[news] registered rbi_notifications (Reserve Bank of India, every 60min, store_full_text=False)
+[news] registered rbi_speeches (Reserve Bank of India, every 240min, store_full_text=False)
+[news] registered sebi_press (Securities and Exchange Board of India, every 60min, store_full_text=False)
+[news] registered pib_releases (Press Information Bureau, every 60min, store_full_text=True)
+[news] registered fed_press (Federal Reserve Board, every 60min, store_full_text=True)
+Traceback (most recent call last):
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 938, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 682, in main
+    return _run_worker(args, store)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 758, in _run_worker
+    jobs.run(JOB, _work_forced(store, fetcher), max_attempts=1)
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\seraph\operations\jobs.py", line 442, in run
+    lease = self.acquire(job, run_id, lease_minutes=lease_minutes, now=now)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\seraph\operations\jobs.py", line 205, in acquire
+    db.execute('INSERT OR REPLACE INTO job_locks VALUES (?,?,?,?,?,?)',
+sqlite3.OperationalError: table job_locks has 5 columns but 6 values were supplied
+[news] registered federal_register_india (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register_ita (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register (US Federal Register, json/federal_register, every 120min)
+[news] registered usgs_earthquakes (US Geological Survey, json/usgs_earthquakes, every 30min)
+[news] NOT registered: pib_all — returns zero items
+[news] NOT registered: rbi_index_page — an HTML landing page, not a feed
+[news] NOT registered: gdelt_doc — HTTP 429 at probe time. Rate limiting is not a permanent failure; the adapter exists and is tested, and this needs a politeness budget and a retry schedule before it is registered
+[news] registered nse_corporate_announcements (National Stock Exchange of India, every 30min, store_full_text=False)
+[news] registered nse_circulars (National Stock Exchange of India, every 60min, store_full_text=False)
+[news] registered bse_notices (BSE Limited, every 30min, store_full_text=False)
+[news] registered ustr_press (Office of the US Trade Representative, every 180min, store_full_text=False)
+[news] registered federalreserve_speeches (Federal Reserve Board, every 240min, store_full_text=True)
+[news] registered wto_news (World Trade Organization, every 120min, store_full_text=False)
+[news] registered ec_news (European Commission, every 240min, store_full_text=False)
+[news] NOT registered: dgft_notifications - HTTP 403. Indian trade instruments remain UNCOVERED.
+[news] NOT registered: cbic_whats_new - SSL CERTIFICATE_VERIFY_FAILED. Customs duty changes remain UNCOVERED. Certificate verification is NOT disabled to work around this.
+[news] NOT registered: mospi_releases - SSL CERTIFICATE_VERIFY_FAILED. Official statistics remain UNCOVERED.
+[news] NOT registered: imd_warnings - SSL CERTIFICATE_VERIFY_FAILED. Weather warnings remain UNCOVERED.
+[news] NOT registered: posoco_grid - HTTP 502. Grid operations remain UNCOVERED.
+[news] NOT registered: cea_reports - not a feed this parser understands. Power reporting remains UNCOVERED.
+[news] registered rbi_press_releases (Reserve Bank of India, every 30min, store_full_text=False)
+[news] registered rbi_notifications (Reserve Bank of India, every 60min, store_full_text=False)
+[news] registered rbi_speeches (Reserve Bank of India, every 240min, store_full_text=False)
+[news] registered sebi_press (Securities and Exchange Board of India, every 60min, store_full_text=False)
+[news] registered pib_releases (Press Information Bureau, every 60min, store_full_text=True)
+[news] registered fed_press (Federal Reserve Board, every 60min, store_full_text=True)
+Traceback (most recent call last):
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 938, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 682, in main
+    return _run_worker(args, store)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_news.py", line 758, in _run_worker
+    jobs.run(JOB, _work_forced(store, fetcher), max_attempts=1)
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\seraph\operations\jobs.py", line 442, in run
+    lease = self.acquire(job, run_id, lease_minutes=lease_minutes, now=now)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\seraph\operations\jobs.py", line 205, in acquire
+    db.execute('INSERT OR REPLACE INTO job_locks VALUES (?,?,?,?,?,?)',
+sqlite3.OperationalError: table job_locks has 5 columns but 6 values were supplied
+[news] registered federal_register_india (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register_ita (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register (US Federal Register, json/federal_register, every 120min)
+[news] registered usgs_earthquakes (US Geological Survey, json/usgs_earthquakes, every 30min)
+[news] NOT registered: pib_all — returns zero items
+[news] NOT registered: rbi_index_page — an HTML landing page, not a feed
+[news] NOT registered: gdelt_doc — HTTP 429 at probe time. Rate limiting is not a permanent failure; the adapter exists and is tested, and this needs a politeness budget and a retry schedule before it is registered
+[news] registered nse_corporate_announcements (National Stock Exchange of India, every 30min, store_full_text=False)
+[news] registered nse_circulars (National Stock Exchange of India, every 60min, store_full_text=False)
+[news] registered bse_notices (BSE Limited, every 30min, store_full_text=False)
+[news] registered ustr_press (Office of the US Trade Representative, every 180min, store_full_text=False)
+[news] registered federalreserve_speeches (Federal Reserve Board, every 240min, store_full_text=True)
+[news] registered wto_news (World Trade Organization, every 120min, store_full_text=False)
+[news] registered ec_news (European Commission, every 240min, store_full_text=False)
+[news] NOT registered: dgft_notifications - HTTP 403. Indian trade instruments remain UNCOVERED.
+[news] NOT registered: cbic_whats_new - SSL CERTIFICATE_VERIFY_FAILED. Customs duty changes remain UNCOVERED. Certificate verification is NOT disabled to work around this.
+[news] NOT registered: mospi_releases - SSL CERTIFICATE_VERIFY_FAILED. Official statistics remain UNCOVERED.
+[news] NOT registered: imd_warnings - SSL CERTIFICATE_VERIFY_FAILED. Weather warnings remain UNCOVERED.
+[news] NOT registered: posoco_grid - HTTP 502. Grid operations remain UNCOVERED.
+[news] NOT registered: cea_reports - not a feed this parser understands. Power reporting remains UNCOVERED.
+[news] registered rbi_press_releases (Reserve Bank of India, every 30min, store_full_text=False)
+[news] registered rbi_notifications (Reserve Bank of India, every 60min, store_full_text=False)
+[news] registered rbi_speeches (Reserve Bank of India, every 240min, store_full_text=False)
+[news] registered sebi_press (Securities and Exchange Board of India, every 60min, store_full_text=False)
+[news] registered pib_releases (Press Information Bureau, every 60min, store_full_text=True)
+[news] registered fed_press (Federal Reserve Board, every 60min, store_full_text=True)
+[news] bse_notices: ok=True new=1 unchanged=0 stories=1 corrections=0
+[news] nse_corporate_announcements: ok=True new=246 unchanged=4 stories=246 corrections=178
+[news] rbi_press_releases: ok=True new=0 unchanged=10 stories=0 corrections=0
+[news] usgs_earthquakes: ok=True new=14 unchanged=28 stories=14 corrections=0
+[news] registered federal_register_india (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register_ita (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register (US Federal Register, json/federal_register, every 120min)
+[news] registered usgs_earthquakes (US Geological Survey, json/usgs_earthquakes, every 30min)
+[news] NOT registered: pib_all — returns zero items
+[news] NOT registered: rbi_index_page — an HTML landing page, not a feed
+[news] NOT registered: gdelt_doc — HTTP 429 at probe time. Rate limiting is not a permanent failure; the adapter exists and is tested, and this needs a politeness budget and a retry schedule before it is registered
+[news] registered nse_corporate_announcements (National Stock Exchange of India, every 30min, store_full_text=False)
+[news] registered nse_circulars (National Stock Exchange of India, every 60min, store_full_text=False)
+[news] registered bse_notices (BSE Limited, every 30min, store_full_text=False)
+[news] registered ustr_press (Office of the US Trade Representative, every 180min, store_full_text=False)
+[news] registered federalreserve_speeches (Federal Reserve Board, every 240min, store_full_text=True)
+[news] registered wto_news (World Trade Organization, every 120min, store_full_text=False)
+[news] registered ec_news (European Commission, every 240min, store_full_text=False)
+[news] NOT registered: dgft_notifications - HTTP 403. Indian trade instruments remain UNCOVERED.
+[news] NOT registered: cbic_whats_new - SSL CERTIFICATE_VERIFY_FAILED. Customs duty changes remain UNCOVERED. Certificate verification is NOT disabled to work around this.
+[news] NOT registered: mospi_releases - SSL CERTIFICATE_VERIFY_FAILED. Official statistics remain UNCOVERED.
+[news] NOT registered: imd_warnings - SSL CERTIFICATE_VERIFY_FAILED. Weather warnings remain UNCOVERED.
+[news] NOT registered: posoco_grid - HTTP 502. Grid operations remain UNCOVERED.
+[news] NOT registered: cea_reports - not a feed this parser understands. Power reporting remains UNCOVERED.
+[news] registered rbi_press_releases (Reserve Bank of India, every 30min, store_full_text=False)
+[news] registered rbi_notifications (Reserve Bank of India, every 60min, store_full_text=False)
+[news] registered rbi_speeches (Reserve Bank of India, every 240min, store_full_text=False)
+[news] registered sebi_press (Securities and Exchange Board of India, every 60min, store_full_text=False)
+[news] registered pib_releases (Press Information Bureau, every 60min, store_full_text=True)
+[news] registered fed_press (Federal Reserve Board, every 60min, store_full_text=True)
+[news] catch-up: recorded 17 collection gap(s) before polling could hide them
+[news] bse_notices: ok=True new=1 unchanged=0 stories=1 corrections=0
+[news] ec_news: ok=True new=10 unchanged=0 stories=10 corrections=0
+[news] fed_press: ok=True new=20 unchanged=0 stories=20 corrections=0
+[news] federal_register: ok=True new=40 unchanged=0 stories=40 corrections=0
+[news] federal_register_india: ok=True new=40 unchanged=0 stories=40 corrections=0

@@ -1,0 +1,65 @@
+{
+  "at": "2026-10-22T00:48:52.375522+05:30",
+  "command": [
+    "C:\\Users\\Arlop\\Downloads\\SERAPH VARYA\\SERAPH Varya\\.venv\\Scripts\\python.exe",
+    "-u",
+    "C:\\Users\\Arlop\\Downloads\\SERAPH VARYA\\SERAPH Varya\\scripts\\run_live.py",
+    "--once",
+    "--once-timeout",
+    "5",
+    "--interval",
+    "1",
+    "--store",
+    "C:\\Users\\Arlop\\Downloads\\SERAPH VARYA\\SERAPH Varya\\docs\\evidence\\engineering-closeout-2026-10-21\\runtime-probe-final\\live.sqlite",
+    "--jobs",
+    "C:\\Users\\Arlop\\Downloads\\SERAPH VARYA\\SERAPH Varya\\docs\\evidence\\engineering-closeout-2026-10-21\\runtime-probe-final\\jobs.sqlite"
+  ],
+  "exit_code": 2,
+  "observation": {
+    "decision_ts": "2026-10-22T00:48:52+05:30",
+    "bar_end": null,
+    "publishable": false,
+    "recency": {
+      "newest_observation": "2026-10-21T17:34:27+05:30",
+      "now": "2026-10-22T00:48:52+05:30",
+      "age_minutes": 434.4,
+      "state": "delayed",
+      "is_live": false,
+      "may_publish_as_current": true,
+      "note": "the market is closed; the last session's close is the current reading"
+    },
+    "market": {
+      "state": "pre_open",
+      "at": "2026-10-22T00:48:52+05:30",
+      "day": "2026-10-22",
+      "opens_at": "2026-10-22T09:15:00+05:30",
+      "minutes_to_open": 506.1,
+      "session_kind": "regular"
+    },
+    "feed": {
+      "source_kind": "broker_websocket",
+      "connected": true,
+      "last_message_at": "2026-10-21T17:34:27+05:30",
+      "symbols": 5,
+      "is_live": true,
+      "detail": "connected"
+    },
+    "bars_closed": 0,
+    "symbols": 5,
+    "csrs": null,
+    "skipped_reason": "market is pre_open; no bar closed",
+    "bar_close_to_decision_ms": null,
+    "publication": null,
+    "version": "live.loop/2026-10-17.1",
+    "label": "NOT a current reading \u2014 see publication reasons",
+    "lease": {
+      "job": "live.market_loop",
+      "owner": "aru:35352",
+      "expires_at": "2026-10-22T01:18:52+05:30",
+      "generation": 6,
+      "took_over_expired_lease": false,
+      "previous_owner": null
+    }
+  },
+  "note": "Actual configured source, bounded probe against isolated copies; no fallback ticks."
+}

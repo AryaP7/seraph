@@ -1,0 +1,241 @@
+{
+  "classic_baseline": [
+    {
+      "path": "seraph/dashboard/__init__.py",
+      "baseline": "300fc0a47325a29a41a20b89e16d8e3763f8b2eafe8e9643f5ab4a294f3015bd",
+      "current": "300fc0a47325a29a41a20b89e16d8e3763f8b2eafe8e9643f5ab4a294f3015bd",
+      "equal": true
+    },
+    {
+      "path": "seraph/dashboard/app.py",
+      "baseline": "2842759da02835e3f71c098a34d23db9539b230528ed4c86c08d83e9eb6becfc",
+      "current": "2842759da02835e3f71c098a34d23db9539b230528ed4c86c08d83e9eb6becfc",
+      "equal": true
+    },
+    {
+      "path": "seraph/dashboard/assets/connected.css",
+      "baseline": "af131206e8be3928214cd87379dce086b32e022e11273667e00ae0c9400b541f",
+      "current": "af131206e8be3928214cd87379dce086b32e022e11273667e00ae0c9400b541f",
+      "equal": true
+    },
+    {
+      "path": "seraph/dashboard/assets/connected.html",
+      "baseline": "718daba6e1c0fa62ab97e00652e087e0b67c624a174e58786f62b09dfd337191",
+      "current": "718daba6e1c0fa62ab97e00652e087e0b67c624a174e58786f62b09dfd337191",
+      "equal": true
+    },
+    {
+      "path": "seraph/dashboard/assets/connected.js",
+      "baseline": "a289b518adb5e3f760a3e8964179721fcf8b913a9c59193fdece0fb0c7315aa8",
+      "current": "a289b518adb5e3f760a3e8964179721fcf8b913a9c59193fdece0fb0c7315aa8",
+      "equal": true
+    },
+    {
+      "path": "seraph/dashboard/assets/console.html",
+      "baseline": "462b1a9d56dbe0e1830f8624df891c08c5685b9cb6caff0fcaf087fe189268eb",
+      "current": "462b1a9d56dbe0e1830f8624df891c08c5685b9cb6caff0fcaf087fe189268eb",
+      "equal": true
+    },
+    {
+      "path": "seraph/dashboard/assets/frontend.html",
+      "baseline": "75222440d1f541ad297b740763ce69d6fea98199a5b2ff0d78d3cf1af0f69e4f",
+      "current": "75222440d1f541ad297b740763ce69d6fea98199a5b2ff0d78d3cf1af0f69e4f",
+      "equal": true
+    },
+    {
+      "path": "seraph/dashboard/assets/globe.html",
+      "baseline": "24b431d2426796d4e4e7c70b3f3724bd68c15ca2caeadf98b7750d32c5aa6b68",
+      "current": "24b431d2426796d4e4e7c70b3f3724bd68c15ca2caeadf98b7750d32c5aa6b68",
+      "equal": true
+    },
+    {
+      "path": "seraph/dashboard/assets/globe_core.js",
+      "baseline": "e27515ea805d73460915ca96ff85b652d9b839af058a1d7266bf7f2e4e890871",
+      "current": "e27515ea805d73460915ca96ff85b652d9b839af058a1d7266bf7f2e4e890871",
+      "equal": true
+    },
+    {
+      "path": "seraph/dashboard/assets/globe_geometry.js",
+      "baseline": "fcaa33237e29091f546da8299f0c80ef2c6eeebfa734e6cd5e165eee34703360",
+      "current": "fcaa33237e29091f546da8299f0c80ef2c6eeebfa734e6cd5e165eee34703360",
+      "equal": true
+    },
+    {
+      "path": "seraph/dashboard/assets/three.r128.min.js",
+      "baseline": "9274bbcec8d96168626c732b5d31c775aa8cfb7eaa0599bec0c175908a2c1ce2",
+      "current": "9274bbcec8d96168626c732b5d31c775aa8cfb7eaa0599bec0c175908a2c1ce2",
+      "equal": true
+    },
+    {
+      "path": "seraph/dashboard/connected_frontend.py",
+      "baseline": "368cfdab6a95e68f26a0cebd74380a4f95616dabffdc0af63fc718d8b3244492",
+      "current": "368cfdab6a95e68f26a0cebd74380a4f95616dabffdc0af63fc718d8b3244492",
+      "equal": true
+    },
+    {
+      "path": "seraph/dashboard/console_backend.py",
+      "baseline": "ca68a8df49d00addee29fdafbd389705ce9055fd28901eba5e87ff9de95a72c0",
+      "current": "d2868c3f65427c3edaf36022ece71250716e0d624637e24628c1507be2a51f04",
+      "equal": false
+    },
+    {
+      "path": "seraph/dashboard/console_component/bridge.js",
+      "baseline": "30dbd98d042357feba86ee228d260deadc9ef4f8ea084da3574bbe059e94a896",
+      "current": "cf9c15a444b478df37013807a5c960f74ede7b681bd1c4a89a2fb7e038755dc6",
+      "equal": false
+    },
+    {
+      "path": "seraph/dashboard/console_component/index.html",
+      "baseline": "6c21cf765cbb41506d107e135bbeff78643aab53b50508cb8a2348aadbd0faf0",
+      "current": "72ce7e50339d4ab8be362be9b9717763e119e83917b3f78c468337d205029f71",
+      "equal": false
+    },
+    {
+      "path": "seraph/dashboard/console_component/news_layer.js",
+      "baseline": "15873c146207752e208afae4a9f58f1bde6375ac2f0a807aeaac61a665786218",
+      "current": "15873c146207752e208afae4a9f58f1bde6375ac2f0a807aeaac61a665786218",
+      "equal": true
+    },
+    {
+      "path": "seraph/dashboard/console_component/preview_pillars.js",
+      "baseline": "4ca37b3bade2e002023e9c2faf63fe2a54ff55d73f6e425aeb4fc9936e08f53f",
+      "current": "4ca37b3bade2e002023e9c2faf63fe2a54ff55d73f6e425aeb4fc9936e08f53f",
+      "equal": true
+    },
+    {
+      "path": "seraph/dashboard/console_component/three.r128.min.js",
+      "baseline": "9274bbcec8d96168626c732b5d31c775aa8cfb7eaa0599bec0c175908a2c1ce2",
+      "current": "9274bbcec8d96168626c732b5d31c775aa8cfb7eaa0599bec0c175908a2c1ce2",
+      "equal": true
+    },
+    {
+      "path": "seraph/dashboard/current_reader.py",
+      "baseline": "c4c697c546a29bc03846378d86fb6e3a76f9d6bcf1b4b2a7def0ee1419f2f6b7",
+      "current": "c4c697c546a29bc03846378d86fb6e3a76f9d6bcf1b4b2a7def0ee1419f2f6b7",
+      "equal": true
+    },
+    {
+      "path": "seraph/dashboard/datasource.py",
+      "baseline": "7c73aae2bcf7e5375e4f1aa3aacbe8504df28c621dff61a059103e383e2b34da",
+      "current": "7c73aae2bcf7e5375e4f1aa3aacbe8504df28c621dff61a059103e383e2b34da",
+      "equal": true
+    },
+    {
+      "path": "seraph/dashboard/demo_data.py",
+      "baseline": "af25400e8d3d264bd4553863a73c0c8d6755ee2ce5babdada149a51b8862d97d",
+      "current": "af25400e8d3d264bd4553863a73c0c8d6755ee2ce5babdada149a51b8862d97d",
+      "equal": true
+    },
+    {
+      "path": "seraph/dashboard/gateway.py",
+      "baseline": "a7f66fff32b8a042f2969a7897fe5357f3716fa5d4e0ab85af97a367603e0226",
+      "current": "a7f66fff32b8a042f2969a7897fe5357f3716fa5d4e0ab85af97a367603e0226",
+      "equal": true
+    },
+    {
+      "path": "seraph/dashboard/globe_payload.py",
+      "baseline": "a5f9836fd3b3177ae93d91b3417b31c18fa1ef1cfd8cd1cd3a40314045ad24c4",
+      "current": "a5f9836fd3b3177ae93d91b3417b31c18fa1ef1cfd8cd1cd3a40314045ad24c4",
+      "equal": true
+    },
+    {
+      "path": "seraph/dashboard/institution_ui.py",
+      "baseline": "27e6612e80278db9a174bead159dd2ac6a154554695fdcb3c0f827dbcbd320b5",
+      "current": "27e6612e80278db9a174bead159dd2ac6a154554695fdcb3c0f827dbcbd320b5",
+      "equal": true
+    },
+    {
+      "path": "seraph/dashboard/network_ui.py",
+      "baseline": "50d1dd98fe0589c8827f1d64e67e0fef7613718edb1af9e47fb2b25e27287a7b",
+      "current": "50d1dd98fe0589c8827f1d64e67e0fef7613718edb1af9e47fb2b25e27287a7b",
+      "equal": true
+    },
+    {
+      "path": "seraph/dashboard/news_service.py",
+      "baseline": "5c58a4a157557881cb5466150e7bf9fd038d6bf24b2a1a92b3573962d13ecffd",
+      "current": "5c58a4a157557881cb5466150e7bf9fd038d6bf24b2a1a92b3573962d13ecffd",
+      "equal": true
+    },
+    {
+      "path": "seraph/dashboard/news_view.py",
+      "baseline": "5f87ba30db532fd41365f1d93f9d48ef120bac8ca02641b63d41c007d586e746",
+      "current": "5f87ba30db532fd41365f1d93f9d48ef120bac8ca02641b63d41c007d586e746",
+      "equal": true
+    },
+    {
+      "path": "seraph/dashboard/prototype_app.py",
+      "baseline": "c0645b2367f60869486b3c8601a42db0e255533cc881c1ccbbc28c1823bd37af",
+      "current": "e7797ea381a795f2270e7503b090590cb14f651f1d52ad89102c71de927814a9",
+      "equal": false
+    },
+    {
+      "path": "seraph/dashboard/scenario_ui.py",
+      "baseline": "893d72cb7938b33f8d233594121dc73fcd1d1bb270651bf0861a1e57423f2ca7",
+      "current": "893d72cb7938b33f8d233594121dc73fcd1d1bb270651bf0861a1e57423f2ca7",
+      "equal": true
+    },
+    {
+      "path": "seraph/dashboard/theme.py",
+      "baseline": "2b2667ca6fc86ac6134f580958d806264145aa662de79be730c5718242f216d0",
+      "current": "2b2667ca6fc86ac6134f580958d806264145aa662de79be730c5718242f216d0",
+      "equal": true
+    },
+    {
+      "path": "seraph/dashboard/workspace_service.py",
+      "baseline": "4081432bd9def64e5cb117a545c36f1597f6d419f9f0a727c6ecd02e00a98d05",
+      "current": "4081432bd9def64e5cb117a545c36f1597f6d419f9f0a727c6ecd02e00a98d05",
+      "equal": true
+    },
+    {
+      "path": "seraph/news/worker_lock.py",
+      "baseline": "3fa4a961f57bfaf79c2a4840dc2d86209cfbaa49a00fcebbc5a302ca29a2a44b",
+      "current": "3fa4a961f57bfaf79c2a4840dc2d86209cfbaa49a00fcebbc5a302ca29a2a44b",
+      "equal": true
+    },
+    {
+      "path": "launch_prototype.ps1",
+      "baseline": "eff3953f736ebd8321d289cd9f4fb3a88368d970210321e654b734103ddd4020",
+      "current": "eff3953f736ebd8321d289cd9f4fb3a88368d970210321e654b734103ddd4020",
+      "equal": true
+    }
+  ],
+  "emitted_upload_buttons": [
+    {
+      "class": "rd-button",
+      "data-rd-op": "ws_preview",
+      "data-rd-file-body": "rd-ws-file",
+      "data-rd-const-source_name": "upload"
+    },
+    {
+      "class": "rd-button",
+      "data-rd-op": "ws_commit",
+      "data-rd-file-body": "rd-ws-file",
+      "data-rd-field-effective_at": "rd-ws-effective",
+      "data-rd-const-source_name": "upload"
+    }
+  ],
+  "preview_as_emitted": {
+    "error": "ValueError: portfolio_id is required"
+  },
+  "commit_as_emitted": {
+    "error": "ValueError: portfolio_id is required"
+  },
+  "backend_with_required_id": {
+    "error": null,
+    "kind": "ws_preview",
+    "value": {
+      "import_id": "imp_488d141e589d47f0",
+      "source_name": "audit.csv",
+      "raw_hash": "923e06d29d5a1aeacc0b3717cdf14a165d53be5d688172a0b9523aa52ba76133",
+      "base_currency": "INR",
+      "accepted": 1,
+      "rejected": 0,
+      "total_value": 28000.0,
+      "duplicates_merged": [],
+      "rejected_rows": [],
+      "warnings": [],
+      "asset_scope": "long_only_equity_and_cash"
+    }
+  },
+  "writes": "Temporary isolated portfolio only; no user portfolio or application source edits."
+}

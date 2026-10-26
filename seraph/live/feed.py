@@ -235,10 +235,8 @@ class KiteTickerFeed:
     `KITE_API_KEY`/`KITE_API_SECRET` plus a daily access token, and raises
     `FeedUnavailable` without them rather than degrading to anything.
 
-    **Unverified.** No credentials exist in this checkout, so this adapter has
-    never connected to the live endpoint. Its contract and failure paths are
-    tested; its success path is not, and `health().detail` says so until a
-    real session has been established.
+    Health distinguishes an attempted connection, an established socket and
+    receipt of a valid quote. Broker rejection never counts as a live reading.
     """
 
     source_kind: SourceKind = "broker_websocket"
@@ -254,6 +252,8 @@ class KiteTickerFeed:
         self._symbols: tuple[str, ...] = ()
         self._tokens: dict[int, str] = {}
         self._verified = False
+        self._attempted = False
+        self._connection_problem: str | None = None
         #: Packets the provider sent that are not quotes, by reason. Visible
         #: in `health()`, because a feed silently dropping half its packets
         #: and a feed receiving nothing look identical otherwise.
@@ -329,16 +329,37 @@ class KiteTickerFeed:
                     continue
                 self._buffer.append(tick)
                 self._last = stamp
-            self._verified = True
+                self._verified = True
 
         def on_connect(ws, _response):                       # pragma: no cover
+            self._connection_problem = None
             ws.subscribe(list(self._tokens))
             ws.set_mode(ws.MODE_FULL, list(self._tokens))
 
+        def on_error(_ws, code, reason):
+            # Provider error text may contain a credential-bearing URL.
+            # Classify it, but never persist or display the raw text.
+            if str(code) == '403' or '403' in str(reason):
+                self._connection_problem = (
+                    'Broker rejected authentication or market-data access (403). '
+                    'Refresh the daily token with scripts/kite_login.py and '
+                    'verify the Kite market-data subscription.')
+            else:
+                self._connection_problem = (
+                    'Broker websocket failed. Check connectivity, the daily '
+                    'access token and the Kite market-data subscription.')
+
+        def on_close(_ws, _code, _reason):
+            if self._connection_problem is None:
+                self._connection_problem = 'Broker websocket closed; waiting for reconnection.'
+
         ticker.on_ticks = on_ticks
         ticker.on_connect = on_connect
-        ticker.connect(threaded=True)
+        ticker.on_error = on_error
+        ticker.on_close = on_close
         self._ticker = ticker
+        self._attempted = True
+        ticker.connect(threaded=True)
 
     def poll(self) -> list[Tick]:
         batch, self._buffer = self._buffer, []
@@ -348,9 +369,13 @@ class KiteTickerFeed:
         connected = bool(self._ticker and getattr(self._ticker, "is_connected",
                                                   lambda: False)())
         detail = ("connected" if connected else "not connected")
-        if not self._verified:
+        if self._connection_problem:
+            detail += '; ' + self._connection_problem
+        if not self._attempted:
             detail += ("; this adapter has never been exercised against the live "
                        "endpoint in this checkout")
+        elif not self._verified:
+            detail += '; no valid market quote has been received in this runtime'
         if self.rejected:
             total = sum(self.rejected.values())
             detail += (f"; {total} packet(s) rejected as not-a-quote: "
@@ -368,7 +393,8 @@ class KiteTickerFeed:
                 self._ticker = None
 
 
-def resolve_feed(*, allow_replay: ReplayFeed | None = None) -> MarketDataFeed:
+def resolve_feed(*, allow_replay: ReplayFeed | None = None,
+                 use_env_file: bool = False) -> MarketDataFeed:
     """Pick the source the caller asked for, and be explicit when there is none.
 
     **An explicit replay feed wins over credentials.** The previous order
@@ -386,6 +412,12 @@ def resolve_feed(*, allow_replay: ReplayFeed | None = None) -> MarketDataFeed:
     """
     if allow_replay is not None:
         return allow_replay
+    if use_env_file:
+        # The ordinary runtime uses the same configured credential source as
+        # the existing login/backfill client. Explicit replays return above
+        # without loading credentials or opening a broker connection.
+        from seraph.ingestion.kite_client import _load_env_file
+        _load_env_file()
     if os.environ.get("KITE_API_KEY"):
         return KiteTickerFeed()
     return NullFeed(

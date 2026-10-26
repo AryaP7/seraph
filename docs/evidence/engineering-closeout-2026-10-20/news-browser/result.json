@@ -1,0 +1,34 @@
+{
+  "institutional_panel": true,
+  "matrix_rendered": true,
+  "matrix_says_unsized": true,
+  "scenario_form_rendered": true,
+  "export_button_rendered": true,
+  "compare_offered": true,
+  "scenario_status": "\u25cf DONE \u2014 news_scenario",
+  "export_status": "\u25cf DONE \u2014 news_export",
+  "download_link": "seraph-news-analysis-v1-55d7303e063f-20261020T16570.json",
+  "download_verified": true,
+  "download_scenario_matches_inputs": true,
+  "download_decision_ts": "2026-10-20T16:57:01+05:30",
+  "result_rendered": true,
+  "export_carries_limitations": true,
+  "regulator_panel": true,
+  "review_queue_rendered": true,
+  "role_is_regulator": "regulator",
+  "review_controls": 100,
+  "refused_without_reason": true,
+  "review_status": "\u25cf SENDING\u2026 \u2014 news_project",
+  "decisions_recorded": 1,
+  "decision_rows": [
+    {
+      "later": "evt_34474fd1b8efc39e5947",
+      "earlier": "evt_probe_earlier",
+      "decision": "confirmed",
+      "reviewer": "demo-role:regulator",
+      "reason": "probe: same case number, confirmed against the register [local role selection in this console. This is a demonstration identity, NOT authentication, and the decision is recorded as such]",
+      "decided_at": "2026-10-20T16:58:05+05:30"
+    }
+  ],
+  "recorded_as_demo_identity": true
+}

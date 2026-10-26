@@ -1,0 +1,233 @@
+Browser tab: 1, Title: "SERAPH", URL: "http://127.0.0.1:8520/".
+1 AXWebArea SERAPH, URL: 127.0.0.1:8520/
+	2 container
+		3 container
+			4 link Description: Skip to main content, Value: 127.0.0.1:8520/#stMain
+			5 container stMain
+				123 text Building the news channel…
+				6 container app.seraph_redesigned_console
+					7 AXWebArea SERAPH — Systemic Risk Early-Warning · NSE, URL: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F
+						8 container shell
+							9 container
+								10 text SER APH
+								11 link Description: CURRENT, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								12 link Description: RISK MAP, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								13 link Description: HISTORICAL, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								14 link Description: CONSOLE, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								15 link Description: SIGNAL FEED, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								16 link Description: PILLARS, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								17 link Description: EXPOSURE, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								18 link Description: FORECASTS, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								19 link Description: EARLY WARNING, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								20 link Description: WORKSPACE, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								21 link Description: EVALUATION, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								22 link Description: HEALTH, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								23 link Description: TOOLS, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								24 link Description: METHOD, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								25 text HISTORICAL + TAGGED PREVIEWS
+								26 container roles
+									27 button REGULATOR
+									28 button INSTITUTIONAL
+									29 button RETAIL
+								30 text  LOCAL CLOCK — 
+								857 text 00:06:03
+								32 text  IST
+								33 text 1,019 desks · FABRICATED
+								34 button VIEW BACKTEST
+							895 text OVERVIEW
+							36 container preview-banner
+								126 text NOT A CURRENT MARKET READING  — the newest observation is 2369.4 days old. Anything computed from it is a REPLAY of that period, not a statement about the market now, and must be labelled as such | observed 2020-04-30T15:30:00+05:30 · now 2026-10-26T00:04:29+05:30 · market pre_open · feed: none — not connected, unauthenticated
+								127 text RUN 37bccf32974201f0 · 2020-04-30 · INSTITUTIONAL | STALE — newest item 8 min old; 4 of 22 sources past the freshness policy they declared. Nothing on screen reflects what has happened since. | NEWS current_news 2026-10-26T00:04:29+05:30 | 18/22 feeds fresh | CONNECTED: SIGNALS, SECTOR_STRESS, GEOGRAPHY, ASSETS | 12 evidenced map node(s) | MARKET 2020-04-30T15:30:00+05:30
+							39 container ticker
+								40 text FABRICATED PREVIEW NIFTY 50 24,812.30   0.34% BANK NIFTY 52,406.85   0.21% NIFTY METAL 9,140.20   1.86% NIFTY PHARMA 21,558.45   0.92% NIFTY AUTO 25,033.10   1.24% NIFTY IT 38,902.60   0.44% INDIA VIX 13.82   1.10% USD/INR 83.41   0.18%
+							852 container viewExtra
+								853 heading OVERVIEW, Value: 4, ID: extra-title
+									896 text OVERVIEW
+								856 container extra-content
+									897 text SELECTION
+									898 text what this projection is of
+									899 text RUN
+									900 pop up button (collapsed, settable) Value: 37bccf32974201f095d5c90bfe8f, Secondary Actions: Expand
+										901 menu
+											902 (selected) 37bccf32974201f095d5c90bfe8f
+									903 text DECISION DATE
+									904 pop up button (collapsed, settable) Value: 2020-04-30, Secondary Actions: Expand
+										905 menu
+											906 2020-01-01
+											907 2020-01-02
+											908 2020-01-03
+											909 2020-01-06
+											910 2020-01-07
+											911 2020-01-08
+											912 2020-01-09
+											913 2020-01-10
+											914 2020-01-13
+											915 2020-01-14
+											916 2020-01-15
+											917 2020-01-16
+											918 2020-01-17
+											919 2020-01-20
+											920 2020-01-21
+											921 2020-01-22
+											922 2020-01-23
+											923 2020-01-24
+											924 2020-01-27
+											925 2020-01-28
+											926 2020-01-29
+											927 2020-01-30
+											928 2020-01-31
+											929 2020-02-03
+											930 2020-02-04
+											931 2020-02-05
+											932 2020-02-06
+											933 2020-02-07
+											934 2020-02-10
+											935 2020-02-11
+											936 2020-02-12
+											937 2020-02-13
+											938 2020-02-14
+											939 2020-02-17
+											940 2020-02-18
+											941 2020-02-19
+											942 2020-02-20
+											943 2020-02-24
+											944 2020-02-25
+											945 2020-02-26
+											946 2020-02-27
+											947 2020-02-28
+											948 2020-03-02
+											949 2020-03-03
+											950 2020-03-04
+											951 2020-03-05
+											952 2020-03-06
+											953 2020-03-09
+											954 2020-03-11
+											955 2020-03-12
+											956 2020-03-13
+											957 2020-03-16
+											958 2020-03-17
+											959 2020-03-18
+											960 2020-03-19
+											961 2020-03-20
+											962 2020-03-23
+											963 2020-03-24
+											964 2020-03-25
+											965 2020-03-26
+											966 2020-03-27
+											967 2020-03-30
+											968 2020-03-31
+											969 2020-04-01
+											970 2020-04-03
+											971 2020-04-07
+											972 2020-04-08
+											973 2020-04-09
+											974 2020-04-13
+											975 2020-04-15
+											976 2020-04-16
+											977 2020-04-17
+											978 2020-04-20
+											979 2020-04-21
+											980 2020-04-22
+											981 2020-04-23
+											982 2020-04-24
+											983 2020-04-27
+											984 2020-04-28
+											985 2020-04-29
+											986 (selected) 2020-04-30
+									987 text SECTOR ANALYSIS BASIS
+									988 pop up button (collapsed, settable) Value: Selected market decision, Secondary Actions: Expand
+										989 menu
+											990 (selected) Selected market decision
+											991 Retrospective analytical arc
+									992 text NEWS CLOCK
+									993 pop up button (collapsed, settable) Value: current_news, Secondary Actions: Expand
+										994 menu
+											995 (selected) current_news
+											996 historical_decision
+									997 text Role is the console's own switcher, top left. The sector basis defaults to the selected market decision; the retrospective archive answers what was measured later and does not change the historical score.
+									998 text COMPOSITE SYSTEMIC RISK
+									999 text CSRS · FR28 / FR29
+									1000 container composite systemic risk score
+									1001 text historical replay · decision 2020-04-30T15:30:00+05:30
+									1002 text CSRS point estimate 0.9899 FR29 95% interval 0.739 – 1.000 unfilled scale (0–1)
+									1003 text WHY THIS IS NOT A CURRENT READING
+									1004 text · this is a replay, not a live session
+									1005 text · the market data source is not registered and authenticated
+									1006 text · the market data source is not connected
+									1007 text · the model state has not finished warming up
+									1008 text · the trading calendar is not verified for this instant
+									1009 text D2 mask degraded — not comparable with full-coverage readings
+									1010 text Severe systemic risk (0.99, 95% CI 0.74–1.00), driven mainly by a breakdown in diversification across the market. Note: this reading excludes hawkes, hamilton, which are unavailable for this period, so it is not comparable with full-coverage readings.
+									1011 text MARKET STATE HISTORY
+									1012 text FR41 — CSRS and official Nifty 500 returns
+									1013 image
+									1014 text CSRS — composite score, 0..1 NIFTY 500 (official NSE index close) — simple close-to-close return CSRS dates
+									1015 text 81
+									1016 text matched to benchmark
+									1017 text 81
+									1018 text descriptive correlation
+									1019 text 0.101
+									1020 text Two different units on two scales — the lines are not comparable in level. 0 session(s) with no CSRS break the line rather than being interpolated or zero-filled. descriptive correlation of CSRS against official benchmark returns over the paired dates. Not a validation result and not an advance-warning claim
+									1021 text PILLARS
+									1022 text Hawkes · RMT · Hamilton, in PILLAR_ORDER
+									1023 text HAWKES
+									1024 text original discrete intraday Hawkes
+									1025 text 0.1054
+									1026 text pillar score
+									1027 text excluded from the composite (D2 mask: excluded)
+									1028 text no fitted intraday estimate available at this decision time
+									1029 text information as of 2020-04-27T15:30:00+05:30
+									1030 text RMT
+									1031 text original cross-sectional RMT
+									1032 text 0.2415
+									1033 text pillar score
+									1034 text entered the composite (D2 mask: included)
+									1035 text no RMT observation on this session
+									1036 text information as of 2020-04-30T15:30:00+05:30
+									1037 text HAMILTON
+									1038 text original multivariate TVTP Hamilton
+									1039 text DECLARED NOT SCORED
+									1040 text regime support unvalidated; diagnostic only, existing exclusion preserved
+									1041 text origin: causal research archive NOT_PRODUCTION
+									1042 text information as of 2020-04-30T15:30:00+05:30
+									1043 text PILLAR READINGS — HOW THIS COMPOSITE WAS FORMED
+									1044 text signed Shapley contributions and D2 effective weights
+									1045 image per-pillar contributions
+									1046 text HAWKES +0.0000  · excluded by mask RMT +0.9899  CSRS score units HAMILTON +0.0000  · excluded by mask
+									1047 container
+										1048 text Axis is symmetric about zero and scaled to the largest absolute contribution (0.9899). These are signed contributions in CSRS score units — they are  not  shares of a total and do not sum to 100%. A dashed track is a pillar the D2 mask excluded: its contribution is 0 because it was not consulted, which is a different statement from a measured contribution of 0.
+									1049 image effective weights
+									1050 text HAWKES 0.000 RMT 1.000 HAMILTON 0.000
+									1051 container
+										1052 text Weights  are  a normalised allocation and are drawn as shares. The contributions on the left are signed, sum to the CSRS rather than to 1, and are not drawn that way.
+									1053 text MEASURED SECTOR ACTIVITY
+									1054 text FR14 — native intraday jump counts against baselines
+									1055 text NO MEASURED SECTOR OBSERVATIONS
+									1056 text No measured sector observation set was available at this decision
+									1057 text No eligible artifact at the cutoff. Acquire intraday bars via Kite or a supplied supported history, then run write_hawkes_sectors.py.
+									1058 text analysis mode
+									1059 text decision_time
+									1060 text cutoff
+									1061 text 2020-04-30T15:30:00+05:30
+									1062 text Only sector artifacts available by the selected market decision.
+									1063 text HOLDINGS
+									1064 text portfolio coverage at this decision
+									1065 text NO HOLDINGS SUPPLIED
+									1066 text no saved portfolio is active for this role. An empty table here means nothing was supplied, not that exposure is nil
+									1067 text MARKET FLOW
+									1068 text FR45 / FR51 — market aggregate
+									1069 text NO FLOW PRINT INGESTED
+									1070 text no FII/DII print has been ingested yet. Run `python -m seraph.ingestion.flow_client`; NSE serves no free bulk history, so the series accumulates forward from first capture
+									1071 text DECISION TIMELINE
+									1072 text every decision date in the selected run
+									1073 image decision-date timeline
+									1074 text 2020-01-01 2020-04-30 CSRS by decision date (peak 0.999) session with no CSRS — hollow, not zero no official benchmark return that date selected decision
+							119 container
+								1075 text NEWS CHANNEL · LIVE · 2328 ELIGIBLE EVENTS
+								1076 text OTHER — SBI Mutual Fund - SBI Nifty50 Equal Weight ETF · OTHER — Moschip Technologies Limited · PHYSICAL_HAZARD — M 4.6 - 153 km WNW of Adak, Alaska · PHYSICAL_HAZARD — M 5.2 - 59 km SW of Ashkāsham, Afghanistan · PHYSICAL_HAZARD — M 4.7 - 19 km NE of Atico, Peru · OTHER — प्रधानमंत्री ने वाराणसी यात्रा की झलकियाँ साझा कीं · OTHER — &#2327;&#2357;&#2352;&#2381;&#2344;&#2352; &#2325;&#2366; &#2360;&#2381;&#2357;&#2366;&#2327;&#2340; &#2360;&#2306;&#2348;&#2379;&#2343;&#2344; - RBI &#2325;&#2375; &#2337;&#2375;&#2335;&#2366; &#2360;&#2375;&#2306;&#2335;&#2352; &#2324;&#2352; &#2360;&#2366;&#2311;&#2348;&#2352; &#2360;&#2369;&#2352;&#2325;&#2381;&#2359;&#2366; &#2346;&#2381;&#2352;&#2358;&#2367;&#2325;&#2381;&#2359;&#2339; &#2360;&#2306;&#2360;&#2381;&#2341;&#2366;&#2344; &#2325;&#2366; &#2313;&#2342;&#2381;&#2328;&#2366;&#2335;&#2344; - · FACILITY_INCIDENT — Green forest fire notification in South Sudan · FACILITY_INCIDENT — Green forest fire notification in Zambia · OTHER — Ravindra Energy Limited · FACILITY_INCIDENT — Green forest fire notification in Zambia, Malawi · FACILITY_INCIDENT — Green forest fire notification in Senegal · REGULATORY_ACTION — सीसीपीए ने भ्रामक विज्ञापनों और वॉकी-टॉकी की गैर-अनुपालन बिक्री के खिलाफ कार्रवाई तेज की · OTHER — Green notification for tropical cyclone VANCE-26. Population affected by Category 1 (120 km/h) wind speeds or higher is 0 (0 in Tropical Storm). · OTHER — SKP Bearing Industries Limited · OTHER — एनआईएफटीईएम-के ने भारत के पहले ‘एआई × फूड टेक हैकाथॉन’, ‘हैक द फोर्क’ का आयोजन किया · FACILITY_INCIDENT — Green forest fire notification in Mali · OTHER — ECL Finance Limited · OTHER — ‘विकसित भारत 2047’ की दिशा में शहरी प्रशासन, योजना और सेवाओं की आपूर्ति को मजबूत करने संबंधी व्यावहारिक सुझावों के साथ ‘राष्ट्रीय शहरी सम्मेलन 2026’ संपन्न · OTHER — 12वां ब्रिक्स संसदीय मंच कल संसद भवन परिसर में आयोजित होगा · FACILITY_INCIDENT — Green forest fire notification in Mauritania, Mali · OTHER — GMR AIRPORTS LIMITED · OTHER — Aditya Birla Sun Life Insurance Company Limited · OTHER — Green notification for tropical cyclone IN-FA-26. Population affected by Category 1 (120 km/h) wind speeds or higher is 0 (0 in Tropical Storm). · OTHER — उपराष्ट्रपति सी. पी. राधाकृष्णन 26-27 अक्टूबर को आंध्र प्रदेश के दौरे पर रहेंगे · OTHER — Red notification for tropical cyclone CHAMPI-26. Population affected by Category 1 (120 km/h) wind speeds or higher is 0.291 million . · OTHER — Hon’ble Prime Minister of India inaugurates the Reserve Bank of India’s Data Centre and Cybersecurity Training Institute in Bhubaneswar, Odisha · OTHER — भुवनेश्वर में आरबीआइ की प्रमुख सुविधाओं के उद्घाटन के दौरान प्रधानमंत्री के संबोधन का मूल पाठ · OTHER — प्रधानमंत्री श्री नरेन्द्र मोदी ने ओडिशा के भुवनेश्वर में आरबीआई के नवनिर्मित डेटा सेंटर और साइबर सुरक्षा प्रशिक्षण संस्थान का उद्घाटन किया · OTHER — Green notification for tropical cyclone THREE-C-26. Population affected by Category 1 (120 km/h) wind speeds or higher is 0 (0 in Tropical Storm).
+						122 container req-status-global
+							892 text ● NO RESPONSE  — no response in 15s. Retry sends the same request id, so a request that did arrive cannot be applied twice. 
+							893 button Retry, ID: req-retry
+							894 button Cancel, ID: req-cancel
+
+The focused UI element is 13 link Description: HISTORICAL, URL: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#

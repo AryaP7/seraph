@@ -1,0 +1,59 @@
+.....ss......ssss....................................................... [  2%]
+........................................................................ [  5%]
+........................................................................ [  8%]
+........................................................................ [ 11%]
+...............................................sssss.................... [ 13%]
+............................ss.......................................... [ 16%]
+........................................................................ [ 19%]
+........................................................................ [ 22%]
+.........s.............................................................. [ 24%]
+...............................................s........................ [ 27%]
+........................................................................ [ 30%]
+........................................................................ [ 33%]
+........................................................................ [ 36%]
+........................................................................ [ 38%]
+........................................................................ [ 41%]
+........................................................................ [ 44%]
+........................................................................ [ 47%]
+........................................................................ [ 49%]
+........................................................................ [ 52%]
+........................................................................ [ 55%]
+...............................................F
+================================== FAILURES ===================================
+__________________ TestTheTradingDayGate.test_a_weekday_runs __________________
+
+self = <test_o03_scheduling.TestTheTradingDayGate object at 0x0000020D4307CB00>
+
+    def test_a_weekday_runs(self):
+>       assert schedule.should_run('2026-10-20')['run'] is True
+E       assert False is True
+
+tests\test_o03_scheduling.py:53: AssertionError
+============================= slowest 8 durations =============================
+217.47s call     tests/contract/test_ct7_simulator_consistency.py::test_fr48_policy_path_routes_through_the_fitted_regime_model
+143.51s call     tests/test_c7_hamilton.py::test_c7_tvtp_covariates_are_accepted
+111.65s call     tests/test_c7_hamilton_causal.py::test_production_path_uses_filtered_not_smoothed
+111.08s call     tests/test_c7_hamilton_regime_recovery.py::test_tvtp_fit_is_not_below_its_nested_restriction
+65.67s setup    tests/test_c7_hamilton_causal.py::test_multistart_returns_a_converged_fit
+28.06s call     tests/test_c7_hamilton_regime_recovery.py::test_tvtp_warm_start_reproduces_the_nested_transition_matrix
+17.74s call     tests/test_c7_hamilton_causal.py::test_nesting_invariant_full_tvtp_beats_its_own_restriction
+13.01s call     tests/test_c7_hamilton_regime_recovery.py::test_three_state_fit_recovers_known_regimes
+=========================== short test summary info ===========================
+SKIPPED [1] tests\contract\test_ct1_ingestion_idempotency.py:77: database unusable: ConnectionRefusedError: [WinError 1225] The remote computer refused the network connection. DB tests need a disposable seraph_test_* database with SERAPH_TEST_DB_DSN and SERAPH_TEST_TOKEN (see tests/conftest.py); `docker compose up -d` alone is not enough
+SKIPPED [1] tests\contract\test_ct1_ingestion_idempotency.py:109: database unusable: ConnectionRefusedError: [WinError 1225] The remote computer refused the network connection. DB tests need a disposable seraph_test_* database with SERAPH_TEST_DB_DSN and SERAPH_TEST_TOKEN (see tests/conftest.py); `docker compose up -d` alone is not enough
+SKIPPED [1] tests\contract\test_ct3_jump_sufficiency.py:149: not enough intraday bars yet � run scripts/backfill_intraday.py
+SKIPPED [1] tests\contract\test_ct3_jump_sufficiency.py:179: not enough intraday bars yet � run scripts/backfill_intraday.py
+SKIPPED [1] tests\contract\test_ct3_jump_sufficiency.py:191: not enough intraday bars yet � run scripts/backfill_intraday.py
+SKIPPED [1] tests\contract\test_ct3_jump_sufficiency.py:198: not enough intraday bars yet � run scripts/backfill_intraday.py
+SKIPPED [1] tests\test_c2_macro_ingestion.py:796: database unusable: ConnectionRefusedError: [WinError 1225] The remote computer refused the network connection. DB tests need a disposable seraph_test_* database with SERAPH_TEST_DB_DSN and SERAPH_TEST_TOKEN (see tests/conftest.py); `docker compose up -d` alone is not enough
+SKIPPED [1] tests\test_c2_macro_ingestion.py:831: database unusable: ConnectionRefusedError: [WinError 1225] The remote computer refused the network connection. DB tests need a disposable seraph_test_* database with SERAPH_TEST_DB_DSN and SERAPH_TEST_TOKEN (see tests/conftest.py); `docker compose up -d` alone is not enough
+SKIPPED [1] tests\test_c2_macro_ingestion.py:873: database unusable: ConnectionRefusedError: [WinError 1225] The remote computer refused the network connection. DB tests need a disposable seraph_test_* database with SERAPH_TEST_DB_DSN and SERAPH_TEST_TOKEN (see tests/conftest.py); `docker compose up -d` alone is not enough
+SKIPPED [1] tests\test_c2_macro_ingestion.py:923: database unusable: ConnectionRefusedError: [WinError 1225] The remote computer refused the network connection. DB tests need a disposable seraph_test_* database with SERAPH_TEST_DB_DSN and SERAPH_TEST_TOKEN (see tests/conftest.py); `docker compose up -d` alone is not enough
+SKIPPED [1] tests\test_c2_macro_ingestion.py:952: database unusable: ConnectionRefusedError: [WinError 1225] The remote computer refused the network connection. DB tests need a disposable seraph_test_* database with SERAPH_TEST_DB_DSN and SERAPH_TEST_TOKEN (see tests/conftest.py); `docker compose up -d` alone is not enough
+SKIPPED [1] tests\test_c5_hawkes_writer.py:279: database unusable; DB tests need a disposable seraph_test_* database with SERAPH_TEST_DB_DSN and SERAPH_TEST_TOKEN (see tests/conftest.py); `docker compose up -d` alone is not enough
+SKIPPED [1] tests\test_c5_hawkes_writer.py:336: database unusable; DB tests need a disposable seraph_test_* database with SERAPH_TEST_DB_DSN and SERAPH_TEST_TOKEN (see tests/conftest.py); `docker compose up -d` alone is not enough
+SKIPPED [1] tests\test_fix06_evaluation_identity.py:182: needs a disposable seraph_test_* database; set SERAPH_TEST_DB_DSN and SERAPH_TEST_TOKEN
+SKIPPED [1] tests\test_fresh_data_acquisition.py:445: hits NSE. Set SERAPH_LIVE_NSE=1 to run. A suite that silently depends on an exchange being reachable fails for reasons unrelated to the code.
+FAILED tests/test_o03_scheduling.py::TestTheTradingDayGate::test_a_weekday_runs
+!!!!!!!!!!!!!!!!!!!!!!!!!! stopping after 1 failures !!!!!!!!!!!!!!!!!!!!!!!!!!
+1 failed, 1472 passed, 15 skipped in 954.67s (0:15:54)

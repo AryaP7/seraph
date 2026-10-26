@@ -1,0 +1,31 @@
+{
+  "as_of": "2026-10-19",
+  "displayed_probability": 0.06228860880129451,
+  "stored_probability": 0.06228860880129451,
+  "forecast_id": "7dd4b39b97c55a1f5fe6fe0d1049ab00bd79eb10b16c25f3487896848d35c88c",
+  "issued_at": "2026-10-20T22:06:41.212429+05:30",
+  "mode": "delayed_operational",
+  "retry": {
+    "target": "research_market_loss10_15",
+    "model": "operational_combined",
+    "as_of": "2026-10-19",
+    "artefact_id": "4290dc84f223fc204f2fd5f8ec4eb1f792a86119449d7d01559068d40ed29776",
+    "issued_at": "2026-10-20T22:06:41.212429+05:30",
+    "matures_after": "2026-11-03",
+    "stored": false,
+    "forecast_id": "7dd4b39b97c55a1f5fe6fe0d1049ab00bd79eb10b16c25f3487896848d35c88c",
+    "mode": "delayed_operational",
+    "series_id": "seraph-pit-equal-weight-log-return/1"
+  },
+  "settlement": {
+    "settled": [],
+    "pending": [
+      {
+        "as_of": "2026-10-19",
+        "reason": "outcome window not yet observed"
+      }
+    ]
+  },
+  "model_manifest_hash": "4290dc84f223fc204f2fd5f8ec4eb1f792a86119449d7d01559068d40ed29776",
+  "inputs_hash": "3bff505bf9f60a59b5d2bef101160eb0f6c94777b037ad62556ee1a440e35238"
+}

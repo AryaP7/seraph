@@ -20,8 +20,8 @@ live in one step rather than three the scheduler has to sequence:
    downstream.
 3. **Rebuild the market snapshot** the prediction engine reads.
 
-Steps 2 and 3 run only when step 1 stored something. Re-deriving unchanged
-inputs would burn two minutes a day to produce identical files.
+Steps 2 and 3 run when new sessions arrive or a prior derivation is pending.
+The published cutoff also detects a crash before pending status was saved.
 
 The snapshot is rebuilt into `research_data/current/`, NOT over
 `research_data/market_snapshot.parquet`. That file is the input
@@ -34,6 +34,9 @@ from __future__ import annotations
 import argparse
 import asyncio
 import json
+import hashlib
+import os
+import uuid
 import subprocess
 import sys
 from datetime import datetime
@@ -62,8 +65,29 @@ def _stamp() -> str:
 def _write(report: dict) -> None:
     path = status_path()
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(report, indent=2, default=str),
-                    encoding="utf-8")
+    temporary = path.with_suffix('.tmp')
+    temporary.write_text(json.dumps(report, indent=2, default=str), encoding="utf-8")
+    os.replace(temporary, path)
+
+
+def _published_cutoff():
+    """Only a checked pair of snapshot/manifest bytes is a derived input."""
+    current = ROOT / 'research_data/current'
+    try:
+        pointer = current / 'active.json'
+        info = json.loads(pointer.read_text()) if pointer.exists() else None
+        folder = current / 'versions' / info['version'] if info else current
+        manifest_path = folder / 'manifest.json'
+        manifest = json.loads(manifest_path.read_text())
+        digest = hashlib.sha256((folder / 'market_snapshot.parquet').read_bytes()).hexdigest()
+        if digest != manifest['files']['market_snapshot.parquet']:
+            return None
+        if info and (digest != info['sha256'] or
+                     hashlib.sha256(manifest_path.read_bytes()).hexdigest() != info['manifest_sha256']):
+            return None
+        return manifest['to']
+    except (OSError, ValueError, KeyError):
+        return None
 
 
 def status() -> dict:
@@ -108,6 +132,7 @@ def _research_dsn() -> str:
 def run(*, limit: int | None = None, refresh: bool = False) -> dict:
     from seraph.ingestion import bhavcopy_client
 
+    previous = status()
     acquisition = asyncio.run(bhavcopy_client.acquire(limit=limit,
                                                       refresh=refresh))
     report = dict(generated=_stamp(), acquisition=acquisition,
@@ -115,12 +140,23 @@ def run(*, limit: int | None = None, refresh: bool = False) -> dict:
                   acquired=bool(acquisition.get("acquired")))
 
     if acquisition.get("blocked"):
-        report.update(ok=False, note=acquisition["blocked"])
+        report.update(ok=False, note=acquisition["blocked"],
+                      pending_derived_sessions=previous.get('pending_derived_sessions', []))
         _write(report)
         return report
 
     stored = acquisition.get("stored_sessions") or []
-    if not stored:
+    pending = set(previous.get("pending_derived_sessions") or [])
+    # Recover older status records that predate the explicit pending field.
+    if any(not s.get('ok') for s in previous.get('derived', [])):
+        pending.update((previous.get('acquisition') or {}).get('stored_sessions') or [])
+    pending.update(stored)
+    published = _published_cutoff()
+    latest = acquisition.get('latest_after')
+    if latest and (published is None or published < latest):
+        pending.add(latest)
+    report.update(corpus_cutoff=latest, snapshot_cutoff=published)
+    if not pending:
         report["note"] = (
             "executed, acquired nothing. Every requested session was already "
             "stored or not published (a holiday, or the file is not out yet). "
@@ -131,19 +167,52 @@ def run(*, limit: int | None = None, refresh: bool = False) -> dict:
 
     # Only the years that gained sessions. A full 2005-2026 rebuild re-reads
     # every rebalance for no reason.
-    years = sorted({day[:4] for day in stored})
+    report['pending_derived_sessions'] = sorted(pending)
+    report['corpus_cutoff'] = acquisition.get('latest_after')
+    _write(report)  # Crash recovery starts before the first derived operation.
+    years = sorted({day[:4] for day in stored} | {day[:4] for day in pending})
+    if published and latest and published < latest:
+        years = sorted(set(years) | {str(y) for y in
+                       range(int(published[:4]), int(latest[:4]) + 1)})
     steps = [
         _step(f"universe flags {year}",
               ["scripts/build_universe.py", "--from", year, "--to", year],
               timeout=1800)
         for year in years
     ]
-    steps.append(_step(
+    version = Path("research_data/current/versions") / uuid.uuid4().hex
+    if all(s['ok'] for s in steps):
+        steps.append(_step(
         "market snapshot",
         ["scripts/snapshot_research_data.py",
-         "--out", "research_data/current",
+         "--out", str(version),
          "--source-dsn", _research_dsn()],
         timeout=1800))
+    if all(s['ok'] for s in steps):
+        try:
+            manifest_path = ROOT / version / 'manifest.json'
+            manifest = json.loads(manifest_path.read_text(encoding='utf-8'))
+            snapshot = ROOT / version / 'market_snapshot.parquet'
+            digest = hashlib.sha256(snapshot.read_bytes()).hexdigest()
+            if digest != manifest['files']['market_snapshot.parquet']:
+                raise ValueError('snapshot bytes do not match manifest')
+            if manifest['to'] != acquisition.get('latest_after'):
+                raise ValueError('derived cutoff differs from corpus cutoff')
+            from seraph.prediction.operational import _snapshot_frame
+            frame = _snapshot_frame(snapshot)
+            if str(frame['date'].iloc[-1])[:10] != manifest['to']:
+                raise ValueError('snapshot dates do not match manifest')
+            pointer = ROOT / 'research_data/current/active.json'
+            temporary = pointer.with_suffix('.tmp')
+            temporary.write_text(json.dumps(dict(
+                version=version.name, sha256=digest,
+                manifest_sha256=hashlib.sha256(manifest_path.read_bytes()).hexdigest(),
+                cutoff=manifest['to'])), encoding='utf-8')
+            os.replace(temporary, pointer)
+            report.update(pending_derived_sessions=[], snapshot_cutoff=manifest['to'],
+                          snapshot_sha256=digest)
+        except (OSError, ValueError, KeyError) as exc:
+            steps.append(dict(step='publish snapshot', ok=False, error=str(exc)))
 
     report["derived"] = steps
     report["ok"] = report["ok"] and all(s["ok"] for s in steps)

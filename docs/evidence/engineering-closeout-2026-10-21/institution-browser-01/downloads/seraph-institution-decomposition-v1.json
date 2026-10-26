@@ -1,0 +1,110 @@
+{
+  "schema": "institution-decomposition/1",
+  "cutoff": "2026-10-21T19:49:19+05:30",
+  "currency": "INR",
+  "total_known_value": 3000.0,
+  "institutions": [
+    {
+      "currency": "INR",
+      "effective_at": "2026-10-21T19:44:24+05:30",
+      "institution_id": "DEMO-B",
+      "name": "Demonstration B",
+      "owner_scope": "org_demo",
+      "positions": [
+        {
+          "account": null,
+          "cash": false,
+          "currency": "INR",
+          "index": 1,
+          "isin": null,
+          "price": null,
+          "quantity": 20.0,
+          "raw": {
+            "quantity": "20",
+            "sector": "technology",
+            "symbol": "INFY",
+            "value": "2000"
+          },
+          "sector": "technology",
+          "symbol": "INFY",
+          "value": 2000.0
+        }
+      ],
+      "schema": "institution-submission/1",
+      "source": "demo",
+      "source_sha256": "2f36bc91cae30274b7e4d5b79b3a961d9223333fa10c7cef3e4cc02db455dde5",
+      "submitter": "usr_5e6e1a448bfd478e",
+      "valuation_basis": "caller-supplied position values; no FX conversion",
+      "revision": 1,
+      "received_at": "2026-10-21T19:44:24+05:30",
+      "content_hash": "e0373599594c52169cdbb659b5f6ac6a576bd1555b02d68f4991cac5511ca3ea",
+      "total_value": 2000.0,
+      "unsized_positions": 0,
+      "sectors": {
+        "technology": 2000.0
+      },
+      "share_pct": 66.66666666666667
+    },
+    {
+      "currency": "INR",
+      "effective_at": "2026-10-21T19:44:16+05:30",
+      "institution_id": "DEMO-A",
+      "name": "Demonstration A",
+      "owner_scope": "org_demo",
+      "positions": [
+        {
+          "account": null,
+          "cash": false,
+          "currency": "INR",
+          "index": 1,
+          "isin": null,
+          "price": null,
+          "quantity": 10.0,
+          "raw": {
+            "quantity": "10",
+            "sector": "steel",
+            "symbol": "TATASTEEL",
+            "value": "1000"
+          },
+          "sector": "steel",
+          "symbol": "TATASTEEL",
+          "value": 1000.0
+        }
+      ],
+      "schema": "institution-submission/1",
+      "source": "demo",
+      "source_sha256": "2df5772a81a552eb76ce1ed925ba0d29aece3af54a9c1d2db990fe7cdba080d2",
+      "submitter": "usr_5e6e1a448bfd478e",
+      "valuation_basis": "caller-supplied position values; no FX conversion",
+      "revision": 1,
+      "received_at": "2026-10-21T19:44:16+05:30",
+      "content_hash": "bba14857a1c0a2050d791eae90785e8fa189647860f889dc72f8233fba5cfd5d",
+      "total_value": 1000.0,
+      "unsized_positions": 0,
+      "sectors": {
+        "steel": 1000.0
+      },
+      "share_pct": 33.333333333333336
+    }
+  ],
+  "sectors": [
+    {
+      "sector": "steel",
+      "value": 1000.0,
+      "share_pct": 33.333333333333336,
+      "flag": null,
+      "covered": false
+    },
+    {
+      "sector": "technology",
+      "value": 2000.0,
+      "share_pct": 66.66666666666667,
+      "flag": null,
+      "covered": false
+    }
+  ],
+  "unsized_positions": 0,
+  "unmapped_value": 0.0,
+  "covered_value": 0,
+  "note": "Market-value exposure shares, not loss or CSRS contributions. Demo/user-supplied positions retain their source labels."
+}

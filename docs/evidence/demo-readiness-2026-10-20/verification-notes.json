@@ -1,0 +1,42 @@
+{
+  "invariant_check": {
+    "exit_code": 0,
+    "checks": [
+      "PILLAR_ORDER consistency",
+      "C9 fusion purity",
+      "AR_t placement",
+      "Explicit IST timestamps",
+      "shared_types frozen audit (informational)",
+      "lockfile coverage",
+      "root credential check (informational finding emitted)"
+    ],
+    "note": "Observed output in this audit; checker also reports a credential-shaped root file. No credential content was read or copied."
+  },
+  "research_artifact_check": {
+    "status": "passed",
+    "supervised_refits": 876,
+    "alert_refits": 977,
+    "data_hashes": "verified",
+    "code_hashes": "verified",
+    "output_hashes": "verified",
+    "exact_replication": [
+      "predictions.parquet",
+      "features.parquet"
+    ],
+    "original_preservation_check": "not_requested"
+  },
+  "browser": {
+    "status": "failed",
+    "failure": "history.forEach is not a function",
+    "frontend": "seraph/dashboard/console_component/bridge.js:132",
+    "backend": "seraph/dashboard/console_backend.py:232",
+    "evidence": "browser.json",
+    "source_stores": "copied; source SQLite opened read-only; acquisition disabled",
+    "process_cleanup": "all processes owned by the probes were stopped"
+  },
+  "prior_evidence_reused": [
+    "docs/evidence/PACKAGING-2026-10-20.json",
+    "docs/evidence/news-intelligence/news-completion-2026-10-19/browser-workflows/result.json"
+  ],
+  "evidence_limit": "The functional packaging check reads existing evidence; this audit did not rebuild/reinstall the wheel. Current real browser is stronger evidence of current demo rendering than earlier passing browser records."
+}

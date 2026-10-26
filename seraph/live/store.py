@@ -401,6 +401,23 @@ class LiveStore:
                 f"or before its own cutoff has no horizon")
         stamp = _stamp(at)
         with self.connect() as db:
+            # The read/compare/insert is one operation across competing issuers.
+            db.execute("BEGIN IMMEDIATE")
+            existing = db.execute(
+                "SELECT * FROM prospective_forecasts WHERE target=? AND model=? "
+                "AND as_of=? AND artefact_id=?",
+                (target, model, as_of, artefact_id)).fetchone()
+            if existing is not None:
+                expected = dict(horizon=int(horizon), matures_after=matures_after,
+                    probability=probability, threshold=threshold,
+                    alarm=None if alarm is None else int(bool(alarm)),
+                    fit_status=fit_status, inputs_hash=inputs_hash,
+                    detail_json=json.dumps(detail or {}, sort_keys=True, default=str))
+                if any(existing[k] != v for k, v in expected.items()):
+                    raise StoreError('conflicting content for an already issued forecast')
+                return dict(target=target, model=model, as_of=as_of,
+                            artefact_id=artefact_id, issued_at=existing['issued_at'],
+                            matures_after=matures_after, stored=False)
             db.execute(
                 "INSERT OR IGNORE INTO prospective_forecasts("
                 "target, model, as_of, artefact_id, issued_at, horizon, "
@@ -419,7 +436,7 @@ class LiveStore:
     def attach_outcome(self, *, target: str, model: str, as_of: str,
                        artefact_id: str, outcome: float,
                        now: str | None = None,
-                       at: datetime | None = None) -> dict:
+                       at: datetime | None = None, evidence: dict | None = None) -> dict:
         """Attach a realised outcome, but only after the horizon has elapsed.
 
         This is the guard that keeps the ledger prospective. Writing an
@@ -449,9 +466,10 @@ class LiveStore:
                     f"outcome now would score the forecast against a label "
                     f"its own horizon has not finished producing")
             db.execute(
-                "UPDATE prospective_forecasts SET outcome=?, outcome_at=? "
+                "UPDATE prospective_forecasts SET outcome=?, outcome_at=?, outcome_evidence_json=? "
                 "WHERE target=? AND model=? AND as_of=? AND artefact_id=?",
-                (float(outcome), moment, target, model, as_of, artefact_id))
+                (float(outcome), moment, json.dumps(evidence, sort_keys=True),
+                 target, model, as_of, artefact_id))
         return dict(target=target, model=model, as_of=as_of,
                     artefact_id=artefact_id, outcome=float(outcome),
                     outcome_at=moment)
@@ -864,7 +882,8 @@ def _forecast_row(row) -> dict:
                 alarm=(None if row["alarm"] is None else bool(row["alarm"])),
                 fit_status=row["fit_status"], inputs_hash=row["inputs_hash"],
                 outcome=row["outcome"], outcome_at=row["outcome_at"],
-                detail=json.loads(row["detail_json"] or "{}"))
+                detail=json.loads(row["detail_json"] or "{}"),
+                outcome_evidence=json.loads(row["outcome_evidence_json"] or "null"))
 
 
 def _vintage_row(row) -> dict:

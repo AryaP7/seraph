@@ -1,0 +1,554 @@
+Browser tab: 1, Title: "SERAPH", URL: "http://127.0.0.1:8520/".
+0 AXWebArea SERAPH, URL: 127.0.0.1:8520/
+	1 container
+		2 container
+			3 link Description: Skip to main content, Value: 127.0.0.1:8520/#stMain
+			4 container stMain
+				5 container app.seraph_redesigned_console
+					6 AXWebArea SERAPH — Systemic Risk Early-Warning · NSE, URL: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F
+						7 container shell
+							8 container
+								9 text SER APH
+								10 link Description: CURRENT, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								11 link Description: RISK MAP, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								12 link Description: HISTORICAL, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								13 link Description: CONSOLE, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								14 link Description: SIGNAL FEED, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								15 link Description: PILLARS, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								16 link Description: EXPOSURE, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								17 link Description: FORECASTS, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								18 link Description: EARLY WARNING, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								19 link Description: WORKSPACE, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								20 link Description: EVALUATION, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								21 link Description: HEALTH, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								22 link Description: TOOLS, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								23 link Description: METHOD, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								24 text HISTORICAL + TAGGED PREVIEWS
+								25 container roles
+									26 button REGULATOR
+									27 button INSTITUTIONAL
+									28 button RETAIL
+								29 text  LOCAL CLOCK — 
+								124 text 00:02:50
+								31 text  IST
+								32 text 1,019 desks · FABRICATED
+								33 button VIEW BACKTEST
+							125 text FEED
+							35 container preview-banner
+								36 text NOT A CURRENT MARKET READING  — the newest observation is 2369.4 days old. Anything computed from it is a REPLAY of that period, not a statement about the market now, and must be labelled as such | observed 2020-04-30T15:30:00+05:30 · now 2026-10-25T23:59:31+05:30 · market not_a_session · feed: none — not connected, unauthenticated
+								37 text RUN 37bccf32974201f0 · 2020-04-30 · RETAIL | STALE — newest item 2 min old; 4 of 22 sources past the freshness policy they declared. Nothing on screen reflects what has happened since. | NEWS current_news 2026-10-25T23:58:30+05:30 | 18/22 feeds fresh | CONNECTED: SIGNALS, SECTOR_STRESS, GEOGRAPHY, ASSETS | 12 evidenced map node(s) | MARKET 2020-04-30T15:30:00+05:30
+							38 container ticker
+								39 text FABRICATED PREVIEW NIFTY 50 24,812.30   0.34% BANK NIFTY 52,406.85   0.21% NIFTY METAL 9,140.20   1.86% NIFTY PHARMA 21,558.45   0.92% NIFTY AUTO 25,033.10   1.24% NIFTY IT 38,902.60   0.44% INDIA VIX 13.82   1.10% USD/INR 83.41   0.18%
+							126 container viewExtra
+								127 heading FEED, Value: 4, ID: extra-title
+									128 text FEED
+								129 container extra-content (showing 0-500 of 616 items)
+									130 heading SERAPH ALERT · PERSISTED, Value: 4
+										131 text SERAPH ALERT · PERSISTED
+									132 text Severe systemic risk (0.99, 95% CI 0.74–1.00), driven mainly by a breakdown in diversification across the market. Note: this reading excludes hawkes, hamilton, which are unavailable for this period, so it is not comparable with full-coverage readings.
+									133 heading NEWS FEED · RECEIVED SOURCES, Value: 4
+										134 text NEWS FEED · RECEIVED SOURCES
+									135 text other
+									136 text SBI Mutual Fund - SBI Nifty50 Equal Weight ETF
+									137 text first seen
+									138 text 2026-10-25T23:56:47+05:30
+									139 text confirmed_statement · unknown · unknown
+									140 text Indian ISSUER-level announcements, the primary channel for company events in this market and previously absent entirely.
+									141 link Description: nse_corporate_announcements · evidence, Value: nsearchives.nseindia.com/content/RSS/Online_announcements.xml
+									142 text  · headline only · quotation withheld by licence
+									143 text No supported target impact
+									144 text other
+									145 text Moschip Technologies Limited
+									146 text first seen
+									147 text 2026-10-25T23:56:47+05:30
+									148 text confirmed_statement · unknown · unknown
+									149 text Indian ISSUER-level announcements, the primary channel for company events in this market and previously absent entirely.
+									150 link Description: nse_corporate_announcements · evidence, Value: nsearchives.nseindia.com/corporate/xbrl/PRIOR_INTIMATION_24976_WebXMLFile_20261025_235404286.xml
+									151 text  · headline only · quotation withheld by licence
+									152 text No supported target impact
+									153 text physical_hazard
+									154 text M 4.6 - 153 km WNW of Adak, Alaska
+									155 text first seen
+									156 text 2026-10-25T23:46:36+05:30
+									157 text confirmed_statement · unknown · unknown
+									158 text the one source that supplies its OWN coordinate. Its events are physical facts, not market claims, and nothing here converts a magnitude into a risk score
+									159 link Description: usgs_earthquakes · evidence, Value: earthquake.usgs.gov/earthquakes/eventpage/us6000u4vb
+									160 text  · feed summary
+									161 text No supported target impact
+									162 text physical_hazard
+									163 text M 5.2 - 59 km SW of Ashkāsham, Afghanistan
+									164 text first seen
+									165 text 2026-10-25T23:32:29+05:30
+									166 text confirmed_statement · unknown · unknown
+									167 text the one source that supplies its OWN coordinate. Its events are physical facts, not market claims, and nothing here converts a magnitude into a risk score
+									168 link Description: usgs_earthquakes · evidence, Value: earthquake.usgs.gov/earthquakes/eventpage/us6000u4va
+									169 text  · feed summary
+									170 text No supported target impact
+									171 text physical_hazard
+									172 text M 4.7 - 19 km NE of Atico, Peru
+									173 text first seen
+									174 text 2026-10-25T23:10:49+05:30
+									175 text confirmed_statement · unknown · unknown
+									176 text the one source that supplies its OWN coordinate. Its events are physical facts, not market claims, and nothing here converts a magnitude into a risk score
+									177 link Description: usgs_earthquakes · evidence, Value: earthquake.usgs.gov/earthquakes/eventpage/us6000u4v1
+									178 text  · feed summary
+									179 text No supported target impact
+									180 text other
+									181 text प्रधानमंत्री ने वाराणसी यात्रा की झलकियाँ साझा कीं
+									182 text first seen
+									183 text 2026-10-25T23:10:49+05:30
+									184 text reported_unconfirmed · unknown · unknown
+									185 text Probe returned Hindi and no dates. First-seen-only; English semantic rules abstain.
+									186 link Description: pib_releases · evidence, Value: pib.gov.in/PressReleaseIframePage.aspx?PRID=2328306
+									187 text  · headline only
+									188 text No supported target impact
+									189 text other
+									190 text &amp;#2327;&amp;#2357;&amp;#2352;&amp;#2381;&amp;#2344;&amp;#2352; &amp;#2325;&amp;#2366; &amp;#2360;&amp;#2381;&amp;#2357;&amp;#2366;&amp;#2327;&amp;#2340; &amp;#2360;&amp;#2306;&amp;#2348;&amp;#2379;&amp;#2343;&amp;#2344; - RBI &amp;#2325;&amp;#2375; &amp;#2337;&amp;#2375;&amp;#2335;&amp;#2366; &amp;#2360;&amp;#2375;&amp;#2306;&amp;#2335;&amp;#2352; &amp;#2324;&amp;#2352; &amp;#2360;&amp;#2366;&amp;#2311;&amp;#2348;&amp;#2352; &amp;#2360;&amp;#2369;&amp;#2352;&amp;#2325;&amp;#2381;&amp;#2359;&amp;#2366; &amp;#2346;&amp;#2381;&amp;#2352;&amp;#2358;&amp;#2367;&amp;#2325;&amp;#2381;&amp;#2359;&amp;#2339; &amp;#2360;&amp;#2306;&amp;#2360;&amp;#2381;&amp;#2341;&amp;#2366;&amp;#2344; &amp;#2325;&amp;#2366; &amp;#2313;&amp;#2342;&amp;#2381;&amp;#2328;&amp;#2366;&amp;#2335;&amp;#2344; -
+									191 text first seen
+									192 text 2026-10-25T23:10:49+05:30
+									193 text confirmed_statement · unknown · unknown
+									194 text speeches are guidance, not binding instruments — weighted accordingly downstream
+									195 link Description: rbi_speeches · evidence, Value: rbi.org.in/scripts/BS_SpeechesView.aspx?id=1585
+									196 text  · headline only · quotation withheld by licence
+									197 text No supported target impact
+									198 text facility_incident
+									199 text Green forest fire notification in South Sudan
+									200 text first seen
+									201 text 2026-10-25T23:10:49+05:30
+									202 text confirmed_statement · unknown · unknown
+									203 text European Commission JRC alerting service; 325 dated items at probe. An alert is a hazard notification, not a measured market effect, and carries no exposure of its own.
+									204 link Description: gdacs_alerts · evidence, Value: gdacs.org/report.aspx?eventtype=WF&eventid=1033153
+									205 text  · headline only · quotation withheld by licence ·
+									206 text European Commission JRC alerting service; 325 dated items at probe. An alert is a hazard notification, not a measured market effect, and carries no exposure of its own.
+									207 link Description: gdacs_alerts · evidence, Value: gdacs.org/report.aspx?eventtype=WF&eventid=1033113
+									208 text  · headline only · quotation withheld by licence ·
+									209 text European Commission JRC alerting service; 325 dated items at probe. An alert is a hazard notification, not a measured market effect, and carries no exposure of its own.
+									210 link Description: gdacs_alerts · evidence, Value: gdacs.org/report.aspx?eventtype=WF&eventid=1033072
+									211 text  · headline only · quotation withheld by licence
+									212 text No supported target impact
+									213 text facility_incident
+									214 text Green forest fire notification in Zambia
+									215 text first seen
+									216 text 2026-10-25T23:10:49+05:30
+									217 text confirmed_statement · unknown · unknown
+									218 text European Commission JRC alerting service; 325 dated items at probe. An alert is a hazard notification, not a measured market effect, and carries no exposure of its own.
+									219 link Description: gdacs_alerts · evidence, Value: gdacs.org/report.aspx?eventtype=WF&eventid=1033118
+									220 text  · headline only · quotation withheld by licence ·
+									221 text European Commission JRC alerting service; 325 dated items at probe. An alert is a hazard notification, not a measured market effect, and carries no exposure of its own.
+									222 link Description: gdacs_alerts · evidence, Value: gdacs.org/report.aspx?eventtype=WF&eventid=1033150
+									223 text  · headline only · quotation withheld by licence
+									224 text No supported target impact
+									225 text other
+									226 text Ravindra Energy Limited
+									227 text first seen
+									228 text 2026-10-25T23:10:49+05:30
+									229 text confirmed_statement · unknown · unknown
+									230 text Indian ISSUER-level announcements, the primary channel for company events in this market and previously absent entirely.
+									231 link Description: nse_corporate_announcements · evidence, Value: nsearchives.nseindia.com/corporate/RAVINDRA_25102026221054_REL_SE_Intimation_on_Allotment_25-10-2026.pdf
+									232 text  · headline only · quotation withheld by licence ·
+									233 text Indian ISSUER-level announcements, the primary channel for company events in this market and previously absent entirely.
+									234 link Description: nse_corporate_announcements · evidence, Value: nsearchives.nseindia.com/corporate/xbrl/ALTERATION_OF_CAPITAL_AND_FUND_RAISING_23918_WebXMLFile_20261025_222038260.xml
+									235 text  · headline only · quotation withheld by licence
+									236 text No supported target impact
+									237 text facility_incident
+									238 text Green forest fire notification in Zambia, Malawi
+									239 text first seen
+									240 text 2026-10-25T23:10:49+05:30
+									241 text confirmed_statement · unknown · unknown
+									242 text European Commission JRC alerting service; 325 dated items at probe. An alert is a hazard notification, not a measured market effect, and carries no exposure of its own.
+									243 link Description: gdacs_alerts · evidence, Value: gdacs.org/report.aspx?eventtype=WF&eventid=1033159
+									244 text  · headline only · quotation withheld by licence
+									245 text No supported target impact
+									246 text facility_incident
+									247 text Green forest fire notification in Senegal
+									248 text first seen
+									249 text 2026-10-25T23:10:49+05:30
+									250 text confirmed_statement · unknown · unknown
+									251 text European Commission JRC alerting service; 325 dated items at probe. An alert is a hazard notification, not a measured market effect, and carries no exposure of its own.
+									252 link Description: gdacs_alerts · evidence, Value: gdacs.org/report.aspx?eventtype=WF&eventid=1033127
+									253 text  · headline only · quotation withheld by licence
+									254 text No supported target impact
+									255 text regulatory_action
+									256 text सीसीपीए ने भ्रामक विज्ञापनों और वॉकी-टॉकी की गैर-अनुपालन बिक्री के खिलाफ कार्रवाई तेज की
+									257 text first seen
+									258 text 2026-10-25T21:50:13+05:30
+									259 text reported_unconfirmed · unknown · unknown
+									260 text Probe returned Hindi and no dates. First-seen-only; English semantic rules abstain.
+									261 link Description: pib_releases · evidence, Value: pib.gov.in/PressReleaseIframePage.aspx?PRID=2328235
+									262 text  · headline only
+									263 text No supported target impact
+									264 text other
+									265 text Green notification for tropical cyclone VANCE-26. Population affected by Category 1 (120 km/h) wind speeds or higher is 0 (0 in Tropical Storm).
+									266 text first seen
+									267 text 2026-10-25T21:50:13+05:30
+									268 text confirmed_statement · unknown · unknown
+									269 text European Commission JRC alerting service; 325 dated items at probe. An alert is a hazard notification, not a measured market effect, and carries no exposure of its own.
+									270 link Description: gdacs_alerts · evidence, Value: gdacs.org/report.aspx?eventtype=TC&eventid=1001341
+									271 text  · headline only · quotation withheld by licence
+									272 text No supported target impact
+									273 text other
+									274 text SKP Bearing Industries Limited
+									275 text first seen
+									276 text 2026-10-25T21:50:13+05:30
+									277 text confirmed_statement · unknown · unknown
+									278 text Indian ISSUER-level announcements, the primary channel for company events in this market and previously absent entirely.
+									279 link Description: nse_corporate_announcements · evidence, Value: nsearchives.nseindia.com/corporate/SKPBEARING_25102026181902_Scrutinizer_Report_Cover_Letter.pdf
+									280 text  · headline only · quotation withheld by licence
+									281 text No supported target impact
+									282 text other
+									283 text एनआईएफटीईएम-के ने भारत के पहले ‘एआई × फूड टेक हैकाथॉन’, ‘हैक द फोर्क’ का आयोजन किया
+									284 text first seen
+									285 text 2026-10-25T21:50:13+05:30
+									286 text reported_unconfirmed · unknown · unknown
+									287 text Probe returned Hindi and no dates. First-seen-only; English semantic rules abstain.
+									288 link Description: pib_releases · evidence, Value: pib.gov.in/PressReleaseIframePage.aspx?PRID=2328283
+									289 text  · headline only
+									290 text No supported target impact
+									291 text facility_incident
+									292 text Green forest fire notification in Mali
+									293 text first seen
+									294 text 2026-10-25T21:50:13+05:30
+									295 text confirmed_statement · unknown · unknown
+									296 text European Commission JRC alerting service; 325 dated items at probe. An alert is a hazard notification, not a measured market effect, and carries no exposure of its own.
+									297 link Description: gdacs_alerts · evidence, Value: gdacs.org/report.aspx?eventtype=WF&eventid=1033148
+									298 text  · headline only · quotation withheld by licence
+									299 text No supported target impact
+									300 text other
+									301 text ECL Finance Limited
+									302 text first seen
+									303 text 2026-10-25T21:50:13+05:30
+									304 text confirmed_statement · unknown · unknown
+									305 text Indian ISSUER-level announcements, the primary channel for company events in this market and previously absent entirely.
+									306 link Description: nse_corporate_announcements · evidence, Value: nsearchives.nseindia.com/content/debt/WDM/EFL676_25102026184001_2026_10_28_Prior_Intimation.pdf
+									307 text  · headline only · quotation withheld by licence
+									308 text No supported target impact
+									309 text other
+									310 text ‘विकसित भारत 2047’ की दिशा में शहरी प्रशासन, योजना और सेवाओं की आपूर्ति को मजबूत करने संबंधी व्यावहारिक सुझावों के साथ ‘राष्ट्रीय शहरी सम्मेलन 2026’ संपन्न
+									311 text first seen
+									312 text 2026-10-25T21:50:13+05:30
+									313 text reported_unconfirmed · unknown · unknown
+									314 text Probe returned Hindi and no dates. First-seen-only; English semantic rules abstain.
+									315 link Description: pib_releases · evidence, Value: pib.gov.in/PressReleaseIframePage.aspx?PRID=2328260
+									316 text  · headline only
+									317 text No supported target impact
+									318 text other
+									319 text 12वां ब्रिक्स संसदीय मंच कल संसद भवन परिसर में आयोजित होगा
+									320 text first seen
+									321 text 2026-10-25T21:50:13+05:30
+									322 text reported_unconfirmed · unknown · unknown
+									323 text Probe returned Hindi and no dates. First-seen-only; English semantic rules abstain.
+									324 link Description: pib_releases · evidence, Value: pib.gov.in/PressReleaseIframePage.aspx?PRID=2328241
+									325 text  · headline only
+									326 text No supported target impact
+									327 text facility_incident
+									328 text Green forest fire notification in Mauritania, Mali
+									329 text first seen
+									330 text 2026-10-25T21:50:13+05:30
+									331 text confirmed_statement · unknown · unknown
+									332 text European Commission JRC alerting service; 325 dated items at probe. An alert is a hazard notification, not a measured market effect, and carries no exposure of its own.
+									333 link Description: gdacs_alerts · evidence, Value: gdacs.org/report.aspx?eventtype=WF&eventid=1033101
+									334 text  · headline only · quotation withheld by licence
+									335 text No supported target impact
+									336 text other
+									337 text GMR AIRPORTS LIMITED
+									338 text first seen
+									339 text 2026-10-25T21:50:13+05:30
+									340 text confirmed_statement · unknown · unknown
+									341 text Indian ISSUER-level announcements, the primary channel for company events in this market and previously absent entirely.
+									342 link Description: nse_corporate_announcements · evidence, Value: nsearchives.nseindia.com/corporate/xbrl/PRIOR_INTIMATION_2419_WebXMLFile_20261025_195810721.xml
+									343 text  · headline only · quotation withheld by licence
+									344 text No supported target impact
+									345 text other
+									346 text Aditya Birla Sun Life Insurance Company Limited
+									347 text first seen
+									348 text 2026-10-25T21:50:13+05:30
+									349 text confirmed_statement · unknown · unknown
+									350 text Indian ISSUER-level announcements, the primary channel for company events in this market and previously absent entirely.
+									351 link Description: nse_corporate_announcements · evidence, Value: nsearchives.nseindia.com/content/debt/WDM/ABSLI_25102026211146_ABSLI.pdf
+									352 text  · headline only · quotation withheld by licence
+									353 text No supported target impact
+									354 text other
+									355 text Green notification for tropical cyclone IN-FA-26. Population affected by Category 1 (120 km/h) wind speeds or higher is 0 (0 in Tropical Storm).
+									356 text first seen
+									357 text 2026-10-25T21:50:13+05:30
+									358 text confirmed_statement · unknown · unknown
+									359 text European Commission JRC alerting service; 325 dated items at probe. An alert is a hazard notification, not a measured market effect, and carries no exposure of its own.
+									360 link Description: gdacs_alerts · evidence, Value: gdacs.org/report.aspx?eventtype=TC&eventid=1001343
+									361 text  · headline only · quotation withheld by licence
+									362 text No supported target impact
+									363 text other
+									364 text उपराष्ट्रपति सी. पी. राधाकृष्णन 26-27 अक्टूबर को आंध्र प्रदेश के दौरे पर रहेंगे
+									365 text first seen
+									366 text 2026-10-25T21:50:13+05:30
+									367 text reported_unconfirmed · unknown · unknown
+									368 text Probe returned Hindi and no dates. First-seen-only; English semantic rules abstain.
+									369 link Description: pib_releases · evidence, Value: pib.gov.in/PressReleaseIframePage.aspx?PRID=2328231
+									370 text  · headline only
+									371 text No supported target impact
+									372 text other
+									373 text Red notification for tropical cyclone CHAMPI-26. Population affected by Category 1 (120 km/h) wind speeds or higher is 0.291 million .
+									374 text first seen
+									375 text 2026-10-25T21:50:13+05:30
+									376 text confirmed_statement · unknown · unknown
+									377 text European Commission JRC alerting service; 325 dated items at probe. An alert is a hazard notification, not a measured market effect, and carries no exposure of its own.
+									378 link Description: gdacs_alerts · evidence, Value: gdacs.org/report.aspx?eventtype=TC&eventid=1001338
+									379 text  · headline only · quotation withheld by licence
+									380 text No supported target impact
+									381 text other
+									382 text Hon’ble Prime Minister of India inaugurates the Reserve Bank of India’s Data Centre and Cybersecurity Training Institute in Bhubaneswar, Odisha
+									383 text first seen
+									384 text 2026-10-25T21:50:13+05:30
+									385 text confirmed_statement · start · unknown
+									386 text official RBI announcements; the primary policy channel
+									387 link Description: rbi_press_releases · evidence, Value: rbi.org.in/scripts/BS_PressReleaseDisplay.aspx?prid=63862
+									388 text  · headline only · quotation withheld by licence
+									389 text No supported target impact
+									390 text other
+									391 text भुवनेश्वर में आरबीआइ की प्रमुख सुविधाओं के उद्घाटन के दौरान प्रधानमंत्री के संबोधन का मूल पाठ
+									392 text first seen
+									393 text 2026-10-25T21:50:13+05:30
+									394 text reported_unconfirmed · unknown · unknown
+									395 text Probe returned Hindi and no dates. First-seen-only; English semantic rules abstain.
+									396 link Description: pib_releases · evidence, Value: pib.gov.in/PressReleaseIframePage.aspx?PRID=2328236
+									397 text  · headline only
+									398 text No supported target impact
+									399 text other
+									400 text प्रधानमंत्री श्री नरेन्द्र मोदी ने ओडिशा के भुवनेश्वर में आरबीआई के नवनिर्मित डेटा सेंटर और साइबर सुरक्षा प्रशिक्षण संस्थान का उद्घाटन किया
+									401 text first seen
+									402 text 2026-10-25T21:50:13+05:30
+									403 text reported_unconfirmed · unknown · unknown
+									404 text Probe returned Hindi and no dates. First-seen-only; English semantic rules abstain.
+									405 link Description: pib_releases · evidence, Value: pib.gov.in/PressReleaseIframePage.aspx?PRID=2328274
+									406 text  · headline only
+									407 text No supported target impact
+									408 text other
+									409 text Green notification for tropical cyclone THREE-C-26. Population affected by Category 1 (120 km/h) wind speeds or higher is 0 (0 in Tropical Storm).
+									410 text first seen
+									411 text 2026-10-25T21:50:13+05:30
+									412 text confirmed_statement · unknown · unknown
+									413 text European Commission JRC alerting service; 325 dated items at probe. An alert is a hazard notification, not a measured market effect, and carries no exposure of its own.
+									414 link Description: gdacs_alerts · evidence, Value: gdacs.org/report.aspx?eventtype=TC&eventid=1001344
+									415 text  · headline only · quotation withheld by licence
+									416 text No supported target impact
+									417 text other
+									418 text केंद्रीय मंत्री पीयूष गोयल ने नीदरलैंड में व्यापार और निवेश वार्ता की
+									419 text first seen
+									420 text 2026-10-25T21:50:13+05:30
+									421 text reported_unconfirmed · unknown · unknown
+									422 text Probe returned Hindi and no dates. First-seen-only; English semantic rules abstain.
+									423 link Description: pib_releases · evidence, Value: pib.gov.in/PressReleaseIframePage.aspx?PRID=2328284
+									424 text  · headline only
+									425 text No supported target impact
+									426 text facility_incident
+									427 text Green forest fire notification in Indonesia
+									428 text first seen
+									429 text 2026-10-25T18:06:38+05:30
+									430 text confirmed_statement · unknown · unknown
+									431 text European Commission JRC alerting service; 325 dated items at probe. An alert is a hazard notification, not a measured market effect, and carries no exposure of its own.
+									432 link Description: gdacs_alerts · evidence, Value: gdacs.org/report.aspx?eventtype=WF&eventid=1033000
+									433 text  · headline only · quotation withheld by licence ·
+									434 text European Commission JRC alerting service; 325 dated items at probe. An alert is a hazard notification, not a measured market effect, and carries no exposure of its own.
+									435 link Description: gdacs_alerts · evidence, Value: gdacs.org/report.aspx?eventtype=WF&eventid=1033001
+									436 text  · headline only · quotation withheld by licence ·
+									437 text European Commission JRC alerting service; 325 dated items at probe. An alert is a hazard notification, not a measured market effect, and carries no exposure of its own.
+									438 link Description: gdacs_alerts · evidence, Value: gdacs.org/report.aspx?eventtype=WF&eventid=1032972
+									439 text  · headline only · quotation withheld by licence ·
+									440 text European Commission JRC alerting service; 325 dated items at probe. An alert is a hazard notification, not a measured market effect, and carries no exposure of its own.
+									441 link Description: gdacs_alerts · evidence, Value: gdacs.org/report.aspx?eventtype=WF&eventid=1033012
+									442 text  · headline only · quotation withheld by licence
+									443 text No supported target impact
+									444 text other
+									445 text Green earthquake (Magnitude 5.8M, Depth:12.486km) in Bouvet Island Region 24/10/2026 15:24 UTC, [unknown].
+									446 text first seen
+									447 text 2026-10-25T18:06:38+05:30
+									448 text confirmed_statement · unknown · unknown
+									449 text European Commission JRC alerting service; 325 dated items at probe. An alert is a hazard notification, not a measured market effect, and carries no exposure of its own.
+									450 link Description: gdacs_alerts · evidence, Value: gdacs.org/report.aspx?eventtype=EQ&eventid=1573640
+									451 text  · headline only · quotation withheld by licence
+									452 text No supported target impact
+									453 text facility_incident
+									454 text Green forest fire notification in Russia
+									455 text first seen
+									456 text 2026-10-25T18:06:38+05:30
+									457 text confirmed_statement · unknown · unknown
+									458 text European Commission JRC alerting service; 325 dated items at probe. An alert is a hazard notification, not a measured market effect, and carries no exposure of its own.
+									459 link Description: gdacs_alerts · evidence, Value: gdacs.org/report.aspx?eventtype=WF&eventid=1033087
+									460 text  · headline only · quotation withheld by licence
+									461 text No supported target impact
+									462 text other
+									463 text Drought is on going in Austria, Bosnia &amp; Herzegovina, Belgium, Belarus, Switzerland, Czech Republic, Germany, Denmark, Spain, France, Croatia, Hungary, Ireland, Italy, Liechtenstein, Luxembourg, Moldova, Montenegro, Netherlands, Poland, Romania, Serbia, Sweden, Slovenia, Slovakia, Ukraine,
+									464 text first seen
+									465 text 2026-10-25T18:06:38+05:30
+									466 text confirmed_statement · unknown · unknown
+									467 text European Commission JRC alerting service; 325 dated items at probe. An alert is a hazard notification, not a measured market effect, and carries no exposure of its own.
+									468 link Description: gdacs_alerts · evidence, Value: …
+									469 text  · headline only · quotation withheld by licence
+									470 text No supported target impact
+									471 text facility_incident
+									472 text Green forest fire notification in South Sudan, Sudan
+									473 text first seen
+									474 text 2026-10-25T18:06:38+05:30
+									475 text confirmed_statement · unknown · unknown
+									476 text European Commission JRC alerting service; 325 dated items at probe. An alert is a hazard notification, not a measured market effect, and carries no exposure of its own.
+									477 link Description: gdacs_alerts · evidence, Value: …
+									478 text  · headline only · quotation withheld by licence
+									479 text No supported target impact
+									480 text other
+									481 text Green earthquake (Magnitude 6.1M, Depth:116km) in Vanuatu 25/10/2026 02:24 UTC, 110 thousand in MMI IV.
+									482 text first seen
+									483 text 2026-10-25T18:06:38+05:30
+									484 text confirmed_statement · unknown · unknown
+									485 text European Commission JRC alerting service; 325 dated items at probe. An alert is a hazard notification, not a measured market effect, and carries no exposure of its own.
+									486 link Description: gdacs_alerts · evidence, Value: …
+									487 text  · headline only · quotation withheld by licence
+									488 text No supported target impact
+									489 text facility_incident
+									490 text Green forest fire notification in Australia
+									491 text first seen
+									492 text 2026-10-25T18:06:38+05:30
+									493 text confirmed_statement · unknown · unknown
+									494 text European Commission JRC alerting service; 325 dated items at probe. An alert is a hazard notification, not a measured market effect, and carries no exposure of its own.
+									495 link Description: gdacs_alerts · evidence, Value: …
+									496 text  · headline only · quotation withheld by licence ·
+									497 text European Commission JRC alerting service; 325 dated items at probe. An alert is a hazard notification, not a measured market effect, and carries no exposure of its own.
+									498 link Description: gdacs_alerts · evidence, Value: …
+									499 text  · headline only · quotation withheld by licence ·
+									500 text European Commission JRC alerting service; 325 dated items at probe. An alert is a hazard notification, not a measured market effect, and carries no exposure of its own.
+									501 link Description: gdacs_alerts · evidence, Value: …
+									502 text  · headline only · quotation withheld by licence ·
+									503 text European Commission JRC alerting service; 325 dated items at probe. An alert is a hazard notification, not a measured market effect, and carries no exposure of its own.
+									504 link Description: gdacs_alerts · evidence, Value: …
+									505 text  · headline only · quotation withheld by licence ·
+									506 text European Commission JRC alerting service; 325 dated items at probe. An alert is a hazard notification, not a measured market effect, and carries no exposure of its own.
+									507 link Description: gdacs_alerts · evidence, Value: …
+									508 text  · headline only · quotation withheld by licence ·
+									509 text European Commission JRC alerting service; 325 dated items at probe. An alert is a hazard notification, not a measured market effect, and carries no exposure of its own.
+									510 link Description: gdacs_alerts · evidence, Value: …
+									511 text  · headline only · quotation withheld by licence ·
+									512 text European Commission JRC alerting service; 325 dated items at probe. An alert is a hazard notification, not a measured market effect, and carries no exposure of its own.
+									513 link Description: gdacs_alerts · evidence, Value: …
+									514 text  · headline only · quotation withheld by licence ·
+									515 text European Commission JRC alerting service; 325 dated items at probe. An alert is a hazard notification, not a measured market effect, and carries no exposure of its own.
+									516 link Description: gdacs_alerts · evidence, Value: …
+									517 text  · headline only · quotation withheld by licence ·
+									518 text European Commission JRC alerting service; 325 dated items at probe. An alert is a hazard notification, not a measured market effect, and carries no exposure of its own.
+									519 link Description: gdacs_alerts · evidence, Value: …
+									520 text  · headline only · quotation withheld by licence ·
+									521 text European Commission JRC alerting service; 325 dated items at probe. An alert is a hazard notification, not a measured market effect, and carries no exposure of its own.
+									522 link Description: gdacs_alerts · evidence, Value: …
+									523 text  · headline only · quotation withheld by licence ·
+									524 text European Commission JRC alerting service; 325 dated items at probe. An alert is a hazard notification, not a measured market effect, and carries no exposure of its own.
+									525 link Description: gdacs_alerts · evidence, Value: …
+									526 text  · headline only · quotation withheld by licence ·
+									527 text European Commission JRC alerting service; 325 dated items at probe. An alert is a hazard notification, not a measured market effect, and carries no exposure of its own.
+									528 link Description: gdacs_alerts · evidence, Value: …
+									529 text  · headline only · quotation withheld by licence ·
+									530 text European Commission JRC alerting service; 325 dated items at probe. An alert is a hazard notification, not a measured market effect, and carries no exposure of its own.
+									531 link Description: gdacs_alerts · evidence, Value: …
+									532 text  · headline only · quotation withheld by licence ·
+									533 text European Commission JRC alerting service; 325 dated items at probe. An alert is a hazard notification, not a measured market effect, and carries no exposure of its own.
+									534 link Description: gdacs_alerts · evidence, Value: …
+									535 text  · headline only · quotation withheld by licence
+									536 text No supported target impact
+									537 text facility_incident
+									538 text Green forest fire notification in Namibia, Botswana
+									539 text first seen
+									540 text 2026-10-25T18:06:38+05:30
+									541 text confirmed_statement · unknown · unknown
+									542 text European Commission JRC alerting service; 325 dated items at probe. An alert is a hazard notification, not a measured market effect, and carries no exposure of its own.
+									543 link Description: gdacs_alerts · evidence, Value: …
+									544 text  · headline only · quotation withheld by licence
+									545 text No supported target impact
+									546 text facility_incident
+									547 text Green forest fire notification in Nigeria
+									548 text first seen
+									549 text 2026-10-25T18:06:38+05:30
+									550 text confirmed_statement · unknown · unknown
+									551 text European Commission JRC alerting service; 325 dated items at probe. An alert is a hazard notification, not a measured market effect, and carries no exposure of its own.
+									552 link Description: gdacs_alerts · evidence, Value: …
+									553 text  · headline only · quotation withheld by licence
+									554 text No supported target impact
+									555 text trade_remedy_determination
+									556 text Large Diameter Graphite Electrodes From China and India; Scheduling of the Final Phase of Countervailing Duty and Antidumping Duty Investigations.
+									557 text first seen
+									558 text 2026-10-25T03:44:44+05:30
+									559 text confirmed_statement · unknown · consultation
+									560 link Description: federal_register_india · evidence, Value: …
+									561 text  · article text
+									562 text sector:industrial_materials: ambiguous via export
+									563 text trade_remedy_determination
+									564 text Common Alloy Aluminum Sheet From Bahrain, Brazil, Croatia, Egypt, Germany, India, Indonesia, Italy, Oman, Romania, Serbia, Slovenia, South Africa, Spain, Taiwan, and Turkey; Scheduling of Full Five-Year Reviews.
+									565 text first seen
+									566 text 2026-10-25T02:43:33+05:30
+									567 text confirmed_statement · unknown · consultation
+									568 link Description: federal_register_india · evidence, Value: …
+									569 text  · article text
+									570 text sector:aluminium: ambiguous via export
+									571 text trade_remedy_determination
+									572 text Forged Steel Fittings From India and South Korea; Cancellation of Hearing for Antidumping and Countervailing Duty Reviews.
+									573 text first seen
+									574 text 2026-10-24T23:47:29+05:30
+									575 text confirmed_statement · cancel · unknown
+									576 link Description: federal_register_india · evidence, Value: …
+									577 text  · article text
+									578 text sector:steel: ambiguous via export
+									579 text trade_remedy_determination
+									580 text Oleoresin Paprika From India: Antidumping Duty Order and Countervailing Duty Order.
+									581 text first seen
+									582 text 2026-10-24T23:47:27+05:30
+									583 text confirmed_statement · unknown · effective
+									584 link Description: federal_register_india · evidence, Value: …
+									585 text  · article text
+									586 text sector:agriculture: adverse via export
+									587 text trade_remedy_determination
+									588 text Oleoresin Paprika From India; Determinations.
+									589 text first seen
+									590 text 2026-10-24T23:37:10+05:30
+									591 text confirmed_statement · unknown · unknown
+									592 link Description: federal_register_india · evidence, Value: …
+									593 text  · article text
+									594 text sector:agriculture: ambiguous via export
+									595 text trade_remedy_determination
+									596 text Certain Oil Country Tubular Goods From India, the Republic of Korea, the Republic of Türkiye, the Socialist Republic of Vietnam, and Ukraine: Continuation of Antidumping Duty Orders and Countervailing Duty Orders.
+									597 text first seen
+									598 text 2026-10-24T23:17:11+05:30
+									599 text confirmed_statement · unknown · unknown
+									600 text day-granular publication dates. US trade actions reach Indian exposure through import parity, which is why a US register is in an Indian market-risk system at all
+									601 link Description: federal_register · evidence, Value: …
+									602 text  · body available ·
+									603 text Trade-remedy determinations by issuing agency. Most carry no Indian subject at all; relevance scoring and the exposure registry decide which do, and an unmatched determination is carried as out of scope rather than dropped.
+									604 link Description: federal_register_ita · evidence, Value: …
+									605 text  · article text ·
+									606 link Description: federal_register_india · evidence, Value: …
+									607 text  · article text
+									608 text sector:steel: ambiguous via export
+									609 text trade_remedy_determination
+									610 text Large Diameter Graphite Electrodes From India: Preliminary Affirmative Critical Circumstances Determination in Countervailing Duty Investigation.
+									611 text first seen
+									612 text 2026-10-24T23:16:56+05:30
+									613 text confirmed_statement · unknown · announced
+									614 link Description: federal_register_india · evidence, Value: …
+									615 text  · article text
+									616 text sector:industrial_materials: ambiguous via export
+									617 text trade_remedy_determination
+									618 text Large Diameter Graphite Electrodes From India: Preliminary Affirmative Determination of Sales at Less-Than-Fair-Value, Preliminary Affirmative Determination of Critical Circumstances, Postponement of Final Determination, and Extension of Provisional Measures.
+									619 text first seen
+									620 text 2026-10-24T17:45:39+05:30
+									621 text confirmed_statement · unknown · announced
+									622 link Description: federal_register_india · evidence, Value: …
+									623 text  · article text
+									624 text sector:industrial_materials: ambiguous via export
+									625 text capacity_expansion
+									626 text POWERGRID Commissions Project to Evacuate Renewable Energy in Karnataka
+									627 text first seen
+									628 text 2026-10-24T17:45:07+05:30
+									629 text confirmed_statement · start · unknown
+									630 text Renewables and power policy. The probe also returned China and Rwanda items; relevance is expected to place those out of scope rather than hide them.
+									631 link Description: mercom_india · evidence, Value: …
+							118 container
+								632 text NEWS CHANNEL · LIVE · 2328 ELIGIBLE EVENTS
+								633 text OTHER — SBI Mutual Fund - SBI Nifty50 Equal Weight ETF · OTHER — Moschip Technologies Limited · PHYSICAL_HAZARD — M 4.6 - 153 km WNW of Adak, Alaska · PHYSICAL_HAZARD — M 5.2 - 59 km SW of Ashkāsham, Afghanistan · PHYSICAL_HAZARD — M 4.7 - 19 km NE of Atico, Peru · OTHER — प्रधानमंत्री ने वाराणसी यात्रा की झलकियाँ साझा कीं · OTHER — &#2327;&#2357;&#2352;&#2381;&#2344;&#2352; &#2325;&#2366; &#2360;&#2381;&#2357;&#2366;&#2327;&#2340; &#2360;&#2306;&#2348;&#2379;&#2343;&#2344; - RBI &#2325;&#2375; &#2337;&#2375;&#2335;&#2366; &#2360;&#2375;&#2306;&#2335;&#2352; &#2324;&#2352; &#2360;&#2366;&#2311;&#2348;&#2352; &#2360;&#2369;&#2352;&#2325;&#2381;&#2359;&#2366; &#2346;&#2381;&#2352;&#2358;&#2367;&#2325;&#2381;&#2359;&#2339; &#2360;&#2306;&#2360;&#2381;&#2341;&#2366;&#2344; &#2325;&#2366; &#2313;&#2342;&#2381;&#2328;&#2366;&#2335;&#2344; - · FACILITY_INCIDENT — Green forest fire notification in South Sudan · FACILITY_INCIDENT — Green forest fire notification in Zambia · OTHER — Ravindra Energy Limited · FACILITY_INCIDENT — Green forest fire notification in Zambia, Malawi · FACILITY_INCIDENT — Green forest fire notification in Senegal · REGULATORY_ACTION — सीसीपीए ने भ्रामक विज्ञापनों और वॉकी-टॉकी की गैर-अनुपालन बिक्री के खिलाफ कार्रवाई तेज की · OTHER — Green notification for tropical cyclone VANCE-26. Population affected by Category 1 (120 km/h) wind speeds or higher is 0 (0 in Tropical Storm). · OTHER — SKP Bearing Industries Limited · OTHER — एनआईएफटीईएम-के ने भारत के पहले ‘एआई × फूड टेक हैकाथॉन’, ‘हैक द फोर्क’ का आयोजन किया · FACILITY_INCIDENT — Green forest fire notification in Mali · OTHER — ECL Finance Limited · OTHER — ‘विकसित भारत 2047’ की दिशा में शहरी प्रशासन, योजना और सेवाओं की आपूर्ति को मजबूत करने संबंधी व्यावहारिक सुझावों के साथ ‘राष्ट्रीय शहरी सम्मेलन 2026’ संपन्न · OTHER — 12वां ब्रिक्स संसदीय मंच कल संसद भवन परिसर में आयोजित होगा · FACILITY_INCIDENT — Green forest fire notification in Mauritania, Mali · OTHER — GMR AIRPORTS LIMITED · OTHER — Aditya Birla Sun Life Insurance Company Limited · OTHER — Green notification for tropical cyclone IN-FA-26. Population affected by Category 1 (120 km/h) wind speeds or higher is 0 (0 in Tropical Storm). · OTHER — उपराष्ट्रपति सी. पी. राधाकृष्णन 26-27 अक्टूबर को आंध्र प्रदेश के दौरे पर रहेंगे · OTHER — Red notification for tropical cyclone CHAMPI-26. Population affected by Category 1 (120 km/h) wind speeds or higher is 0.291 million . · OTHER — Hon’ble Prime Minister of India inaugurates the Reserve Bank of India’s Data Centre and Cybersecurity Training Institute in Bhubaneswar, Odisha · OTHER — भुवनेश्वर में आरबीआइ की प्रमुख सुविधाओं के उद्घाटन के दौरान प्रधानमंत्री के संबोधन का मूल पाठ · OTHER — प्रधानमंत्री श्री नरेन्द्र मोदी ने ओडिशा के भुवनेश्वर में आरबीआई के नवनिर्मित डेटा सेंटर और साइबर सुरक्षा प्रशिक्षण संस्थान का उद्घाटन किया · OTHER — Green notification for tropical cyclone THREE-C-26. Population affected by Category 1 (120 km/h) wind speeds or higher is 0 (0 in Tropical Storm).
+						121 container req-status-global
+							123 text ● SENDING…  — a news_project request is already in flight; wait or retry it
+
+The focused UI element is 14 link Description: SIGNAL FEED, URL: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#

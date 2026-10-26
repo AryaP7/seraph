@@ -1,0 +1,62 @@
+Browser tab: 1, Title: "SERAPH", URL: "http://127.0.0.1:8520/".
+0 AXWebArea SERAPH, URL: 127.0.0.1:8520/
+	1 container
+		2 container
+			3 link Description: Skip to main content, Value: 127.0.0.1:8520/#stMain
+			4 container stMain
+				5 container app.seraph_redesigned_console
+					6 AXWebArea SERAPH — Systemic Risk Early-Warning · NSE, URL: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F
+						7 container shell
+							8 container
+								9 text SER APH
+								10 link Description: CURRENT, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								11 link Description: RISK MAP, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								12 link Description: HISTORICAL, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								13 link Description: CONSOLE, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								14 link Description: SIGNAL FEED, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								15 link Description: PILLARS, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								16 link Description: EXPOSURE, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								17 link Description: FORECASTS, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								18 link Description: EARLY WARNING, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								19 link Description: WORKSPACE, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								20 link Description: EVALUATION, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								21 link Description: HEALTH, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								22 link Description: TOOLS, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								23 link Description: METHOD, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								24 text HISTORICAL + TAGGED PREVIEWS
+								25 container roles
+									26 button REGULATOR
+									27 button INSTITUTIONAL
+									28 button RETAIL
+								29 text  LOCAL CLOCK — 
+								699 text 00:02:54
+								31 text  IST
+								32 text 1,019 desks · FABRICATED
+								33 button VIEW BACKTEST
+							700 text TOOLS
+							35 container preview-banner
+								36 text NOT A CURRENT MARKET READING  — the newest observation is 2369.4 days old. Anything computed from it is a REPLAY of that period, not a statement about the market now, and must be labelled as such | observed 2020-04-30T15:30:00+05:30 · now 2026-10-25T23:59:31+05:30 · market not_a_session · feed: none — not connected, unauthenticated
+								37 text RUN 37bccf32974201f0 · 2020-04-30 · RETAIL | STALE — newest item 2 min old; 4 of 22 sources past the freshness policy they declared. Nothing on screen reflects what has happened since. | NEWS current_news 2026-10-25T23:58:30+05:30 | 18/22 feeds fresh | CONNECTED: SIGNALS, SECTOR_STRESS, GEOGRAPHY, ASSETS | 12 evidenced map node(s) | MARKET 2020-04-30T15:30:00+05:30
+							38 container ticker
+								39 text FABRICATED PREVIEW NIFTY 50 24,812.30   0.34% BANK NIFTY 52,406.85   0.21% NIFTY METAL 9,140.20   1.86% NIFTY PHARMA 21,558.45   0.92% NIFTY AUTO 25,033.10   1.24% NIFTY IT 38,902.60   0.44% INDIA VIX 13.82   1.10% USD/INR 83.41   0.18%
+							126 container viewExtra
+								127 heading TOOLS, Value: 4, ID: extra-title
+									701 text TOOLS
+								131 container extra-content
+									702 heading PORTFOLIO HOLDINGS, Value: 4
+										703 text PORTFOLIO HOLDINGS
+									704 text Enter current holdings as JSON: symbol, value, sector, optional quantity. Real exposure calculation uses no fabricated news flags.
+									705 text entry area (settable) holdings
+									706 button Calculate coverage, ID: portfolio-go
+									707 heading LAST OPERATION, Value: 4
+										708 text LAST OPERATION
+									709 container req-status
+										710 text ● SENDING…  — a news_project request is already in flight; wait or retry it
+									711 text No operation submitted for this run/date/role.
+							118 container
+								712 text NEWS CHANNEL · LIVE · 2328 ELIGIBLE EVENTS
+								713 text OTHER — SBI Mutual Fund - SBI Nifty50 Equal Weight ETF · OTHER — Moschip Technologies Limited · PHYSICAL_HAZARD — M 4.6 - 153 km WNW of Adak, Alaska · PHYSICAL_HAZARD — M 5.2 - 59 km SW of Ashkāsham, Afghanistan · PHYSICAL_HAZARD — M 4.7 - 19 km NE of Atico, Peru · OTHER — प्रधानमंत्री ने वाराणसी यात्रा की झलकियाँ साझा कीं · OTHER — &#2327;&#2357;&#2352;&#2381;&#2344;&#2352; &#2325;&#2366; &#2360;&#2381;&#2357;&#2366;&#2327;&#2340; &#2360;&#2306;&#2348;&#2379;&#2343;&#2344; - RBI &#2325;&#2375; &#2337;&#2375;&#2335;&#2366; &#2360;&#2375;&#2306;&#2335;&#2352; &#2324;&#2352; &#2360;&#2366;&#2311;&#2348;&#2352; &#2360;&#2369;&#2352;&#2325;&#2381;&#2359;&#2366; &#2346;&#2381;&#2352;&#2358;&#2367;&#2325;&#2381;&#2359;&#2339; &#2360;&#2306;&#2360;&#2381;&#2341;&#2366;&#2344; &#2325;&#2366; &#2313;&#2342;&#2381;&#2328;&#2366;&#2335;&#2344; - · FACILITY_INCIDENT — Green forest fire notification in South Sudan · FACILITY_INCIDENT — Green forest fire notification in Zambia · OTHER — Ravindra Energy Limited · FACILITY_INCIDENT — Green forest fire notification in Zambia, Malawi · FACILITY_INCIDENT — Green forest fire notification in Senegal · REGULATORY_ACTION — सीसीपीए ने भ्रामक विज्ञापनों और वॉकी-टॉकी की गैर-अनुपालन बिक्री के खिलाफ कार्रवाई तेज की · OTHER — Green notification for tropical cyclone VANCE-26. Population affected by Category 1 (120 km/h) wind speeds or higher is 0 (0 in Tropical Storm). · OTHER — SKP Bearing Industries Limited · OTHER — एनआईएफटीईएम-के ने भारत के पहले ‘एआई × फूड टेक हैकाथॉन’, ‘हैक द फोर्क’ का आयोजन किया · FACILITY_INCIDENT — Green forest fire notification in Mali · OTHER — ECL Finance Limited · OTHER — ‘विकसित भारत 2047’ की दिशा में शहरी प्रशासन, योजना और सेवाओं की आपूर्ति को मजबूत करने संबंधी व्यावहारिक सुझावों के साथ ‘राष्ट्रीय शहरी सम्मेलन 2026’ संपन्न · OTHER — 12वां ब्रिक्स संसदीय मंच कल संसद भवन परिसर में आयोजित होगा · FACILITY_INCIDENT — Green forest fire notification in Mauritania, Mali · OTHER — GMR AIRPORTS LIMITED · OTHER — Aditya Birla Sun Life Insurance Company Limited · OTHER — Green notification for tropical cyclone IN-FA-26. Population affected by Category 1 (120 km/h) wind speeds or higher is 0 (0 in Tropical Storm). · OTHER — उपराष्ट्रपति सी. पी. राधाकृष्णन 26-27 अक्टूबर को आंध्र प्रदेश के दौरे पर रहेंगे · OTHER — Red notification for tropical cyclone CHAMPI-26. Population affected by Category 1 (120 km/h) wind speeds or higher is 0.291 million . · OTHER — Hon’ble Prime Minister of India inaugurates the Reserve Bank of India’s Data Centre and Cybersecurity Training Institute in Bhubaneswar, Odisha · OTHER — भुवनेश्वर में आरबीआइ की प्रमुख सुविधाओं के उद्घाटन के दौरान प्रधानमंत्री के संबोधन का मूल पाठ · OTHER — प्रधानमंत्री श्री नरेन्द्र मोदी ने ओडिशा के भुवनेश्वर में आरबीआई के नवनिर्मित डेटा सेंटर और साइबर सुरक्षा प्रशिक्षण संस्थान का उद्घाटन किया · OTHER — Green notification for tropical cyclone THREE-C-26. Population affected by Category 1 (120 km/h) wind speeds or higher is 0 (0 in Tropical Storm).
+						121 container req-status-global
+							714 text ● SENDING…  — a news_project request is already in flight; wait or retry it
+
+The focused UI element is 22 link Description: TOOLS, URL: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#

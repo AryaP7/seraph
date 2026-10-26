@@ -140,3 +140,31 @@ def describe(role: str = "retail") -> dict:
                 organisation=DEMO_ORG, role=role,
                 authenticated=False, note=DEMO_NOTE,
                 directory=str(_runs_dir()))
+
+
+def active_portfolio(selection: dict, role: str, *, at: str,
+                     bundle=None, principal=None, flags=None) -> dict:
+    """C12/FR43 — resolve saved holdings and their overlay in one owner scope."""
+    from seraph.decision_support.portfolio import portfolio_overlay
+
+    bundle = bundle or stores()
+    principal = principal or demo_principal(role, reg=bundle['registry'])
+    if selection.get('role') != role:
+        raise ValueError('The active portfolio belongs to another role')
+    workspace = bundle['workspace']
+    pid = selection['portfolio_id']
+    historical = selection.get('basis') == 'historical'
+    held = (workspace.holdings_as_of(principal, pid, at) if historical else
+            workspace.current_holdings(principal, pid))
+    # Keep the normalized inputs for news; coverage output is a different shape.
+    holdings = [{k: row[k] for k in ('symbol', 'value', 'quantity', 'sector')}
+                for row in held['holdings']]
+    result = portfolio_overlay(holdings, flags or {})
+    overlay = result.value if result.status == 'ok' else None
+    return dict(holdings=holdings, overlay=overlay,
+                context=dict(portfolio_id=pid, snapshot_id=held['snapshot_id'],
+                             basis=held['basis'], effective_at=held.get('effective_at')),
+                note=(held.get('note') or
+                      'Current holdings overlaid on the selected market decision')
+                if not historical else
+                held.get('note', 'Historical holdings at the market decision'))

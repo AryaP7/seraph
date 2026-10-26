@@ -1,0 +1,1166 @@
+Browser tab: 2, Title: "SERAPH", URL: "http://127.0.0.1:8512/".
+0 AXWebArea SERAPH, URL: 127.0.0.1:8512/
+	1 container
+		2 container
+			3 link Description: Skip to main content, Value: 127.0.0.1:8512/#stMain
+			5 container
+				6 image Running...
+				7 button Stop
+				8 button Deploy
+				9 pop up button (collapsed) Description: Main menu, Secondary Actions: Expand
+			4 container stMain
+				10 heading SERAPH, Value: 1, ID: seraph
+					11 text SERAPH
+					12 link Description: Link to heading, Value: 127.0.0.1:8512/#seraph
+				13 text Historical model outputs + explicitly tagged fabricated previews. Local role switching is not authentication. Experimental warnings are not validated crisis predictions.
+				14 container
+					15 button (expanded) PREDICTION & EARLY WARNING, Secondary Actions: Collapse
+						16 text PREDICTION & EARLY WARNING
+					17 container
+						18 text Forecast ledger ID: 831baa6f4e89b337495e26751cd6912c51ae3cda98cacf3aa3d8c1690d3d1129 · issued 2026-10-22T18:32 :49 .497854+05 :30  · operational
+					19 container
+						20 text NO WARNING  — the forecast 0.0692 is below the calibrated threshold 0.1252
+					21 text Predicted probability
+					22 text 6.92%
+					23 text Warning threshold
+					24 text 12.52%
+					25 text Horizon
+					26 text 15 sessions
+					27 text Within the refresh allowance: the saved forecast is for 2026-10-22, 1 calendar day(s) before the expected session 2026-10-23. Within the allowance for a holiday or a single missed run.
+					28 container
+						29 text Decision date  2026-10-22  · computed 2026-10-22T13:02 :49 +00 :00  · snapshot c54f0a039842 (5276 sessions, 2005-07-01 to 2026-10-22)
+					30 container
+						31 text UNVALIDATED  — No advance-warning skill, calibration or economic effect size has been demonstrated. AMENDMENT-03 measured Pillar 1 at approximately no skill at every intraday horizon and reclassified it as a contagion diagnostic, and the research replay records empirical_acceptance as unvalidated. These are honest limitations of a working instrument, not grounds for treating its output as a validated forecast.
+					32 text What is predicted
+					33 text probability that the research market index falls 10% or more from this decision close at any close within the next 15 sessions
+					34 text Model: combined (EWMA volatility + one feature per pillar family) · fit fitted on 5229 rows, using labels matured through 2026-08-13 (fitted 2026-09-03, 72 refits over the series). 5 of 5 features were observed at this date.
+					35 text Measured — the three pillars at this close
+					36 container
+						37 button Show/hide columns
+						38 button Download as CSV
+						39 button Search
+						40 button Fullscreen
+						41 image
+							42 table
+								43 row pillar indicator value
+									44 cell (selectable) pillar
+									45 cell (selectable) indicator
+									46 cell (selectable) value
+								47 container
+									48 row (selectable) volatility baseline ewma_volatility 0.01069242395422698
+										49 cell (selectable) Value: volatility baseline, ID: glide-cell-0-0
+										50 cell (selectable) Value: ewma_volatility, ID: glide-cell-1-0
+										51 cell (selectable) Value: 0.01069242395422698, ID: glide-cell-2-0
+									52 row (selectable) hawkes hawkes_daily_intensity 0.05018661191090706
+										53 cell (selectable) Value: hawkes, ID: glide-cell-0-1
+										54 cell (selectable) Value: hawkes_daily_intensity, ID: glide-cell-1-1
+										55 cell (selectable) Value: 0.05018661191090706, ID: glide-cell-2-1
+									56 row (selectable) rmt rmt_fast_leading_share 0.829225257974587
+										57 cell (selectable) Value: rmt, ID: glide-cell-0-2
+										58 cell (selectable) Value: rmt_fast_leading_share, ID: glide-cell-1-2
+										59 cell (selectable) Value: 0.829225257974587, ID: glide-cell-2-2
+									60 row (selectable) rmt rmt_fast_minus_slow -0.03178851282641926
+										61 cell (selectable) Value: rmt, ID: glide-cell-0-3
+										62 cell (selectable) Value: rmt_fast_minus_slow, ID: glide-cell-1-3
+										63 cell (selectable) Value: -0.03178851282641926, ID: glide-cell-2-3
+									64 row (selectable) hamilton hamilton_daily_next_volatility 0.013907814141359453
+										65 cell (selectable) Value: hamilton, ID: glide-cell-0-4
+										66 cell (selectable) Value: hamilton_daily_next_volatility, ID: glide-cell-1-4
+										67 cell (selectable) Value: 0.013907814141359453, ID: glide-cell-2-4
+					68 text feature values at the decision date, computed from data available at that close; parameters estimated through t-1
+					69 text Warning policy
+					70 text The threshold is recalibrated from past out-of-sample scores and matured outcomes only, to hold at most 2.0 false episodes per year and keep at most 10% of sessions in alarm, over a 1260-session lookback needing 252 matured outcomes. 68 recalibrations so far. the threshold is chosen from past out-of-sample scores and matured outcomes only. A frozen threshold is a policy, not a proof that the future false-alarm budget will be met
+					71 text Realised history — retrospective replay, not foresight
+					72 text Brier
+					73 text 0.0634
+					74 text AUC
+					75 text 0.637
+					76 text Base rate
+					77 text 6.84%
+					78 text False episodes/yr
+					79 text 1.01
+					80 text 4491 forecasts with matured outcomes, 307 of them positive. Alarms on 2.60% of assessable sessions across 19 episodes. retrospective replay over the available history. It shows what the instrument would have produced, which is implementation behaviour rather than demonstrated foresight
+					81 container
+						82 text Calibration — did days it called  p  turn out  p ?
+					83 text The uncertainty this model supports. It yields no interval, so this is the honest substitute: predicted against realised frequency, on matured labels only.
+					84 container
+						85 button Show/hide columns
+						86 button Download as CSV
+						87 button Search
+						88 button Fullscreen
+						89 image
+							90 table
+								91 row predicted range sessions mean predicted realised rate
+									92 cell (selectable) predicted range
+									93 cell (selectable) sessions
+									94 cell (selectable) mean predicted
+									95 cell (selectable) realised rate
+								96 container
+									97 row (selectable) 2%–5% 46 0.0475 0
+										98 cell (selectable) Value: 2%–5%, ID: glide-cell-0-0
+										99 cell (selectable) Value: 46, ID: glide-cell-1-0
+										100 cell (selectable) Value: 0.0475, ID: glide-cell-2-0
+										101 cell (selectable) Value: 0, ID: glide-cell-3-0
+									102 row (selectable) 5%–10% 2876 0.0754 0.0518
+										103 cell (selectable) Value: 5%–10%, ID: glide-cell-0-1
+										104 cell (selectable) Value: 2876, ID: glide-cell-1-1
+										105 cell (selectable) Value: 0.0754, ID: glide-cell-2-1
+										106 cell (selectable) Value: 0.0518, ID: glide-cell-3-1
+									107 row (selectable) 10%–20% 1292 0.1299 0.082
+										108 cell (selectable) Value: 10%–20%, ID: glide-cell-0-2
+										109 cell (selectable) Value: 1292, ID: glide-cell-1-2
+										110 cell (selectable) Value: 0.1299, ID: glide-cell-2-2
+										111 cell (selectable) Value: 0.082, ID: glide-cell-3-2
+									112 row (selectable) 20%–50% 274 0.289 0.1861
+										113 cell (selectable) Value: 20%–50%, ID: glide-cell-0-3
+										114 cell (selectable) Value: 274, ID: glide-cell-1-3
+										115 cell (selectable) Value: 0.289, ID: glide-cell-2-3
+										116 cell (selectable) Value: 0.1861, ID: glide-cell-3-3
+									117 row (selectable) 50%–100% 3 0.5141 0.3333
+										118 cell (selectable) Value: 50%–100%, ID: glide-cell-0-4
+										119 cell (selectable) Value: 3, ID: glide-cell-1-4
+										120 cell (selectable) Value: 0.5141, ID: glide-cell-2-4
+										121 cell (selectable) Value: 0.3333, ID: glide-cell-3-4
+					122 text Forecast against its warning threshold
+					123 container
+						124 button Show data
+						125 button Download as PNG
+						126 button Copy Vega-Lite spec
+						127 button Fullscreen
+						128 container Vega visualization
+							129 image
+								130 container X-axis for a time scale with values from Wednesday, 22 September 2021, 12:00:00 AM to Thursday, 22 October 2026, 12:00:00 AM Y-axis for a linear scale with values from 0.00 to 0.20 date: Sep 22, 2021; value -- streamlit-generated: 0.0815172136903; : probability; value: 0.0815172136903; color: probabilitydate: Sep 22, 2021; value -- streamlit-generated: 0.14886054868; : threshold; value: 0.14886054868; color: thresholddate: Sep 22, 2021; value -- streamlit-generated: 0.0815172136903; : probability; value: 0.0815172136903; color: probability date: Sep 23, 2021; value -- streamlit-generated: 0.0780396933979; : probability; value: 0.0780396933979; color: probability date: Sep 24, 2021; value -- streamlit-generated: 0.0735900303607; : probability; value: 0.0735900303607; color: probability date: Sep 27, 2021; value -- streamlit-generated: 0.0699602288441; : probability; value: 0.0699602288441; color: probability date: Sep 28, 2021; value -- streamlit-generated: 0.067064991045; : probability; value: 0.067064991045; color: probability date: Sep 29, 2021; value -- streamlit-generated: 0.0652381872926; : probability; value: 0.0652381872926; color: probability date: Sep 30, 2021; value -- streamlit-generated: 0.0630796699463; : probability; value: 0.0630796699463; color: probability date: Oct 01, 2021; value -- streamlit-generated: 0.0614200928409; : probability; value: 0.0614200928409; color: probability date: Oct 04, 2021; value -- streamlit-generated: 0.0625013001145; : probability; value: 0.0625013001145; color: probability date: Oct 05, 2021; value -- streamlit-generated: 0.0610737462164; : probability; value: 0.0610737462164; color: probability date: Oct 06, 2021; value -- streamlit-generated: 0.0604171404715; : probability; value: 0.0604171404715; color: probability date: Oct 07, 2021; value -- streamlit-generated: 0.060691865053; : probability; value: 0.060691865053; color: probability date: Oct 08, 2021; value -- streamlit-generated: 0.0591945100076; : probability; value: 0.0591945100076; color: probability date: Oct 11, 2021; value -- streamlit-generated: 0.0578220435204; : probability; value: 0.0578220435204; color: probability date: Oct 12, 2021; value -- streamlit-generated: 0.0564176341827; : probability; value: 0.0564176341827; color: probability date: Oct 13, 2021; value -- streamlit-generated: 0.0561418475408; : probability; value: 0.0561418475408; color: probability date: Oct 14, 2021; value -- streamlit-generated: 0.0550041543942; : probability; value: 0.0550041543942; color: probability date: Oct 18, 2021; value -- streamlit-generated: 0.0553858863247; : probability; value: 0.0553858863247; color: probability date: Oct 19, 2021; value -- streamlit-generated: 0.081065264858; : probability; value: 0.081065264858; color: probability date: Oct 20, 2021; value -- streamlit-generated: 0.0813330062147; : probability; value: 0.0813330062147; color: probability date: Oct 21, 2021; value -- streamlit-generated: 0.076866878788; : probability; value: 0.076866878788; color: probability date: Oct 22, 2021; value -- streamlit-generated: 0.074348765853; : probability; value: 0.074348765853; color: probability date: Oct 25, 2021; value -- streamlit-generated: 0.0747975892951; : probability; value: 0.0747975892951; color: probability date: Oct 26, 2021; value -- streamlit-generated: 0.0761008186665; : probability; value: 0.0761008186665; color: probability date: Oct 27, 2021; value -- streamlit-generated: 0.0722806748663; : probability; value: 0.0722806748663; color: probability date: Oct 28, 2021; value -- streamlit-generated: 0.0751929098898; : probability; value: 0.0751929098898; color: probability date: Oct 29, 2021; value -- streamlit-generated: 0.0716864946844; : probability; value: 0.0716864946844; color: probability date: Nov 01, 2021; value -- streamlit-generated: 0.071694132266; : probability; value: 0.071694132266; color: probability date: Nov 02, 2021; value -- streamlit-generated: 0.0696317975026; : probability; value: 0.0696317975026; color: probability date: Nov 03, 2021; value -- streamlit-generated: 0.0670074506536; : probability; value: 0.0670074506536; color: probability date: Nov 04, 2021; value -- streamlit-generated: 0.065009620184; : probability; value: 0.065009620184; color: probability date: Nov 08, 2021; value -- streamlit-generated: 0.0647529746566; : probability; value: 0.0647529746566; color: probability date: Nov 09, 2021; value -- streamlit-generated: 0.063017482039; : probability; value: 0.063017482039; color: probability date: Nov 10, 2021; value -- streamlit-generated: 0.0616780558019; : probability; value: 0.0616780558019; color: probability date: Nov 11, 2021; value -- streamlit-generated: 0.0606287926968; : probability; value: 0.0606287926968; color: probability date: Nov 12, 2021; value -- streamlit-generated: 0.0591052434734; : probability; value: 0.0591052434734; color: probability date: Nov 15, 2021; value -- streamlit-generated: 0.0584949604497; : probability; value: 0.0584949604497; color: probability date: Nov 16, 2021; value -- streamlit-generated: 0.0570649383653; : probability; value: 0.0570649383653; color: probability date: Nov 17, 2021; value -- streamlit-generated: 0.0573456444408; : probability; value: 0.0573456444408; color: probability date: Nov 18, 2021; value -- streamlit-generated: 0.0606883955681; : probability; value: 0.0606883955681; color: probability date: Nov 22, 2021; value -- streamlit-generated: 0.0922656063211; : probability; value: 0.0922656063211; color: probability date: Nov 23, 2021; value -- streamlit-generated: 0.0908075804857; : probability; value: 0.0908075804857; color: probability date: Nov 24, 2021; value -- streamlit-generated: 0.0858070769933; : probability; value: 0.0858070769933; color: probability date: Nov 25, 2021; value -- streamlit-generated: 0.0819233456988; : probability; value: 0.0819233456988; color: probability date: Nov 26, 2021; value -- streamlit-generated: 0.113182770569; : probability; value: 0.113182770569; color: probability date: Nov 29, 2021; value -- streamlit-generated: 0.110104278863; : probability; value: 0.110104278863; color: probability date: Nov 30, 2021; value -- streamlit-generated: 0.102733112416; : probability; value: 0.102733112416; color: probability date: Dec 01, 2021; value -- streamlit-generated: 0.0962741530328; : probability; value: 0.0962741530328; color: probability date: Dec 02, 2021; value -- streamlit-generated: 0.0928280983702; : probability; value: 0.0928280983702; color: probability date: Dec 03, 2021; value -- streamlit-generated: 0.0869227923156; : probability; value: 0.0869227923156; color: probability date: Dec 06, 2021; value -- streamlit-generated: 0.0848191840422; : probability; value: 0.0848191840422; color: probability date: Dec 07, 2021; value -- streamlit-generated: 0.0829530003703; : probability; value: 0.0829530003703; color: probability date: Dec 08, 2021; value -- streamlit-generated: 0.0825896648946; : probability; value: 0.0825896648946; color: probability date: Dec 09, 2021; value -- streamlit-generated: 0.0791782130452; : probability; value: 0.0791782130452; color: probability date: Dec 10, 2021; value -- streamlit-generated: 0.0764430417434; : probability; value: 0.0764430417434; color: probability date: Dec 13, 2021; value -- streamlit-generated: 0.0728463113141; : probability; value: 0.0728463113141; color: probability date: Dec 14, 2021; value -- streamlit-generated: 0.0695361901484; : probability; value: 0.0695361901484; color: probability date: Dec 15, 2021; value -- streamlit-generated: 0.0672965763619; : probability; value: 0.0672965763619; color: probability date: Dec 16, 2021; value -- streamlit-generated: 0.066190378918; : probability; value: 0.066190378918; color: probability date: Dec 17, 2021; value -- streamlit-generated: 0.0925106415236; : probability; value: 0.0925106415236; color: probability date: Dec 20, 2021; value -- streamlit-generated: 0.130720374702; : probability; value: 0.130720374702; color: probability date: Dec 21, 2021; value -- streamlit-generated: 0.121037974148; : probability; value: 0.121037974148; color: probability date: Dec 22, 2021; value -- streamlit-generated: 0.114270950871; : probability; value: 0.114270950871; color: probability date: Dec 23, 2021; value -- streamlit-generated: 0.106104438834; : probability; value: 0.106104438834; color: probability date: Dec 24, 2021; value -- streamlit-generated: 0.0991924074188; : probability; value: 0.0991924074188; color: probability date: Dec 27, 2021; value -- streamlit-generated: 0.0927602653006; : probability; value: 0.0927602653006; color: probability date: Dec 28, 2021; value -- streamlit-generated: 0.0904337768381; : probability; value: 0.0904337768381; color: probability date: Dec 29, 2021; value -- streamlit-generated: 0.0843801819255; : probability; value: 0.0843801819255; color: probability date: Dec 30, 2021; value -- streamlit-generated: 0.0797134671289; : probability; value: 0.0797134671289; color: probability date: Dec 31, 2021; value -- streamlit-generated: 0.0773163372388; : probability; value: 0.0773163372388; color: probability date: Jan 03, 2022; value -- streamlit-generated: 0.0761508889727; : probability; value: 0.0761508889727; color: probability date: Jan 04, 2022; value -- streamlit-generated: 0.0729940642574; : probability; value: 0.0729940642574; color: probability date: Jan 05, 2022; value -- streamlit-generated: 0.069565902238; : probability; value: 0.069565902238; color: probability date: Jan 06, 2022; value -- streamlit-generated: 0.0666824587011; : probability; value: 0.0666824587011; color: probability date: Jan 07, 2022; value -- streamlit-generated: 0.0642418306152; : probability; value: 0.0642418306152; color: probability date: Jan 10, 2022; value -- streamlit-generated: 0.0640983579803; : probability; value: 0.0640983579803; color: probability date: Jan 11, 2022; value -- streamlit-generated: 0.062004912717; : probability; value: 0.062004912717; color: probability date: Jan 12, 2022; value -- streamlit-generated: 0.0605996881987; : probability; value: 0.0605996881987; color: probability date: Jan 13, 2022; value -- streamlit-generated: 0.0594947923982; : probability; value: 0.0594947923982; color: probability date: Jan 14, 2022; value -- streamlit-generated: 0.0584667319096; : probability; value: 0.0584667319096; color: probability date: Jan 17, 2022; value -- streamlit-generated: 0.0574373388841; : probability; value: 0.0574373388841; color: probability date: Jan 18, 2022; value -- streamlit-generated: 0.0619268091636; : probability; value: 0.0619268091636; color: probability date: Jan 19, 2022; value -- streamlit-generated: 0.0596885324936; : probability; value: 0.0596885324936; color: probability date: Jan 20, 2022; value -- streamlit-generated: 0.058114669676; : probability; value: 0.058114669676; color: probability date: Jan 21, 2022; value -- streamlit-generated: 0.0620372252206; : probability; value: 0.0620372252206; color: probability date: Jan 24, 2022; value -- streamlit-generated: 0.106044112003; : probability; value: 0.106044112003; color: probability date: Jan 25, 2022; value -- streamlit-generated: 0.0998228567166; : probability; value: 0.0998228567166; color: probability date: Jan 27, 2022; value -- streamlit-generated: 0.0930400926441; : probability; value: 0.0930400926441; color: probability date: Jan 28, 2022; value -- streamlit-generated: 0.0877698864936; : probability; value: 0.0877698864936; color: probability date: Jan 31, 2022; value -- streamlit-generated: 0.0833692663901; : probability; value: 0.0833692663901; color: probability date: Feb 01, 2022; value -- streamlit-generated: 0.0802664669195; : probability; value: 0.0802664669195; color: probability date: Feb 02, 2022; value -- streamlit-generated: 0.079914699511; : probability; value: 0.079914699511; color: probability
+									131 axis X-axis for a time scale with values from Wednesday, 22 September 2021, 12:00:00 AM to Thursday, 22 October 2026, 12:00:00 AM
+									132 axis Y-axis for a linear scale with values from 0.00 to 0.20
+									133 container date: Sep 22, 2021; value -- streamlit-generated: 0.0815172136903; : probability; value: 0.0815172136903; color: probabilitydate: Sep 22, 2021; value -- streamlit-generated: 0.14886054868; : threshold; value: 0.14886054868; color: threshold
+										134 container date: Sep 22, 2021; value -- streamlit-generated: 0.0815172136903; : probability; value: 0.0815172136903; color: probability
+											135 line mark date: Sep 22, 2021; value -- streamlit-generated: 0.0815172136903; : probability; value: 0.0815172136903; color: probability
+										136 container date: Sep 22, 2021; value -- streamlit-generated: 0.14886054868; : threshold; value: 0.14886054868; color: threshold
+											137 line mark date: Sep 22, 2021; value -- streamlit-generated: 0.14886054868; : threshold; value: 0.14886054868; color: threshold
+									138 container date: Sep 22, 2021; value -- streamlit-generated: 0.0815172136903; : probability; value: 0.0815172136903; color: probability date: Sep 23, 2021; value -- streamlit-generated: 0.0780396933979; : probability; value: 0.0780396933979; color: probability date: Sep 24, 2021; value -- streamlit-generated: 0.0735900303607; : probability; value: 0.0735900303607; color: probability date: Sep 27, 2021; value -- streamlit-generated: 0.0699602288441; : probability; value: 0.0699602288441; color: probability date: Sep 28, 2021; value -- streamlit-generated: 0.067064991045; : probability; value: 0.067064991045; color: probability date: Sep 29, 2021; value -- streamlit-generated: 0.0652381872926; : probability; value: 0.0652381872926; color: probability date: Sep 30, 2021; value -- streamlit-generated: 0.0630796699463; : probability; value: 0.0630796699463; color: probability date: Oct 01, 2021; value -- streamlit-generated: 0.0614200928409; : probability; value: 0.0614200928409; color: probability date: Oct 04, 2021; value -- streamlit-generated: 0.0625013001145; : probability; value: 0.0625013001145; color: probability date: Oct 05, 2021; value -- streamlit-generated: 0.0610737462164; : probability; value: 0.0610737462164; color: probability date: Oct 06, 2021; value -- streamlit-generated: 0.0604171404715; : probability; value: 0.0604171404715; color: probability date: Oct 07, 2021; value -- streamlit-generated: 0.060691865053; : probability; value: 0.060691865053; color: probability date: Oct 08, 2021; value -- streamlit-generated: 0.0591945100076; : probability; value: 0.0591945100076; color: probability date: Oct 11, 2021; value -- streamlit-generated: 0.0578220435204; : probability; value: 0.0578220435204; color: probability date: Oct 12, 2021; value -- streamlit-generated: 0.0564176341827; : probability; value: 0.0564176341827; color: probability date: Oct 13, 2021; value -- streamlit-generated: 0.0561418475408; : probability; value: 0.0561418475408; color: probability date: Oct 14, 2021; value -- streamlit-generated: 0.0550041543942; : probability; value: 0.0550041543942; color: probability date: Oct 18, 2021; value -- streamlit-generated: 0.0553858863247; : probability; value: 0.0553858863247; color: probability date: Oct 19, 2021; value -- streamlit-generated: 0.081065264858; : probability; value: 0.081065264858; color: probability date: Oct 20, 2021; value -- streamlit-generated: 0.0813330062147; : probability; value: 0.0813330062147; color: probability date: Oct 21, 2021; value -- streamlit-generated: 0.076866878788; : probability; value: 0.076866878788; color: probability date: Oct 22, 2021; value -- streamlit-generated: 0.074348765853; : probability; value: 0.074348765853; color: probability date: Oct 25, 2021; value -- streamlit-generated: 0.0747975892951; : probability; value: 0.0747975892951; color: probability date: Oct 26, 2021; value -- streamlit-generated: 0.0761008186665; : probability; value: 0.0761008186665; color: probability date: Oct 27, 2021; value -- streamlit-generated: 0.0722806748663; : probability; value: 0.0722806748663; color: probability date: Oct 28, 2021; value -- streamlit-generated: 0.0751929098898; : probability; value: 0.0751929098898; color: probability date: Oct 29, 2021; value -- streamlit-generated: 0.0716864946844; : probability; value: 0.0716864946844; color: probability date: Nov 01, 2021; value -- streamlit-generated: 0.071694132266; : probability; value: 0.071694132266; color: probability date: Nov 02, 2021; value -- streamlit-generated: 0.0696317975026; : probability; value: 0.0696317975026; color: probability date: Nov 03, 2021; value -- streamlit-generated: 0.0670074506536; : probability; value: 0.0670074506536; color: probability date: Nov 04, 2021; value -- streamlit-generated: 0.065009620184; : probability; value: 0.065009620184; color: probability date: Nov 08, 2021; value -- streamlit-generated: 0.0647529746566; : probability; value: 0.0647529746566; color: probability date: Nov 09, 2021; value -- streamlit-generated: 0.063017482039; : probability; value: 0.063017482039; color: probability date: Nov 10, 2021; value -- streamlit-generated: 0.0616780558019; : probability; value: 0.0616780558019; color: probability date: Nov 11, 2021; value -- streamlit-generated: 0.0606287926968; : probability; value: 0.0606287926968; color: probability date: Nov 12, 2021; value -- streamlit-generated: 0.0591052434734; : probability; value: 0.0591052434734; color: probability date: Nov 15, 2021; value -- streamlit-generated: 0.0584949604497; : probability; value: 0.0584949604497; color: probability date: Nov 16, 2021; value -- streamlit-generated: 0.0570649383653; : probability; value: 0.0570649383653; color: probability date: Nov 17, 2021; value -- streamlit-generated: 0.0573456444408; : probability; value: 0.0573456444408; color: probability date: Nov 18, 2021; value -- streamlit-generated: 0.0606883955681; : probability; value: 0.0606883955681; color: probability date: Nov 22, 2021; value -- streamlit-generated: 0.0922656063211; : probability; value: 0.0922656063211; color: probability date: Nov 23, 2021; value -- streamlit-generated: 0.0908075804857; : probability; value: 0.0908075804857; color: probability date: Nov 24, 2021; value -- streamlit-generated: 0.0858070769933; : probability; value: 0.0858070769933; color: probability date: Nov 25, 2021; value -- streamlit-generated: 0.0819233456988; : probability; value: 0.0819233456988; color: probability date: Nov 26, 2021; value -- streamlit-generated: 0.113182770569; : probability; value: 0.113182770569; color: probability date: Nov 29, 2021; value -- streamlit-generated: 0.110104278863; : probability; value: 0.110104278863; color: probability date: Nov 30, 2021; value -- streamlit-generated: 0.102733112416; : probability; value: 0.102733112416; color: probability date: Dec 01, 2021; value -- streamlit-generated: 0.0962741530328; : probability; value: 0.0962741530328; color: probability date: Dec 02, 2021; value -- streamlit-generated: 0.0928280983702; : probability; value: 0.0928280983702; color: probability date: Dec 03, 2021; value -- streamlit-generated: 0.0869227923156; : probability; value: 0.0869227923156; color: probability date: Dec 06, 2021; value -- streamlit-generated: 0.0848191840422; : probability; value: 0.0848191840422; color: probability date: Dec 07, 2021; value -- streamlit-generated: 0.0829530003703; : probability; value: 0.0829530003703; color: probability date: Dec 08, 2021; value -- streamlit-generated: 0.0825896648946; : probability; value: 0.0825896648946; color: probability date: Dec 09, 2021; value -- streamlit-generated: 0.0791782130452; : probability; value: 0.0791782130452; color: probability date: Dec 10, 2021; value -- streamlit-generated: 0.0764430417434; : probability; value: 0.0764430417434; color: probability date: Dec 13, 2021; value -- streamlit-generated: 0.0728463113141; : probability; value: 0.0728463113141; color: probability date: Dec 14, 2021; value -- streamlit-generated: 0.0695361901484; : probability; value: 0.0695361901484; color: probability date: Dec 15, 2021; value -- streamlit-generated: 0.0672965763619; : probability; value: 0.0672965763619; color: probability date: Dec 16, 2021; value -- streamlit-generated: 0.066190378918; : probability; value: 0.066190378918; color: probability date: Dec 17, 2021; value -- streamlit-generated: 0.0925106415236; : probability; value: 0.0925106415236; color: probability date: Dec 20, 2021; value -- streamlit-generated: 0.130720374702; : probability; value: 0.130720374702; color: probability date: Dec 21, 2021; value -- streamlit-generated: 0.121037974148; : probability; value: 0.121037974148; color: probability date: Dec 22, 2021; value -- streamlit-generated: 0.114270950871; : probability; value: 0.114270950871; color: probability date: Dec 23, 2021; value -- streamlit-generated: 0.106104438834; : probability; value: 0.106104438834; color: probability date: Dec 24, 2021; value -- streamlit-generated: 0.0991924074188; : probability; value: 0.0991924074188; color: probability date: Dec 27, 2021; value -- streamlit-generated: 0.0927602653006; : probability; value: 0.0927602653006; color: probability date: Dec 28, 2021; value -- streamlit-generated: 0.0904337768381; : probability; value: 0.0904337768381; color: probability date: Dec 29, 2021; value -- streamlit-generated: 0.0843801819255; : probability; value: 0.0843801819255; color: probability date: Dec 30, 2021; value -- streamlit-generated: 0.0797134671289; : probability; value: 0.0797134671289; color: probability date: Dec 31, 2021; value -- streamlit-generated: 0.0773163372388; : probability; value: 0.0773163372388; color: probability date: Jan 03, 2022; value -- streamlit-generated: 0.0761508889727; : probability; value: 0.0761508889727; color: probability date: Jan 04, 2022; value -- streamlit-generated: 0.0729940642574; : probability; value: 0.0729940642574; color: probability date: Jan 05, 2022; value -- streamlit-generated: 0.069565902238; : probability; value: 0.069565902238; color: probability date: Jan 06, 2022; value -- streamlit-generated: 0.0666824587011; : probability; value: 0.0666824587011; color: probability date: Jan 07, 2022; value -- streamlit-generated: 0.0642418306152; : probability; value: 0.0642418306152; color: probability date: Jan 10, 2022; value -- streamlit-generated: 0.0640983579803; : probability; value: 0.0640983579803; color: probability date: Jan 11, 2022; value -- streamlit-generated: 0.062004912717; : probability; value: 0.062004912717; color: probability date: Jan 12, 2022; value -- streamlit-generated: 0.0605996881987; : probability; value: 0.0605996881987; color: probability date: Jan 13, 2022; value -- streamlit-generated: 0.0594947923982; : probability; value: 0.0594947923982; color: probability date: Jan 14, 2022; value -- streamlit-generated: 0.0584667319096; : probability; value: 0.0584667319096; color: probability date: Jan 17, 2022; value -- streamlit-generated: 0.0574373388841; : probability; value: 0.0574373388841; color: probability date: Jan 18, 2022; value -- streamlit-generated: 0.0619268091636; : probability; value: 0.0619268091636; color: probability date: Jan 19, 2022; value -- streamlit-generated: 0.0596885324936; : probability; value: 0.0596885324936; color: probability date: Jan 20, 2022; value -- streamlit-generated: 0.058114669676; : probability; value: 0.058114669676; color: probability date: Jan 21, 2022; value -- streamlit-generated: 0.0620372252206; : probability; value: 0.0620372252206; color: probability date: Jan 24, 2022; value -- streamlit-generated: 0.106044112003; : probability; value: 0.106044112003; color: probability date: Jan 25, 2022; value -- streamlit-generated: 0.0998228567166; : probability; value: 0.0998228567166; color: probability date: Jan 27, 2022; value -- streamlit-generated: 0.0930400926441; : probability; value: 0.0930400926441; color: probability date: Jan 28, 2022; value -- streamlit-generated: 0.0877698864936; : probability; value: 0.0877698864936; color: probability date: Jan 31, 2022; value -- streamlit-generated: 0.0833692663901; : probability; value: 0.0833692663901; color: probability date: Feb 01, 2022; value -- streamlit-generated: 0.0802664669195; : probability; value: 0.0802664669195; color: probability date: Feb 02, 2022; value -- streamlit-generated: 0.079914699511; : probability; value: 0.079914699511; color: probability date: Feb 03, 2022; value -- streamlit-generated: 0.0758921314219; : probability; value: 0.0758921314219; color: probability date: Feb 04, 2022; value -- streamlit-generated: 0.0702094131092; : probability; value: 0.0702094131092; color: probability date: Feb 07, 2022; value -- streamlit-generated: 0.0684254222915; : probability; value: 0.0684254222915; color: probability date: Feb 08, 2022; value -- streamlit-generated: 0.0671534493803; : probability; value: 0.0671534493803; color: probability date: Feb 09, 2022; value -- streamlit-generated: 0.0648543297931; : probability; value: 0.0648543297931; color: probability date: Feb 10, 2022; value -- streamlit-generated: 0.0622912040354; : probability; value: 0.0622912040354; color: probability date: Feb 11, 2022; value -- streamlit-generated: 0.0638767512938; : probability; value: 0.0638767512938; color: probability date: Feb 14, 2022; value -- streamlit-generated: 0.109001301478; : probability; value: 0.109001301478; color: probability (showing 0-500 of 2520 items)
+										139 point date: Sep 22, 2021; value -- streamlit-generated: 0.0815172136903; : probability; value: 0.0815172136903; color: probability
+										140 point date: Sep 23, 2021; value -- streamlit-generated: 0.0780396933979; : probability; value: 0.0780396933979; color: probability
+										141 point date: Sep 24, 2021; value -- streamlit-generated: 0.0735900303607; : probability; value: 0.0735900303607; color: probability
+										142 point date: Sep 27, 2021; value -- streamlit-generated: 0.0699602288441; : probability; value: 0.0699602288441; color: probability
+										143 point date: Sep 28, 2021; value -- streamlit-generated: 0.067064991045; : probability; value: 0.067064991045; color: probability
+										144 point date: Sep 29, 2021; value -- streamlit-generated: 0.0652381872926; : probability; value: 0.0652381872926; color: probability
+										145 point date: Sep 30, 2021; value -- streamlit-generated: 0.0630796699463; : probability; value: 0.0630796699463; color: probability
+										146 point date: Oct 01, 2021; value -- streamlit-generated: 0.0614200928409; : probability; value: 0.0614200928409; color: probability
+										147 point date: Oct 04, 2021; value -- streamlit-generated: 0.0625013001145; : probability; value: 0.0625013001145; color: probability
+										148 point date: Oct 05, 2021; value -- streamlit-generated: 0.0610737462164; : probability; value: 0.0610737462164; color: probability
+										149 point date: Oct 06, 2021; value -- streamlit-generated: 0.0604171404715; : probability; value: 0.0604171404715; color: probability
+										150 point date: Oct 07, 2021; value -- streamlit-generated: 0.060691865053; : probability; value: 0.060691865053; color: probability
+										151 point date: Oct 08, 2021; value -- streamlit-generated: 0.0591945100076; : probability; value: 0.0591945100076; color: probability
+										152 point date: Oct 11, 2021; value -- streamlit-generated: 0.0578220435204; : probability; value: 0.0578220435204; color: probability
+										153 point date: Oct 12, 2021; value -- streamlit-generated: 0.0564176341827; : probability; value: 0.0564176341827; color: probability
+										154 point date: Oct 13, 2021; value -- streamlit-generated: 0.0561418475408; : probability; value: 0.0561418475408; color: probability
+										155 point date: Oct 14, 2021; value -- streamlit-generated: 0.0550041543942; : probability; value: 0.0550041543942; color: probability
+										156 point date: Oct 18, 2021; value -- streamlit-generated: 0.0553858863247; : probability; value: 0.0553858863247; color: probability
+										157 point date: Oct 19, 2021; value -- streamlit-generated: 0.081065264858; : probability; value: 0.081065264858; color: probability
+										158 point date: Oct 20, 2021; value -- streamlit-generated: 0.0813330062147; : probability; value: 0.0813330062147; color: probability
+										159 point date: Oct 21, 2021; value -- streamlit-generated: 0.076866878788; : probability; value: 0.076866878788; color: probability
+										160 point date: Oct 22, 2021; value -- streamlit-generated: 0.074348765853; : probability; value: 0.074348765853; color: probability
+										161 point date: Oct 25, 2021; value -- streamlit-generated: 0.0747975892951; : probability; value: 0.0747975892951; color: probability
+										162 point date: Oct 26, 2021; value -- streamlit-generated: 0.0761008186665; : probability; value: 0.0761008186665; color: probability
+										163 point date: Oct 27, 2021; value -- streamlit-generated: 0.0722806748663; : probability; value: 0.0722806748663; color: probability
+										164 point date: Oct 28, 2021; value -- streamlit-generated: 0.0751929098898; : probability; value: 0.0751929098898; color: probability
+										165 point date: Oct 29, 2021; value -- streamlit-generated: 0.0716864946844; : probability; value: 0.0716864946844; color: probability
+										166 point date: Nov 01, 2021; value -- streamlit-generated: 0.071694132266; : probability; value: 0.071694132266; color: probability
+										167 point date: Nov 02, 2021; value -- streamlit-generated: 0.0696317975026; : probability; value: 0.0696317975026; color: probability
+										168 point date: Nov 03, 2021; value -- streamlit-generated: 0.0670074506536; : probability; value: 0.0670074506536; color: probability
+										169 point date: Nov 04, 2021; value -- streamlit-generated: 0.065009620184; : probability; value: 0.065009620184; color: probability
+										170 point date: Nov 08, 2021; value -- streamlit-generated: 0.0647529746566; : probability; value: 0.0647529746566; color: probability
+										171 point date: Nov 09, 2021; value -- streamlit-generated: 0.063017482039; : probability; value: 0.063017482039; color: probability
+										172 point date: Nov 10, 2021; value -- streamlit-generated: 0.0616780558019; : probability; value: 0.0616780558019; color: probability
+										173 point date: Nov 11, 2021; value -- streamlit-generated: 0.0606287926968; : probability; value: 0.0606287926968; color: probability
+										174 point date: Nov 12, 2021; value -- streamlit-generated: 0.0591052434734; : probability; value: 0.0591052434734; color: probability
+										175 point date: Nov 15, 2021; value -- streamlit-generated: 0.0584949604497; : probability; value: 0.0584949604497; color: probability
+										176 point date: Nov 16, 2021; value -- streamlit-generated: 0.0570649383653; : probability; value: 0.0570649383653; color: probability
+										177 point date: Nov 17, 2021; value -- streamlit-generated: 0.0573456444408; : probability; value: 0.0573456444408; color: probability
+										178 point date: Nov 18, 2021; value -- streamlit-generated: 0.0606883955681; : probability; value: 0.0606883955681; color: probability
+										179 point date: Nov 22, 2021; value -- streamlit-generated: 0.0922656063211; : probability; value: 0.0922656063211; color: probability
+										180 point date: Nov 23, 2021; value -- streamlit-generated: 0.0908075804857; : probability; value: 0.0908075804857; color: probability
+										181 point date: Nov 24, 2021; value -- streamlit-generated: 0.0858070769933; : probability; value: 0.0858070769933; color: probability
+										182 point date: Nov 25, 2021; value -- streamlit-generated: 0.0819233456988; : probability; value: 0.0819233456988; color: probability
+										183 point date: Nov 26, 2021; value -- streamlit-generated: 0.113182770569; : probability; value: 0.113182770569; color: probability
+										184 point date: Nov 29, 2021; value -- streamlit-generated: 0.110104278863; : probability; value: 0.110104278863; color: probability
+										185 point date: Nov 30, 2021; value -- streamlit-generated: 0.102733112416; : probability; value: 0.102733112416; color: probability
+										186 point date: Dec 01, 2021; value -- streamlit-generated: 0.0962741530328; : probability; value: 0.0962741530328; color: probability
+										187 point date: Dec 02, 2021; value -- streamlit-generated: 0.0928280983702; : probability; value: 0.0928280983702; color: probability
+										188 point date: Dec 03, 2021; value -- streamlit-generated: 0.0869227923156; : probability; value: 0.0869227923156; color: probability
+										189 point date: Dec 06, 2021; value -- streamlit-generated: 0.0848191840422; : probability; value: 0.0848191840422; color: probability
+										190 point date: Dec 07, 2021; value -- streamlit-generated: 0.0829530003703; : probability; value: 0.0829530003703; color: probability
+										191 point date: Dec 08, 2021; value -- streamlit-generated: 0.0825896648946; : probability; value: 0.0825896648946; color: probability
+										192 point date: Dec 09, 2021; value -- streamlit-generated: 0.0791782130452; : probability; value: 0.0791782130452; color: probability
+										193 point date: Dec 10, 2021; value -- streamlit-generated: 0.0764430417434; : probability; value: 0.0764430417434; color: probability
+										194 point date: Dec 13, 2021; value -- streamlit-generated: 0.0728463113141; : probability; value: 0.0728463113141; color: probability
+										195 point date: Dec 14, 2021; value -- streamlit-generated: 0.0695361901484; : probability; value: 0.0695361901484; color: probability
+										196 point date: Dec 15, 2021; value -- streamlit-generated: 0.0672965763619; : probability; value: 0.0672965763619; color: probability
+										197 point date: Dec 16, 2021; value -- streamlit-generated: 0.066190378918; : probability; value: 0.066190378918; color: probability
+										198 point date: Dec 17, 2021; value -- streamlit-generated: 0.0925106415236; : probability; value: 0.0925106415236; color: probability
+										199 point date: Dec 20, 2021; value -- streamlit-generated: 0.130720374702; : probability; value: 0.130720374702; color: probability
+										200 point date: Dec 21, 2021; value -- streamlit-generated: 0.121037974148; : probability; value: 0.121037974148; color: probability
+										201 point date: Dec 22, 2021; value -- streamlit-generated: 0.114270950871; : probability; value: 0.114270950871; color: probability
+										202 point date: Dec 23, 2021; value -- streamlit-generated: 0.106104438834; : probability; value: 0.106104438834; color: probability
+										203 point date: Dec 24, 2021; value -- streamlit-generated: 0.0991924074188; : probability; value: 0.0991924074188; color: probability
+										204 point date: Dec 27, 2021; value -- streamlit-generated: 0.0927602653006; : probability; value: 0.0927602653006; color: probability
+										205 point date: Dec 28, 2021; value -- streamlit-generated: 0.0904337768381; : probability; value: 0.0904337768381; color: probability
+										206 point date: Dec 29, 2021; value -- streamlit-generated: 0.0843801819255; : probability; value: 0.0843801819255; color: probability
+										207 point date: Dec 30, 2021; value -- streamlit-generated: 0.0797134671289; : probability; value: 0.0797134671289; color: probability
+										208 point date: Dec 31, 2021; value -- streamlit-generated: 0.0773163372388; : probability; value: 0.0773163372388; color: probability
+										209 point date: Jan 03, 2022; value -- streamlit-generated: 0.0761508889727; : probability; value: 0.0761508889727; color: probability
+										210 point date: Jan 04, 2022; value -- streamlit-generated: 0.0729940642574; : probability; value: 0.0729940642574; color: probability
+										211 point date: Jan 05, 2022; value -- streamlit-generated: 0.069565902238; : probability; value: 0.069565902238; color: probability
+										212 point date: Jan 06, 2022; value -- streamlit-generated: 0.0666824587011; : probability; value: 0.0666824587011; color: probability
+										213 point date: Jan 07, 2022; value -- streamlit-generated: 0.0642418306152; : probability; value: 0.0642418306152; color: probability
+										214 point date: Jan 10, 2022; value -- streamlit-generated: 0.0640983579803; : probability; value: 0.0640983579803; color: probability
+										215 point date: Jan 11, 2022; value -- streamlit-generated: 0.062004912717; : probability; value: 0.062004912717; color: probability
+										216 point date: Jan 12, 2022; value -- streamlit-generated: 0.0605996881987; : probability; value: 0.0605996881987; color: probability
+										217 point date: Jan 13, 2022; value -- streamlit-generated: 0.0594947923982; : probability; value: 0.0594947923982; color: probability
+										218 point date: Jan 14, 2022; value -- streamlit-generated: 0.0584667319096; : probability; value: 0.0584667319096; color: probability
+										219 point date: Jan 17, 2022; value -- streamlit-generated: 0.0574373388841; : probability; value: 0.0574373388841; color: probability
+										220 point date: Jan 18, 2022; value -- streamlit-generated: 0.0619268091636; : probability; value: 0.0619268091636; color: probability
+										221 point date: Jan 19, 2022; value -- streamlit-generated: 0.0596885324936; : probability; value: 0.0596885324936; color: probability
+										222 point date: Jan 20, 2022; value -- streamlit-generated: 0.058114669676; : probability; value: 0.058114669676; color: probability
+										223 point date: Jan 21, 2022; value -- streamlit-generated: 0.0620372252206; : probability; value: 0.0620372252206; color: probability
+										224 point date: Jan 24, 2022; value -- streamlit-generated: 0.106044112003; : probability; value: 0.106044112003; color: probability
+										225 point date: Jan 25, 2022; value -- streamlit-generated: 0.0998228567166; : probability; value: 0.0998228567166; color: probability
+										226 point date: Jan 27, 2022; value -- streamlit-generated: 0.0930400926441; : probability; value: 0.0930400926441; color: probability
+										227 point date: Jan 28, 2022; value -- streamlit-generated: 0.0877698864936; : probability; value: 0.0877698864936; color: probability
+										228 point date: Jan 31, 2022; value -- streamlit-generated: 0.0833692663901; : probability; value: 0.0833692663901; color: probability
+										229 point date: Feb 01, 2022; value -- streamlit-generated: 0.0802664669195; : probability; value: 0.0802664669195; color: probability
+										230 point date: Feb 02, 2022; value -- streamlit-generated: 0.079914699511; : probability; value: 0.079914699511; color: probability
+										231 point date: Feb 03, 2022; value -- streamlit-generated: 0.0758921314219; : probability; value: 0.0758921314219; color: probability
+										232 point date: Feb 04, 2022; value -- streamlit-generated: 0.0702094131092; : probability; value: 0.0702094131092; color: probability
+										233 point date: Feb 07, 2022; value -- streamlit-generated: 0.0684254222915; : probability; value: 0.0684254222915; color: probability
+										234 point date: Feb 08, 2022; value -- streamlit-generated: 0.0671534493803; : probability; value: 0.0671534493803; color: probability
+										235 point date: Feb 09, 2022; value -- streamlit-generated: 0.0648543297931; : probability; value: 0.0648543297931; color: probability
+										236 point date: Feb 10, 2022; value -- streamlit-generated: 0.0622912040354; : probability; value: 0.0622912040354; color: probability
+										237 point date: Feb 11, 2022; value -- streamlit-generated: 0.0638767512938; : probability; value: 0.0638767512938; color: probability
+										238 point date: Feb 14, 2022; value -- streamlit-generated: 0.109001301478; : probability; value: 0.109001301478; color: probability
+										239 point date: Feb 15, 2022; value -- streamlit-generated: 0.107380753969; : probability; value: 0.107380753969; color: probability
+										240 point date: Feb 16, 2022; value -- streamlit-generated: 0.0999689481748; : probability; value: 0.0999689481748; color: probability
+										241 point date: Feb 17, 2022; value -- streamlit-generated: 0.0936063802499; : probability; value: 0.0936063802499; color: probability
+										242 point date: Feb 18, 2022; value -- streamlit-generated: 0.0887254620672; : probability; value: 0.0887254620672; color: probability
+										243 point date: Feb 21, 2022; value -- streamlit-generated: 0.0915999525519; : probability; value: 0.0915999525519; color: probability
+										244 point date: Feb 22, 2022; value -- streamlit-generated: 0.0913205656283; : probability; value: 0.0913205656283; color: probability
+										245 point date: Feb 23, 2022; value -- streamlit-generated: 0.0879355367761; : probability; value: 0.0879355367761; color: probability
+										246 point date: Feb 24, 2022; value -- streamlit-generated: 0.188954011663; : probability; value: 0.188954011663; color: probability
+										247 point date: Feb 25, 2022; value -- streamlit-generated: 0.199977588747; : probability; value: 0.199977588747; color: probability
+										248 point date: Feb 28, 2022; value -- streamlit-generated: 0.186165132362; : probability; value: 0.186165132362; color: probability
+										249 point date: Mar 02, 2022; value -- streamlit-generated: 0.172518388839; : probability; value: 0.172518388839; color: probability
+										250 point date: Mar 03, 2022; value -- streamlit-generated: 0.150287178647; : probability; value: 0.150287178647; color: probability
+										251 point date: Mar 04, 2022; value -- streamlit-generated: 0.144273521845; : probability; value: 0.144273521845; color: probability
+										252 point date: Mar 07, 2022; value -- streamlit-generated: 0.143743978799; : probability; value: 0.143743978799; color: probability
+										253 point date: Mar 08, 2022; value -- streamlit-generated: 0.134510550201; : probability; value: 0.134510550201; color: probability
+										254 point date: Mar 09, 2022; value -- streamlit-generated: 0.132404464274; : probability; value: 0.132404464274; color: probability
+										255 point date: Mar 10, 2022; value -- streamlit-generated: 0.123813410647; : probability; value: 0.123813410647; color: probability
+										256 point date: Mar 11, 2022; value -- streamlit-generated: 0.115504018281; : probability; value: 0.115504018281; color: probability
+										257 point date: Mar 14, 2022; value -- streamlit-generated: 0.107940220729; : probability; value: 0.107940220729; color: probability
+										258 point date: Mar 15, 2022; value -- streamlit-generated: 0.103444130667; : probability; value: 0.103444130667; color: probability
+										259 point date: Mar 16, 2022; value -- streamlit-generated: 0.102311866457; : probability; value: 0.102311866457; color: probability
+										260 point date: Mar 17, 2022; value -- streamlit-generated: 0.0990926002833; : probability; value: 0.0990926002833; color: probability
+										261 point date: Mar 21, 2022; value -- streamlit-generated: 0.0938783597134; : probability; value: 0.0938783597134; color: probability
+										262 point date: Mar 22, 2022; value -- streamlit-generated: 0.0890419890584; : probability; value: 0.0890419890584; color: probability
+										263 point date: Mar 23, 2022; value -- streamlit-generated: 0.0848958206738; : probability; value: 0.0848958206738; color: probability
+										264 point date: Mar 24, 2022; value -- streamlit-generated: 0.0808973959644; : probability; value: 0.0808973959644; color: probability
+										265 point date: Mar 25, 2022; value -- streamlit-generated: 0.0777656328702; : probability; value: 0.0777656328702; color: probability
+										266 point date: Mar 28, 2022; value -- streamlit-generated: 0.0755294955761; : probability; value: 0.0755294955761; color: probability
+										267 point date: Mar 29, 2022; value -- streamlit-generated: 0.0731920911782; : probability; value: 0.0731920911782; color: probability
+										268 point date: Mar 30, 2022; value -- streamlit-generated: 0.0717698622872; : probability; value: 0.0717698622872; color: probability
+										269 point date: Mar 31, 2022; value -- streamlit-generated: 0.0693576119857; : probability; value: 0.0693576119857; color: probability
+										270 point date: Apr 01, 2022; value -- streamlit-generated: 0.0746475246712; : probability; value: 0.0746475246712; color: probability
+										271 point date: Apr 04, 2022; value -- streamlit-generated: 0.0758740718969; : probability; value: 0.0758740718969; color: probability
+										272 point date: Apr 05, 2022; value -- streamlit-generated: 0.0750769741079; : probability; value: 0.0750769741079; color: probability
+										273 point date: Apr 06, 2022; value -- streamlit-generated: 0.0726730590401; : probability; value: 0.0726730590401; color: probability
+										274 point date: Apr 07, 2022; value -- streamlit-generated: 0.0699380891299; : probability; value: 0.0699380891299; color: probability
+										275 point date: Apr 08, 2022; value -- streamlit-generated: 0.0684102797471; : probability; value: 0.0684102797471; color: probability
+										276 point date: Apr 11, 2022; value -- streamlit-generated: 0.0660652807743; : probability; value: 0.0660652807743; color: probability
+										277 point date: Apr 12, 2022; value -- streamlit-generated: 0.067293133233; : probability; value: 0.067293133233; color: probability
+										278 point date: Apr 13, 2022; value -- streamlit-generated: 0.0647091399078; : probability; value: 0.0647091399078; color: probability
+										279 point date: Apr 18, 2022; value -- streamlit-generated: 0.0632254164292; : probability; value: 0.0632254164292; color: probability
+										280 point date: Apr 19, 2022; value -- streamlit-generated: 0.0634116920096; : probability; value: 0.0634116920096; color: probability
+										281 point date: Apr 20, 2022; value -- streamlit-generated: 0.0613122892822; : probability; value: 0.0613122892822; color: probability
+										282 point date: Apr 21, 2022; value -- streamlit-generated: 0.0620727768511; : probability; value: 0.0620727768511; color: probability
+										283 point date: Apr 22, 2022; value -- streamlit-generated: 0.0604509089919; : probability; value: 0.0604509089919; color: probability
+										284 point date: Apr 25, 2022; value -- streamlit-generated: 0.0663286038736; : probability; value: 0.0663286038736; color: probability
+										285 point date: Apr 26, 2022; value -- streamlit-generated: 0.0655651655013; : probability; value: 0.0655651655013; color: probability
+										286 point date: Apr 27, 2022; value -- streamlit-generated: 0.0636785179221; : probability; value: 0.0636785179221; color: probability
+										287 point date: Apr 28, 2022; value -- streamlit-generated: 0.0613702947523; : probability; value: 0.0613702947523; color: probability
+										288 point date: Apr 29, 2022; value -- streamlit-generated: 0.0603405396035; : probability; value: 0.0603405396035; color: probability
+										289 point date: May 02, 2022; value -- streamlit-generated: 0.0588429143074; : probability; value: 0.0588429143074; color: probability
+										290 point date: May 04, 2022; value -- streamlit-generated: 0.0654039797467; : probability; value: 0.0654039797467; color: probability
+										291 point date: May 05, 2022; value -- streamlit-generated: 0.0628068454003; : probability; value: 0.0628068454003; color: probability
+										292 point date: May 06, 2022; value -- streamlit-generated: 0.0660397484399; : probability; value: 0.0660397484399; color: probability
+										293 point date: May 09, 2022; value -- streamlit-generated: 0.0675057509924; : probability; value: 0.0675057509924; color: probability
+										294 point date: May 10, 2022; value -- streamlit-generated: 0.0705958124577; : probability; value: 0.0705958124577; color: probability
+										295 point date: May 12, 2022; value -- streamlit-generated: 0.115587114911; : probability; value: 0.115587114911; color: probability
+										296 point date: May 13, 2022; value -- streamlit-generated: 0.107582061309; : probability; value: 0.107582061309; color: probability
+										297 point date: May 16, 2022; value -- streamlit-generated: 0.102244380736; : probability; value: 0.102244380736; color: probability
+										298 point date: May 17, 2022; value -- streamlit-generated: 0.109319689731; : probability; value: 0.109319689731; color: probability
+										299 point date: May 18, 2022; value -- streamlit-generated: 0.102271776803; : probability; value: 0.102271776803; color: probability
+										300 point date: May 19, 2022; value -- streamlit-generated: 0.105501149415; : probability; value: 0.105501149415; color: probability
+										301 point date: May 20, 2022; value -- streamlit-generated: 0.107667454943; : probability; value: 0.107667454943; color: probability
+										302 point date: May 23, 2022; value -- streamlit-generated: 0.102546639312; : probability; value: 0.102546639312; color: probability
+										303 point date: May 24, 2022; value -- streamlit-generated: 0.0995847964708; : probability; value: 0.0995847964708; color: probability
+										304 point date: May 25, 2022; value -- streamlit-generated: 0.105654259684; : probability; value: 0.105654259684; color: probability
+										305 point date: May 26, 2022; value -- streamlit-generated: 0.101322891455; : probability; value: 0.101322891455; color: probability
+										306 point date: May 27, 2022; value -- streamlit-generated: 0.100885936248; : probability; value: 0.100885936248; color: probability
+										307 point date: May 30, 2022; value -- streamlit-generated: 0.103735811232; : probability; value: 0.103735811232; color: probability
+										308 point date: May 31, 2022; value -- streamlit-generated: 0.0989944688721; : probability; value: 0.0989944688721; color: probability
+										309 point date: Jun 01, 2022; value -- streamlit-generated: 0.0947137474834; : probability; value: 0.0947137474834; color: probability
+										310 point date: Jun 02, 2022; value -- streamlit-generated: 0.091098521945; : probability; value: 0.091098521945; color: probability
+										311 point date: Jun 03, 2022; value -- streamlit-generated: 0.0892697324272; : probability; value: 0.0892697324272; color: probability
+										312 point date: Jun 06, 2022; value -- streamlit-generated: 0.0861783196243; : probability; value: 0.0861783196243; color: probability
+										313 point date: Jun 07, 2022; value -- streamlit-generated: 0.0833432219255; : probability; value: 0.0833432219255; color: probability
+										314 point date: Jun 08, 2022; value -- streamlit-generated: 0.0808439923394; : probability; value: 0.0808439923394; color: probability
+										315 point date: Jun 09, 2022; value -- streamlit-generated: 0.0780687881068; : probability; value: 0.0780687881068; color: probability
+										316 point date: Jun 10, 2022; value -- streamlit-generated: 0.0765161654558; : probability; value: 0.0765161654558; color: probability
+										317 point date: Jun 13, 2022; value -- streamlit-generated: 0.106682551223; : probability; value: 0.106682551223; color: probability
+										318 point date: Jun 14, 2022; value -- streamlit-generated: 0.100081882093; : probability; value: 0.100081882093; color: probability
+										319 point date: Jun 15, 2022; value -- streamlit-generated: 0.0946654141649; : probability; value: 0.0946654141649; color: probability
+										320 point date: Jun 16, 2022; value -- streamlit-generated: 0.123457755739; : probability; value: 0.123457755739; color: probability
+										321 point date: Jun 17, 2022; value -- streamlit-generated: 0.115422402806; : probability; value: 0.115422402806; color: probability
+										322 point date: Jun 20, 2022; value -- streamlit-generated: 0.120055234586; : probability; value: 0.120055234586; color: probability
+										323 point date: Jun 21, 2022; value -- streamlit-generated: 0.126094099929; : probability; value: 0.126094099929; color: probability
+										324 point date: Jun 22, 2022; value -- streamlit-generated: 0.119105959434; : probability; value: 0.119105959434; color: probability
+										325 point date: Jun 23, 2022; value -- streamlit-generated: 0.112680406525; : probability; value: 0.112680406525; color: probability
+										326 point date: Jun 24, 2022; value -- streamlit-generated: 0.109346713619; : probability; value: 0.109346713619; color: probability
+										327 point date: Jun 27, 2022; value -- streamlit-generated: 0.105434278438; : probability; value: 0.105434278438; color: probability
+										328 point date: Jun 28, 2022; value -- streamlit-generated: 0.0994044225567; : probability; value: 0.0994044225567; color: probability
+										329 point date: Jun 29, 2022; value -- streamlit-generated: 0.093970676423; : probability; value: 0.093970676423; color: probability
+										330 point date: Jun 30, 2022; value -- streamlit-generated: 0.0902942184768; : probability; value: 0.0902942184768; color: probability
+										331 point date: Jul 01, 2022; value -- streamlit-generated: 0.0863435041838; : probability; value: 0.0863435041838; color: probability
+										332 point date: Jul 04, 2022; value -- streamlit-generated: 0.0833526614877; : probability; value: 0.0833526614877; color: probability
+										333 point date: Jul 05, 2022; value -- streamlit-generated: 0.0798785388619; : probability; value: 0.0798785388619; color: probability
+										334 point date: Jul 06, 2022; value -- streamlit-generated: 0.0781559198413; : probability; value: 0.0781559198413; color: probability
+										335 point date: Jul 07, 2022; value -- streamlit-generated: 0.078226743232; : probability; value: 0.078226743232; color: probability
+										336 point date: Jul 08, 2022; value -- streamlit-generated: 0.075057582641; : probability; value: 0.075057582641; color: probability
+										337 point date: Jul 11, 2022; value -- streamlit-generated: 0.0740532462718; : probability; value: 0.0740532462718; color: probability
+										338 point date: Jul 12, 2022; value -- streamlit-generated: 0.071598805327; : probability; value: 0.071598805327; color: probability
+										339 point date: Jul 13, 2022; value -- streamlit-generated: 0.0690953024452; : probability; value: 0.0690953024452; color: probability
+										340 point date: Jul 14, 2022; value -- streamlit-generated: 0.0672799637242; : probability; value: 0.0672799637242; color: probability
+										341 point date: Jul 15, 2022; value -- streamlit-generated: 0.0654990114758; : probability; value: 0.0654990114758; color: probability
+										342 point date: Jul 18, 2022; value -- streamlit-generated: 0.0665874719739; : probability; value: 0.0665874719739; color: probability
+										343 point date: Jul 19, 2022; value -- streamlit-generated: 0.065208721214; : probability; value: 0.065208721214; color: probability
+										344 point date: Jul 20, 2022; value -- streamlit-generated: 0.0637990621321; : probability; value: 0.0637990621321; color: probability
+										345 point date: Jul 21, 2022; value -- streamlit-generated: 0.0633542128932; : probability; value: 0.0633542128932; color: probability
+										346 point date: Jul 22, 2022; value -- streamlit-generated: 0.0615253389056; : probability; value: 0.0615253389056; color: probability
+										347 point date: Jul 25, 2022; value -- streamlit-generated: 0.0600498127833; : probability; value: 0.0600498127833; color: probability
+										348 point date: Jul 26, 2022; value -- streamlit-generated: 0.0603948133154; : probability; value: 0.0603948133154; color: probability
+										349 point date: Jul 27, 2022; value -- streamlit-generated: 0.0589565709914; : probability; value: 0.0589565709914; color: probability
+										350 point date: Jul 28, 2022; value -- streamlit-generated: 0.0581786925343; : probability; value: 0.0581786925343; color: probability
+										351 point date: Jul 29, 2022; value -- streamlit-generated: 0.0585070570136; : probability; value: 0.0585070570136; color: probability
+										352 point date: Aug 01, 2022; value -- streamlit-generated: 0.0607552882548; : probability; value: 0.0607552882548; color: probability
+										353 point date: Aug 02, 2022; value -- streamlit-generated: 0.0595355627492; : probability; value: 0.0595355627492; color: probability
+										354 point date: Aug 03, 2022; value -- streamlit-generated: 0.0586446914591; : probability; value: 0.0586446914591; color: probability
+										355 point date: Aug 04, 2022; value -- streamlit-generated: 0.05807971244; : probability; value: 0.05807971244; color: probability
+										356 point date: Aug 05, 2022; value -- streamlit-generated: 0.0566409479162; : probability; value: 0.0566409479162; color: probability
+										357 point date: Aug 08, 2022; value -- streamlit-generated: 0.0554838308239; : probability; value: 0.0554838308239; color: probability
+										358 point date: Aug 10, 2022; value -- streamlit-generated: 0.059800892214; : probability; value: 0.059800892214; color: probability
+										359 point date: Aug 11, 2022; value -- streamlit-generated: 0.0590816367161; : probability; value: 0.0590816367161; color: probability
+										360 point date: Aug 12, 2022; value -- streamlit-generated: 0.058476994951; : probability; value: 0.058476994951; color: probability
+										361 point date: Aug 16, 2022; value -- streamlit-generated: 0.0592373051898; : probability; value: 0.0592373051898; color: probability
+										362 point date: Aug 17, 2022; value -- streamlit-generated: 0.0588943956623; : probability; value: 0.0588943956623; color: probability
+										363 point date: Aug 18, 2022; value -- streamlit-generated: 0.0580534311945; : probability; value: 0.0580534311945; color: probability
+										364 point date: Aug 19, 2022; value -- streamlit-generated: 0.0567712401047; : probability; value: 0.0567712401047; color: probability
+										365 point date: Aug 22, 2022; value -- streamlit-generated: 0.0583936796853; : probability; value: 0.0583936796853; color: probability
+										366 point date: Aug 23, 2022; value -- streamlit-generated: 0.0584747819189; : probability; value: 0.0584747819189; color: probability
+										367 point date: Aug 24, 2022; value -- streamlit-generated: 0.0584980831358; : probability; value: 0.0584980831358; color: probability
+										368 point date: Aug 25, 2022; value -- streamlit-generated: 0.0572155542213; : probability; value: 0.0572155542213; color: probability
+										369 point date: Aug 26, 2022; value -- streamlit-generated: 0.0563691143214; : probability; value: 0.0563691143214; color: probability
+										370 point date: Aug 29, 2022; value -- streamlit-generated: 0.0560097401641; : probability; value: 0.0560097401641; color: probability
+										371 point date: Aug 30, 2022; value -- streamlit-generated: 0.0581007469962; : probability; value: 0.0581007469962; color: probability
+										372 point date: Sep 01, 2022; value -- streamlit-generated: 0.0574543665671; : probability; value: 0.0574543665671; color: probability
+										373 point date: Sep 02, 2022; value -- streamlit-generated: 0.0563800135221; : probability; value: 0.0563800135221; color: probability
+										374 point date: Sep 05, 2022; value -- streamlit-generated: 0.0565018324776; : probability; value: 0.0565018324776; color: probability
+										375 point date: Sep 06, 2022; value -- streamlit-generated: 0.0556929564204; : probability; value: 0.0556929564204; color: probability
+										376 point date: Sep 07, 2022; value -- streamlit-generated: 0.0555609252014; : probability; value: 0.0555609252014; color: probability
+										377 point date: Sep 08, 2022; value -- streamlit-generated: 0.0567656174064; : probability; value: 0.0567656174064; color: probability
+										378 point date: Sep 09, 2022; value -- streamlit-generated: 0.055864668991; : probability; value: 0.055864668991; color: probability
+										379 point date: Sep 12, 2022; value -- streamlit-generated: 0.0559557049702; : probability; value: 0.0559557049702; color: probability
+										380 point date: Sep 13, 2022; value -- streamlit-generated: 0.0577316974184; : probability; value: 0.0577316974184; color: probability
+										381 point date: Sep 14, 2022; value -- streamlit-generated: 0.0572057406835; : probability; value: 0.0572057406835; color: probability
+										382 point date: Sep 15, 2022; value -- streamlit-generated: 0.0593625913836; : probability; value: 0.0593625913836; color: probability
+										383 point date: Sep 16, 2022; value -- streamlit-generated: 0.0861031186091; : probability; value: 0.0861031186091; color: probability
+										384 point date: Sep 19, 2022; value -- streamlit-generated: 0.083052151101; : probability; value: 0.083052151101; color: probability
+										385 point date: Sep 20, 2022; value -- streamlit-generated: 0.0815694056297; : probability; value: 0.0815694056297; color: probability
+										386 point date: Sep 21, 2022; value -- streamlit-generated: 0.0795582310954; : probability; value: 0.0795582310954; color: probability
+										387 point date: Sep 22, 2022; value -- streamlit-generated: 0.0768755399219; : probability; value: 0.0768755399219; color: probability
+										388 point date: Sep 23, 2022; value -- streamlit-generated: 0.0972103578856; : probability; value: 0.0972103578856; color: probability
+										389 point date: Sep 26, 2022; value -- streamlit-generated: 0.131518535171; : probability; value: 0.131518535171; color: probability
+										390 point date: Sep 27, 2022; value -- streamlit-generated: 0.120834658975; : probability; value: 0.120834658975; color: probability
+										391 point date: Sep 28, 2022; value -- streamlit-generated: 0.111926415106; : probability; value: 0.111926415106; color: probability
+										392 point date: Sep 29, 2022; value -- streamlit-generated: 0.104617368224; : probability; value: 0.104617368224; color: probability
+										393 point date: Sep 30, 2022; value -- streamlit-generated: 0.100900263921; : probability; value: 0.100900263921; color: probability
+										394 point date: Oct 03, 2022; value -- streamlit-generated: 0.0958599166116; : probability; value: 0.0958599166116; color: probability
+										395 point date: Oct 04, 2022; value -- streamlit-generated: 0.0967869919661; : probability; value: 0.0967869919661; color: probability
+										396 point date: Oct 06, 2022; value -- streamlit-generated: 0.0939556681354; : probability; value: 0.0939556681354; color: probability
+										397 point date: Oct 07, 2022; value -- streamlit-generated: 0.0892545113427; : probability; value: 0.0892545113427; color: probability
+										398 point date: Oct 10, 2022; value -- streamlit-generated: 0.0856283785993; : probability; value: 0.0856283785993; color: probability
+										399 point date: Oct 11, 2022; value -- streamlit-generated: 0.0863126597161; : probability; value: 0.0863126597161; color: probability
+										400 point date: Oct 12, 2022; value -- streamlit-generated: 0.0825342545428; : probability; value: 0.0825342545428; color: probability
+										401 point date: Oct 13, 2022; value -- streamlit-generated: 0.0793450171084; : probability; value: 0.0793450171084; color: probability
+										402 point date: Oct 14, 2022; value -- streamlit-generated: 0.0767069831577; : probability; value: 0.0767069831577; color: probability
+										403 point date: Oct 17, 2022; value -- streamlit-generated: 0.0742527609614; : probability; value: 0.0742527609614; color: probability
+										404 point date: Oct 18, 2022; value -- streamlit-generated: 0.0730491730667; : probability; value: 0.0730491730667; color: probability
+										405 point date: Oct 19, 2022; value -- streamlit-generated: 0.070993972144; : probability; value: 0.070993972144; color: probability
+										406 point date: Oct 20, 2022; value -- streamlit-generated: 0.0692784098852; : probability; value: 0.0692784098852; color: probability
+										407 point date: Oct 21, 2022; value -- streamlit-generated: 0.0679133660399; : probability; value: 0.0679133660399; color: probability
+										408 point date: Oct 24, 2022; value -- streamlit-generated: 0.0673034838517; : probability; value: 0.0673034838517; color: probability
+										409 point date: Oct 25, 2022; value -- streamlit-generated: 0.065726364553; : probability; value: 0.065726364553; color: probability
+										410 point date: Oct 27, 2022; value -- streamlit-generated: 0.0648531609365; : probability; value: 0.0648531609365; color: probability
+										411 point date: Oct 28, 2022; value -- streamlit-generated: 0.0636957050573; : probability; value: 0.0636957050573; color: probability
+										412 point date: Oct 31, 2022; value -- streamlit-generated: 0.0632773579885; : probability; value: 0.0632773579885; color: probability
+										413 point date: Nov 01, 2022; value -- streamlit-generated: 0.0620959943978; : probability; value: 0.0620959943978; color: probability
+										414 point date: Nov 02, 2022; value -- streamlit-generated: 0.0608607462558; : probability; value: 0.0608607462558; color: probability
+										415 point date: Nov 03, 2022; value -- streamlit-generated: 0.0599729646793; : probability; value: 0.0599729646793; color: probability
+										416 point date: Nov 04, 2022; value -- streamlit-generated: 0.0593328127743; : probability; value: 0.0593328127743; color: probability
+										417 point date: Nov 07, 2022; value -- streamlit-generated: 0.0587462779528; : probability; value: 0.0587462779528; color: probability
+										418 point date: Nov 09, 2022; value -- streamlit-generated: 0.0576776849768; : probability; value: 0.0576776849768; color: probability
+										419 point date: Nov 10, 2022; value -- streamlit-generated: 0.0584341937358; : probability; value: 0.0584341937358; color: probability
+										420 point date: Nov 11, 2022; value -- streamlit-generated: 0.057362579188; : probability; value: 0.057362579188; color: probability
+										421 point date: Nov 14, 2022; value -- streamlit-generated: 0.0549524323355; : probability; value: 0.0549524323355; color: probability
+										422 point date: Nov 15, 2022; value -- streamlit-generated: 0.054090046342; : probability; value: 0.054090046342; color: probability
+										423 point date: Nov 16, 2022; value -- streamlit-generated: 0.0533934304856; : probability; value: 0.0533934304856; color: probability
+										424 point date: Nov 17, 2022; value -- streamlit-generated: 0.0529709204369; : probability; value: 0.0529709204369; color: probability
+										425 point date: Nov 18, 2022; value -- streamlit-generated: 0.0524910390191; : probability; value: 0.0524910390191; color: probability
+										426 point date: Nov 21, 2022; value -- streamlit-generated: 0.0519273324082; : probability; value: 0.0519273324082; color: probability
+										427 point date: Nov 22, 2022; value -- streamlit-generated: 0.0508406402284; : probability; value: 0.0508406402284; color: probability
+										428 point date: Nov 23, 2022; value -- streamlit-generated: 0.0506022657721; : probability; value: 0.0506022657721; color: probability
+										429 point date: Nov 24, 2022; value -- streamlit-generated: 0.0504489137228; : probability; value: 0.0504489137228; color: probability
+										430 point date: Nov 25, 2022; value -- streamlit-generated: 0.0509729105977; : probability; value: 0.0509729105977; color: probability
+										431 point date: Nov 28, 2022; value -- streamlit-generated: 0.0511854017648; : probability; value: 0.0511854017648; color: probability
+										432 point date: Nov 29, 2022; value -- streamlit-generated: 0.0500187304623; : probability; value: 0.0500187304623; color: probability
+										433 point date: Nov 30, 2022; value -- streamlit-generated: 0.0500993824539; : probability; value: 0.0500993824539; color: probability
+										434 point date: Dec 01, 2022; value -- streamlit-generated: 0.0500825715911; : probability; value: 0.0500825715911; color: probability
+										435 point date: Dec 02, 2022; value -- streamlit-generated: 0.0496972503465; : probability; value: 0.0496972503465; color: probability
+										436 point date: Dec 05, 2022; value -- streamlit-generated: 0.0491672765889; : probability; value: 0.0491672765889; color: probability
+										437 point date: Dec 06, 2022; value -- streamlit-generated: 0.0485694904367; : probability; value: 0.0485694904367; color: probability
+										438 point date: Dec 07, 2022; value -- streamlit-generated: 0.0481627993752; : probability; value: 0.0481627993752; color: probability
+										439 point date: Dec 08, 2022; value -- streamlit-generated: 0.0479285022281; : probability; value: 0.0479285022281; color: probability
+										440 point date: Dec 09, 2022; value -- streamlit-generated: 0.0487408077504; : probability; value: 0.0487408077504; color: probability
+										441 point date: Dec 12, 2022; value -- streamlit-generated: 0.0483618739014; : probability; value: 0.0483618739014; color: probability
+										442 point date: Dec 13, 2022; value -- streamlit-generated: 0.0478970611802; : probability; value: 0.0478970611802; color: probability
+										443 point date: Dec 14, 2022; value -- streamlit-generated: 0.0494620118614; : probability; value: 0.0494620118614; color: probability
+										444 point date: Dec 15, 2022; value -- streamlit-generated: 0.0493806828121; : probability; value: 0.0493806828121; color: probability
+										445 point date: Dec 16, 2022; value -- streamlit-generated: 0.0503932324292; : probability; value: 0.0503932324292; color: probability
+										446 point date: Dec 19, 2022; value -- streamlit-generated: 0.0503539405285; : probability; value: 0.0503539405285; color: probability
+										447 point date: Dec 20, 2022; value -- streamlit-generated: 0.0496594736742; : probability; value: 0.0496594736742; color: probability
+										448 point date: Dec 21, 2022; value -- streamlit-generated: 0.0717760183458; : probability; value: 0.0717760183458; color: probability
+										449 point date: Dec 22, 2022; value -- streamlit-generated: 0.0959314679322; : probability; value: 0.0959314679322; color: probability
+										450 point date: Dec 23, 2022; value -- streamlit-generated: 0.138447712848; : probability; value: 0.138447712848; color: probability
+										451 point date: Dec 26, 2022; value -- streamlit-generated: 0.140913271871; : probability; value: 0.140913271871; color: probability
+										452 point date: Dec 27, 2022; value -- streamlit-generated: 0.130542792988; : probability; value: 0.130542792988; color: probability
+										453 point date: Dec 28, 2022; value -- streamlit-generated: 0.120117736635; : probability; value: 0.120117736635; color: probability
+										454 point date: Dec 29, 2022; value -- streamlit-generated: 0.110766482129; : probability; value: 0.110766482129; color: probability
+										455 point date: Dec 30, 2022; value -- streamlit-generated: 0.104479570857; : probability; value: 0.104479570857; color: probability
+										456 point date: Jan 02, 2023; value -- streamlit-generated: 0.0991362936815; : probability; value: 0.0991362936815; color: probability
+										457 point date: Jan 03, 2023; value -- streamlit-generated: 0.0932465537487; : probability; value: 0.0932465537487; color: probability
+										458 point date: Jan 04, 2023; value -- streamlit-generated: 0.0895952293871; : probability; value: 0.0895952293871; color: probability
+										459 point date: Jan 05, 2023; value -- streamlit-generated: 0.0860513173068; : probability; value: 0.0860513173068; color: probability
+										460 point date: Jan 06, 2023; value -- streamlit-generated: 0.0827543342082; : probability; value: 0.0827543342082; color: probability
+										461 point date: Jan 09, 2023; value -- streamlit-generated: 0.079665367147; : probability; value: 0.079665367147; color: probability
+										462 point date: Jan 10, 2023; value -- streamlit-generated: 0.076600216867; : probability; value: 0.076600216867; color: probability
+										463 point date: Jan 11, 2023; value -- streamlit-generated: 0.0735264476884; : probability; value: 0.0735264476884; color: probability
+										464 point date: Jan 12, 2023; value -- streamlit-generated: 0.0709808946619; : probability; value: 0.0709808946619; color: probability
+										465 point date: Jan 13, 2023; value -- streamlit-generated: 0.0688959737487; : probability; value: 0.0688959737487; color: probability
+										466 point date: Jan 16, 2023; value -- streamlit-generated: 0.0664789411304; : probability; value: 0.0664789411304; color: probability
+										467 point date: Jan 17, 2023; value -- streamlit-generated: 0.0644127162782; : probability; value: 0.0644127162782; color: probability
+										468 point date: Jan 18, 2023; value -- streamlit-generated: 0.0628522981503; : probability; value: 0.0628522981503; color: probability
+										469 point date: Jan 19, 2023; value -- streamlit-generated: 0.0611368816708; : probability; value: 0.0611368816708; color: probability
+										470 point date: Jan 20, 2023; value -- streamlit-generated: 0.0593575093569; : probability; value: 0.0593575093569; color: probability
+										471 point date: Jan 23, 2023; value -- streamlit-generated: 0.0580957265899; : probability; value: 0.0580957265899; color: probability
+										472 point date: Jan 24, 2023; value -- streamlit-generated: 0.0569163634653; : probability; value: 0.0569163634653; color: probability
+										473 point date: Jan 25, 2023; value -- streamlit-generated: 0.0580749945519; : probability; value: 0.0580749945519; color: probability
+										474 point date: Jan 27, 2023; value -- streamlit-generated: 0.0801359226696; : probability; value: 0.0801359226696; color: probability
+										475 point date: Jan 30, 2023; value -- streamlit-generated: 0.0753890514387; : probability; value: 0.0753890514387; color: probability
+										476 point date: Jan 31, 2023; value -- streamlit-generated: 0.0786749028593; : probability; value: 0.0786749028593; color: probability
+										477 point date: Feb 01, 2023; value -- streamlit-generated: 0.078951297556; : probability; value: 0.078951297556; color: probability
+										478 point date: Feb 02, 2023; value -- streamlit-generated: 0.0754823626209; : probability; value: 0.0754823626209; color: probability
+										479 point date: Feb 03, 2023; value -- streamlit-generated: 0.0723547357658; : probability; value: 0.0723547357658; color: probability
+										480 point date: Feb 06, 2023; value -- streamlit-generated: 0.0697060520873; : probability; value: 0.0697060520873; color: probability
+										481 point date: Feb 07, 2023; value -- streamlit-generated: 0.0667790768466; : probability; value: 0.0667790768466; color: probability
+										482 point date: Feb 08, 2023; value -- streamlit-generated: 0.0653159400379; : probability; value: 0.0653159400379; color: probability
+										483 point date: Feb 09, 2023; value -- streamlit-generated: 0.0634415927829; : probability; value: 0.0634415927829; color: probability
+										484 point date: Feb 10, 2023; value -- streamlit-generated: 0.0599950987119; : probability; value: 0.0599950987119; color: probability
+										485 point date: Feb 13, 2023; value -- streamlit-generated: 0.0598730892018; : probability; value: 0.0598730892018; color: probability
+										486 point date: Feb 14, 2023; value -- streamlit-generated: 0.0586451161327; : probability; value: 0.0586451161327; color: probability
+										487 point date: Feb 15, 2023; value -- streamlit-generated: 0.0575473536843; : probability; value: 0.0575473536843; color: probability
+										488 point date: Feb 16, 2023; value -- streamlit-generated: 0.0570254689145; : probability; value: 0.0570254689145; color: probability
+										489 point date: Feb 17, 2023; value -- streamlit-generated: 0.0558128292479; : probability; value: 0.0558128292479; color: probability
+										490 point date: Feb 20, 2023; value -- streamlit-generated: 0.0549663260348; : probability; value: 0.0549663260348; color: probability
+										491 point date: Feb 21, 2023; value -- streamlit-generated: 0.053808132278; : probability; value: 0.053808132278; color: probability
+										492 point date: Feb 22, 2023; value -- streamlit-generated: 0.0558320829594; : probability; value: 0.0558320829594; color: probability
+										493 point date: Feb 23, 2023; value -- streamlit-generated: 0.0544397025201; : probability; value: 0.0544397025201; color: probability
+										494 point date: Feb 24, 2023; value -- streamlit-generated: 0.053318924207; : probability; value: 0.053318924207; color: probability
+										495 point date: Feb 27, 2023; value -- streamlit-generated: 0.0548112523739; : probability; value: 0.0548112523739; color: probability
+										496 point date: Feb 28, 2023; value -- streamlit-generated: 0.0537800842719; : probability; value: 0.0537800842719; color: probability
+										497 point date: Mar 01, 2023; value -- streamlit-generated: 0.0558045113669; : probability; value: 0.0558045113669; color: probability
+										498 point date: Mar 02, 2023; value -- streamlit-generated: 0.054684401158; : probability; value: 0.054684401158; color: probability
+										499 point date: Mar 03, 2023; value -- streamlit-generated: 0.054685126934; : probability; value: 0.054685126934; color: probability
+										500 point date: Mar 06, 2023; value -- streamlit-generated: 0.0544505451419; : probability; value: 0.0544505451419; color: probability
+										501 point date: Mar 08, 2023; value -- streamlit-generated: 0.0537386489945; : probability; value: 0.0537386489945; color: probability
+										502 point date: Mar 09, 2023; value -- streamlit-generated: 0.0527142166017; : probability; value: 0.0527142166017; color: probability
+										503 point date: Mar 10, 2023; value -- streamlit-generated: 0.0521396608993; : probability; value: 0.0521396608993; color: probability
+										504 point date: Mar 13, 2023; value -- streamlit-generated: 0.0734474827998; : probability; value: 0.0734474827998; color: probability
+										505 point date: Mar 14, 2023; value -- streamlit-generated: 0.0704433499585; : probability; value: 0.0704433499585; color: probability
+										506 point date: Mar 15, 2023; value -- streamlit-generated: 0.0667218541084; : probability; value: 0.0667218541084; color: probability
+										507 point date: Mar 16, 2023; value -- streamlit-generated: 0.0640128689161; : probability; value: 0.0640128689161; color: probability
+										508 point date: Mar 17, 2023; value -- streamlit-generated: 0.0622964756094; : probability; value: 0.0622964756094; color: probability
+										509 point date: Mar 20, 2023; value -- streamlit-generated: 0.061892139392; : probability; value: 0.061892139392; color: probability
+										510 point date: Mar 21, 2023; value -- streamlit-generated: 0.0627596888468; : probability; value: 0.0627596888468; color: probability
+										511 point date: Mar 22, 2023; value -- streamlit-generated: 0.0633020542373; : probability; value: 0.0633020542373; color: probability
+										512 point date: Mar 23, 2023; value -- streamlit-generated: 0.0623072234405; : probability; value: 0.0623072234405; color: probability
+										513 point date: Mar 24, 2023; value -- streamlit-generated: 0.0642293804438; : probability; value: 0.0642293804438; color: probability
+										514 point date: Mar 27, 2023; value -- streamlit-generated: 0.0649451898632; : probability; value: 0.0649451898632; color: probability
+										515 point date: Mar 28, 2023; value -- streamlit-generated: 0.0641983801745; : probability; value: 0.0641983801745; color: probability
+										516 point date: Mar 29, 2023; value -- streamlit-generated: 0.0715677096493; : probability; value: 0.0715677096493; color: probability
+										517 point date: Mar 31, 2023; value -- streamlit-generated: 0.0708231102767; : probability; value: 0.0708231102767; color: probability
+										518 point date: Apr 03, 2023; value -- streamlit-generated: 0.0715945697216; : probability; value: 0.0715945697216; color: probability
+										519 point date: Apr 05, 2023; value -- streamlit-generated: 0.0700631365291; : probability; value: 0.0700631365291; color: probability
+										520 point date: Apr 06, 2023; value -- streamlit-generated: 0.0688026515769; : probability; value: 0.0688026515769; color: probability
+										521 point date: Apr 10, 2023; value -- streamlit-generated: 0.0668832589543; : probability; value: 0.0668832589543; color: probability
+										522 point date: Apr 11, 2023; value -- streamlit-generated: 0.0657006659545; : probability; value: 0.0657006659545; color: probability
+										523 point date: Apr 12, 2023; value -- streamlit-generated: 0.064335782942; : probability; value: 0.064335782942; color: probability
+										524 point date: Apr 13, 2023; value -- streamlit-generated: 0.0628750066286; : probability; value: 0.0628750066286; color: probability
+										525 point date: Apr 17, 2023; value -- streamlit-generated: 0.061531313874; : probability; value: 0.061531313874; color: probability
+										526 point date: Apr 18, 2023; value -- streamlit-generated: 0.0606929959798; : probability; value: 0.0606929959798; color: probability
+										527 point date: Apr 19, 2023; value -- streamlit-generated: 0.0596297705355; : probability; value: 0.0596297705355; color: probability
+										528 point date: Apr 20, 2023; value -- streamlit-generated: 0.0585380759408; : probability; value: 0.0585380759408; color: probability
+										529 point date: Apr 21, 2023; value -- streamlit-generated: 0.0576586084574; : probability; value: 0.0576586084574; color: probability
+										530 point date: Apr 24, 2023; value -- streamlit-generated: 0.0569679286838; : probability; value: 0.0569679286838; color: probability
+										531 point date: Apr 25, 2023; value -- streamlit-generated: 0.0560045895866; : probability; value: 0.0560045895866; color: probability
+										532 point date: Apr 26, 2023; value -- streamlit-generated: 0.05561154544; : probability; value: 0.05561154544; color: probability
+										533 point date: Apr 27, 2023; value -- streamlit-generated: 0.0556749146435; : probability; value: 0.0556749146435; color: probability
+										534 point date: Apr 28, 2023; value -- streamlit-generated: 0.0577489721818; : probability; value: 0.0577489721818; color: probability
+										535 point date: May 02, 2023; value -- streamlit-generated: 0.0575151151335; : probability; value: 0.0575151151335; color: probability
+										536 point date: May 03, 2023; value -- streamlit-generated: 0.0580695904608; : probability; value: 0.0580695904608; color: probability
+										537 point date: May 04, 2023; value -- streamlit-generated: 0.0592835620824; : probability; value: 0.0592835620824; color: probability
+										538 point date: May 05, 2023; value -- streamlit-generated: 0.0585031261144; : probability; value: 0.0585031261144; color: probability
+										539 point date: May 08, 2023; value -- streamlit-generated: 0.0583050668207; : probability; value: 0.0583050668207; color: probability
+										540 point date: May 09, 2023; value -- streamlit-generated: 0.0576409206557; : probability; value: 0.0576409206557; color: probability
+										541 point date: May 10, 2023; value -- streamlit-generated: 0.0570668593249; : probability; value: 0.0570668593249; color: probability
+										542 point date: May 11, 2023; value -- streamlit-generated: 0.0571343369837; : probability; value: 0.0571343369837; color: probability
+										543 point date: May 12, 2023; value -- streamlit-generated: 0.0561262159485; : probability; value: 0.0561262159485; color: probability
+										544 point date: May 15, 2023; value -- streamlit-generated: 0.0555802883339; : probability; value: 0.0555802883339; color: probability
+										545 point date: May 16, 2023; value -- streamlit-generated: 0.055575189787; : probability; value: 0.055575189787; color: probability
+										546 point date: May 17, 2023; value -- streamlit-generated: 0.0549013124348; : probability; value: 0.0549013124348; color: probability
+										547 point date: May 18, 2023; value -- streamlit-generated: 0.0535190257234; : probability; value: 0.0535190257234; color: probability
+										548 point date: May 19, 2023; value -- streamlit-generated: 0.0527652909191; : probability; value: 0.0527652909191; color: probability
+										549 point date: May 22, 2023; value -- streamlit-generated: 0.0524970752633; : probability; value: 0.0524970752633; color: probability
+										550 point date: May 23, 2023; value -- streamlit-generated: 0.0522551644918; : probability; value: 0.0522551644918; color: probability
+										551 point date: May 24, 2023; value -- streamlit-generated: 0.051823302252; : probability; value: 0.051823302252; color: probability
+										552 point date: May 25, 2023; value -- streamlit-generated: 0.0526342714237; : probability; value: 0.0526342714237; color: probability
+										553 point date: May 26, 2023; value -- streamlit-generated: 0.0527989894591; : probability; value: 0.0527989894591; color: probability
+										554 point date: May 29, 2023; value -- streamlit-generated: 0.0521650793286; : probability; value: 0.0521650793286; color: probability
+										555 point date: May 30, 2023; value -- streamlit-generated: 0.0528538867339; : probability; value: 0.0528538867339; color: probability
+										556 point date: May 31, 2023; value -- streamlit-generated: 0.0523985230906; : probability; value: 0.0523985230906; color: probability
+										557 point date: Jun 01, 2023; value -- streamlit-generated: 0.0538793924856; : probability; value: 0.0538793924856; color: probability
+										558 point date: Jun 02, 2023; value -- streamlit-generated: 0.0545801529175; : probability; value: 0.0545801529175; color: probability
+										559 point date: Jun 05, 2023; value -- streamlit-generated: 0.0550111630918; : probability; value: 0.0550111630918; color: probability
+										560 point date: Jun 06, 2023; value -- streamlit-generated: 0.0549627403511; : probability; value: 0.0549627403511; color: probability
+										561 point date: Jun 07, 2023; value -- streamlit-generated: 0.0573346426746; : probability; value: 0.0573346426746; color: probability
+										562 point date: Jun 08, 2023; value -- streamlit-generated: 0.0600018968089; : probability; value: 0.0600018968089; color: probability
+										563 point date: Jun 09, 2023; value -- streamlit-generated: 0.0595240029553; : probability; value: 0.0595240029553; color: probability
+										564 point date: Jun 12, 2023; value -- streamlit-generated: 0.0647723026707; : probability; value: 0.0647723026707; color: probability
+										565 point date: Jun 13, 2023; value -- streamlit-generated: 0.0662165974653; : probability; value: 0.0662165974653; color: probability
+										566 point date: Jun 14, 2023; value -- streamlit-generated: 0.0655853251359; : probability; value: 0.0655853251359; color: probability
+										567 point date: Jun 15, 2023; value -- streamlit-generated: 0.0645075799737; : probability; value: 0.0645075799737; color: probability
+										568 point date: Jun 16, 2023; value -- streamlit-generated: 0.0653518031217; : probability; value: 0.0653518031217; color: probability
+										569 point date: Jun 19, 2023; value -- streamlit-generated: 0.066997879539; : probability; value: 0.066997879539; color: probability
+										570 point date: Jun 20, 2023; value -- streamlit-generated: 0.0670224512602; : probability; value: 0.0670224512602; color: probability
+										571 point date: Jun 21, 2023; value -- streamlit-generated: 0.0662302525343; : probability; value: 0.0662302525343; color: probability
+										572 point date: Jun 22, 2023; value -- streamlit-generated: 0.0663827123227; : probability; value: 0.0663827123227; color: probability
+										573 point date: Jun 23, 2023; value -- streamlit-generated: 0.0915224422505; : probability; value: 0.0915224422505; color: probability
+										574 point date: Jun 26, 2023; value -- streamlit-generated: 0.0942650469105; : probability; value: 0.0942650469105; color: probability
+										575 point date: Jun 27, 2023; value -- streamlit-generated: 0.0947935675596; : probability; value: 0.0947935675596; color: probability
+										576 point date: Jun 28, 2023; value -- streamlit-generated: 0.0864778509656; : probability; value: 0.0864778509656; color: probability
+										577 point date: Jun 30, 2023; value -- streamlit-generated: 0.0859660084416; : probability; value: 0.0859660084416; color: probability
+										578 point date: Jul 03, 2023; value -- streamlit-generated: 0.0882885705888; : probability; value: 0.0882885705888; color: probability
+										579 point date: Jul 04, 2023; value -- streamlit-generated: 0.0872091392213; : probability; value: 0.0872091392213; color: probability
+										580 point date: Jul 05, 2023; value -- streamlit-generated: 0.0859061881571; : probability; value: 0.0859061881571; color: probability
+										581 point date: Jul 06, 2023; value -- streamlit-generated: 0.0853368754034; : probability; value: 0.0853368754034; color: probability
+										582 point date: Jul 07, 2023; value -- streamlit-generated: 0.0821347355548; : probability; value: 0.0821347355548; color: probability
+										583 point date: Jul 10, 2023; value -- streamlit-generated: 0.0799227605395; : probability; value: 0.0799227605395; color: probability
+										584 point date: Jul 11, 2023; value -- streamlit-generated: 0.0794354297197; : probability; value: 0.0794354297197; color: probability
+										585 point date: Jul 12, 2023; value -- streamlit-generated: 0.0779875345651; : probability; value: 0.0779875345651; color: probability
+										586 point date: Jul 13, 2023; value -- streamlit-generated: 0.0743494072916; : probability; value: 0.0743494072916; color: probability
+										587 point date: Jul 14, 2023; value -- streamlit-generated: 0.0746701123577; : probability; value: 0.0746701123577; color: probability
+										588 point date: Jul 17, 2023; value -- streamlit-generated: 0.0741621525003; : probability; value: 0.0741621525003; color: probability
+										589 point date: Jul 18, 2023; value -- streamlit-generated: 0.0725785764187; : probability; value: 0.0725785764187; color: probability
+										590 point date: Jul 19, 2023; value -- streamlit-generated: 0.0719061886698; : probability; value: 0.0719061886698; color: probability
+										591 point date: Jul 20, 2023; value -- streamlit-generated: 0.0704165368217; : probability; value: 0.0704165368217; color: probability
+										592 point date: Jul 21, 2023; value -- streamlit-generated: 0.0678101725043; : probability; value: 0.0678101725043; color: probability
+										593 point date: Jul 24, 2023; value -- streamlit-generated: 0.0671184852148; : probability; value: 0.0671184852148; color: probability
+										594 point date: Jul 25, 2023; value -- streamlit-generated: 0.0680864240795; : probability; value: 0.0680864240795; color: probability
+										595 point date: Jul 26, 2023; value -- streamlit-generated: 0.067986757645; : probability; value: 0.067986757645; color: probability
+										596 point date: Jul 27, 2023; value -- streamlit-generated: 0.0666642511815; : probability; value: 0.0666642511815; color: probability
+										597 point date: Jul 28, 2023; value -- streamlit-generated: 0.0676907941058; : probability; value: 0.0676907941058; color: probability
+										598 point date: Jul 31, 2023; value -- streamlit-generated: 0.0703225752056; : probability; value: 0.0703225752056; color: probability
+										599 point date: Aug 01, 2023; value -- streamlit-generated: 0.0704230363319; : probability; value: 0.0704230363319; color: probability
+										600 point date: Aug 02, 2023; value -- streamlit-generated: 0.0905253019995; : probability; value: 0.0905253019995; color: probability
+										601 point date: Aug 03, 2023; value -- streamlit-generated: 0.0863569287419; : probability; value: 0.0863569287419; color: probability
+										602 point date: Aug 04, 2023; value -- streamlit-generated: 0.0839255627283; : probability; value: 0.0839255627283; color: probability
+										603 point date: Aug 07, 2023; value -- streamlit-generated: 0.082633626641; : probability; value: 0.082633626641; color: probability
+										604 point date: Aug 08, 2023; value -- streamlit-generated: 0.0799992372239; : probability; value: 0.0799992372239; color: probability
+										605 point date: Aug 09, 2023; value -- streamlit-generated: 0.0785857406261; : probability; value: 0.0785857406261; color: probability
+										606 point date: Aug 10, 2023; value -- streamlit-generated: 0.0768026340786; : probability; value: 0.0768026340786; color: probability
+										607 point date: Aug 11, 2023; value -- streamlit-generated: 0.0752127336084; : probability; value: 0.0752127336084; color: probability
+										608 point date: Aug 14, 2023; value -- streamlit-generated: 0.0732039394074; : probability; value: 0.0732039394074; color: probability
+										609 point date: Aug 16, 2023; value -- streamlit-generated: 0.0725302743738; : probability; value: 0.0725302743738; color: probability
+										610 point date: Aug 17, 2023; value -- streamlit-generated: 0.0638194907514; : probability; value: 0.0638194907514; color: probability
+										611 point date: Aug 18, 2023; value -- streamlit-generated: 0.0624364403051; : probability; value: 0.0624364403051; color: probability
+										612 point date: Aug 21, 2023; value -- streamlit-generated: 0.0625147581589; : probability; value: 0.0625147581589; color: probability
+										613 point date: Aug 22, 2023; value -- streamlit-generated: 0.0625810943169; : probability; value: 0.0625810943169; color: probability
+										614 point date: Aug 23, 2023; value -- streamlit-generated: 0.0622064170772; : probability; value: 0.0622064170772; color: probability
+										615 point date: Aug 24, 2023; value -- streamlit-generated: 0.0609841160362; : probability; value: 0.0609841160362; color: probability
+										616 point date: Aug 25, 2023; value -- streamlit-generated: 0.0595366064305; : probability; value: 0.0595366064305; color: probability
+										617 point date: Aug 28, 2023; value -- streamlit-generated: 0.060163819488; : probability; value: 0.060163819488; color: probability
+										618 point date: Aug 29, 2023; value -- streamlit-generated: 0.0595137726311; : probability; value: 0.0595137726311; color: probability
+										619 point date: Aug 30, 2023; value -- streamlit-generated: 0.0597009073972; : probability; value: 0.0597009073972; color: probability
+										620 point date: Aug 31, 2023; value -- streamlit-generated: 0.0589998634205; : probability; value: 0.0589998634205; color: probability
+										621 point date: Sep 01, 2023; value -- streamlit-generated: 0.0601737216597; : probability; value: 0.0601737216597; color: probability
+										622 point date: Sep 04, 2023; value -- streamlit-generated: 0.0603440269749; : probability; value: 0.0603440269749; color: probability
+										623 point date: Sep 05, 2023; value -- streamlit-generated: 0.0604372301046; : probability; value: 0.0604372301046; color: probability
+										624 point date: Sep 06, 2023; value -- streamlit-generated: 0.0594287146083; : probability; value: 0.0594287146083; color: probability
+										625 point date: Sep 07, 2023; value -- streamlit-generated: 0.0591012121479; : probability; value: 0.0591012121479; color: probability
+										626 point date: Sep 08, 2023; value -- streamlit-generated: 0.05891289301; : probability; value: 0.05891289301; color: probability
+										627 point date: Sep 11, 2023; value -- streamlit-generated: 0.0599636022416; : probability; value: 0.0599636022416; color: probability
+										628 point date: Sep 12, 2023; value -- streamlit-generated: 0.0973650927481; : probability; value: 0.0973650927481; color: probability
+										629 point date: Sep 13, 2023; value -- streamlit-generated: 0.0940084257998; : probability; value: 0.0940084257998; color: probability
+										630 point date: Sep 14, 2023; value -- streamlit-generated: 0.090493440987; : probability; value: 0.090493440987; color: probability
+										631 point date: Sep 15, 2023; value -- streamlit-generated: 0.0861554265168; : probability; value: 0.0861554265168; color: probability
+										632 point date: Sep 18, 2023; value -- streamlit-generated: 0.0818903057728; : probability; value: 0.0818903057728; color: probability
+										633 point date: Sep 20, 2023; value -- streamlit-generated: 0.0791827603584; : probability; value: 0.0791827603584; color: probability
+										634 point date: Sep 21, 2023; value -- streamlit-generated: 0.0769828458642; : probability; value: 0.0769828458642; color: probability
+										635 point date: Sep 22, 2023; value -- streamlit-generated: 0.0741688352009; : probability; value: 0.0741688352009; color: probability
+										636 point date: Sep 25, 2023; value -- streamlit-generated: 0.0716514587743; : probability; value: 0.0716514587743; color: probability
+										637 point date: Sep 26, 2023; value -- streamlit-generated: 0.0692891428543; : probability; value: 0.0692891428543; color: probability
+										638 point date: Sep 27, 2023; value -- streamlit-generated: 0.0676476610843; : probability; value: 0.0676476610843; color: probability
+									639 symbol mark container
+									640 legend Symbol legend titled ' ' for fill color and stroke color with 2 values: probability, threshold
+					641 text The last 1260 sessions. 17 of them were in alarm. A gap in either line is a session the engine declined to score or could not calibrate, which is shown rather than interpolated.
+					642 text Most recent alarm episodes
+					643 container
+						644 button Show/hide columns
+						645 button Download as CSV
+						646 button Search
+						647 button Fullscreen
+						648 container
+							649 image
+								650 table
+									651 row start end
+										652 cell (selectable) start
+										653 cell (selectable) end
+									654 container
+										655 row (selectable) 2020-02-28 2020-03-03
+											656 cell (selectable) Value: 2020-02-28, ID: glide-cell-0-0
+											657 cell (selectable) Value: 2020-03-03, ID: glide-cell-1-0
+										658 row (selectable) 2020-03-06 2020-05-21
+											659 cell (selectable) Value: 2020-03-06, ID: glide-cell-0-1
+											660 cell (selectable) Value: 2020-05-21, ID: glide-cell-1-1
+										661 row (selectable) 2020-08-31 2020-09-02
+											662 cell (selectable) Value: 2020-08-31, ID: glide-cell-0-2
+											663 cell (selectable) Value: 2020-09-02, ID: glide-cell-1-2
+										664 row (selectable) 2020-09-21 2020-09-23
+											665 cell (selectable) Value: 2020-09-21, ID: glide-cell-0-3
+											666 cell (selectable) Value: 2020-09-23, ID: glide-cell-1-3
+										667 row (selectable) 2020-12-21 2020-12-22
+											668 cell (selectable) Value: 2020-12-21, ID: glide-cell-0-4
+											669 cell (selectable) Value: 2020-12-22, ID: glide-cell-1-4
+										670 row (selectable) 2020-12-23 2020-12-30
+											671 cell (selectable) Value: 2020-12-23, ID: glide-cell-0-5
+											672 cell (selectable) Value: 2020-12-30, ID: glide-cell-1-5
+										673 row (selectable) 2021-04-12 2021-04-15
+											674 cell (selectable) Value: 2021-04-12, ID: glide-cell-0-6
+											675 cell (selectable) Value: 2021-04-15, ID: glide-cell-1-6
+										676 row (selectable) 2022-02-24 2022-03-04
+											677 cell (selectable) Value: 2022-02-24, ID: glide-cell-0-7
+											678 cell (selectable) Value: 2022-03-04, ID: glide-cell-1-7
+										679 row (selectable) 2024-03-14 2024-03-15
+											680 cell (selectable) Value: 2024-03-14, ID: glide-cell-0-8
+											681 cell (selectable) Value: 2024-03-15, ID: glide-cell-1-8
+										682 row (selectable) 2024-06-04 2024-06-12
+											683 cell (selectable) Value: 2024-06-04, ID: glide-cell-0-9
+											684 cell (selectable) Value: 2024-06-12, ID: glide-cell-1-9
+										685 row (selectable) 2026-04-01 2026-04-06
+											686 cell (selectable) Value: 2026-04-01, ID: glide-cell-0-10
+											687 cell (selectable) Value: 2026-04-06, ID: glide-cell-1-10
+										688 row (selectable) 2026-04-08 2026-04-13
+											689 cell (selectable) Value: 2026-04-08, ID: glide-cell-0-11
+											690 cell (selectable) Value: 2026-04-13, ID: glide-cell-1-11
+				691 button (collapsed) NEWS ACQUISITION, Secondary Actions: Expand
+					692 text NEWS ACQUISITION
+				693 button (collapsed) MARKET JOBS, Secondary Actions: Expand
+					694 text MARKET JOBS
+				695 container
+					696 button (expanded) LIVE RUNTIME, Secondary Actions: Collapse
+						697 text LIVE RUNTIME
+					698 button Help for View mode
+					699 Description: View mode, ID: react-aria870636077-:r2j:
+						700 container
+							701 radio button (settable, integer) Description: live, Value: 1
+							702 text live
+						703 container
+							704 radio button (settable, integer) Description: replay, Value: 0
+							705 text replay
+						706 container
+							707 radio button (settable, integer) Description: demo, Value: 0
+							708 text demo
+					709 text STANDARDIZER WARM-UP INCOMPLETE · hawkes 12 of 252 · rmt ready (253) · hamilton declared absent. A current market reading is withheld until every non-absent pillar reaches its requirement; the composite still computes from the pillars that are available, with the D2 mask recording which.
+					710 text LATEST SCORE
+					711 text no decision has been committed in this runtime. Asking for live does NOT fall back to an archive run — an archive run is a replay and would be mislabelled here
+					712 text WORKER HEALTH — a separate fact from the score
+					713 container
+						714 text {
+						715 container
+							716 text " state "
+						717 text :
+						718 container
+							719 text " unknown "
+						720 container
+							721 text " last_pass_at "
+						722 text :
+						723 text NULL
+						724 container
+							725 text " stream_version "
+						726 text :
+						727 text 0
+						728 container
+							729 text " undelivered_events "
+						730 text :
+						731 text 1
+						732 container
+							733 text " dead_letters "
+						734 text :
+						735 text 0
+						736 container
+							737 text " stale "
+						738 text :
+						739 text true
+						740 container
+							741 text " note "
+						742 text :
+						743 container
+							744 text " the worker has never committed a pass "
+						745 text }
+				746 container
+					747 combo box (collapsed, settable) Description: Run, Value: 37bccf32974201f095d5c90bfe8febe91e4833639b21f02121d69bb565c3ab77, ID: react-aria870636077-:r31:, Secondary Actions: Expand
+					748 pop up button (collapsed) Description: Open, ID: react-aria870636077-:r2t:, Secondary Actions: Expand
+				749 container
+					750 combo box (collapsed, settable) Description: Historical decision date, Value: 2020-04-30, ID: react-aria870636077-:r3f:, Secondary Actions: Expand
+					751 pop up button (collapsed) Description: Open, ID: react-aria870636077-:r3b:, Secondary Actions: Expand
+				752 container
+					753 button Help for Sector analysis basis
+					754 Description: Sector analysis basis, ID: react-aria870636077-:rg:
+						755 container
+							756 radio button (settable, integer) Description: Selected market decision, Value: 1
+							757 text Selected market decision
+						758 container
+							759 radio button (settable, integer) Description: Retrospective analytical archive, Value: 0
+							760 text Retrospective analytical archive
+				761 text Only sector artifacts available by the selected market decision.
+				762 container
+					763 button Help for News clock
+					764 Description: News clock, ID: react-aria870636077-:rq:
+						765 container
+							766 radio button (settable, integer) Description: current_news, Value: 1
+							767 text current_news
+						768 container
+							769 radio button (settable, integer) Description: historical_decision, Value: 0
+							770 text historical_decision
+				771 container
+					772 stepper (settable, integer) Description: News page (40 events per page), Value: 1, ID: :r3o:
+					773 button (disabled) Decrement
+					774 button Increment
+				775 button (collapsed) MEASURED SECTOR ACTIVITY — FR14, Secondary Actions: Expand
+					776 text MEASURED SECTOR ACTIVITY — FR14
+				777 container
+					778 text Run 37bccf32974201f0 · decision 2020-04-30T15:30 :00 +05 :30  · role retail
+				779 button (collapsed) MY WORKSPACE — portfolios, scenarios, cases, Secondary Actions: Expand
+					780 text MY WORKSPACE — portfolios, scenarios, cases
+				781 button (collapsed) EVALUATION — FR35 ablation tables, Secondary Actions: Expand
+					782 text EVALUATION — FR35 ablation tables
+				783 button (collapsed) HEALTH — what is stale, what is broken, Secondary Actions: Expand
+					784 text HEALTH — what is stale, what is broken
+				785 container
+					786 text News: current_news · 2026-10-26T05:11 :21 +05 :30  · Market decision: 2020-04-30T15:30 :00 +05 :30
+				787 container prototype_app.seraph_console
+					788 AXWebArea SERAPH — Systemic Risk Early-Warning · NSE, URL: 127.0.0.1:8512/component/prototype_app.seraph_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8512%2F
+						789 container
+							790 container shell
+								791 container
+									792 text SER APH
+									793 link Description: RISK MAP, Value: 127.0.0.1:8512/component/prototype_app.seraph_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8512%2F#
+									794 link Description: CONSOLE, Value: 127.0.0.1:8512/component/prototype_app.seraph_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8512%2F#
+									795 link Description: SIGNAL FEED, Value: 127.0.0.1:8512/component/prototype_app.seraph_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8512%2F#
+									796 link Description: PILLARS, Value: 127.0.0.1:8512/component/prototype_app.seraph_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8512%2F#
+									797 link Description: EXPOSURE, Value: 127.0.0.1:8512/component/prototype_app.seraph_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8512%2F#
+									798 link Description: FORECASTS, Value: 127.0.0.1:8512/component/prototype_app.seraph_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8512%2F#
+									799 link Description: TOOLS, Value: 127.0.0.1:8512/component/prototype_app.seraph_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8512%2F#
+									800 link Description: METHOD, Value: 127.0.0.1:8512/component/prototype_app.seraph_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8512%2F#
+									801 text HISTORICAL + TAGGED PREVIEWS
+									802 container roles
+										803 button REGULATOR
+										804 button INSTITUTIONAL
+										805 button RETAIL
+									806 text  LOCAL CLOCK — 
+									807 text 05:12:44
+									808 text  IST
+									809 text 1,019 desks · FABRICATED
+									810 button VIEW BACKTEST
+								811 text MAP
+								812 container preview-banner
+									813 text NOT A CURRENT MARKET READING  — the newest observation is 2369.6 days old. Anything computed from it is a REPLAY of that period, not a statement about the market now, and must be labelled as such | observed 2020-04-30T15:30:00+05:30 · now 2026-10-26T05:11:11+05:30 · market pre_open · feed: none — not connected, unauthenticated
+									814 text RUN 37bccf32974201f0 · 2020-04-30 · RETAIL | WORKER FAILED — last heartbeat 4.5 h old. Nothing is fetching (worker exited 1; gave up after 5 restarts. Nothing is fetching). STALE — newest item 5.2 h old; 13 of 22 sources past the freshness policy they declared. Nothing on screen reflects what has happened since. | NEWS current_news 2026-10-26T05:10:22+05:30 | 9/22 feeds fresh | CONNECTED: SIGNALS, SECTOR_STRESS, GEOGRAPHY, ASSETS | 12 evidenced map node(s) | MARKET 2020-04-30T15:30:00+05:30
+								815 container ticker
+									816 text FABRICATED PREVIEW NIFTY 50 24,812.30   0.34% BANK NIFTY 52,406.85   0.21% NIFTY METAL 9,140.20   1.86% NIFTY PHARMA 21,558.45   0.92% NIFTY AUTO 25,033.10   1.24% NIFTY IT 38,902.60   0.44% INDIA VIX 13.82   1.10% USD/INR 83.41   0.18%
+								817 container
+									818 heading LATEST SIGNALS 60 / 2328 EVENTS, Value: 3, ID: h3-signals
+										819 text LATEST SIGNALS
+										820 text 60 / 2328 EVENTS
+									821 container signals
+										822 text current_news · 2026-10-26T05:10:22+05:30
+										823 container Role-specific news intelligence
+											824 heading RETAIL NEWS INTELLIGENCE, Value: 4
+												825 text RETAIL NEWS INTELLIGENCE
+											826 text 0 holding(s) have a documented route from news; 0 mapped holdings have no current matched event; 0 do not have a usable mapping. An unmapped holding is one this system cannot speak about, not one that is unaffected
+											827 text directions are qualitative hypotheses about mechanism. None of this is a probability of loss or a position recommendation
+											828 text Add your holdings in Tools to see portfolio-specific news routes.
+										829 text 534 in scope · 1794 received but not about this system (carried and linked, never deleted) · 193 in scope and unidentified
+										830 button (collapsed) SBI Mutual Fund - SBI Nifty50 Equal Weight ETF, Secondary Actions: Expand
+											831 text SBI Mutual Fund - SBI Nifty50 Equal Weight ETF
+										832 button (collapsed) Moschip Technologies Limited, Secondary Actions: Expand
+											833 text Moschip Technologies Limited
+										834 button (collapsed) M 4.6 - 153 km WNW of Adak, Alaska, Secondary Actions: Expand
+											835 text M 4.6 - 153 km WNW of Adak, Alaska
+										836 button (collapsed) M 5.2 - 59 km SW of Ashkāsham, Afghanistan, Secondary Actions: Expand
+											837 text M 5.2 - 59 km SW of Ashkāsham, Afghanistan
+										838 button (collapsed) M 4.7 - 19 km NE of Atico, Peru, Secondary Actions: Expand
+											839 text M 4.7 - 19 km NE of Atico, Peru
+										840 button (collapsed) प्रधानमंत्री ने वाराणसी यात्रा की झलकियाँ साझा कीं, Secondary Actions: Expand
+											841 text प्रधानमंत्री ने वाराणसी यात्रा की झलकियाँ साझा कीं
+										842 button (collapsed) Secondary Actions: Expand, &#2327;&#2357;&#2352;&#2381;&#2344;&#2352; &#2325;&#2366; &#2360;&#2381;&#2357;&#2366;&#2327;&#2340; &#2360;&#2306;&#2348;&#2379;&#2343;&#2344; - RBI &#2325;&#2375; &#2337;&#2375;&#2335;&#2366; &#2360;&#2375;&#2306;&#2335;&#2352; &#2324;&#2352; &#2360;&#2366;&#2311;&#2348;&#2352; &#2360;&#2369;&#2352;&#2325;&#2381;&#2359;&#2366; &#2346;&#2381;&#2352;&#2358;&#2367;&#2325;&#2381;&#2359;&#2339; &#2360;&#2306;&#2360;&#2381;&#2341;&#2366;&#2344; &#2325;&#2366; &#2313;&#2342;&#2381;&#2328;&#2366;&#2335;&#2344; -
+											843 text &#2327;&#2357;&#2352;&#2381;&#2344;&#2352; &#2325;&#2366; &#2360;&#2381;&#2357;&#2366;&#2327;&#2340; &#2360;&#2306;&#2348;&#2379;&#2343;&#2344; - RBI &#2325;&#2375; &#2337;&#2375;&#2335;&#2366; &#2360;&#2375;&#2306;&#2335;&#2352; &#2324;&#2352; &#2360;&#2366;&#2311;&#2348;&#2352; &#2360;&#2369;&#2352;&#2325;&#2381;&#2359;&#2366; &#2346;&#2381;&#2352;&#2358;&#2367;&#2325;&#2381;&#2359;&#2339; &#2360;&#2306;&#2360;&#2381;&#2341;&#2366;&#2344; &#2325;&#2366; &#2313;&#2342;&#2381;&#2328;&#2366;&#2335;&#2344; -
+										844 button (collapsed) Green forest fire notification in South Sudan, Secondary Actions: Expand
+											845 text Green forest fire notification in South Sudan
+										846 button (collapsed) Green forest fire notification in Zambia, Secondary Actions: Expand
+											847 text Green forest fire notification in Zambia
+										848 button (collapsed) Ravindra Energy Limited, Secondary Actions: Expand
+											849 text Ravindra Energy Limited
+										850 button (collapsed) Green forest fire notification in Zambia, Malawi, Secondary Actions: Expand
+											851 text Green forest fire notification in Zambia, Malawi
+										852 button (collapsed) Green forest fire notification in Senegal, Secondary Actions: Expand
+											853 text Green forest fire notification in Senegal
+										854 button (collapsed) सीसीपीए ने भ्रामक विज्ञापनों और वॉकी-टॉकी की गैर-अनुपालन बिक्री के खिलाफ कार्रवाई तेज की, Secondary Actions: Expand
+											855 text सीसीपीए ने भ्रामक विज्ञापनों और वॉकी-टॉकी की गैर-अनुपालन बिक्री के खिलाफ कार्रवाई तेज की
+										856 button (collapsed) Secondary Actions: Expand, Green notification for tropical cyclone VANCE-26. Population affected by Category 1 (120 km/h) wind speeds or higher is 0 (0 in Tropical Storm).
+											857 text Green notification for tropical cyclone VANCE-26. Population affected by Category 1 (120 km/h) wind speeds or higher is 0 (0 in Tropical Storm).
+										858 button (collapsed) SKP Bearing Industries Limited, Secondary Actions: Expand
+											859 text SKP Bearing Industries Limited
+										860 button (collapsed) एनआईएफटीईएम-के ने भारत के पहले ‘एआई × फूड टेक हैकाथॉन’, ‘हैक द फोर्क’ का आयोजन किया, Secondary Actions: Expand
+											861 text एनआईएफटीईएम-के ने भारत के पहले ‘एआई × फूड टेक हैकाथॉन’, ‘हैक द फोर्क’ का आयोजन किया
+										862 button (collapsed) Green forest fire notification in Mali, Secondary Actions: Expand
+											863 text Green forest fire notification in Mali
+										864 button (collapsed) ECL Finance Limited, Secondary Actions: Expand
+											865 text ECL Finance Limited
+										866 button (collapsed) Secondary Actions: Expand, ‘विकसित भारत 2047’ की दिशा में शहरी प्रशासन, योजना और सेवाओं की आपूर्ति को मजबूत करने संबंधी व्यावहारिक सुझावों के साथ ‘राष्ट्रीय शहरी सम्मेलन 2026’ संपन्न
+											867 text ‘विकसित भारत 2047’ की दिशा में शहरी प्रशासन, योजना और सेवाओं की आपूर्ति को मजबूत करने संबंधी व्यावहारिक सुझावों के साथ ‘राष्ट्रीय शहरी सम्मेलन 2026’ संपन्न
+										868 button (collapsed) 12वां ब्रिक्स संसदीय मंच कल संसद भवन परिसर में आयोजित होगा, Secondary Actions: Expand
+											869 text 12वां ब्रिक्स संसदीय मंच कल संसद भवन परिसर में आयोजित होगा
+										870 button (collapsed) Green forest fire notification in Mauritania, Mali, Secondary Actions: Expand
+											871 text Green forest fire notification in Mauritania, Mali
+										872 button (collapsed) GMR AIRPORTS LIMITED, Secondary Actions: Expand
+											873 text GMR AIRPORTS LIMITED
+										874 button (collapsed) Aditya Birla Sun Life Insurance Company Limited, Secondary Actions: Expand
+											875 text Aditya Birla Sun Life Insurance Company Limited
+										876 button (collapsed) Secondary Actions: Expand, Green notification for tropical cyclone IN-FA-26. Population affected by Category 1 (120 km/h) wind speeds or higher is 0 (0 in Tropical Storm).
+											877 text Green notification for tropical cyclone IN-FA-26. Population affected by Category 1 (120 km/h) wind speeds or higher is 0 (0 in Tropical Storm).
+										878 button (collapsed) उपराष्ट्रपति सी. पी. राधाकृष्णन 26-27 अक्टूबर को आंध्र प्रदेश के दौरे पर रहेंगे, Secondary Actions: Expand
+											879 text उपराष्ट्रपति सी. पी. राधाकृष्णन 26-27 अक्टूबर को आंध्र प्रदेश के दौरे पर रहेंगे
+										880 button (collapsed) Secondary Actions: Expand, Red notification for tropical cyclone CHAMPI-26. Population affected by Category 1 (120 km/h) wind speeds or higher is 0.291 million .
+											881 text Red notification for tropical cyclone CHAMPI-26. Population affected by Category 1 (120 km/h) wind speeds or higher is 0.291 million .
+										882 button (collapsed) Secondary Actions: Expand, Hon’ble Prime Minister of India inaugurates the Reserve Bank of India’s Data Centre and Cybersecurity Training Institute in Bhubaneswar, Odisha
+											883 text Hon’ble Prime Minister of India inaugurates the Reserve Bank of India’s Data Centre and Cybersecurity Training Institute in Bhubaneswar, Odisha
+										884 button (collapsed) भुवनेश्वर में आरबीआइ की प्रमुख सुविधाओं के उद्घाटन के दौरान प्रधानमंत्री के संबोधन का मूल पाठ, Secondary Actions: Expand
+											885 text भुवनेश्वर में आरबीआइ की प्रमुख सुविधाओं के उद्घाटन के दौरान प्रधानमंत्री के संबोधन का मूल पाठ
+										886 button (collapsed) प्रधानमंत्री श्री नरेन्द्र मोदी ने ओडिशा के भुवनेश्वर में आरबीआई के नवनिर्मित डेटा सेंटर और साइबर सुरक्षा प्रशिक्षण संस्थान का उद्घाटन किया, Secondary Actions: Expand
+											887 text प्रधानमंत्री श्री नरेन्द्र मोदी ने ओडिशा के भुवनेश्वर में आरबीआई के नवनिर्मित डेटा सेंटर और साइबर सुरक्षा प्रशिक्षण संस्थान का उद्घाटन किया
+										888 button (collapsed) Secondary Actions: Expand, Green notification for tropical cyclone THREE-C-26. Population affected by Category 1 (120 km/h) wind speeds or higher is 0 (0 in Tropical Storm).
+											889 text Green notification for tropical cyclone THREE-C-26. Population affected by Category 1 (120 km/h) wind speeds or higher is 0 (0 in Tropical Storm).
+										890 button (collapsed) केंद्रीय मंत्री पीयूष गोयल ने नीदरलैंड में व्यापार और निवेश वार्ता की, Secondary Actions: Expand
+											891 text केंद्रीय मंत्री पीयूष गोयल ने नीदरलैंड में व्यापार और निवेश वार्ता की
+										892 button (collapsed) Green forest fire notification in Indonesia, Secondary Actions: Expand
+											893 text Green forest fire notification in Indonesia
+										894 button (collapsed) Secondary Actions: Expand, Green earthquake (Magnitude 5.8M, Depth:12.486km) in Bouvet Island Region 24/10/2026 15:24 UTC, [unknown].
+											895 text Green earthquake (Magnitude 5.8M, Depth:12.486km) in Bouvet Island Region 24/10/2026 15:24 UTC, [unknown].
+										896 button (collapsed) Green forest fire notification in Russia, Secondary Actions: Expand
+											897 text Green forest fire notification in Russia
+										898 button (collapsed) Secondary Actions: Expand, Drought is on going in Austria, Bosnia & Herzegovina, Belgium, Belarus, Switzerland, Czech Republic, Germany, Denmark, Spain, France, Croatia, Hungary, Ireland, Italy, Liechtenstein, Luxembourg, Moldova, Montenegro, Netherlands, Poland, Romania, Serbia, Sweden, Slovenia, Slovakia, Ukraine,
+											899 text Drought is on going in Austria, Bosnia & Herzegovina, Belgium, Belarus, Switzerland, Czech Republic, Germany, Denmark, Spain, France, Croatia, Hungary, Ireland, Italy, Liechtenstein, Luxembourg, Moldova, Montenegro, Netherlands, Poland, Romania, Serbia, Sweden, Slovenia, Slovakia, Ukraine,
+										900 button (collapsed) Green forest fire notification in South Sudan, Sudan, Secondary Actions: Expand
+											901 text Green forest fire notification in South Sudan, Sudan
+										902 button (collapsed) Secondary Actions: Expand, Green earthquake (Magnitude 6.1M, Depth:116km) in Vanuatu 25/10/2026 02:24 UTC, 110 thousand in MMI IV.
+											903 text Green earthquake (Magnitude 6.1M, Depth:116km) in Vanuatu 25/10/2026 02:24 UTC, 110 thousand in MMI IV.
+										904 button (collapsed) Green forest fire notification in Australia, Secondary Actions: Expand
+											905 text Green forest fire notification in Australia
+										906 button (collapsed) Green forest fire notification in Namibia, Botswana, Secondary Actions: Expand
+											907 text Green forest fire notification in Namibia, Botswana
+										908 button (collapsed) Green forest fire notification in Nigeria, Secondary Actions: Expand
+											909 text Green forest fire notification in Nigeria
+										910 button (collapsed) Secondary Actions: Expand, REFERENCED Large Diameter Graphite Electrodes From China and India; Scheduling of the Final Phase of Countervailing Duty and Antidumping Duty Investigations.
+											911 text REFERENCED
+											912 text  Large Diameter Graphite Electrodes From China and India; Scheduling of the Final Phase of Countervailing Duty and Antidumping Duty Investigations.
+										913 button (collapsed) Secondary Actions: Expand, REFERENCED Common Alloy Aluminum Sheet From Bahrain, Brazil, Croatia, Egypt, Germany, India, Indonesia, Italy, Oman, Romania, Serbia, Slovenia, South Africa, Spain, Taiwan, and Turkey; Scheduling of Full Five-Year Reviews.
+											914 text REFERENCED
+											915 text  Common Alloy Aluminum Sheet From Bahrain, Brazil, Croatia, Egypt, Germany, India, Indonesia, Italy, Oman, Romania, Serbia, Slovenia, South Africa, Spain, Taiwan, and Turkey; Scheduling of Full Five-Year Reviews.
+										916 button (collapsed) Secondary Actions: Expand, REFERENCED Forged Steel Fittings From India and South Korea; Cancellation of Hearing for Antidumping and Countervailing Duty Reviews.
+											917 text REFERENCED
+											918 text  Forged Steel Fittings From India and South Korea; Cancellation of Hearing for Antidumping and Countervailing Duty Reviews.
+										919 button (collapsed) REFERENCED Oleoresin Paprika From India: Antidumping Duty Order and Countervailing Duty Order., Secondary Actions: Expand
+											920 text REFERENCED
+											921 text  Oleoresin Paprika From India: Antidumping Duty Order and Countervailing Duty Order.
+										922 button (collapsed) REFERENCED Oleoresin Paprika From India; Determinations., Secondary Actions: Expand
+											923 text REFERENCED
+											924 text  Oleoresin Paprika From India; Determinations.
+										925 button (collapsed) Secondary Actions: Expand, REFERENCED Certain Oil Country Tubular Goods From India, the Republic of Korea, the Republic of Türkiye, the Socialist Republic of Vietnam, and Ukraine: Continuation of Antidumping Duty Orders and Countervailing Duty Orders.
+											926 text REFERENCED
+											927 text  Certain Oil Country Tubular Goods From India, the Republic of Korea, the Republic of Türkiye, the Socialist Republic of Vietnam, and Ukraine: Continuation of Antidumping Duty Orders and Countervailing Duty Orders.
+										928 button (collapsed) Secondary Actions: Expand, REFERENCED Large Diameter Graphite Electrodes From India: Preliminary Affirmative Critical Circumstances Determination in Countervailing Duty Investigation.
+											929 text REFERENCED
+											930 text  Large Diameter Graphite Electrodes From India: Preliminary Affirmative Critical Circumstances Determination in Countervailing Duty Investigation.
+										931 button (collapsed) Secondary Actions: Expand, REFERENCED Large Diameter Graphite Electrodes From India: Preliminary Affirmative Determination of Sales at Less-Than-Fair-Value, Preliminary Affirmative Determination of Critical Circumstances, Postponement of Final Determination, and Extension of Provisional Measures.
+											932 text REFERENCED
+											933 text  Large Diameter Graphite Electrodes From India: Preliminary Affirmative Determination of Sales at Less-Than-Fair-Value, Preliminary Affirmative Determination of Critical Circumstances, Postponement of Final Determination, and Extension of Provisional Measures.
+										934 button (collapsed) REFERENCED POWERGRID Commissions Project to Evacuate Renewable Energy in Karnataka, Secondary Actions: Expand
+											935 text REFERENCED
+											936 text  POWERGRID Commissions Project to Evacuate Renewable Energy in Karnataka
+										937 button (collapsed) Secondary Actions: Expand, REFERENCED Certain Freight Rail Couplers and Parts Thereof From India: Final Affirmative Countervailing Duty Determination.
+											938 text REFERENCED
+											939 text  Certain Freight Rail Couplers and Parts Thereof From India: Final Affirmative Countervailing Duty Determination.
+										940 button (collapsed) Secondary Actions: Expand, REFERENCED Certain Frozen Warmwater Shrimp From India: Rescission of Antidumping Duty Administrative Review, In Part; 2025-2026.
+											941 text REFERENCED
+											942 text  Certain Frozen Warmwater Shrimp From India: Rescission of Antidumping Duty Administrative Review, In Part; 2025-2026.
+										943 button (collapsed) Secondary Actions: Expand, REFERENCED Chromium Trioxide From India: Final Affirmative Determination of Sales at Less Than Fair Value.
+											944 text REFERENCED
+											945 text  Chromium Trioxide From India: Final Affirmative Determination of Sales at Less Than Fair Value.
+										946 button (collapsed) REFERENCED Chromium Trioxide From India: Final Affirmative Countervailing Duty Determination., Secondary Actions: Expand
+											947 text REFERENCED
+											948 text  Chromium Trioxide From India: Final Affirmative Countervailing Duty Determination.
+										949 button (collapsed) Secondary Actions: Expand, REFERENCED Perfluoroalkoxy Alkane From India: Postponement of Preliminary Determination in the Countervailing Duty Investigation
+											950 text REFERENCED
+											951 text  Perfluoroalkoxy Alkane From India: Postponement of Preliminary Determination in the Countervailing Duty Investigation
+										952 button (collapsed) Secondary Actions: Expand, REFERENCED Polyethylene Terephthalate Film, Sheet, and Strip From India: Preliminary Results of Antidumping Duty Administrative Review, and Rescission of Review, in Part; 2024-2025
+											953 text REFERENCED
+											954 text  Polyethylene Terephthalate Film, Sheet, and Strip From India: Preliminary Results of Antidumping Duty Administrative Review, and Rescission of Review, in Part; 2024-2025
+										955 button (collapsed) Secondary Actions: Expand, REFERENCED Fine Denier Polyester Staple Fiber From India: Preliminary Results and Rescission, in Part of Antidumping Duty Administrative Review; 2024-2025
+											956 text REFERENCED
+											957 text  Fine Denier Polyester Staple Fiber From India: Preliminary Results and Rescission, in Part of Antidumping Duty Administrative Review; 2024-2025
+										958 button (collapsed) Secondary Actions: Expand, REFERENCED Announcement No.18 of 2025 of The Ministry of Commerce and The General Administration of Customs of The People’s Republic of China Announcing the decision to implement export control on some medium and heavy rare earth related items
+											959 text REFERENCED
+											960 text  Announcement No.18 of 2025 of The Ministry of Commerce and The General Administration of Customs of The People’s Republic of China Announcing the decision to implement export control on some medium and heavy rare earth related items
+										961 button (collapsed) Secondary Actions: Expand, REFERENCED Oil Country Tubular Goods From India, South Korea, Turkey, Ukraine, and Vietnam; Determinations
+											962 text REFERENCED
+											963 text  Oil Country Tubular Goods From India, South Korea, Turkey, Ukraine, and Vietnam; Determinations
+										964 button (collapsed) REFERENCED Perfluoroalkoxy Alkane From India; Determinations, Secondary Actions: Expand
+											965 text REFERENCED
+											966 text  Perfluoroalkoxy Alkane From India; Determinations
+										967 button (collapsed) REFERENCED Tata Steel inaugurates Phase II expansion of Kalinganagar operations, Secondary Actions: Expand
+											968 text REFERENCED
+											969 text  Tata Steel inaugurates Phase II expansion of Kalinganagar operations
+										970 text bse_notices: last success 281min before, past its 90min freshness policy; et_energyworld: last success 281min before, past its 180min freshness policy; fed_press: last success 281min before, past its 180min freshness policy; federal_register: last acquisition failed: FeedFetchError: this does not look like a Federal Register documents response: no 'results' key; federal_register_india: last acquisition failed: FeedFetchError: this does not look like a Federal Register documents response: no 'results' key; mofcom_rare_earth_18_2025: last acquisition failed: TimeoutError: acquisition deadline exhausted while reading body (deadline 4.1s exhausted after 1 attempt(s); not retrying); nse_circulars: last success 281min before, past its 180min freshness policy; nse_corporate_announcements: last success 281min before, past its 90min freshness policy; pib_releases: last success 281min before, past its 180min freshness policy; rbi_notifications: last success 281min before, past its 180min freshness policy; rbi_press_releases: last success 281min before, past its 90min freshness policy; sebi_press: last success 281min before, past its 180min freshness policy; usgs_earthquakes: last success 281min before, past its 90min freshness policy
+										971 text Pilot coverage only: no licensed independent journalism; No validated Hindi interpretation; received Hindi items abstain; Exchange filings, Indian trade instruments and broader sector routes are incomplete; Pilot exposure registry is qualitative; unmapped firms and unknown sizes are not zero risk
+										972 button (collapsed) FABRICATED illustrative signals, Secondary Actions: Expand
+											973 text FABRICATED illustrative signals
+									974 heading INPUT COMMODITIES FABRICATED PREVIEW, Value: 3
+										975 text INPUT COMMODITIES FABRICATED PREVIEW
+									976 table commod
+										977 row
+											978 cell
+												979 text Polysilicon
+											980 cell
+												981 text $6.85/kg
+											982 cell
+												983 text +1.9%
+										984 row
+											985 cell
+												986 text HRC Steel
+											987 cell
+												988 text ₹52,400/t
+											989 cell
+												990 text -0.6%
+										991 row
+											992 cell
+												993 text Brent Crude
+											994 cell
+												995 text $82.10
+											996 cell
+												997 text -0.5%
+										998 row
+											999 cell
+												1000 text Copper
+											1001 cell
+												1002 text $9,430/t
+											1003 cell
+												1004 text +1.4%
+										1005 row
+											1006 cell
+												1007 text API Intermediates
+											1008 cell
+												1009 text idx 118.4
+											1010 cell
+												1011 text +0.8%
+										1012 row
+											1013 cell
+												1014 text Freight (SCFI)
+											1015 cell
+												1016 text 2,240
+											1017 cell
+												1018 text +2.6%
+									1019 heading METEOROLOGICAL INPUTS ADVISORY FABRICATED PREVIEW, Value: 3
+										1020 text METEOROLOGICAL INPUTS ADVISORY FABRICATED PREVIEW
+									1021 container met
+										1022 text SW monsoon departure
+										1023 text -8% vs LPA
+										1024 text Rural demand and CPI food basket. Feeds FMCG, fertiliser, tractor volumes.
+										1025 text Bay of Bengal
+										1026 text 1 depression
+										1027 text Port throughput at Paradip and Visakhapatnam. Feeds steel dispatch, ore movement.
+										1028 text Heat index — Telangana
+										1029 text 46°C peak
+										1030 text Peak power demand and discom payables. Feeds energy, pharma cold chain.
+										1031 text Reservoir storage
+										1032 text 61% capacity
+										1033 text Hydro output and irrigation draw. Feeds power mix and rural credit.
+										1034 text Coastal wind — Gujarat/TN
+										1035 text elevated
+										1036 text Wind generation and grid balancing cost. Feeds renewables and solar hybrids.
+										1037 container
+											1038 text NOT IN CSRS v3  These are context, not model inputs. CSRS reads price and jump data only; nothing below feeds the Hawkes, RMT or regime layers.
+									1039 container assetcard
+										1040 heading STRATEGIC ASSETS 13 SITES, Value: 3, ID: h3-assets
+											1041 text STRATEGIC ASSETS
+											1042 text 13 SITES
+										1043 text ALL SECTORS
+										1044 container assets
+											1045 container
+												1046 text Rourkela Steel Plant SAIL · Steel · Odisha · 4.5 Mtpa crude steel  EU AD proceeding AD-712 · provisional duty 12-18% indicated
+											1047 container
+												1048 text Kalinganagar Works Tata Steel · Steel · Odisha · 8.0 Mtpa  Draft flat-steel export duty · 15% under inter-ministerial review
+											1049 container
+												1050 text Angul Steel Jindal Steel · Steel · Odisha · 6.0 Mtpa  Coking coal import parity · watch
+											1051 container
+												1052 text Paradip Port PPT · Steel · Odisha · 145 Mtpa throughput  Cyclone advisory · Bay of Bengal depression
+											1053 container
+												1054 text Charanka Solar Park GSECL · Solar · Gujarat · 790 MW  US Section 301 review · PV cell imports · USTR docket open
+											1055 container
+												1056 text Dholera Solar Park GPCL · Solar · Gujarat · 4,750 MW planned  ALMM List-II enforcement + safeguard duty revision
+											1057 container
+												1058 text Mundra Cell & Module Adani Solar · Solar · Gujarat · 4.0 GW cell + module  PLI Tranche-II milestone review
+											1059 container
+												1060 text Oragadam Auto Cluster Multi-OEM · Auto Components · Tamil Nadu · ~1.2 M units/yr  PLI-Auto component scheme revision · draft circulated
+											1061 container
+												1062 text Sriperumbudur Belt Multi-OEM · Auto Components · Tamil Nadu · ~900 k units/yr  FAME-III localisation thresholds pending
+											1063 container
+												1064 text Hosur Industrial Belt Multi-OEM · Auto Components · Tamil Nadu · ~600 k units/yr  No active proceeding
+											1065 container
+												1066 text Genome Valley Multi-firm · Pharma · Telangana · ~180 facilities  US HHS generic pricing review · draft leaked to trade press
+											1067 container
+												1068 text Jeedimetla API Cluster Multi-firm · Pharma · Telangana · ~350 API units  PLI-API bulk drug park milestones
+											1069 container
+												1070 text Hyderabad Pharma City TSIIC · Pharma · Telangana · 19,000 acres planned  Environmental clearance stage · watch
+										1071 text CRITICAL ELEVATED CLEAR
+									1072 container stage
+										1073 container modes
+											1074 button INDIA
+											1075 button GLOBAL
+											1076 button ASSETS
+										1077 container topright
+											1078 button PAUSE SPIN, ID: pause
+											1079 button CLOUDS, ID: clouds
+											1080 button RE-LOCK, ID: recentre
+										1081 text 1073×608 · 56,533 land tris · 160 countries · 36 states · clouds procedural
+										1082 text drag to orbit · scroll to zoom · click a raised state
+										1083 container beaconKey
+											1084 text FABRICATED PREVIEW
+											1085 heading INFRASTRUCTURE, Value: 5
+												1086 text INFRASTRUCTURE
+											1087 text Solar Wind Hydro Nuclear Grid / Steel Battery / Auto Other
+											1088 heading STATUS, Value: 5
+												1089 text STATUS
+											1090 text Operational Under construction Planned Critical / maintenance Unknown
+										1091 text Gujarat · 0.87
+										1092 text Odisha · 0.81
+										1093 text Tamil Nadu · 0.79
+										1094 text Telangana · 0.74
+										1095 text 12 evidenced nodes · 1 documented path
+										1096 text China · country
+										1097 text M 5.2 - 59 km SW of Ashkāsham, Afghanistan · point
+										1098 text M 4.6 - 153 km WNW of Adak, Alaska · point
+										1099 text M 4.7 - 19 km NE of Atico, Peru · point
+										1100 text India · country
+										1101 text Mumbai · city
+										1102 text Odisha · region
+										1103 text Kalinganagar · region
+										1104 text Karnataka · region
+										1105 text Kalinganagar · region
+										1106 text United States · country
+										1107 text Washington D.C. · city
+									1108 heading SECTOR STRESS NEWS ESTIMATE · FABRICATED, Value: 3, ID: h3-stress
+										1109 text SECTOR STRESS NEWS ESTIMATE · FABRICATED
+									1110 container stress
+										1111 text NEWS · inferred mechanisms
+										1112 text over all 2328 eligible events, not just the page shown
+										1113 text WORKER FAILED — last heartbeat 4.5 h old. Nothing is fetching (worker exited 1; gave up after 5 restarts. Nothing is fetching). STALE — newest item 5.2 h old; 13 of 22 sources past the freshness policy they declared. Nothing on screen reflects what has happened since.
+										1114 container Show the events behind this inference
+											1115 text agriculture
+											1116 text export
+											1117 text adverse for this sector; direction unknown — opposing or unestablished mechanisms severity minor · evidence medium · size unknown · 3 unsized relationship(s) 3 event(s) — click for the documents
+										1118 container Show the events behind this inference
+											1119 text aluminium
+											1120 text export
+											1121 text direction unknown — opposing or unestablished mechanisms severity minor · evidence medium · size unknown · 1 unsized relationship(s) 1 event(s) — click for the documents
+										1122 container Show the events behind this inference
+											1123 text auto
+											1124 text input_dependency
+											1125 text direction unknown — opposing or unestablished mechanisms severity moderate · evidence medium · size unknown · 1 unsized relationship(s) 1 event(s) — click for the documents
+										1126 container Show the events behind this inference
+											1127 text chemicals
+											1128 text export
+											1129 text adverse for this sector; direction unknown — opposing or unestablished mechanisms severity minor · evidence medium · size unknown · 5 unsized relationship(s) 5 event(s) — click for the documents
+										1130 container Show the events behind this inference
+											1131 text energy
+											1132 text operation
+											1133 text direction unknown — opposing or unestablished mechanisms severity minor · evidence medium · size unknown · 1 unsized relationship(s) 1 event(s) — click for the documents
+										1134 container Show the events behind this inference
+											1135 text industrial_materials
+											1136 text export
+											1137 text direction unknown — opposing or unestablished mechanisms severity minor · evidence medium · size unknown · 3 unsized relationship(s) 3 event(s) — click for the documents
+										1138 container Show the events behind this inference
+											1139 text steel
+											1140 text export, operation
+											1141 text adverse for this sector; direction unknown — opposing or unestablished mechanisms severity minor · evidence medium · size unknown · 5 unsized relationship(s) 5 event(s) — click for the documents
+										1142 container Show the events behind this inference
+											1143 text textiles
+											1144 text export
+											1145 text direction unknown — opposing or unestablished mechanisms severity minor · evidence medium · size unknown · 1 unsized relationship(s) 1 event(s) — click for the documents
+										1146 button (collapsed) FABRICATED sector preview, Secondary Actions: Expand
+											1147 text FABRICATED sector preview
+									1148 heading PORTFOLIO EXPOSURE 29% AMBER FABRICATED PREVIEW, Value: 3
+										1149 text PORTFOLIO EXPOSURE 29% AMBER FABRICATED PREVIEW
+									1150 container exposure
+										1151 text Solar 12% Steel 8% Auto Components 9% Banking 22% IT Services 18% FMCG 14%
+										1152 text 29% of holdings sit in currently-amber sectors. This fabricated holdings/news example is separate from the actual CSRS shown in CONSOLE.
+								1153 container
+									1154 text FABRICATED NEWS PREVIEW
+									1155 container crawl
+										1156 text CRITICAL 19m Flat steel export duty proposal circulated to ministries CRITICAL 41m USTR opens Section 301 review covering PV cell imports WATCH 1h EU anti-dumping proceeding advances on flat steel imports CRITICAL 2h Generic drug pricing policy draft leaked to trade press WATCH 3h RBI flags concentration risk in tariff-exposed lending books WATCH 5h Commerce ministry convenes exporters on freight surcharge CRITICAL 19m Flat steel export duty proposal circulated to ministries CRITICAL 41m USTR opens Section 301 review covering PV cell imports WATCH 1h EU anti-dumping proceeding advances on flat steel imports CRITICAL 2h Generic drug pricing policy draft leaked to trade press WATCH 3h RBI flags concentration risk in tariff-exposed lending books WATCH 5h Commerce ministry convenes exporters on freight surcharge
+							1157 container req-status-global
+								1158 text ● NO RESPONSE  — no response in 15s. Retry sends the same request id, so a request that did arrive cannot be applied twice. 
+								1159 button Retry, ID: req-retry
+								1160 button Cancel, ID: req-cancel
+				1161 text No user holdings supplied. Use TOOLS in the console to calculate portfolio coverage.
+				1162 text News channel CONNECTED: signals, sector_stress, geography, assets. Still fabricated: none. Original fitted model artifacts are reused in historical mode; PostgreSQL fresh-data execution is not verified.
+
+The focused UI element is 0 AXWebArea SERAPH, URL: 127.0.0.1:8512/

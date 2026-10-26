@@ -1,0 +1,8 @@
+{
+  "owner_authorized": "Explicit chat approval: Yes\u2014freeze that design and run the bounded report",
+  "registered_at": "2026-10-21T21:32:46.729819+05:30",
+  "design_source": "docs\\evidence\\engineering-closeout-2026-10-21\\proposed-evaluation-design.json",
+  "design_sha256": "c2d71ea22ef30ffaba8c5bdb225c7510f496d49efdd019cff05a116add647693",
+  "file_sha256": "dcae9c7a76b6e16f7d69970fed28284f12fddf877d909b140fb1380a07bab3c0",
+  "note": "Frozen before this bounded FR35 runner execution; existing prior studies remain retrospective. No push or Git commit performed."
+}

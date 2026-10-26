@@ -663,3 +663,44 @@ def test_document_progress_counts_a_separately_published_document(tmp_path):
     assert store.document_progress("feed")["feed"]["with_document"] == 1, (
         "joining on the citation url reported zero documents for every "
         "source whose text is published elsewhere")
+
+def test_sources_at_reads_a_stored_field_this_build_does_not_know(tmp_path):
+    """The historical roster must survive a payload written by a later build.
+
+    `sources_at` rebuilt each entry with `Source(**payload)`. The stored
+    payload carries `permitted_uses`, which is not a `Source` field, so every
+    version written from 2026-10-19 raised
+    `TypeError: unexpected keyword argument 'permitted_uses'` -- and this is
+    the strict-replay path, so `news_mode='historical_decision'` (the
+    console's default) raised for any decision at or after that date.
+    21 of 73 stored versions in the pilot store carry it.
+
+    `source()` has always constructed field by field and so tolerated extra
+    keys. This pins the same tolerance here, for any unknown field rather
+    than that one name.
+    """
+    import json
+    import sqlite3
+
+    store = NewsStore(tmp_path / "news.sqlite")
+    store.register(Source(
+        source_id="wire", provider="Agency", kind="news_agency",
+        url="https://example.test/feed", topic_coverage=("industry",)))
+
+    # Simulate a payload written by a build that knew a field this one does
+    # not. The point is tolerance of ANY unknown key, not of one name.
+    with sqlite3.connect(tmp_path / "news.sqlite") as db:
+        rows = db.execute(
+            "SELECT rowid, payload FROM source_versions").fetchall()
+        assert rows, "registering a source should record a version"
+        for rowid, raw in rows:
+            payload = json.loads(raw)
+            payload["permitted_uses"] = {"fetch": True}
+            payload["a_field_from_the_future"] = 7
+            db.execute("UPDATE source_versions SET payload=? WHERE rowid=?",
+                       (json.dumps(payload), rowid))
+
+    roster = store.sources_at("2099-01-01T00:00:00+05:30")
+    assert [source.source_id for source in roster] == ["wire"]
+    assert roster[0].provider == "Agency"
+    assert roster[0].topic_coverage == ("industry",)

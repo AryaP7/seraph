@@ -252,8 +252,8 @@ function renderMethod(){q('m_flow').innerHTML=kv('Run',data.run_id)+kv('Decision
 function table(rows){if(!rows?.length)return 'No saved outputs.';const keys=Object.keys(rows[0]);return '<table><thead><tr>'+keys.map(k=>'<th>'+esc(k)+'</th>').join('')+'</tr></thead><tbody>'+rows.map(r=>'<tr>'+keys.map(k=>'<td>'+esc(typeof r[k]==='object'?JSON.stringify(r[k]):r[k])+'</td>').join('')+'</tr>').join('')+'</tbody></table>';}
 function resultView(result){if(!result)return 'No operation submitted for this run/date/role.';if(Array.isArray(result.value)&&(result.kind==='shock'||result.kind==='policy'))return '<p>'+esc(result.basis)+'</p>'+table(result.value.map((r,i)=>({step:i+1,csrs:num(r.csrs),warning:r.alert_level,conditional_lower:num(r.ci_lower),conditional_upper:num(r.ci_upper)})))+'<details><summary>Scenario metadata</summary>'+json(result)+'</details>';return json(result);}
 function tools(){const professional=data.role!=='retail',reg=data.role==='regulator';let html=card('Portfolio holdings','<p>Enter current holdings as JSON: symbol, value, sector, optional quantity. Real exposure calculation uses no fabricated news flags.</p><textarea id="holdings" placeholder="Paste your holdings JSON list"></textarea><button id="portfolio-go">Calculate coverage</button>');
- if(professional)html+=card('Pillar shock simulator · C11 / C9','<p>Hypothetical ECDF-rank shock; excluded pillars remain excluded.</p><select id="shock-pillar"><option>hawkes</option><option>rmt</option><option>hamilton</option></select><input id="magnitude" type="number" min="-1" max="1" step="0.05" value="0.1" aria-label="Shock magnitude"><input id="horizon" type="number" min="1" max="60" value="5" aria-label="Horizon"><button id="shock-go">Run shock</button>')+card('Defensive playbook',json(data.view.playbook)+'<p>Measured drawdown reduction unavailable. Guidance is not an evaluated trading result.</p>')+card('Institutional / residual flow',tag+flowHTML());
- if(reg)html+=card('Counterfactual policy simulator','<p>Macro z-to-regime fitted mapping unavailable. Run an explicit hypothetical regime path through C11 instead; equal regime weights may give an unchanged score.</p><textarea id="xi-path">[[0.8,0.15,0.05],[0.2,0.5,0.3]]</textarea><button id="policy-go">Run regime-path scenario</button>')+card('Regulator action journal','<p>Annotations for this historical alert; no real trading or circuit breaker execution.</p><select id="action-op"><option>create</option><option>update</option><option>delete</option></select><select id="action-value"><option>none</option><option>soft_warning</option><option>circuit_breaker</option></select><button id="action-go">Record action</button>'+json(data.action_log))+card('Institution / contagion preview',tag+'<p>Institution-level decomposition and contagion network are not produced by this run.</p>'+kv('Institution A (example exposure)','35%')+kv('Institution B (example exposure)','65%'));
+ if(professional)html+=card('Pillar shock simulator · C11 / C9','<p>Hypothetical ECDF-rank shock; excluded pillars remain excluded.</p><select id="shock-pillar"><option>hawkes</option><option>rmt</option><option>hamilton</option></select><input id="magnitude" type="number" min="-1" max="1" step="0.05" value="0.1" aria-label="Shock magnitude"><input id="horizon" type="number" min="1" max="60" value="5" aria-label="Horizon"><button id="shock-go">Run shock</button>')+card('Defensive playbook',json(data.view.playbook)+'<p>Open MY WORKSPACE to run a saved defensive comparison with supplied historical prices and costs. Guidance here remains distinct from that evaluated result.</p>')+card('Institutional / residual flow',tag+flowHTML());
+ if(reg)html+=card('Counterfactual policy simulator','<p>Open MY WORKSPACE to select a fitted macro or policy artifact and enter named covariate paths. This control runs an explicit hypothetical regime path; equal or excluded weights may give an unchanged score.</p><textarea id="xi-path">[[0.8,0.15,0.05],[0.2,0.5,0.3]]</textarea><button id="policy-go">Run regime-path scenario</button>')+card('Regulator action journal','<p>Annotations for this historical alert; no real trading or circuit breaker execution.</p><select id="action-op"><option>create</option><option>update</option><option>delete</option></select><select id="action-value"><option>none</option><option>soft_warning</option><option>circuit_breaker</option></select><button id="action-go">Record action</button>'+json(data.action_log))+card('Institution exposures',data.view.institutionDecomposition?json(data.view.institutionDecomposition):'<p>No eligible institution submission is attached at this cutoff. Use INSTITUTION EXPOSURES to preview and accept submissions.</p>')+card('Directed sector contagion',data.view.contagionNetwork?json(data.view.contagionNetwork):'<p>No supported measured network artifact is attached at this cutoff.</p>');
  html+=card('Last operation','<div id="req-status"></div>'+discardedView()+resultView(data.result));return html;}
 function discardedView(){const d=data.discarded_result;if(!d)return '';
  return '<p class="fabricated">RESULT DISCARDED</p><p>'+esc(d.reason)+'</p>'
@@ -353,6 +353,31 @@ function newsStatusLine(){
   parts.push((globe.review_queue.count)+' unplaced \u2192 review queue');
  return parts.join(' | ');}
 
+/* The panel tag follows the payload, per surface.
+   The stamp above runs at LOAD, before any payload exists, and nothing
+   revisited it -- so a surface the payload then reported as CONNECTED kept
+   FABRICATED PREVIEW above real sourced headlines with working links. The
+   comment above `EVIDENCED_NOTE` says why that is harmful: a tag that is
+   always present carries no information, and the tag is the only thing
+   protecting the preview layer from being read as data.
+   Connected loses the tag; preview and absent keep it. The ticker, desk
+   count and beacon keep theirs because they are genuinely fabricated. */
+const NEWS_CARD_HEADINGS={signals:'h3-signals',assets:'h3-assets',
+                          sector_stress:'h3-stress'};
+const FABRICATED_SPAN=/<span class="fabricated">FABRICATED PREVIEW<\/span>/g;
+function retagNewsCards(){
+ const news=(data&&data.news)||null;
+ const absent=!news||news.status==='absent';
+ const connected=new Set((news&&news.connected_surfaces)||[]);
+ for(const surface in NEWS_CARD_HEADINGS){
+  const node=q(NEWS_CARD_HEADINGS[surface]);
+  if(!node)continue;
+  const isConnected=!absent&&connected.has(surface);
+  const tagged=FABRICATED_SPAN.test(node.innerHTML);
+  FABRICATED_SPAN.lastIndex=0;
+  if(isConnected&&tagged)
+   node.innerHTML=node.innerHTML.replace(FABRICATED_SPAN,'');
+  else if(!isConnected&&!tagged)node.insertAdjacentHTML('beforeend',tag);}}
 /* Hand the news branch to the globe. The browser does not decide where a node
    goes or what it claims: positions and click detail are computed server side
    and only drawn here. */
@@ -405,8 +430,7 @@ function compareHTML(pairs){
    assumption; a pre-filled one would be an invented input. */
 function scenarioFormHTML(view){
  const routes=(view.items||[]).filter(i=>i.event_id);
- if(!routes.length)return '';
- const seen=new Set(),options=[];
+ const seen=new Set(),options=['<option value="historical:us-steel-10947">HISTORICAL EXAMPLE · India-origin covered steel · June 2025 · 25% to 50%</option>'];
  for(const r of routes){ if(seen.has(r.event_id))continue; seen.add(r.event_id);
   options.push('<option value="'+esc(r.event_id)+'">'+esc(r.target)+' \u00b7 '
    +esc(r.mechanism)+'</option>'); }
@@ -414,10 +438,10 @@ function scenarioFormHTML(view){
   '<p>Landed-cost arithmetic from the instrument\u2019s own stated rates. The two '
   +'inputs below are YOUR assumptions, recorded as such \u2014 they are not '
   +'observed company data. Leave them blank for the rate change alone; with '
-  +'no eligible cost base there is no monetary range.</p>'
+  +'no old-duty-inclusive covered component cost there is no monetary range. The historical example is a curated June 2025 calculation, not a live policy claim.</p>'
   +'<select id="news-scenario-event">'+options.join('')+'</select>'
   +'<input id="news-scenario-base" type="number" min="0" step="any" '
-  +'placeholder="Eligible cost base (optional)" aria-label="Eligible cost base">'
+  +'placeholder="Old-duty-inclusive component cost (optional)" aria-label="Eligible cost base">'
   +'<input id="news-scenario-low" type="number" min="0" max="1" step="0.05" '
   +'placeholder="Pass-through low 0-1" aria-label="Pass-through low">'
   +'<input id="news-scenario-high" type="number" min="0" max="1" step="0.05" '
@@ -425,12 +449,47 @@ function scenarioFormHTML(view){
   +'<button id="news-scenario-go">Run scenario</button>');
 }
 
+/* F05a. What the screen is currently showing, so the export can name it.
+   The export button used to send `{}`, so the server had nothing to
+   reconstruct and the artefact carried neither the displayed scenario nor
+   the comparison. These are IDENTIFIERS and INPUTS only: the server re-runs
+   the scenario itself, because a browser-supplied result dictionary is not
+   authority for what was computed. */
+let shownAnalysis={analysis_id:null};
+let exportURL=null;
+
 function exportHTML(){
+ const has=shownAnalysis.analysis_id;
  return card('EXPORT ANALYSIS',
   '<p>The displayed analysis with its evidence links, input assumptions, '
   +'processing manifest and limitations \u2014 so a reader who disagrees can '
   +'find the documents and the versions that produced it.</p>'
-  +'<button id="news-export-go">Export displayed analysis</button>');
+  +(has?'<p class="muted">Downloads the displayed result at its recorded decision time.</p>':'<p class="muted">Exports the current role matrix and evidence.</p>')
+  +'<button id="news-export-go">Export displayed analysis</button>'
+  +'<span id="news-export-dl"></span>');
+}
+
+/* A real file, not JSON on screen. The export is the artefact a reader takes
+   away and checks, so it has to leave the browser. UTF-8 JSON is the format
+   the plan fixed; the name carries the role and the decision time so two
+   exports from different contexts cannot be confused. */
+function offerExportDownload(result){
+ const slot=q('news-export-dl');
+ if(!slot||!result||result.kind!=='news_export')return;
+ const stamp=String(result.decision_ts||result.exported_at||'')
+   .replace(/[^0-9A-Za-z]/g,'').slice(0,14);
+ const name='seraph-news-analysis-v1-'+String(result.analysis_id||'').slice(0,12)+'-'+stamp+'.json';
+ try{
+  const blob=new Blob([JSON.stringify(result,null,2)],
+    {type:'application/json;charset=utf-8'});
+  if(exportURL)URL.revokeObjectURL(exportURL);
+  const url=exportURL=URL.createObjectURL(blob);
+  slot.innerHTML='<a id="news-export-link" download="'+esc(name)+'" href="'
+   +url+'">Download '+esc(name)+'</a>';
+ }catch(err){
+  slot.innerHTML='<span class="warn">This browser refused the download: '
+   +esc(String(err&&err.message||err))+'. The analysis is shown below.</span>';
+ }
 }
 
 /* ---- regulator: accept or reject a proposed instrument link ----------
@@ -573,19 +632,24 @@ function bindRoleActions(root){
   const pairs=window.SERAPH_COMPARE_PAIRS||[];
   const chosen=pairs[Number((root.querySelector('#news-compare-pair')||{}).value||0)];
   if(!chosen){setStatus('failed','no instrument pair selected');return;}
-  request('news_export',{compare:[chosen.earlier,chosen.later],
-   event_ids:[chosen.earlier,chosen.later]});};
+  shownAnalysis.compare=[chosen.earlier,chosen.later];
+  shownAnalysis.event_ids=[chosen.earlier,chosen.later];
+  request('news_export',{compare:shownAnalysis.compare,
+   event_ids:shownAnalysis.event_ids});};
 
  const run=root.querySelector('#news-scenario-go');
  if(run)run.onclick=()=>{
   const value=id=>{const n=root.querySelector(id);return n&&n.value!==''?n.value:null;};
-  request('news_scenario',{event_id:(root.querySelector('#news-scenario-event')||{}).value,
+  const inputs={event_id:(root.querySelector('#news-scenario-event')||{}).value,
    cost_base:value('#news-scenario-base'),
    pass_through_low:value('#news-scenario-low'),
-   pass_through_high:value('#news-scenario-high')});};
+   pass_through_high:value('#news-scenario-high')};
+  shownAnalysis.scenario_inputs=inputs;
+  shownAnalysis.event_ids=[inputs.event_id];
+  request('news_scenario',inputs);};
 
  const out=root.querySelector('#news-export-go');
- if(out)out.onclick=()=>request('news_export',{});
+ if(out)out.onclick=()=>request('news_export',{analysis_id:shownAnalysis.analysis_id});
 
  root.querySelectorAll('.news-review-go').forEach(button=>{
   button.onclick=()=>{
@@ -715,6 +779,13 @@ function show(view){active=view;if(!data)return;
   request('role',{role:wanted});});
  window.addEventListener('message',e=>{if(e.source!==parent||e.data.type!=='streamlit:render')return;
  const previous=data;data=e.data.args.payload;
+ const analysisScope=p=>JSON.stringify(p&&[p.run_id,p.date,p.role,p.portfolio_context,(p.news||{}).mode]);
+ if(analysisScope(previous)!==analysisScope(data)){
+  shownAnalysis={analysis_id:null};
+  if(exportURL){URL.revokeObjectURL(exportURL);exportURL=null;}
+ }
+ if(data.result&&!data.result.error&&data.result.analysis_id)
+  shownAnalysis.analysis_id=data.result.analysis_id;
  /* Resolve the in-flight request against what actually came back. A response
     for a context the user has since left is reported, not rendered — Python
     has already withheld it in `discarded_result`. */
@@ -733,6 +804,8 @@ function show(view){active=view;if(!data)return;
    &&data.result.context.request_id===inflight.id){
   clearInflight();setStatus('failed',data.result.error);}
  else if(answered){clearInflight();setStatus('succeeded',data.result.kind);}
+ /* A change of role, date or run must not hand back the previous context's
+    export, so the link is rebuilt only from the result that just arrived. */
  else if(inflight&&data.result&&data.result.error){clearInflight();setStatus('failed',data.result.error);}
  else if(inflight&&inflight.op==='role'&&data.role!==(previous&&previous.role)){
   clearInflight();setStatus('succeeded','role · '+(ROLE_LABEL[data.role]||data.role));
@@ -767,14 +840,18 @@ function show(view){active=view;if(!data)return;
    +' · market '+esc(live.market_state)+' · feed: '+esc(live.feed)
    +'<br>RUN '+esc(data.run_id.slice(0,16))+' · '+esc(data.date)+' · '
    +esc(data.role.toUpperCase())
-   +' | '+newsStatusLine()+' | NEWS '+((data.news||{}).mode||'historical')+' '+((data.news||{}).as_of||'unknown')+' | MARKET '+data.timestamp;}
- else q('preview-banner').textContent='RUN '+data.run_id.slice(0,16)+' · '+data.date+' · '+data.role.toUpperCase()+' | '+newsStatusLine()+' | NEWS '+((data.news||{}).mode||'historical')+' '+((data.news||{}).as_of||'unknown')+' | MARKET '+data.timestamp;
+   +' | '+newsStatusLine()+' | MARKET '+data.timestamp;}
+ else q('preview-banner').textContent='RUN '+data.run_id.slice(0,16)+' · '+data.date+' · '+data.role.toUpperCase()+' | '+newsStatusLine()+' | MARKET '+data.timestamp;
  // Published for the detail card in index.html, which has its own single
  // writer and must not reach into `data` itself.
  try{window.SERAPH_NEWS_FRESHNESS=(data.news&&data.news.freshness)||null;}catch(e){}
  applyNewsLayer();
  if(data.news&&data.news.status!=='absent')renderNewsPanels();
- show(active);});
+ // After the panels are written, so the label describes what is on
+ // screen rather than what was there at load.
+ try{retagNewsCards();}catch(e){}
+ show(active);
+ try{offerExportDownload(data.result);}catch(e){}});
  send('streamlit:componentReady',{apiVersion:1});send('streamlit:setFrameHeight',{height:1050});
  /* Test seam. Inert in the browser: the harness must pre-declare the hook,
     so nothing is exposed unless a test asked for it. Used by

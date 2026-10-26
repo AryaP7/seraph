@@ -1,0 +1,16 @@
+{
+  "date": "2026-10-22",
+  "active_commands": [
+    "python -u scripts/warm_runtime_history.py --through 2026-10-21 --workers 2 --execute",
+    "python -m pytest tests -q --maxfail=1 --deselect=tests/contract/test_ct7_simulator_consistency.py::test_fr48_policy_path_routes_through_the_fitted_regime_model --junitxml=docs/evidence/engineering-closeout-2026-10-21/full-suite-remainder.xml"
+  ],
+  "progress_file": "prototype_runs/runtime-warmup-status.json",
+  "latest_cold_start_evidence": "runtime-history-progress.json",
+  "important": "Do not duplicate an active worker. Resume persisted observations if interrupted. Latest absence declarations were explicitly registered separately because this run started before the final resume repair.",
+  "next": [
+    "Finish historical computation and inspect canonical cold start again",
+    "Inspect full-suite outcome; do not claim pass from partial output",
+    "F07 pending explicit adoption; preserve proposal",
+    "Update audit with final evidence and remaining live gates"
+  ]
+}

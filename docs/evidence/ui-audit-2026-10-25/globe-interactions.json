@@ -1,0 +1,46 @@
+[
+  {
+    "action": "PAUSE SPIN",
+    "state": [
+      "\t\t\t\t\t\t\t\t\t\t1826 button INDIA",
+      "\t\t\t\t\t\t\t\t\t\t1827 button GLOBAL",
+      "\t\t\t\t\t\t\t\t\t\t1828 button ASSETS",
+      "\t\t\t\t\t\t\t\t\t\t1830 button RESUME SPIN, ID: pause",
+      "\t\t\t\t\t\t\t\t\t1833 text 641×794 · 56,533 land tris · 160 countries · 36 states · clouds procedural",
+      "The focused UI element is 1830 button RESUME SPIN, ID: pause"
+    ]
+  },
+  {
+    "action": "GLOBAL",
+    "state": [
+      "\t\t\t\t\t\t\t\t\t\t1826 button INDIA",
+      "\t\t\t\t\t\t\t\t\t\t1827 button GLOBAL",
+      "\t\t\t\t\t\t\t\t\t\t1828 button ASSETS",
+      "\t\t\t\t\t\t\t\t\t\t1830 button RESUME SPIN, ID: pause",
+      "\t\t\t\t\t\t\t\t\t1833 text 641×794 · 56,533 land tris · 160 countries · 36 states · clouds procedural",
+      "The focused UI element is 1827 button GLOBAL"
+    ]
+  },
+  {
+    "action": "ASSETS",
+    "state": [
+      "\t\t\t\t\t\t\t\t\t\t1826 button INDIA",
+      "\t\t\t\t\t\t\t\t\t\t1827 button GLOBAL",
+      "\t\t\t\t\t\t\t\t\t\t1828 button ASSETS",
+      "\t\t\t\t\t\t\t\t\t\t1830 button RESUME SPIN, ID: pause",
+      "\t\t\t\t\t\t\t\t\t1833 text 641×794 · 56,533 land tris · 160 countries · 36 states · clouds procedural",
+      "The focused UI element is 1827 button GLOBAL"
+    ]
+  },
+  {
+    "action": "INDIA",
+    "state": [
+      "\t\t\t\t\t\t\t\t\t\t1826 button INDIA",
+      "\t\t\t\t\t\t\t\t\t\t1827 button GLOBAL",
+      "\t\t\t\t\t\t\t\t\t\t1828 button ASSETS",
+      "\t\t\t\t\t\t\t\t\t\t1830 button RESUME SPIN, ID: pause",
+      "\t\t\t\t\t\t\t\t\t1833 text 641×794 · 56,533 land tris · 160 countries · 36 states · clouds procedural",
+      "The focused UI element is 1826 button INDIA"
+    ]
+  }
+]

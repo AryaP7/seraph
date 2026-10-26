@@ -78,7 +78,12 @@ def run(snapshot: Path, out: Path | None) -> dict:
                   threshold=state.warning['threshold'],
                   validation=state.validation['status'])
     if out is not None:
+        from seraph.prediction import issuance
+        ledger = issuance.runtime_store()
+        state.issuance = issuance.issue(state, ledger)
         operational.save(state, out)
+        result['issuance'] = state.issuance
+        result['settlement'] = issuance.settle(ledger, snapshot)
         result['saved'] = str(out)
     result['state'] = state
     return result

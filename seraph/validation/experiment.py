@@ -162,14 +162,14 @@ class ExperimentRow(FrozenModel):
     def as_evaluation_row(self):
         """The published `EvaluationRow`, or None when it cannot express this.
 
-        None for Table C and for every unavailable row. That is not a silent
+        None for unavailable rows; measured A/B/C rows all round-trip. That is not a silent
         drop: `ExperimentReport.unpublishable_rows` counts them, so the gap
         between what was measured and what the declared contract can carry is
         visible rather than inferred from a short table.
         """
         from seraph.shared_types import EvaluationRow
 
-        if self.availability != "measured" or self.table not in ("A", "B"):
+        if self.availability != "measured":
             return None
         return EvaluationRow(
             pillar_subset=self.pillar_subset,
@@ -358,6 +358,7 @@ class ExperimentReport(FrozenModel):
     #: the second market, which a re-fit of the same shape would not be.
     weight_artefacts: dict[str, FusionWeights] = {}
     note: str = ""
+    dataset_provenance: dict = {}
 
     def by_table(self) -> dict[str, tuple[ExperimentRow, ...]]:
         out: dict[str, list[ExperimentRow]] = {}
@@ -499,5 +500,5 @@ def run(
         calibration_max_iter=max_iterations,
         weight_artefacts=artefacts,
         note=("rows the declared EvaluationRow contract cannot carry are "
-              "counted, not dropped: Table C has no place in its table "
-              "Literal, and an unavailable cell has no fields there")))
+              "counted, not dropped: unavailable cells remain in the report; "
+              "measured Table C rows are published alongside A/B")))

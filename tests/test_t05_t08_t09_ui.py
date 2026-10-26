@@ -91,6 +91,24 @@ class TestTheWorkspacePanelRenders:
         labels = ' '.join(str(getattr(e, 'label', '')) for e in app.expander)
         assert 'MARKET JOBS' in labels
 
+    def test_a_refused_saved_scenario_keeps_the_page_and_its_history(self, console):
+        from seraph.dashboard.console_backend import dispatch
+        store = RunStore(console)
+        point = store.points(store.runs()[0]['id'])[0]
+        dispatch(store, point, 'institutional', dict(
+            id='invalid-saved-scenario', run_id=point['run_id'], date=point['date'],
+            op='sc_save', name='Invalid older input', kind='rank_shock',
+            steps=[dict(pillar='rmt', delta=2, horizon=3)],
+            assumptions=[dict(key='shock', value=2, unit='rank',
+                              justification='Test a saved input refused by the runner')]))
+        app = AppTest.from_file(str(APP))
+        app.session_state['console_role'] = 'institutional'
+        app.run(timeout=90)
+        app.button(key='wf_scrun').click().run(timeout=90)
+        assert not app.exception
+        assert any('Shock must be within' in w.value for w in app.warning)
+        assert app.button(key='wf_schist')
+
 
 class TestRoleGatingIsVisible:
     """The dispatcher refuses an out-of-role operation. The panel should not

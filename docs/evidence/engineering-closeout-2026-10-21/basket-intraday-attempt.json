@@ -1,0 +1,31 @@
+{
+  "started_at": "2026-10-21T21:40:15.179109+05:30",
+  "symbols": [
+    "TATASTEEL",
+    "JSWSTEEL",
+    "SAIL",
+    "JINDALSTEL",
+    "HINDALCO",
+    "NATIONALUM",
+    "HINDZINC",
+    "MOTHERSON",
+    "BHARATFORG",
+    "BOSCHLTD",
+    "EXIDEIND",
+    "SUNDRMFAST",
+    "WEBELSOLAR",
+    "BORORENEW",
+    "SUZLON",
+    "INOXWIND",
+    "SUNPHARMA",
+    "DRREDDY",
+    "CIPLA",
+    "LUPIN",
+    "AUROPHARMA",
+    "TORNTPHARM"
+  ],
+  "start": "2019-10-01",
+  "end": "2020-04-30",
+  "mode": "actual native intraday acquisition for existing provisional basket; no model fit",
+  "exit_code": 0
+}

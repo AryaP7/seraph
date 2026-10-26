@@ -1,0 +1,23 @@
+{
+  "command": ".venv/Scripts/python.exe -u scripts/run_live.py --once --once-timeout 4 --interval 1 --store docs/evidence/engineering-closeout-2026-10-21/launcher-01/live.sqlite --jobs docs/evidence/engineering-closeout-2026-10-21/configured-feed-jobs.sqlite",
+  "observed_at": "2026-10-21T14:46:36+05:30",
+  "exit_code": 2,
+  "source_kind": "broker_websocket",
+  "connected": false,
+  "market": "open",
+  "lifecycle": "degraded",
+  "broker_status": 403,
+  "publishable": false,
+  "bars_closed": 0,
+  "warm_start": {
+    "hawkes": 0,
+    "rmt": 1,
+    "hamilton": 0
+  },
+  "note": "Actual configured source; HTTP 403 handshake rejection. Token validity versus subscription cannot be distinguished from this response. No fallback data or publication.",
+  "health_detail": "Broker rejected authentication or market-data access (403). Refresh the daily token with scripts/kite_login.py and verify the Kite market-data subscription.",
+  "code_hashes": {
+    "scripts/run_live.py": "a5e64e1e3b0eb907bcfac474f14eeeadc52673bda13982da042798c76450f0d6",
+    "seraph/live/feed.py": "8746d67311ec78dd4ca3210ccd4f9ce43d46df89aeea24b10961f39669ce301d"
+  }
+}

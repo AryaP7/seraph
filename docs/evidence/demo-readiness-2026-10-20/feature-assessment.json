@@ -1,0 +1,391 @@
+{
+  "captured_at": "2026-10-20T09:00:07.729440+00:00",
+  "scope": "academic-feature-scope-1",
+  "denominator": 42,
+  "complete": 28,
+  "partial": 12,
+  "absent": 2,
+  "fully_complete_percent": 66.66666666666667,
+  "implementation_progress_percent": 80.95238095238095,
+  "method": "Existing 42-feature denominator; complete=1, partial/blocking-regression=0.5, absent=0. Equal planning weights, not effort, predictive success or demo success probability. Shared console regression counted under U01/U02, not multiplied into every downstream feature.",
+  "features": [
+    {
+      "id": "C01",
+      "group": "Core",
+      "feature": "Refresh source history, universe and model inputs",
+      "credit": 1,
+      "status": "complete within declared engineering scope",
+      "assessment": "NSE acquisition, universe re-flagging and rebuilt prediction snapshot are now connected. Read-only DB census reaches 2026-10-19; 54 acquisition tests passed, one live-source test skipped.",
+      "prior_acceptance": "A supplied real data interval produces dated, aligned model inputs; re-running does not duplicate records."
+    },
+    {
+      "id": "C02",
+      "group": "Core",
+      "feature": "Hawkes pillar calculation and inspectable diagnostics",
+      "credit": 1,
+      "status": "complete within declared engineering scope",
+      "assessment": "Original count/kernel estimators, fitted artifacts and archive diagnostics are connected. No new feature work for this unit; live scheduling and sector/network outputs are separate rows.",
+      "prior_acceptance": "Inspect a real archived Hawkes result and its model/input provenance."
+    },
+    {
+      "id": "C03",
+      "group": "Core",
+      "feature": "RMT pillar calculation and inspectable diagnostics",
+      "credit": 1,
+      "status": "complete within declared engineering scope",
+      "assessment": "Spectral estimator and state adapter execute; archived spectral outputs reach the console. Prediction quality is separate; no need to retune to complete this unit.",
+      "prior_acceptance": "Inspect real spectrum/state diagnostics on a dated result."
+    },
+    {
+      "id": "C04",
+      "group": "Core",
+      "feature": "Hamilton pillar calculation and inspectable regimes",
+      "credit": 1,
+      "status": "complete within declared engineering scope",
+      "assessment": "Original TVTP model, causal research route and Astra variant exist; diagnostics are displayed with eligibility caveats. An excluded or scientifically inadequate estimate is not an absent implementation; preserve its exclusion.",
+      "prior_acceptance": "Show an actual fitted/archived regime result and the stated eligibility limitation."
+    },
+    {
+      "id": "C05",
+      "group": "Core",
+      "feature": "Reconciliation, composite score, uncertainty and attribution",
+      "credit": 1,
+      "status": "complete within declared engineering scope",
+      "assessment": "C8/C9 execute on archive inputs; masks, timestamps, score/variance and Shapley outputs are connected. No requirement to prove predictive skill or recalibrate thresholds for engineering credit.",
+      "prior_acceptance": "Selected historical input produces persisted score, uncertainty and attribution with missingness visible."
+    },
+    {
+      "id": "C06",
+      "group": "Core",
+      "feature": "Historical end-to-end replay and durable results",
+      "credit": 1,
+      "status": "complete within declared engineering scope",
+      "assessment": "Archive replay saves sealed runs and reports; two complete canonical runs/162 points were read during this audit. No expensive rerun needed; saved archive is not fresh live execution.",
+      "prior_acceptance": "Select/reopen the saved run and its dated results."
+    },
+    {
+      "id": "C07",
+      "group": "Core",
+      "feature": "Market tick/bar runtime with restart recovery",
+      "credit": 1,
+      "status": "complete within declared engineering scope",
+      "assessment": "Feed/bar/session/runtime components exist; recent integrity fixes and recorded crash recovery cover three crash points. Actual publisher/broker access and live producer connection remain separate requirements.",
+      "prior_acceptance": "Recorded real runtime-path recovery evidence preserves bars/decision identity across restart."
+    },
+    {
+      "id": "C08",
+      "group": "Core",
+      "feature": "Fresh market inputs through real pillars to current dashboard risk",
+      "credit": 0.5,
+      "status": "partial or blocked",
+      "assessment": "Daily producers and recent registry repair exist, but recorded runtime has only one withheld historical replay; intraday_bars is empty, original Hamilton excluded, main console remains archive-based.",
+      "prior_acceptance": "Through the real producer interfaces, fresh authorised inputs create a persisted current decision and update the full intended risk view; recorded historical verification must be labelled replay."
+    },
+    {
+      "id": "C09",
+      "group": "Core",
+      "feature": "Historical future-loss forecasts and baseline comparison",
+      "credit": 1,
+      "status": "complete within declared engineering scope",
+      "assessment": "Walk-forward predictive models, saved probabilities, event/false-alarm metrics and research viewer are implemented. Forecast quality may be poor without making this feature absent.",
+      "prior_acceptance": "Inspect actual out-of-sample saved forecasts and baseline results with negative findings retained."
+    },
+    {
+      "id": "C10",
+      "group": "Core",
+      "feature": "Ongoing forecast generation and prospective record",
+      "credit": 0.5,
+      "status": "partial or blocked",
+      "assessment": "Current prediction state reaches 2026-10-19, but durable forecast ledger contains 14 forecasts only for 2026-08-21, first issued 2026-10-19. run_forecast publishes saved experiment rows, not the newly computed operational forecast.",
+      "prior_acceptance": "One newly available input date creates an identified forecast record and visible result; retry does not duplicate it or use unmatured outcome labels."
+    },
+    {
+      "id": "C11",
+      "group": "Core",
+      "feature": "Inspect existing evaluation and retrospective reports",
+      "credit": 1,
+      "status": "complete within declared engineering scope",
+      "assessment": "Saved research reports, backtest view, baseline comparison and hazard-watch evidence are accessible. This credit does not imply original-spec full ablations/cross-market completion or positive performance.",
+      "prior_acceptance": "Open actual report, see method/input scope, scores and limitations."
+    },
+    {
+      "id": "C12",
+      "group": "Core",
+      "feature": "Complete original evaluation experiment runner",
+      "credit": 1,
+      "status": "complete within declared engineering scope",
+      "assessment": "Experiment, transfer, sensitivity and archive runner plus evaluation UI are connected and tested. This credits engineering machinery; real full-epoch results and Table C public contract remain unavailable.",
+      "prior_acceptance": "One command exposes the fixed configurations, runs eligible supplied inputs and saves labelled results/unavailable reasons. Outcome quality is not a pass condition; expensive full scientific evaluation can be deferred."
+    },
+    {
+      "id": "C13",
+      "group": "Core",
+      "feature": "Measured Hawkes sector micro-flags",
+      "credit": 0.5,
+      "status": "partial or blocked",
+      "assessment": "sector_flags helper and transport types exist. Fresh/source producer does not supply sector histories/baselines; archive coverage explicitly says unavailable.",
+      "prior_acceptance": "A supported measured/replayed sector input yields a dated micro-flag that reaches the UI and portfolio overlay."
+    },
+    {
+      "id": "C14",
+      "group": "Core",
+      "feature": "Measured directed market contagion network",
+      "credit": 0,
+      "status": "absent",
+      "assessment": "Network fields/readers/rendering contracts exist. No connected network-estimation producer; Hawkes branching_matrix is empty. News exposure arcs are a different feature.",
+      "prior_acceptance": "Using an explicitly defined, approved estimator and sufficient input, display actual directed links with dates and provenance; do not infer institution balance sheets from prices."
+    },
+    {
+      "id": "C15",
+      "group": "Core",
+      "feature": "Ordinary project launch orchestrates market refresh as well as news",
+      "credit": 1,
+      "status": "complete within declared engineering scope",
+      "assessment": "Launcher starts market jobs and news. OS daily task is registered and enabled. Acquisition now precedes daily vintages and prediction.",
+      "prior_acceptance": "One normal launcher starts required configured services, shows clear unavailable dependencies, updates data/decisions without a second terminal and stops owned services."
+    },
+    {
+      "id": "U01",
+      "group": "Product",
+      "feature": "Original console, 3D globe shell and three role views",
+      "credit": 0.5,
+      "status": "partial or blocked",
+      "assessment": "Implemented console and role machinery has a demonstrated blocking browser regression: history.forEach is not a function prevents the saved-run payload from replacing the preview.",
+      "prior_acceptance": "Switch roles and show their permitted real fields without replacing the original frontend."
+    },
+    {
+      "id": "U02",
+      "group": "Product",
+      "feature": "Historical run/date risk dashboard",
+      "credit": 0.5,
+      "status": "partial or blocked",
+      "assessment": "Persisted historical runs exist, but the real browser cannot complete rendering their payload due to the history object/list mismatch.",
+      "prior_acceptance": "Change date/run and see coherent actual results."
+    },
+    {
+      "id": "U03",
+      "group": "Product",
+      "feature": "Official Nifty 500 benchmark overlay",
+      "credit": 0.5,
+      "status": "partial or blocked",
+      "assessment": "Official benchmark loader and dated backend join exist. Frontend has no benchmark renderer and still expects an array, crashing on the new history object.",
+      "prior_acceptance": "Display actual benchmark returns and CSRS on aligned dates; name series/source and show genuine gaps."
+    },
+    {
+      "id": "U04",
+      "group": "Product",
+      "feature": "Enter holdings and calculate portfolio value/coverage",
+      "credit": 1,
+      "status": "complete within declared engineering scope",
+      "assessment": "JSON holdings submission and coverage arithmetic work. Persistence and measured-sector linkage are separate units.",
+      "prior_acceptance": "Submit supplied holdings and view labelled value weights/unmapped coverage."
+    },
+    {
+      "id": "U05",
+      "group": "Product",
+      "feature": "Persistent portfolios, upload preview, history and watchlists",
+      "credit": 1,
+      "status": "complete within declared engineering scope",
+      "assessment": "MY WORKSPACE connects dated portfolio import, validation, persistence, history and watchlists. Dispatcher and UI tests pass; no shared-user authentication claim.",
+      "prior_acceptance": "Upload CSV/JSON, preview errors, save/select/reopen holdings and a watchlist after restart under an explicit local demo identity."
+    },
+    {
+      "id": "U06",
+      "group": "Product",
+      "feature": "Measured portfolio sector-risk overlay",
+      "credit": 0.5,
+      "status": "partial or blocked",
+      "assessment": "Coverage-aware overlay calculation is implemented. Canonical dispatch passes empty sector flags; news relevance does not satisfy measured pillar-risk linkage.",
+      "prior_acceptance": "A real dated sector flag changes the relevant holding's flagged share; unknown positions remain unknown."
+    },
+    {
+      "id": "U07",
+      "group": "Product",
+      "feature": "Market-level FII/DII and residual flow display",
+      "credit": 0.5,
+      "status": "partial or blocked",
+      "assessment": "One dated real flow record is readable by market_flow and passed in payload.flow, but bridge.js tools still renders fabricated example values and never reads payload.flow.",
+      "prior_acceptance": "Show one real dated flow record and proxy definition; no claim of identifying retail counterparties."
+    },
+    {
+      "id": "U08",
+      "group": "Product",
+      "feature": "Single-pillar shock sensitivity tool",
+      "credit": 1,
+      "status": "complete within declared engineering scope",
+      "assessment": "Form invokes the actual simulator/C9 and shows a hypothetical score path. No need to turn a rank shock into an economic forecast.",
+      "prior_acceptance": "Enter baseline/changed shock and view the response with the hypothetical label."
+    },
+    {
+      "id": "U09",
+      "group": "Product",
+      "feature": "Save, compare, review and export market scenarios",
+      "credit": 1,
+      "status": "complete within declared engineering scope",
+      "assessment": "Scenario save/run/compare/review/export dispatcher and Streamlit workspace controls are connected; downloads exist.",
+      "prior_acceptance": "Save a named shock scenario, run it, compare to baseline, review the exact revision, export and reopen after restart."
+    },
+    {
+      "id": "U10",
+      "group": "Product",
+      "feature": "Macro/policy covariate-path simulation",
+      "credit": 0.5,
+      "status": "partial or blocked",
+      "assessment": "Direct regime-path simulator works; fitted z-to-xi projector exists. UI accepts xi_path only, not a macro z path tied to a fitted artifact.",
+      "prior_acceptance": "Use an available permitted fitted artifact and declared covariates to compare baseline/scenario; do not invent coefficients or require a desired risk direction."
+    },
+    {
+      "id": "U11",
+      "group": "Product",
+      "feature": "Retrospective defensive-action drawdown comparison",
+      "credit": 0.5,
+      "status": "partial or blocked",
+      "assessment": "Dominant-pillar advice card exists. Measured strategy comparison absent; drawdownReductionPct remains None. Requires declared positions, execution/cost assumptions and data.",
+      "prior_acceptance": "Calculate and display a bounded historical baseline/action comparison under explicit assumptions; improvement is not mandatory."
+    },
+    {
+      "id": "U12",
+      "group": "Product",
+      "feature": "Durable regulator alert-action journal",
+      "credit": 1,
+      "status": "complete within declared engineering scope",
+      "assessment": "Create/update/retract actions persist against an alert and its decomposition. Case management is a separate feature; no real trading/circuit-breaker execution is implied.",
+      "prior_acceptance": "Create/reopen an annotation under the local demo identity."
+    },
+    {
+      "id": "U13",
+      "group": "Product",
+      "feature": "Regulator case lifecycle and evidence export",
+      "credit": 1,
+      "status": "complete within declared engineering scope",
+      "assessment": "Regulator case lifecycle, pinned evidence and download controls are connected in the Streamlit workspace.",
+      "prior_acceptance": "Create a case from an alert, attach evidence, record a decision, close/reopen and export; persist across restart."
+    },
+    {
+      "id": "U14",
+      "group": "Product",
+      "feature": "Institution-level exposure decomposition",
+      "credit": 0,
+      "status": "absent",
+      "assessment": "Role field/preview slot exists; institutionDecomposition is None. No real submission/import-to-decomposition journey. Market/news data do not establish private institution positions.",
+      "prior_acceptance": "Accept authorised user-supplied exposures through a documented schema and show their evidenced aggregation; synthetic examples must remain labelled scenarios."
+    },
+    {
+      "id": "U15",
+      "group": "Product",
+      "feature": "Installable canonical frontend and runtime resources",
+      "credit": 1,
+      "status": "complete within declared engineering scope",
+      "assessment": "Actual installed-wheel check passes: component assets, curated registries, migrations and schema load outside checkout. Do not redo closed packaging repair; later changes need proportionate verification.",
+      "prior_acceptance": "Use the existing installed-wheel evidence; preserve the working package declarations."
+    },
+    {
+      "id": "N01",
+      "group": "News",
+      "feature": "Automatic news startup and owned shutdown",
+      "credit": 1,
+      "status": "complete within declared engineering scope",
+      "assessment": "Canonical launcher and app start one supervised worker; no separate news command. Do not reimplement this closed item. Bare Streamlit starts on first page execution; canonical launcher starts before page attachment.",
+      "prior_acceptance": "Saved rehearsal starts services through normal app and records zero owned news processes after shutdown."
+    },
+    {
+      "id": "N02",
+      "group": "News",
+      "feature": "Polling, manual refresh, freshness and source failure isolation",
+      "credit": 1,
+      "status": "complete within declared engineering scope",
+      "assessment": "Worker uses degraded source state while healthy feeds continue; manual acquisition is serviced. No production uptime campaign required.",
+      "prior_acceptance": "Saved rehearsal covers two passes, manual fetch results and a failing source with 18 healthy sources remaining covered."
+    },
+    {
+      "id": "N03",
+      "group": "News",
+      "feature": "Real multi-source aggregation",
+      "credit": 1,
+      "status": "complete within declared engineering scope",
+      "assessment": "19 registered sources in current store; feed/document adapters, registration and source health work. Specific blocked/unsupported publishers remain coverage limits, not an absent aggregation feature.",
+      "prior_acceptance": "Show actual sourced articles and individual source status; fixed historical documents labelled as such."
+    },
+    {
+      "id": "N04",
+      "group": "News",
+      "feature": "Substantive document extraction and structured interpretation",
+      "credit": 1,
+      "status": "complete within declared engineering scope",
+      "assessment": "Permitted full document route, scopes, legal stages, quantities and evidence provenance implemented. Universal OCR, table reasoning, Hindi comprehension and validated accuracy are not claimed.",
+      "prior_acceptance": "Show extracted fields with their actual source text/scope and abstentions."
+    },
+    {
+      "id": "N05",
+      "group": "News",
+      "feature": "Qualitative sector/exposure impact inference",
+      "credit": 1,
+      "status": "complete within declared engineering scope",
+      "assessment": "Documented routes produce direction/mechanism/confidence and unknown exposure. Financial magnitudes and comprehensive exposure coverage remain unknown; not a reason to rebuild working qualitative inference.",
+      "prior_acceptance": "Inspect one domestic and one foreign-to-India route with citations and explicit qualitative labels."
+    },
+    {
+      "id": "N06",
+      "group": "News",
+      "feature": "News markers, documented globe paths and clickable evidence",
+      "credit": 1,
+      "status": "complete within declared engineering scope",
+      "assessment": "Original globe has real news markers/paths; saved rehearsal shows 7 markers and 1 arc. No fabricated extra arc to fill empty geography.",
+      "prior_acceptance": "Click through a real marker and its relationship evidence."
+    },
+    {
+      "id": "N07",
+      "group": "News",
+      "feature": "Retail holdings news relevance",
+      "credit": 1,
+      "status": "complete within declared engineering scope",
+      "assessment": "Matched holdings and unmapped holdings are separately shown; weights are not loss estimates. Durable holdings workspace is U05, not an unfinished news-matching function.",
+      "prior_acceptance": "Existing browser evidence shows TATASTEEL relevance and explicit unmapped holding."
+    },
+    {
+      "id": "N08",
+      "group": "News",
+      "feature": "Institutional product-country exposure matrix",
+      "credit": 1,
+      "status": "complete within declared engineering scope",
+      "assessment": "Documented pairs render as explicitly unsized cells. Do not inflate coverage by counting product aliases as independent exposures.",
+      "prior_acceptance": "Matrix displays actual documented relationships and unknown sizes."
+    },
+    {
+      "id": "N09",
+      "group": "News",
+      "feature": "Cited instrument comparison",
+      "credit": 1,
+      "status": "complete within declared engineering scope",
+      "assessment": "Pair selection calls comparison, returns field differences and evidence to the visible result. Presentation is raw JSON rather than polished side-by-side cards. Count as implemented under the user's functional-demo criterion; formatting is OPTIONAL.",
+      "prior_acceptance": "Select a real comparable pair and inspect differences/evidence; direct code path is traced, latest browser only confirms control offered."
+    },
+    {
+      "id": "N10",
+      "group": "News",
+      "feature": "Usable conditional numerical tariff scenario",
+      "credit": 0.5,
+      "status": "partial or blocked",
+      "assessment": "Scenario arithmetic and assumptions form exist; documented real-data examples lack supported rate/applicability inputs for a usable priced example. No fresh successful numerical browser demonstration established.",
+      "prior_acceptance": "One real supported measure plus labelled user cost assumptions produces conditional arithmetic, or keep this explicitly input-blocked. Never assume missing old rate is zero."
+    },
+    {
+      "id": "N11",
+      "group": "News",
+      "feature": "Persisted regulator instrument-link review",
+      "credit": 1,
+      "status": "complete within declared engineering scope",
+      "assessment": "Latest browser result records DONE and one stored review with local demo attribution; current projection reads stored decisions. Older failing browser result has been superseded. Do not reopen that repaired exception.",
+      "prior_acceptance": "Latest artifact proves UI submission and stored record; reload/projection behavior also has a traced code path, not a claimed fresh browser run here."
+    },
+    {
+      "id": "N12",
+      "group": "News",
+      "feature": "Download complete displayed news analysis/scenario",
+      "credit": 0.5,
+      "status": "partial or blocked",
+      "assessment": "Export control sends empty arguments; returned JSON is rendered without a download. Displayed scenario/matrix are not reliably bound into a complete export.",
+      "prior_acceptance": "Download JSON or CSV that includes displayed inputs/result, matrix/comparison where selected, evidence, as-of and limitations; reopen file and compare to screen."
+    }
+  ]
+}

@@ -18,7 +18,7 @@ class EvaluationRow(FrozenModel):
     reconciliation_mode: Literal["kalman", "forward_fill"]   # FR36
     xi_mode: Literal["hamilton", "uniform"]                  # R5 control
     epoch: EpochId
-    table: Literal["A", "B"]                                 # FR35
+    table: Literal["A", "B", "C"]                            # FR35 / DR-05
     auc: float
     mean_lead_time_days: float
     precision_at_fixed_recall: float

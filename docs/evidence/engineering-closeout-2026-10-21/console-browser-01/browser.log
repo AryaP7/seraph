@@ -1,0 +1,31 @@
+2026-10-21 19:52:57.759 Uvicorn server started on 127.0.0.1:60700
+
+  You can now view your Streamlit app in your browser.
+
+  URL: http://127.0.0.1:60700
+
+
+DevTools listening on ws://127.0.0.1:60701/devtools/browser/b310d501-658b-4a55-99b3-1210f1e3817b
+[33172:21452:1021/195259.925:ERROR:chrome\browser\component_updater\edge_optimization_guide_models_manifest_installer.cc:264] Edge LLM: catalog update failed: 5
+[33172:21452:1021/195259.929:ERROR:chrome\browser\component_updater\edge_language_detection_model_installer.cc:97] Edge Language Detection Model: On-demand update failed with error: 5
+[33172:21452:1021/195300.572:ERROR:components\edge_auth\edge_auth_errors.cc:553] EDGE_IDENTITY: Image Fetch FAILED: Error: Primary Error: kUrlRequestError, Secondary Error: kURLResponseNot200, Platform error: 0, Error string: [empty]
+
+[33172:35696:1021/195300.611:ERROR:components\sync\engine\get_updates_processor.cc:426] PostClientToServerMessage() failed during GetUpdates with error Network error (ERR_NAME_NOT_RESOLVED)
+SUCCESS: The process with PID 38932 (child process of PID 33172) has been terminated.
+SUCCESS: The process with PID 36280 (child process of PID 33172) has been terminated.
+[33172:21452:1021/195300.708:ERROR:content\browser\network_service_instance_impl.cc:673] Network service crashed or was terminated, restarting service.
+[33172:21452:1021/195300.714:ERROR:content\browser\gpu\gpu_process_host.cc:1103] GPU process exited unexpectedly: exit_code=1
+SUCCESS: The process with PID 37364 (child process of PID 33172) has been terminated.
+SUCCESS: The process with PID 38216 (child process of PID 33172) has been terminated.
+SUCCESS: The process with PID 27016 (child process of PID 33172) has been terminated.
+SUCCESS: The process with PID 35860 (child process of PID 33172) has been terminated.
+SUCCESS: The process with PID 23968 (child process of PID 33172) has been terminated.
+SUCCESS: The process with PID 38712 (child process of PID 33172) has been terminated.
+SUCCESS: The process with PID 37076 (child process of PID 33172) has been terminated.
+SUCCESS: The process with PID 32956 (child process of PID 33172) has been terminated.
+SUCCESS: The process with PID 34200 (child process of PID 33172) has been terminated.
+ERROR: The process with PID 31644 (child process of PID 33172) could not be terminated.
+Reason: There is no running instance of the task.
+SUCCESS: The process with PID 33172 (child process of PID 36136) has been terminated.
+SUCCESS: The process with PID 31704 (child process of PID 13336) has been terminated.
+SUCCESS: The process with PID 13336 (child process of PID 36136) has been terminated.

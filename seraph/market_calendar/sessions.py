@@ -167,6 +167,15 @@ class SessionCalendar:
 
     # ------------------------------------------------------------- lookups
 
+    def verified_for(self, day: str) -> bool:
+        """Publication eligibility for a specific date, not all past history."""
+        return not self.completeness()['completeness'].startswith('PARTIAL')
+
+    def is_session(self, day: str) -> bool:
+        if self._dates is not None:
+            return day in self._dates
+        return self.is_special(day) or date.fromisoformat(day).weekday() < 5
+
     def session(self, day: str) -> TradingSession:
         known = self._special.get(day)
         if known is not None:

@@ -1,0 +1,7 @@
+{
+  "mode": "actual archived prices; explicit demo submissions; hypothetical actions",
+  "resumed_workspace": null,
+  "javascript_exceptions": [],
+  "error": "{'exceptionId': 1, 'text': 'Uncaught', 'lineNumber': 0, 'columnNumber': 14, 'scriptId': '3', 'stackTrace': {'callFrames': [{'functionName': '', 'scriptId': '3', 'url': '', 'lineNumber': 0, 'columnNumber': 14}]}, 'exception': {'type': 'object', 'subtype': 'error', 'className': 'TypeError', 'description': \"TypeError: Cannot read properties of null (reading 'innerText')\\n    at <anonymous>:1:15\", 'objectId': '4152517062876841359.2.2'}}",
+  "failure_context": null
+}

@@ -1,0 +1,6 @@
+{
+  "success": false,
+  "error_type": "RuntimeError",
+  "http_status": null,
+  "note": "No credential-bearing exception text retained"
+}

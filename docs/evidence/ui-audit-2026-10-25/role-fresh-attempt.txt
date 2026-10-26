@@ -1,0 +1,126 @@
+Browser tab: 1, Title: "SERAPH", URL: "http://127.0.0.1:8520/".
+1 AXWebArea SERAPH, URL: 127.0.0.1:8520/
+	2 container
+		3 container
+			4 link Description: Skip to main content, Value: 127.0.0.1:8520/#stMain
+			5 container stMain
+				6 container app.seraph_redesigned_console
+					7 AXWebArea SERAPH — Systemic Risk Early-Warning · NSE, URL: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F
+						8 container shell
+							9 container
+								10 text SER APH
+								11 link Description: CURRENT, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								12 link Description: RISK MAP, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								13 link Description: HISTORICAL, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								14 link Description: CONSOLE, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								15 link Description: SIGNAL FEED, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								16 link Description: PILLARS, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								17 link Description: EXPOSURE, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								18 link Description: FORECASTS, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								19 link Description: EARLY WARNING, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								20 link Description: WORKSPACE, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								21 link Description: EVALUATION, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								22 link Description: HEALTH, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								23 link Description: TOOLS, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								24 link Description: METHOD, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								25 text HISTORICAL + TAGGED PREVIEWS
+								26 container roles
+									27 button REGULATOR
+									28 button INSTITUTIONAL
+									29 button RETAIL
+								30 text  LOCAL CLOCK — 
+								31 text 00:04:28
+								32 text  IST
+								33 text 1,019 desks · FABRICATED
+								34 button VIEW BACKTEST
+							35 text RETAIL HOME · CURRENT (landing route for this role)
+							36 container preview-banner
+								37 text NOT A CURRENT MARKET READING  — the newest observation is 2369.4 days old. Anything computed from it is a REPLAY of that period, not a statement about the market now, and must be labelled as such | observed 2020-04-30T15:30:00+05:30 · now 2026-10-26T00:03:34+05:30 · market pre_open · feed: none — not connected, unauthenticated
+								38 text RUN 37bccf32974201f0 · 2020-04-30 · RETAIL | STALE — newest item 7 min old; 4 of 22 sources past the freshness policy they declared. Nothing on screen reflects what has happened since. | NEWS current_news 2026-10-26T00:03:34+05:30 | 18/22 feeds fresh | CONNECTED: SIGNALS, SECTOR_STRESS, GEOGRAPHY, ASSETS | 12 evidenced map node(s) | MARKET 2020-04-30T15:30:00+05:30
+							39 container ticker
+								40 text FABRICATED PREVIEW NIFTY 50 24,812.30   0.34% BANK NIFTY 52,406.85   0.21% NIFTY METAL 9,140.20   1.86% NIFTY PHARMA 21,558.45   0.92% NIFTY AUTO 25,033.10   1.24% NIFTY IT 38,902.60   0.44% INDIA VIX 13.82   1.10% USD/INR 83.41   0.18%
+							41 container viewExtra
+								42 heading CURRENT, Value: 4, ID: extra-title
+									43 text CURRENT
+								44 container extra-content
+									45 text LATEST COMPLETED MARKET SESSION
+									46 text what SERAPH knows about the market now
+									47 text inputs through
+									48 text 2026-10-23T15:15:00+05:30
+									49 text computed
+									50 text 2026-10-25T23:43:53.701804+05:30
+									51 text market
+									52 text pre_open
+									53 text next open
+									54 text —
+									55 text These are the readings the daily job produced for the last session it covered. They are current in the sense that nothing newer has been computed — not in the sense that the market is open right now.
+									56 text COMPOSITE SYSTEMIC RISK
+									57 text CSRS · FR28 / FR29
+									58 container composite systemic risk score
+									59 text session 2026-10-22T15:30:00+05:30
+									60 text CSRS point estimate 0.0900 FR29 95% interval -0.161 – 0.341 unfilled scale (0–1)
+									61 container
+										62 text publication
+										63 text withheld
+										64 text decision
+										65 text archive:2026-10-22
+									66 text composed from the daily vintages for this session by the documented archive replay; not a live reading
+									67 text NOT PUBLISHABLE AS A CURRENT READING
+									68 text this is a genuine composite for the session named above, computed by the same engine the live loop uses. It is withheld from being called current because it is a replay of a completed session, not a live market observation
+									69 text · hamilton: no_data_coverage [structural]
+									70 text · hawkes: ECDF reference window holds 0 observations, below the 252 needed for a stable rank and the 1260 of a full five years (FR28). The rank is emitted and flagged, not withheld
+									71 text · hawkes: observation 3.0 bars stale, R at ceiling — excluded from the mask
+									72 text PILLAR READINGS FOR THIS SESSION
+									73 text computed by the daily job, not fused here
+									74 text HAWKES 0.1997
+									75 text computed
+									76 text inputs through 2026-10-23T15:15:00+05:30
+									77 text RMT 0.2329
+									78 text computed
+									79 text inputs through 2026-10-22T15:30:00+05:30
+									80 text HAMILTON —
+									81 text structural · no_data_coverage
+									82 text inputs through 2026-10-22T15:30:00+05:30
+									83 container
+										84 text Scored:  hawkes, rmt . Absent: hamilton (structural). A pillar that declared an absence is not a zero and is not substituted.
+									85 text CURRENT FORECAST AND EARLY WARNING
+									86 text one probability, one model, point-in-time
+									87 text NO WARNING
+									88 text the forecast 0.0692 is below the calibrated threshold 0.1252
+									89 text PREDICTED PROBABILITY
+									90 text 6.92%
+									91 text of the loss event
+									92 text WARNING THRESHOLD
+									93 text 12.52%
+									94 text calibrated
+									95 text HORIZON
+									96 text 15
+									97 text sessions
+									98 text forecast as of
+									99 text 2026-10-22
+									100 text issued
+									101 text 2026-10-22T18:32:49.497854+05:30
+									102 text the saved forecast is for 2026-10-22, 1 calendar day(s) before the expected session 2026-10-23. Within the allowance for a holiday or a single missed run.
+									103 text UNVALIDATED
+									104 text No advance-warning skill, calibration or economic effect size has been demonstrated. AMENDMENT-03 measured Pillar 1 at approximately no skill at every intraday horizon and reclassified it as a contagion diagnostic, and the research replay records empirical_acceptance as unvalidated. These are honest limitations of a working instrument, not grounds for treating its output as a validated forecast.
+									105 text WHY THIS IS NOT A STREAMING LIVE READING
+									106 text the publication gate's own reasons
+									107 text · this is a replay, not a live session
+									108 text · the market data source is not registered and authenticated
+									109 text · the market data source is not connected
+									110 text · the model state has not finished warming up
+									111 text · the trading calendar is not verified for this instant
+									112 text A completed session is not the same as a live stream. The readings above are the most recent SERAPH has computed; they are not a statement about the market at this instant.
+								113 container Role-specific news intelligence
+									114 heading RETAIL NEWS INTELLIGENCE, Value: 4
+										115 text RETAIL NEWS INTELLIGENCE
+									116 text 0 holding(s) have a documented route from news; 0 mapped holdings have no current matched event; 0 do not have a usable mapping. An unmapped holding is one this system cannot speak about, not one that is unaffected
+									117 text directions are qualitative hypotheses about mechanism. None of this is a probability of loss or a position recommendation
+									118 text Add your holdings in Tools to see portfolio-specific news routes.
+							119 container
+								120 text NEWS CHANNEL · LIVE · 2328 ELIGIBLE EVENTS
+								121 text OTHER — SBI Mutual Fund - SBI Nifty50 Equal Weight ETF · OTHER — Moschip Technologies Limited · PHYSICAL_HAZARD — M 4.6 - 153 km WNW of Adak, Alaska · PHYSICAL_HAZARD — M 5.2 - 59 km SW of Ashkāsham, Afghanistan · PHYSICAL_HAZARD — M 4.7 - 19 km NE of Atico, Peru · OTHER — प्रधानमंत्री ने वाराणसी यात्रा की झलकियाँ साझा कीं · OTHER — &#2327;&#2357;&#2352;&#2381;&#2344;&#2352; &#2325;&#2366; &#2360;&#2381;&#2357;&#2366;&#2327;&#2340; &#2360;&#2306;&#2348;&#2379;&#2343;&#2344; - RBI &#2325;&#2375; &#2337;&#2375;&#2335;&#2366; &#2360;&#2375;&#2306;&#2335;&#2352; &#2324;&#2352; &#2360;&#2366;&#2311;&#2348;&#2352; &#2360;&#2369;&#2352;&#2325;&#2381;&#2359;&#2366; &#2346;&#2381;&#2352;&#2358;&#2367;&#2325;&#2381;&#2359;&#2339; &#2360;&#2306;&#2360;&#2381;&#2341;&#2366;&#2344; &#2325;&#2366; &#2313;&#2342;&#2381;&#2328;&#2366;&#2335;&#2344; - · FACILITY_INCIDENT — Green forest fire notification in South Sudan · FACILITY_INCIDENT — Green forest fire notification in Zambia · OTHER — Ravindra Energy Limited · FACILITY_INCIDENT — Green forest fire notification in Zambia, Malawi · FACILITY_INCIDENT — Green forest fire notification in Senegal · REGULATORY_ACTION — सीसीपीए ने भ्रामक विज्ञापनों और वॉकी-टॉकी की गैर-अनुपालन बिक्री के खिलाफ कार्रवाई तेज की · OTHER — Green notification for tropical cyclone VANCE-26. Population affected by Category 1 (120 km/h) wind speeds or higher is 0 (0 in Tropical Storm). · OTHER — SKP Bearing Industries Limited · OTHER — एनआईएफटीईएम-के ने भारत के पहले ‘एआई × फूड टेक हैकाथॉन’, ‘हैक द फोर्क’ का आयोजन किया · FACILITY_INCIDENT — Green forest fire notification in Mali · OTHER — ECL Finance Limited · OTHER — ‘विकसित भारत 2047’ की दिशा में शहरी प्रशासन, योजना और सेवाओं की आपूर्ति को मजबूत करने संबंधी व्यावहारिक सुझावों के साथ ‘राष्ट्रीय शहरी सम्मेलन 2026’ संपन्न · OTHER — 12वां ब्रिक्स संसदीय मंच कल संसद भवन परिसर में आयोजित होगा · FACILITY_INCIDENT — Green forest fire notification in Mauritania, Mali · OTHER — GMR AIRPORTS LIMITED · OTHER — Aditya Birla Sun Life Insurance Company Limited · OTHER — Green notification for tropical cyclone IN-FA-26. Population affected by Category 1 (120 km/h) wind speeds or higher is 0 (0 in Tropical Storm). · OTHER — उपराष्ट्रपति सी. पी. राधाकृष्णन 26-27 अक्टूबर को आंध्र प्रदेश के दौरे पर रहेंगे · OTHER — Red notification for tropical cyclone CHAMPI-26. Population affected by Category 1 (120 km/h) wind speeds or higher is 0.291 million . · OTHER — Hon’ble Prime Minister of India inaugurates the Reserve Bank of India’s Data Centre and Cybersecurity Training Institute in Bhubaneswar, Odisha · OTHER — भुवनेश्वर में आरबीआइ की प्रमुख सुविधाओं के उद्घाटन के दौरान प्रधानमंत्री के संबोधन का मूल पाठ · OTHER — प्रधानमंत्री श्री नरेन्द्र मोदी ने ओडिशा के भुवनेश्वर में आरबीआई के नवनिर्मित डेटा सेंटर और साइबर सुरक्षा प्रशिक्षण संस्थान का उद्घाटन किया · OTHER — Green notification for tropical cyclone THREE-C-26. Population affected by Category 1 (120 km/h) wind speeds or higher is 0 (0 in Tropical Storm).
+						122 container req-status-global
+							123 text ● SENDING…  — role
+
+The focused UI element is 28 button INSTITUTIONAL

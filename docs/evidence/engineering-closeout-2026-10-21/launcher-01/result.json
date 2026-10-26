@@ -1,0 +1,19 @@
+{
+  "ordinary_app_started": true,
+  "launcher_pid": 26116,
+  "duplicate_stdout": "[live] a runtime already owns this store; no duplicate started\n",
+  "duplicate_refused": true,
+  "owned_children": [
+    25320,
+    16456,
+    2140
+  ],
+  "market_news_runtime_started": true,
+  "owned_children_stopped": {
+    "25320": true,
+    "16456": true,
+    "2140": true
+  },
+  "passed": true,
+  "scope": "Real ordinary startup/duplicate refusal/owned process-tree shutdown; no current-market publication claim. Daily job may still be in progress at shutdown."
+}

@@ -1,0 +1,698 @@
+Browser tab: 1, Title: "SERAPH", URL: "http://127.0.0.1:8520/".
+1 AXWebArea SERAPH, URL: 127.0.0.1:8520/
+	2 container
+		3 container
+			4 link Description: Skip to main content, Value: 127.0.0.1:8520/#stMain
+			5 container stMain
+				123 text Building the news channel…
+				6 container app.seraph_redesigned_console
+					7 AXWebArea SERAPH — Systemic Risk Early-Warning · NSE, URL: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F
+						8 container shell
+							9 container
+								10 text SER APH
+								11 link Description: CURRENT, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								12 link Description: RISK MAP, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								13 link Description: HISTORICAL, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								14 link Description: CONSOLE, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								15 link Description: SIGNAL FEED, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								16 link Description: PILLARS, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								17 link Description: EXPOSURE, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								18 link Description: FORECASTS, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								19 link Description: EARLY WARNING, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								20 link Description: WORKSPACE, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								21 link Description: EVALUATION, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								22 link Description: HEALTH, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								23 link Description: TOOLS, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								24 link Description: METHOD, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								25 text HISTORICAL + TAGGED PREVIEWS
+								26 container roles
+									27 button REGULATOR
+									28 button INSTITUTIONAL
+									29 button RETAIL
+								30 text  LOCAL CLOCK — 
+								124 text 00:05:44
+								32 text  IST
+								33 text 1,019 desks · FABRICATED
+								34 button VIEW BACKTEST
+							125 text INSTITUTIONAL HOME · CURRENT (landing route for this role)
+							36 container preview-banner
+								126 text NOT A CURRENT MARKET READING  — the newest observation is 2369.4 days old. Anything computed from it is a REPLAY of that period, not a statement about the market now, and must be labelled as such | observed 2020-04-30T15:30:00+05:30 · now 2026-10-26T00:04:29+05:30 · market pre_open · feed: none — not connected, unauthenticated
+								127 text RUN 37bccf32974201f0 · 2020-04-30 · INSTITUTIONAL | STALE — newest item 8 min old; 4 of 22 sources past the freshness policy they declared. Nothing on screen reflects what has happened since. | NEWS current_news 2026-10-26T00:04:29+05:30 | 18/22 feeds fresh | CONNECTED: SIGNALS, SECTOR_STRESS, GEOGRAPHY, ASSETS | 12 evidenced map node(s) | MARKET 2020-04-30T15:30:00+05:30
+							39 container ticker
+								40 text FABRICATED PREVIEW NIFTY 50 24,812.30   0.34% BANK NIFTY 52,406.85   0.21% NIFTY METAL 9,140.20   1.86% NIFTY PHARMA 21,558.45   0.92% NIFTY AUTO 25,033.10   1.24% NIFTY IT 38,902.60   0.44% INDIA VIX 13.82   1.10% USD/INR 83.41   0.18%
+							41 container viewExtra
+								42 heading CURRENT, Value: 4, ID: extra-title
+									128 text CURRENT
+								44 container extra-content
+									129 text LATEST COMPLETED MARKET SESSION
+									130 text what SERAPH knows about the market now
+									131 text inputs through
+									132 text 2026-10-23T15:15:00+05:30
+									133 text computed
+									134 text 2026-10-25T23:43:53.701804+05:30
+									135 text market
+									136 text pre_open
+									137 text next open
+									138 text —
+									139 text These are the readings the daily job produced for the last session it covered. They are current in the sense that nothing newer has been computed — not in the sense that the market is open right now.
+									140 text COMPOSITE SYSTEMIC RISK
+									141 text CSRS · FR28 / FR29
+									142 container composite systemic risk score
+									143 text session 2026-10-22T15:30:00+05:30
+									144 text CSRS point estimate 0.0900 FR29 95% interval -0.161 – 0.341 unfilled scale (0–1)
+									145 container
+										146 text publication
+										147 text withheld
+										148 text decision
+										149 text archive:2026-10-22
+									150 text composed from the daily vintages for this session by the documented archive replay; not a live reading
+									151 text NOT PUBLISHABLE AS A CURRENT READING
+									152 text this is a genuine composite for the session named above, computed by the same engine the live loop uses. It is withheld from being called current because it is a replay of a completed session, not a live market observation
+									153 text · hamilton: no_data_coverage [structural]
+									154 text · hawkes: ECDF reference window holds 0 observations, below the 252 needed for a stable rank and the 1260 of a full five years (FR28). The rank is emitted and flagged, not withheld
+									155 text · hawkes: observation 3.0 bars stale, R at ceiling — excluded from the mask
+									156 text PILLAR READINGS FOR THIS SESSION
+									157 text computed by the daily job, not fused here
+									158 text HAWKES 0.1997
+									159 text computed
+									160 text inputs through 2026-10-23T15:15:00+05:30
+									161 text RMT 0.2329
+									162 text computed
+									163 text inputs through 2026-10-22T15:30:00+05:30
+									164 text HAMILTON —
+									165 text structural · no_data_coverage
+									166 text inputs through 2026-10-22T15:30:00+05:30
+									167 container
+										168 text Scored:  hawkes, rmt . Absent: hamilton (structural). A pillar that declared an absence is not a zero and is not substituted.
+									169 text CURRENT FORECAST AND EARLY WARNING
+									170 text one probability, one model, point-in-time
+									171 text NO WARNING
+									172 text the forecast 0.0692 is below the calibrated threshold 0.1252
+									173 text PREDICTED PROBABILITY
+									174 text 6.92%
+									175 text of the loss event
+									176 text WARNING THRESHOLD
+									177 text 12.52%
+									178 text calibrated
+									179 text HORIZON
+									180 text 15
+									181 text sessions
+									182 text forecast as of
+									183 text 2026-10-22
+									184 text issued
+									185 text 2026-10-22T18:32:49.497854+05:30
+									186 text the saved forecast is for 2026-10-22, 1 calendar day(s) before the expected session 2026-10-23. Within the allowance for a holiday or a single missed run.
+									187 text UNVALIDATED
+									188 text No advance-warning skill, calibration or economic effect size has been demonstrated. AMENDMENT-03 measured Pillar 1 at approximately no skill at every intraday horizon and reclassified it as a contagion diagnostic, and the research replay records empirical_acceptance as unvalidated. These are honest limitations of a working instrument, not grounds for treating its output as a validated forecast.
+									189 text WHY THIS IS NOT A STREAMING LIVE READING
+									190 text the publication gate's own reasons
+									191 text · this is a replay, not a live session
+									192 text · the market data source is not registered and authenticated
+									193 text · the market data source is not connected
+									194 text · the model state has not finished warming up
+									195 text · the trading calendar is not verified for this instant
+									196 text A completed session is not the same as a live stream. The readings above are the most recent SERAPH has computed; they are not a statement about the market at this instant.
+								197 container Role-specific news intelligence
+									198 heading INSTITUTIONAL NEWS INTELLIGENCE, Value: 4
+										199 text INSTITUTIONAL NEWS INTELLIGENCE
+									200 text 24 of 24 documented relationship(s) are UNSIZED. A direction without a size supports a question, not a position
+									201 text 0 route(s) carry an accounting scenario. A scenario states the change in the landed cost of the covered article from the instrument's own rates; it is not a loss, a return or a forecast, and it carries no monetary range because no relationship here has a financial denominator
+									202 text where an instrument has opposing sides, both are listed and the net is not computed: it needs sizes this system does not hold
+									203 button (collapsed) sector:industrial_materials · ambiguous · export, Secondary Actions: Expand
+										204 text sector:industrial_materials · ambiguous · export
+									205 button (collapsed) sector:aluminium · ambiguous · export, Secondary Actions: Expand
+										206 text sector:aluminium · ambiguous · export
+									207 button (collapsed) sector:steel · ambiguous · export, Secondary Actions: Expand
+										208 text sector:steel · ambiguous · export
+									209 button (collapsed) sector:agriculture · adverse · export, Secondary Actions: Expand
+										210 text sector:agriculture · adverse · export
+									211 button (collapsed) sector:agriculture · ambiguous · export, Secondary Actions: Expand
+										212 text sector:agriculture · ambiguous · export
+									213 button (collapsed) sector:steel · ambiguous · export, Secondary Actions: Expand
+										214 text sector:steel · ambiguous · export
+									215 button (collapsed) sector:industrial_materials · ambiguous · export, Secondary Actions: Expand
+										216 text sector:industrial_materials · ambiguous · export
+									217 button (collapsed) sector:industrial_materials · ambiguous · export, Secondary Actions: Expand
+										218 text sector:industrial_materials · ambiguous · export
+									219 button (collapsed) power_grid_of_india · ambiguous · operation, Secondary Actions: Expand
+										220 text power_grid_of_india · ambiguous · operation
+									221 button (collapsed) sector:energy · ambiguous · operation, Secondary Actions: Expand
+										222 text sector:energy · ambiguous · operation
+									223 button (collapsed) sector:steel · adverse · export, Secondary Actions: Expand
+										224 text sector:steel · adverse · export
+									225 button (collapsed) sector:agriculture · ambiguous · export, Secondary Actions: Expand
+										226 text sector:agriculture · ambiguous · export
+									227 button (collapsed) sector:chemicals · adverse · export, Secondary Actions: Expand
+										228 text sector:chemicals · adverse · export
+									229 button (collapsed) sector:chemicals · adverse · export, Secondary Actions: Expand
+										230 text sector:chemicals · adverse · export
+									231 button (collapsed) sector:chemicals · ambiguous · export, Secondary Actions: Expand
+										232 text sector:chemicals · ambiguous · export
+									233 button (collapsed) sector:chemicals · ambiguous · export, Secondary Actions: Expand
+										234 text sector:chemicals · ambiguous · export
+									235 button (collapsed) sector:textiles · ambiguous · export, Secondary Actions: Expand
+										236 text sector:textiles · ambiguous · export
+									237 button (collapsed) in · ambiguous · import, Secondary Actions: Expand
+										238 text in · ambiguous · import
+									239 button (collapsed) sector:auto · ambiguous · input_dependency, Secondary Actions: Expand
+										240 text sector:auto · ambiguous · input_dependency
+									241 button (collapsed) sector:steel · ambiguous · export, Secondary Actions: Expand
+										242 text sector:steel · ambiguous · export
+									243 button (collapsed) sector:chemicals · ambiguous · export, Secondary Actions: Expand
+										244 text sector:chemicals · ambiguous · export
+									245 button (collapsed) tata_steel · ambiguous · operation, Secondary Actions: Expand
+										246 text tata_steel · ambiguous · operation
+									247 button (collapsed) sector:steel · ambiguous · operation, Secondary Actions: Expand
+										248 text sector:steel · ambiguous · operation
+									249 button (collapsed) tata_kalinganagar · ambiguous · operation, Secondary Actions: Expand
+										250 text tata_kalinganagar · ambiguous · operation
+									251 heading PRODUCT × COUNTRY EXPOSURE, Value: 4
+										252 text PRODUCT × COUNTRY EXPOSURE
+									253 text 27 documented pair(s); 27 unsized. every cell is a documented exposure relationship with its own evidence and validity window. A product/origin pair that is NOT here has no documented route in this registry, which is not a finding that no exposure exists. Unsized cells carry a direction and no magnitude; that is the registry's state, not a rounding to zero
+									254 table
+										255 row
+											256 cell
+												257 text product
+											258 cell
+												259 text origin
+											260 cell
+												261 text target
+											262 cell
+												263 text mechanism
+											264 cell
+												265 text role
+											266 cell
+												267 text size
+											268 cell
+												269 text events
+											270 cell
+												271 text confidence
+										272 row
+											273 cell
+												274 text rare earth
+											275 cell
+												276 text China
+											277 cell
+												278 text in
+											279 cell
+												280 text import
+											281 cell
+												282 text input_user
+											283 cell
+												284 text UNSIZED
+											285 cell
+												286 text 1
+											287 cell
+												288 text medium
+										289 row
+											290 cell
+												291 text rare-earth
+											292 cell
+												293 text China
+											294 cell
+												295 text in
+											296 cell
+												297 text import
+											298 cell
+												299 text input_user
+											300 cell
+												301 text UNSIZED
+											302 cell
+												303 text 1
+											304 cell
+												305 text medium
+										306 row
+											307 cell
+												308 text permanent magnet
+											309 cell
+												310 text China
+											311 cell
+												312 text in
+											313 cell
+												314 text import
+											315 cell
+												316 text input_user
+											317 cell
+												318 text UNSIZED
+											319 cell
+												320 text 1
+											321 cell
+												322 text medium
+										323 row
+											324 cell
+												325 text oleoresin paprika
+											326 cell
+												327 text India
+											328 cell
+												329 text sector:agriculture
+											330 cell
+												331 text export
+											332 cell
+												333 text exporter
+											334 cell
+												335 text UNSIZED
+											336 cell
+												337 text 3
+											338 cell
+												339 text medium
+										340 row
+											341 cell
+												342 text warmwater shrimp
+											343 cell
+												344 text India
+											345 cell
+												346 text sector:agriculture
+											347 cell
+												348 text export
+											349 cell
+												350 text exporter
+											351 cell
+												352 text UNSIZED
+											353 cell
+												354 text 3
+											355 cell
+												356 text medium
+										357 row
+											358 cell
+												359 text shrimp
+											360 cell
+												361 text India
+											362 cell
+												363 text sector:agriculture
+											364 cell
+												365 text export
+											366 cell
+												367 text exporter
+											368 cell
+												369 text UNSIZED
+											370 cell
+												371 text 3
+											372 cell
+												373 text medium
+										374 row
+											375 cell
+												376 text aluminum sheet
+											377 cell
+												378 text India
+											379 cell
+												380 text sector:aluminium
+											381 cell
+												382 text export
+											383 cell
+												384 text exporter
+											385 cell
+												386 text UNSIZED
+											387 cell
+												388 text 1
+											389 cell
+												390 text medium
+										391 row
+											392 cell
+												393 text aluminium sheet
+											394 cell
+												395 text India
+											396 cell
+												397 text sector:aluminium
+											398 cell
+												399 text export
+											400 cell
+												401 text exporter
+											402 cell
+												403 text UNSIZED
+											404 cell
+												405 text 1
+											406 cell
+												407 text medium
+										408 row
+											409 cell
+												410 text common alloy
+											411 cell
+												412 text India
+											413 cell
+												414 text sector:aluminium
+											415 cell
+												416 text export
+											417 cell
+												418 text exporter
+											419 cell
+												420 text UNSIZED
+											421 cell
+												422 text 1
+											423 cell
+												424 text medium
+										425 row
+											426 cell
+												427 text rare earth
+											428 cell
+												429 text India
+											430 cell
+												431 text sector:auto
+											432 cell
+												433 text input_dependency
+											434 cell
+												435 text input_user
+											436 cell
+												437 text UNSIZED
+											438 cell
+												439 text 1
+											440 cell
+												441 text medium
+										442 row
+											443 cell
+												444 text rare-earth
+											445 cell
+												446 text India
+											447 cell
+												448 text sector:auto
+											449 cell
+												450 text input_dependency
+											451 cell
+												452 text input_user
+											453 cell
+												454 text UNSIZED
+											455 cell
+												456 text 1
+											457 cell
+												458 text medium
+										459 row
+											460 cell
+												461 text permanent magnet
+											462 cell
+												463 text India
+											464 cell
+												465 text sector:auto
+											466 cell
+												467 text input_dependency
+											468 cell
+												469 text input_user
+											470 cell
+												471 text UNSIZED
+											472 cell
+												473 text 1
+											474 cell
+												475 text medium
+										476 row
+											477 cell
+												478 text chromium trioxide
+											479 cell
+												480 text India
+											481 cell
+												482 text sector:chemicals
+											483 cell
+												484 text export
+											485 cell
+												486 text exporter
+											487 cell
+												488 text UNSIZED
+											489 cell
+												490 text 5
+											491 cell
+												492 text medium
+										493 row
+											494 cell
+												495 text perfluoroalkoxy
+											496 cell
+												497 text India
+											498 cell
+												499 text sector:chemicals
+											500 cell
+												501 text export
+											502 cell
+												503 text exporter
+											504 cell
+												505 text UNSIZED
+											506 cell
+												507 text 5
+											508 cell
+												509 text medium
+										510 row
+											511 cell
+												512 text polyethylene terephthalate
+											513 cell
+												514 text India
+											515 cell
+												516 text sector:chemicals
+											517 cell
+												518 text export
+											519 cell
+												520 text exporter
+											521 cell
+												522 text UNSIZED
+											523 cell
+												524 text 5
+											525 cell
+												526 text medium
+										527 row
+											528 cell
+												529 text graphite electrode
+											530 cell
+												531 text India
+											532 cell
+												533 text sector:industrial_materials
+											534 cell
+												535 text export
+											536 cell
+												537 text exporter
+											538 cell
+												539 text UNSIZED
+											540 cell
+												541 text 3
+											542 cell
+												543 text medium
+										544 row
+											545 cell
+												546 text graphite electrodes
+											547 cell
+												548 text India
+											549 cell
+												550 text sector:industrial_materials
+											551 cell
+												552 text export
+											553 cell
+												554 text exporter
+											555 cell
+												556 text UNSIZED
+											557 cell
+												558 text 3
+											559 cell
+												560 text medium
+										561 row
+											562 cell
+												563 text paper shopping bags
+											564 cell
+												565 text India
+											566 cell
+												567 text sector:paper_packaging
+											568 cell
+												569 text export
+											570 cell
+												571 text exporter
+											572 cell
+												573 text UNSIZED
+											574 cell
+												575 text 0
+											576 cell
+												577 text medium
+										578 row
+											579 cell
+												580 text shopping bags
+											581 cell
+												582 text India
+											583 cell
+												584 text sector:paper_packaging
+											585 cell
+												586 text export
+											587 cell
+												588 text exporter
+											589 cell
+												590 text UNSIZED
+											591 cell
+												592 text 0
+											593 cell
+												594 text medium
+										595 row
+											596 cell
+												597 text steel
+											598 cell
+												599 text India
+											600 cell
+												601 text sector:steel
+											602 cell
+												603 text export
+											604 cell
+												605 text exporter
+											606 cell
+												607 text UNSIZED
+											608 cell
+												609 text 4
+											610 cell
+												611 text medium
+										612 row
+											613 cell
+												614 text corrosion-resistant
+											615 cell
+												616 text India
+											617 cell
+												618 text sector:steel
+											619 cell
+												620 text export
+											621 cell
+												622 text exporter
+											623 cell
+												624 text UNSIZED
+											625 cell
+												626 text 4
+											627 cell
+												628 text medium
+										629 row
+											630 cell
+												631 text oil country tubular
+											632 cell
+												633 text India
+											634 cell
+												635 text sector:steel
+											636 cell
+												637 text export
+											638 cell
+												639 text exporter
+											640 cell
+												641 text UNSIZED
+											642 cell
+												643 text 4
+											644 cell
+												645 text medium
+										646 row
+											647 cell
+												648 text rail coupler
+											649 cell
+												650 text India
+											651 cell
+												652 text sector:steel
+											653 cell
+												654 text export
+											655 cell
+												656 text exporter
+											657 cell
+												658 text UNSIZED
+											659 cell
+												660 text 4
+											661 cell
+												662 text medium
+										663 row
+											664 cell
+												665 text forged steel fittings
+											666 cell
+												667 text India
+											668 cell
+												669 text sector:steel
+											670 cell
+												671 text export
+											672 cell
+												673 text exporter
+											674 cell
+												675 text UNSIZED
+											676 cell
+												677 text 4
+											678 cell
+												679 text medium
+										680 row
+											681 cell
+												682 text polyester staple fiber
+											683 cell
+												684 text India
+											685 cell
+												686 text sector:textiles
+											687 cell
+												688 text export
+											689 cell
+												690 text exporter
+											691 cell
+												692 text UNSIZED
+											693 cell
+												694 text 1
+											695 cell
+												696 text medium
+										697 row
+											698 cell
+												699 text denier polyester
+											700 cell
+												701 text India
+											702 cell
+												703 text sector:textiles
+											704 cell
+												705 text export
+											706 cell
+												707 text exporter
+											708 cell
+												709 text UNSIZED
+											710 cell
+												711 text 1
+											712 cell
+												713 text medium
+										714 row
+											715 cell
+												716 text polyester staple
+											717 cell
+												718 text India
+											719 cell
+												720 text sector:textiles
+											721 cell
+												722 text export
+											723 cell
+												724 text exporter
+											725 cell
+												726 text UNSIZED
+											727 cell
+												728 text 1
+											729 cell
+												730 text medium
+									731 heading COMPARE INSTRUMENTS, Value: 4
+										732 text COMPARE INSTRUMENTS
+									733 text Pairs that cite the same instrument identifier. A similar headline is not evidence that two documents are the same measure.
+									734 pop up button (collapsed, settable) ID: news-compare-pair, Secondary Actions: Expand, Value: recovery_certificate:3965 OF 2021 — Release of attachment on immovable property under RC No. 396 → Release Order for RC No.3965 of 2021-Ram Kishore Taparia (PA
+										735 menu
+											736 (selected) recovery_certificate:3965 OF 2021 — Release of attachment on immovable property under RC No. 396 → Release Order for RC No.3965 of 2021-Ram Kishore Taparia (PA
+											737 recovery_certificate:8924 OF 2025 — Completion of RC No. 8924 of 2025 issued against Yuvika Trad → Release Order dated October 15, 2026 for RC 8924 of 2025 iss
+									738 button Compare, ID: news-compare-go
+									739 heading CONDITIONAL SCENARIO, Value: 4
+										740 text CONDITIONAL SCENARIO
+									741 text Landed-cost arithmetic from the instrument’s own stated rates. The two inputs below are YOUR assumptions, recorded as such — they are not observed company data. Leave them blank for the rate change alone; with no old-duty-inclusive covered component cost there is no monetary range. The historical example is a curated June 2025 calculation, not a live policy claim.
+									742 pop up button (collapsed, settable) Value: HISTORICAL EXAMPLE · India-origin covered steel · June 2025 · 25% to 50%, ID: news-scenario-event, Secondary Actions: Expand
+										743 menu
+											744 (selected) HISTORICAL EXAMPLE · India-origin covered steel · June 2025 · 25% to 50%
+											745 sector:industrial_materials · export
+											746 sector:aluminium · export
+											747 sector:steel · export
+											748 sector:agriculture · export
+											749 sector:agriculture · export
+											750 sector:steel · export
+											751 sector:industrial_materials · export
+											752 sector:industrial_materials · export
+											753 power_grid_of_india · operation
+											754 sector:steel · export
+											755 sector:agriculture · export
+											756 sector:chemicals · export
+											757 sector:chemicals · export
+											758 sector:chemicals · export
+											759 sector:chemicals · export
+											760 sector:textiles · export
+											761 in · import
+											762 sector:steel · export
+											763 sector:chemicals · export
+											764 tata_steel · operation
+									765 stepper (settable) Description: Eligible cost base, ID: news-scenario-base
+									766 stepper (settable) Description: Pass-through low, ID: news-scenario-low
+									767 stepper (settable) Description: Pass-through high, ID: news-scenario-high
+									768 button Run scenario, ID: news-scenario-go
+									769 heading EXPORT ANALYSIS, Value: 4
+										770 text EXPORT ANALYSIS
+									771 text The displayed analysis with its evidence links, input assumptions, processing manifest and limitations — so a reader who disagrees can find the documents and the versions that produced it.
+									772 text Exports the current role matrix and evidence.
+									773 button Export displayed analysis, ID: news-export-go
+							119 container
+								774 text NEWS CHANNEL · LIVE · 2328 ELIGIBLE EVENTS
+								775 text OTHER — SBI Mutual Fund - SBI Nifty50 Equal Weight ETF · OTHER — Moschip Technologies Limited · PHYSICAL_HAZARD — M 4.6 - 153 km WNW of Adak, Alaska · PHYSICAL_HAZARD — M 5.2 - 59 km SW of Ashkāsham, Afghanistan · PHYSICAL_HAZARD — M 4.7 - 19 km NE of Atico, Peru · OTHER — प्रधानमंत्री ने वाराणसी यात्रा की झलकियाँ साझा कीं · OTHER — &#2327;&#2357;&#2352;&#2381;&#2344;&#2352; &#2325;&#2366; &#2360;&#2381;&#2357;&#2366;&#2327;&#2340; &#2360;&#2306;&#2348;&#2379;&#2343;&#2344; - RBI &#2325;&#2375; &#2337;&#2375;&#2335;&#2366; &#2360;&#2375;&#2306;&#2335;&#2352; &#2324;&#2352; &#2360;&#2366;&#2311;&#2348;&#2352; &#2360;&#2369;&#2352;&#2325;&#2381;&#2359;&#2366; &#2346;&#2381;&#2352;&#2358;&#2367;&#2325;&#2381;&#2359;&#2339; &#2360;&#2306;&#2360;&#2381;&#2341;&#2366;&#2344; &#2325;&#2366; &#2313;&#2342;&#2381;&#2328;&#2366;&#2335;&#2344; - · FACILITY_INCIDENT — Green forest fire notification in South Sudan · FACILITY_INCIDENT — Green forest fire notification in Zambia · OTHER — Ravindra Energy Limited · FACILITY_INCIDENT — Green forest fire notification in Zambia, Malawi · FACILITY_INCIDENT — Green forest fire notification in Senegal · REGULATORY_ACTION — सीसीपीए ने भ्रामक विज्ञापनों और वॉकी-टॉकी की गैर-अनुपालन बिक्री के खिलाफ कार्रवाई तेज की · OTHER — Green notification for tropical cyclone VANCE-26. Population affected by Category 1 (120 km/h) wind speeds or higher is 0 (0 in Tropical Storm). · OTHER — SKP Bearing Industries Limited · OTHER — एनआईएफटीईएम-के ने भारत के पहले ‘एआई × फूड टेक हैकाथॉन’, ‘हैक द फोर्क’ का आयोजन किया · FACILITY_INCIDENT — Green forest fire notification in Mali · OTHER — ECL Finance Limited · OTHER — ‘विकसित भारत 2047’ की दिशा में शहरी प्रशासन, योजना और सेवाओं की आपूर्ति को मजबूत करने संबंधी व्यावहारिक सुझावों के साथ ‘राष्ट्रीय शहरी सम्मेलन 2026’ संपन्न · OTHER — 12वां ब्रिक्स संसदीय मंच कल संसद भवन परिसर में आयोजित होगा · FACILITY_INCIDENT — Green forest fire notification in Mauritania, Mali · OTHER — GMR AIRPORTS LIMITED · OTHER — Aditya Birla Sun Life Insurance Company Limited · OTHER — Green notification for tropical cyclone IN-FA-26. Population affected by Category 1 (120 km/h) wind speeds or higher is 0 (0 in Tropical Storm). · OTHER — उपराष्ट्रपति सी. पी. राधाकृष्णन 26-27 अक्टूबर को आंध्र प्रदेश के दौरे पर रहेंगे · OTHER — Red notification for tropical cyclone CHAMPI-26. Population affected by Category 1 (120 km/h) wind speeds or higher is 0.291 million . · OTHER — Hon’ble Prime Minister of India inaugurates the Reserve Bank of India’s Data Centre and Cybersecurity Training Institute in Bhubaneswar, Odisha · OTHER — भुवनेश्वर में आरबीआइ की प्रमुख सुविधाओं के उद्घाटन के दौरान प्रधानमंत्री के संबोधन का मूल पाठ · OTHER — प्रधानमंत्री श्री नरेन्द्र मोदी ने ओडिशा के भुवनेश्वर में आरबीआई के नवनिर्मित डेटा सेंटर और साइबर सुरक्षा प्रशिक्षण संस्थान का उद्घाटन किया · OTHER — Green notification for tropical cyclone THREE-C-26. Population affected by Category 1 (120 km/h) wind speeds or higher is 0 (0 in Tropical Storm).
+						122 container req-status-global
+							776 text ● SENDING…  — news_project
+
+The focused UI element is 28 button INSTITUTIONAL

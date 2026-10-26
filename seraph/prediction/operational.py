@@ -172,6 +172,8 @@ class PredictionState:
     history: dict
     validation: dict
     series: list = field(default_factory=list)
+    model_manifest: dict = field(default_factory=dict)
+    issuance: dict = field(default_factory=dict)
 
     def to_json(self) -> dict:
         return asdict(self)
@@ -347,7 +349,13 @@ def run(snapshot_path, *, pillar_config=None, alert_config=None,
         measured=measured, predicted=predicted, warning=warning,
         history=history,
         validation=dict(status=VALIDATION_STATUS, note=VALIDATION_NOTE),
-        series=series)
+        series=series,
+        model_manifest=dict(
+            estimator='FutureLossLogit', schema='operational-fit/1',
+            fit=forecast.fits[-1] if forecast.fits else None,
+            features=list(OPERATIONAL_FEATURES), clip=6.0,
+            protocol=dict(horizon=HORIZON, loss_barrier=LOSS_BARRIER,
+                          pillar_config=asdict(pillar_config))))
 
 
 DEFAULT_STATE_PATH = Path("prototype_runs/prediction/state.json")
@@ -379,6 +387,16 @@ def snapshot_path() -> Path:
         return Path(override)
     root = Path(__file__).resolve().parents[2]
     current = root / CURRENT_SNAPSHOT
+    pointer = current.parent / 'active.json'
+    if pointer.exists():
+        metadata = json.loads(pointer.read_text(encoding='utf-8'))
+        version = current.parent / 'versions' / metadata['version']
+        candidate = version / 'market_snapshot.parquet'
+        if (hashlib.sha256(candidate.read_bytes()).hexdigest() != metadata['sha256']
+                or hashlib.sha256((version / 'manifest.json').read_bytes()).hexdigest()
+                != metadata['manifest_sha256']):
+            raise ValueError('published market snapshot identity mismatch')
+        return candidate
     return current if current.exists() else root / FROZEN_SNAPSHOT
 
 
@@ -386,7 +404,7 @@ def snapshot_provenance(path) -> dict:
     """Which snapshot this is, so a reader can tell fresh from frozen."""
     path = Path(path)
     root = Path(__file__).resolve().parents[2]
-    if path == root / CURRENT_SNAPSHOT:
+    if path == root / CURRENT_SNAPSHOT or path.is_relative_to((root / CURRENT_SNAPSHOT).parent / 'versions'):
         kind, note = "rebuilt", (
             "rebuilt from the live corpus by scripts/snapshot_research_data.py "
             "after fresh acquisition")
@@ -448,8 +466,13 @@ def save(state: PredictionState, path) -> Path:
     """
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(state.to_json(), indent=2, allow_nan=False),
-                    encoding="utf-8")
+    import os
+    import tempfile
+    with tempfile.NamedTemporaryFile(mode='w', encoding='utf-8',
+                                     dir=path.parent, delete=False) as stream:
+        json.dump(state.to_json(), stream, indent=2, allow_nan=False)
+        temporary = stream.name
+    os.replace(temporary, path)
     return path
 
 

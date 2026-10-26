@@ -1,0 +1,576 @@
+Browser tab: 1, Title: "SERAPH", URL: "http://127.0.0.1:8520/".
+0 AXWebArea SERAPH, URL: 127.0.0.1:8520/
+	1 container
+		2 container
+			3 link Description: Skip to main content, Value: 127.0.0.1:8520/#stMain
+			4 container stMain
+				5 container app.seraph_redesigned_console
+					6 AXWebArea SERAPH — Systemic Risk Early-Warning · NSE, URL: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F
+						7 container shell
+							8 container
+								9 text SER APH
+								10 link Description: CURRENT, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								11 link Description: RISK MAP, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								12 link Description: HISTORICAL, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								13 link Description: CONSOLE, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								14 link Description: SIGNAL FEED, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								15 link Description: PILLARS, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								16 link Description: EXPOSURE, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								17 link Description: FORECASTS, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								18 link Description: EARLY WARNING, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								19 link Description: WORKSPACE, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								20 link Description: EVALUATION, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								21 link Description: HEALTH, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								22 link Description: TOOLS, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								23 link Description: METHOD, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								24 text HISTORICAL + TAGGED PREVIEWS
+								25 container roles
+									26 button REGULATOR
+									27 button INSTITUTIONAL
+									28 button RETAIL
+								29 text  LOCAL CLOCK — 
+								170 text 00:02:53
+								31 text  IST
+								32 text 1,019 desks · FABRICATED
+								33 button VIEW BACKTEST
+							171 text HEALTH
+							35 container preview-banner
+								36 text NOT A CURRENT MARKET READING  — the newest observation is 2369.4 days old. Anything computed from it is a REPLAY of that period, not a statement about the market now, and must be labelled as such | observed 2020-04-30T15:30:00+05:30 · now 2026-10-25T23:59:31+05:30 · market not_a_session · feed: none — not connected, unauthenticated
+								37 text RUN 37bccf32974201f0 · 2020-04-30 · RETAIL | STALE — newest item 2 min old; 4 of 22 sources past the freshness policy they declared. Nothing on screen reflects what has happened since. | NEWS current_news 2026-10-25T23:58:30+05:30 | 18/22 feeds fresh | CONNECTED: SIGNALS, SECTOR_STRESS, GEOGRAPHY, ASSETS | 12 evidenced map node(s) | MARKET 2020-04-30T15:30:00+05:30
+							38 container ticker
+								39 text FABRICATED PREVIEW NIFTY 50 24,812.30   0.34% BANK NIFTY 52,406.85   0.21% NIFTY METAL 9,140.20   1.86% NIFTY PHARMA 21,558.45   0.92% NIFTY AUTO 25,033.10   1.24% NIFTY IT 38,902.60   0.44% INDIA VIX 13.82   1.10% USD/INR 83.41   0.18%
+							126 container viewExtra
+								127 heading HEALTH, Value: 4, ID: extra-title
+									172 text HEALTH
+								131 container extra-content
+									173 text INSTALLATION HEALTH
+									174 text as of 2026-10-25T23:59:03+05:30
+									175 text worst check
+									176 text failing
+									177 text ok
+									178 text 19
+									179 text stale
+									180 text 2
+									181 text failing
+									182 text 1
+									183 text a check with no data reads as never_succeeded or never_run, never as ok: silence is not health
+									184 text DAILY SCHEDULE
+									185 text registered, executed and acquired are three different facts
+									186 text registered
+									187 text SERAPH Daily Market Jobs
+									188 text runs at
+									189 text 18:30 IST weekdays
+									190 text expected session
+									191 text 2026-10-23
+									192 table
+										193 row
+											194 cell
+												195 text STEP
+											196 cell
+												197 text RESULT
+										198 row
+											199 cell
+												200 text fresh market data
+											201 cell
+												202 text ok
+										203 row
+											204 cell
+												205 text daily vintages
+											206 cell
+												207 text ok
+										208 row
+											209 cell
+												210 text prediction and early warning
+											211 cell
+												212 text ok
+									213 text registered, executed and acquired-fresh-data are three different facts. A task can be registered and never fire; a run can succeed and bring no new data.
+									214 text EVERY CHECK
+									215 text a check with no data is never ok
+									216 table
+										217 row
+											218 cell
+												219 text CHECK
+											220 cell
+												221 text KIND
+											222 cell
+												223 text HEALTH
+											224 cell
+												225 text DETAIL
+										226 row
+											227 cell
+												228 text mofcom_rare_earth_18_2025
+											229 cell
+												230 text source
+											231 cell
+												232 text failing
+											233 cell
+												234 text 33 consecutive failures; last error TimeoutError: acquisition deadline exhausted while reading body (deadline 4.1s exhausted after 1 attempt(s); not retrying)
+										235 row
+											236 cell
+												237 text federal_register
+											238 cell
+												239 text source
+											240 cell
+												241 text degraded
+											242 cell
+												243 text 1 consecutive failure(s) since the last success
+										244 row
+											245 cell
+												246 text federal_register_india
+											247 cell
+												248 text source
+											249 cell
+												250 text degraded
+											251 cell
+												252 text 1 consecutive failure(s) since the last success
+										253 row
+											254 cell
+												255 text gdacs_alerts
+											256 cell
+												257 text source
+											258 cell
+												259 text degraded
+											260 cell
+												261 text 1 consecutive failure(s) since the last success
+										262 row
+											263 cell
+												264 text live.market_loop
+											265 cell
+												266 text job
+											267 cell
+												268 text stale
+											269 cell
+												270 text last success 4628min ago, past its 1440min budget
+										271 row
+											272 cell
+												273 text market.daily
+											274 cell
+												275 text job
+											276 cell
+												277 text stale
+											278 cell
+												279 text last success 4646min ago, past its 1440min budget
+										280 row
+											281 cell
+												282 text bse_notices
+											283 cell
+												284 text source
+											285 cell
+												286 text ok
+											287 cell
+												288 text last success 2min ago
+										289 row
+											290 cell
+												291 text ec_news
+											292 cell
+												293 text source
+											294 cell
+												295 text ok
+											296 cell
+												297 text last success 2min ago
+										298 row
+											299 cell
+												300 text et_energyworld
+											301 cell
+												302 text source
+											303 cell
+												304 text ok
+											305 cell
+												306 text last success 2min ago
+										307 row
+											308 cell
+												309 text fed_press
+											310 cell
+												311 text source
+											312 cell
+												313 text ok
+											314 cell
+												315 text last success 2min ago
+										316 row
+											317 cell
+												318 text federal_register_ita
+											319 cell
+												320 text source
+											321 cell
+												322 text ok
+											323 cell
+												324 text last success 2min ago
+										325 row
+											326 cell
+												327 text federalreserve_speeches
+											328 cell
+												329 text source
+											330 cell
+												331 text ok
+											332 cell
+												333 text last success 2min ago
+										334 row
+											335 cell
+												336 text mercom_india
+											337 cell
+												338 text source
+											339 cell
+												340 text ok
+											341 cell
+												342 text last success 2min ago
+										343 row
+											344 cell
+												345 text news.poll
+											346 cell
+												347 text job
+											348 cell
+												349 text ok
+											350 cell
+												351 text last success 0min ago
+										352 row
+											353 cell
+												354 text nse_circulars
+											355 cell
+												356 text source
+											357 cell
+												358 text ok
+											359 cell
+												360 text last success 2min ago
+										361 row
+											362 cell
+												363 text nse_corporate_announcements
+											364 cell
+												365 text source
+											366 cell
+												367 text ok
+											368 cell
+												369 text last success 2min ago
+										370 row
+											371 cell
+												372 text pib_releases
+											373 cell
+												374 text source
+											375 cell
+												376 text ok
+											377 cell
+												378 text last success 2min ago
+										379 row
+											380 cell
+												381 text rbi_notifications
+											382 cell
+												383 text source
+											384 cell
+												385 text ok
+											386 cell
+												387 text last success 2min ago
+										388 row
+											389 cell
+												390 text rbi_press_releases
+											391 cell
+												392 text source
+											393 cell
+												394 text ok
+											395 cell
+												396 text last success 2min ago
+										397 row
+											398 cell
+												399 text rbi_speeches
+											400 cell
+												401 text source
+											402 cell
+												403 text ok
+											404 cell
+												405 text last success 2min ago
+										406 row
+											407 cell
+												408 text sebi_press
+											409 cell
+												410 text source
+											411 cell
+												412 text ok
+											413 cell
+												414 text last success 2min ago
+										415 row
+											416 cell
+												417 text tata_kalinganagar_expansion
+											418 cell
+												419 text source
+											420 cell
+												421 text ok
+											422 cell
+												423 text last success 2min ago
+										424 row
+											425 cell
+												426 text usgs_earthquakes
+											427 cell
+												428 text source
+											429 cell
+												430 text ok
+											431 cell
+												432 text last success 2min ago
+										433 row
+											434 cell
+												435 text ustr_press
+											436 cell
+												437 text source
+											438 cell
+												439 text ok
+											440 cell
+												441 text last success 2min ago
+										442 row
+											443 cell
+												444 text wto_news
+											445 cell
+												446 text source
+											447 cell
+												448 text ok
+											449 cell
+												450 text last success 2min ago
+									451 text NEWS ACQUISITION
+									452 text liveness only — not news content
+									453 text this dashboard started a supervised worker (pid 5944); it stops when this process does
+									454 text owner
+									455 text dashboard
+									456 text state
+									457 text running
+									458 text activity
+									459 text waiting for next poll
+									460 text PER-SOURCE OUTCOMES — 4 OF 22 CURRENTLY FAILING
+									461 table
+										462 row
+											463 cell
+												464 text SOURCE
+											465 cell
+												466 text STATUS
+											467 cell
+												468 text CONSECUTIVE FAILURES
+											469 cell
+												470 text LAST SUCCESS
+										471 row
+											472 cell
+												473 text federal_register
+											474 cell
+												475 text degraded
+											476 cell
+												477 text 1
+											478 cell
+												479 text 2026-10-25T23:56:47+05:30
+										480 row
+											481 cell
+												482 text federal_register_india
+											483 cell
+												484 text degraded
+											485 cell
+												486 text 1
+											487 cell
+												488 text 2026-10-25T23:56:47+05:30
+										489 row
+											490 cell
+												491 text gdacs_alerts
+											492 cell
+												493 text degraded
+											494 cell
+												495 text 1
+											496 cell
+												497 text 2026-10-25T23:46:36+05:30
+										498 row
+											499 cell
+												500 text mofcom_rare_earth_18_2025
+											501 cell
+												502 text degraded
+											503 cell
+												504 text 33
+											505 cell
+												506 text 2026-10-18T09:01:59+05:30
+										507 row
+											508 cell
+												509 text bse_notices
+											510 cell
+												511 text healthy
+											512 cell
+												513 text 0
+											514 cell
+												515 text 2026-10-25T23:56:47+05:30
+										516 row
+											517 cell
+												518 text ec_news
+											519 cell
+												520 text healthy
+											521 cell
+												522 text 0
+											523 cell
+												524 text 2026-10-25T23:56:47+05:30
+										525 row
+											526 cell
+												527 text et_energyworld
+											528 cell
+												529 text healthy
+											530 cell
+												531 text 0
+											532 cell
+												533 text 2026-10-25T23:56:47+05:30
+										534 row
+											535 cell
+												536 text fed_press
+											537 cell
+												538 text healthy
+											539 cell
+												540 text 0
+											541 cell
+												542 text 2026-10-25T23:56:47+05:30
+										543 row
+											544 cell
+												545 text federal_register_ita
+											546 cell
+												547 text healthy
+											548 cell
+												549 text 0
+											550 cell
+												551 text 2026-10-25T23:56:47+05:30
+										552 row
+											553 cell
+												554 text federalreserve_speeches
+											555 cell
+												556 text healthy
+											557 cell
+												558 text 0
+											559 cell
+												560 text 2026-10-25T23:56:47+05:30
+										561 row
+											562 cell
+												563 text mercom_india
+											564 cell
+												565 text healthy
+											566 cell
+												567 text 0
+											568 cell
+												569 text 2026-10-25T23:56:47+05:30
+										570 row
+											571 cell
+												572 text nse_circulars
+											573 cell
+												574 text healthy
+											575 cell
+												576 text 0
+											577 cell
+												578 text 2026-10-25T23:56:47+05:30
+										579 row
+											580 cell
+												581 text nse_corporate_announcements
+											582 cell
+												583 text healthy
+											584 cell
+												585 text 0
+											586 cell
+												587 text 2026-10-25T23:56:47+05:30
+										588 row
+											589 cell
+												590 text pib_releases
+											591 cell
+												592 text healthy
+											593 cell
+												594 text 0
+											595 cell
+												596 text 2026-10-25T23:56:47+05:30
+										597 row
+											598 cell
+												599 text rbi_notifications
+											600 cell
+												601 text healthy
+											602 cell
+												603 text 0
+											604 cell
+												605 text 2026-10-25T23:56:47+05:30
+										606 row
+											607 cell
+												608 text rbi_press_releases
+											609 cell
+												610 text healthy
+											611 cell
+												612 text 0
+											613 cell
+												614 text 2026-10-25T23:56:47+05:30
+										615 row
+											616 cell
+												617 text rbi_speeches
+											618 cell
+												619 text healthy
+											620 cell
+												621 text 0
+											622 cell
+												623 text 2026-10-25T23:56:47+05:30
+										624 row
+											625 cell
+												626 text sebi_press
+											627 cell
+												628 text healthy
+											629 cell
+												630 text 0
+											631 cell
+												632 text 2026-10-25T23:56:47+05:30
+										633 row
+											634 cell
+												635 text tata_kalinganagar_expansion
+											636 cell
+												637 text healthy
+											638 cell
+												639 text 0
+											640 cell
+												641 text 2026-10-25T23:56:47+05:30
+										642 row
+											643 cell
+												644 text usgs_earthquakes
+											645 cell
+												646 text healthy
+											647 cell
+												648 text 0
+											649 cell
+												650 text 2026-10-25T23:56:47+05:30
+										651 row
+											652 cell
+												653 text ustr_press
+											654 cell
+												655 text healthy
+											656 cell
+												657 text 0
+											658 cell
+												659 text 2026-10-25T23:56:47+05:30
+										660 row
+											661 cell
+												662 text wto_news
+											663 cell
+												664 text healthy
+											665 cell
+												666 text 0
+											667 cell
+												668 text 2026-10-25T23:56:47+05:30
+									669 text MARKET JOBS
+									670 text C15 — reads a status file, runs nothing
+									671 text last run
+									672 text 2026-10-22T18:32:49+05:30
+									673 text session
+									674 text 2026-10-22
+									675 table
+										676 row
+											677 cell
+												678 text STEP
+											679 cell
+												680 text RESULT
+										681 row
+											682 cell
+												683 text fresh market data
+											684 cell
+												685 text ok
+										686 row
+											687 cell
+												688 text daily vintages
+											689 cell
+												690 text ok
+										691 row
+											692 cell
+												693 text prediction and early warning
+											694 cell
+												695 text ok
+									696 text every step is idempotent, so this is safe to run on each launch, from a scheduler, or by hand. `ok`/`execution_ok` says whether the steps ran; `data` says separately whether new data arrived and whether the corpus is current. This daily job does not start the tick loop; launch_prototype.ps1 owns that runtime separately by default (-NoLiveRuntime opts out). Inspect it with `python scripts/run_live.py --status`. Broker health and publication eligibility remain separate checks.
+							118 container
+								697 text NEWS CHANNEL · LIVE · 2328 ELIGIBLE EVENTS
+								698 text OTHER — SBI Mutual Fund - SBI Nifty50 Equal Weight ETF · OTHER — Moschip Technologies Limited · PHYSICAL_HAZARD — M 4.6 - 153 km WNW of Adak, Alaska · PHYSICAL_HAZARD — M 5.2 - 59 km SW of Ashkāsham, Afghanistan · PHYSICAL_HAZARD — M 4.7 - 19 km NE of Atico, Peru · OTHER — प्रधानमंत्री ने वाराणसी यात्रा की झलकियाँ साझा कीं · OTHER — &#2327;&#2357;&#2352;&#2381;&#2344;&#2352; &#2325;&#2366; &#2360;&#2381;&#2357;&#2366;&#2327;&#2340; &#2360;&#2306;&#2348;&#2379;&#2343;&#2344; - RBI &#2325;&#2375; &#2337;&#2375;&#2335;&#2366; &#2360;&#2375;&#2306;&#2335;&#2352; &#2324;&#2352; &#2360;&#2366;&#2311;&#2348;&#2352; &#2360;&#2369;&#2352;&#2325;&#2381;&#2359;&#2366; &#2346;&#2381;&#2352;&#2358;&#2367;&#2325;&#2381;&#2359;&#2339; &#2360;&#2306;&#2360;&#2381;&#2341;&#2366;&#2344; &#2325;&#2366; &#2313;&#2342;&#2381;&#2328;&#2366;&#2335;&#2344; - · FACILITY_INCIDENT — Green forest fire notification in South Sudan · FACILITY_INCIDENT — Green forest fire notification in Zambia · OTHER — Ravindra Energy Limited · FACILITY_INCIDENT — Green forest fire notification in Zambia, Malawi · FACILITY_INCIDENT — Green forest fire notification in Senegal · REGULATORY_ACTION — सीसीपीए ने भ्रामक विज्ञापनों और वॉकी-टॉकी की गैर-अनुपालन बिक्री के खिलाफ कार्रवाई तेज की · OTHER — Green notification for tropical cyclone VANCE-26. Population affected by Category 1 (120 km/h) wind speeds or higher is 0 (0 in Tropical Storm). · OTHER — SKP Bearing Industries Limited · OTHER — एनआईएफटीईएम-के ने भारत के पहले ‘एआई × फूड टेक हैकाथॉन’, ‘हैक द फोर्क’ का आयोजन किया · FACILITY_INCIDENT — Green forest fire notification in Mali · OTHER — ECL Finance Limited · OTHER — ‘विकसित भारत 2047’ की दिशा में शहरी प्रशासन, योजना और सेवाओं की आपूर्ति को मजबूत करने संबंधी व्यावहारिक सुझावों के साथ ‘राष्ट्रीय शहरी सम्मेलन 2026’ संपन्न · OTHER — 12वां ब्रिक्स संसदीय मंच कल संसद भवन परिसर में आयोजित होगा · FACILITY_INCIDENT — Green forest fire notification in Mauritania, Mali · OTHER — GMR AIRPORTS LIMITED · OTHER — Aditya Birla Sun Life Insurance Company Limited · OTHER — Green notification for tropical cyclone IN-FA-26. Population affected by Category 1 (120 km/h) wind speeds or higher is 0 (0 in Tropical Storm). · OTHER — उपराष्ट्रपति सी. पी. राधाकृष्णन 26-27 अक्टूबर को आंध्र प्रदेश के दौरे पर रहेंगे · OTHER — Red notification for tropical cyclone CHAMPI-26. Population affected by Category 1 (120 km/h) wind speeds or higher is 0.291 million . · OTHER — Hon’ble Prime Minister of India inaugurates the Reserve Bank of India’s Data Centre and Cybersecurity Training Institute in Bhubaneswar, Odisha · OTHER — भुवनेश्वर में आरबीआइ की प्रमुख सुविधाओं के उद्घाटन के दौरान प्रधानमंत्री के संबोधन का मूल पाठ · OTHER — प्रधानमंत्री श्री नरेन्द्र मोदी ने ओडिशा के भुवनेश्वर में आरबीआई के नवनिर्मित डेटा सेंटर और साइबर सुरक्षा प्रशिक्षण संस्थान का उद्घाटन किया · OTHER — Green notification for tropical cyclone THREE-C-26. Population affected by Category 1 (120 km/h) wind speeds or higher is 0 (0 in Tropical Storm).
+						121 container req-status-global
+							123 text ● SENDING…  — a news_project request is already in flight; wait or retry it
+
+The focused UI element is 21 link Description: HEALTH, URL: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#

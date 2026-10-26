@@ -1,0 +1,26 @@
+[seraph] market jobs pid 25320; log: prototype_runs/market-jobs.log
+[seraph] owned market runtime pid 16456; log: prototype_runs/live-runtime.log
+[seraph] news worker supervisor pid 2140; log: prototype_runs/news-worker.log
+
+Collecting usage statistics. To deactivate, set browser.gatherUsageStats to false.
+
+2026-10-21 09:49:47.760 Uvicorn server started on 127.0.0.1:51762
+
+  You can now view your Streamlit app in your browser.
+
+  URL: http://127.0.0.1:51762
+
+SUCCESS: The process with PID 13464 (child process of PID 34792) has been terminated.
+SUCCESS: The process with PID 34792 (child process of PID 23160) has been terminated.
+SUCCESS: The process with PID 34256 (child process of PID 25320) has been terminated.
+SUCCESS: The process with PID 26096 (child process of PID 25320) has been terminated.
+SUCCESS: The process with PID 27972 (child process of PID 16456) has been terminated.
+SUCCESS: The process with PID 28076 (child process of PID 2140) has been terminated.
+SUCCESS: The process with PID 9808 (child process of PID 16456) has been terminated.
+SUCCESS: The process with PID 23160 (child process of PID 2140) has been terminated.
+SUCCESS: The process with PID 33936 (child process of PID 31684) has been terminated.
+SUCCESS: The process with PID 25320 (child process of PID 26116) has been terminated.
+SUCCESS: The process with PID 16456 (child process of PID 26116) has been terminated.
+SUCCESS: The process with PID 2140 (child process of PID 26116) has been terminated.
+SUCCESS: The process with PID 31684 (child process of PID 26116) has been terminated.
+SUCCESS: The process with PID 26116 (child process of PID 33060) has been terminated.

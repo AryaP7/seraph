@@ -1,0 +1,20 @@
+{
+  "as_of": "2026-10-21",
+  "forecast_id": "3d354ab45a270dc7f3e922de091ca95e86cc60ef35aa8eaf41839167a890a5ae",
+  "issued_at": "2026-10-21T18:33:02.019117+05:30",
+  "mode": "operational",
+  "probability": 0.06956788838815525,
+  "threshold": 0.12515297085825353,
+  "horizon_sessions": 15,
+  "outcome": null,
+  "state_sha256": "0eb914a4d16395c78cd94eab91bb7ed5d16c7517814d022e99721ecad399c1b0",
+  "checks": {
+    "unique_record": true,
+    "probability_equal": true,
+    "threshold_equal": true,
+    "inputs_equal": true,
+    "model_equal": true,
+    "issuance_time_equal": true
+  },
+  "mode_of_check": "read-only current UI state against immutable ledger; no regeneration or new issuance"
+}

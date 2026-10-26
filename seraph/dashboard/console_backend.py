@@ -124,6 +124,93 @@ def renderer_geometry():
     return _RENDERER_GEOMETRY['states'], _RENDERER_GEOMETRY['countries']
 
 
+def warmup_progress(store, required: int | None = None) -> dict:
+    """How far each pillar's ECDF history is from the warm-up requirement.
+
+    Counted the way `StandardizerHistory.assimilate` counts -- one observation
+    per distinct `input_end` -- so a retained model re-emitted under a second
+    timestamp cannot inflate it. A pillar whose only records are declared
+    absences is reported as `absent`, not as zero progress, because those are
+    different facts: Hamilton is a standing structural exclusion, while Hawkes
+    is genuinely mid-warm-up.
+
+    Pure read. It changes no threshold and gates nothing; `assess_publication`
+    remains the only publication gate.
+    """
+    from seraph.orchestration.standardize import MIN_WINDOW_OBS
+    from seraph.shared_types import PILLAR_ORDER
+
+    needed = MIN_WINDOW_OBS if required is None else int(required)
+    pillars = {}
+    for pillar in PILLAR_ORDER:
+        values, absences, archived = set(), 0, set()
+        for row in store.vintage_history(pillar, limit=100000):
+            if row.get("value") is None:
+                if row.get("absence"):
+                    absences += 1
+                continue
+            # Only a COMPUTED vintage is what the live producer would hand the
+            # standardizer; an archived research snapshot is counted and
+            # reported separately rather than dropped, because the absences
+            # themselves say archived values are not current.
+            if row.get("origin") == "computed":
+                values.add(row["input_end"])
+            else:
+                archived.add(row["input_end"])
+        count = len(values)
+        pillars[pillar] = dict(
+            observations=count, required=needed,
+            shortfall=max(0, needed - count),
+            ready=count >= needed,
+            absent=count == 0 and absences > 0,
+            declared_absences=absences,
+            archived_not_counted=len(archived))
+    return dict(required=needed, pillars=pillars,
+                ready=all(p["ready"] or p["absent"] for p in pillars.values()),
+                note=("one observation per distinct input_end, the rule the "
+                      "standardizer admits by. A pillar reported `absent` has "
+                      "declared absences rather than partial progress."))
+
+#: The console's own re-projection interval, in seconds. `bridge.js` fires
+#: `news_project` on a 30 s `setInterval`; keep these equal.
+_NEWS_BRANCH_TTL = 30.0
+#: Bounded so a long session cannot grow it without limit. Keys differ by
+#: role, offset, portfolio and decision, so a handful covers normal use.
+_NEWS_BRANCH_MAX = 8
+_news_branch_cache: dict = {}
+
+
+def _news_branch_key(point, store, master, role, news_offset, portfolio,
+                     hawkes_sector_flags, preview):
+    """Everything that changes the projection, in a hashable form.
+
+    A key that missed one of these would serve one role's or one offset's
+    projection to another, which is worse than being slow.
+    """
+    import hashlib
+
+    def digest(value):
+        raw = repr(value).encode("utf-8", "replace")
+        return hashlib.sha256(raw).hexdigest()[:16]
+
+    return (
+        str(getattr(store, "path", store)),
+        # The curated registry by its own counts: a curated edit changes them,
+        # so a stale projection cannot survive one.
+        len(getattr(master, "entities", ()) or ()),
+        len(getattr(master, "places", ()) or ()),
+        len(getattr(master, "assets", ()) or ()),
+        len(getattr(master, "edges", ()) or ()),
+        point["run_id"], point["date"], point["evaluation_timestamp"],
+        role, int(news_offset or 0),
+        digest(portfolio), digest(hawkes_sector_flags), digest(preview),
+    )
+
+
+def clear_news_branch_cache() -> None:
+    """Drop the cached projections. For tests and for an explicit reload."""
+    _news_branch_cache.clear()
+
 def news_branch(point, *, store=None, master=None, preview=None,
                 role='retail', hawkes_sector_flags=None, news_mode='historical_decision',
                 news_as_of=None, news_offset=0, portfolio=None):
@@ -153,6 +240,19 @@ def news_branch(point, *, store=None, master=None, preview=None,
         clock = point['evaluation_timestamp']
         if news_as_of is not None and news_as_of != clock:
             raise ValueError('historical news clock differs from market decision')
+    # Deterministic for a given decision and free of writes, so this is a
+    # pure speed-up. `current_news` is NOT cached: it saves a snapshot.
+    cache_key = None
+    if news_mode == 'historical_decision':
+        import time
+        from copy import deepcopy
+        cache_key = _news_branch_key(point, store, master, role, news_offset,
+                                     portfolio, hawkes_sector_flags, preview)
+        hit = _news_branch_cache.get(cache_key)
+        if hit is not None and (time.monotonic() - hit[0]) < _NEWS_BRANCH_TTL:
+            # Copied so a caller that annotates the branch cannot corrupt the
+            # entry the next render will serve.
+            return deepcopy(hit[1])
     states, countries = renderer_geometry()
     payload = build_news_payload(
         store, master, decision_ts=clock, offset=news_offset,
@@ -173,7 +273,7 @@ def news_branch(point, *, store=None, master=None, preview=None,
     if news_mode == 'current_news':
         snapshot_id = store.save_snapshot(dict(context=context, payload=payload, globe=globe),
                                           available_at=clock, method=payload['version'])
-    return dict(
+    branch = dict(
         context=context, mode=news_mode, as_of=clock, snapshot_id=snapshot_id,
         pagination=payload.get('pagination'), source_coverage=payload['source_coverage'],
         # This dict is an EXPLICIT allow-list, so a new payload field reaches
@@ -196,11 +296,22 @@ def news_branch(point, *, store=None, master=None, preview=None,
         globe=globe, preview_only=not payload['connected_surfaces'],
         reason=(None if payload['connected_surfaces'] else
                 'the news store holds nothing visible at this decision time'))
+    if cache_key is not None:
+        import time
+        from copy import deepcopy
+        if len(_news_branch_cache) >= _NEWS_BRANCH_MAX:
+            oldest = min(_news_branch_cache,
+                         key=lambda key: _news_branch_cache[key][0])
+            _news_branch_cache.pop(oldest, None)
+        _news_branch_cache[cache_key] = (time.monotonic(), deepcopy(branch))
+    return branch
 
 
 def project_run(point, manifest, points, role, *, log=None, portfolio=None,
                 result=None, report=None, news_store=None, news_master=None,
-                news_preview=None, news_mode="historical_decision", news_as_of=None, news_offset=0):
+                news_preview=None, news_mode="historical_decision", news_as_of=None, news_offset=0,
+                holdings=None, portfolio_context=None, institution_decomposition=None, contagion_network=None,
+                sector_archive_as_of=None):
     if role not in ROLE_FIELDS:
         raise ValueError('Unknown role')
     if any(p['run_id'] != point['run_id'] for p in points):
@@ -217,6 +328,7 @@ def project_run(point, manifest, points, role, *, log=None, portfolio=None,
         stale_result = dict(discarded=True,
                             reason='this operation is not available to the current role')
         result=None
+    sector_surface = sector_analysis(point['evaluation_timestamp'], sector_archive_as_of)
     score = point['composite']
     if score:
         view = unwrap(build_view(role, CsrsPoint.model_validate(score),
@@ -224,9 +336,13 @@ def project_run(point, manifest, points, role, *, log=None, portfolio=None,
             pillar_scores=point['original_pillars'],
             spectral=point['original_pillars'].get('rmt',{}).get('detail',{}),
             action_log=log if role=='regulator' else None,
+            institution_decomposition=institution_decomposition, contagion_network=contagion_network,
             playbook=unwrap(playbook(point['explanation']['dominantPillar']))))
     else:
         view = dict(role=role,csrs=None,alertLevel='unavailable',explanation='No composite: original inputs unavailable.',maskDegraded=True)
+        if role == 'regulator':
+            view['institutionDecomposition'] = institution_decomposition
+            view['contagionNetwork'] = contagion_network
     payload = dict(run_id=point['run_id'],date=point['date'],timestamp=point['evaluation_timestamp'],
         cutoff=point['data_cutoff'],mode=manifest['mode'],role=role,view=view,
         history=_history_with_benchmark(points,point),
@@ -234,13 +350,15 @@ def project_run(point, manifest, points, role, *, log=None, portfolio=None,
         # console previously carried three fabricated `(example)` values here.
         flow=market_flow(point.get('date')),
         portfolio=portfolio if portfolio is not None else point.get('portfolio'),
+        portfolio_context=portfolio_context,sector_observations=sector_surface,
         news=news_branch(point, store=news_store, master=news_master,
                          preview=news_preview, role=role, news_mode=news_mode,
                          news_as_of=news_as_of, news_offset=news_offset,
                          # The retail view is only specific if it knows what
                          # the user holds; without it every holding would be
                          # reported as uncovered, which is true but useless.
-                         portfolio=portfolio),
+                         portfolio=holdings if holdings is not None else portfolio,
+                         hawkes_sector_flags=sector_surface['flags']),
         warning_status=point.get('warning_status'),result=result,
         liveness=liveness_of(point),
         discarded_result=stale_result,
@@ -252,6 +370,25 @@ def project_run(point, manifest, points, role, *, log=None, portfolio=None,
     if role == 'regulator':
         payload.update(manifest=manifest,action_log=log or [])
     return clean(payload)
+
+
+def measured_sectors(as_of, *, input_through=None):
+    from seraph.pillars.hawkes.sectors import select
+    try:
+        return select(as_of, input_through=input_through)
+    except (OSError, ValueError, KeyError) as exc:
+        return dict(available=False, flags={}, sectors=[], reason=str(exc))
+
+
+def sector_analysis(decision_ts, archive_as_of=None):
+    """An explicit retrospective view never backdates artifact availability."""
+    cutoff = archive_as_of or decision_ts
+    return dict(measured_sectors(cutoff, input_through=decision_ts[:10]), analysis_cutoff=cutoff,
+                market_decision=decision_ts,
+                analysis_mode='retrospective_archive' if archive_as_of else 'decision_time',
+                analysis_note=('Retrospective measured sector activity; received/fitted after the selected '
+                               'market decision. Does not change the historical score or prove advance warning.'
+                               if archive_as_of else 'Only sector artifacts available by the selected market decision.'))
 
 
 def market_flow(as_of: str | None = None) -> dict:
@@ -353,7 +490,7 @@ def _history_with_benchmark(points, point) -> dict:
     return overlay
 
 
-def dispatch(store, point, role, event):
+def dispatch(store, point, role, event, *, sector_archive_as_of=None):
     """Validate UI context and permission again before any computation/write."""
     if role not in ROLE_FIELDS:
         raise ValueError('Unknown role')
@@ -363,7 +500,7 @@ def dispatch(store, point, role, event):
     # response can be matched against the selection on arrival.
     context=dict(run_id=point['run_id'],date=point['date'],role=role,
                  request_id=event.get('id'))
-    return dict(_dispatch(store,point,role,event),context=context)
+    return dict(_dispatch(store,point,role,event,sector_archive_as_of=sector_archive_as_of),context=context)
 
 
 #: Durable-workflow operations (T05/T08/T09). Kept in one table so the
@@ -404,7 +541,7 @@ WORKFLOW_ROLES = {
 }
 
 
-def _workflow(point, role, event):
+def _workflow(point, role, event, *, store=None):
     """Serve one durable-workflow operation, or `None` if `op` is not one.
 
     Every call resolves a `Principal` through the identity registry and the
@@ -517,12 +654,17 @@ def _workflow(point, role, event):
         # Run the scenario's OWN stored steps through the same simulator the
         # transient tool uses, so a saved scenario and an ad-hoc shock cannot
         # diverge in arithmetic.
-        results = _simulate_steps(point, saved['kind'], saved['steps'])
+        baseline = next((p for p in store.points(saved['baseline']['run_id'])
+                         if p['date'] == saved['baseline']['date']), None)
+        if baseline is None or baseline_from_point(baseline).artefact_id != saved['baseline']['artefact_id']:
+            raise ValueError('The pinned scenario baseline is unavailable or has changed')
+        results = _simulate_steps(baseline, saved['kind'], saved['steps'])
         return ok('sc_run', scenarios.record_run(
-            principal, scenario_id, results=[r.model_dump(mode='json')
+            principal, scenario_id, results=[r.model_dump(mode='json') if hasattr(r, 'model_dump') else r
                                              for r in results],
             inputs=dict(steps=saved['steps'], kind=saved['kind'],
-                        run_id=point['run_id'], date=point['date'])))
+                        run_id=baseline['run_id'], date=baseline['date'],
+                        decomposition=baseline.get('composite'))))
     if op == 'sc_compare':
         return ok('sc_compare', scenarios.compare(
             principal, _require(event, 'left_id'), _require(event, 'right_id')))
@@ -549,8 +691,8 @@ def _workflow(point, role, event):
             runs=scenarios.runs(principal, scenario_id),
             exported_at=_now_stamp(), identity=identity,
             limitations=[
-                'Scenario outputs are hypothetical pillar-rank arithmetic, '
-                'not an economic forecast or a loss estimate.',
+                'Scenario assumptions and data modes are recorded with each result; '
+                'historical action comparisons are ex-post, not an economic forecast or a prospective recommendation.',
                 identity['note']]),
             filename=f'seraph-scenario-{scenario_id}.json')
 
@@ -677,6 +819,9 @@ def _simulate_steps(point, kind, steps):
     saved rank shock is a sensitivity probe against a uniform regime
     baseline, not a regime forecast.
     """
+    if kind == 'defensive':
+        from seraph.decision_support.defensive import compare
+        return [dict(kind=kind, **compare(steps[0]['request']))]
     if not point.get('composite') or not point.get('reconciled'):
         raise ValueError('No baseline state available for this run/date')
     state = ReconciledState.model_validate(point['reconciled'])
@@ -684,6 +829,32 @@ def _simulate_steps(point, kind, steps):
     first = next((s for s in steps if isinstance(s, dict)), None)
     if first is None:
         raise ValueError('This scenario has no usable step')
+
+    if kind == 'macro_path':
+        from seraph.pillars.hamilton.projection import project
+        artifact = first['artifact']
+        path, baseline_path = first['path'], first['baseline_path']
+        if [r['session'] for r in path] != [r['session'] for r in baseline_path]:
+            raise ValueError('Macro and baseline paths must use the same sessions')
+        if path[0]['session'] <= point['date']:
+            raise ValueError('Projection sessions must follow the pinned market baseline')
+        if artifact['training_end'] > point['date'] and first.get('analysis_mode') != 'retrospective_hypothetical':
+            raise ValueError('A newer fit requires explicit retrospective_hypothetical mode')
+        projected = project(artifact, path)
+        base_xi = project(artifact, baseline_path)
+        scores = unwrap(simulate_policy(reconciled=state, weights=weights, xi_path=projected))
+        base_scores = unwrap(simulate_policy(reconciled=state, weights=weights, xi_path=base_xi))
+        limitations = list(artifact['limitations'])
+        coverage = artifact.get('input_manifest', {}).get('macro_source', {}).get('coverage', {})
+        if coverage.get('excluded_dates'):
+            limitations.append(f"{len(coverage['excluded_dates'])} input dates lacked policy observations. Fitted transitions advance over retained observation pairs; omitted sessions are not modelled transitions.")
+        return [dict(kind=kind, artifact_id=artifact['artifact_id'], sessions=[r['session'] for r in path],
+            initial_xi=artifact['initial_xi'], initial_state_date=artifact['initial_state_date'],
+            xi_path=projected, baseline_xi_path=base_xi,
+            score_path=[r.model_dump(mode='json') for r in scores],
+            baseline_score_path=[r.model_dump(mode='json') for r in base_scores],
+            fit_warnings=artifact.get('input_manifest', {}).get('fit_warnings', []),
+            limitations=limitations + ['Equal regime weights or an excluded Hamilton pillar can leave the score unchanged.'])]
 
     if kind == 'regime_path':
         import math
@@ -712,41 +883,20 @@ def _simulate_steps(point, kind, steps):
     return [r.model_copy(update={'xi_mode': 'uniform'}) for r in results]
 
 
-def _dispatch(store, point, role, event):
+def _dispatch(store, point, role, event, *, sector_archive_as_of=None):
     op=event.get('op')
-    workflow=_workflow(point,role,event)
+    workflow=_workflow(point,role,event,store=store)
     if workflow is not None:
         return workflow
     if op=='portfolio':
         holdings=event.get('holdings')
         if not isinstance(holdings,list) or len(holdings)>10000:
             raise ValueError('Provide a JSON list of at most 10000 holdings')
-        # News preview flags never enter measured portfolio arithmetic.
-        #
-        # The empty sector-flag mapping is not an oversight and must not be
-        # filled with a plausible substitute. FR14's micro-flags come from
-        # per-sector JUMP EVENT counts, `estimate_state(sector_counts=...,
-        # sector_baselines=...)`, and those counts come from the Lee-Mykland
-        # extraction over 5-minute bars (FR50). `intraday_bars` is empty and
-        # filling it needs a Kite Connect subscription plus a daily
-        # interactive login, so no measured sector flag exists to pass. News
-        # sector mechanisms are a different subsystem and are qualitative;
-        # routing them in here would turn a hypothesis into a measurement.
+        measured = sector_analysis(point['evaluation_timestamp'], sector_archive_as_of)
         return dict(kind='portfolio',
-                    value=unwrap(portfolio_overlay(holdings,{})),
-                    basis='User supplied current holdings; measured sector '
-                          'flags unavailable',
-                    sector_flags=dict(
-                        available=False,
-                        requires='per-sector jump counts from 5-minute '
-                                 'intraday bars (FR14 via FR50)',
-                        blocked_by='intraday_bars is empty; populating it '
-                                   'needs a Kite Connect subscription and a '
-                                   'daily interactive login '
-                                   '(scripts/backfill_intraday.py)',
-                        note='no substitute is used. News-derived sector '
-                             'mechanisms are qualitative and belong to a '
-                             'different subsystem'))
+                    value=unwrap(portfolio_overlay(holdings, measured['flags'])),
+                    basis='User supplied current holdings; measured coverage shown separately',
+                    sector_flags=measured)
     if op=='action':
         if role!='regulator': raise ValueError('Regulator role required')
         if not point['composite']: raise ValueError('No scored alert to annotate')
@@ -860,6 +1010,7 @@ def experiment_surface(root=None, role='retail'):
                 table_b_scope=report.table_b_scope,
                 calibration_max_iter=report.calibration_max_iter,
                 comparability=report.comparability,
+                dataset_provenance=report.dataset_provenance,
                 measured=len(report.measured()),
                 unavailable=len(report.unavailable()),
                 unpublishable=report.unpublishable_rows,

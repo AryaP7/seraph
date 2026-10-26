@@ -426,11 +426,22 @@ class NewsStore:
                 'WHERE known_at<=? GROUP BY source_id) latest '
                 'ON latest.source_id=v.source_id AND latest.known_at=v.known_at '
                 'ORDER BY v.source_id', (timestamp,)).fetchall()
+        import dataclasses
+        # A stored version may carry fields this build does not know:
+        # `permitted_uses` was added by the rights work and is not a `Source`
+        # field, so splatting the whole payload made every roster stored from
+        # 2026-10-19 unreadable -- and this is the strict-replay path the
+        # historical console uses. `source()` has always built field by field
+        # and so tolerated it. Unknown keys are ignored, never guessed at.
+        known = {field.name for field in dataclasses.fields(Source)}
         result = []
         for (raw,) in rows:
             payload = json.loads(raw)
             payload['topic_coverage'] = tuple(payload['topic_coverage'])
-            result.append(Source(**payload))
+            if payload.get('permissions') is not None:
+                payload['permissions'] = tuple(payload['permissions'])
+            result.append(Source(**{name: value for name, value in payload.items()
+                                    if name in known}))
         return result
 
     def health(self, source_id: str) -> SourceHealth:

@@ -1,0 +1,161 @@
+{
+  "amber_multiple": 2.0,
+  "artifact_id": "52203136043fd10b12b535ceee96542c69e2f2773094a43c8d1bd3a306c49edd",
+  "available": false,
+  "available_at": "2026-10-21T06:59:11.997403+05:30",
+  "baseline": {
+    "end": "2026-09-30",
+    "start": "2026-01-01"
+  },
+  "detector": "lee_mykland/k=156,alpha=0.01,block=75",
+  "flags": {},
+  "input_end": "2026-10-19",
+  "limitations": [
+    "Intensity flags describe observed jump activity; they are not loss forecasts.",
+    "Coverage refers to the supplied native bar grid, not a certified exchange-session archive."
+  ],
+  "mapping_basis": "existing provisional tariff-representative basket; not an NSE sector index",
+  "membership_policy": "fixed_at_fit_cutoff",
+  "observation": {
+    "end": "2026-10-19",
+    "start": "2026-10-01"
+  },
+  "schema": "c5-sector-observations/1",
+  "sectors": [
+    {
+      "baseline_count": null,
+      "baseline_rate": null,
+      "baseline_sessions": 0,
+      "contributors": [],
+      "covered": false,
+      "declared_members": [
+        "HINDALCO",
+        "HINDZINC",
+        "NATIONALUM"
+      ],
+      "excluded_members": [
+        "HINDALCO",
+        "HINDZINC",
+        "NATIONALUM"
+      ],
+      "flag": null,
+      "manifests": [],
+      "observed_count": null,
+      "observed_sessions": 0,
+      "ratio": null,
+      "reason": "No complete common bar coverage or positive baseline",
+      "sector": "aluminium"
+    },
+    {
+      "baseline_count": null,
+      "baseline_rate": null,
+      "baseline_sessions": 0,
+      "contributors": [],
+      "covered": false,
+      "declared_members": [
+        "BHARATFORG",
+        "BOSCHLTD",
+        "EXIDEIND",
+        "MOTHERSON",
+        "SUNDRMFAST"
+      ],
+      "excluded_members": [
+        "BHARATFORG",
+        "BOSCHLTD",
+        "EXIDEIND",
+        "MOTHERSON",
+        "SUNDRMFAST"
+      ],
+      "flag": null,
+      "manifests": [],
+      "observed_count": null,
+      "observed_sessions": 0,
+      "ratio": null,
+      "reason": "No complete common bar coverage or positive baseline",
+      "sector": "auto_components"
+    },
+    {
+      "baseline_count": null,
+      "baseline_rate": null,
+      "baseline_sessions": 0,
+      "contributors": [],
+      "covered": false,
+      "declared_members": [
+        "AUROPHARMA",
+        "CIPLA",
+        "DRREDDY",
+        "LUPIN",
+        "SUNPHARMA",
+        "TORNTPHARM"
+      ],
+      "excluded_members": [
+        "AUROPHARMA",
+        "CIPLA",
+        "DRREDDY",
+        "LUPIN",
+        "SUNPHARMA",
+        "TORNTPHARM"
+      ],
+      "flag": null,
+      "manifests": [],
+      "observed_count": null,
+      "observed_sessions": 0,
+      "ratio": null,
+      "reason": "No complete common bar coverage or positive baseline",
+      "sector": "pharmaceuticals"
+    },
+    {
+      "baseline_count": null,
+      "baseline_rate": null,
+      "baseline_sessions": 0,
+      "contributors": [],
+      "covered": false,
+      "declared_members": [
+        "BORORENEW",
+        "INOXWIND",
+        "SUZLON",
+        "WEBELSOLAR"
+      ],
+      "excluded_members": [
+        "BORORENEW",
+        "INOXWIND",
+        "SUZLON",
+        "WEBELSOLAR"
+      ],
+      "flag": null,
+      "manifests": [],
+      "observed_count": null,
+      "observed_sessions": 0,
+      "ratio": null,
+      "reason": "No complete common bar coverage or positive baseline",
+      "sector": "solar"
+    },
+    {
+      "baseline_count": null,
+      "baseline_rate": null,
+      "baseline_sessions": 0,
+      "contributors": [],
+      "covered": false,
+      "declared_members": [
+        "JINDALSTEL",
+        "JSWSTEEL",
+        "SAIL",
+        "TATASTEEL"
+      ],
+      "excluded_members": [
+        "JINDALSTEL",
+        "JSWSTEEL",
+        "SAIL",
+        "TATASTEEL"
+      ],
+      "flag": null,
+      "manifests": [],
+      "observed_count": null,
+      "observed_sessions": 0,
+      "ratio": null,
+      "reason": "No complete common bar coverage or positive baseline",
+      "sector": "steel"
+    }
+  ],
+  "units": "negative jumps per observed session in the same eligible basket"
+}

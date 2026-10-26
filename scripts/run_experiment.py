@@ -22,6 +22,7 @@ than letting `--dataset real` look available.
 from __future__ import annotations
 
 import argparse
+import json
 import sys
 from pathlib import Path
 
@@ -57,17 +58,13 @@ def status(design_path: Path) -> int:
     print()
     print("DATASETS")
     print("  fixture   available -- synthetic, labelled as such, for plumbing")
-    print("  real      NOT wired. Needs reconciled states for all six labelled")
-    print("            epochs. Hawkes has no coverage before 2015 (no intraday")
-    print("            bars: FR1 needs a paid subscription), which is why")
-    print("            Tables B and C exist; the archive also does not hold")
-    print("            per-epoch reconciled states for the pre-2015 epochs.")
+    print("  stored    available -- explicit --run-ids, --epochs and --cutoff")
+    print("            --validate-inputs reports real coverage without calibration")
     print()
     print("SCOPE")
     print("  Tables A (4 folds) / B (2) / C (6) answer three different")
     print("  questions and are never ranked together.")
-    print("  Table C rows are measured and archived but cannot be published:")
-    print("  shared_types.EvaluationRow still declares table as A or B only.")
+    print("  Measured Table C rows serialize through the published contract.")
     return 0
 
 
@@ -77,8 +74,15 @@ def main(argv=None) -> int:
                         help="what is committed and what is runnable")
     parser.add_argument("--show", type=Path,
                         help="render a saved report artefact")
-    parser.add_argument("--dataset", choices=("fixture",),
+    parser.add_argument("--dataset", choices=("fixture", "stored"),
                         help="which labelled dataset to run")
+    parser.add_argument("--store", type=Path, default=ROOT/'prototype_runs/seraph.sqlite')
+    parser.add_argument("--run-ids", nargs='+')
+    parser.add_argument("--epochs", type=Path, help='Explicit epoch windows and observed session axes as JSON')
+    parser.add_argument("--cutoff", help='Offset-aware evaluation cutoff')
+    parser.add_argument("--validate-inputs", action='store_true')
+    parser.add_argument("--derive-forward-fill", action='store_true',
+                        help='Compute the missing C8 mode from the selected actual pillar input run')
     parser.add_argument("--preregistration", type=Path, default=DEFAULT_PATH)
     parser.add_argument("--tables", default="A,B,C")
     parser.add_argument("--per-epoch", type=int, default=24,
@@ -103,12 +107,34 @@ def main(argv=None) -> int:
     if args.status or not args.dataset:
         return status(args.preregistration)
 
-    from fixtures import experiment_dataset
-
-    dataset = experiment_dataset.build(per_epoch=args.per_epoch)
-    print(f"dataset: fixture, {len(dataset)} epochs, "
-          f"{args.per_epoch} observations per epoch per mode")
-    print(f"         {experiment_dataset.PROVENANCE}")
+    provenance = {}
+    if args.dataset == 'stored':
+        if not all((args.run_ids, args.epochs, args.cutoff)):
+            parser.error('stored dataset requires --run-ids, --epochs and --cutoff')
+        from seraph.orchestration.run_store import RunStore
+        from seraph.validation.datasets import from_run_store, derive_reconciliation
+        stored = RunStore(args.store)
+        if args.derive_forward_fill:
+            if len(args.run_ids) != 1:
+                parser.error('Select one source run when deriving forward-fill')
+            derived = derive_reconciliation(stored, args.run_ids[0],
+                                            mode='forward_fill', cutoff=args.cutoff)
+            args.run_ids.append(derived)
+        adapted = from_run_store(
+            stored, args.run_ids,
+            json.loads(args.epochs.read_text(encoding='utf-8')), cutoff=args.cutoff)
+        dataset = adapted['dataset']
+        provenance = adapted['provenance_manifest']
+        print(json.dumps(adapted['coverage_report'], indent=2))
+        if args.validate_inputs:
+            return 0
+        if args.transfer:
+            parser.error('stored transfer requires a separate declared market dataset')
+    else:
+        from fixtures import experiment_dataset
+        dataset = experiment_dataset.build(per_epoch=args.per_epoch)
+        print(f"dataset: fixture, {len(dataset)} epochs, synthetic")
+        print(f"         {experiment_dataset.PROVENANCE}")
     print()
 
     result = experiment.run(
@@ -119,7 +145,7 @@ def main(argv=None) -> int:
         print(f"  {result.error.detail}")
         return 2
 
-    report = result.value
+    report = result.value.model_copy(update={'dataset_provenance': provenance})
     print(experiment_store.render(report))
 
     if args.out:

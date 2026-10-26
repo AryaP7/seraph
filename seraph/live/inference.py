@@ -538,10 +538,18 @@ class InferenceService:
 
     @property
     def warmup_complete(self) -> bool:
+        return self._warmup_complete_at(self._last_as_of)
+
+    def _warmup_complete_at(self, as_of) -> bool:
         if self.warmup_observations <= 0:
             return True
-        return all(self.standardizer.observations(p) >= self.warmup_observations
-                   for p in ORDER)
+        required = [p for p in ORDER if p not in self._latest
+                    or self._latest[p].absence != 'structural']
+        if not required:
+            return False
+        return all((len(self.standardizer.window(p, as_of)) if as_of else
+                    self.standardizer.observations(p)) >= self.warmup_observations
+                   for p in required)
 
     # --------------------------------------------------------------- process
 
@@ -734,7 +742,7 @@ class InferenceService:
             # diagnostics; what is missing is an eligible observation, which
             # `no_valid_score` and `empty_information_set` already name.
             computation="ready" if point is not None else "partial",
-            warmup_complete=self.warmup_complete,
+            warmup_complete=self._warmup_complete_at(request.as_of),
             calendar_verified=calendar_verified,
             required_inputs=tuple(provenance),
             has_eligible_information=any(
@@ -844,6 +852,7 @@ class InferenceService:
             standardizer_window_years=self.standardizer.window_years,
             cadence={p: self.cadence.get(p) for p in ORDER},
             warmup_observations=self.warmup_observations,
+            warmup_policy='trailing-window; declared structural absences excluded; unknown/transient required',
             pillar_order=list(ORDER),
             bundles=sorted(
                 (b.get("bundle_id", ""), b.get("manifest_hash", ""))

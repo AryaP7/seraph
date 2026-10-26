@@ -416,7 +416,7 @@ input,select,textarea{background:#151519;color:var(--txt);border:1px solid #4141
   <!-- left rail -->
   <div class="rail">
     <div class="card" style="flex:1 1 auto;max-height:56%">
-      <h3><span class="hic" data-ic="signal"></span>LATEST SIGNALS <span class="r" id="sigcount">24H · 41</span></h3>
+      <h3 id="h3-signals"><span class="hic" data-ic="signal"></span>LATEST SIGNALS <span class="r" id="sigcount">24H · 41</span></h3>
       <div class="body" id="signals"></div>
     </div>
     <div class="card">
@@ -428,7 +428,7 @@ input,select,textarea{background:#151519;color:var(--txt);border:1px solid #4141
       <div class="body" id="met"></div>
     </div>
     <div class="card" style="flex:1 1 auto" id="assetcard">
-      <h3><span class="hic" data-ic="layers"></span>STRATEGIC ASSETS <span class="r" id="acount">13 SITES</span></h3>
+      <h3 id="h3-assets"><span class="hic" data-ic="layers"></span>STRATEGIC ASSETS <span class="r" id="acount">13 SITES</span></h3>
       <div class="scope" id="assetscope">ALL SECTORS</div>
       <div class="body" id="assets"></div>
       <div class="legend">
@@ -461,7 +461,7 @@ input,select,textarea{background:#151519;color:var(--txt);border:1px solid #4141
   <!-- right rail -->
   <div class="rail">
     <div class="card" style="flex:1 1 auto">
-      <h3><span class="hic" data-ic="grid"></span>SECTOR STRESS <span class="r">NEWS ESTIMATE · FABRICATED</span></h3>
+      <h3 id="h3-stress"><span class="hic" data-ic="grid"></span>SECTOR STRESS <span class="r">NEWS ESTIMATE · FABRICATED</span></h3>
       <div class="body" id="stress"></div>
     </div>
     <div class="card">
@@ -2170,7 +2170,7 @@ var stage = el("stage"), failEl = el("fail"), statusEl = el("status");
 function die(m){ failEl.style.display="grid"; failEl.textContent=m; statusEl.textContent="failed"; }
 
 if (typeof THREE === "undefined") {
-  die("three.js failed to load — this page needs an internet connection the first time you open it.");
+  die("three.js did not load. It is vendored beside this page as three.r128.min.js and fetched over a RELATIVE src, so this is not a network fault — the page is not being served from its own directory. A saved copy, a file:// path, an editor preview or a data: snapshot all resolve that src to nothing. Open the console through launch_prototype.ps1 rather than opening the HTML directly.");
 } else { start(); }
 
 function start(){

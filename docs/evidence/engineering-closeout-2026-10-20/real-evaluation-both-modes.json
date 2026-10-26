@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_experiment.py", line 234, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\run_experiment.py", line 120, in main
+    derived = derive_reconciliation(stored, args.run_ids[0],
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\seraph\validation\datasets.py", line 40, in derive_reconciliation
+    derived = session.step(point['date'], point['original_pillars'],
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\seraph\orchestration\prototype.py", line 105, in step
+    raise ValueError(
+ValueError: hamilton: an ineligible pillar must declare absence as one of ('structural', 'transient'); absence type is never inferred (FIX02)

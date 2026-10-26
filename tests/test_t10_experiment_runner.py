@@ -388,7 +388,7 @@ class TestASinglePillarRowIsInvariant:
             "control is vacuous everywhere")
 
 
-class TestTableCCannotBePublishedYet:
+class TestTableCPublication:
     """DR-05 created Table C and widened `configuration_list`. The published
     `EvaluationRow` and the `validation_results` CHECK were never widened to
     match, so the runner measures rows the declared contract cannot carry."""
@@ -398,7 +398,7 @@ class TestTableCCannotBePublishedYet:
         assert {r.table for r in table_c.rows} == {"C"}
         assert table_c.measured()
 
-    def test_the_published_contract_rejects_table_c(self):
+    def test_the_published_contract_roundtrips_table_c(self):
         measured = dict(
             pillar_subset=("rmt", "hamilton"), reconciliation_mode="kalman",
             xi_mode="hamilton", epoch="gfc_2008", auc=0.7,
@@ -406,12 +406,12 @@ class TestTableCCannotBePublishedYet:
             weights_artefact_id="a" * 64, leakage_check="clean",
             pre_registration_hash="b" * 64)
         EvaluationRow(table="B", **measured)          # the shape is otherwise fine
-        with pytest.raises(Exception):
-            EvaluationRow(table="C", **measured)
+        row = EvaluationRow(table="C", **measured)
+        assert EvaluationRow.model_validate_json(row.model_dump_json()) == row
 
     def test_table_c_rows_are_counted_not_dropped(self, table_c):
-        assert table_c.unpublishable_rows == len(table_c.rows)
-        assert all(r.as_evaluation_row() is None for r in table_c.rows)
+        assert table_c.unpublishable_rows == len(table_c.unavailable())
+        assert all(r.as_evaluation_row() is not None for r in table_c.measured())
         assert "Table C" in table_c.note
 
     def test_table_a_and_b_rows_do_convert(self, report):
@@ -437,7 +437,7 @@ class TestTableCCannotBePublishedYet:
 
         contract = Path("seraph/shared_types/validation.py").read_text(
             encoding="utf-8")
-        assert 'table: Literal["A", "B"]' in contract
+        assert 'table: Literal["A", "B", "C"]' in contract
 
 
 class TestTheReportSaysWhatItIs:

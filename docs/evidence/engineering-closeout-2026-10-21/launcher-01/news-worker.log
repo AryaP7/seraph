@@ -1,0 +1,32 @@
+[news] registered federal_register_india (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register_ita (US Federal Register, json/federal_register, every 120min)
+[news] registered federal_register (US Federal Register, json/federal_register, every 120min)
+[news] registered usgs_earthquakes (US Geological Survey, json/usgs_earthquakes, every 30min)
+[news] NOT registered: pib_all — returns zero items
+[news] NOT registered: rbi_index_page — an HTML landing page, not a feed
+[news] NOT registered: gdelt_doc — HTTP 429 at probe time. Rate limiting is not a permanent failure; the adapter exists and is tested, and this needs a politeness budget and a retry schedule before it is registered
+[news] registered nse_corporate_announcements (National Stock Exchange of India, every 30min, store_full_text=False)
+[news] registered nse_circulars (National Stock Exchange of India, every 60min, store_full_text=False)
+[news] registered bse_notices (BSE Limited, every 30min, store_full_text=False)
+[news] registered ustr_press (Office of the US Trade Representative, every 180min, store_full_text=False)
+[news] registered federalreserve_speeches (Federal Reserve Board, every 240min, store_full_text=True)
+[news] registered wto_news (World Trade Organization, every 120min, store_full_text=False)
+[news] registered ec_news (European Commission, every 240min, store_full_text=False)
+[news] NOT registered: dgft_notifications - HTTP 403. Indian trade instruments remain UNCOVERED.
+[news] NOT registered: cbic_whats_new - SSL CERTIFICATE_VERIFY_FAILED. Customs duty changes remain UNCOVERED. Certificate verification is NOT disabled to work around this.
+[news] NOT registered: mospi_releases - SSL CERTIFICATE_VERIFY_FAILED. Official statistics remain UNCOVERED.
+[news] NOT registered: imd_warnings - SSL CERTIFICATE_VERIFY_FAILED. Weather warnings remain UNCOVERED.
+[news] NOT registered: posoco_grid - HTTP 502. Grid operations remain UNCOVERED.
+[news] NOT registered: cea_reports - not a feed this parser understands. Power reporting remains UNCOVERED.
+[news] registered rbi_press_releases (Reserve Bank of India, every 30min, store_full_text=False)
+[news] registered rbi_notifications (Reserve Bank of India, every 60min, store_full_text=False)
+[news] registered rbi_speeches (Reserve Bank of India, every 240min, store_full_text=False)
+[news] registered sebi_press (Securities and Exchange Board of India, every 60min, store_full_text=False)
+[news] registered pib_releases (Press Information Bureau, every 60min, store_full_text=True)
+[news] registered fed_press (Federal Reserve Board, every 60min, store_full_text=True)
+[news] bse_notices: ok=True new=1 unchanged=0 stories=1 corrections=0
+[news] nse_corporate_announcements: ok=True new=139 unchanged=0 stories=139 corrections=128
+[news] rbi_press_releases: ok=True new=1 unchanged=9 stories=1 corrections=0
+[news] usgs_earthquakes: ok=True new=17 unchanged=39 stories=17 corrections=0
+[news] fed_press: ok=True new=3 unchanged=6 stories=3 corrections=3
+[news] nse_circulars: ok=True new=0 unchanged=25 stories=0 corrections=0

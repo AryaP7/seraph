@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="1" time="5.586" timestamp="2026-10-26T05:18:01.468767+05:30" hostname="aru"><testcase classname="tests.test_redesign_console_e2e" name="test_the_nav_and_the_renderers_agree" time="1.523" /></testsuite></testsuites>

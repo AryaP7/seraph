@@ -46,3 +46,49 @@ south_india_paper_mills,The South India Paper Mills Limited,issuer,,,paper_packa
 caprihans_india,Caprihans India Limited,issuer,,,,,,,Caprihans,https://www.bseindia.com/data/xml/notices.xml,2026-10-18T13:30:40+05:30
 purple_finance,Purple Finance Limited,issuer,,,,,,,Purple Finance,https://www.bseindia.com/data/xml/notices.xml,2026-10-18T13:30:40+05:30
 ntpc,NTPC Limited,issuer,,,energy,,,,NTPC,https://ntpc.co.in/power-generation/coal-stations,2026-10-18T14:39:18+05:30
+#
+# Energy-industry issuers, added 2026-10-24. Sector is NSE's OWN
+# `Industry` label from the Nifty 500 constituent list, not a
+# judgement: both `Power` and `Oil Gas & Consumable Fuels` map to
+# the single existing `energy` sector, because that is what the
+# curated exposure edges target. A finer split would route
+# nowhere. Aliases are derived mechanically from the official
+# name and the NSE symbol only -- no abbreviation is hand-added,
+# so a mention such as "HPCL" does not resolve until cited.
+#
+acme_solar_holdings,ACME Solar Holdings Ltd.,issuer,ACMESOLAR,INE622W01025,energy,,,,ACME Solar Holdings|ACMESOLAR,https://nsearchives.nseindia.com/content/indices/ind_nifty500list.csv,2026-10-24T17:32:08+05:30
+adani_energy_solutions,Adani Energy Solutions Ltd.,issuer,ADANIENSOL,INE931S01010,energy,,,,Adani Energy Solutions|ADANIENSOL,https://nsearchives.nseindia.com/content/indices/ind_nifty500list.csv,2026-10-24T17:32:08+05:30
+adani_green_energy,Adani Green Energy Ltd.,issuer,ADANIGREEN,INE364U01010,energy,,,,Adani Green Energy|ADANIGREEN,https://nsearchives.nseindia.com/content/indices/ind_nifty500list.csv,2026-10-24T17:32:08+05:30
+adani_power,Adani Power Ltd.,issuer,ADANIPOWER,INE814H01029,energy,,,,Adani Power|ADANIPOWER,https://nsearchives.nseindia.com/content/indices/ind_nifty500list.csv,2026-10-24T17:32:08+05:30
+aegis_logistics,Aegis Logistics Ltd.,issuer,AEGISLOG,INE208C01025,energy,,,,Aegis Logistics|AEGISLOG,https://nsearchives.nseindia.com/content/indices/ind_nifty500list.csv,2026-10-24T17:32:08+05:30
+aegis_vopak_terminals,Aegis Vopak Terminals Ltd.,issuer,AEGISVOPAK,INE0INX01018,energy,,,,Aegis Vopak Terminals|AEGISVOPAK,https://nsearchives.nseindia.com/content/indices/ind_nifty500list.csv,2026-10-24T17:32:08+05:30
+adani_total_gas,Adani Total Gas Ltd.,issuer,ATGL,INE399L01023,energy,,,,Adani Total Gas|ATGL,https://nsearchives.nseindia.com/content/indices/ind_nifty500list.csv,2026-10-24T17:32:08+05:30
+bharat_coking_coal,Bharat Coking Coal Ltd.,issuer,BHARATCOAL,INE05XR01022,energy,,,,Bharat Coking Coal|BHARATCOAL,https://nsearchives.nseindia.com/content/indices/ind_nifty500list.csv,2026-10-24T17:32:08+05:30
+bharat_petroleum,Bharat Petroleum Corporation Ltd.,issuer,BPCL,INE029A01011,energy,,,,Bharat Petroleum|BPCL,https://nsearchives.nseindia.com/content/indices/ind_nifty500list.csv,2026-10-24T17:32:08+05:30
+castrol_india,Castrol India Ltd.,issuer,CASTROLIND,INE172A01027,energy,,,,Castrol India|CASTROLIND,https://nsearchives.nseindia.com/content/indices/ind_nifty500list.csv,2026-10-24T17:32:08+05:30
+cesc,CESC Ltd.,issuer,CESC,INE486A01021,energy,,,,CESC,https://nsearchives.nseindia.com/content/indices/ind_nifty500list.csv,2026-10-24T17:32:08+05:30
+chennai_petroleum,Chennai Petroleum Corporation Ltd.,issuer,CHENNPETRO,INE178A01016,energy,,,,Chennai Petroleum|CHENNPETRO,https://nsearchives.nseindia.com/content/indices/ind_nifty500list.csv,2026-10-24T17:32:08+05:30
+clean_max_enviro_energy_solutions,Clean Max Enviro Energy Solutions Ltd.,issuer,CLEANMAX,INE647U01026,energy,,,,Clean Max Enviro Energy Solutions|CLEANMAX,https://nsearchives.nseindia.com/content/indices/ind_nifty500list.csv,2026-10-24T17:32:08+05:30
+coal_india,Coal India Ltd.,issuer,COALINDIA,INE522F01014,energy,,,,Coal India|COALINDIA,https://nsearchives.nseindia.com/content/indices/ind_nifty500list.csv,2026-10-24T17:32:08+05:30
+gail_india,GAIL (India) Ltd.,issuer,GAIL,INE129A01019,energy,,,,GAIL India|GAIL,https://nsearchives.nseindia.com/content/indices/ind_nifty500list.csv,2026-10-24T17:32:08+05:30
+hindustan_petroleum,Hindustan Petroleum Corporation Ltd.,issuer,HINDPETRO,INE094A01015,energy,,,,Hindustan Petroleum|HINDPETRO,https://nsearchives.nseindia.com/content/indices/ind_nifty500list.csv,2026-10-24T17:32:08+05:30
+indraprastha_gas,Indraprastha Gas Ltd.,issuer,IGL,INE203G01027,energy,,,,Indraprastha Gas|IGL,https://nsearchives.nseindia.com/content/indices/ind_nifty500list.csv,2026-10-24T17:32:08+05:30
+indian_oil,Indian Oil Corporation Ltd.,issuer,IOC,INE242A01010,energy,,,,Indian Oil|IOC,https://nsearchives.nseindia.com/content/indices/ind_nifty500list.csv,2026-10-24T17:32:08+05:30
+jaiprakash_power_ventures,Jaiprakash Power Ventures Ltd.,issuer,JPPOWER,INE351F01018,energy,,,,Jaiprakash Power Ventures|JPPOWER,https://nsearchives.nseindia.com/content/indices/ind_nifty500list.csv,2026-10-24T17:32:08+05:30
+jsw_energy,JSW Energy Ltd.,issuer,JSWENERGY,INE121E01018,energy,,,,JSW Energy|JSWENERGY,https://nsearchives.nseindia.com/content/indices/ind_nifty500list.csv,2026-10-24T17:32:08+05:30
+mahanagar_gas,Mahanagar Gas Ltd.,issuer,MGL,INE002S01010,energy,,,,Mahanagar Gas|MGL,https://nsearchives.nseindia.com/content/indices/ind_nifty500list.csv,2026-10-24T17:32:08+05:30
+mangalore_refinery_petrochemicals,Mangalore Refinery & Petrochemicals Ltd.,issuer,MRPL,INE103A01014,energy,,,,Mangalore Refinery Petrochemicals|MRPL,https://nsearchives.nseindia.com/content/indices/ind_nifty500list.csv,2026-10-24T17:32:08+05:30
+nava,Nava Ltd.,issuer,NAVA,INE725A01030,energy,,,,Nava,https://nsearchives.nseindia.com/content/indices/ind_nifty500list.csv,2026-10-24T17:32:08+05:30
+nhpc,NHPC Ltd.,issuer,NHPC,INE848E01016,energy,,,,NHPC,https://nsearchives.nseindia.com/content/indices/ind_nifty500list.csv,2026-10-24T17:32:08+05:30
+nlc_india,NLC India Ltd.,issuer,NLCINDIA,INE589A01014,energy,,,,NLC India|NLCINDIA,https://nsearchives.nseindia.com/content/indices/ind_nifty500list.csv,2026-10-24T17:32:08+05:30
+ntpc_green_energy,NTPC Green Energy Ltd.,issuer,NTPCGREEN,INE0ONG01011,energy,,,,NTPC Green Energy|NTPCGREEN,https://nsearchives.nseindia.com/content/indices/ind_nifty500list.csv,2026-10-24T17:32:08+05:30
+oil_natural_gas,Oil & Natural Gas Corporation Ltd.,issuer,ONGC,INE213A01029,energy,,,,Oil Natural Gas|ONGC,https://nsearchives.nseindia.com/content/indices/ind_nifty500list.csv,2026-10-24T17:32:08+05:30
+petronet_lng,Petronet LNG Ltd.,issuer,PETRONET,INE347G01014,energy,,,,Petronet LNG|PETRONET,https://nsearchives.nseindia.com/content/indices/ind_nifty500list.csv,2026-10-24T17:32:08+05:30
+power_grid_of_india,Power Grid Corporation of India Ltd.,issuer,POWERGRID,INE752E01010,energy,,,,Power Grid of India|POWERGRID,https://nsearchives.nseindia.com/content/indices/ind_nifty500list.csv,2026-10-24T17:32:08+05:30
+reliance_industries,Reliance Industries Ltd.,issuer,RELIANCE,INE002A01018,energy,,,,Reliance Industries,https://nsearchives.nseindia.com/content/indices/ind_nifty500list.csv,2026-10-24T17:32:08+05:30
+reliance_power,Reliance Power Ltd.,issuer,RPOWER,INE614G01033,energy,,,,Reliance Power|RPOWER,https://nsearchives.nseindia.com/content/indices/ind_nifty500list.csv,2026-10-24T17:32:08+05:30
+sjvn,SJVN Ltd.,issuer,SJVN,INE002L01015,energy,,,,SJVN,https://nsearchives.nseindia.com/content/indices/ind_nifty500list.csv,2026-10-24T17:32:08+05:30
+tata_power,Tata Power Co. Ltd.,issuer,TATAPOWER,INE245A01021,energy,,,,Tata Power|TATAPOWER,https://nsearchives.nseindia.com/content/indices/ind_nifty500list.csv,2026-10-24T17:32:08+05:30
+torrent_power,Torrent Power Ltd.,issuer,TORNTPOWER,INE813H01021,energy,,,,Torrent Power|TORNTPOWER,https://nsearchives.nseindia.com/content/indices/ind_nifty500list.csv,2026-10-24T17:32:08+05:30
+vedanta_power,Vedanta Power Ltd.,issuer,VEDPOWER,INE694L01019,energy,,,,Vedanta Power|VEDPOWER,https://nsearchives.nseindia.com/content/indices/ind_nifty500list.csv,2026-10-24T17:32:08+05:30
+vedanta_oil_and_gas,Vedanta Oil and Gas Ltd.,issuer,VOGL,INE704J01044,energy,,,,Vedanta Oil and Gas|VOGL,https://nsearchives.nseindia.com/content/indices/ind_nifty500list.csv,2026-10-24T17:32:08+05:30

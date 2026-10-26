@@ -239,8 +239,7 @@ def next_session_window(clock, *, at: datetime | None = None) -> dict:
     moment = at or clock.now()
     opens = clock.next_open(moment)
     state = clock.state(moment)
-    completeness = clock.calendar.completeness()
-    verified = not str(completeness.get("completeness", "")).startswith("PARTIAL")
+    verified = clock.calendar.verified_for(moment.date().isoformat())
     return dict(
         now=ist_timestamp(moment), market_state=state.get("state"),
         next_open=opens,

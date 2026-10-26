@@ -1,0 +1,73 @@
+{
+  "artifact_id": "b9a7459b4bfdff21efe19a59643524c1f84744904a2175b3f7e97307ec9c580e",
+  "training_start": "2025-06-03",
+  "training_end": "2026-07-23",
+  "fitted_at": "2026-10-21T19:42:33.850729+05:30",
+  "covariates": [
+    {
+      "name": "rbi_repo_rate",
+      "unit": "percent per annum",
+      "meaning": "BIS daily India official overnight repo policy rate from RBI; previous observed market-session value",
+      "center": 5.371402877697841,
+      "scale": 0.14494048490460051
+    }
+  ],
+  "limitations": [
+    "Hypothetical conditional transition projection; not causal policy effectiveness.",
+    "Hamilton remains excluded from the actual composite under the standing research decision.",
+    "Policy inputs are latest-vintage historical observations received after the sample. This fit does not establish historical publication availability or causal replay performance."
+  ],
+  "input_manifest": {
+    "source": "existing C4 build_row over actual point-in-time daily corpus; read-only",
+    "path": "prototype_runs\\hamilton_projection\\observations-5a7493bb7126aceb65e658a371670b8d934014aab394f0c8b5da1550e648313c.json",
+    "sha256": "5a7493bb7126aceb65e658a371670b8d934014aab394f0c8b5da1550e648313c",
+    "rows": 278,
+    "fit_warnings": [
+      {
+        "code": "PARTIAL_COVERAGE",
+        "message": "a non-converged start reached llf 3496.85, 11.73 above the selected converged fit (3485.11); the reported optimum may be a local one",
+        "context": {
+          "discardedLlf": 3496.8488,
+          "selectedLlf": 3485.1147,
+          "convergedStarts": 4,
+          "triedStarts": 7
+        }
+      }
+    ],
+    "macro_source": {
+      "path": "docs\\evidence\\engineering-closeout-2026-10-21\\observed-policy-covariates.json",
+      "sha256": "a97425d968973990d45ac03003d8fbce3f7edb69334e03ecdb4402aaef62440d",
+      "provenance": {
+        "url": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile",
+        "retrieved_at": "2026-10-21T14:49:51.332788+05:30",
+        "status": 200,
+        "content_type": "text/csv;charset=UTF-8",
+        "bytes": 151204,
+        "sha256": "6bfc0e3bea0530683fa0ec93f5f898b56c370cd4cdafd15b12474c89e2191a25",
+        "provider": "BIS",
+        "series": "WS_CBPOL/D.IN",
+        "source_ref": "Reserve Bank of India",
+        "compilation": "From 3 Apr 2001 onwards: official repo overnight rate; from 1 Jan 1946 to 2 Apr 2001: oank rate.",
+        "alignment": "Published daily rows only; missing observations omitted, never filled",
+        "model_design": "F08-POLICY-DESIGN.md"
+      },
+      "coverage": {
+        "paired": 278,
+        "excluded_dates": [
+          "2025-09-09",
+          "2025-10-23",
+          "2026-02-02",
+          "2026-02-20",
+          "2026-03-20"
+        ],
+        "mode": "retrospective_latest_vintage",
+        "causal_replay_eligible": false,
+        "alignment": "Previous supplied market session, latest revised values; receipt retained; no filling or historical-availability claim"
+      },
+      "mode": "retrospective diagnostic; receipt today does not establish historical vintage availability"
+    }
+  },
+  "path": "prototype_runs/hamilton_projection/b9a7459b4bfdff21efe19a59643524c1f84744904a2175b3f7e97307ec9c580e.json",
+  "round_trip_verified": true,
+  "verification": "export_hamilton_projection.py asserted loaded versus fitted transition probabilities at atol=1e-13; command completed exit 0"
+}

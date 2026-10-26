@@ -165,8 +165,36 @@ def test_an_export_carries_evidence_and_limitations(master, store):
     assert out["manifest"] and out["exported_at"]
     assert any("not a measured outcome" in line or "Qualitative mechanism" in line
                for line in out["limitations"])
+
+
+def test_displayed_analysis_is_pinned_and_cannot_cross_context(master, store):
+    from seraph.dashboard.prototype_app import _news_action
+    from seraph.dashboard.news_view import news_channel
+    payload = dict(run_id='run', date='2026-10-18', news=dict(
+        as_of="2026-10-18T10:00:00+05:30", mode='current_news',
+        role_view=dict(matrix={'rows': [{'product': 'steel'}]})))
+    channel = news_channel(store, master, decision_ts=payload['news']['as_of'])
+    event = channel['eligible_events'][0]
+    cache = {}
+    shown = _news_action(dict(op='news_scenario', event_id=event.event_id,
+                             cost_base='1000', pass_through_low='0.2',
+                             pass_through_high='0.5'),
+                         'institutional', store, master, payload, cache)
+    request = dict(op='news_export', analysis_id=shown['analysis_id'],
+                   scenario={'forged': True})
+    exported = _news_action(request, 'institutional', store, master, payload, cache)
+    assert exported['scenario']['inputs'] == shown['inputs']
+    assert exported['matrix'] == payload['news']['role_view']['matrix']
+    assert exported['decision_ts'] == payload['news']['as_of']
+    payload['news']['as_of'] = '2026-10-19T10:00:00+05:30'
+    assert _news_action(request, 'institutional', store, master, payload, cache) == exported
+    with pytest.raises(ValueError, match='another context'):
+        _news_action(request, 'institutional', store, master,
+                     dict(payload, date='2020-01-01'), cache)
+    with pytest.raises(ValueError, match='another context'):
+        _news_action(request, 'retail', store, master, payload, cache)
     assert any("benchmark has NOT been passed" in line
-               for line in out["limitations"])
+               for line in exported["limitations"])
 
 
 # ------------------------------- the two defects found by driving it

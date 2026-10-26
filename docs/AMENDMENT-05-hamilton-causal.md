@@ -152,3 +152,73 @@ causal regime signal.
 Start Docker Desktop, then run §5 in order. Until it passes, Hamilton stays out of the
 production CSRS path and SERAPH is **not** a validated operational risk engine —
 `hawkes_output`, `reconciled_state` and `csrs` all remain empty.
+
+---
+
+## 7. Addendum, 2026-10-26 — §5 is no longer blocked; it was run, and it failed
+
+**Nothing above is edited.** The verdict in the header (B — not cleared for
+production CSRS) stands, and the evidence below strengthens it. Only the
+*status* of §5 and the "next step" in §6 are out of date: §5 is not waiting on
+Docker. It was executed on 2026-10-12/13 and produced a decisive negative
+result, so a reader should not treat Hamilton activation as an infrastructure
+question.
+
+### The pre-registered tests, and what they returned
+
+`docs/evidence/20261013T023748Z-24-hamilton-regime-support-validation.log`:
+
+| criterion | result |
+|---|---|
+| R1 procedure validity (known ground truth) | PASS — recovers k=2 and k=3, BIC picks the true K |
+| **R2 negative controls** | **FAIL** — a smooth AR(1) with **one** regime was *not* rejected at k=2 (sep 0.97) or k=3 (sep 1.45) |
+| R5 separation | FAIL at k=2 (1.64σ), k=3 (2.02σ), k=4 (2.26σ) |
+| R6 fold stability, k=3 | **FAIL** — 4/6 folds satisfy R3+R4 |
+| R9 model order by BIC | prefers **k=4**, not the specified k=3 |
+| R7 init robustness | PASS — 8/8 seeds, llf spread 0.00 |
+
+`docs/evidence/20261013T030256Z-25-hamilton-surrogate-null.log`:
+
+| surrogate family | real separation | null mean | empirical p |
+|---|---|---|---|
+| AR(1) | 2.020 | 4.109 | **0.9524** |
+| AAFT | 2.020 | 2.147 | **0.7143** |
+
+> VERDICT: NOT DISTINGUISHABLE from a no-regime process — Hamilton output stays
+> unavailable
+
+NFR17 (separation ≥ 3.0σ) is not met: 2.020.
+
+### Why R2 is the one that settles it
+
+R5, R6 and R9 are failures of the fit. **R2 is a failure of the test.** A
+process constructed with exactly one regime passed the acceptance criteria, so
+those criteria cannot distinguish regime structure from smooth persistence.
+Until a criterion set is pre-registered that demonstrably rejects the
+single-regime surrogate, no fit — converged, stable, or otherwise — can be read
+as evidence of regime support. That is new research, not an activation
+decision.
+
+### The causal TVTP path, separately
+
+`docs/evidence/20261013T023028Z-hamilton-causal-POSTFIX/WHY-STOPPED.md` records
+that the `_conditional_loglikelihoods` repair never fires on the TVTP path
+(block 0 reproduced the pre-fix llf to 0.01), and that the identification
+failure is a *separate* defect the fix does not address: **6/14 nesting
+violations to LR = −2,322.88**, 3/14 non-converged, causal **NFR17 = 0.269σ**.
+A likelihood ratio of −2,322.88 against a nested restriction is arithmetically
+impossible at a true maximum, so those folds are not at their own optima.
+
+### Operational status
+
+`HAMILTON_EXCLUSION` in `scripts/run_daily.py` records the pillar as a standing
+structural absence with reason "regime support unvalidated; diagnostic only …
+(NOT_PRODUCTION). This is NOT a feed outage." That is the correct state and was
+not changed. `--hamilton diagnostic` still recomputes the walk-forward for
+inspection without entering the composite.
+
+Measured on the 2026-10-26 replay of 254 sessions: Hamilton appears in the D2
+mask **0** times, and every Hamilton vintage in `prototype_runs/live.sqlite`
+(256 of them) is a declared `structural` absence. The machinery works — one
+historical decision elsewhere does carry Hamilton in its mask — so this is a
+validation gate, not an implementation gap.

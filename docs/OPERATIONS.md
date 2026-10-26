@@ -2,6 +2,8 @@
 
 Created 2026-10-16 (`OPS01`, `OPS02`, `OPS03`).
 
+For the October 21 local launcher, calendar, configured feed, and analytical workflows, use [the current demo runbook](SERAPH-DEMO-RUNBOOK-2026-10-21.md). The dated deployment assessment below is retained as historical context.
+
 **Audience decision (D-F) is still open**, and it is the decision this whole
 document waits on: private personal use, an institutional pilot and a
 regulator demonstration have different acceptance bars for every row below.

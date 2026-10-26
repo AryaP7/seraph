@@ -138,4 +138,73 @@ out.accepts_request_after_same_role_click = requests().length === 1;
 api.show("map");
 out.status_visible_outside_tools = globalStatusText().length > 0;
 
+/* The panel FABRICATED tag must describe the payload, not the page's load
+   state. Both directions are asserted: a CONNECTED surface loses the tag,
+   and an absent channel keeps it. The tag is the only thing protecting the
+   preview layer from being read as data, so neither direction may regress --
+   a stale tag above sourced headlines teaches the reader to ignore it, and a
+   missing tag over a preview is worse. */
+const NEWS_HEADINGS = ["h3-signals", "h3-assets", "h3-stress"];
+// The real page stamps every card heading at load via
+// querySelectorAll('main .card h3'); this sandbox's querySelectorAll returns
+// [], so the starting state is seeded here instead. Without this the
+// elements would not exist, getElementById would return null, and the
+// assertions below would pass vacuously -- which they did on the first run.
+const seedTagged = () => {
+  // renderNewsPanels() reads these bodies before writing them, so they must
+  // exist or the handler throws before the re-tag is reached -- which is
+  // exactly how the first version of this test passed vacuously.
+  for (const id of ["signals", "stress", "sigcount", "assets",
+                    "assetscope", "acount"]) ensure(id);
+  for (const id of NEWS_HEADINGS) {
+    ensure(id);
+    registry.get(id).innerHTML =
+      'LATEST <span class="fabricated">FABRICATED PREVIEW</span>';
+  }
+};
+const headingHTML = (id) => (registry.get(id)?.innerHTML ?? "");
+const TAGGED = /class="fabricated"/;
+seedTagged();
+out.harness_seeded_the_load_time_tag =
+  NEWS_HEADINGS.every((id) => TAGGED.test(headingHTML(id)));
+
+// 1. Connected: three surfaces reported connected, so their headings must
+//    carry no fabricated tag after the render.
+render({ ...base, news: {
+  status: "connected", mode: "historical_decision",
+  as_of: "2020-01-01T15:30:00+05:30",
+  connected_surfaces: ["signals", "assets", "sector_stress"],
+  preview_surfaces: [],
+  source_coverage: { covered: 3, total: 3 },
+  surfaces: { signals: { items: [], scope: {} } },
+  pagination: { total: 0 }, globe: {}, role_view: null } });
+out.connected_surface_loses_the_fabricated_tag =
+  !TAGGED.test(headingHTML("h3-signals"))
+  && !TAGGED.test(headingHTML("h3-assets"))
+  && !TAGGED.test(headingHTML("h3-stress"));
+
+// 2. Absent: the channel is not connected, so every heading must be tagged
+//    again -- including ones cleared by the connected render above, which is
+//    what makes this a real round trip rather than a one-way clear.
+render({ ...base, news: {
+  status: "absent", version: null, reason: "no news store is attached",
+  surfaces: {}, preview_only: true } });
+out.absent_channel_restores_the_fabricated_tag =
+  TAGGED.test(headingHTML("h3-signals"))
+  && TAGGED.test(headingHTML("h3-assets"))
+  && TAGGED.test(headingHTML("h3-stress"));
+
+// 3. A surface reported as preview while others are connected keeps its tag:
+//    the label is per surface, never per payload.
+render({ ...base, news: {
+  status: "connected", mode: "historical_decision",
+  as_of: "2020-01-01T15:30:00+05:30",
+  connected_surfaces: ["signals"], preview_surfaces: ["assets"],
+  source_coverage: { covered: 1, total: 3 },
+  surfaces: { signals: { items: [], scope: {} } },
+  pagination: { total: 0 }, globe: {}, role_view: null } });
+out.tag_is_per_surface_not_per_payload =
+  !TAGGED.test(headingHTML("h3-signals"))
+  && TAGGED.test(headingHTML("h3-assets"));
+
 process.stdout.write(JSON.stringify(out, null, 2));

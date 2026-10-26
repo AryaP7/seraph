@@ -52,11 +52,11 @@ class TestTheLauncherStartsBothHalves:
         """A two-minute RMT estimate must not hold the page hostage."""
         assert "market-jobs.log" in LAUNCHER
 
-    def test_it_does_not_start_the_live_tick_loop(self):
-        """Opening a broker feed is an operator decision, not a side effect
-        of opening a dashboard."""
-        assert "is NOT started" in LAUNCHER
-        assert "run_live.py --status" in LAUNCHER
+    def test_it_starts_one_owned_runtime_with_explicit_opt_out(self):
+        assert 'NoLiveRuntime' in LAUNCHER
+        assert 'scripts/run_live.py' in LAUNCHER
+        assert '--stay-running' in LAUNCHER and '--owner-pid' in LAUNCHER
+        assert '$Live.Id' in LAUNCHER
 
     def test_no_separate_news_command_is_required(self):
         """The concurrent session's unified-startup claim, re-asserted here
@@ -177,8 +177,10 @@ class TestTheConsoleReportsIt:
         assert "run_all" not in panel
         assert "import run_market_jobs" not in panel
 
-    def test_the_panel_says_the_live_loop_is_not_started(self):
+    def test_the_panel_distinguishes_owned_startup_from_feed_readiness(self):
         body = (ROOT / "seraph/dashboard/prototype_app.py").read_text(
             encoding="utf-8")
         panel = body.split("def market_jobs_panel", 1)[1].split("def ", 1)[0]
-        assert "operator decision" in panel
+        assert 'ordinary launcher starts one owned market runtime' in panel
+        assert '-NoLiveRuntime' in panel
+        assert 'Startup alone does not establish a connected feed' in panel

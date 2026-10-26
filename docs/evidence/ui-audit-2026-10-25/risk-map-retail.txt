@@ -1,0 +1,349 @@
+Browser tab: 1, Title: "SERAPH", URL: "http://127.0.0.1:8520/".
+0 AXWebArea SERAPH, URL: 127.0.0.1:8520/
+	1 container
+		2 container
+			3 link Description: Skip to main content, Value: 127.0.0.1:8520/#stMain
+			4 container stMain
+				5 container app.seraph_redesigned_console
+					6 AXWebArea SERAPH — Systemic Risk Early-Warning · NSE, URL: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F
+						7 container shell
+							8 container
+								9 text SER APH
+								10 link Description: CURRENT, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								11 link Description: RISK MAP, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								12 link Description: HISTORICAL, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								13 link Description: CONSOLE, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								14 link Description: SIGNAL FEED, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								15 link Description: PILLARS, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								16 link Description: EXPOSURE, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								17 link Description: FORECASTS, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								18 link Description: EARLY WARNING, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								19 link Description: WORKSPACE, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								20 link Description: EVALUATION, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								21 link Description: HEALTH, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								22 link Description: TOOLS, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								23 link Description: METHOD, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								24 text HISTORICAL + TAGGED PREVIEWS
+								25 container roles
+									26 button REGULATOR
+									27 button INSTITUTIONAL
+									28 button RETAIL
+								29 text  LOCAL CLOCK — 
+								750 text 00:03:01
+								31 text  IST
+								32 text 1,019 desks · FABRICATED
+								33 button VIEW BACKTEST
+							751 text MAP
+							35 container preview-banner
+								36 text NOT A CURRENT MARKET READING  — the newest observation is 2369.4 days old. Anything computed from it is a REPLAY of that period, not a statement about the market now, and must be labelled as such | observed 2020-04-30T15:30:00+05:30 · now 2026-10-25T23:59:31+05:30 · market not_a_session · feed: none — not connected, unauthenticated
+								37 text RUN 37bccf32974201f0 · 2020-04-30 · RETAIL | STALE — newest item 2 min old; 4 of 22 sources past the freshness policy they declared. Nothing on screen reflects what has happened since. | NEWS current_news 2026-10-25T23:58:30+05:30 | 18/22 feeds fresh | CONNECTED: SIGNALS, SECTOR_STRESS, GEOGRAPHY, ASSETS | 12 evidenced map node(s) | MARKET 2020-04-30T15:30:00+05:30
+							38 container ticker
+								39 text FABRICATED PREVIEW NIFTY 50 24,812.30   0.34% BANK NIFTY 52,406.85   0.21% NIFTY METAL 9,140.20   1.86% NIFTY PHARMA 21,558.45   0.92% NIFTY AUTO 25,033.10   1.24% NIFTY IT 38,902.60   0.44% INDIA VIX 13.82   1.10% USD/INR 83.41   0.18%
+							752 container
+								753 heading LATEST SIGNALS 60 / 2328 EVENTS, Value: 3
+									754 text LATEST SIGNALS
+									755 text 60 / 2328 EVENTS
+								756 container signals
+									757 text current_news · 2026-10-25T23:58:30+05:30
+									758 container Role-specific news intelligence
+										759 heading RETAIL NEWS INTELLIGENCE, Value: 4
+											760 text RETAIL NEWS INTELLIGENCE
+										761 text 0 holding(s) have a documented route from news; 0 mapped holdings have no current matched event; 0 do not have a usable mapping. An unmapped holding is one this system cannot speak about, not one that is unaffected
+										762 text directions are qualitative hypotheses about mechanism. None of this is a probability of loss or a position recommendation
+										763 text Add your holdings in Tools to see portfolio-specific news routes.
+									764 text 534 in scope · 1794 received but not about this system (carried and linked, never deleted) · 193 in scope and unidentified
+									765 button (collapsed) SBI Mutual Fund - SBI Nifty50 Equal Weight ETF, Secondary Actions: Expand
+										766 text SBI Mutual Fund - SBI Nifty50 Equal Weight ETF
+									767 button (collapsed) Moschip Technologies Limited, Secondary Actions: Expand
+										768 text Moschip Technologies Limited
+									769 button (collapsed) M 4.6 - 153 km WNW of Adak, Alaska, Secondary Actions: Expand
+										770 text M 4.6 - 153 km WNW of Adak, Alaska
+									771 button (collapsed) M 5.2 - 59 km SW of Ashkāsham, Afghanistan, Secondary Actions: Expand
+										772 text M 5.2 - 59 km SW of Ashkāsham, Afghanistan
+									773 button (collapsed) M 4.7 - 19 km NE of Atico, Peru, Secondary Actions: Expand
+										774 text M 4.7 - 19 km NE of Atico, Peru
+									775 button (collapsed) प्रधानमंत्री ने वाराणसी यात्रा की झलकियाँ साझा कीं, Secondary Actions: Expand
+										776 text प्रधानमंत्री ने वाराणसी यात्रा की झलकियाँ साझा कीं
+									777 button (collapsed) Secondary Actions: Expand, &#2327;&#2357;&#2352;&#2381;&#2344;&#2352; &#2325;&#2366; &#2360;&#2381;&#2357;&#2366;&#2327;&#2340; &#2360;&#2306;&#2348;&#2379;&#2343;&#2344; - RBI &#2325;&#2375; &#2337;&#2375;&#2335;&#2366; &#2360;&#2375;&#2306;&#2335;&#2352; &#2324;&#2352; &#2360;&#2366;&#2311;&#2348;&#2352; &#2360;&#2369;&#2352;&#2325;&#2381;&#2359;&#2366; &#2346;&#2381;&#2352;&#2358;&#2367;&#2325;&#2381;&#2359;&#2339; &#2360;&#2306;&#2360;&#2381;&#2341;&#2366;&#2344; &#2325;&#2366; &#2313;&#2342;&#2381;&#2328;&#2366;&#2335;&#2344; -
+										778 text &#2327;&#2357;&#2352;&#2381;&#2344;&#2352; &#2325;&#2366; &#2360;&#2381;&#2357;&#2366;&#2327;&#2340; &#2360;&#2306;&#2348;&#2379;&#2343;&#2344; - RBI &#2325;&#2375; &#2337;&#2375;&#2335;&#2366; &#2360;&#2375;&#2306;&#2335;&#2352; &#2324;&#2352; &#2360;&#2366;&#2311;&#2348;&#2352; &#2360;&#2369;&#2352;&#2325;&#2381;&#2359;&#2366; &#2346;&#2381;&#2352;&#2358;&#2367;&#2325;&#2381;&#2359;&#2339; &#2360;&#2306;&#2360;&#2381;&#2341;&#2366;&#2344; &#2325;&#2366; &#2313;&#2342;&#2381;&#2328;&#2366;&#2335;&#2344; -
+									779 button (collapsed) Green forest fire notification in South Sudan, Secondary Actions: Expand
+										780 text Green forest fire notification in South Sudan
+									781 button (collapsed) Green forest fire notification in Zambia, Secondary Actions: Expand
+										782 text Green forest fire notification in Zambia
+									783 button (collapsed) Ravindra Energy Limited, Secondary Actions: Expand
+										784 text Ravindra Energy Limited
+									785 button (collapsed) Green forest fire notification in Zambia, Malawi, Secondary Actions: Expand
+										786 text Green forest fire notification in Zambia, Malawi
+									787 button (collapsed) Green forest fire notification in Senegal, Secondary Actions: Expand
+										788 text Green forest fire notification in Senegal
+									789 button (collapsed) सीसीपीए ने भ्रामक विज्ञापनों और वॉकी-टॉकी की गैर-अनुपालन बिक्री के खिलाफ कार्रवाई तेज की, Secondary Actions: Expand
+										790 text सीसीपीए ने भ्रामक विज्ञापनों और वॉकी-टॉकी की गैर-अनुपालन बिक्री के खिलाफ कार्रवाई तेज की
+									791 button (collapsed) Secondary Actions: Expand, Green notification for tropical cyclone VANCE-26. Population affected by Category 1 (120 km/h) wind speeds or higher is 0 (0 in Tropical Storm).
+										792 text Green notification for tropical cyclone VANCE-26. Population affected by Category 1 (120 km/h) wind speeds or higher is 0 (0 in Tropical Storm).
+									793 button (collapsed) SKP Bearing Industries Limited, Secondary Actions: Expand
+										794 text SKP Bearing Industries Limited
+									795 button (collapsed) एनआईएफटीईएम-के ने भारत के पहले ‘एआई × फूड टेक हैकाथॉन’, ‘हैक द फोर्क’ का आयोजन किया, Secondary Actions: Expand
+										796 text एनआईएफटीईएम-के ने भारत के पहले ‘एआई × फूड टेक हैकाथॉन’, ‘हैक द फोर्क’ का आयोजन किया
+									797 button (collapsed) Green forest fire notification in Mali, Secondary Actions: Expand
+										798 text Green forest fire notification in Mali
+									799 button (collapsed) ECL Finance Limited, Secondary Actions: Expand
+										800 text ECL Finance Limited
+									801 button (collapsed) Secondary Actions: Expand, ‘विकसित भारत 2047’ की दिशा में शहरी प्रशासन, योजना और सेवाओं की आपूर्ति को मजबूत करने संबंधी व्यावहारिक सुझावों के साथ ‘राष्ट्रीय शहरी सम्मेलन 2026’ संपन्न
+										802 text ‘विकसित भारत 2047’ की दिशा में शहरी प्रशासन, योजना और सेवाओं की आपूर्ति को मजबूत करने संबंधी व्यावहारिक सुझावों के साथ ‘राष्ट्रीय शहरी सम्मेलन 2026’ संपन्न
+									803 button (collapsed) 12वां ब्रिक्स संसदीय मंच कल संसद भवन परिसर में आयोजित होगा, Secondary Actions: Expand
+										804 text 12वां ब्रिक्स संसदीय मंच कल संसद भवन परिसर में आयोजित होगा
+									805 button (collapsed) Green forest fire notification in Mauritania, Mali, Secondary Actions: Expand
+										806 text Green forest fire notification in Mauritania, Mali
+									807 button (collapsed) GMR AIRPORTS LIMITED, Secondary Actions: Expand
+										808 text GMR AIRPORTS LIMITED
+									809 button (collapsed) Aditya Birla Sun Life Insurance Company Limited, Secondary Actions: Expand
+										810 text Aditya Birla Sun Life Insurance Company Limited
+									811 button (collapsed) Secondary Actions: Expand, Green notification for tropical cyclone IN-FA-26. Population affected by Category 1 (120 km/h) wind speeds or higher is 0 (0 in Tropical Storm).
+										812 text Green notification for tropical cyclone IN-FA-26. Population affected by Category 1 (120 km/h) wind speeds or higher is 0 (0 in Tropical Storm).
+									813 button (collapsed) उपराष्ट्रपति सी. पी. राधाकृष्णन 26-27 अक्टूबर को आंध्र प्रदेश के दौरे पर रहेंगे, Secondary Actions: Expand
+										814 text उपराष्ट्रपति सी. पी. राधाकृष्णन 26-27 अक्टूबर को आंध्र प्रदेश के दौरे पर रहेंगे
+									815 button (collapsed) Secondary Actions: Expand, Red notification for tropical cyclone CHAMPI-26. Population affected by Category 1 (120 km/h) wind speeds or higher is 0.291 million .
+										816 text Red notification for tropical cyclone CHAMPI-26. Population affected by Category 1 (120 km/h) wind speeds or higher is 0.291 million .
+									817 button (collapsed) Secondary Actions: Expand, Hon’ble Prime Minister of India inaugurates the Reserve Bank of India’s Data Centre and Cybersecurity Training Institute in Bhubaneswar, Odisha
+										818 text Hon’ble Prime Minister of India inaugurates the Reserve Bank of India’s Data Centre and Cybersecurity Training Institute in Bhubaneswar, Odisha
+									819 button (collapsed) भुवनेश्वर में आरबीआइ की प्रमुख सुविधाओं के उद्घाटन के दौरान प्रधानमंत्री के संबोधन का मूल पाठ, Secondary Actions: Expand
+										820 text भुवनेश्वर में आरबीआइ की प्रमुख सुविधाओं के उद्घाटन के दौरान प्रधानमंत्री के संबोधन का मूल पाठ
+									821 button (collapsed) प्रधानमंत्री श्री नरेन्द्र मोदी ने ओडिशा के भुवनेश्वर में आरबीआई के नवनिर्मित डेटा सेंटर और साइबर सुरक्षा प्रशिक्षण संस्थान का उद्घाटन किया, Secondary Actions: Expand
+										822 text प्रधानमंत्री श्री नरेन्द्र मोदी ने ओडिशा के भुवनेश्वर में आरबीआई के नवनिर्मित डेटा सेंटर और साइबर सुरक्षा प्रशिक्षण संस्थान का उद्घाटन किया
+									823 button (collapsed) Secondary Actions: Expand, Green notification for tropical cyclone THREE-C-26. Population affected by Category 1 (120 km/h) wind speeds or higher is 0 (0 in Tropical Storm).
+										824 text Green notification for tropical cyclone THREE-C-26. Population affected by Category 1 (120 km/h) wind speeds or higher is 0 (0 in Tropical Storm).
+									825 button (collapsed) केंद्रीय मंत्री पीयूष गोयल ने नीदरलैंड में व्यापार और निवेश वार्ता की, Secondary Actions: Expand
+										826 text केंद्रीय मंत्री पीयूष गोयल ने नीदरलैंड में व्यापार और निवेश वार्ता की
+									827 button (collapsed) Green forest fire notification in Indonesia, Secondary Actions: Expand
+										828 text Green forest fire notification in Indonesia
+									829 button (collapsed) Secondary Actions: Expand, Green earthquake (Magnitude 5.8M, Depth:12.486km) in Bouvet Island Region 24/10/2026 15:24 UTC, [unknown].
+										830 text Green earthquake (Magnitude 5.8M, Depth:12.486km) in Bouvet Island Region 24/10/2026 15:24 UTC, [unknown].
+									831 button (collapsed) Green forest fire notification in Russia, Secondary Actions: Expand
+										832 text Green forest fire notification in Russia
+									833 button (collapsed) Secondary Actions: Expand, Drought is on going in Austria, Bosnia & Herzegovina, Belgium, Belarus, Switzerland, Czech Republic, Germany, Denmark, Spain, France, Croatia, Hungary, Ireland, Italy, Liechtenstein, Luxembourg, Moldova, Montenegro, Netherlands, Poland, Romania, Serbia, Sweden, Slovenia, Slovakia, Ukraine,
+										834 text Drought is on going in Austria, Bosnia & Herzegovina, Belgium, Belarus, Switzerland, Czech Republic, Germany, Denmark, Spain, France, Croatia, Hungary, Ireland, Italy, Liechtenstein, Luxembourg, Moldova, Montenegro, Netherlands, Poland, Romania, Serbia, Sweden, Slovenia, Slovakia, Ukraine,
+									835 button (collapsed) Green forest fire notification in South Sudan, Sudan, Secondary Actions: Expand
+										836 text Green forest fire notification in South Sudan, Sudan
+									837 button (collapsed) Secondary Actions: Expand, Green earthquake (Magnitude 6.1M, Depth:116km) in Vanuatu 25/10/2026 02:24 UTC, 110 thousand in MMI IV.
+										838 text Green earthquake (Magnitude 6.1M, Depth:116km) in Vanuatu 25/10/2026 02:24 UTC, 110 thousand in MMI IV.
+									839 button (collapsed) Green forest fire notification in Australia, Secondary Actions: Expand
+										840 text Green forest fire notification in Australia
+									841 button (collapsed) Green forest fire notification in Namibia, Botswana, Secondary Actions: Expand
+										842 text Green forest fire notification in Namibia, Botswana
+									843 button (collapsed) Green forest fire notification in Nigeria, Secondary Actions: Expand
+										844 text Green forest fire notification in Nigeria
+									845 button (collapsed) Secondary Actions: Expand, REFERENCED Large Diameter Graphite Electrodes From China and India; Scheduling of the Final Phase of Countervailing Duty and Antidumping Duty Investigations.
+										846 text REFERENCED
+										847 text  Large Diameter Graphite Electrodes From China and India; Scheduling of the Final Phase of Countervailing Duty and Antidumping Duty Investigations.
+									848 button (collapsed) Secondary Actions: Expand, REFERENCED Common Alloy Aluminum Sheet From Bahrain, Brazil, Croatia, Egypt, Germany, India, Indonesia, Italy, Oman, Romania, Serbia, Slovenia, South Africa, Spain, Taiwan, and Turkey; Scheduling of Full Five-Year Reviews.
+										849 text REFERENCED
+										850 text  Common Alloy Aluminum Sheet From Bahrain, Brazil, Croatia, Egypt, Germany, India, Indonesia, Italy, Oman, Romania, Serbia, Slovenia, South Africa, Spain, Taiwan, and Turkey; Scheduling of Full Five-Year Reviews.
+									851 button (collapsed) Secondary Actions: Expand, REFERENCED Forged Steel Fittings From India and South Korea; Cancellation of Hearing for Antidumping and Countervailing Duty Reviews.
+										852 text REFERENCED
+										853 text  Forged Steel Fittings From India and South Korea; Cancellation of Hearing for Antidumping and Countervailing Duty Reviews.
+									854 button (collapsed) REFERENCED Oleoresin Paprika From India: Antidumping Duty Order and Countervailing Duty Order., Secondary Actions: Expand
+										855 text REFERENCED
+										856 text  Oleoresin Paprika From India: Antidumping Duty Order and Countervailing Duty Order.
+									857 button (collapsed) REFERENCED Oleoresin Paprika From India; Determinations., Secondary Actions: Expand
+										858 text REFERENCED
+										859 text  Oleoresin Paprika From India; Determinations.
+									860 button (collapsed) Secondary Actions: Expand, REFERENCED Certain Oil Country Tubular Goods From India, the Republic of Korea, the Republic of Türkiye, the Socialist Republic of Vietnam, and Ukraine: Continuation of Antidumping Duty Orders and Countervailing Duty Orders.
+										861 text REFERENCED
+										862 text  Certain Oil Country Tubular Goods From India, the Republic of Korea, the Republic of Türkiye, the Socialist Republic of Vietnam, and Ukraine: Continuation of Antidumping Duty Orders and Countervailing Duty Orders.
+									863 button (collapsed) Secondary Actions: Expand, REFERENCED Large Diameter Graphite Electrodes From India: Preliminary Affirmative Critical Circumstances Determination in Countervailing Duty Investigation.
+										864 text REFERENCED
+										865 text  Large Diameter Graphite Electrodes From India: Preliminary Affirmative Critical Circumstances Determination in Countervailing Duty Investigation.
+									866 button (collapsed) Secondary Actions: Expand, REFERENCED Large Diameter Graphite Electrodes From India: Preliminary Affirmative Determination of Sales at Less-Than-Fair-Value, Preliminary Affirmative Determination of Critical Circumstances, Postponement of Final Determination, and Extension of Provisional Measures.
+										867 text REFERENCED
+										868 text  Large Diameter Graphite Electrodes From India: Preliminary Affirmative Determination of Sales at Less-Than-Fair-Value, Preliminary Affirmative Determination of Critical Circumstances, Postponement of Final Determination, and Extension of Provisional Measures.
+									869 button (collapsed) REFERENCED POWERGRID Commissions Project to Evacuate Renewable Energy in Karnataka, Secondary Actions: Expand
+										870 text REFERENCED
+										871 text  POWERGRID Commissions Project to Evacuate Renewable Energy in Karnataka
+									872 button (collapsed) Secondary Actions: Expand, REFERENCED Certain Freight Rail Couplers and Parts Thereof From India: Final Affirmative Countervailing Duty Determination.
+										873 text REFERENCED
+										874 text  Certain Freight Rail Couplers and Parts Thereof From India: Final Affirmative Countervailing Duty Determination.
+									875 button (collapsed) Secondary Actions: Expand, REFERENCED Certain Frozen Warmwater Shrimp From India: Rescission of Antidumping Duty Administrative Review, In Part; 2025-2026.
+										876 text REFERENCED
+										877 text  Certain Frozen Warmwater Shrimp From India: Rescission of Antidumping Duty Administrative Review, In Part; 2025-2026.
+									878 button (collapsed) Secondary Actions: Expand, REFERENCED Chromium Trioxide From India: Final Affirmative Determination of Sales at Less Than Fair Value.
+										879 text REFERENCED
+										880 text  Chromium Trioxide From India: Final Affirmative Determination of Sales at Less Than Fair Value.
+									881 button (collapsed) REFERENCED Chromium Trioxide From India: Final Affirmative Countervailing Duty Determination., Secondary Actions: Expand
+										882 text REFERENCED
+										883 text  Chromium Trioxide From India: Final Affirmative Countervailing Duty Determination.
+									884 button (collapsed) Secondary Actions: Expand, REFERENCED Perfluoroalkoxy Alkane From India: Postponement of Preliminary Determination in the Countervailing Duty Investigation
+										885 text REFERENCED
+										886 text  Perfluoroalkoxy Alkane From India: Postponement of Preliminary Determination in the Countervailing Duty Investigation
+									887 button (collapsed) Secondary Actions: Expand, REFERENCED Polyethylene Terephthalate Film, Sheet, and Strip From India: Preliminary Results of Antidumping Duty Administrative Review, and Rescission of Review, in Part; 2024-2025
+										888 text REFERENCED
+										889 text  Polyethylene Terephthalate Film, Sheet, and Strip From India: Preliminary Results of Antidumping Duty Administrative Review, and Rescission of Review, in Part; 2024-2025
+									890 button (collapsed) Secondary Actions: Expand, REFERENCED Fine Denier Polyester Staple Fiber From India: Preliminary Results and Rescission, in Part of Antidumping Duty Administrative Review; 2024-2025
+										891 text REFERENCED
+										892 text  Fine Denier Polyester Staple Fiber From India: Preliminary Results and Rescission, in Part of Antidumping Duty Administrative Review; 2024-2025
+									893 button (collapsed) Secondary Actions: Expand, REFERENCED Announcement No.18 of 2025 of The Ministry of Commerce and The General Administration of Customs of The People’s Republic of China Announcing the decision to implement export control on some medium and heavy rare earth related items
+										894 text REFERENCED
+										895 text  Announcement No.18 of 2025 of The Ministry of Commerce and The General Administration of Customs of The People’s Republic of China Announcing the decision to implement export control on some medium and heavy rare earth related items
+									896 button (collapsed) Secondary Actions: Expand, REFERENCED Oil Country Tubular Goods From India, South Korea, Turkey, Ukraine, and Vietnam; Determinations
+										897 text REFERENCED
+										898 text  Oil Country Tubular Goods From India, South Korea, Turkey, Ukraine, and Vietnam; Determinations
+									899 button (collapsed) REFERENCED Perfluoroalkoxy Alkane From India; Determinations, Secondary Actions: Expand
+										900 text REFERENCED
+										901 text  Perfluoroalkoxy Alkane From India; Determinations
+									902 button (collapsed) REFERENCED Tata Steel inaugurates Phase II expansion of Kalinganagar operations, Secondary Actions: Expand
+										903 text REFERENCED
+										904 text  Tata Steel inaugurates Phase II expansion of Kalinganagar operations
+									905 text federal_register: last acquisition failed: FeedFetchError: this does not look like a Federal Register documents response: no 'results' key; federal_register_india: last acquisition failed: FeedFetchError: this does not look like a Federal Register documents response: no 'results' key; gdacs_alerts: last acquisition failed: TimeoutError: The read operation timed out (deadline 7.0s exhausted after 1 attempt(s); not retrying); mofcom_rare_earth_18_2025: last acquisition failed: TimeoutError: acquisition deadline exhausted while reading body (deadline 4.1s exhausted after 1 attempt(s); not retrying)
+									906 text Pilot coverage only: no licensed independent journalism; No validated Hindi interpretation; received Hindi items abstain; Exchange filings, Indian trade instruments and broader sector routes are incomplete; Pilot exposure registry is qualitative; unmapped firms and unknown sizes are not zero risk
+									907 button (collapsed) FABRICATED illustrative signals, Secondary Actions: Expand
+										908 text FABRICATED illustrative signals
+								909 container assetcard
+									910 heading STRATEGIC ASSETS 28 SITES, Value: 3
+										911 text STRATEGIC ASSETS
+										912 text 28 SITES
+									913 text ALL SECTORS
+									914 container assets
+										915 text Barauni
+										916 text power_station · 500 MW
+										917 text Barh
+										918 text power_station · 3300 MW
+										919 text Bongaigaon
+										920 text power_station · 750 MW
+										921 text Dadri
+										922 text power_station · 1840 MW
+										923 text Darlipali
+										924 text power_station · 1600 MW
+										925 text Farakka
+										926 text power_station · 2100 MW
+										927 text Feroze Gandhi,Unchahar
+										928 text power_station · 1550 MW
+										929 text Gadarwara
+										930 text power_station · 1600 MW
+										931 text Kahalgaon
+										932 text power_station · 2340 MW
+										933 text Kanti
+										934 text power_station · 390 MW
+										935 text Khargone
+										936 text power_station · 1320 MW
+										937 text Korba
+										938 text power_station · 2600 MW
+										939 text Kudgi
+										940 text power_station · 2400 MW
+										941 text Lara
+										942 text power_station · 1600 MW
+										943 text Mouda
+										944 text power_station · 2320 MW
+										945 text Nabinagar-NPGC
+										946 text power_station · 1980 MW
+										947 text North Karanpura
+										948 text power_station · 1980 MW
+										949 text Ramagundam
+										950 text power_station · 2600 MW
+										951 text Rihand
+										952 text power_station · 3000 MW
+										953 text Simhadri
+										954 text power_station · 2000 MW
+										955 text Singrauli
+										956 text power_station · 2000 MW
+										957 text Sipat
+										958 text power_station · 2980 MW
+										959 text Solapur
+										960 text power_station · 1320 MW
+										961 text Talcher Kaniha
+										962 text power_station · 3000 MW
+										963 text Tanda
+										964 text power_station · 1320 MW
+										965 text Telangana
+										966 text power_station · 1600 MW
+										967 text Vindhyachal
+										968 text power_station · 4760 MW
+										969 text Kalinganagar
+										970 text plant
+									971 text CRITICAL ELEVATED CLEAR
+								972 container stage
+									973 container modes
+										974 button INDIA
+										975 button GLOBAL
+										976 button ASSETS
+									977 container topright
+										978 button PAUSE SPIN, ID: pause
+										979 button CLOUDS, ID: clouds
+										980 button RE-LOCK, ID: recentre
+									981 text 641×794 · 56,533 land tris · 160 countries · 36 states · clouds procedural
+									982 text drag to orbit · scroll to zoom · click a raised state
+									983 container beaconKey
+										984 text FABRICATED PREVIEW
+										985 heading INFRASTRUCTURE, Value: 5
+											986 text INFRASTRUCTURE
+										987 text Solar Wind Hydro Nuclear Grid / Steel Battery / Auto Other
+										988 heading STATUS, Value: 5
+											989 text STATUS
+										990 text Operational Under construction Planned Critical / maintenance Unknown
+									991 text Gujarat · 0.87
+									992 text Odisha · 0.81
+									993 text Tamil Nadu · 0.79
+									994 text Telangana · 0.74
+									995 text 12 evidenced nodes · 1 documented path
+									996 text China · country
+									997 text M 5.2 - 59 km SW of Ashkāsham, Afghanistan · point
+									998 text M 4.6 - 153 km WNW of Adak, Alaska · point
+									999 text M 4.7 - 19 km NE of Atico, Peru · point
+									1000 text India · country
+									1001 text Mumbai · city
+									1002 text Odisha · region
+									1003 text Kalinganagar · region
+									1004 text Karnataka · region
+									1005 text Kalinganagar · region
+									1006 text United States · country
+									1007 text Washington D.C. · city
+								1008 heading SECTOR STRESS NEWS ESTIMATE · DOCUMENTED ROUTES, Value: 3
+									1009 text SECTOR STRESS NEWS ESTIMATE · DOCUMENTED ROUTES
+								1010 container stress
+									1011 text NEWS · inferred mechanisms
+									1012 text over all 2328 eligible events, not just the page shown
+									1013 text STALE — newest item 2 min old; 4 of 22 sources past the freshness policy they declared. Nothing on screen reflects what has happened since.
+									1014 container Show the events behind this inference
+										1015 text agriculture
+										1016 text export
+										1017 text adverse for this sector; direction unknown — opposing or unestablished mechanisms severity minor · evidence medium · size unknown · 3 unsized relationship(s) 3 event(s) — click for the documents
+									1018 container Show the events behind this inference
+										1019 text aluminium
+										1020 text export
+										1021 text direction unknown — opposing or unestablished mechanisms severity minor · evidence medium · size unknown · 1 unsized relationship(s) 1 event(s) — click for the documents
+									1022 container Show the events behind this inference
+										1023 text auto
+										1024 text input_dependency
+										1025 text direction unknown — opposing or unestablished mechanisms severity moderate · evidence medium · size unknown · 1 unsized relationship(s) 1 event(s) — click for the documents
+									1026 container Show the events behind this inference
+										1027 text chemicals
+										1028 text export
+										1029 text adverse for this sector; direction unknown — opposing or unestablished mechanisms severity minor · evidence medium · size unknown · 5 unsized relationship(s) 5 event(s) — click for the documents
+									1030 container Show the events behind this inference
+										1031 text energy
+										1032 text operation
+										1033 text direction unknown — opposing or unestablished mechanisms severity minor · evidence medium · size unknown · 1 unsized relationship(s) 1 event(s) — click for the documents
+									1034 container Show the events behind this inference
+										1035 text industrial_materials
+										1036 text export
+										1037 text direction unknown — opposing or unestablished mechanisms severity minor · evidence medium · size unknown · 3 unsized relationship(s) 3 event(s) — click for the documents
+									1038 container Show the events behind this inference
+										1039 text steel
+										1040 text export, operation
+										1041 text adverse for this sector; direction unknown — opposing or unestablished mechanisms severity minor · evidence medium · size unknown · 5 unsized relationship(s) 5 event(s) — click for the documents
+									1042 container Show the events behind this inference
+										1043 text textiles
+										1044 text export
+										1045 text direction unknown — opposing or unestablished mechanisms severity minor · evidence medium · size unknown · 1 unsized relationship(s) 1 event(s) — click for the documents
+									1046 button (collapsed) FABRICATED sector preview, Secondary Actions: Expand
+										1047 text FABRICATED sector preview
+								1048 heading PORTFOLIO EXPOSURE 29% AMBER FABRICATED PREVIEW, Value: 3
+									1049 text PORTFOLIO EXPOSURE 29% AMBER FABRICATED PREVIEW
+								1050 container exposure
+									1051 text Solar 12% Steel 8% Auto Components 9% Banking 22% IT Services 18% FMCG 14%
+									1052 text 29% of holdings sit in currently-amber sectors. This fabricated holdings/news example is separate from the actual CSRS shown in CONSOLE.
+							118 container
+								1053 text NEWS CHANNEL · LIVE · 2328 ELIGIBLE EVENTS
+								1054 text OTHER — SBI Mutual Fund - SBI Nifty50 Equal Weight ETF · OTHER — Moschip Technologies Limited · PHYSICAL_HAZARD — M 4.6 - 153 km WNW of Adak, Alaska · PHYSICAL_HAZARD — M 5.2 - 59 km SW of Ashkāsham, Afghanistan · PHYSICAL_HAZARD — M 4.7 - 19 km NE of Atico, Peru · OTHER — प्रधानमंत्री ने वाराणसी यात्रा की झलकियाँ साझा कीं · OTHER — &#2327;&#2357;&#2352;&#2381;&#2344;&#2352; &#2325;&#2366; &#2360;&#2381;&#2357;&#2366;&#2327;&#2340; &#2360;&#2306;&#2348;&#2379;&#2343;&#2344; - RBI &#2325;&#2375; &#2337;&#2375;&#2335;&#2366; &#2360;&#2375;&#2306;&#2335;&#2352; &#2324;&#2352; &#2360;&#2366;&#2311;&#2348;&#2352; &#2360;&#2369;&#2352;&#2325;&#2381;&#2359;&#2366; &#2346;&#2381;&#2352;&#2358;&#2367;&#2325;&#2381;&#2359;&#2339; &#2360;&#2306;&#2360;&#2381;&#2341;&#2366;&#2344; &#2325;&#2366; &#2313;&#2342;&#2381;&#2328;&#2366;&#2335;&#2344; - · FACILITY_INCIDENT — Green forest fire notification in South Sudan · FACILITY_INCIDENT — Green forest fire notification in Zambia · OTHER — Ravindra Energy Limited · FACILITY_INCIDENT — Green forest fire notification in Zambia, Malawi · FACILITY_INCIDENT — Green forest fire notification in Senegal · REGULATORY_ACTION — सीसीपीए ने भ्रामक विज्ञापनों और वॉकी-टॉकी की गैर-अनुपालन बिक्री के खिलाफ कार्रवाई तेज की · OTHER — Green notification for tropical cyclone VANCE-26. Population affected by Category 1 (120 km/h) wind speeds or higher is 0 (0 in Tropical Storm). · OTHER — SKP Bearing Industries Limited · OTHER — एनआईएफटीईएम-के ने भारत के पहले ‘एआई × फूड टेक हैकाथॉन’, ‘हैक द फोर्क’ का आयोजन किया · FACILITY_INCIDENT — Green forest fire notification in Mali · OTHER — ECL Finance Limited · OTHER — ‘विकसित भारत 2047’ की दिशा में शहरी प्रशासन, योजना और सेवाओं की आपूर्ति को मजबूत करने संबंधी व्यावहारिक सुझावों के साथ ‘राष्ट्रीय शहरी सम्मेलन 2026’ संपन्न · OTHER — 12वां ब्रिक्स संसदीय मंच कल संसद भवन परिसर में आयोजित होगा · FACILITY_INCIDENT — Green forest fire notification in Mauritania, Mali · OTHER — GMR AIRPORTS LIMITED · OTHER — Aditya Birla Sun Life Insurance Company Limited · OTHER — Green notification for tropical cyclone IN-FA-26. Population affected by Category 1 (120 km/h) wind speeds or higher is 0 (0 in Tropical Storm). · OTHER — उपराष्ट्रपति सी. पी. राधाकृष्णन 26-27 अक्टूबर को आंध्र प्रदेश के दौरे पर रहेंगे · OTHER — Red notification for tropical cyclone CHAMPI-26. Population affected by Category 1 (120 km/h) wind speeds or higher is 0.291 million . · OTHER — Hon’ble Prime Minister of India inaugurates the Reserve Bank of India’s Data Centre and Cybersecurity Training Institute in Bhubaneswar, Odisha · OTHER — भुवनेश्वर में आरबीआइ की प्रमुख सुविधाओं के उद्घाटन के दौरान प्रधानमंत्री के संबोधन का मूल पाठ · OTHER — प्रधानमंत्री श्री नरेन्द्र मोदी ने ओडिशा के भुवनेश्वर में आरबीआई के नवनिर्मित डेटा सेंटर और साइबर सुरक्षा प्रशिक्षण संस्थान का उद्घाटन किया · OTHER — Green notification for tropical cyclone THREE-C-26. Population affected by Category 1 (120 km/h) wind speeds or higher is 0 (0 in Tropical Storm).
+						121 container req-status-global
+							714 text ● SENDING…  — a news_project request is already in flight; wait or retry it
+
+The focused UI element is 11 link Description: RISK MAP, URL: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#

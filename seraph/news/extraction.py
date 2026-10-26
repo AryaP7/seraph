@@ -168,7 +168,13 @@ EVENT_PATTERNS: tuple[tuple[EventType, re.Pattern], ...] = (
                 r"(?=.{0,80}\b(?:ports?|shipping|railways?|rail|freight|"
                 r"berth|terminal|harbour|harbor)\b)", re.I)),
     ("capacity_expansion",
-     re.compile(r"\b(expansion|commission(?:ed|ing)|new (?:plant|line|unit))\b", re.I)),
+     # `commissions` is the form the trade press actually uses
+     # ("POWERGRID Commissions Project ...", probed 2026-10-24) and
+     # `commission(?:ed|ing)` missed it. The bare noun stays EXCLUDED on
+     # purpose: `commission` alone matches 13 titles in the stored corpus
+     # (FERC/SEC bodies, "the Commission"), while `commissions` matches 0
+     # of 1,581 -- measured, not assumed.
+     re.compile(r"\b(expansion|commission(?:s|ed|ing)|new (?:plant|line|unit))\b", re.I)),
     ("subsidy_change",
      re.compile(r"\b(subsidy|incentive scheme|PLI)\b", re.I)),
     # Tested BEFORE the generic regulatory rule: these notices carry

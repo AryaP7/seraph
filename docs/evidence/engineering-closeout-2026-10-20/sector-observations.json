@@ -1,0 +1,20 @@
+Traceback (most recent call last):
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\write_hawkes_sectors.py", line 37, in <module>
+    print(json.dumps(asyncio.run(run(parser.parse_args())), indent=2))
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\AppData\Roaming\uv\python\cpython-3.12.14-windows-x86_64-none\Lib\asyncio\runners.py", line 195, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\AppData\Roaming\uv\python\cpython-3.12.14-windows-x86_64-none\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\AppData\Roaming\uv\python\cpython-3.12.14-windows-x86_64-none\Lib\asyncio\base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\scripts\write_hawkes_sectors.py", line 23, in run
+    result = observe(stream, timeline, TARIFF_SECTOR_BASKET,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\seraph\pillars\hawkes\sectors.py", line 38, in observe
+    indices = [np.flatnonzero((days >= lo) & (days <= hi)) for lo, hi in ranges]
+                               ^^^^^^^^^^
+numpy._core._exceptions._UFuncNoLoopError: ufunc 'greater_equal' did not contain a loop with signature matching types (<class 'numpy.dtypes.Float64DType'>, <class 'numpy.dtypes.StrDType'>) -> None

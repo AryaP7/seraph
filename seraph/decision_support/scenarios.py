@@ -36,13 +36,13 @@ from typing import Literal
 from seraph.identity import AuthorizationError, IdentityRegistry, Principal
 from seraph.shared_types import IST, ist_timestamp
 
-ENGINE_VERSION = "c11.scenario/2026-10-16.1"
+ENGINE_VERSION = "c11.scenario/2026-10-21.1"
 
-ScenarioKind = Literal["rank_shock", "regime_path", "economic"]
+ScenarioKind = Literal["rank_shock", "regime_path", "macro_path", "defensive", "economic"]
 
 #: Kinds whose results mean something today. `economic` needs a documented
 #: propagation and portfolio-valuation model, which does not exist.
-SUPPORTED_KINDS = ("rank_shock", "regime_path")
+SUPPORTED_KINDS = ("rank_shock", "regime_path", "macro_path", "defensive")
 
 
 def _now() -> str:
@@ -447,6 +447,8 @@ class ScenarioStore:
 
 
 _SEMANTICS = {
+    "macro_path": "Hypothetical named covariates through a persisted fitted TVTP mapping; Hamilton production exclusion remains in force.",
+    "defensive": "Ex-post wealth comparison under supplied executable prices, timing and costs; not a prospective trading recommendation.",
     "rank_shock": (
         "shifts a pillar's ECDF rank. +0.1 is a tenth of the rank distribution, "
         "NOT a 10% price move. It is an expert sensitivity diagnostic, not a "

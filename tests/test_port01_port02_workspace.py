@@ -129,6 +129,30 @@ def test_preview_writes_nothing(owner):
         "unavailable"
 
 
+def test_active_saved_book_resolves_both_consumers_and_role_scope(owner):
+    from seraph.dashboard.workspace_service import active_portfolio
+    registry, workspace, principal = owner
+    book = workspace.create_portfolio(principal, name='Active')
+    preview = workspace.preview_import(principal, book['portfolio_id'], CSV,
+                                       source_name='book.csv')
+    workspace.commit_import(principal, book['portfolio_id'], preview, CSV,
+                            effective_at='2024-06-30T15:30:00+05:30')
+    selection = dict(portfolio_id=book['portfolio_id'], role='retail',
+                     basis='historical')
+    bundle = dict(registry=registry, workspace=workspace)
+    result = active_portfolio(selection, 'retail',
+        at='2024-07-01T15:30:00+05:30', bundle=bundle, principal=principal)
+    assert result['overlay']['totalValue'] == 46000
+    assert {r['symbol'] for r in result['holdings']} == {'RELIANCE', 'TCS'}
+    assert result['context']['basis'] == 'historical'
+    assert active_portfolio(selection, 'retail', at='2020-01-01T15:30:00+05:30',
+        bundle=bundle, principal=principal)['holdings'] == []
+    with pytest.raises(ValueError, match='another role'):
+        active_portfolio(selection, 'institutional',
+                         at='2024-07-01T15:30:00+05:30',
+                         bundle=bundle, principal=principal)
+
+
 def test_commit_saves_a_snapshot_and_preserves_the_original_bytes(owner):
     _, workspace, principal = owner
     book = workspace.create_portfolio(principal, name="Main")

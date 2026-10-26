@@ -1,0 +1,28 @@
+Actual C4 observations: 1/305 through 2025-06-02
+Actual C4 observations: 26/305 through 2025-07-07
+Actual C4 observations: 51/305 through 2025-08-11
+Actual C4 observations: 76/305 through 2025-09-17
+Actual C4 observations: 101/305 through 2025-10-24
+Actual C4 observations: 126/305 through 2025-12-01
+Actual C4 observations: 151/305 through 2026-01-06
+Actual C4 observations: 176/305 through 2026-02-11
+Actual C4 observations: 201/305 through 2026-03-19
+Actual C4 observations: 226/305 through 2026-04-29
+Actual C4 observations: 251/305 through 2026-06-05
+Actual C4 observations: 276/305 through 2026-07-13
+Actual C4 observations: 301/305 through 2026-08-17
+{
+  "path": "prototype_runs\\hamilton_projection\\038ff111b12c1aff4d05d21f177474b57726253c86d7e4f07857259c6604209d.json",
+  "artifact_id": "038ff111b12c1aff4d05d21f177474b57726253c86d7e4f07857259c6604209d",
+  "training_end": "2026-08-21",
+  "round_trip_verified": true,
+  "warnings": [
+    {
+      "code": "PARTIAL_COVERAGE",
+      "message": "crisis/tranquil RV separation is 2.65 sigma, below NFR17's 3-sigma target \u2014 regimes may be weakly identified",
+      "context": {
+        "separationSigma": 2.652
+      }
+    }
+  ]
+}

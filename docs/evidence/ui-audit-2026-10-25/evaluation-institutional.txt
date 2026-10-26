@@ -1,0 +1,642 @@
+Browser tab: 1, Title: "SERAPH", URL: "http://127.0.0.1:8520/".
+1 AXWebArea SERAPH, URL: 127.0.0.1:8520/
+	2 container
+		3 container
+			4 link Description: Skip to main content, Value: 127.0.0.1:8520/#stMain
+			5 container stMain
+				123 text Building the news channel…
+				6 container app.seraph_redesigned_console
+					7 AXWebArea SERAPH — Systemic Risk Early-Warning · NSE, URL: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F
+						8 container shell
+							9 container
+								10 text SER APH
+								11 link Description: CURRENT, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								12 link Description: RISK MAP, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								13 link Description: HISTORICAL, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								14 link Description: CONSOLE, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								15 link Description: SIGNAL FEED, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								16 link Description: PILLARS, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								17 link Description: EXPOSURE, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								18 link Description: FORECASTS, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								19 link Description: EARLY WARNING, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								20 link Description: WORKSPACE, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								21 link Description: EVALUATION, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								22 link Description: HEALTH, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								23 link Description: TOOLS, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								24 link Description: METHOD, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								25 text HISTORICAL + TAGGED PREVIEWS
+								26 container roles
+									27 button REGULATOR
+									28 button INSTITUTIONAL
+									29 button RETAIL
+								30 text  LOCAL CLOCK — 
+								850 text 00:06:01
+								32 text  IST
+								33 text 1,019 desks · FABRICATED
+								34 button VIEW BACKTEST
+							854 text EVALUATION
+							36 container preview-banner
+								126 text NOT A CURRENT MARKET READING  — the newest observation is 2369.4 days old. Anything computed from it is a REPLAY of that period, not a statement about the market now, and must be labelled as such | observed 2020-04-30T15:30:00+05:30 · now 2026-10-26T00:04:29+05:30 · market pre_open · feed: none — not connected, unauthenticated
+								127 text RUN 37bccf32974201f0 · 2020-04-30 · INSTITUTIONAL | STALE — newest item 8 min old; 4 of 22 sources past the freshness policy they declared. Nothing on screen reflects what has happened since. | NEWS current_news 2026-10-26T00:04:29+05:30 | 18/22 feeds fresh | CONNECTED: SIGNALS, SECTOR_STRESS, GEOGRAPHY, ASSETS | 12 evidenced map node(s) | MARKET 2020-04-30T15:30:00+05:30
+							39 container ticker
+								40 text FABRICATED PREVIEW NIFTY 50 24,812.30   0.34% BANK NIFTY 52,406.85   0.21% NIFTY METAL 9,140.20   1.86% NIFTY PHARMA 21,558.45   0.92% NIFTY AUTO 25,033.10   1.24% NIFTY IT 38,902.60   0.44% INDIA VIX 13.82   1.10% USD/INR 83.41   0.18%
+							852 container viewExtra
+								853 heading EVALUATION, Value: 4, ID: extra-title
+									855 text EVALUATION
+								856 container extra-content
+									857 text PRE-REGISTERED DESIGN
+									858 text committed once, by a person
+									859 text design hash
+									860 text c2d71ea22ef30ffa…
+									861 text Table-B scope
+									862 text two_epoch
+									863 text configurations
+									864 text 26
+									865 text intact
+									866 text yes
+									867 text MEASURED CELLS
+									868 text 0
+									869 text folds with an AUC
+									870 text UNAVAILABLE CELLS
+									871 text 152
+									872 text each retained with a reason
+									873 text NOT PUBLISHABLE
+									874 text 152
+									875 text withheld from metrics
+									876 text NOT A SINGLE RANKING
+									877 text Tables A, B and C answer three different questions, are not directly comparable, and must not be placed in a single ranking. A (4 folds) is the full pillar set where Hawkes exists; B (2 folds) is RMT/Hamilton where Hawkes cannot exist; C (6 folds) is RMT/Hamilton over the whole labelled period, which overlaps A on four of its six folds
+									878 text TABLE A
+									879 text 4 folds declared
+									880 table
+										881 row
+											882 cell
+												883 text SUBSET
+											884 cell
+												885 text MODE
+											886 cell
+												887 text XI
+											888 cell
+												889 text FOLDS
+											890 cell
+												891 text MEAN AUC
+											892 cell
+												893 text ABSENCES
+										894 row
+											895 cell
+												896 text hamilton
+											897 cell
+												898 text forward_fill
+											899 cell
+												900 text hamilton
+											901 cell
+												902 text 0/4
+											903 cell
+												904 text —
+											905 cell
+												906 text insufficient_test_sample ×3, structural_pillar_absence ×1
+										907 row
+											908 cell
+												909 text hamilton
+											910 cell
+												911 text kalman
+											912 cell
+												913 text hamilton
+											914 cell
+												915 text 0/4
+											916 cell
+												917 text —
+											918 cell
+												919 text insufficient_test_sample ×3, structural_pillar_absence ×1
+										920 row
+											921 cell
+												922 text hawkes
+											923 cell
+												924 text forward_fill
+											925 cell
+												926 text hamilton
+											927 cell
+												928 text 0/4
+											929 cell
+												930 text —
+											931 cell
+												932 text insufficient_test_sample ×3, structural_pillar_absence ×1
+										933 row
+											934 cell
+												935 text hawkes
+											936 cell
+												937 text kalman
+											938 cell
+												939 text hamilton
+											940 cell
+												941 text 0/4
+											942 cell
+												943 text —
+											944 cell
+												945 text insufficient_test_sample ×3, structural_pillar_absence ×1
+										946 row
+											947 cell
+												948 text rmt
+											949 cell
+												950 text forward_fill
+											951 cell
+												952 text hamilton
+											953 cell
+												954 text 0/4
+											955 cell
+												956 text —
+											957 cell
+												958 text insufficient_test_sample ×3, insufficient_training_sample ×1
+										959 row
+											960 cell
+												961 text rmt
+											962 cell
+												963 text kalman
+											964 cell
+												965 text hamilton
+											966 cell
+												967 text 0/4
+											968 cell
+												969 text —
+											970 cell
+												971 text insufficient_test_sample ×3, insufficient_training_sample ×1
+										972 row
+											973 cell
+												974 text hawkes+hamilton
+											975 cell
+												976 text forward_fill
+											977 cell
+												978 text hamilton
+											979 cell
+												980 text 0/4
+											981 cell
+												982 text —
+											983 cell
+												984 text insufficient_test_sample ×3, structural_pillar_absence ×1
+										985 row
+											986 cell
+												987 text hawkes+hamilton
+											988 cell
+												989 text kalman
+											990 cell
+												991 text hamilton
+											992 cell
+												993 text 0/4
+											994 cell
+												995 text —
+											996 cell
+												997 text insufficient_test_sample ×3, structural_pillar_absence ×1
+										998 row
+											999 cell
+												1000 text hawkes+rmt
+											1001 cell
+												1002 text forward_fill
+											1003 cell
+												1004 text hamilton
+											1005 cell
+												1006 text 0/4
+											1007 cell
+												1008 text —
+											1009 cell
+												1010 text insufficient_test_sample ×3, structural_pillar_absence ×1
+										1011 row
+											1012 cell
+												1013 text hawkes+rmt
+											1014 cell
+												1015 text kalman
+											1016 cell
+												1017 text hamilton
+											1018 cell
+												1019 text 0/4
+											1020 cell
+												1021 text —
+											1022 cell
+												1023 text insufficient_test_sample ×3, structural_pillar_absence ×1
+										1024 row
+											1025 cell
+												1026 text rmt+hamilton
+											1027 cell
+												1028 text forward_fill
+											1029 cell
+												1030 text hamilton
+											1031 cell
+												1032 text 0/4
+											1033 cell
+												1034 text —
+											1035 cell
+												1036 text insufficient_test_sample ×3, structural_pillar_absence ×1
+										1037 row
+											1038 cell
+												1039 text rmt+hamilton
+											1040 cell
+												1041 text kalman
+											1042 cell
+												1043 text hamilton
+											1044 cell
+												1045 text 0/4
+											1046 cell
+												1047 text —
+											1048 cell
+												1049 text insufficient_test_sample ×3, structural_pillar_absence ×1
+										1050 row
+											1051 cell
+												1052 text hawkes+rmt+hamilton
+											1053 cell
+												1054 text forward_fill
+											1055 cell
+												1056 text hamilton
+											1057 cell
+												1058 text 0/4
+											1059 cell
+												1060 text —
+											1061 cell
+												1062 text insufficient_test_sample ×3, structural_pillar_absence ×1
+										1063 row
+											1064 cell
+												1065 text hawkes+rmt+hamilton
+											1066 cell
+												1067 text kalman
+											1068 cell
+												1069 text hamilton
+											1070 cell
+												1071 text 0/4
+											1072 cell
+												1073 text —
+											1074 cell
+												1075 text insufficient_test_sample ×3, structural_pillar_absence ×1
+									1076 text TABLE B
+									1077 text 2 folds declared
+									1078 table
+										1079 row
+											1080 cell
+												1081 text SUBSET
+											1082 cell
+												1083 text MODE
+											1084 cell
+												1085 text XI
+											1086 cell
+												1087 text FOLDS
+											1088 cell
+												1089 text MEAN AUC
+											1090 cell
+												1091 text ABSENCES
+										1092 row
+											1093 cell
+												1094 text hamilton
+											1095 cell
+												1096 text forward_fill
+											1097 cell
+												1098 text hamilton
+											1099 cell
+												1100 text 0/2
+											1101 cell
+												1102 text —
+											1103 cell
+												1104 text insufficient_test_sample ×2
+										1105 row
+											1106 cell
+												1107 text hamilton
+											1108 cell
+												1109 text forward_fill
+											1110 cell
+												1111 text uniform
+											1112 cell
+												1113 text 0/2
+											1114 cell
+												1115 text —
+											1116 cell
+												1117 text insufficient_test_sample ×2
+										1118 row
+											1119 cell
+												1120 text hamilton
+											1121 cell
+												1122 text kalman
+											1123 cell
+												1124 text hamilton
+											1125 cell
+												1126 text 0/2
+											1127 cell
+												1128 text —
+											1129 cell
+												1130 text insufficient_test_sample ×2
+										1131 row
+											1132 cell
+												1133 text hamilton
+											1134 cell
+												1135 text kalman
+											1136 cell
+												1137 text uniform
+											1138 cell
+												1139 text 0/2
+											1140 cell
+												1141 text —
+											1142 cell
+												1143 text insufficient_test_sample ×2
+										1144 row
+											1145 cell
+												1146 text rmt
+											1147 cell
+												1148 text forward_fill
+											1149 cell
+												1150 text hamilton
+											1151 cell
+												1152 text 0/2
+											1153 cell
+												1154 text —
+											1155 cell
+												1156 text insufficient_test_sample ×2
+										1157 row
+											1158 cell
+												1159 text rmt
+											1160 cell
+												1161 text forward_fill
+											1162 cell
+												1163 text uniform
+											1164 cell
+												1165 text 0/2
+											1166 cell
+												1167 text —
+											1168 cell
+												1169 text insufficient_test_sample ×2
+										1170 row
+											1171 cell
+												1172 text rmt
+											1173 cell
+												1174 text kalman
+											1175 cell
+												1176 text hamilton
+											1177 cell
+												1178 text 0/2
+											1179 cell
+												1180 text —
+											1181 cell
+												1182 text insufficient_test_sample ×2
+										1183 row
+											1184 cell
+												1185 text rmt
+											1186 cell
+												1187 text kalman
+											1188 cell
+												1189 text uniform
+											1190 cell
+												1191 text 0/2
+											1192 cell
+												1193 text —
+											1194 cell
+												1195 text insufficient_test_sample ×2
+										1196 row
+											1197 cell
+												1198 text rmt+hamilton
+											1199 cell
+												1200 text forward_fill
+											1201 cell
+												1202 text hamilton
+											1203 cell
+												1204 text 0/2
+											1205 cell
+												1206 text —
+											1207 cell
+												1208 text insufficient_test_sample ×2
+										1209 row
+											1210 cell
+												1211 text rmt+hamilton
+											1212 cell
+												1213 text forward_fill
+											1214 cell
+												1215 text uniform
+											1216 cell
+												1217 text 0/2
+											1218 cell
+												1219 text —
+											1220 cell
+												1221 text insufficient_test_sample ×2
+										1222 row
+											1223 cell
+												1224 text rmt+hamilton
+											1225 cell
+												1226 text kalman
+											1227 cell
+												1228 text hamilton
+											1229 cell
+												1230 text 0/2
+											1231 cell
+												1232 text —
+											1233 cell
+												1234 text insufficient_test_sample ×2
+										1235 row
+											1236 cell
+												1237 text rmt+hamilton
+											1238 cell
+												1239 text kalman
+											1240 cell
+												1241 text uniform
+											1242 cell
+												1243 text 0/2
+											1244 cell
+												1245 text —
+											1246 cell
+												1247 text insufficient_test_sample ×2
+									1248 text TABLE C
+									1249 text 6 folds declared
+									1250 table
+										1251 row
+											1252 cell
+												1253 text SUBSET
+											1254 cell
+												1255 text MODE
+											1256 cell
+												1257 text XI
+											1258 cell
+												1259 text FOLDS
+											1260 cell
+												1261 text MEAN AUC
+											1262 cell
+												1263 text ABSENCES
+										1264 row
+											1265 cell
+												1266 text hamilton
+											1267 cell
+												1268 text forward_fill
+											1269 cell
+												1270 text hamilton
+											1271 cell
+												1272 text 0/6
+											1273 cell
+												1274 text —
+											1275 cell
+												1276 text insufficient_test_sample ×5, structural_pillar_absence ×1
+										1277 row
+											1278 cell
+												1279 text hamilton
+											1280 cell
+												1281 text forward_fill
+											1282 cell
+												1283 text uniform
+											1284 cell
+												1285 text 0/6
+											1286 cell
+												1287 text —
+											1288 cell
+												1289 text insufficient_test_sample ×5, structural_pillar_absence ×1
+										1290 row
+											1291 cell
+												1292 text hamilton
+											1293 cell
+												1294 text kalman
+											1295 cell
+												1296 text hamilton
+											1297 cell
+												1298 text 0/6
+											1299 cell
+												1300 text —
+											1301 cell
+												1302 text insufficient_test_sample ×5, structural_pillar_absence ×1
+										1303 row
+											1304 cell
+												1305 text hamilton
+											1306 cell
+												1307 text kalman
+											1308 cell
+												1309 text uniform
+											1310 cell
+												1311 text 0/6
+											1312 cell
+												1313 text —
+											1314 cell
+												1315 text insufficient_test_sample ×5, structural_pillar_absence ×1
+										1316 row
+											1317 cell
+												1318 text rmt
+											1319 cell
+												1320 text forward_fill
+											1321 cell
+												1322 text hamilton
+											1323 cell
+												1324 text 0/6
+											1325 cell
+												1326 text —
+											1327 cell
+												1328 text insufficient_test_sample ×5, insufficient_training_sample ×1
+										1329 row
+											1330 cell
+												1331 text rmt
+											1332 cell
+												1333 text forward_fill
+											1334 cell
+												1335 text uniform
+											1336 cell
+												1337 text 0/6
+											1338 cell
+												1339 text —
+											1340 cell
+												1341 text insufficient_test_sample ×5, insufficient_training_sample ×1
+										1342 row
+											1343 cell
+												1344 text rmt
+											1345 cell
+												1346 text kalman
+											1347 cell
+												1348 text hamilton
+											1349 cell
+												1350 text 0/6
+											1351 cell
+												1352 text —
+											1353 cell
+												1354 text insufficient_test_sample ×5, insufficient_training_sample ×1
+										1355 row
+											1356 cell
+												1357 text rmt
+											1358 cell
+												1359 text kalman
+											1360 cell
+												1361 text uniform
+											1362 cell
+												1363 text 0/6
+											1364 cell
+												1365 text —
+											1366 cell
+												1367 text insufficient_test_sample ×5, insufficient_training_sample ×1
+										1368 row
+											1369 cell
+												1370 text rmt+hamilton
+											1371 cell
+												1372 text forward_fill
+											1373 cell
+												1374 text hamilton
+											1375 cell
+												1376 text 0/6
+											1377 cell
+												1378 text —
+											1379 cell
+												1380 text insufficient_test_sample ×5, structural_pillar_absence ×1
+										1381 row
+											1382 cell
+												1383 text rmt+hamilton
+											1384 cell
+												1385 text forward_fill
+											1386 cell
+												1387 text uniform
+											1388 cell
+												1389 text 0/6
+											1390 cell
+												1391 text —
+											1392 cell
+												1393 text insufficient_test_sample ×5, structural_pillar_absence ×1
+										1394 row
+											1395 cell
+												1396 text rmt+hamilton
+											1397 cell
+												1398 text kalman
+											1399 cell
+												1400 text hamilton
+											1401 cell
+												1402 text 0/6
+											1403 cell
+												1404 text —
+											1405 cell
+												1406 text insufficient_test_sample ×5, structural_pillar_absence ×1
+										1407 row
+											1408 cell
+												1409 text rmt+hamilton
+											1410 cell
+												1411 text kalman
+											1412 cell
+												1413 text uniform
+											1414 cell
+												1415 text 0/6
+											1416 cell
+												1417 text —
+											1418 cell
+												1419 text insufficient_test_sample ×5, structural_pillar_absence ×1
+									1420 text UNAVAILABLE CELLS
+									1421 text each is a result, not a gap
+									1422 table
+										1423 row
+											1424 cell
+												1425 text REASON
+											1426 cell
+												1427 text FOLDS
+										1428 row
+											1429 cell
+												1430 text insufficient_test_sample
+											1431 cell
+												1432 text 126
+										1433 row
+											1434 cell
+												1435 text structural_pillar_absence
+											1436 cell
+												1437 text 20
+										1438 row
+											1439 cell
+												1440 text insufficient_training_sample
+											1441 cell
+												1442 text 6
+									1443 text Each is retained in the artefact with its reason rather than dropped, which is what makes the ablation falsifiable (FR35/FR36).
+							119 container
+								1444 text NEWS CHANNEL · LIVE · 2328 ELIGIBLE EVENTS
+								1445 text OTHER — SBI Mutual Fund - SBI Nifty50 Equal Weight ETF · OTHER — Moschip Technologies Limited · PHYSICAL_HAZARD — M 4.6 - 153 km WNW of Adak, Alaska · PHYSICAL_HAZARD — M 5.2 - 59 km SW of Ashkāsham, Afghanistan · PHYSICAL_HAZARD — M 4.7 - 19 km NE of Atico, Peru · OTHER — प्रधानमंत्री ने वाराणसी यात्रा की झलकियाँ साझा कीं · OTHER — &#2327;&#2357;&#2352;&#2381;&#2344;&#2352; &#2325;&#2366; &#2360;&#2381;&#2357;&#2366;&#2327;&#2340; &#2360;&#2306;&#2348;&#2379;&#2343;&#2344; - RBI &#2325;&#2375; &#2337;&#2375;&#2335;&#2366; &#2360;&#2375;&#2306;&#2335;&#2352; &#2324;&#2352; &#2360;&#2366;&#2311;&#2348;&#2352; &#2360;&#2369;&#2352;&#2325;&#2381;&#2359;&#2366; &#2346;&#2381;&#2352;&#2358;&#2367;&#2325;&#2381;&#2359;&#2339; &#2360;&#2306;&#2360;&#2381;&#2341;&#2366;&#2344; &#2325;&#2366; &#2313;&#2342;&#2381;&#2328;&#2366;&#2335;&#2344; - · FACILITY_INCIDENT — Green forest fire notification in South Sudan · FACILITY_INCIDENT — Green forest fire notification in Zambia · OTHER — Ravindra Energy Limited · FACILITY_INCIDENT — Green forest fire notification in Zambia, Malawi · FACILITY_INCIDENT — Green forest fire notification in Senegal · REGULATORY_ACTION — सीसीपीए ने भ्रामक विज्ञापनों और वॉकी-टॉकी की गैर-अनुपालन बिक्री के खिलाफ कार्रवाई तेज की · OTHER — Green notification for tropical cyclone VANCE-26. Population affected by Category 1 (120 km/h) wind speeds or higher is 0 (0 in Tropical Storm). · OTHER — SKP Bearing Industries Limited · OTHER — एनआईएफटीईएम-के ने भारत के पहले ‘एआई × फूड टेक हैकाथॉन’, ‘हैक द फोर्क’ का आयोजन किया · FACILITY_INCIDENT — Green forest fire notification in Mali · OTHER — ECL Finance Limited · OTHER — ‘विकसित भारत 2047’ की दिशा में शहरी प्रशासन, योजना और सेवाओं की आपूर्ति को मजबूत करने संबंधी व्यावहारिक सुझावों के साथ ‘राष्ट्रीय शहरी सम्मेलन 2026’ संपन्न · OTHER — 12वां ब्रिक्स संसदीय मंच कल संसद भवन परिसर में आयोजित होगा · FACILITY_INCIDENT — Green forest fire notification in Mauritania, Mali · OTHER — GMR AIRPORTS LIMITED · OTHER — Aditya Birla Sun Life Insurance Company Limited · OTHER — Green notification for tropical cyclone IN-FA-26. Population affected by Category 1 (120 km/h) wind speeds or higher is 0 (0 in Tropical Storm). · OTHER — उपराष्ट्रपति सी. पी. राधाकृष्णन 26-27 अक्टूबर को आंध्र प्रदेश के दौरे पर रहेंगे · OTHER — Red notification for tropical cyclone CHAMPI-26. Population affected by Category 1 (120 km/h) wind speeds or higher is 0.291 million . · OTHER — Hon’ble Prime Minister of India inaugurates the Reserve Bank of India’s Data Centre and Cybersecurity Training Institute in Bhubaneswar, Odisha · OTHER — भुवनेश्वर में आरबीआइ की प्रमुख सुविधाओं के उद्घाटन के दौरान प्रधानमंत्री के संबोधन का मूल पाठ · OTHER — प्रधानमंत्री श्री नरेन्द्र मोदी ने ओडिशा के भुवनेश्वर में आरबीआई के नवनिर्मित डेटा सेंटर और साइबर सुरक्षा प्रशिक्षण संस्थान का उद्घाटन किया · OTHER — Green notification for tropical cyclone THREE-C-26. Population affected by Category 1 (120 km/h) wind speeds or higher is 0 (0 in Tropical Storm).
+						122 container req-status-global
+							777 text ● NO RESPONSE  — no response in 15s. Retry sends the same request id, so a request that did arrive cannot be applied twice. 
+							778 button Retry, ID: req-retry
+							779 button Cancel, ID: req-cancel
+
+The focused UI element is 21 link Description: EVALUATION, URL: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#

@@ -1,0 +1,8 @@
+{
+  "command": "python -m pytest tests -q --maxfail=1 --durations=8 -o faulthandler_timeout=300 --junitxml=full-suite-final.xml",
+  "status": "native_process_crash",
+  "exit_code": 5,
+  "test": "tests/contract/test_ct7_simulator_consistency.py::test_fr48_policy_path_routes_through_the_fitted_regime_model",
+  "diagnostic": "After the 300-second stack dump, Windows reported an access violation in the numerical stack. Active stack: statsmodels MarkovSwitchingResults.cov_params_approx -> model.hessian -> approx_hess_cs -> loglike -> TVTP transition matrix -> scipy.special.logsumexp -> numpy dtype operations. No complete JUnit report was produced.",
+  "recovery": "ct7-projection-recovery.xml: all 8 contracts passed in 390.565 seconds after disabling unused post-fit parameter covariance. Fitted optimisation, filtering and emission variance are unchanged. This targeted recovery is not a completed full-suite pass."
+}

@@ -1,0 +1,13 @@
+{
+  "design_ref": "docs/evidence/engineering-closeout-2026-10-21/NETWORK-DIAGNOSTIC-DESIGN.md",
+  "model_status": "proposed_unadopted",
+  "decay": 0.5,
+  "dispersion": 10.0,
+  "l2": 0.01,
+  "minimum_bars": 750,
+  "minimum_events": 10,
+  "stationarity_bound": 0.95,
+  "seasonality": "training_tod",
+  "session_reset": true,
+  "display_threshold": 0.001
+}

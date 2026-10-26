@@ -174,10 +174,9 @@ def sessions_to_acquire(*, latest_stored: str | None, expected: str,
                         clock=None, limit: int | None = None) -> list[str]:
     """Trading days the corpus is missing, oldest first.
 
-    Trading days by the same weekday-plus-registry rule the scheduler uses
-    (`MarketClock.is_session`), because no exchange holiday calendar exists
-    here. A holiday therefore appears in this list and comes back
-    `not_published`, which is the honest outcome and costs one request.
+    Trading days use the scheduler's configured calendar (`MarketClock.is_session`).
+    Outside verified coverage the historical registry may still include an
+    unlisted holiday; its archive response remains `not_published`.
     """
     from seraph.live.clock import MarketClock
 

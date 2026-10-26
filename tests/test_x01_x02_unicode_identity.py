@@ -282,8 +282,14 @@ class TestX02bTheShippedRegistryExercisesNonLatinNames:
         If this fails after a curated edit, re-derive the numbers from the
         loader rather than adjusting them to whatever came out -- the whole
         point of asserting a count is that a silent row loss is caught.
+
+        Entities went 22 -> 58 on 2026-10-24: 36 energy-industry issuers
+        from NSE's own Nifty 500 constituent list (its `Industry` column is
+        the cited sector, not a judgement). Re-derived from the loader, and
+        the other three counts are asserted UNCHANGED on purpose -- adding
+        entities must not touch a place, asset or edge.
         """
-        assert len(master.entities) == 22
+        assert len(master.entities) == 58
         assert len(master.places) == 19
         assert len(master.assets) == 28
         assert len(master.edges) == 64

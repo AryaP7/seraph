@@ -1,0 +1,11 @@
+{
+  "recorded_at": "2026-10-22T05:56:23.398052+05:30",
+  "files": {
+    "scripts/warm_runtime_history.py": "37e576e7b1db7d31899553b826733509c357742ca08dce2f32f7e4781277461d",
+    "scripts/run_daily.py": "9100f59aa7baf0c169afb7f9b04be941447628cb49f8732cb1581e2d28953deb",
+    "tests/test_closeout_input_contracts.py": "a2c83c6020e5c7908985a639810d472151d0f6fe4d0f976b3094c777791063cf",
+    "seraph/ingestion/bhavcopy_client.py": "278fcc0c95fb69a049e9ad53c9e07288781719c2c80626caba46b64596c4462f"
+  },
+  "verification": "runtime-resume-tests.xml plus final nine input-contract tests; invariant checker passed; full-suite remainder pending",
+  "behavior": "Resumable actual historical computation, compatible registered vintages only, actual receipt times, explicit admitted absence declarations, configured source selection."
+}

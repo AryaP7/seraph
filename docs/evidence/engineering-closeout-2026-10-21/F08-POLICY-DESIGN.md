@@ -1,0 +1,9 @@
+# F08 bounded actual-policy diagnostic
+
+Recorded before fitting on 2026-10-21. This uses the audit F08 route and the existing three-state multivariate TVTP Hamilton estimator, with its unchanged estimation settings. The production exclusion remains in force.
+
+Inputs: existing C4 RV/AR/BAS observations from 2025-06-02, bounded through 2026-07-23 (last supported policy observation). One covariate plus intercept: the preceding supplied market session's RBI repo policy rate, in percent per annum, from the BIS daily India series WS_CBPOL/D.IN. The source describes this as the official overnight repo rate after April 2001. Only finite published observations are admitted; no interpolation or invented release timestamp. Standardization uses only the selected training sample. No search over variables, windows or attractive results is performed.
+
+BIS supplies a latest-vintage series, received on October 21. Every source row retains that actual receipt time. This is explicitly `retrospective_latest_vintage`, not a historically available vintage and not an FR35 evaluation dataset. Alignment ignores the historical release cutoff only under this explicit mode and records that it is ineligible as causal replay evidence. The one-session lag controls observed date ordering; it does not turn a revised dataset into a historical vintage.
+
+Acceptance: save an explicit parameter/scaler/source artifact; loaded transitions must match the fitted engine. Project an explicit baseline repo path and a hypothetical +25 basis-point path, save/run/reopen/export in the canonical frontend. Rates are user assumptions; projected differences are conditional model sensitivities, not causal monetary-policy effects. An unchanged CSRS under Hamilton exclusion is expected and must be disclosed. Fit warnings and any weak separation remain part of the evidence. No fit of inflation, tariff or credit variables is claimed by this bounded example.

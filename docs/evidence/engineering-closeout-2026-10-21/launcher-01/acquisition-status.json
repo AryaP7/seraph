@@ -1,0 +1,18 @@
+{
+  "generated": "2026-10-21T09:49:54+05:30",
+  "acquisition": {
+    "ok": true,
+    "acquired": false,
+    "sessions": [],
+    "latest_before": "2026-10-19",
+    "latest_after": "2026-10-19",
+    "expected": "2026-10-19",
+    "note": "the corpus already reaches the expected session; nothing to acquire"
+  },
+  "derived": [],
+  "ok": true,
+  "acquired": false,
+  "corpus_cutoff": "2026-10-19",
+  "snapshot_cutoff": "2026-10-19",
+  "note": "executed, acquired nothing. Every requested session was already stored or not published (a holiday, or the file is not out yet). Nothing downstream is re-derived, because re-deriving unchanged inputs produces identical files."
+}

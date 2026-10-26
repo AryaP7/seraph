@@ -125,6 +125,9 @@ def main(output: Path) -> int:
                 cdp = CDP(ws)
                 cdp.call('Page.enable')
                 cdp.call('Runtime.enable')
+                downloads = output.resolve() / 'downloads'
+                downloads.mkdir(exist_ok=True)
+                cdp.call('Browser.setDownloadBehavior', behavior='allow', downloadPath=str(downloads))
                 cdp.call('Page.navigate', url=f'http://127.0.0.1:{app_port}')
                 context = cdp.component()
                 wait_for(cdp, context, "!!document.querySelector('#roles button')")
@@ -163,6 +166,18 @@ def main(output: Path) -> int:
                 cdp.evaluate("document.querySelector('#news-export-go').click()",
                              context)
                 report['export_status'] = wait_settled(cdp, context)
+                link = wait_for(cdp, context, "document.querySelector('#news-export-link')?.download")
+                report['download_link'] = link
+                if link:
+                    cdp.evaluate("document.querySelector('#news-export-link').click()", context)
+                    deadline = time.monotonic() + 30
+                    while not (downloads / link).exists() and time.monotonic() < deadline:
+                        time.sleep(.25)
+                    downloaded = json.loads((downloads / link).read_text(encoding='utf-8'))
+                    report['download_verified'] = bool(downloaded.get('analysis_id') and downloaded.get('matrix'))
+                    report['download_scenario_matches_inputs'] = (downloaded.get('scenario') or {}).get('inputs', {}).get('cost_base') == '1000000'
+                    report['download_decision_ts'] = downloaded.get('decision_ts')
+
 
                 # The result itself is rendered in the TOOLS view.
                 wait_idle(cdp, context)

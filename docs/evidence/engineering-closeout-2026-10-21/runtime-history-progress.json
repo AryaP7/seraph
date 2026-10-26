@@ -1,0 +1,63 @@
+{
+  "at": "2026-10-22T05:49:37.721831+05:30",
+  "observations": {
+    "hawkes": 0,
+    "rmt": 59,
+    "hamilton": 0
+  },
+  "threshold": 252,
+  "required_pillars": [
+    "rmt"
+  ],
+  "inputs": [
+    {
+      "producer": "hawkes",
+      "input_end": "2026-10-21T15:30:00+05:30",
+      "available_at": "2026-10-22T05:49:31+05:30",
+      "bundle_id": "hawkes:absence:98e42284b552238639115fee2836ad72ff10f5ffd72d1550a315368a7e69bfda",
+      "absence": "structural",
+      "value": null,
+      "refusal": null
+    },
+    {
+      "producer": "rmt",
+      "input_end": "2026-10-21T15:30:00+05:30",
+      "available_at": "2026-10-21T18:32:33+05:30",
+      "bundle_id": "rmt:bce043369de242d1cb4bcf2912f7fc6e610f4c9f17ab4bd2950e725ed2d49f02",
+      "absence": null,
+      "value": 0.23279687397479643,
+      "refusal": null
+    },
+    {
+      "producer": "hamilton",
+      "input_end": "2026-10-21T15:30:00+05:30",
+      "available_at": "2026-10-22T05:49:31+05:30",
+      "bundle_id": "hamilton:absence:15c8b6eac19df1e086b5e549979214cfab24bea1628cc59c1eeb124ace66b0cd",
+      "absence": "structural",
+      "value": null,
+      "refusal": null
+    }
+  ],
+  "history_ready": false,
+  "all_latest_inputs_admitted": true,
+  "rejected_history": [
+    {
+      "vintage": "2026-08-20T15:25:00+05:30",
+      "reason": "bundle original hawkes (research snapshot) is not registered"
+    },
+    {
+      "vintage": "2026-10-19T15:30:00+05:30",
+      "reason": "bundle original rmt is not registered"
+    },
+    {
+      "vintage": "2026-08-21T15:30:00+05:30",
+      "reason": "bundle original rmt is not registered"
+    },
+    {
+      "vintage": "2026-08-20T15:30:00+05:30",
+      "reason": "bundle original rmt is not registered"
+    }
+  ],
+  "decision_produced": false,
+  "note": "Real store copy and canonical cold start. No feed connection, closed bar or current-score claim."
+}

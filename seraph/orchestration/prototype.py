@@ -69,11 +69,11 @@ class InferenceSession:
     Restart is deterministic replay from immutable input, not unversioned
     deserialization of mutable estimator internals.
     """
-    def __init__(self, calendar, *, decision_clock=None):
+    def __init__(self, calendar, *, decision_clock=None, reconciliation_mode="kalman"):
         dates = [date.fromisoformat(d) for d in calendar]
         self.clock = decision_clock or DecisionClock(
             SessionCalendar(session_dates=frozenset(calendar)))
-        self.filter = KalmanReconciler(session_dates=dates,
+        self.filter = KalmanReconciler(session_dates=dates, mode=reconciliation_mode,
             session_hours=self.clock.calendar.hours_map())
         self.history = {p:[] for p in ORDER}
         self.last = None

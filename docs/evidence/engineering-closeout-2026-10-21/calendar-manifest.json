@@ -1,0 +1,90 @@
+{
+  "schema": "nse-cash-calendar/1",
+  "start": "2026-10-19",
+  "end": "2026-10-23",
+  "evidence": [
+    {
+      "url": "https://nsearchives.nseindia.com/content/circulars/CMTR71775.pdf",
+      "file": "2026-10-21/holidays.pdf",
+      "sha256": "aa97e0afc0ce394097f2fc62631c68e3c2e4c7c23541ed35f21d9fc06b0dcacb",
+      "retrieved_at": "2026-10-21T09:46:01.065671+05:30"
+    },
+    {
+      "url": "https://www.nseindia.com/static/market-data/market-timings",
+      "file": "2026-10-21/hours.html",
+      "sha256": "cd24dfafd1f98ae262b63cbb63ca5f40b1202af3d9d2673ecdab8af0fc36fd80",
+      "retrieved_at": "2026-10-21T09:46:02.056753+05:30"
+    }
+  ],
+  "days": [
+    {
+      "date": "2026-10-19",
+      "status": "open",
+      "evidence_indices": [
+        0,
+        1
+      ],
+      "kind": "regular",
+      "windows": [
+        [
+          "09:15:00",
+          "15:30:00"
+        ]
+      ]
+    },
+    {
+      "date": "2026-10-20",
+      "status": "closed",
+      "evidence_indices": [
+        0,
+        1
+      ]
+    },
+    {
+      "date": "2026-10-21",
+      "status": "open",
+      "evidence_indices": [
+        0,
+        1
+      ],
+      "kind": "regular",
+      "windows": [
+        [
+          "09:15:00",
+          "15:30:00"
+        ]
+      ]
+    },
+    {
+      "date": "2026-10-22",
+      "status": "open",
+      "evidence_indices": [
+        0,
+        1
+      ],
+      "kind": "regular",
+      "windows": [
+        [
+          "09:15:00",
+          "15:30:00"
+        ]
+      ]
+    },
+    {
+      "date": "2026-10-23",
+      "status": "open",
+      "evidence_indices": [
+        0,
+        1
+      ],
+      "kind": "regular",
+      "windows": [
+        [
+          "09:15:00",
+          "15:30:00"
+        ]
+      ]
+    }
+  ],
+  "note": "Bounded current-week transcription; no authority outside this interval. October 20 is Dussehra. Ordinary NSE cash hours; not derivatives or pre-open hours."
+}

@@ -1,0 +1,441 @@
+{
+  "splitPolicy": "leave_one_epoch_out",
+  "tableBScope": "two_epoch",
+  "tableBScopeDecision": "DR-05, owner decision recorded 2026-10-16: Table B is the two pre-Hawkes epochs (gfc_2008, taper_2013). The six-epoch RMT/Hamilton run is retained as Table C",
+  "kappaMiss": 10.0,
+  "kappaFa": 1.0,
+  "primaryMetric": "auc",
+  "calibrationMaxIter": 1200,
+  "amberThreshold": 0.5,
+  "amberThresholdRule": "CSRS >= 0.5 sustained for 1 update; threshold fixed before evaluation, not tuned per configuration",
+  "reporting": "mean AUC with full per-fold spread; the ablation is DESCRIPTIVE, no configuration is selected as best and reported as a headline",
+  "tableComparability": "Tables A, B and C answer three different questions, are not directly comparable, and must not be placed in a single ranking. A (4 folds) is the full pillar set where Hawkes exists; B (2 folds) is RMT/Hamilton where Hawkes cannot exist; C (6 folds) is RMT/Hamilton over the whole labelled period, which overlaps A on four of its six folds",
+  "configurations": [
+    {
+      "table": "A",
+      "pillarSubset": [
+        "hamilton"
+      ],
+      "reconciliationMode": "kalman",
+      "epochs": [
+        "ilfs_2018",
+        "covid_2020",
+        "tightening_2022",
+        "tariff_2026"
+      ],
+      "folds": 4
+    },
+    {
+      "table": "A",
+      "pillarSubset": [
+        "hamilton"
+      ],
+      "reconciliationMode": "forward_fill",
+      "epochs": [
+        "ilfs_2018",
+        "covid_2020",
+        "tightening_2022",
+        "tariff_2026"
+      ],
+      "folds": 4
+    },
+    {
+      "table": "A",
+      "pillarSubset": [
+        "hawkes"
+      ],
+      "reconciliationMode": "kalman",
+      "epochs": [
+        "ilfs_2018",
+        "covid_2020",
+        "tightening_2022",
+        "tariff_2026"
+      ],
+      "folds": 4
+    },
+    {
+      "table": "A",
+      "pillarSubset": [
+        "hawkes"
+      ],
+      "reconciliationMode": "forward_fill",
+      "epochs": [
+        "ilfs_2018",
+        "covid_2020",
+        "tightening_2022",
+        "tariff_2026"
+      ],
+      "folds": 4
+    },
+    {
+      "table": "A",
+      "pillarSubset": [
+        "rmt"
+      ],
+      "reconciliationMode": "kalman",
+      "epochs": [
+        "ilfs_2018",
+        "covid_2020",
+        "tightening_2022",
+        "tariff_2026"
+      ],
+      "folds": 4
+    },
+    {
+      "table": "A",
+      "pillarSubset": [
+        "rmt"
+      ],
+      "reconciliationMode": "forward_fill",
+      "epochs": [
+        "ilfs_2018",
+        "covid_2020",
+        "tightening_2022",
+        "tariff_2026"
+      ],
+      "folds": 4
+    },
+    {
+      "table": "A",
+      "pillarSubset": [
+        "hawkes",
+        "hamilton"
+      ],
+      "reconciliationMode": "kalman",
+      "epochs": [
+        "ilfs_2018",
+        "covid_2020",
+        "tightening_2022",
+        "tariff_2026"
+      ],
+      "folds": 4
+    },
+    {
+      "table": "A",
+      "pillarSubset": [
+        "hawkes",
+        "hamilton"
+      ],
+      "reconciliationMode": "forward_fill",
+      "epochs": [
+        "ilfs_2018",
+        "covid_2020",
+        "tightening_2022",
+        "tariff_2026"
+      ],
+      "folds": 4
+    },
+    {
+      "table": "A",
+      "pillarSubset": [
+        "hawkes",
+        "rmt"
+      ],
+      "reconciliationMode": "kalman",
+      "epochs": [
+        "ilfs_2018",
+        "covid_2020",
+        "tightening_2022",
+        "tariff_2026"
+      ],
+      "folds": 4
+    },
+    {
+      "table": "A",
+      "pillarSubset": [
+        "hawkes",
+        "rmt"
+      ],
+      "reconciliationMode": "forward_fill",
+      "epochs": [
+        "ilfs_2018",
+        "covid_2020",
+        "tightening_2022",
+        "tariff_2026"
+      ],
+      "folds": 4
+    },
+    {
+      "table": "A",
+      "pillarSubset": [
+        "rmt",
+        "hamilton"
+      ],
+      "reconciliationMode": "kalman",
+      "epochs": [
+        "ilfs_2018",
+        "covid_2020",
+        "tightening_2022",
+        "tariff_2026"
+      ],
+      "folds": 4
+    },
+    {
+      "table": "A",
+      "pillarSubset": [
+        "rmt",
+        "hamilton"
+      ],
+      "reconciliationMode": "forward_fill",
+      "epochs": [
+        "ilfs_2018",
+        "covid_2020",
+        "tightening_2022",
+        "tariff_2026"
+      ],
+      "folds": 4
+    },
+    {
+      "table": "A",
+      "pillarSubset": [
+        "hawkes",
+        "rmt",
+        "hamilton"
+      ],
+      "reconciliationMode": "kalman",
+      "epochs": [
+        "ilfs_2018",
+        "covid_2020",
+        "tightening_2022",
+        "tariff_2026"
+      ],
+      "folds": 4
+    },
+    {
+      "table": "A",
+      "pillarSubset": [
+        "hawkes",
+        "rmt",
+        "hamilton"
+      ],
+      "reconciliationMode": "forward_fill",
+      "epochs": [
+        "ilfs_2018",
+        "covid_2020",
+        "tightening_2022",
+        "tariff_2026"
+      ],
+      "folds": 4
+    },
+    {
+      "table": "B",
+      "pillarSubset": [
+        "hamilton"
+      ],
+      "reconciliationMode": "kalman",
+      "epochs": [
+        "gfc_2008",
+        "taper_2013"
+      ],
+      "folds": 2,
+      "xiModes": [
+        "hamilton",
+        "uniform"
+      ]
+    },
+    {
+      "table": "B",
+      "pillarSubset": [
+        "hamilton"
+      ],
+      "reconciliationMode": "forward_fill",
+      "epochs": [
+        "gfc_2008",
+        "taper_2013"
+      ],
+      "folds": 2,
+      "xiModes": [
+        "hamilton",
+        "uniform"
+      ]
+    },
+    {
+      "table": "B",
+      "pillarSubset": [
+        "rmt"
+      ],
+      "reconciliationMode": "kalman",
+      "epochs": [
+        "gfc_2008",
+        "taper_2013"
+      ],
+      "folds": 2,
+      "xiModes": [
+        "hamilton",
+        "uniform"
+      ]
+    },
+    {
+      "table": "B",
+      "pillarSubset": [
+        "rmt"
+      ],
+      "reconciliationMode": "forward_fill",
+      "epochs": [
+        "gfc_2008",
+        "taper_2013"
+      ],
+      "folds": 2,
+      "xiModes": [
+        "hamilton",
+        "uniform"
+      ]
+    },
+    {
+      "table": "B",
+      "pillarSubset": [
+        "rmt",
+        "hamilton"
+      ],
+      "reconciliationMode": "kalman",
+      "epochs": [
+        "gfc_2008",
+        "taper_2013"
+      ],
+      "folds": 2,
+      "xiModes": [
+        "hamilton",
+        "uniform"
+      ]
+    },
+    {
+      "table": "B",
+      "pillarSubset": [
+        "rmt",
+        "hamilton"
+      ],
+      "reconciliationMode": "forward_fill",
+      "epochs": [
+        "gfc_2008",
+        "taper_2013"
+      ],
+      "folds": 2,
+      "xiModes": [
+        "hamilton",
+        "uniform"
+      ]
+    },
+    {
+      "table": "C",
+      "pillarSubset": [
+        "hamilton"
+      ],
+      "reconciliationMode": "kalman",
+      "epochs": [
+        "gfc_2008",
+        "taper_2013",
+        "ilfs_2018",
+        "covid_2020",
+        "tightening_2022",
+        "tariff_2026"
+      ],
+      "folds": 6,
+      "xiModes": [
+        "hamilton",
+        "uniform"
+      ]
+    },
+    {
+      "table": "C",
+      "pillarSubset": [
+        "hamilton"
+      ],
+      "reconciliationMode": "forward_fill",
+      "epochs": [
+        "gfc_2008",
+        "taper_2013",
+        "ilfs_2018",
+        "covid_2020",
+        "tightening_2022",
+        "tariff_2026"
+      ],
+      "folds": 6,
+      "xiModes": [
+        "hamilton",
+        "uniform"
+      ]
+    },
+    {
+      "table": "C",
+      "pillarSubset": [
+        "rmt"
+      ],
+      "reconciliationMode": "kalman",
+      "epochs": [
+        "gfc_2008",
+        "taper_2013",
+        "ilfs_2018",
+        "covid_2020",
+        "tightening_2022",
+        "tariff_2026"
+      ],
+      "folds": 6,
+      "xiModes": [
+        "hamilton",
+        "uniform"
+      ]
+    },
+    {
+      "table": "C",
+      "pillarSubset": [
+        "rmt"
+      ],
+      "reconciliationMode": "forward_fill",
+      "epochs": [
+        "gfc_2008",
+        "taper_2013",
+        "ilfs_2018",
+        "covid_2020",
+        "tightening_2022",
+        "tariff_2026"
+      ],
+      "folds": 6,
+      "xiModes": [
+        "hamilton",
+        "uniform"
+      ]
+    },
+    {
+      "table": "C",
+      "pillarSubset": [
+        "rmt",
+        "hamilton"
+      ],
+      "reconciliationMode": "kalman",
+      "epochs": [
+        "gfc_2008",
+        "taper_2013",
+        "ilfs_2018",
+        "covid_2020",
+        "tightening_2022",
+        "tariff_2026"
+      ],
+      "folds": 6,
+      "xiModes": [
+        "hamilton",
+        "uniform"
+      ]
+    },
+    {
+      "table": "C",
+      "pillarSubset": [
+        "rmt",
+        "hamilton"
+      ],
+      "reconciliationMode": "forward_fill",
+      "epochs": [
+        "gfc_2008",
+        "taper_2013",
+        "ilfs_2018",
+        "covid_2020",
+        "tightening_2022",
+        "tariff_2026"
+      ],
+      "folds": 6,
+      "xiModes": [
+        "hamilton",
+        "uniform"
+      ]
+    }
+  ]
+}

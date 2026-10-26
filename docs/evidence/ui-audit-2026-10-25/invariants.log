@@ -1,0 +1,9 @@
+[ok] PILLAR_ORDER consistency
+[ok] C9 fusion purity (no validation/ import, no DB driver)
+[ok] AR_t placement (C4, not C6)
+[ok] Explicit IST timestamps
+[ok] shared_types frozen= audit (info only)
+    [info] shared_types/: 1 BaseModel class(es) found, 2 frozen=True usage(s). Cross-check against everything ARCHITECTURE.md marks `readonly` � this check can't do that part.
+[ok] lockfile pins every pyproject dependency
+[ok] no credential file in the repository root
+    [info] kite_credentials.tokens.json is a credential-shaped file in the repository root. Being gitignored is not the same as being absent: it is still read by every tool with filesystem access and travels with any copy of this folder. Move it outside the tree and point SERAPH_KITE_TOKENS at it.

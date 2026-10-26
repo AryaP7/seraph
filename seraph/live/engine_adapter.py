@@ -106,7 +106,7 @@ class NullProducers:
         return dict(kind="null", connected=[], reason=self.reason)
 
 
-def registry_from_store(store, *, producers=None):
+def registry_from_store(store, *, producers=None, allow_legacy=True):
     """A `DeploymentRegistry` built from the vintages the store actually holds.
 
     `run_live.py` constructed `InferenceService` with no deployments, so the
@@ -129,7 +129,16 @@ def registry_from_store(store, *, producers=None):
     from seraph.live.inference import DeploymentRegistry, ModelBundle
 
     registry = DeploymentRegistry()
+    for manifest in store.deployments():
+        if not producers or manifest['producer'] in producers:
+            registry.register(ModelBundle(**{
+                key: manifest[key] for key in ModelBundle.__dataclass_fields__
+                if key in manifest}))
+    if not allow_legacy:
+        return registry
     for row in store.daily_vintage_bundles():
+        if registry.get(row['bundle_id']) is not None:
+            continue
         if producers and row["producer"] not in producers:
             continue
         registry.register(ModelBundle(
@@ -169,6 +178,7 @@ class DailyVintageProducer:
     """
 
     store: object                               #: a `LiveStore`
+    deployments: object = None
     #: Absence declared for a pillar with no stored vintage READABLE at the
     #: cutoff. Structural is correct: no estimate exists, which is not a feed
     #: outage that might clear on the next tick.
@@ -187,6 +197,11 @@ class DailyVintageProducer:
 
     def vintages_for(self, bars: "Sequence[Bar]", as_of: datetime
                      ) -> "list[Vintage]":
+        if self.deployments is not None:
+            from seraph.live.inference import ModelBundle
+            for manifest in self.store.deployments():
+                self.deployments.register(ModelBundle(**{
+                    k: manifest[k] for k in ModelBundle.__dataclass_fields__ if k in manifest}))
         rows = {r["producer"]: r for r in
                 self.store.daily_vintages(as_of=as_of.isoformat())}
         stamp = as_of.isoformat()

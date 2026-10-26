@@ -1,0 +1,11 @@
+# F07 parameterized directed-excitation implementation
+
+Recorded before network fitting in this continuation. Status: **proposed diagnostic mapping; not an adopted production model**. No nonempty real-data fit is authorized by this note. The earlier request for the owner’s network-model choice remains unanswered.
+
+The implementation accepts an explicit specification with no scientific parameter defaults: geometric lag decay, per-target negative-binomial dispersion, L2 penalty, minimum bar/event support, stationarity bound, session reset, time-of-day baseline policy and display threshold. All are recorded in the artifact with the named design reference. Synthetic regression inputs have their own visibly synthetic design.
+
+Counts remain at native five-minute resolution, with simultaneous events in one bin. At each session open the lag state resets to zero. For target i and source j, E[t,j] = N[t-1,j] + phi E[t-1,j]; lambda[t,i] = mu[i] ToD[t,i] + (1-phi) sum_j B[i,j] E[t,j]. Matrix convention is **B[target, source]**. B is the infinite geometric-kernel integral; session resets truncate realized within-session excitation. It is a conditional model weight, not a causal effect or probability of a loss.
+
+Fit minimizes the negative-binomial negative log likelihood plus the declared L2 penalty. Dispersion and decay are specified in advance, not selected for attractive edges. Nonnegative mu and B are constrained, with each source column sum of B at most the declared bound below one, sufficient for spectral radius below one. The artifact reports both spectral radius and optimizer status; failed optimization is unavailable, not an all-zero measured graph. Sparse/absent nodes are reported before fitting; no invented support or top-k padding. Time-of-day profiles, when requested, are computed only on the named fit interval.
+
+This implementation preserves the pooled amended Hawkes producer, which remains separate. Full-sample descriptive fits carry actual fitted/available times and cannot enter earlier point-in-time decisions. Adoption of a real model specification and actual intraday bars remain required for a measured graph. The current research database has zero intraday rows.

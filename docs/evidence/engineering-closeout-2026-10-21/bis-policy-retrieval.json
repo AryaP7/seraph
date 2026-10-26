@@ -1,0 +1,8 @@
+{
+  "url": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile",
+  "retrieved_at": "2026-10-21T14:49:51.332788+05:30",
+  "status": 200,
+  "content_type": "text/csv;charset=UTF-8",
+  "bytes": 151204,
+  "sha256": "6bfc0e3bea0530683fa0ec93f5f898b56c370cd4cdafd15b12474c89e2191a25"
+}

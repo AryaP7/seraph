@@ -4,21 +4,16 @@
     python scripts/run_live.py --once          # wait (bounded) for ONE finalized batch
     python scripts/run_live.py                 # run until the session drains
 
-What this does NOT do
----------------------
-It does not invent a market connection. With no `KITE_API_KEY` the feed
-resolves to `NullFeed`, every pass reports `publishable: false`, and the
-reason is printed. That is the current state of this checkout:
+The ordinary launcher owns this runtime and keeps it waiting across sessions.
+The standalone default stops after the session drains; --stay-running retains
+it. Credentials follow the existing login client's environment/.env and daily
+token cache. A configured source can still be disconnected or broker-rejected;
+health reports that state and never substitutes archived ticks.
 
-* the research corpus ends **2026-08-21**;
-* `kite_client.py` is a REST backfill client, not a streaming one;
-* no feed has ever been connected.
-
-It also does not invent a pillar estimate. T06 put the inference service in
-the loop, so every bar close really does run C8/C9 — but with no live
-producer attached each pillar reports a *structural* absence, no CSRS is
-produced, and the publication gate refuses. That is the honest state, and it
-is visible in the output rather than implied by its absence.
+Daily producers supply persisted vintages with explicit deployment manifests.
+The cold start uses eligible history, and current publication requires the
+existing 252-observation ECDF threshold for every non-structural pillar.
+A bounded exchange calendar only verifies the dates its notices cover.
 
 What T07 added
 --------------
@@ -39,6 +34,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import sys
 import time
 from dataclasses import asdict
@@ -80,7 +76,7 @@ def session_dates(clock: MarketClock, *, back: int = 400) -> list[str]:
 
 
 def build(*, replay: bool, store: LiveStore, clock: MarketClock,
-          producers: str = "daily") -> "tuple[LiveLoop, InferenceService, object]":
+          producers: str = "daily", hawkes_config=None) -> "tuple[LiveLoop, InferenceService, object]":
     """Assemble the runtime.
 
     R01/T03: `producers=NullProducers()` was hardwired here, so every pillar
@@ -95,7 +91,7 @@ def build(*, replay: bool, store: LiveStore, clock: MarketClock,
     the runtime must still be able to be in and report.
     """
     feed = resolve_feed(allow_replay=ReplayFeed([], label="empty replay")
-                        if replay else None)
+                        if replay else None, use_env_file=True)
     mode = "historical_replay" if replay else "live_shadow"
     loop = LiveLoop(feed, clock=clock, mode=mode)
     # The deployment registry is built from the vintages the store actually
@@ -105,17 +101,69 @@ def build(*, replay: bool, store: LiveStore, clock: MarketClock,
     # it, which kept the daily pillars out of the current-risk path
     # entirely. A bundle is registered because a vintage was produced by it,
     # so one nobody has produced for is still correctly refused.
-    deployments = (registry_from_store(store) if producers == "daily"
+    deployments = (registry_from_store(store, allow_legacy=replay) if producers == "daily"
                    else None)
+    from seraph.market_calendar import DecisionClock
+    from seraph.orchestration.standardize import MIN_WINDOW_OBS
     service = InferenceService(session_dates=session_dates(clock),
+                               decision_clock=DecisionClock(clock.calendar),
+                               warmup_observations=MIN_WINDOW_OBS,
                                deployments=deployments)
-    attached = (DailyVintageProducer(store=store) if producers == "daily"
+    attached = (DailyVintageProducer(store=store, deployments=deployments) if producers == "daily"
                 else NullProducers())
+    if hawkes_config is not None:
+        if replay or producers != 'daily':
+            raise ValueError('Native Hawkes requires the live daily-producer runtime')
+        from seraph.pillars.hawkes.runtime import NativeHistory, NativeHawkesProducer
+        config = json.loads(Path(hawkes_config).read_text(encoding='utf-8'))
+        from seraph.market_calendar.native_sessions import schedule_from_config
+        attached = NativeHawkesProducer(
+            NativeHistory(Path(hawkes_config).parent / config['history_file']), attached,
+            members=config['members'], rebalance_date=config['rebalance_date'],
+            window_sessions=config['window_sessions'], refit_sessions=config.get('refit_sessions', 5),
+            session_schedule=schedule_from_config(hawkes_config, config))
     # The stream is part of the decision identity (X04), so a replay's
     # decisions can never be read as the live stream's.
     evaluator = attach(loop, service, producers=attached,
                        stream_id="replay" if replay else "live")
     return loop, service, evaluator
+
+
+def cold_start(service, store, cutoff):
+    """C8/FR28: restore real, eligible vintage history; never manufacture ranks."""
+    from seraph.live.inference import Vintage, ORDER
+    history = []
+    rejected = []
+    for pillar in ORDER:
+        for row in store.vintage_history(pillar, limit=100000):
+            if row['value'] is None or datetime_from_iso(row['emission_available_at']) >= cutoff:
+                continue
+            reason = service.deployments.reason_unusable(row['bundle_id'], cutoff)
+            if reason:
+                rejected.append(dict(vintage=row['input_end'], reason=reason))
+                continue
+            history.append(Vintage(producer=pillar, input_end=row['input_end'],
+                emission_available_at=row['emission_available_at'],
+                bundle_id=row['bundle_id'], value=row['value'], variance=row['variance']))
+    service.warm_start(history, cutoff=cutoff)
+    return dict(observations={p: service.standardizer.observations(p) for p in ORDER},
+                admitted=[v.key for v in history], rejected=rejected,
+                note='Actual stored history only; absent history remains absent')
+
+
+def datetime_from_iso(value):
+    from datetime import datetime
+    return datetime.fromisoformat(value)
+
+
+def update_feed_lifecycle(lifecycle, health):
+    """A configured feed is not necessarily an established connection."""
+    if not health['is_live'] or not health['connected']:
+        reasons = (health['detail'],)
+        if lifecycle.state != 'degraded' or lifecycle.degraded_reasons != reasons:
+            lifecycle.degrade(reasons)
+    elif lifecycle.state in ('connecting', 'degraded', 'reconnecting'):
+        lifecycle.to('waiting_session', reason='broker connection established')
 
 
 def restore(service: InferenceService, store: LiveStore,
@@ -179,10 +227,12 @@ def restore(service: InferenceService, store: LiveStore,
 
 
 def report_status(store: LiveStore, clock: MarketClock,
-                  lifecycle: SessionLifecycle) -> int:
+                  lifecycle: SessionLifecycle, *, hawkes_config=None) -> int:
     """Read-only. Connects to no feed and starts no job."""
+    from seraph.pillars.hawkes.runtime import read_worker_status
     status = dict(
         store=store.describe(),
+        native_hawkes=read_worker_status(hawkes_config),
         lifecycle=lifecycle.describe(),
         market=next_session_window(clock),
         note=("--status reads persisted state and the clock. It connects to "
@@ -262,6 +312,8 @@ def commit(store: LiveStore, loop: LiveLoop, service: InferenceService,
 def main(argv=None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--symbols", nargs="*", default=list(DEFAULT_SYMBOLS))
+    parser.add_argument("--stay-running", action="store_true", help="wait across closed sessions")
+    parser.add_argument("--owner-pid", type=int)
     parser.add_argument("--once", action="store_true",
                         help="wait (bounded) for ONE finalized batch, then exit")
     parser.add_argument("--once-timeout", type=float,
@@ -282,43 +334,84 @@ def main(argv=None) -> int:
     parser.add_argument("--interval", type=float, default=5.0,
                         help="seconds between passes")
     parser.add_argument("--store", type=Path,
-                        default=ROOT / "prototype_runs" / "live.sqlite")
+                        default=Path(os.environ.get("SERAPH_LIVE_STORE", ROOT / "prototype_runs" / "live.sqlite")))
     parser.add_argument("--jobs", type=Path,
                         default=ROOT / "prototype_runs" / "jobs.sqlite")
+    parser.add_argument("--calendar", type=Path,
+                        default=os.environ.get('SERAPH_EXCHANGE_CALENDAR'),
+                        help='Evidence-backed bounded NSE cash-session calendar JSON')
+    parser.add_argument('--hawkes-config', type=Path,
+                        default=os.environ.get('SERAPH_NATIVE_HAWKES_CONFIG'),
+                        help='Explicit native-history/basket/window configuration')
     args = parser.parse_args(argv)
 
-    clock = MarketClock()
+    if args.status:
+        return _run(args)
+    from seraph.news.worker_lock import worker_lock, WorkerAlreadyRunning
+    try:
+        with worker_lock(args.store, name='market-runtime'):
+            # The numerical C5 job runs in its own owned process. Its durable
+            # outputs are read by the bar-close loop without waiting on a fit.
+            worker = None
+            log = None
+            try:
+                if args.hawkes_config and not args.replay and args.producers == 'daily':
+                    import subprocess
+                    log = args.hawkes_config.with_suffix('.worker.log').open('a', encoding='utf-8')
+                    worker = subprocess.Popen([sys.executable, str(ROOT/'scripts/run_native_hawkes.py'),
+                        '--config', str(args.hawkes_config.resolve()), '--store', str(args.store.resolve()),
+                        '--owner-pid', str(os.getpid())], stdout=log, stderr=log,
+                        creationflags=getattr(subprocess, 'CREATE_NO_WINDOW', 0))
+                return _run(args)
+            finally:
+                if worker is not None and worker.poll() is None:
+                    worker.terminate()
+                    worker.wait(timeout=10)
+                if log is not None:
+                    log.close()
+    except WorkerAlreadyRunning:
+        print('[live] a runtime already owns this store; no duplicate started')
+        return 0
+
+
+def _run(args):
+    from seraph.market_calendar.exchange import load as load_calendar
+    calendar_path = getattr(args, 'calendar', None)
+    clock = MarketClock(load_calendar(calendar_path) if calendar_path else None)
     store = LiveStore(args.store)
     lifecycle = SessionLifecycle()
 
     # --status is answered BEFORE anything is built or connected. The audit's
     # complaint was that asking what the system would do changed what it did.
     if args.status:
-        return report_status(store, clock, lifecycle)
+        return report_status(store, clock, lifecycle, hawkes_config=getattr(args, 'hawkes_config', None))
 
     loop, service, evaluator = build(replay=args.replay, store=store,
-                                     clock=clock, producers=args.producers)
+                                     clock=clock, producers=args.producers,
+                                     hawkes_config=getattr(args, 'hawkes_config', None))
     # R08: the loop is handed over so the BAR BUILDER is restored too, not
     # only the inference service.
     restored = restore(service, store, lifecycle, loop)
+    if not restored['restored'] and args.producers == 'daily':
+        restored['warm_start'] = cold_start(service, store, clock.now())
     print(f"[live] restore: {json.dumps(restored, default=str)}")
 
     lifecycle.to("connecting")
-    health = loop.connect(args.symbols)
+    symbols = sorted(set(args.symbols) | set(getattr(evaluator.producers, 'members', ())))
+    health = loop.connect(symbols)
     print(f"[live] feed: {health['source_kind']} "
           f"(live={health['is_live']}) — {health['detail']}")
-    if not health["is_live"]:
-        lifecycle.degrade([f"no live feed: {health['detail']}"])
-    else:
-        lifecycle.to("waiting_session", reason="feed attached")
+    update_feed_lifecycle(lifecycle, health)
 
     jobs = JobStore(args.jobs)
 
     def pass_once(context) -> dict:
         decision = loop.tick()
-        if decision.bars_closed and lifecycle.state in (
+        update_feed_lifecycle(lifecycle, decision.feed)
+        if (decision.bars_closed and decision.feed['connected']
+                and decision.feed['is_live'] and lifecycle.state in (
                 "waiting_session", "connecting", "degraded", "checkpointed",
-                "reconnecting"):
+                "reconnecting")):
             lifecycle.open_session(decision.decision_ts[:10])
         committed = commit(store, loop, service, evaluator, decision)
         context.checkpoint({"last_decision_ts": decision.decision_ts,
@@ -333,6 +426,8 @@ def main(argv=None) -> int:
             line += f" committed={committed['decision_id']}"
         if decision.skipped_reason:
             line += f" — {decision.skipped_reason}"
+        if not decision.feed['connected']:
+            line += f" — {decision.feed['detail']}"
         print(line, flush=True)
         return decision.describe()
 
@@ -360,6 +455,9 @@ def main(argv=None) -> int:
     print("[live] running until the session drains; Ctrl+C to stop")
     try:
         while True:
+            from seraph.operations.jobs import pid_alive
+            if args.owner_pid and pid_alive(args.owner_pid) is False:
+                break
             state = clock.state()["state"]
             if state in ("closed_for_day", "not_a_session"):
                 if lifecycle.state == "collecting":
@@ -373,11 +471,14 @@ def main(argv=None) -> int:
                             if loop.decisions else None):
                         lifecycle.close_session()
                         print("[live] session drained and checkpointed")
-                        break
+                        if not args.stay_running:
+                            break
                     time.sleep(max(1.0, args.interval))
                     continue
-                print(f"[live] market is {state}; next open "
-                      f"{clock.next_open()}")
+                if args.stay_running:
+                    time.sleep(max(1.0, min(args.interval, 30.0)))
+                    continue
+                print(f"[live] market is {state}; next open {clock.next_open()}")
                 break
             jobs.run(JOB, pass_once, max_attempts=1)
             time.sleep(max(1.0, args.interval))

@@ -34,3 +34,13 @@ uv.lock
 #     research_results/v1 was produced from.
 artefacts/bhavcopy_raw/
 research_data/current/
+
+# Isolated store copies written by the browser/closeout verification runs.
+# DERIVED and regenerable: 212 files, 7.97 GB, one of them 2.83 GB, which
+# GitHub would reject outright (100 MB per-file limit). The reports, logs and
+# Markdown in docs/evidence/ stay tracked -- those are the evidence. These are
+# the scratch databases a check ran against, the same class of artefact as
+# prototype_runs/ above.
+docs/evidence/**/*.sqlite
+docs/evidence/**/*.sqlite-wal
+docs/evidence/**/*.sqlite-shm

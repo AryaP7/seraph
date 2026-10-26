@@ -41,6 +41,8 @@ def artefact_id(report: ExperimentReport) -> str:
             "calibrationMaxIter": report.calibration_max_iter,
             "tableBScope": report.table_b_scope,
             "rows": [r.model_dump(mode="json") for r in report.rows],
+            **({"datasetProvenance": report.dataset_provenance}
+               if report.dataset_provenance else {}),
         },
         sort_keys=True, separators=(",", ":"))
     return hashlib.sha256(payload.encode("utf-8")).hexdigest()

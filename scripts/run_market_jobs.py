@@ -208,15 +208,6 @@ def run_all(day: str | None = None) -> dict:
         # archived research estimate or a declared absence.
         _run("daily vintages",
              ["scripts/run_daily.py", "--day", target], timeout=900),
-        # The prospective forecast for the same cutoff. Publishes what the
-        # saved walk-forward produced; reports rather than refits if the
-        # experiment has not reached this date.
-        _run("prospective forecast",
-             ["scripts/run_forecast.py", "--as-of", target], timeout=300),
-        # Settle anything whose horizon has now elapsed. The store refuses
-        # an immature outcome, so this is safe to run every time.
-        _run("settle matured forecasts",
-             ["scripts/run_forecast.py", "--settle"], timeout=300),
         # Prediction and early warning: the actual engine, on the market
         # snapshot, about twenty seconds. This is what makes the console's
         # PREDICTION panel current rather than whatever was last computed by
@@ -244,12 +235,12 @@ def run_all(day: str | None = None) -> dict:
                         "each launch, from a scheduler, or by hand. "
                         "`ok`/`execution_ok` says whether the steps ran; "
                         "`data` says separately whether new data arrived and "
-                        "whether the corpus is current. The live tick loop is "
-                        "NOT started here: opening a broker connection is an "
-                        "operator decision, not a side effect of opening a "
-                        "dashboard. Start it with "
-                        "`python scripts/run_live.py --status` first, then "
-                        "`--replay --once` or a live run."))
+                        "whether the corpus is current. This daily job does "
+                        "not start the tick loop; launch_prototype.ps1 owns "
+                        "that runtime separately by default (-NoLiveRuntime "
+                        "opts out). Inspect it with "
+                        "`python scripts/run_live.py --status`. Broker health "
+                        "and publication eligibility remain separate checks."))
     _write(report)
     return report
 

@@ -1,0 +1,35 @@
+2026-10-21 19:40:55.992 Uvicorn server started on 127.0.0.1:53418
+
+  You can now view your Streamlit app in your browser.
+
+  URL: http://127.0.0.1:53418
+
+
+DevTools listening on ws://127.0.0.1:53419/devtools/browser/bea3a3b6-a211-481a-b607-c547b37924c6
+[35608:28392:1021/194056.612:ERROR:chrome\browser\component_updater\edge_optimization_guide_models_manifest_installer.cc:264] Edge LLM: catalog update failed: 5
+[35608:28392:1021/194056.613:ERROR:chrome\browser\component_updater\edge_language_detection_model_installer.cc:97] Edge Language Detection Model: On-demand update failed with error: 5
+[35608:28392:1021/194058.326:ERROR:components\edge_auth\edge_auth_errors.cc:553] EDGE_IDENTITY: Image Fetch FAILED: Error: Primary Error: kUrlRequestError, Secondary Error: kURLResponseNot200, Platform error: 0, Error string: [empty]
+
+[35608:28392:1021/194059.068:ERROR:chrome\browser\task_manager\providers\fallback_task_provider.cc:126] Every renderer should have at least one task provided by a primary task provider. If a "Renderer" fallback task is shown, it is a bug. If you have repro steps, please file a new bug and tag it as a dependency of crbug.com/40528867.
+[35608:28876:1021/194059.383:ERROR:components\sync\engine\get_updates_processor.cc:426] PostClientToServerMessage() failed during GetUpdates with error Network error (ERR_NAME_NOT_RESOLVED)
+[35608:28876:1021/194100.902:ERROR:components\sync\engine\get_updates_processor.cc:426] PostClientToServerMessage() failed during GetUpdates with error Network error (ERR_NAME_NOT_RESOLVED)
+[35608:28876:1021/194103.175:ERROR:components\sync\engine\get_updates_processor.cc:426] PostClientToServerMessage() failed during GetUpdates with error Network error (ERR_NAME_NOT_RESOLVED)
+[35608:34448:1021/194103.233:ERROR:components\media_router\common\providers\cast\certificate\cast_crl.cc:446] CRL - Verification failed.
+[35608:28876:1021/194106.555:ERROR:components\sync\engine\get_updates_processor.cc:426] PostClientToServerMessage() failed during GetUpdates with error Network error (ERR_NAME_NOT_RESOLVED)
+[35608:30880:1021/194111.635:ERROR:components\sync\engine\get_updates_processor.cc:426] PostClientToServerMessage() failed during GetUpdates with error Network error (ERR_NAME_NOT_RESOLVED)
+[35608:28876:1021/194124.308:ERROR:components\sync\engine\get_updates_processor.cc:426] PostClientToServerMessage() failed during GetUpdates with error Network error (ERR_NAME_NOT_RESOLVED)
+[35608:28876:1021/194143.308:ERROR:components\sync\engine\get_updates_processor.cc:426] PostClientToServerMessage() failed during GetUpdates with error Network error (ERR_NAME_NOT_RESOLVED)
+[35608:28876:1021/194211.796:ERROR:components\sync\engine\get_updates_processor.cc:426] PostClientToServerMessage() failed during GetUpdates with error Network error (ERR_NAME_NOT_RESOLVED)
+[35608:28876:1021/194322.992:ERROR:components\sync\engine\get_updates_processor.cc:426] PostClientToServerMessage() failed during GetUpdates with error Network error (ERR_NAME_NOT_RESOLVED)
+SUCCESS: The process with PID 23368 (child process of PID 35608) has been terminated.
+SUCCESS: The process with PID 10188 (child process of PID 35608) has been terminated.
+SUCCESS: The process with PID 15312 (child process of PID 35608) has been terminated.
+SUCCESS: The process with PID 35672 (child process of PID 35608) has been terminated.
+SUCCESS: The process with PID 35572 (child process of PID 35608) has been terminated.
+SUCCESS: The process with PID 31112 (child process of PID 35608) has been terminated.
+SUCCESS: The process with PID 12352 (child process of PID 35608) has been terminated.
+SUCCESS: The process with PID 33240 (child process of PID 35608) has been terminated.
+SUCCESS: The process with PID 33052 (child process of PID 35608) has been terminated.
+SUCCESS: The process with PID 35608 (child process of PID 22436) has been terminated.
+SUCCESS: The process with PID 31604 (child process of PID 20732) has been terminated.
+SUCCESS: The process with PID 20732 (child process of PID 22436) has been terminated.

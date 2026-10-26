@@ -33,6 +33,8 @@ import pytest
 from seraph.operations import schedule
 from seraph.operations.jobs import JobStore
 from seraph.shared_types import IST
+from seraph.live.clock import MarketClock
+from seraph.market_calendar import SessionCalendar
 
 SCRIPTS = Path(__file__).resolve().parents[1] / 'scripts'
 if str(SCRIPTS) not in sys.path:
@@ -50,8 +52,11 @@ class TestTheTradingDayGate:
         assert schedule.should_run('2026-10-25')['run'] is False   # Sunday
 
     def test_a_weekday_runs(self):
-        assert schedule.should_run('2026-10-20')['run'] is True
-        assert schedule.should_run('2026-10-26')['run'] is True
+        # Exercise the declared fallback calendar, not whichever verified
+        # exchange notice happens to be installed in this workspace.
+        clock = MarketClock(SessionCalendar())
+        assert schedule.should_run('2026-10-20', clock=clock)['run'] is True
+        assert schedule.should_run('2026-10-26', clock=clock)['run'] is True
 
     def test_a_skip_is_not_a_failure(self):
         decision = schedule.should_run('2026-10-24')
@@ -61,7 +66,7 @@ class TestTheTradingDayGate:
     def test_an_unregistered_holiday_is_resolved_by_the_corpus(self):
         """The honest consequence of having no holiday calendar, stated in
         the reason a reader sees rather than left implicit."""
-        reason = schedule.should_run('2026-10-20')['reason']
+        reason = schedule.should_run('2026-10-20', clock=MarketClock(SessionCalendar()))['reason']
         assert 'holiday' in reason
         assert 'unchanged data rather than a failure' in reason
 
@@ -193,7 +198,7 @@ class TestOverlapIsRefusedNotDuplicated:
         called = []
         monkeypatch.setattr(run_market_jobs, 'run_all',
                             lambda day=None: called.append(day))
-        report = run_market_jobs.run_scheduled('2026-10-20')
+        report = run_market_jobs.run_scheduled('2026-10-21')
 
         assert called == [], 'the pipeline ran while another holder had the lease'
         assert report['skipped'] is True
@@ -470,7 +475,7 @@ class TestAFailedRunDoesNotReadAsTheLastGoodOne:
             raise RuntimeError('the corpus exploded')
 
         monkeypatch.setattr(run_market_jobs, 'run_all', boom)
-        report = run_market_jobs.run_scheduled('2026-10-20')
+        report = run_market_jobs.run_scheduled('2026-10-21')
 
         assert report['ok'] is False
         assert report['execution_ok'] is False
@@ -487,7 +492,7 @@ class TestAFailedRunDoesNotReadAsTheLastGoodOne:
         monkeypatch.setattr(run_market_jobs, 'run_all',
                             lambda day=None: (_ for _ in ()).throw(
                                 RuntimeError('nope')))
-        run_market_jobs.run_scheduled('2026-10-20')
+        run_market_jobs.run_scheduled('2026-10-21')
 
         store = JobStore(tmp_path / 'prototype_runs' / 'jobs.sqlite')
         runs = store.runs(schedule.JOB_NAME, limit=3)
@@ -505,7 +510,7 @@ class TestAFailedRunDoesNotReadAsTheLastGoodOne:
                                         data=dict(acquired='unchanged',
                                                   currency='current')))
             or dict(ok=True)))
-        report = run_market_jobs.run_scheduled('2026-10-20')
+        report = run_market_jobs.run_scheduled('2026-10-21')
         assert report['ok'] is True
         assert report['job_run']['status'] == 'succeeded'
         assert 'FAILED' not in report.get('note', '')

@@ -1,0 +1,1749 @@
+{
+  "schema": "hamilton-observed-covariates/1",
+  "mode": "retrospective_latest_vintage",
+  "source": {
+    "url": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile",
+    "retrieved_at": "2026-10-21T14:49:51.332788+05:30",
+    "status": 200,
+    "content_type": "text/csv;charset=UTF-8",
+    "bytes": 151204,
+    "sha256": "6bfc0e3bea0530683fa0ec93f5f898b56c370cd4cdafd15b12474c89e2191a25",
+    "provider": "BIS",
+    "series": "WS_CBPOL/D.IN",
+    "source_ref": "Reserve Bank of India",
+    "compilation": "From 3 Apr 2001 onwards: official repo overnight rate; from 1 Jan 1946 to 2 Apr 2001: oank rate.",
+    "alignment": "Published daily rows only; missing observations omitted, never filled",
+    "model_design": "F08-POLICY-DESIGN.md"
+  },
+  "covariates": [
+    {
+      "name": "rbi_repo_rate",
+      "unit": "percent per annum",
+      "meaning": "BIS daily India official overnight repo policy rate from RBI; previous observed market-session value"
+    }
+  ],
+  "rows": [
+    {
+      "date": "2025-06-02",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 6.0,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-06-02"
+    },
+    {
+      "date": "2025-06-03",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 6.0,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-06-03"
+    },
+    {
+      "date": "2025-06-04",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 6.0,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-06-04"
+    },
+    {
+      "date": "2025-06-05",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 6.0,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-06-05"
+    },
+    {
+      "date": "2025-06-06",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-06-06"
+    },
+    {
+      "date": "2025-06-09",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-06-09"
+    },
+    {
+      "date": "2025-06-10",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-06-10"
+    },
+    {
+      "date": "2025-06-11",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-06-11"
+    },
+    {
+      "date": "2025-06-12",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-06-12"
+    },
+    {
+      "date": "2025-06-13",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-06-13"
+    },
+    {
+      "date": "2025-06-16",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-06-16"
+    },
+    {
+      "date": "2025-06-17",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-06-17"
+    },
+    {
+      "date": "2025-06-18",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-06-18"
+    },
+    {
+      "date": "2025-06-19",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-06-19"
+    },
+    {
+      "date": "2025-06-20",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-06-20"
+    },
+    {
+      "date": "2025-06-21",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-06-21"
+    },
+    {
+      "date": "2025-06-23",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-06-23"
+    },
+    {
+      "date": "2025-06-24",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-06-24"
+    },
+    {
+      "date": "2025-06-25",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-06-25"
+    },
+    {
+      "date": "2025-06-26",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-06-26"
+    },
+    {
+      "date": "2025-06-27",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-06-27"
+    },
+    {
+      "date": "2025-06-30",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-06-30"
+    },
+    {
+      "date": "2025-07-01",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-07-01"
+    },
+    {
+      "date": "2025-07-02",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-07-02"
+    },
+    {
+      "date": "2025-07-03",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-07-03"
+    },
+    {
+      "date": "2025-07-04",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-07-04"
+    },
+    {
+      "date": "2025-07-05",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-07-05"
+    },
+    {
+      "date": "2025-07-07",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-07-07"
+    },
+    {
+      "date": "2025-07-08",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-07-08"
+    },
+    {
+      "date": "2025-07-09",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-07-09"
+    },
+    {
+      "date": "2025-07-10",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-07-10"
+    },
+    {
+      "date": "2025-07-11",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-07-11"
+    },
+    {
+      "date": "2025-07-14",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-07-14"
+    },
+    {
+      "date": "2025-07-15",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-07-15"
+    },
+    {
+      "date": "2025-07-16",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-07-16"
+    },
+    {
+      "date": "2025-07-17",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-07-17"
+    },
+    {
+      "date": "2025-07-18",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-07-18"
+    },
+    {
+      "date": "2025-07-19",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-07-19"
+    },
+    {
+      "date": "2025-07-21",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-07-21"
+    },
+    {
+      "date": "2025-07-22",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-07-22"
+    },
+    {
+      "date": "2025-07-23",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-07-23"
+    },
+    {
+      "date": "2025-07-24",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-07-24"
+    },
+    {
+      "date": "2025-07-25",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-07-25"
+    },
+    {
+      "date": "2025-07-28",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-07-28"
+    },
+    {
+      "date": "2025-07-29",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-07-29"
+    },
+    {
+      "date": "2025-07-30",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-07-30"
+    },
+    {
+      "date": "2025-07-31",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-07-31"
+    },
+    {
+      "date": "2025-08-01",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-08-01"
+    },
+    {
+      "date": "2025-08-04",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-08-04"
+    },
+    {
+      "date": "2025-08-05",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-08-05"
+    },
+    {
+      "date": "2025-08-06",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-08-06"
+    },
+    {
+      "date": "2025-08-07",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-08-07"
+    },
+    {
+      "date": "2025-08-08",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-08-08"
+    },
+    {
+      "date": "2025-08-11",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-08-11"
+    },
+    {
+      "date": "2025-08-12",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-08-12"
+    },
+    {
+      "date": "2025-08-13",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-08-13"
+    },
+    {
+      "date": "2025-08-14",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-08-14"
+    },
+    {
+      "date": "2025-08-18",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-08-18"
+    },
+    {
+      "date": "2025-08-19",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-08-19"
+    },
+    {
+      "date": "2025-08-20",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-08-20"
+    },
+    {
+      "date": "2025-08-21",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-08-21"
+    },
+    {
+      "date": "2025-08-22",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-08-22"
+    },
+    {
+      "date": "2025-08-25",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-08-25"
+    },
+    {
+      "date": "2025-08-26",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-08-26"
+    },
+    {
+      "date": "2025-08-28",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-08-28"
+    },
+    {
+      "date": "2025-08-29",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-08-29"
+    },
+    {
+      "date": "2025-09-01",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-09-01"
+    },
+    {
+      "date": "2025-09-02",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-09-02"
+    },
+    {
+      "date": "2025-09-03",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-09-03"
+    },
+    {
+      "date": "2025-09-04",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-09-04"
+    },
+    {
+      "date": "2025-09-05",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-09-05"
+    },
+    {
+      "date": "2025-09-09",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-09-09"
+    },
+    {
+      "date": "2025-09-10",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-09-10"
+    },
+    {
+      "date": "2025-09-11",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-09-11"
+    },
+    {
+      "date": "2025-09-12",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-09-12"
+    },
+    {
+      "date": "2025-09-15",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-09-15"
+    },
+    {
+      "date": "2025-09-16",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-09-16"
+    },
+    {
+      "date": "2025-09-17",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-09-17"
+    },
+    {
+      "date": "2025-09-18",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-09-18"
+    },
+    {
+      "date": "2025-09-19",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-09-19"
+    },
+    {
+      "date": "2025-09-22",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-09-22"
+    },
+    {
+      "date": "2025-09-23",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-09-23"
+    },
+    {
+      "date": "2025-09-24",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-09-24"
+    },
+    {
+      "date": "2025-09-25",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-09-25"
+    },
+    {
+      "date": "2025-09-26",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-09-26"
+    },
+    {
+      "date": "2025-09-29",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-09-29"
+    },
+    {
+      "date": "2025-09-30",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-09-30"
+    },
+    {
+      "date": "2025-10-01",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-10-01"
+    },
+    {
+      "date": "2025-10-03",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-10-03"
+    },
+    {
+      "date": "2025-10-06",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-10-06"
+    },
+    {
+      "date": "2025-10-07",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-10-07"
+    },
+    {
+      "date": "2025-10-08",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-10-08"
+    },
+    {
+      "date": "2025-10-09",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-10-09"
+    },
+    {
+      "date": "2025-10-10",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-10-10"
+    },
+    {
+      "date": "2025-10-13",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-10-13"
+    },
+    {
+      "date": "2025-10-14",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-10-14"
+    },
+    {
+      "date": "2025-10-15",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-10-15"
+    },
+    {
+      "date": "2025-10-16",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-10-16"
+    },
+    {
+      "date": "2025-10-17",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-10-17"
+    },
+    {
+      "date": "2025-10-20",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-10-20"
+    },
+    {
+      "date": "2025-10-23",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-10-23"
+    },
+    {
+      "date": "2025-10-24",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-10-24"
+    },
+    {
+      "date": "2025-10-27",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-10-27"
+    },
+    {
+      "date": "2025-10-28",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-10-28"
+    },
+    {
+      "date": "2025-10-29",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-10-29"
+    },
+    {
+      "date": "2025-10-30",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-10-30"
+    },
+    {
+      "date": "2025-10-31",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-10-31"
+    },
+    {
+      "date": "2025-11-01",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-11-01"
+    },
+    {
+      "date": "2025-11-03",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-11-03"
+    },
+    {
+      "date": "2025-11-04",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-11-04"
+    },
+    {
+      "date": "2025-11-06",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-11-06"
+    },
+    {
+      "date": "2025-11-07",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-11-07"
+    },
+    {
+      "date": "2025-11-10",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-11-10"
+    },
+    {
+      "date": "2025-11-11",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-11-11"
+    },
+    {
+      "date": "2025-11-12",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-11-12"
+    },
+    {
+      "date": "2025-11-13",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-11-13"
+    },
+    {
+      "date": "2025-11-14",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-11-14"
+    },
+    {
+      "date": "2025-11-15",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-11-15"
+    },
+    {
+      "date": "2025-11-17",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-11-17"
+    },
+    {
+      "date": "2025-11-18",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-11-18"
+    },
+    {
+      "date": "2025-11-19",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-11-19"
+    },
+    {
+      "date": "2025-11-20",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-11-20"
+    },
+    {
+      "date": "2025-11-21",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-11-21"
+    },
+    {
+      "date": "2025-11-24",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-11-24"
+    },
+    {
+      "date": "2025-11-25",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-11-25"
+    },
+    {
+      "date": "2025-11-26",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-11-26"
+    },
+    {
+      "date": "2025-11-27",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-11-27"
+    },
+    {
+      "date": "2025-11-28",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-11-28"
+    },
+    {
+      "date": "2025-11-29",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-11-29"
+    },
+    {
+      "date": "2025-12-01",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-12-01"
+    },
+    {
+      "date": "2025-12-02",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-12-02"
+    },
+    {
+      "date": "2025-12-03",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-12-03"
+    },
+    {
+      "date": "2025-12-04",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.5,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-12-04"
+    },
+    {
+      "date": "2025-12-05",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-12-05"
+    },
+    {
+      "date": "2025-12-06",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-12-06"
+    },
+    {
+      "date": "2025-12-08",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-12-08"
+    },
+    {
+      "date": "2025-12-09",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-12-09"
+    },
+    {
+      "date": "2025-12-10",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-12-10"
+    },
+    {
+      "date": "2025-12-11",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-12-11"
+    },
+    {
+      "date": "2025-12-12",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-12-12"
+    },
+    {
+      "date": "2025-12-15",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-12-15"
+    },
+    {
+      "date": "2025-12-16",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-12-16"
+    },
+    {
+      "date": "2025-12-17",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-12-17"
+    },
+    {
+      "date": "2025-12-18",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-12-18"
+    },
+    {
+      "date": "2025-12-19",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-12-19"
+    },
+    {
+      "date": "2025-12-20",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-12-20"
+    },
+    {
+      "date": "2025-12-22",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-12-22"
+    },
+    {
+      "date": "2025-12-23",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-12-23"
+    },
+    {
+      "date": "2025-12-24",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-12-24"
+    },
+    {
+      "date": "2025-12-26",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-12-26"
+    },
+    {
+      "date": "2025-12-29",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-12-29"
+    },
+    {
+      "date": "2025-12-30",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-12-30"
+    },
+    {
+      "date": "2025-12-31",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2025-12-31"
+    },
+    {
+      "date": "2026-01-01",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-01-01"
+    },
+    {
+      "date": "2026-01-02",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-01-02"
+    },
+    {
+      "date": "2026-01-05",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-01-05"
+    },
+    {
+      "date": "2026-01-06",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-01-06"
+    },
+    {
+      "date": "2026-01-07",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-01-07"
+    },
+    {
+      "date": "2026-01-08",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-01-08"
+    },
+    {
+      "date": "2026-01-09",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-01-09"
+    },
+    {
+      "date": "2026-01-12",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-01-12"
+    },
+    {
+      "date": "2026-01-13",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-01-13"
+    },
+    {
+      "date": "2026-01-14",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-01-14"
+    },
+    {
+      "date": "2026-01-16",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-01-16"
+    },
+    {
+      "date": "2026-01-19",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-01-19"
+    },
+    {
+      "date": "2026-01-20",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-01-20"
+    },
+    {
+      "date": "2026-01-21",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-01-21"
+    },
+    {
+      "date": "2026-01-22",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-01-22"
+    },
+    {
+      "date": "2026-01-23",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-01-23"
+    },
+    {
+      "date": "2026-01-27",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-01-27"
+    },
+    {
+      "date": "2026-01-28",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-01-28"
+    },
+    {
+      "date": "2026-01-29",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-01-29"
+    },
+    {
+      "date": "2026-01-30",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-01-30"
+    },
+    {
+      "date": "2026-02-02",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-02-02"
+    },
+    {
+      "date": "2026-02-03",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-02-03"
+    },
+    {
+      "date": "2026-02-04",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-02-04"
+    },
+    {
+      "date": "2026-02-05",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-02-05"
+    },
+    {
+      "date": "2026-02-06",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-02-06"
+    },
+    {
+      "date": "2026-02-09",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-02-09"
+    },
+    {
+      "date": "2026-02-10",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-02-10"
+    },
+    {
+      "date": "2026-02-11",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-02-11"
+    },
+    {
+      "date": "2026-02-12",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-02-12"
+    },
+    {
+      "date": "2026-02-13",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-02-13"
+    },
+    {
+      "date": "2026-02-16",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-02-16"
+    },
+    {
+      "date": "2026-02-17",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-02-17"
+    },
+    {
+      "date": "2026-02-18",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-02-18"
+    },
+    {
+      "date": "2026-02-20",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-02-20"
+    },
+    {
+      "date": "2026-02-23",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-02-23"
+    },
+    {
+      "date": "2026-02-24",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-02-24"
+    },
+    {
+      "date": "2026-02-25",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-02-25"
+    },
+    {
+      "date": "2026-02-26",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-02-26"
+    },
+    {
+      "date": "2026-02-27",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-02-27"
+    },
+    {
+      "date": "2026-03-02",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-03-02"
+    },
+    {
+      "date": "2026-03-04",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-03-04"
+    },
+    {
+      "date": "2026-03-05",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-03-05"
+    },
+    {
+      "date": "2026-03-06",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-03-06"
+    },
+    {
+      "date": "2026-03-09",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-03-09"
+    },
+    {
+      "date": "2026-03-10",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-03-10"
+    },
+    {
+      "date": "2026-03-11",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-03-11"
+    },
+    {
+      "date": "2026-03-12",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-03-12"
+    },
+    {
+      "date": "2026-03-13",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-03-13"
+    },
+    {
+      "date": "2026-03-16",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-03-16"
+    },
+    {
+      "date": "2026-03-17",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-03-17"
+    },
+    {
+      "date": "2026-03-18",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-03-18"
+    },
+    {
+      "date": "2026-03-20",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-03-20"
+    },
+    {
+      "date": "2026-03-23",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-03-23"
+    },
+    {
+      "date": "2026-03-24",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-03-24"
+    },
+    {
+      "date": "2026-03-25",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-03-25"
+    },
+    {
+      "date": "2026-03-27",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-03-27"
+    },
+    {
+      "date": "2026-03-30",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-03-30"
+    },
+    {
+      "date": "2026-04-01",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-04-01"
+    },
+    {
+      "date": "2026-04-02",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-04-02"
+    },
+    {
+      "date": "2026-04-06",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-04-06"
+    },
+    {
+      "date": "2026-04-07",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-04-07"
+    },
+    {
+      "date": "2026-04-08",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-04-08"
+    },
+    {
+      "date": "2026-04-09",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-04-09"
+    },
+    {
+      "date": "2026-04-10",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-04-10"
+    },
+    {
+      "date": "2026-04-13",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-04-13"
+    },
+    {
+      "date": "2026-04-15",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-04-15"
+    },
+    {
+      "date": "2026-04-16",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-04-16"
+    },
+    {
+      "date": "2026-04-17",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-04-17"
+    },
+    {
+      "date": "2026-04-20",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-04-20"
+    },
+    {
+      "date": "2026-04-21",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-04-21"
+    },
+    {
+      "date": "2026-04-22",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-04-22"
+    },
+    {
+      "date": "2026-04-23",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-04-23"
+    },
+    {
+      "date": "2026-04-24",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-04-24"
+    },
+    {
+      "date": "2026-04-27",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-04-27"
+    },
+    {
+      "date": "2026-04-28",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-04-28"
+    },
+    {
+      "date": "2026-04-29",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-04-29"
+    },
+    {
+      "date": "2026-04-30",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-04-30"
+    },
+    {
+      "date": "2026-05-04",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-05-04"
+    },
+    {
+      "date": "2026-05-05",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-05-05"
+    },
+    {
+      "date": "2026-05-06",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-05-06"
+    },
+    {
+      "date": "2026-05-07",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-05-07"
+    },
+    {
+      "date": "2026-05-08",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-05-08"
+    },
+    {
+      "date": "2026-05-11",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-05-11"
+    },
+    {
+      "date": "2026-05-12",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-05-12"
+    },
+    {
+      "date": "2026-05-13",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-05-13"
+    },
+    {
+      "date": "2026-05-14",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-05-14"
+    },
+    {
+      "date": "2026-05-15",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-05-15"
+    },
+    {
+      "date": "2026-05-18",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-05-18"
+    },
+    {
+      "date": "2026-05-19",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-05-19"
+    },
+    {
+      "date": "2026-05-20",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-05-20"
+    },
+    {
+      "date": "2026-05-21",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-05-21"
+    },
+    {
+      "date": "2026-05-22",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-05-22"
+    },
+    {
+      "date": "2026-05-25",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-05-25"
+    },
+    {
+      "date": "2026-05-26",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-05-26"
+    },
+    {
+      "date": "2026-05-27",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-05-27"
+    },
+    {
+      "date": "2026-05-29",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-05-29"
+    },
+    {
+      "date": "2026-06-01",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-06-01"
+    },
+    {
+      "date": "2026-06-02",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-06-02"
+    },
+    {
+      "date": "2026-06-03",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-06-03"
+    },
+    {
+      "date": "2026-06-04",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-06-04"
+    },
+    {
+      "date": "2026-06-05",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-06-05"
+    },
+    {
+      "date": "2026-06-08",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-06-08"
+    },
+    {
+      "date": "2026-06-09",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-06-09"
+    },
+    {
+      "date": "2026-06-10",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-06-10"
+    },
+    {
+      "date": "2026-06-11",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-06-11"
+    },
+    {
+      "date": "2026-06-12",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-06-12"
+    },
+    {
+      "date": "2026-06-15",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-06-15"
+    },
+    {
+      "date": "2026-06-16",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-06-16"
+    },
+    {
+      "date": "2026-06-17",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-06-17"
+    },
+    {
+      "date": "2026-06-18",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-06-18"
+    },
+    {
+      "date": "2026-06-19",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-06-19"
+    },
+    {
+      "date": "2026-06-22",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-06-22"
+    },
+    {
+      "date": "2026-06-23",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-06-23"
+    },
+    {
+      "date": "2026-06-24",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-06-24"
+    },
+    {
+      "date": "2026-06-25",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-06-25"
+    },
+    {
+      "date": "2026-06-29",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-06-29"
+    },
+    {
+      "date": "2026-06-30",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-06-30"
+    },
+    {
+      "date": "2026-07-01",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-07-01"
+    },
+    {
+      "date": "2026-07-02",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-07-02"
+    },
+    {
+      "date": "2026-07-03",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-07-03"
+    },
+    {
+      "date": "2026-07-06",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-07-06"
+    },
+    {
+      "date": "2026-07-07",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-07-07"
+    },
+    {
+      "date": "2026-07-08",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-07-08"
+    },
+    {
+      "date": "2026-07-09",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-07-09"
+    },
+    {
+      "date": "2026-07-10",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-07-10"
+    },
+    {
+      "date": "2026-07-13",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-07-13"
+    },
+    {
+      "date": "2026-07-14",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-07-14"
+    },
+    {
+      "date": "2026-07-15",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-07-15"
+    },
+    {
+      "date": "2026-07-16",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-07-16"
+    },
+    {
+      "date": "2026-07-17",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-07-17"
+    },
+    {
+      "date": "2026-07-20",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-07-20"
+    },
+    {
+      "date": "2026-07-21",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-07-21"
+    },
+    {
+      "date": "2026-07-22",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-07-22"
+    },
+    {
+      "date": "2026-07-23",
+      "available_at": "2026-10-21T14:49:51.332788+05:30",
+      "rbi_repo_rate": 5.25,
+      "evidence": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_CBPOL/1.0/D.IN?startPeriod=2025-06-01&endPeriod=2026-08-21&format=csvfile#2026-07-23"
+    }
+  ]
+}

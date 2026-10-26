@@ -168,7 +168,7 @@ def test_absent_hawkes_sector_flags_are_structurally_unavailable(store, master):
                                sectors=SECTORS)["surfaces"]["sector_stress"]
     assert panel["hawkes"]["status"] == "unavailable"
     assert panel["hawkes"]["absence"] == "structural"
-    assert "FIX07" in panel["hawkes"]["reason"]
+    assert "selected analysis cutoff" in panel["hawkes"]["reason"]
 
 
 def test_a_news_sector_row_carries_its_evidence_and_unsized_count(store, master):
@@ -210,3 +210,39 @@ def test_the_channel_read_is_bounded_by_the_decision_time(store, master):
     evening = news_channel(store, master, decision_ts="2026-01-02T19:00:00+05:30",
                            sectors=SECTORS)
     assert len(midday["events"]) == 1 and len(evening["events"]) == 2
+
+# ------------------------------- the key names the console panels depend on
+
+
+def test_the_payload_has_no_channel_key_and_counts_live_on_surfaces(store, master):
+    """A real Classic defect, pinned so it cannot come back.
+
+    `news_only_panel` read `payload['channel']`, which `build_news_payload`
+    has never returned, so it reported "Events visible now: 0" and "Sources
+    reporting: 0" against a store holding thousands of events. That panel is
+    only reachable with no archive store attached, which is why it went
+    unnoticed. These are the keys it must read instead.
+    """
+    feed(store, reference="contract-1")
+    payload = build_news_payload(store, master, decision_ts=LATER)
+
+    assert "channel" not in payload, (
+        "the panel must not read a `channel` key; the surfaces carry the data")
+
+    signals = payload["surfaces"]["signals"]
+    assert signals["items"], "the rail should carry the ingested event"
+    # The rail is paginated, so a count must come from `total`, not one page.
+    assert signals["pagination"]["total"] >= 1
+    assert "displayed" in signals["pagination"]
+
+    coverage = payload["source_coverage"]
+    assert coverage["total"] >= 1
+    assert "covered" in coverage and "uncovered" in coverage
+
+    freshness = payload["freshness"]
+    assert "stale" in freshness, "freshness reports `stale`, never a `state`"
+    assert "state" not in freshness
+
+    item = signals["items"][0]
+    assert "headline" in item and "title" not in item
+    assert "sources" in item and "source_id" not in item

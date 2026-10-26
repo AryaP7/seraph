@@ -1,0 +1,128 @@
+{
+  "schema": "missing-session-recovery/1",
+  "recorded_at": "2026-10-25",
+  "what": "A completed trading session, 2026-10-23, was absent from both the intraday and the end-of-day store. This records how it was detected, how it was confirmed against the exchange's own data, and what was acquired.",
+  "how_it_surfaced": "Checking whether F02's in-session publication requirement could be verified today. Today is Sunday 2026-10-25, so it cannot; walking the calendar either side of today against the broker's data showed the store ending a session earlier than the exchange had traded.",
+  "calendar_versus_broker": {
+    "probe": "RELIANCE 5-minute candles, the most liquid member; a day with no candles did not trade",
+    "days": [
+      {
+        "day": "2026-10-19",
+        "calendar_is_session": true,
+        "broker_candles": 72,
+        "verdict": "traded",
+        "in_store_before": true
+      },
+      {
+        "day": "2026-10-20",
+        "calendar_is_session": true,
+        "broker_candles": 0,
+        "verdict": "did not trade",
+        "in_store_before": false
+      },
+      {
+        "day": "2026-10-21",
+        "calendar_is_session": true,
+        "broker_candles": 72,
+        "verdict": "traded",
+        "in_store_before": true
+      },
+      {
+        "day": "2026-10-22",
+        "calendar_is_session": true,
+        "broker_candles": 72,
+        "verdict": "traded",
+        "in_store_before": true
+      },
+      {
+        "day": "2026-10-23",
+        "calendar_is_session": true,
+        "broker_candles": 72,
+        "verdict": "traded",
+        "in_store_before": false
+      },
+      {
+        "day": "2026-10-24",
+        "calendar_is_session": false,
+        "broker_candles": 0,
+        "verdict": "did not trade",
+        "in_store_before": false
+      }
+    ]
+  },
+  "the_gap": {
+    "session": "2026-10-23",
+    "intraday_bars_ended": "2026-10-22T15:25:00+05:30",
+    "daily_prices_ended": "2026-10-22",
+    "confirmed_a_real_session_by": "the broker returned a full 72-candle session for RELIANCE",
+    "cause_not_investigated_beyond_this": "no acquisition ran after the Friday close; the news supervisor had already died at 18:26:54 and nothing else advanced the market corpus"
+  },
+  "acquired": {
+    "intraday": {
+      "command": "python scripts/backfill_intraday.py --from 2026-10-23 --to 2026-10-23 --checkpoint prototype_runs/session-2026-10-23.checkpoint.json",
+      "bars": 6864,
+      "symbols": 95,
+      "bars_rejected_as_unusable": 0,
+      "incomplete_windows_or_symbols": 0,
+      "note": "6,864 bars is exactly what every other recent all-member session carries, so the session is complete rather than partially recovered"
+    },
+    "end_of_day": {
+      "command": "python scripts/run_acquisition.py",
+      "sessions_stored": 1,
+      "rows_written": 2706,
+      "corpus_moved": [
+        "2026-10-22",
+        "2026-10-23"
+      ],
+      "universe_flags_2026": "ok",
+      "market_snapshot": "ok",
+      "source": "NSE public bhavcopy archive; no credentials needed for end-of-day"
+    },
+    "native_history_reseed": {
+      "command": "python scripts/prepare_native_hawkes.py --through 2026-10-23 --window-sessions 500 --bar-timestamps start --config prototype_runs/live.native-hawkes.json",
+      "native_rows": 5751129,
+      "covered_members": 95
+    }
+  },
+  "verification_after": {
+    "intraday_bars_rows": 5751129,
+    "duplicate_symbol_ts_rows": 0,
+    "all_member_sessions_store_wide": 779,
+    "all_member_sessions_before_this_recovery": 778,
+    "last_four_sessions_members_and_bars": [
+      {
+        "day": "2026-10-23",
+        "members": 95,
+        "bars": 6864
+      },
+      {
+        "day": "2026-10-22",
+        "members": 95,
+        "bars": 6864
+      },
+      {
+        "day": "2026-10-21",
+        "members": 95,
+        "bars": 6864
+      },
+      {
+        "day": "2026-10-19",
+        "members": 95,
+        "bars": 6864
+      }
+    ]
+  },
+  "2026_10_20_is_not_a_defect": {
+    "correction": "An earlier version of this record said the calendar was wrong about 2026-10-20 and had been left unpatched because no ingested exchange calendar exists. That was wrong. The probe used a bare SessionCalendar(), not the production entry point.",
+    "finding": "An evidence-pinned exchange calendar exists and is configured at prototype_runs/exchange_calendar/current.json, covering 2026-10-19 to 2026-10-23, pinned to NSE circular CMTR71775.pdf with its sha256 and retrieval time. seraph.market_calendar.exchange.configured() returns is_session=False for 2026-10-20 with verified_for=True, agreeing with the broker and with both stores. seraph/live/clock.py consults exactly this.",
+    "fallback_clarified": "SessionCalendar's weekday() < 5 rule is only the fallback for when no such document is installed, which is what seraph/operations/schedule.py documents when it says inventing a holiday table would be fabricating exchange data.",
+    "coverage_limit": "2026-10-26, the next session, is OUTSIDE the declared interval, so configured() reports is_session=True with verified_for=False. The interval needs extending before Monday can be called a verified session.",
+    "real_inconsistency_left_alone": "scripts/backfill_intraday.py builds a bare SessionCalendar() instead of calling configured(), so its _last_completed_session_close would treat a closed day as a completed session. Traced through it changes no outcome: a window ending at a close on a non-trading day still ends at or after the previous real session's close, so it cannot truncate bars, which is the failure that function exists to prevent. Behaviour-neutral, and configured() can raise on a malformed document, so it was not swapped mid-acquisition. One-line change if the two paths should agree."
+  },
+  "f02_in_session_requirement": {
+    "status": "time-gated, not blocked",
+    "reason": "A genuine in-session current publication needs a live session. Today is Sunday 2026-10-25.",
+    "next_session": "2026-10-26",
+    "prerequisite_now_met": "both stores reach the last completed session, 2026-10-23"
+  }
+}

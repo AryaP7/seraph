@@ -1,0 +1,6 @@
+{"reports": 10, "failed": 0}
+{"reports": 20, "failed": 0}
+{"reports": 30, "failed": 1}
+{"reports": 40, "failed": 1}
+{"reports": 50, "failed": 1}
+{"schedule": "docs\\evidence\\engineering-closeout-2026-10-24\\native-session-schedule\\schedule.json", "reports": 55, "failed": 1}

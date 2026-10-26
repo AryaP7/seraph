@@ -1,0 +1,310 @@
+Browser tab: 1, Title: "SERAPH", URL: "http://127.0.0.1:8520/".
+1 AXWebArea SERAPH, URL: 127.0.0.1:8520/
+	2 container
+		3 container
+			4 link Description: Skip to main content, Value: 127.0.0.1:8520/#stMain
+			5 container stMain
+				123 text Building the news channel…
+				6 container app.seraph_redesigned_console
+					7 AXWebArea SERAPH — Systemic Risk Early-Warning · NSE, URL: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F
+						8 container shell
+							9 container
+								10 text SER APH
+								11 link Description: CURRENT, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								12 link Description: RISK MAP, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								13 link Description: HISTORICAL, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								14 link Description: CONSOLE, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								15 link Description: SIGNAL FEED, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								16 link Description: PILLARS, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								17 link Description: EXPOSURE, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								18 link Description: FORECASTS, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								19 link Description: EARLY WARNING, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								20 link Description: WORKSPACE, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								21 link Description: EVALUATION, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								22 link Description: HEALTH, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								23 link Description: TOOLS, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								24 link Description: METHOD, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								25 text HISTORICAL + TAGGED PREVIEWS
+								26 container roles
+									27 button REGULATOR
+									28 button INSTITUTIONAL
+									29 button RETAIL
+								30 text  LOCAL CLOCK — 
+								850 text 00:06:01
+								32 text  IST
+								33 text 1,019 desks · FABRICATED
+								34 button VIEW BACKTEST
+							851 text FORECASTS
+							36 container preview-banner
+								126 text NOT A CURRENT MARKET READING  — the newest observation is 2369.4 days old. Anything computed from it is a REPLAY of that period, not a statement about the market now, and must be labelled as such | observed 2020-04-30T15:30:00+05:30 · now 2026-10-26T00:04:29+05:30 · market pre_open · feed: none — not connected, unauthenticated
+								127 text RUN 37bccf32974201f0 · 2020-04-30 · INSTITUTIONAL | STALE — newest item 8 min old; 4 of 22 sources past the freshness policy they declared. Nothing on screen reflects what has happened since. | NEWS current_news 2026-10-26T00:04:29+05:30 | 18/22 feeds fresh | CONNECTED: SIGNALS, SECTOR_STRESS, GEOGRAPHY, ASSETS | 12 evidenced map node(s) | MARKET 2020-04-30T15:30:00+05:30
+							39 container ticker
+								40 text FABRICATED PREVIEW NIFTY 50 24,812.30   0.34% BANK NIFTY 52,406.85   0.21% NIFTY METAL 9,140.20   1.86% NIFTY PHARMA 21,558.45   0.92% NIFTY AUTO 25,033.10   1.24% NIFTY IT 38,902.60   0.44% INDIA VIX 13.82   1.10% USD/INR 83.41   0.18%
+							852 container viewExtra
+								853 heading FORECASTS, Value: 4, ID: extra-title
+									854 text FORECASTS
+								855 table
+									856 row
+										857 cell
+											858 text alarm
+										859 cell
+											860 text date
+										861 cell
+											862 text fit_status
+										863 cell
+											864 text model
+										865 cell
+											866 text probability
+										867 cell
+											868 text target
+										869 cell
+											870 text threshold
+										871 cell
+											872 text train_end
+									873 row
+										874 cell
+											875 text true
+										876 cell
+											877 text 2020-04-30
+										878 cell
+											879 text fitted
+										880 cell
+											881 text baseline_logit
+										882 cell
+											883 text 0.2667876670685985
+										884 cell
+											885 text loss10_15
+										886 cell
+											887 text 0.11799971089209929
+										888 cell
+											889 text 3779
+									890 row
+										891 cell
+											892 text true
+										893 cell
+											894 text 2020-04-30
+										895 cell
+											896 text fitted
+										897 cell
+											898 text three_pillars
+										899 cell
+											900 text 0.231339525442375
+										901 cell
+											902 text loss10_15
+										903 cell
+											904 text 0.1506095360652002
+										905 cell
+											906 text 3779
+									907 row
+										908 cell
+											909 text true
+										910 cell
+											911 text 2020-04-30
+										912 cell
+											913 text fitted
+										914 cell
+											915 text combined
+										916 cell
+											917 text 0.24406477611118782
+										918 cell
+											919 text loss10_15
+										920 cell
+											921 text 0.14323993837118393
+										922 cell
+											923 text 3779
+									924 row
+										925 cell
+											926 text true
+										927 cell
+											928 text 2020-04-30
+										929 cell
+											930 text fitted
+										931 cell
+											932 text without_hawkes
+										933 cell
+											934 text 0.31182575801486667
+										935 cell
+											936 text loss10_15
+										937 cell
+											938 text 0.12493520124228841
+										939 cell
+											940 text 3779
+									941 row
+										942 cell
+											943 text true
+										944 cell
+											945 text 2020-04-30
+										946 cell
+											947 text fitted
+										948 cell
+											949 text without_rmt
+										950 cell
+											951 text 0.2511925332587627
+										952 cell
+											953 text loss10_15
+										954 cell
+											955 text 0.13392589281334671
+										956 cell
+											957 text 3779
+									958 row
+										959 cell
+											960 text true
+										961 cell
+											962 text 2020-04-30
+										963 cell
+											964 text fitted
+										965 cell
+											966 text without_hamilton
+										967 cell
+											968 text 0.21265475491275665
+										969 cell
+											970 text loss10_15
+										971 cell
+											972 text 0.1384596791854054
+										973 cell
+											974 text 3779
+									975 row
+										976 cell
+											977 text false
+										978 cell
+											979 text 2020-04-30
+										980 cell
+											981 text fitted
+										982 cell
+											983 text baseline_logit
+										984 cell
+											985 text 0.009035846193465523
+										986 cell
+											987 text onset15
+										988 cell
+											989 text 0.013702734210146832
+										990 cell
+											991 text 3779
+									992 row
+										993 cell
+											994 text false
+										995 cell
+											996 text 2020-04-30
+										997 cell
+											998 text fitted
+										999 cell
+											1000 text three_pillars
+										1001 cell
+											1002 text 0.010303703586842811
+										1003 cell
+											1004 text onset15
+										1005 cell
+											1006 text 0.016613907282651545
+										1007 cell
+											1008 text 3779
+									1009 row
+										1010 cell
+											1011 text false
+										1012 cell
+											1013 text 2020-04-30
+										1014 cell
+											1015 text fitted
+										1016 cell
+											1017 text combined
+										1018 cell
+											1019 text 0.0070921855863467645
+										1020 cell
+											1021 text onset15
+										1022 cell
+											1023 text 0.016993462450811212
+										1024 cell
+											1025 text 3779
+									1026 row
+										1027 cell
+											1028 text false
+										1029 cell
+											1030 text 2020-04-30
+										1031 cell
+											1032 text fitted
+										1033 cell
+											1034 text without_hawkes
+										1035 cell
+											1036 text 0.006560592473347507
+										1037 cell
+											1038 text onset15
+										1039 cell
+											1040 text 0.017126865348736243
+										1041 cell
+											1042 text 3779
+									1043 row
+										1044 cell
+											1045 text false
+										1046 cell
+											1047 text 2020-04-30
+										1048 cell
+											1049 text fitted
+										1050 cell
+											1051 text without_rmt
+										1052 cell
+											1053 text 0.0065684805243232565
+										1054 cell
+											1055 text onset15
+										1056 cell
+											1057 text 0.015169391481228926
+										1058 cell
+											1059 text 3779
+									1060 row
+										1061 cell
+											1062 text false
+										1063 cell
+											1064 text 2020-04-30
+										1065 cell
+											1066 text fitted
+										1067 cell
+											1068 text without_hamilton
+										1069 cell
+											1070 text 0.010570869584938193
+										1071 cell
+											1072 text onset15
+										1073 cell
+											1074 text 0.015380001978817615
+										1075 cell
+											1076 text 3779
+									1077 row
+										1078 cell
+											1079 text true
+										1080 cell
+											1081 text 2020-04-30
+										1082 cell
+											1083 text forecast
+										1084 cell
+											1085 text ewma_student_t
+										1086 cell
+											1087 text 0.25885
+										1088 cell
+											1089 text loss10_15
+										1090 cell
+											1091 text 0.0691700000000003
+										1092 cell
+											1093 text -1
+									1094 row
+										1095 cell
+											1096 text false
+										1097 cell
+											1098 text 2020-04-30
+										1099 cell
+											1100 text forecast
+										1101 cell
+											1102 text gjr_garch_t
+										1103 cell
+											1104 text 0.04638671875
+										1105 cell
+											1106 text loss10_15
+										1107 cell
+											1108 text 0.10852783203125016
+										1109 cell
+											1110 text 3779
+							119 container
+								1111 text NEWS CHANNEL · LIVE · 2328 ELIGIBLE EVENTS
+								1112 text OTHER — SBI Mutual Fund - SBI Nifty50 Equal Weight ETF · OTHER — Moschip Technologies Limited · PHYSICAL_HAZARD — M 4.6 - 153 km WNW of Adak, Alaska · PHYSICAL_HAZARD — M 5.2 - 59 km SW of Ashkāsham, Afghanistan · PHYSICAL_HAZARD — M 4.7 - 19 km NE of Atico, Peru · OTHER — प्रधानमंत्री ने वाराणसी यात्रा की झलकियाँ साझा कीं · OTHER — &#2327;&#2357;&#2352;&#2381;&#2344;&#2352; &#2325;&#2366; &#2360;&#2381;&#2357;&#2366;&#2327;&#2340; &#2360;&#2306;&#2348;&#2379;&#2343;&#2344; - RBI &#2325;&#2375; &#2337;&#2375;&#2335;&#2366; &#2360;&#2375;&#2306;&#2335;&#2352; &#2324;&#2352; &#2360;&#2366;&#2311;&#2348;&#2352; &#2360;&#2369;&#2352;&#2325;&#2381;&#2359;&#2366; &#2346;&#2381;&#2352;&#2358;&#2367;&#2325;&#2381;&#2359;&#2339; &#2360;&#2306;&#2360;&#2381;&#2341;&#2366;&#2344; &#2325;&#2366; &#2313;&#2342;&#2381;&#2328;&#2366;&#2335;&#2344; - · FACILITY_INCIDENT — Green forest fire notification in South Sudan · FACILITY_INCIDENT — Green forest fire notification in Zambia · OTHER — Ravindra Energy Limited · FACILITY_INCIDENT — Green forest fire notification in Zambia, Malawi · FACILITY_INCIDENT — Green forest fire notification in Senegal · REGULATORY_ACTION — सीसीपीए ने भ्रामक विज्ञापनों और वॉकी-टॉकी की गैर-अनुपालन बिक्री के खिलाफ कार्रवाई तेज की · OTHER — Green notification for tropical cyclone VANCE-26. Population affected by Category 1 (120 km/h) wind speeds or higher is 0 (0 in Tropical Storm). · OTHER — SKP Bearing Industries Limited · OTHER — एनआईएफटीईएम-के ने भारत के पहले ‘एआई × फूड टेक हैकाथॉन’, ‘हैक द फोर्क’ का आयोजन किया · FACILITY_INCIDENT — Green forest fire notification in Mali · OTHER — ECL Finance Limited · OTHER — ‘विकसित भारत 2047’ की दिशा में शहरी प्रशासन, योजना और सेवाओं की आपूर्ति को मजबूत करने संबंधी व्यावहारिक सुझावों के साथ ‘राष्ट्रीय शहरी सम्मेलन 2026’ संपन्न · OTHER — 12वां ब्रिक्स संसदीय मंच कल संसद भवन परिसर में आयोजित होगा · FACILITY_INCIDENT — Green forest fire notification in Mauritania, Mali · OTHER — GMR AIRPORTS LIMITED · OTHER — Aditya Birla Sun Life Insurance Company Limited · OTHER — Green notification for tropical cyclone IN-FA-26. Population affected by Category 1 (120 km/h) wind speeds or higher is 0 (0 in Tropical Storm). · OTHER — उपराष्ट्रपति सी. पी. राधाकृष्णन 26-27 अक्टूबर को आंध्र प्रदेश के दौरे पर रहेंगे · OTHER — Red notification for tropical cyclone CHAMPI-26. Population affected by Category 1 (120 km/h) wind speeds or higher is 0.291 million . · OTHER — Hon’ble Prime Minister of India inaugurates the Reserve Bank of India’s Data Centre and Cybersecurity Training Institute in Bhubaneswar, Odisha · OTHER — भुवनेश्वर में आरबीआइ की प्रमुख सुविधाओं के उद्घाटन के दौरान प्रधानमंत्री के संबोधन का मूल पाठ · OTHER — प्रधानमंत्री श्री नरेन्द्र मोदी ने ओडिशा के भुवनेश्वर में आरबीआई के नवनिर्मित डेटा सेंटर और साइबर सुरक्षा प्रशिक्षण संस्थान का उद्घाटन किया · OTHER — Green notification for tropical cyclone THREE-C-26. Population affected by Category 1 (120 km/h) wind speeds or higher is 0 (0 in Tropical Storm).
+						122 container req-status-global
+							777 text ● NO RESPONSE  — no response in 15s. Retry sends the same request id, so a request that did arrive cannot be applied twice. 
+							778 button Retry, ID: req-retry
+							779 button Cancel, ID: req-cancel
+
+The focused UI element is 18 link Description: FORECASTS, URL: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#

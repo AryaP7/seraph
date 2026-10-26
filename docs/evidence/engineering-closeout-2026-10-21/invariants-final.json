@@ -1,0 +1,14 @@
+{
+  "command": "python scripts/check_invariants.py",
+  "exit_code": 0,
+  "passed": [
+    "PILLAR_ORDER consistency",
+    "C9 fusion purity",
+    "AR_t placement",
+    "Explicit IST timestamps",
+    "shared_types frozen informational audit",
+    "dependency lock pins",
+    "credential-file check (informational existing local token-cache note)"
+  ],
+  "limits": "Mechanical subset only; no numerical success claim. Existing local credentials were not printed or changed."
+}

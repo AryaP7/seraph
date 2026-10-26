@@ -132,6 +132,27 @@ def live_panel(store_path: Path):
     current = read_current(store, mode=mode)
     health = current.health
 
+    # The warm-up shortfall, named per pillar. `assess_publication` can only
+    # say `warmup_incomplete`; without this an operator cannot tell a pillar
+    # two observations in from one that is nearly ready.
+    from seraph.dashboard.console_backend import warmup_progress
+    progress = warmup_progress(store)
+    if not progress['ready']:
+        parts = []
+        for pillar, state in progress['pillars'].items():
+            if state['absent']:
+                parts.append(f"{pillar} declared absent")
+            elif state['ready']:
+                parts.append(f"{pillar} ready ({state['observations']})")
+            else:
+                parts.append(f"{pillar} {state['observations']} of "
+                             f"{state['required']}")
+        st.warning('STANDARDIZER WARM-UP INCOMPLETE · ' + ' · '.join(parts)
+                   + '. A current market reading is withheld until every '
+                     'non-absent pillar reaches its requirement; the '
+                     'composite still computes from the pillars that are '
+                     'available, with the D2 mask recording which.')
+
     left, right = st.columns(2)
     with left:
         st.caption('LATEST SCORE')
@@ -178,7 +199,8 @@ def store_paths() -> dict:
     )
 
 
-def _news_action(event: dict, role: str, news_path, news_master, payload):
+def _news_action(event: dict, role: str, news_path, news_master, payload,
+                 analyses=None):
     """Dispatch one role action against the news channel.
 
     Rebuilds the channel at the decision time the console is showing, so
@@ -190,6 +212,18 @@ def _news_action(event: dict, role: str, news_path, news_master, payload):
     from seraph.news.acquisition import _now as news_now
 
     op = event.get('op')
+    scope = dict(run_id=payload.get('run_id'), date=payload.get('date'),
+                 role=role, portfolio=payload.get('portfolio_context'),
+                 news_mode=(payload.get('news') or {}).get('mode'))
+    analysis_id = event.get('analysis_id')
+    if op == 'news_export' and analysis_id:
+        from copy import deepcopy
+        saved = (analyses or {}).get(analysis_id)
+        if saved is None or saved['analysis_context'] != scope:
+            raise ValueError('Displayed analysis expired or belongs to another context; run it again')
+        if role != 'institutional':
+            raise PermissionError('Only the institutional view exports news analysis')
+        return deepcopy(saved)
     # `news_path` arrives as an OPEN STORE from main(), not a path.
     # Re-opening it raised "argument should be a str or an os.PathLike
     # object ... not 'NewsStore'", which the console then displayed as a
@@ -209,48 +243,131 @@ def _news_action(event: dict, role: str, news_path, news_master, payload):
             instrument_id=event.get('instrument_id'))
 
     if op == 'news_scenario':
-        target = events.get(str(event.get('event_id') or ''))
-        if target is None:
-            raise ValueError('that event is not visible at this decision time')
-        edge = None
-        for edge_id in reversed(tuple(event.get('path') or ())):
-            candidate = channel['master'].edges.get(edge_id)
-            if candidate is not None and candidate.products:
-                edge = candidate
-                break
-        if edge is None:
-            for estimate in channel['estimates']:
-                if estimate.event_id != target.event_id:
-                    continue
-                for edge_id in reversed(estimate.path or ()):
-                    candidate = channel['master'].edges.get(edge_id)
-                    if candidate is not None and candidate.products:
-                        edge = candidate
-                        break
-                if edge is not None:
-                    break
-        low, high = event.get('pass_through_low'), event.get('pass_through_high')
-        interval = (low, high) if (low not in (None, '') and
-                                   high not in (None, '')) else None
-        return workflows.run_scenario(
-            target, channel['master'], role=role, edge=edge,
-            product=event.get('product') or None,
-            cost_base=event.get('cost_base'), pass_through=interval,
-            on=decision_ts)
+        result = _run_news_scenario(event, role, channel, events, decision_ts)
+        exported = workflows.export_analysis(
+            role=role, channel=channel, scenario=result,
+            matrix=_role_matrix(payload, role), event_ids=(result['event_id'],))
+    else:
+        result = exported = _export_news_analysis(
+            event, role, channel, events, decision_ts, payload)
+    import hashlib
+    exported['analysis_context'] = scope
+    identity = {k: v for k, v in exported.items() if k != 'exported_at'}
+    analysis_id = hashlib.sha256(json.dumps(
+        identity, sort_keys=True, default=str).encode()).hexdigest()
+    exported['analysis_id'] = result['analysis_id'] = analysis_id
+    if analyses is not None:
+        # Bounded session cache, never private client state.
+        analyses[analysis_id] = json.loads(json.dumps(exported, default=str))
+        while len(analyses) > 20:
+            del analyses[next(iter(analyses))]
+    return result
 
-    # news_export
+
+def _run_news_scenario(event, role, channel, events, decision_ts):
+    """One scenario, from its inputs. Called by the scenario op AND by the
+    export, so an exported scenario is the same computation the screen
+    showed rather than a dictionary the browser sent back."""
+    from seraph.news import workflows
+
+    from seraph.news.historical_examples import CASE_ID, run as historical_case
+    if event.get('event_id') == CASE_ID:
+        low, high = event.get('pass_through_low'), event.get('pass_through_high')
+        interval = (low, high) if low not in (None, '') and high not in (None, '') else None
+        return historical_case(role=role, cost_base=event.get('cost_base'), pass_through=interval)
+
+    target = events.get(str(event.get('event_id') or ''))
+    if target is None:
+        raise ValueError('that event is not visible at this decision time')
+    edge = None
+    for edge_id in reversed(tuple(event.get('path') or ())):
+        candidate = channel['master'].edges.get(edge_id)
+        if candidate is not None and candidate.products:
+            edge = candidate
+            break
+    if edge is None:
+        for estimate in channel['estimates']:
+            if estimate.event_id != target.event_id:
+                continue
+            for edge_id in reversed(estimate.path or ()):
+                candidate = channel['master'].edges.get(edge_id)
+                if candidate is not None and candidate.products:
+                    edge = candidate
+                    break
+            if edge is not None:
+                break
+    low, high = event.get('pass_through_low'), event.get('pass_through_high')
+    interval = (low, high) if (low not in (None, '') and
+                               high not in (None, '')) else None
+    return workflows.run_scenario(
+        target, channel['master'], role=role, edge=edge,
+        product=event.get('product') or None,
+        cost_base=event.get('cost_base'), pass_through=interval,
+        on=decision_ts)
+
+
+def _export_news_analysis(event, role, channel, events, decision_ts,
+                          payload):
+    """The displayed analysis as a checkable artefact (F05a).
+
+    Three things were wrong, and all three made the export quietly thinner
+    than the screen:
+
+    * **The matrix was always absent.** The lookup was
+      `channel.get('role_view')`, and `role_view` is not on the channel --
+      `news_view` puts it on the PAYLOAD. So `.get('matrix')` on an empty
+      dict yielded `None` every time, and an institutional export silently
+      carried no product/country matrix.
+    * **The scenario was whatever the browser sent.** `export_analysis`
+      passes `scenario` through verbatim, so a caller could have exported any
+      dictionary. The request now carries the scenario's INPUTS and the
+      server re-runs `_run_news_scenario`, which is the same code path the
+      display used -- so the export is a reconstruction, not a claim.
+    * **The export button sent `{}`.** It is the frontend's job to say which
+      displayed result it means; `bridge.js` now sends the identifiers.
+    """
+    from seraph.news import workflows
+
     comparison = None
-    pair = event.get('compare') or ()
-    if len(tuple(pair)) == 2:
+    pair = tuple(event.get('compare') or ())
+    if len(pair) == 2:
         from seraph.news.comparison import compare_instruments
         comparison = compare_instruments(events.get(pair[0]),
                                          events.get(pair[1]),
                                          master=channel['master'])
+
+    # Reconstructed from inputs, never taken from the request.
+    scenario = None
+    scenario_inputs = event.get('scenario_inputs') or None
+    if scenario_inputs and scenario_inputs.get('event_id'):
+        try:
+            scenario = _run_news_scenario(dict(scenario_inputs), role,
+                                          channel, events, decision_ts)
+        except ValueError as exc:
+            scenario = dict(kind='news_scenario', status='unavailable',
+                            reason=(f'the displayed scenario could not be '
+                                    f'reconstructed at this decision time: '
+                                    f'{exc}'))
+
+    matrix = _role_matrix(payload, role)
     return workflows.export_analysis(
-        role=role, channel=channel, scenario=event.get('scenario'),
-        comparison=comparison,
-        matrix=(channel.get('role_view') or {}).get('matrix'),
+        role=role, channel=channel, scenario=scenario,
+        comparison=comparison, matrix=matrix,
         event_ids=tuple(event.get('event_ids') or ()))
+
+
+def _role_matrix(payload, role):
+    """The product/country matrix from the role projection the screen used.
+
+    `news_view.news_payload` publishes `role_view` on the payload, so the
+    export reads it from the same place the display does rather than
+    recomputing a second copy that could disagree.
+    """
+    news = (payload or {}).get('news') or {}
+    for holder in (news.get('role_view'), (payload or {}).get('role_view')):
+        if isinstance(holder, dict) and holder.get('matrix') is not None:
+            return holder['matrix']
+    return None
 
 
 def workflows_panel(store, point, role):
@@ -310,6 +427,17 @@ def workflows_panel(store, point, role):
             chosen = st.selectbox('Portfolio', list(labels), key='wf_pf')
             pid = labels[chosen]
             held = send('ws_holdings', portfolio_id=pid)['value']
+            basis = st.radio('Analysis holdings basis', ['current', 'historical'],
+                             horizontal=True, key='wf_pf_basis')
+            if st.button('Use this portfolio', key='wf_pf_use'):
+                st.session_state['active_portfolio'] = dict(
+                    portfolio_id=pid, role=role, basis=basis)
+                st.session_state.pop('console_result', None)
+                st.rerun()
+            if st.button('Clear active portfolio', key='wf_pf_clear'):
+                st.session_state.pop('active_portfolio', None)
+                st.session_state.pop('console_result', None)
+                st.rerun()
             st.caption(f"{held['basis']} · effective {held.get('effective_at')}")
             if held.get('scheduled'):
                 st.info(f"A snapshot effective {held['scheduled']['effective_at']} "
@@ -374,9 +502,23 @@ def workflows_panel(store, point, role):
                 sid = labels[chosen]
                 columns = st.columns(4)
                 if columns[0].button('Run', key='wf_scrun'):
-                    outcome = report(send('sc_run', scenario_id=sid), 'Ran.')
+                    try:
+                        outcome = send('sc_run', scenario_id=sid)
+                    except (ValueError, PermissionError) as exc:
+                        # A refused scenario is a readable result, as in the
+                        # console dispatcher, not a failure of the whole page.
+                        outcome = {'error': str(exc)}
+                    report(outcome, 'Ran.')
                     if not outcome.get('error'):
-                        st.write(outcome['value'])
+                        st.session_state['scenario_execution'] = outcome['value']
+                from seraph.dashboard.scenario_ui import render_run
+                previous = st.session_state.get('scenario_execution')
+                if not previous or not previous.get('run_key', '').startswith(sid + ':'):
+                    history = send('sc_history', scenario_id=sid)
+                    executions = (history.get('value') or {}).get('runs', [])
+                    previous = executions[-1] if executions else None
+                if previous and previous.get('run_key', '').startswith(sid + ':'):
+                    render_run(previous)
                 if columns[1].button('History', key='wf_schist'):
                     st.write(send('sc_history', scenario_id=sid)['value'])
                 verdict = columns[2].selectbox(
@@ -401,6 +543,8 @@ def workflows_panel(store, point, role):
                                       right_id=labels[other])['value'])
             else:
                 st.info('No scenario saved yet.')
+            from seraph.dashboard.scenario_ui import forms as scenario_forms
+            scenario_forms(send, report, point=point, role=role)
             with st.expander('Save a new rank-shock scenario'):
                 name = st.text_input('Name', key='wf_scname')
                 pillar = st.selectbox('Pillar', list(PILLAR_ORDER), key='wf_scp')
@@ -543,11 +687,10 @@ def market_jobs_panel():
                        f"{step.get('error') or step.get('output')}")
     st.caption(state.get('note', ''))
 
-    # The one thing the launcher deliberately does not start.
-    st.caption('The live tick loop is not started by the launcher: opening a '
-               'market feed is an operator decision. `python '
-               'scripts/run_live.py --status` reports what it would do '
-               'without connecting to anything.')
+    st.caption('The ordinary launcher starts one owned market runtime unless '
+               '-NoLiveRuntime is selected. A bare Streamlit launch does not. '
+               'Startup alone does not establish a connected feed or a '
+               'publishable score; LIVE RUNTIME shows those separately.')
 
 
 def prediction_panel():
@@ -592,6 +735,9 @@ def prediction_panel():
 
     state = surface['state']
     predicted, warning = state['predicted'], state['warning']
+    if state.get('issuance'):
+        st.caption(f"Forecast ledger ID: {state['issuance']['forecast_id']} · "
+                   f"issued {state['issuance']['issued_at']} · {state['issuance']['mode']}")
     validation = state['validation']
 
     # Staleness before the warning: a two-month-old "no warning" read as
@@ -939,6 +1085,9 @@ def experiment_panel(role: str):
     left.metric('Measured cells', report['measured'])
     middle.metric('Unavailable cells', report['unavailable'])
     right.metric('Not publishable', report['unpublishable'])
+    if report.get('dataset_provenance'):
+        with st.expander('Stored evaluation input provenance'):
+            st.json(report['dataset_provenance'])
 
     st.caption(f"artefact {report['artefact_id'][:16]} · design "
                f"{report['pre_registration_hash'][:16]} · budget "
@@ -981,12 +1130,9 @@ def experiment_panel(role: str):
         st.caption('Every declared fold was measured.')
 
     if report['unpublishable']:
-        st.caption(f"{report['unpublishable']} of "
-                   f"{report['measured'] + report['unavailable']} rows cannot "
-                   f"be carried by the published EvaluationRow contract: "
-                   f"Table C has no place in its table Literal and an "
-                   f"unavailable cell has no fields there. They are counted, "
-                   f"not dropped (DR-12 section 6).")
+        st.caption(f"{report['unpublishable']} unavailable rows are retained "
+                   'in this report with their reasons. Only measured rows '
+                   'from Tables A, B and C can be published as evaluation metrics.')
 
     with st.expander('The run as text'):
         st.code(report['rendered'])
@@ -1071,26 +1217,61 @@ def news_only_panel(news_path: Path, role: str):
                f'the live news clock at {as_of}, not a reconstruction.')
     payload = build_news_payload(store, master, decision_ts=as_of,
                                  role=role, strict_replay=False)
-    channel = payload.get('channel') or {}
-    events = channel.get('events') or []
-    freshness = channel.get('freshness') or {}
+    # `build_news_payload` returns `surfaces` / `source_coverage` /
+    # `freshness`. It has NEVER returned a `channel` key, so the previous
+    # `payload.get('channel')` was always empty and this panel reported
+    # "Events visible now: 0" and "Sources reporting: 0" however full the
+    # store was. The panel is only reachable with no archive store attached,
+    # which is why a channel with 2,000+ eligible events read as nothing.
+    signals = (payload.get('surfaces') or {}).get('signals') or {}
+    events = signals.get('items') or []
+    # The rail is paginated, so one page is not the count.
+    pagination = signals.get('pagination') or {}
+    coverage = payload.get('source_coverage') or {}
+    freshness = payload.get('freshness') or {}
     columns = st.columns(3)
-    columns[0].metric('Events visible now', len(events))
-    columns[1].metric('Sources reporting', len(channel.get('sources') or []))
+    columns[0].metric('Events visible now',
+                      pagination.get('total', len(events)))
+    columns[1].metric('Sources reporting',
+                      coverage.get('covered', 0))
     columns[2].metric('Registered issuers', len(getattr(master, 'entities', {})))
+    if coverage.get('total') is not None:
+        st.caption(f"{coverage.get('covered', 0)} of {coverage['total']} "
+                   f"registered feeds have been fetched; "
+                   f"{len(coverage.get('uncovered') or [])} have not. A feed "
+                   f"that failed is missing evidence, not an absence of risk.")
     if freshness:
-        st.caption(f"Freshness: {freshness.get('state', 'unknown')} · "
-                   f"{freshness.get('note', '')}")
+        st.caption(
+            f"Freshness: newest article "
+            f"{freshness.get('newest_first_seen_at', 'unknown')} "
+            f"({freshness.get('age_minutes', '?')} min old) · "
+            f"{'STALE against policy' if freshness.get('stale') else 'within policy'}"
+            f" · worker {freshness.get('worker_state', 'unknown')}")
     if events:
         st.dataframe([
-            dict(published=e.get('published_at'), source=e.get('source_id'),
-                 title=(e.get('title') or '')[:140],
+            dict(published=e.get('published_at'),
+                 first_seen=e.get('first_seen_at'),
+                 source=_news_sources_of(e),
+                 title=(e.get('headline') or '')[:140],
                  kind=e.get('event_type'))
             for e in events[:40]], width='stretch')
+        if pagination.get('next_offset') is not None:
+            st.caption(f"Showing {pagination.get('displayed', len(events))} of "
+                       f"{pagination.get('total')} events at this clock.")
     else:
         st.info('The news store is attached and holds no event visible at '
                 'this clock. That is an empty result, not a failure.')
 
+
+def _news_sources_of(event: dict) -> str:
+    """The event's source ids, whether the rail carries strings or records."""
+    names = []
+    for entry in event.get('sources') or []:
+        if isinstance(entry, dict):
+            names.append(str(entry.get('source_id') or entry.get('id') or ''))
+        else:
+            names.append(str(entry))
+    return ', '.join(name for name in names if name) or '-'
 
 def archive_console(path: Path):
     """The historical console. Returns False when there is nothing to show.
@@ -1176,16 +1357,63 @@ def main():
     if st.session_state.get('console_context')!=context:
         st.session_state['console_context']=context
         st.session_state.pop('console_result',None)
+    from datetime import datetime
+    from seraph.shared_types import IST
+    from seraph.dashboard.console_backend import sector_analysis
+    sector_basis = st.radio('Sector analysis basis',
+        ['Selected market decision', 'Retrospective analytical archive'], horizontal=True,
+        help='Archive mode shows measured historical activity computed later, without changing the selected historical score.')
+    sector_archive_as_of = (datetime.now(IST).isoformat()
+                           if sector_basis == 'Retrospective analytical archive' else None)
+    if st.session_state.get('last_sector_basis') != sector_basis:
+        st.session_state.setdefault('console_portfolios', {}).pop((selected, role), None)
+        st.session_state['last_sector_basis'] = sector_basis
     portfolio=st.session_state.get('console_portfolios',{}).get((selected,role))
+    measured = sector_analysis(point['evaluation_timestamp'], sector_archive_as_of)
+    st.caption(measured['analysis_note'])
+    if measured.get('available'):
+        st.caption(f"Sector observations end {measured['input_end']} · artifact available {measured['available_at']} · {measured['mapping_basis']}")
+    holdings = portfolio_context = None
+    active_portfolio = st.session_state.get('active_portfolio')
+    if active_portfolio and active_portfolio.get('role') != role:
+        st.session_state.pop('active_portfolio', None)
+        active_portfolio = None
+    if active_portfolio:
+        from seraph.dashboard.workspace_service import active_portfolio as resolve_portfolio
+        try:
+            resolved = resolve_portfolio(active_portfolio, role,
+                                         at=point['evaluation_timestamp'], flags=measured['flags'])
+            holdings, portfolio = resolved['holdings'], resolved['overlay']
+            portfolio_context = resolved['context']
+            st.caption(f"Active saved portfolio: {portfolio_context} · {resolved['note']}")
+        except (ValueError, PermissionError) as exc:
+            st.session_state.pop('active_portfolio', None)
+            st.warning(f'Active portfolio unavailable: {exc}')
     news_path=paths['news']
     news_store=NewsStore(news_path) if news_path.exists() else None
     news_master=load_master_data()[0] if news_store is not None else None
     news_mode = st.radio('News clock', ['current_news', 'historical_decision'], horizontal=True,
         help='Current news updates every 30 seconds with its own clock. Historical news uses only evidence received by the selected market decision.')
     news_offset = st.number_input('News page (40 events per page)', min_value=1, value=1, step=1)
+    from seraph.dashboard.institution_ui import panel as institution_panel
+    institution_decomposition = institution_panel(role, flags=measured['flags'])
+    from seraph.dashboard.network_ui import panel as network_panel
+    directed_network = network_panel(role, point['evaluation_timestamp'])
+    analysis_scope = (selected, day, role, news_mode, sector_basis, json.dumps(portfolio_context, sort_keys=True))
+    if st.session_state.get('analysis_scope') != analysis_scope:
+        st.session_state['analysis_scope'] = analysis_scope
+        st.session_state.pop('console_result', None)
+    with st.expander('MEASURED SECTOR ACTIVITY — FR14'):
+        st.caption('Native intraday jump counts and declared historical baselines. News mechanisms remain separate.')
+        if not measured['available']:
+            st.info(measured.get('reason', 'No sectors have sufficient coverage or a positive measured baseline.'))
+        st.json(measured)
     payload=project_run(point,manifest,points,role,
         log=bundle['log'],
-        portfolio=portfolio,result=st.session_state.get('console_result'),
+        portfolio=portfolio,holdings=holdings,portfolio_context=portfolio_context,
+        institution_decomposition=institution_decomposition, contagion_network=directed_network,
+        sector_archive_as_of=sector_archive_as_of,
+        result=st.session_state.get('console_result'),
         report=bundle['report'],
         news_store=news_store,news_master=news_master, news_mode=news_mode, news_offset=(news_offset-1)*40)
     st.caption(f'Run {selected[:16]} · decision {point["evaluation_timestamp"]} · role {role}')
@@ -1280,7 +1508,8 @@ def main():
                 if news_store is None:
                     raise ValueError('No news store is connected')
                 result = _news_action(event, role, news_store, news_master,
-                                      payload)
+                                      payload, st.session_state.setdefault(
+                                          'news_analyses', {}))
                 # The console correlates a reply to its request by
                 # `context.request_id`; without it the page never
                 # acknowledges the operation and the status line reports
@@ -1294,9 +1523,10 @@ def main():
                 if new_role not in ('retail','institutional','regulator'):raise ValueError('Unknown role')
                 st.session_state['console_role']=new_role
             else:
-                result=dispatch(store,point,role,event)
+                result=dispatch(store,point,role,event,sector_archive_as_of=sector_archive_as_of)
                 st.session_state['console_result']=result
                 if result['kind']=='portfolio':
+                    st.session_state.pop('active_portfolio', None)
                     st.session_state.setdefault('console_portfolios',{})[(selected,role)]=result['value']
                 # A write changed durable state this bundle has cached.
                 if result['kind']=='action':

@@ -1,0 +1,260 @@
+{
+  "schema": "native-depth-extension/1",
+  "recorded_at": "2026-10-25",
+  "what": "The planned Kite depth-extension backfill, its coverage verification, the re-seeded native history, and the classification of every absence the extended census reports.",
+  "backfill": {
+    "command": "python scripts/backfill_intraday.py --from 2023-09-01 --to 2024-08-01 --checkpoint prototype_runs/depth-extension.checkpoint.json",
+    "planned_requests": 380,
+    "completed_requests": 380,
+    "symbols": 95,
+    "windows_per_symbol": 4,
+    "window_bounds": [
+      "2023-09-01/2023-12-10",
+      "2023-12-10/2024-03-19",
+      "2024-03-19/2024-06-27",
+      "2024-06-27/2024-08-01"
+    ],
+    "kite_token_login_time": "2026-10-25 17:32:33",
+    "status": "complete"
+  },
+  "coverage_verification": {
+    "duplicate_symbol_ts_rows": 0,
+    "duplicates_structurally_impossible": "PRIMARY KEY (symbol, ts) on intraday_bars; the count is reported rather than assumed",
+    "intraday_bars_rows": 5744265,
+    "requested_range_sessions": 227,
+    "requested_range_all_member_sessions": 227,
+    "requested_range_sessions_missing_a_member": 0,
+    "members_absent_entirely_from_the_range": [],
+    "session_days_per_member": {
+      "min": 227,
+      "max": 227
+    },
+    "all_member_sessions_store_wide": 778,
+    "all_member_sessions_before_the_backfill": 552,
+    "all_member_session_span": [
+      "2023-09-01",
+      "2026-10-22"
+    ]
+  },
+  "native_history_reseed": {
+    "command": "python scripts/prepare_native_hawkes.py --through 2026-10-22 --window-sessions 500 --bar-timestamps start --config prototype_runs/live.native-hawkes.json",
+    "native_rows_before": 4150272,
+    "native_rows_after": 5744265,
+    "distinct_dates_before": 695,
+    "distinct_dates_after": 921,
+    "covered_members": 95,
+    "rows_by_receipt_date": {
+      "2026-10-22": 4150272,
+      "2026-10-25": 1593993
+    },
+    "arrival_discipline": "INSERT OR IGNORE on PRIMARY KEY (symbol, end): the 4,150,272 pre-existing rows keep their original 2026-10-22 receipt and only the 1,593,993 new rows carry today's. No arrival time was backdated.",
+    "session_schedule": {
+      "file": "../docs/evidence/engineering-closeout-2026-10-24/native-session-schedule/schedule.json",
+      "regenerated": false,
+      "why_not": "The schedule declares dated exceptions only, and NativeSessionSchedule.load constrains them to 2026-08-03 <= day < 2026-12-07. The four dated special pre-open notices are 2025-01-06, 2025-10-14, 2025-12-05 and 2026-04-30. The backfilled range 2023-09-01..2024-08-01 precedes every one of them, so the normal session applies and there is nothing dated to add."
+    }
+  },
+  "census": {
+    "trailing_500_sessions": {
+      "history": "C:\\Users\\Arlop\\Downloads\\SERAPH VARYA\\SERAPH Varya\\prototype_runs\\live.native-hawkes.sqlite",
+      "sessions": 500,
+      "first_session": "2024-10-16",
+      "last_session": "2026-10-22",
+      "members": 95,
+      "interval_slots": 37374,
+      "missing_total": 14630,
+      "missing_session_tail": 14616,
+      "missing_other": 14,
+      "truncated_sessions": [
+        "2026-08-03",
+        "2026-08-04",
+        "2026-08-05",
+        "2026-08-06",
+        "2026-08-07",
+        "2026-08-10",
+        "2026-08-11",
+        "2026-08-12",
+        "2026-08-13",
+        "2026-08-14",
+        "2026-08-17",
+        "2026-08-18",
+        "2026-08-19",
+        "2026-08-20",
+        "2026-08-21",
+        "2026-08-24",
+        "2026-08-25",
+        "2026-08-26",
+        "2026-08-27",
+        "2026-08-28",
+        "2026-08-31",
+        "2026-09-01",
+        "2026-09-02",
+        "2026-09-03",
+        "2026-09-04",
+        "2026-09-07",
+        "2026-09-08",
+        "2026-09-09",
+        "2026-09-10",
+        "2026-09-11",
+        "2026-09-15",
+        "2026-09-16",
+        "2026-09-17",
+        "2026-09-18",
+        "2026-09-21",
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28",
+        "2026-09-29",
+        "2026-09-30",
+        "2026-10-01",
+        "2026-10-05",
+        "2026-10-06",
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-12",
+        "2026-10-13",
+        "2026-10-14",
+        "2026-10-15",
+        "2026-10-16",
+        "2026-10-19",
+        "2026-10-21",
+        "2026-10-22"
+      ]
+    },
+    "all_member_era_778_sessions": {
+      "history": "C:\\Users\\Arlop\\Downloads\\SERAPH VARYA\\SERAPH Varya\\prototype_runs\\live.native-hawkes.sqlite",
+      "sessions": 778,
+      "first_session": "2023-09-01",
+      "last_session": "2026-10-22",
+      "members": 95,
+      "interval_slots": 58053,
+      "missing_total": 14642,
+      "missing_session_tail": 14616,
+      "missing_other": 26
+    },
+    "other_detail_778": {
+      "2023-10-09 GVT&D": [
+        "14:00"
+      ],
+      "2023-10-10 GVT&D": [
+        "13:25"
+      ],
+      "2023-10-12 GVT&D": [
+        "14:15",
+        "14:35"
+      ],
+      "2023-10-13 GVT&D": [
+        "14:00"
+      ],
+      "2023-11-29 GVT&D": [
+        "13:00"
+      ],
+      "2023-12-05 GVT&D": [
+        "11:10"
+      ],
+      "2023-12-15 GVT&D": [
+        "13:20"
+      ],
+      "2023-12-28 GVT&D": [
+        "12:00"
+      ],
+      "2024-01-01 GVT&D": [
+        "13:00"
+      ],
+      "2024-01-25 GVT&D": [
+        "09:20"
+      ],
+      "2024-04-23 GVT&D": [
+        "10:55"
+      ],
+      "2025-01-06 ITC": [
+        "09:25",
+        "09:30",
+        "09:35"
+      ],
+      "2025-10-14 TMPV": [
+        "09:25",
+        "09:30",
+        "09:35",
+        "09:40"
+      ],
+      "2025-12-05 HINDUNILVR": [
+        "09:25",
+        "09:30",
+        "09:35",
+        "09:40"
+      ],
+      "2026-04-30 VEDL": [
+        "09:25",
+        "09:30",
+        "09:35"
+      ]
+    }
+  },
+  "absence_classification": {
+    "session_tail_14616": {
+      "cause": "NSE Closing Auction Session, effective 2026-08-03 by SEBI circular. Continuous trading ends 15:15 and the close is set by auction, so the 15:20/15:25/15:30 candles DO NOT EXIST for a CAS member.",
+      "fillable": false,
+      "new_in_this_backfill": false
+    },
+    "special_preopen_14": {
+      "cause": "Four dated exchange special pre-open notices: ITC 2025-01-06, TMPV 2025-10-14, HINDUNILVR 2025-12-05, VEDL 2026-04-30. Continuous trading started late that day.",
+      "fillable": false,
+      "new_in_this_backfill": false
+    },
+    "gvtd_zero_trade_12": {
+      "cause": "Twelve isolated single-interval absences, all in GVT&D, on eleven scattered dates between 2023-10-09 and 2024-04-23. GVT&D is the 3rd least liquid of the 95 members over the backfilled range by median five-minute volume (383). It holds 16,842 bars against 16,854 for a fully covered member -- exactly 12 fewer. Neighbouring intervals carry volumes of 0 to 60.",
+      "verified_upstream": "The broker was re-asked for four of these sessions. Kite's own response returns 74 candles, not 75, and the absent interval is missing from the broker's response too: 2023-10-09 13:55, 2023-10-10 13:20, 2023-12-05 11:05 and 2024-01-25 09:15 are all ABSENT upstream while both neighbours on each side are present. The backfill did not miss them; no such candle exists.",
+      "fillable": false,
+      "new_in_this_backfill": true,
+      "not_a_request_window_artefact": "Single intervals, not a contiguous block, not aligned to any session boundary, and shared with no other member."
+    },
+    "new_unexplained_gaps": 0
+  },
+  "hawkes_replay": {
+    "planner": {
+      "command": "python scripts/warm_native_hawkes_history.py --config prototype_runs/live.native-hawkes.json --baskets dated",
+      "sessions_visible": 921,
+      "candidate_cadence_points": 422,
+      "candidate_range": [
+        "2025-02-05",
+        "2026-10-22"
+      ],
+      "epochs": 43,
+      "epoch_range": [
+        "2005-07-01",
+        "2026-07-01"
+      ],
+      "basket_sizes": [
+        91,
+        92,
+        93,
+        94,
+        95,
+        96,
+        97,
+        98
+      ],
+      "required_observations": 252,
+      "admitted_before": 1
+    },
+    "execution": {
+      "status": "started, then stopped before any fit completed",
+      "measured_cost": "SUPERSEDED. This originally read that 35 minutes and 501 CPU-seconds producing zero fits implied hours per fit. Per-candidate timing on the dated path gives a mean fit_pending of 43.3s and about 5.1 hours for the whole 423-candidate run. Cost was never the blocker; point-in-time basket coverage is. See replay-blocker-epoch-coverage.json in this directory.",
+      "why_stopped": "A concurrent session needed prototype_runs/live.sqlite quiet for an authoritative full suite. The run is resumable: --max-fits bounds a run and it resumes where it stopped.",
+      "vintages_written": 0,
+      "superseded_by": "docs/evidence/native-depth-2026-10-25/replay-blocker-epoch-coverage.json"
+    },
+    "readiness_arithmetic_unchanged": {
+      "refit_sessions": 5,
+      "sessions_needed_for_252_fits": 1755,
+      "all_member_sessions_available": 778,
+      "five_year_window_holds_at_cadence_5": "~248 fits, fewer than the 252 required",
+      "conclusion": "At the declared five-session cadence the 252-observation requirement stays unsatisfiable no matter how much history is acquired. The depth extension did clear the 751-session bar that cadence 1 would need, which is a real change, but refit_sessions is part of _compatible and changing it invalidates existing fits. It remains an owner decision and was NOT changed. The 252 threshold was not changed either.",
+      "also_see": "replay-blocker-epoch-coverage.json: 70 epoch-basket members had no intraday bars at all, which is why no historical fit could be produced regardless of cadence."
+    }
+  }
+}

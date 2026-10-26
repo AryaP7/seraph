@@ -49,6 +49,9 @@ ACTIONS = ("read", "list", "write", "delete", "export")
 #: Which roles may ever perform an action on a resource kind, before scope is
 #: even considered. Scope then narrows it to specific resources.
 ROLE_CAPABILITY: dict[str, dict[str, tuple[Role, ...]]] = {
+    "institution_submission": {"read": ("regulator",), "list": ("regulator",),
+                               "write": ("regulator",), "delete": (),
+                               "export": ("regulator",)},
     "run":               {"read": ROLES, "list": ROLES, "write": (), "delete": (), "export": ("institutional", "regulator")},
     "portfolio":         {"read": ROLES, "list": ROLES, "write": ROLES, "delete": ROLES, "export": ROLES},
     "holdings_snapshot": {"read": ROLES, "list": ROLES, "write": ROLES, "delete": ROLES, "export": ROLES},

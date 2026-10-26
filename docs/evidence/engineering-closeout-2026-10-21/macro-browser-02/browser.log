@@ -1,0 +1,64 @@
+2026-10-21 19:52:54.963 Uvicorn server started on 127.0.0.1:51414
+
+  You can now view your Streamlit app in your browser.
+
+  URL: http://127.0.0.1:51414
+
+
+DevTools listening on ws://127.0.0.1:51415/devtools/browser/ca800b7f-3f6e-4f9b-b501-c6cfd2bf601a
+[39056:7556:1021/195255.802:ERROR:chrome\browser\component_updater\edge_optimization_guide_models_manifest_installer.cc:264] Edge LLM: catalog update failed: 5
+[39056:7556:1021/195255.821:ERROR:chrome\browser\component_updater\edge_language_detection_model_installer.cc:97] Edge Language Detection Model: On-demand update failed with error: 5
+[39056:7556:1021/195257.637:ERROR:components\edge_auth\edge_auth_errors.cc:553] EDGE_IDENTITY: Image Fetch FAILED: Error: Primary Error: kUrlRequestError, Secondary Error: kURLResponseNot200, Platform error: 0, Error string: [empty]
+
+[39056:36380:1021/195258.262:ERROR:components\sync\engine\get_updates_processor.cc:426] PostClientToServerMessage() failed during GetUpdates with error Network error (ERR_NAME_NOT_RESOLVED)
+[39056:7556:1021/195258.379:ERROR:chrome\browser\task_manager\providers\fallback_task_provider.cc:126] Every renderer should have at least one task provided by a primary task provider. If a "Renderer" fallback task is shown, it is a bug. If you have repro steps, please file a new bug and tag it as a dependency of crbug.com/40528867.
+[39056:28776:1021/195259.452:ERROR:components\media_router\common\providers\cast\certificate\cast_crl.cc:446] CRL - Verification failed.
+[39056:35500:1021/195259.808:ERROR:components\sync\engine\get_updates_processor.cc:426] PostClientToServerMessage() failed during GetUpdates with error Network error (ERR_NAME_NOT_RESOLVED)
+[39056:35500:1021/195302.077:ERROR:components\sync\engine\get_updates_processor.cc:426] PostClientToServerMessage() failed during GetUpdates with error Network error (ERR_NAME_NOT_RESOLVED)
+[39056:35500:1021/195307.714:ERROR:components\sync\engine\get_updates_processor.cc:426] PostClientToServerMessage() failed during GetUpdates with error Network error (ERR_NAME_NOT_RESOLVED)
+[39056:35500:1021/195321.788:ERROR:components\sync\engine\get_updates_processor.cc:426] PostClientToServerMessage() failed during GetUpdates with error Network error (ERR_NAME_NOT_RESOLVED)
+[39056:35500:1021/195356.958:ERROR:components\sync\engine\get_updates_processor.cc:426] PostClientToServerMessage() failed during GetUpdates with error Network error (ERR_NAME_NOT_RESOLVED)
+2026-10-21 19:54:21.505 Uncaught app execution
+Traceback (most recent call last):
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\.venv\Lib\site-packages\streamlit\runtime\scriptrunner\exec_code.py", line 136, in exec_func_with_error_handling
+    result = func()
+             ^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\.venv\Lib\site-packages\streamlit\runtime\scriptrunner\script_runner.py", line 924, in code_to_exec
+    exec(code, module.__dict__)  # noqa: S102
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\seraph\dashboard\prototype_app.py", line 1494, in <module>
+    if __name__=='__main__': main()
+                             ^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\seraph\dashboard\prototype_app.py", line 1355, in main
+    workflows_panel(store, point, role)
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\seraph\dashboard\prototype_app.py", line 484, in workflows_panel
+    outcome = report(send('sc_run', scenario_id=sid), 'Ran.')
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\seraph\dashboard\prototype_app.py", line 380, in send
+    return dispatch(store, point, role, event)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\seraph\dashboard\console_backend.py", line 382, in dispatch
+    return dict(_dispatch(store,point,role,event),context=context)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\seraph\dashboard\console_backend.py", line 767, in _dispatch
+    workflow=_workflow(point,role,event,store=store)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\seraph\dashboard\console_backend.py", line 540, in _workflow
+    results = _simulate_steps(baseline, saved['kind'], saved['steps'])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\seraph\dashboard\console_backend.py", line 721, in _simulate_steps
+    raise ValueError('A newer fit requires explicit retrospective_hypothetical mode')
+ValueError: A newer fit requires explicit retrospective_hypothetical mode
+[39056:35500:1021/195449.701:ERROR:components\sync\engine\get_updates_processor.cc:426] PostClientToServerMessage() failed during GetUpdates with error Network error (ERR_NAME_NOT_RESOLVED)
+SUCCESS: The process with PID 18664 (child process of PID 39056) has been terminated.
+SUCCESS: The process with PID 34976 (child process of PID 39056) has been terminated.
+SUCCESS: The process with PID 39820 (child process of PID 39056) has been terminated.
+SUCCESS: The process with PID 36616 (child process of PID 39056) has been terminated.
+SUCCESS: The process with PID 24952 (child process of PID 39056) has been terminated.
+SUCCESS: The process with PID 26364 (child process of PID 39056) has been terminated.
+[39056:7556:1021/195621.811:ERROR:content\browser\network_service_instance_impl.cc:673] Network service crashed or was terminated, restarting service.
+SUCCESS: The process with PID 31416 (child process of PID 39056) has been terminated.
+SUCCESS: The process with PID 3256 (child process of PID 39056) has been terminated.
+SUCCESS: The process with PID 39056 (child process of PID 7864) has been terminated.
+SUCCESS: The process with PID 38184 (child process of PID 34888) has been terminated.
+SUCCESS: The process with PID 34888 (child process of PID 7864) has been terminated.

@@ -44,6 +44,7 @@ from __future__ import annotations
 import argparse
 import asyncio
 import json
+import hashlib
 import sys
 from datetime import datetime, timedelta
 from pathlib import Path
@@ -108,9 +109,9 @@ async def compute_pillars(day: str, *, hamilton: str = "excluded"
     """
     import asyncpg
 
-    from seraph.store.bootstrap import DEFAULT_DSN
+    from seraph.store.bootstrap import resolve_dsn
 
-    conn = await asyncpg.connect(DEFAULT_DSN)
+    conn = await asyncpg.connect(resolve_dsn())
     try:
         if hamilton == "diagnostic":
             from seraph.orchestration.original_execution import execute_originals
@@ -215,17 +216,53 @@ def archived_hawkes(day: str) -> dict | None:
         return None
     row = max(rows, key=lambda r: r["ts"])
     observed = row["ts"].astimezone(IST)
+    # FR13 v4 emits the branching ratio REGARDLESS of the sell-side gate:
+    # "a gated-off reading ... is distinct from an absence of contagion -- the
+    # branching ratio is reported regardless". The `mts` column is the GATED
+    # statistic and is 0.0 on 352 of these 473 rows, so emitting it as the
+    # pillar value would feed the ECDF a reference series that is 74%
+    # structural zeros -- and would disagree with the native producer, which
+    # persists `n/(1-n)` ungated for exactly this reason
+    # (`pillars/hawkes/runtime.py:_persist`). The gate stays as provenance.
+    n = float(row["branching_ratio_n"])
+    gated = float(row["mts"])
     return dict(input_end=_stamp(observed),
                 emission_available_at=_stamp(observed + EMISSION_LAG),
-                value=float(row["mts"]),
-                detail=dict(branching_ratio_n=float(row["branching_ratio_n"]),
-                            mts=float(row["mts"]),
+                value=n / (1.0 - n),
+                detail=dict(branching_ratio_n=n,
+                            mts=gated,
+                            fr13_gate_open=bool(gated > 0.0),
+                            raw_statistic="ungated_n_over_one_minus_n",
                             source=str(ARCHIVED_HAWKES.relative_to(ROOT)),
                             measured_at=_stamp(observed)))
 
 
+def persist_absence(store, pillar, input_end, *, absence, reason, detail):
+    """Register the declaration itself, without inventing a fitted model.
+
+    An unregistered named absence was withheld by the runtime just like an
+    unknown model, so even Hamilton's standing exclusion could not reach D2.
+    Availability is when this producer recorded the declaration, not its
+    historical observation date.
+    """
+    from seraph.live.inference import ModelBundle
+    manifest = dict(producer=pillar, input_end=input_end, kind='declared_absence',
+                    absence=absence, absence_reason=reason, detail=detail,
+                    implementation_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest())
+    identity = hashlib.sha256(json.dumps(manifest, sort_keys=True).encode()).hexdigest()
+    bundle_id = f'{pillar}:absence:{identity}'
+    prior = next((b for b in store.deployments() if b['bundle_id'] == bundle_id), None)
+    available = prior['available_at'] if prior else _stamp(datetime.now(IST))
+    store.register_deployment(ModelBundle(bundle_id=bundle_id, producer=pillar,
+        trained_through=input_end, available_at=available, manifest_hash=identity,
+        notes=json.dumps(manifest, sort_keys=True)))
+    return store.record_daily_vintage(producer=pillar, input_end=input_end,
+        emission_available_at=available, origin='absent', absence=absence,
+        absence_reason=reason, bundle_id=bundle_id, detail=detail)
+
+
 def persist(store: LiveStore, day: str, pillars: dict, *,
-            hawkes_mode: str) -> list[dict]:
+            hawkes_mode: str, input_audit=None) -> list[dict]:
     """Write one day's vintages. Returns what was stored, per pillar."""
     close = datetime.fromisoformat(f"{day}T15:30:00+05:30")
     available = _stamp(close + EMISSION_LAG)
@@ -234,21 +271,34 @@ def persist(store: LiveStore, day: str, pillars: dict, *,
     for pillar in ("rmt", "hamilton"):
         entry = pillars.get(pillar) or {}
         if entry.get("score_eligible") and entry.get("value") is not None:
+            from seraph.live.inference import ModelBundle
+            input_end = entry.get("information_timestamp") or _stamp(close)
+            manifest = dict(producer=pillar, input_end=input_end, output=entry,
+                input_audit=input_audit or {},
+                implementation_sha256=hashlib.sha256(
+                    (ROOT/'seraph/pillars'/pillar/'engine.py').read_bytes()).hexdigest())
+            identity = hashlib.sha256(json.dumps(manifest, sort_keys=True,
+                                                 default=str).encode()).hexdigest()
+            bundle_id = f'{pillar}:{identity}'
+            prior = next((b for b in store.deployments()
+                          if b['bundle_id'] == bundle_id), None)
+            computed_at = prior['available_at'] if prior else _stamp(datetime.now(IST))
+            store.register_deployment(ModelBundle(
+                bundle_id=bundle_id, producer=pillar, trained_through=input_end,
+                available_at=computed_at, manifest_hash=identity,
+                notes=json.dumps(manifest, sort_keys=True, default=str)))
             written.append(store.record_daily_vintage(
                 producer=pillar,
-                input_end=entry.get("information_timestamp") or _stamp(close),
-                emission_available_at=available, origin="computed",
+                input_end=input_end,
+                emission_available_at=computed_at, origin="computed",
                 value=float(entry["value"]),
-                bundle_id=str(entry.get("model") or f"original {pillar}"),
+                bundle_id=bundle_id,
                 detail=dict(entry.get("detail") or {})))
         else:
-            written.append(store.record_daily_vintage(
-                producer=pillar,
-                input_end=entry.get("information_timestamp") or _stamp(close),
-                emission_available_at=available, origin="absent",
+            written.append(persist_absence(store, pillar,
+                entry.get("information_timestamp") or _stamp(close),
                 absence=entry.get("absence") or "structural",
-                absence_reason=entry.get("absence_reason") or "no_data_coverage",
-                bundle_id=str(entry.get("model") or f"original {pillar}"),
+                reason=entry.get("absence_reason") or "no_data_coverage",
                 detail=dict(reason=entry.get("reason") or "")))
 
     if hawkes_mode == "archived":
@@ -261,19 +311,15 @@ def persist(store: LiveStore, day: str, pillars: dict, *,
                 bundle_id="original hawkes (research snapshot)",
                 detail=archived["detail"]))
             return written
-    written.append(store.record_daily_vintage(
-        producer="hawkes", input_end=_stamp(close),
-        emission_available_at=available, origin="absent",
+    written.append(persist_absence(store, 'hawkes', _stamp(close),
         # `absence_reason` must be one of PillarObservation's three
         # permitted reasons; it flows into UnavailableEmission.reason, which
         # is a closed Literal. The specific cause goes in `detail` below.
-        absence="structural", absence_reason="no_data_coverage",
-        bundle_id="original hawkes",
+        absence="structural", reason="no_data_coverage",
         detail=dict(reason=(
-            "a fresh Hawkes estimate needs 5-minute intraday bars; "
-            "intraday_bars is empty and filling it needs a Kite Connect "
-            "subscription plus a daily interactive login "
-            "(scripts/backfill_intraday.py)"))))
+            "No fresh Hawkes estimate is supplied by this daily job. "
+            "It requires a registered native-intraday producer with sufficient "
+            "history; archived observations are not current estimates."))))
     return written
 
 
@@ -324,7 +370,7 @@ def main(argv: list[str] | None = None) -> int:
           f"bootstraps each 1,000 times)", flush=True)
     pillars, audit = asyncio.run(compute_pillars(args.day,
                                                  hamilton=args.hamilton))
-    written = persist(store, args.day, pillars, hawkes_mode=args.hawkes)
+    written = persist(store, args.day, pillars, hawkes_mode=args.hawkes, input_audit=audit)
 
     for row in written:
         print(f"[daily]   {row['producer']:9} origin={row['origin']:9} "

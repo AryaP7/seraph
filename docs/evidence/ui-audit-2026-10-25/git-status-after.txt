@@ -1,0 +1,124 @@
+ M docs/NEXT-SESSION.md
+ M docs/OPERATIONS.md
+ M launch_prototype.ps1
+ M scripts/backfill_intraday.py
+ M scripts/run_acquisition.py
+ M scripts/run_daily.py
+ M scripts/run_experiment.py
+ M scripts/run_forecast.py
+ M scripts/run_live.py
+ M scripts/run_market_jobs.py
+ M scripts/run_news.py
+ M scripts/run_prediction.py
+ M scripts/verify_news_workflows_browser.py
+ M seraph/dashboard/console_backend.py
+ M seraph/dashboard/console_component/bridge.js
+ M seraph/dashboard/console_component/index.html
+ M seraph/dashboard/gateway.py
+ M seraph/dashboard/news_view.py
+ M seraph/dashboard/prototype_app.py
+ M seraph/dashboard/workspace_service.py
+ M seraph/decision_support/scenarios.py
+ M seraph/identity/model.py
+ M seraph/identity/registry.py
+ M seraph/ingestion/bhavcopy_client.py
+ M seraph/live/clock.py
+ M seraph/live/engine_adapter.py
+ M seraph/live/feed.py
+ M seraph/live/inference.py
+ M seraph/live/lifecycle.py
+ M seraph/live/loop.py
+ M seraph/live/store.py
+ M seraph/market_calendar/sessions.py
+ M seraph/news/acquisition.py
+ M seraph/news/curated/entities.csv
+ M seraph/news/extraction.py
+ M seraph/orchestration/prototype.py
+ M seraph/pillars/hamilton/engine.py
+ M seraph/prediction/operational.py
+ M seraph/shared_types/validation.py
+ M seraph/validation/experiment.py
+ M seraph/validation/experiment_store.py
+ M tests/js/bridge_harness.mjs
+ M tests/test_c15_unified_launch.py
+ M tests/test_fresh_data_acquisition.py
+ M tests/test_news06_overlays.py
+ M tests/test_news_completion_2026_10_18.py
+ M tests/test_news_role_workflows.py
+ M tests/test_o03_scheduling.py
+ M tests/test_port01_port02_workspace.py
+ M tests/test_t05_t08_t09_ui.py
+ M tests/test_t10_experiment_runner.py
+ M tests/test_t10_transfer_sensitivity_archive.py
+ M tests/test_x01_x02_unicode_identity.py
+?? docs/AMENDMENT-08-ni17-corpus-window.md
+?? docs/AMENDMENT-09-native-depth-extension.md
+?? docs/AMENDMENT-10-console-native-frontend-verification.md
+?? docs/DEMO-READINESS-REVIEW-2026-10-20.md
+?? docs/NATIVE-HAWKES-RUNTIME-2026-10-22.md
+?? docs/NATIVE-SESSION-COVERAGE-2026-10-24.md
+?? docs/REDESIGN-FEATURE-PARITY.md
+?? docs/REDESIGN-FRONTEND.md
+?? docs/SERAPH-DEMO-RUNBOOK-2026-10-21.md
+?? docs/SERAPH-OVERALL-ENGINEERING-COMPLETION-AUDIT-2026-10-20.json
+?? docs/SERAPH-OVERALL-ENGINEERING-COMPLETION-AUDIT-2026-10-20.md
+?? docs/SERAPH-UI-AUDIT-BACKLOG-2026-10-26.csv
+?? docs/SERAPH-UI-PROJECT-AUDIT-2026-10-26.md
+?? docs/decisions/DR-11-2026-10-25-f07-adoption.md
+?? docs/evidence/demo-readiness-2026-10-20/
+?? docs/evidence/engineering-closeout-2026-10-20/
+?? docs/evidence/engineering-closeout-2026-10-21/
+?? docs/evidence/engineering-closeout-2026-10-22/
+?? docs/evidence/engineering-closeout-2026-10-24/
+?? docs/evidence/engineering-closeout-2026-10-25/
+?? docs/evidence/frontend-baseline-2026-10-24/
+?? docs/evidence/native-depth-2026-10-25/
+?? docs/evidence/redesign-complete-2026-10-25/
+?? docs/evidence/redesign-console-native-2026-10-25/
+?? docs/evidence/redesign-overview-2026-10-24/
+?? docs/evidence/ui-audit-2026-10-25/
+?? fixtures/test_portfolio.py
+?? launch_redesign.ps1
+?? preregistration.json
+?? scripts/census_native_bars.py
+?? scripts/export_hamilton_projection.py
+?? scripts/prepare_native_hawkes.py
+?? scripts/prepare_native_sessions.py
+?? scripts/run_native_hawkes.py
+?? scripts/score_completed_sessions.py
+?? scripts/verify_closeout_browser.py
+?? scripts/verify_owned_launcher.py
+?? scripts/warm_native_hawkes_history.py
+?? scripts/warm_runtime_history.py
+?? scripts/write_hawkes_network.py
+?? scripts/write_hawkes_sectors.py
+?? seraph/dashboard/institution_ui.py
+?? seraph/dashboard/network_ui.py
+?? seraph/dashboard/redesign/
+?? seraph/dashboard/scenario_ui.py
+?? seraph/decision_support/defensive.py
+?? seraph/decision_support/institutions.py
+?? seraph/decision_support/portfolio_import.py
+?? seraph/decision_support/portfolio_quality.py
+?? seraph/live/migrations/005_forecast_evidence.sql
+?? seraph/market_calendar/exchange.py
+?? seraph/market_calendar/native_sessions.py
+?? seraph/news/historical_examples.py
+?? seraph/pillars/hamilton/covariates.py
+?? seraph/pillars/hamilton/projection.py
+?? seraph/pillars/hawkes/network.py
+?? seraph/pillars/hawkes/runtime.py
+?? seraph/pillars/hawkes/sectors.py
+?? seraph/prediction/issuance.py
+?? seraph/validation/datasets.py
+?? tests/test_closeout_analytics.py
+?? tests/test_closeout_input_contracts.py
+?? tests/test_closeout_workflows.py
+?? tests/test_csrs_batch_scoring.py
+?? tests/test_intraday_backfill_resume.py
+?? tests/test_native_hawkes_runtime.py
+?? tests/test_native_session_schedule.py
+?? tests/test_operational_issuance.py
+?? tests/test_redesign_console_e2e.py
+?? tests/test_redesign_console_native.py
+?? tests/test_redesign_overview.py

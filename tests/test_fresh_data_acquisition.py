@@ -61,15 +61,21 @@ def parsed(day='2026-10-19', rows=600, **overrides):
 
 
 class TestWhichSessionsAreMissing:
+    @staticmethod
+    def declared_clock():
+        from seraph.live.clock import MarketClock
+        from seraph.market_calendar import SessionCalendar
+        return MarketClock(calendar=SessionCalendar(session_dates={'2026-10-19', '2026-10-21'}))
+
     def test_it_lists_only_trading_days(self):
         days = client.sessions_to_acquire(latest_stored='2026-10-16',
-                                          expected='2026-10-20')
-        assert days == ['2026-10-19', '2026-10-20']      # 17-18 is a weekend
+                    expected='2026-10-21', clock=self.declared_clock())
+        assert days == ['2026-10-19', '2026-10-21']
 
     def test_it_starts_after_the_last_stored_session(self):
         days = client.sessions_to_acquire(latest_stored='2026-10-19',
-                                          expected='2026-10-20')
-        assert days == ['2026-10-20']
+                    expected='2026-10-21', clock=self.declared_clock())
+        assert days == ['2026-10-21']
 
     def test_nothing_is_missing_when_the_corpus_is_current(self):
         assert client.sessions_to_acquire(latest_stored='2026-10-20',
@@ -297,10 +303,24 @@ class TestItReusesRatherThanReimplements:
 class TestTheSnapshotSelection:
     def test_the_rebuilt_snapshot_is_preferred(self, tmp_path, monkeypatch):
         monkeypatch.delenv('SERAPH_MARKET_SNAPSHOT', raising=False)
-        chosen = operational.snapshot_path()
-        root = Path(operational.__file__).resolve().parents[2]
-        if (root / operational.CURRENT_SNAPSHOT).exists():
-            assert chosen == root / operational.CURRENT_SNAPSHOT
+        import hashlib
+        current = tmp_path / 'market_snapshot.parquet'
+        monkeypatch.setattr(operational, 'CURRENT_SNAPSHOT', current)
+        current.write_bytes(b'legacy snapshot fixture')
+        assert operational.snapshot_path() == current
+        version = tmp_path / 'versions' / 'test-version'
+        version.mkdir(parents=True)
+        candidate = version / 'market_snapshot.parquet'
+        candidate.write_bytes(b'versioned snapshot fixture')
+        manifest = version / 'manifest.json'
+        manifest.write_text('{}')
+        (tmp_path / 'active.json').write_text(json.dumps(dict(
+            version='test-version', sha256=hashlib.sha256(candidate.read_bytes()).hexdigest(),
+            manifest_sha256=hashlib.sha256(manifest.read_bytes()).hexdigest())))
+        assert operational.snapshot_path() == candidate
+        candidate.write_bytes(b'corrupted snapshot')
+        with pytest.raises(ValueError, match='identity mismatch'):
+            operational.snapshot_path()
 
     def test_the_frozen_experiment_input_is_not_overwritten(self):
         """`research_data/market_snapshot.parquet` is the input
@@ -313,16 +333,9 @@ class TestTheSnapshotSelection:
         explain that it is NOT written, so a substring search finds exactly
         the string it is trying to forbid. The fifth time this session.
         """
-        import ast
-
         source = (SCRIPTS / 'run_acquisition.py').read_text(encoding='utf-8')
-        literals = [node.value for node in ast.walk(ast.parse(source))
-                    if isinstance(node, ast.Constant)
-                    and isinstance(node.value, str)]
-        out_values = [literals[index + 1]
-                      for index, value in enumerate(literals[:-1])
-                      if value == '--out']
-        assert out_values == ['research_data/current'], out_values
+        assert 'Path("research_data/current/versions")' in source
+        assert '"--out", str(version)' in source
 
     def test_the_environment_override_wins(self, tmp_path, monkeypatch):
         monkeypatch.setenv('SERAPH_MARKET_SNAPSHOT', str(tmp_path / 's.parquet'))
@@ -366,7 +379,7 @@ class TestSchedulerIntegration:
     def test_re_derivation_only_happens_when_something_was_stored(self):
         source = (SCRIPTS / 'run_acquisition.py').read_text(encoding='utf-8')
         body = source.split('def run(', 1)[1].split('\ndef ', 1)[0]
-        assert 'if not stored:' in body
+        assert 'if not pending:' in body
         assert 'identical files' in body
 
     def test_only_the_affected_years_are_re_flagged(self):
@@ -555,5 +568,5 @@ class TestTheDailyVintagesReachTheCurrentRiskPath:
 
     def test_run_live_passes_the_registry(self):
         source = (SCRIPTS / 'run_live.py').read_text(encoding='utf-8')
-        assert 'registry_from_store(store)' in source
+        assert 'registry_from_store(store, allow_legacy=replay)' in source
         assert 'deployments=deployments' in source

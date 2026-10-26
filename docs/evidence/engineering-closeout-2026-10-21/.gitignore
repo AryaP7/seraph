@@ -1,0 +1,2 @@
+# Browser caches are disposable; keep results, downloads and isolated data stores.
+*/isolated/edge/

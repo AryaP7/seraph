@@ -1,0 +1,21 @@
+{
+  "head": "9a792b506aa7192f8c6c3f7119396b3a40e3d5ac",
+  "captured_at": "2026-10-20T11:13:24.079181+00:00",
+  "existing_changes": {
+    ".vscode/settings.json": "299fff86f82f1171ebce5ed8b86c29ab7e3bd130bf49287cd3a2eb27e0f8a3bf",
+    "docs/AMENDMENT-02-universe-and-Q.md": "da29b2f88931b28a8f076349229b8ac313e44cf39194e4874c5b4d0cc3ee944e",
+    "docs/AMENDMENT-03-jump-sparsity-R2.md": "3b76b68298cb926f957fe86c7ea0b2f31e7435d7c93539b62ac1593bd42b1153",
+    "docs/SPEC.md": "71a20ec165d9d1d4476fc67081d103e2d88918d17ece8acd810ef6e75a28c5bb",
+    "scripts/backfill_intraday.py": "b6d176b20b54a3723d3b73294690aa9f2389a607bb879c95ff5c4e6711dcc126",
+    "scripts/diagnose_jump_process.py": "a3212c34e0c0b916b847f72adef401d147df65713c3002cf8e6336a820191366",
+    "scripts/fit_hamilton.py": "dbc040adf48faae422cdf5ae810812dd4ec9b3b5184e9061e94515b7d2dd60a8",
+    "seraph/dashboard/console_component/bridge.js": "d915b0477eacd5d5a8e2f60f70e5dd5097f0f064175ce7568e78f8c5e9f4f842",
+    "seraph/dashboard/prototype_app.py": "e7de9a7cf5224f482092817337602154d54c452d4ded01e5edf059fdd1f107e3",
+    "seraph/pillars/hamilton/__init__.py": "95135f7f4e0f1d8b4fcf61229f350fddca5d649fbcea56d7d04e2c1e85a46a9d",
+    "seraph/pillars/hawkes/__init__.py": "b8e274bafa433520e6da4ffb3831e8ed35bad34a8802c851f924f2316b76cf1d",
+    "seraph/pillars/hawkes/engine.py": "884fd2711e3f25a7826af3d6d2b7a7e49b8df5b7a5d40ef5072467fe65fe3388",
+    "tests/contract/test_ct2_universe_cardinality.py": "60848052c37301d394cc208556f8b31ec5f21fad0798808042bfe8e03aeece15",
+    "tests/contract/test_ct7_simulator_consistency.py": "5f6ffd0f31482a256195f944b6589a78f19ba26e06b289c899702343ca377f2f",
+    "tests/test_c5_hawkes.py": "eb25f90bffa363b3b6ec6d788dcf437d75097e1cf9ca546b326aac9d248d34af"
+  }
+}

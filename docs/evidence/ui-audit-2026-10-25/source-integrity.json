@@ -1,0 +1,14 @@
+{
+  "checked": 447,
+  "unchanged": 443,
+  "changed_outside_audit_actions": [
+    "seraph/dashboard/redesign/app.py",
+    "seraph/dashboard/redesign/component_workspace.py",
+    "scripts/warm_native_hawkes_history.py",
+    "tests/test_redesign_console_e2e.py"
+  ],
+  "application_source_edits_by_audit": false,
+  "saved_data_side_effect": "Existing test committed archive:2026-10-23 to application replay stream; previously latest archive:2026-10-22",
+  "classic_audit_server": "stopped",
+  "original_redesign_server": "left running"
+}

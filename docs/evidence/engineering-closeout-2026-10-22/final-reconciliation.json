@@ -1,0 +1,55 @@
+{
+  "at": "2026-10-22T10:38:33.105774+05:30",
+  "audit_packages": {
+    "F01": "complete",
+    "F02": "current_input_and_acceptance_blocked",
+    "F03": "complete",
+    "F04": "complete",
+    "F05": "complete",
+    "F06": "complete",
+    "F07": "pending_by_explicit_user_choice",
+    "F08": "complete",
+    "F09": "complete",
+    "F10": "complete"
+  },
+  "verification": {
+    "full_suite_rerun": true,
+    "full_suite_status": "2585 passed, 22 skipped, zero failures/errors",
+    "browser_rerun": true,
+    "tests_rerun": true,
+    "models_refit": true,
+    "production_database_mutation": true,
+    "approach": "Implementation continuation with actual-input browser acceptance, focused regression checks, and registered runtime-history computation. Earlier read-only assessments are preserved in assessment_history.",
+    "test_limit": "Overlapping runs are not summed; tests do not replace browser or live publication acceptance.",
+    "test_evidence": [
+      "acceptance-regressions.xml",
+      "ct7-projection-recovery.xml",
+      "runtime-preparation-recovery.xml"
+    ],
+    "browser_evidence": [
+      "console-browser-02/result.json",
+      "sector-browser-03/result.json",
+      "evaluation-browser-03/result.json",
+      "macro-browser-03/result.json"
+    ],
+    "evidence_root": "docs/evidence/engineering-closeout-2026-10-21",
+    "runtime_history_status": "prototype_runs/runtime-warmup-status.json",
+    "full_suite_report": "docs/evidence/engineering-closeout-2026-10-22/full-suite-recheck.xml",
+    "native_runtime_report": "docs/evidence/engineering-closeout-2026-10-22/native-runtime.xml",
+    "native_runtime_passed": 82,
+    "cold_start_report": "docs/evidence/engineering-closeout-2026-10-21/runtime-history-complete.json",
+    "rmt_usable_observations": 252,
+    "live_publication_verified": false
+  },
+  "sha256": {
+    "docs/SERAPH-OVERALL-ENGINEERING-COMPLETION-AUDIT-2026-10-20.md": "351ade91c9764d0c48dc278b0daf5364180e5b944fa737f02be6c3d5b9a7ee14",
+    "docs/SERAPH-OVERALL-ENGINEERING-COMPLETION-AUDIT-2026-10-20.json": "3c803ad4a298cfb6a7a0cd1eb24ae56710eec36264fec88ebcfb91f564c476e0",
+    "docs/SERAPH-DEMO-RUNBOOK-2026-10-21.md": "abd1dd054227ce79d3e272400f6f144eadfa2c685eef4a2495e33ef29eb68071",
+    "docs/NATIVE-HAWKES-RUNTIME-2026-10-22.md": "c656a3cd185ea79a2a7715cfcbdee9e183f2bffcdeac5d6d788ed6792c87a8d8",
+    "docs/evidence/engineering-closeout-2026-10-22/full-suite-recheck.xml": "eaef1fbe9326fda2405d77427ea141b19fe12c630029cbae24b56a3220e68f2f",
+    "docs/evidence/engineering-closeout-2026-10-22/native-runtime.xml": "6492f75f3c63c1c2dbf5aafc2812b87f9f9d54db2b4f4d14d71ec94fdfab0f39",
+    "docs/evidence/engineering-closeout-2026-10-21/runtime-history-complete.json": "e45333b721b78ab546170c28caf00d4e121426c06eb51f85670f62665424f4a4"
+  },
+  "live_demo_ready": false,
+  "historical_demo_ready": true
+}

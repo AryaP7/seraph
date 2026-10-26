@@ -1,0 +1,16 @@
+{
+  "covid_2020": {
+    "observations": {
+      "kalman": 81,
+      "forward_fill": 81
+    },
+    "missing": {
+      "kalman": [],
+      "forward_fill": []
+    },
+    "pillar_coverage": [
+      "rmt"
+    ],
+    "label_provenance": "Onset of the global COVID selloff, chosen so the 30-day window covers the drawdown. Alternative: 2020-03-23, the Indian market bottom, which would place the window over the recovery instead."
+  }
+}

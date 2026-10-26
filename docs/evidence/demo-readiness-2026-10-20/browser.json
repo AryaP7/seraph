@@ -1,0 +1,47 @@
+{
+  "outer_page": "Skip to main content\nDeploy\nSERAPH\n\nHistorical model outputs + explicitly tagged fabricated previews. Local role switching is not authentication. Experimental warnings are not validated crisis predictions.\n\nkeyboard_arrow_down\n\nPREDICTION & EARLY WARNING\n\nNO WARNING \u2014 the forecast 0.0623 is below the calibrated threshold 0.1252\n\nPredicted probability\n\n6.23%\n\nWarning threshold\n\n12.52%\n\nHorizon\n\n15 sessions\n\nDecision date 2026-10-19 \u00b7 computed 2026-10-20T08:40:42+00:00 \u00b7 snapshot 3bff505bf9f6 (5274 sessions, 2005-07-01 to 2026-10-19)\n\nUNVALIDATED \u2014 No advance-warning skill, calibration or economic effect size has been demonstrated. AMENDMENT-03 measured Pillar 1 at approximately no skill at every intraday horizon and reclassified it as a contagion diagnostic, and the research replay records empirical_acceptance as unvalidated. These are honest limitations of a working instrument, not grounds for treating its output as a validated forecast.\n\nWhat is predicted\n\nprobability that the research market index falls 10% or more from this decision close at any close within the next 15 sessions\n\nModel: combined (EWMA volatility + one feature per pillar family) \u00b7 fit fitted on 5229 rows, using labels matured through 2026-08-13 (fitted 2026-09-03, 72 refits over the series). 5 of 5 features were observed at this date.\n\nMeasured \u2014 the three pillars at this close\n\nfeature values at the decision date, computed from data available at that close; parameters estimated through t-1\n\nWarning policy\n\nThe threshold is recalibrated from past out-of-sample scores and matured outcomes only, to hold at most 2.0 false episodes per year and keep at most 10% of sessions in alarm, over a 1260-session lookback needing 252 matured outcomes. 68 recalibrations so far. the threshold is chosen from past out-of-sample scores and matured outcomes only. A frozen threshold is a policy, not a proof that the future false-alarm budget will be met\n\nRealised history \u2014 retrospective replay, not foresight\n\nBrier\n\n0.0634\n\nAUC\n\n0.637\n\nBase rate\n\n6.84%\n\nFalse episodes/yr\n\n1.01\n\n4489 forecasts with matured outcomes, 307 of them positive. Alarms on 2.60% of assessable sessions across 19 episodes. retrospective replay over the available history. It shows what the instrument would have produced, which is implementation behaviour rather than demonstrated foresight\n\nCalibration \u2014 did days it called p turn out p?\n\nThe uncertainty this model supports. It yields no interval, so this is the honest substitute: predicted against realised frequency, on matured labels only.\n\nForecast against its warning threshold\n\nOctober\n2022\nApril\nJuly\nOctober\n2023\nApril\nJuly\nOctober\n2024\nApril\nJuly\nOctober\n2025\nApril\nJuly\nOctober\n2026\nApril\nJuly\nOctober\n0.00\n0.02\n0.04\n0.06\n0.08\n0.10\n0.12\n0.14\n0.16\n0.18\n0.20\nprobability\nthreshold\n\nThe last 1260 sessions. 17 of them were in alarm. A gap in either line is a session the engine declined to score or could not calibrate, which is shown rather than interpolated.\n\nMost recent alarm episodes\n\nkeyboard_arrow_right\n\nNEWS ACQUISITION\n\nkeyboard_arrow_right\n\nMARKET JOBS\n\nkeyboard_arrow_down\n\nLIVE RUNTIME\n\nView mode\n\nlive\n\nreplay\n\ndemo\n\nLATEST SCORE\n\nno decision has been committed in this runtime. Asking for live does NOT fall back to an archive run \u2014 an archive run is a replay and would be mislabelled here\n\nWORKER HEALTH \u2014 a separate fact from the score\n\n{\n\"state\":\"unknown\"\n\"last_pass_at\":NULL\n\"stream_version\":0\n\"undelivered_events\":1\n\"dead_letters\":0\n\"stale\":true\n\"note\":\"the worker has never committed a pass\"\n}\n\nRun\n\nHistorical decision date\n\nNews clock\n\ncurrent_news\n\nhistorical_decision\n\nNews page (40 events per page)\n\nRun 77cc8a2fb747507a \u00b7 decision 2020-04-30T15:30:00+05:30 \u00b7 role retail\n\nkeyboard_arrow_right\n\nMY WORKSPACE \u2014 portfolios, scenarios, cases\n\nkeyboard_arrow_right\n\nEVALUATION \u2014 FR35 ablation tables\n\nkeyboard_arrow_right\n\nHEALTH \u2014 what is stale, what is broken\n\nNews: current_news \u00b7 2026-10-20T14:28:00+05:30 \u00b7 Market decision: 2020-04-30T15:30:00+05:30\n\nNo user holdings supplied. Use TOOLS in the console to calculate portfolio coverage.\n\nNews channel CONNECTED: signals, sector_stress, geography, assets. Still fabricated: none. Original fitted model artifacts are reused in historical mode; PostgreSQL fresh-data execution is not verified.",
+  "contexts": [
+    {
+      "id": 2,
+      "origin": "http://127.0.0.1:62174",
+      "name": "",
+      "uniqueId": "-4448117977006487072.3602058763112286758",
+      "auxData": {
+        "isDefault": true,
+        "type": "default",
+        "frameId": "5A10C06242C50738ACE27AA6CC586646"
+      }
+    },
+    {
+      "id": 3,
+      "origin": "http://127.0.0.1:62174",
+      "name": "",
+      "uniqueId": "-4605263093428164987.5215606805853210781",
+      "auxData": {
+        "isDefault": true,
+        "type": "default",
+        "frameId": "921DCF4DE50157C6099FF1C4120EC3E6"
+      }
+    }
+  ],
+  "javascript_errors": {
+    "2": [],
+    "3": [
+      {
+        "message": "Uncaught TypeError: history.forEach is not a function",
+        "filename": "http://127.0.0.1:62174/component/prototype_app.seraph_console/bridge.js",
+        "line": 132,
+        "stack": "TypeError: history.forEach is not a function\n    at spark (http://127.0.0.1:62174/component/prototype_app.seraph_console/bridge.js:132:51)\n    at renderConsole (http://127.0.0.1:62174/component/prototype_app.seraph_console/bridge.js:139:53)\n    at http://127.0.0.1:62174/component/prototype_app.seraph_console/bridge.js:641:2"
+      },
+      {
+        "message": "Uncaught TypeError: history.forEach is not a function",
+        "filename": "http://127.0.0.1:62174/component/prototype_app.seraph_console/bridge.js",
+        "line": 132,
+        "stack": "TypeError: history.forEach is not a function\n    at spark (http://127.0.0.1:62174/component/prototype_app.seraph_console/bridge.js:132:51)\n    at renderConsole (http://127.0.0.1:62174/component/prototype_app.seraph_console/bridge.js:139:53)\n    at http://127.0.0.1:62174/component/prototype_app.seraph_console/bridge.js:641:2"
+      }
+    ]
+  },
+  "streamlit_exceptions": [],
+  "error": "RuntimeError: Canonical component did not bind a run within the probe timeout",
+  "owned_processes_stopped": true
+}

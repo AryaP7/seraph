@@ -193,8 +193,7 @@ class LiveLoop:
             computation=computation,
             warmup_complete=(self.warmup_source() if self.warmup_source
                              else self.warmup_complete),
-            calendar_verified=not self.clock.calendar.completeness()[
-                "completeness"].startswith("PARTIAL"),
+            calendar_verified=self.clock.calendar.verified_for(moment.date().isoformat()),
             required_inputs=self._input_provenance(closed, moment),
             has_eligible_information=bool(closed), policy=self.policy)
 

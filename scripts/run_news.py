@@ -205,6 +205,84 @@ PILOT_SOURCES = (
         rights='Board-authored public-domain feed text; attribution required: https://www.federalreserve.gov/disclaimer.htm',
         may_store_full_text=True, poll_interval_minutes=60, accessibility_verified=True),
 )
+#: Probed 2026-10-25 for NI17's two short quotas: `logistics_hazards` needs
+#: 80 against the 40 `usgs_earthquakes` supplies, and `non_english` needs 100
+#: against the 29 `pib_releases` supplies.
+#:
+#: GDACS is not independent corroboration of anything -- it aggregates other
+#: agencies' alerts.
+#:
+#: A SECOND PIB entry was registered here and has been WITHDRAWN. PIB's `Lang`
+#: query parameter is inert: `Lang=1` through `Lang=20` at `Regid=3` all return
+#: the SAME twenty Devanagari items, in the same order, with the same links as
+#: the `Lang=2` URL `pib_releases` already polls (measured 2026-10-25; every
+#: `Regid` other than 3 returns zero items). So PIB exposes exactly one feed,
+#: `pib_releases` is already it, and a second source_id over the same URL only
+#: polls a government endpoint twice an hour for no new information. The twenty
+#: rows it acquired were collapsed by `export_corpus`'s (title, body) digest,
+#: so the corpus was never affected -- but the duplicate rows are still in the
+#: store under `pib_hindi_lang3`.
+#:
+#: Registering ANY new source cannot move either short quota, which is a
+#: property of the corpus rule and not of source availability. `export_corpus`
+#: takes the OLDEST 600 documents by `first_seen_at`, and that window closed at
+#: 2026-10-19T22:12:32+05:30. `gdacs_alerts` first-saw its 328 items on
+#: 2026-10-25, so it contributes ZERO documents to a freeze. See
+#: docs/AMENDMENT-08-ni17-corpus-window.md; the remedy is an owner decision.
+#:
+#: Probed and REJECTED in the same pass, so they are not re-tried blindly:
+#: ReliefWeb India (HTTP 202, no items), EMSC (404), UN News Hindi (404),
+#: DW Hindi (no items), NDMA and IMD (SSL CERTIFICATE_VERIFY_FAILED --
+#: certificate verification is NOT disabled to reach a source).
+NI17_COVERAGE_SOURCES = (
+    Source('gdacs_alerts', 'Global Disaster Alert and Coordination System',
+        'weather_advisory', 'https://www.gdacs.org/xml/rss.xml',
+        ('hazard', 'earthquake', 'cyclone', 'flood'),
+        language='en', rights='publicly reachable feed; redistribution terms NOT reviewed, so headline, link, times and a content hash only. Reading them is the DR-10 procedure, not an assumption',
+        may_store_full_text=False, poll_interval_minutes=120,
+        accessibility_verified=True,
+        notes='European Commission JRC alerting service; 325 dated items at '
+              'probe. An alert is a hazard notification, not a measured '
+              'market effect, and carries no exposure of its own.'),
+)
+
+#: Probed 2026-10-24 against the live endpoints: both answered HTTP 200
+#: with ten dated entries. Registered because 27 NTPC stations and 54
+#: exposure edges were curated with NO energy source at all, so that whole
+#: set was structurally unable to fire -- the only NTPC news in the corpus
+#: was two NSE filings titled "NTPC Limited", and a filing's subject is
+#: deliberately not retained, so it produces no impact.
+#:
+#: These are TRADE PRESS, not primary instruments. A report of a Ministry or
+#: regulator decision is reporting, NOT a second independent confirmation of
+#: that instrument, and must never be counted as corroboration of it.
+#:
+#: Registering a source makes the curated edges REACHABLE, not firing: an
+#: edge starts at a facility, so it still needs a station named in a
+#: headline. None of the twenty headlines in the 2026-10-24 probe named one.
+ENERGY_SOURCES = (
+    Source('et_energyworld', 'ET EnergyWorld', 'news_agency',
+        'https://energy.economictimes.indiatimes.com/rss/topstories',
+        ('power', 'energy', 'oil_gas', 'renewables', 'grid'),
+        language='en', rights='publicly reachable feed; redistribution terms NOT reviewed, so headline, link, times and a content hash only. Reading them is the DR-10 procedure, not an assumption',
+        may_store_full_text=False, poll_interval_minutes=60,
+        accessibility_verified=True,
+        notes='Indian power/energy trade press, IST timestamps. Names '
+              'issuers and facilities, which is what the curated station '
+              'edges need. Probe carried earnings and policy items; only '
+              'three issuers (ntpc, oil_india, kpi_green_energy) are '
+              'registered with sector=energy, so a story about an '
+              'unregistered power issuer resolves to no issuer.'),
+    Source('mercom_india', 'Mercom India', 'news_agency',
+        'https://www.mercomindia.com/feed',
+        ('renewables', 'solar', 'power_policy', 'grid'),
+        language='en', rights='publicly reachable feed; redistribution terms NOT reviewed, so headline, link, times and a content hash only. Reading them is the DR-10 procedure, not an assumption',
+        may_store_full_text=False, poll_interval_minutes=120,
+        accessibility_verified=True,
+        notes='Renewables and power policy. The probe also returned China '
+              'and Rwanda items; relevance is expected to place those out '
+              'of scope rather than hide them.'),
+)
 #: Probed 2026-10-18 against the live endpoints. Each returned parseable,
 #: dated entries; those that did not are in UNAVAILABLE_SOURCES with the
 #: reason, because an adapter in code is not an active source.
@@ -331,7 +409,8 @@ def register(store: NewsStore, *, reprobe: bool, probe_documents: bool = True) -
     for source_id, url, why in UNAVAILABLE_SOURCES:
         print(f"[news] NOT registered: {source_id} - {why}")
 
-    for source in VERIFIED_SOURCES + PILOT_SOURCES:
+    for source in (VERIFIED_SOURCES + PILOT_SOURCES + ENERGY_SOURCES
+                   + NI17_COVERAGE_SOURCES):
         verified = source.accessibility_verified
         if reprobe:
             outcome = probe(source.url)

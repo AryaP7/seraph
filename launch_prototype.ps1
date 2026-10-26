@@ -30,9 +30,11 @@
     is idempotent, so a relaunch re-runs it harmlessly, and the console's
     startup panel reads the status file it writes.
 
-    It deliberately does NOT start the live tick loop. `run_live.py` opens a
-    market feed, and that is an operator's decision rather than a side
-    effect of opening a dashboard. The line printed below says how.
+    Starts one owned market runtime that waits across sessions. Missing/expired
+    broker credentials leave it degraded while daily acquisition/news continue.
+    -NoLiveRuntime disables the broker runtime explicitly.
+    -NativeHawkesConfig enables the native-bar producer with an explicit basket
+    and estimation window. Missing history keeps its publication gate closed.
 
     -NoMarketJobs skips it and leaves the stored vintages and forecasts
     exactly as they are.
@@ -41,19 +43,25 @@ param(
     [string]$Store = "$PSScriptRoot/prototype_runs/seraph.sqlite",
     [string]$NewsStore = "$PSScriptRoot/prototype_runs/news-intelligence-pilot.sqlite",
     [string]$LiveStore = "$PSScriptRoot/prototype_runs/live.sqlite",
+    [string]$NativeHawkesConfig = $env:SERAPH_NATIVE_HAWKES_CONFIG,
     [int]$Port = 8512,
     [switch]$NoNewsWorker,
-    [switch]$NoMarketJobs
+    [switch]$NoMarketJobs,
+    [switch]$NoLiveRuntime
 )
 $ErrorActionPreference = 'Stop'
 $env:SERAPH_PROTOTYPE_STORE = $Store
 $env:SERAPH_NEWS_STORE = $NewsStore
 $env:SERAPH_LIVE_STORE = $LiveStore
+if ($NativeHawkesConfig) {
+    $env:SERAPH_NATIVE_HAWKES_CONFIG = (Resolve-Path -LiteralPath $NativeHawkesConfig).Path
+}
 $env:SERAPH_NEWS_WORKER = if ($NoNewsWorker) { '0' } else { '1' }
 
 $Python = "$PSScriptRoot/.venv/Scripts/python.exe"
 $Worker = $null
 $Market = $null
+$Live = $null
 try {
     if (-not $NoMarketJobs) {
         New-Item -ItemType Directory -Force "$PSScriptRoot/prototype_runs" | Out-Null
@@ -69,9 +77,18 @@ try {
           -RedirectStandardOutput "$PSScriptRoot/prototype_runs/market-jobs.log" `
           -RedirectStandardError "$PSScriptRoot/prototype_runs/market-jobs-errors.log"
         Write-Host "[seraph] market jobs pid $($Market.Id); log: prototype_runs/market-jobs.log"
-        Write-Host '[seraph] the live tick loop is NOT started: run `python scripts/run_live.py --status` first, then --replay --once or a live run.'
     } else {
         Write-Host '[seraph] market jobs skipped for this run (-NoMarketJobs); stored vintages and forecasts are unchanged.'
+    }
+    if (-not $NoLiveRuntime) {
+        New-Item -ItemType Directory -Force "$PSScriptRoot/prototype_runs" | Out-Null
+        $Live = Start-Process -FilePath $Python -ArgumentList @(
+            "`"$PSScriptRoot/scripts/run_live.py`"", '--stay-running',
+            '--owner-pid', $PID, '--store', "`"$LiveStore`""
+        ) -WorkingDirectory $PSScriptRoot -PassThru -WindowStyle Hidden `
+          -RedirectStandardOutput "$PSScriptRoot/prototype_runs/live-runtime.log" `
+          -RedirectStandardError "$PSScriptRoot/prototype_runs/live-runtime-errors.log"
+        Write-Host "[seraph] owned market runtime pid $($Live.Id); log: prototype_runs/live-runtime.log"
     }
     if (-not $NoNewsWorker) {
         New-Item -ItemType Directory -Force "$PSScriptRoot/prototype_runs" | Out-Null
@@ -97,6 +114,9 @@ try {
         --server.address 127.0.0.1 --server.port $Port --server.headless true
 } finally {
     # Only the processes this script started.
+    if ($Live -and -not $Live.HasExited) {
+        & taskkill /PID $Live.Id /T /F | Out-Null
+    }
     if ($Worker -and -not $Worker.HasExited) {
         & taskkill /PID $Worker.Id /T /F | Out-Null
     }

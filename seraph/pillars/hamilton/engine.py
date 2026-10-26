@@ -455,7 +455,13 @@ def fit(
         try:
             with warnings.catch_warnings():
                 warnings.simplefilter("ignore")
-                cand = model.fit(start_params=sp, maxiter=maxiter, disp=False)
+                # C7 uses fitted state/emission variances, not parameter
+                # standard errors. The optional post-fit numerical Hessian
+                # crashed the Windows validation process in statsmodels.
+                # Disabling that covariance leaves optimisation and filtering
+                # unchanged and explicitly leaves parameter errors unavailable.
+                cand = model.fit(start_params=sp, maxiter=maxiter, disp=False,
+                                 cov_type="none")
         except (np.linalg.LinAlgError, ValueError, RuntimeError):
             continue
         tried += 1
@@ -470,7 +476,7 @@ def fit(
     if res is None:                              # nothing converged; fall back
         with warnings.catch_warnings():          # so the caller still gets a
             warnings.simplefilter("ignore")      # result rather than a crash
-            res = model.fit(maxiter=maxiter, disp=False)
+            res = model.fit(maxiter=maxiter, disp=False, cov_type="none")
 
     rv_means = np.array([
         res.params[model.parameters[j, "means"]][0] for j in range(k_regimes)
@@ -694,8 +700,15 @@ def project_xi(engine: "HamiltonEngine", z_path, xi0=None):
     z = _np.atleast_2d(_np.asarray(z_path, dtype=float))
     order = engine._order
 
-    xi = (_np.full(K_REGIMES, 1.0 / K_REGIMES) if xi0 is None
-          else _np.asarray(xi0, dtype=float)[list(order)])
+    xi = _np.full(K_REGIMES, 1.0 / K_REGIMES)
+    if xi0 is not None:
+        canonical = _np.asarray(xi0, dtype=float)
+        if (canonical.shape != (K_REGIMES,) or not _np.isfinite(canonical).all()
+                or (canonical < 0).any() or abs(canonical.sum() - 1) > 1e-8):
+            raise ValueError('Initial regime probabilities must be a simplex')
+        # order maps canonical -> raw; indexing canonical by order applies
+        # the inverse mapping only for self-inverse permutations.
+        xi[list(order)] = canonical
     xi = xi / xi.sum()
 
     trans = _np.asarray(

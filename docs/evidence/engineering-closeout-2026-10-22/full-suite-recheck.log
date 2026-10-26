@@ -1,0 +1,82 @@
+.....ss......ssss....................................................... [  2%]
+........................................................................ [  5%]
+........................................................................ [  8%]
+........................................................................ [ 11%]
+...............................................sssss.................... [ 13%]
+............................ss.......................................... [ 16%]
+........................................................................ [ 19%]
+........................................................................ [ 22%]
+.........s.............................................................. [ 24%]
+...............................................s........................ [ 27%]
+........................................................................ [ 30%]
+........................................................................ [ 33%]
+........................................................................ [ 35%]
+........................................................................ [ 38%]
+........................................................................ [ 41%]
+........................................................................ [ 44%]
+........................................................................ [ 46%]
+........................................................................ [ 49%]
+........................................................................ [ 52%]
+........................................................................ [ 55%]
+........................................................................ [ 57%]
+........................................................................ [ 60%]
+........................................................................ [ 63%]
+........................................................................ [ 66%]
+........................................................................ [ 69%]
+........................................................................ [ 71%]
+........................................................................ [ 74%]
+........................................................................ [ 77%]
+........................................................................ [ 80%]
+........................................................................ [ 82%]
+........................................................................ [ 85%]
+........................................................................ [ 88%]
+........................................................................ [ 91%]
+........................................................................ [ 93%]
+.............sssssss.................................................... [ 96%]
+........................................................................ [ 99%]
+...............                                                          [100%]
+============================== warnings summary ===============================
+tests/test_x01_x02_unicode_identity.py::TestX02bTheShippedRegistryExercisesNonLatinNames::test_the_curated_registry_now_contains_a_non_latin_alias
+tests/test_x06_js_harnesses.py::TestBridgeHarness::test_every_claim_holds
+tests/test_x06_js_harnesses.py::TestNewsLayerHarness::test_every_claim_holds
+  C:\Users\Arlop\Downloads\SERAPH VARYA\SERAPH Varya\.venv\Lib\site-packages\_pytest\fixtures.py:1313: PytestRemovedIn10Warning: Class-scoped fixture defined as instance method is deprecated.
+  Instance attributes set in this fixture will NOT be visible to test methods,
+  as each test gets a new instance while the fixture runs only once per class.
+  Use @classmethod decorator and set attributes on cls instead.
+  See https://docs.pytest.org/en/stable/deprecations.html#class-scoped-fixture-as-instance-method
+    fixturefunc = resolve_fixture_function(fixturedef, request)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+============================= slowest 8 durations =============================
+149.72s call     tests/test_c7_hamilton.py::test_c7_tvtp_covariates_are_accepted
+145.32s call     tests/contract/test_ct7_simulator_consistency.py::test_fr48_policy_path_routes_through_the_fitted_regime_model
+106.07s call     tests/test_c7_hamilton_regime_recovery.py::test_tvtp_fit_is_not_below_its_nested_restriction
+105.03s call     tests/test_c7_hamilton_causal.py::test_production_path_uses_filtered_not_smoothed
+64.48s setup    tests/test_c7_hamilton_causal.py::test_multistart_returns_a_converged_fit
+27.17s call     tests/test_c7_hamilton_regime_recovery.py::test_tvtp_warm_start_reproduces_the_nested_transition_matrix
+25.00s setup    tests/test_prediction_integration.py::TestTheStateIsRealAndPointInTime::test_it_produces_a_forecast_for_the_latest_session
+23.86s setup    tests/test_t10_experiment_runner.py::TestTheUnitOfAggregationIsTheConfiguration::test_table_c_declares_six
+=========================== short test summary info ===========================
+SKIPPED [1] tests\contract\test_ct1_ingestion_idempotency.py:77: database unusable: ConnectionRefusedError: [WinError 1225] The remote computer refused the network connection. DB tests need a disposable seraph_test_* database with SERAPH_TEST_DB_DSN and SERAPH_TEST_TOKEN (see tests/conftest.py); `docker compose up -d` alone is not enough
+SKIPPED [1] tests\contract\test_ct1_ingestion_idempotency.py:109: database unusable: ConnectionRefusedError: [WinError 1225] The remote computer refused the network connection. DB tests need a disposable seraph_test_* database with SERAPH_TEST_DB_DSN and SERAPH_TEST_TOKEN (see tests/conftest.py); `docker compose up -d` alone is not enough
+SKIPPED [1] tests\contract\test_ct3_jump_sufficiency.py:149: not enough intraday bars yet � run scripts/backfill_intraday.py
+SKIPPED [1] tests\contract\test_ct3_jump_sufficiency.py:179: not enough intraday bars yet � run scripts/backfill_intraday.py
+SKIPPED [1] tests\contract\test_ct3_jump_sufficiency.py:191: not enough intraday bars yet � run scripts/backfill_intraday.py
+SKIPPED [1] tests\contract\test_ct3_jump_sufficiency.py:198: not enough intraday bars yet � run scripts/backfill_intraday.py
+SKIPPED [1] tests\test_c2_macro_ingestion.py:796: database unusable: ConnectionRefusedError: [WinError 1225] The remote computer refused the network connection. DB tests need a disposable seraph_test_* database with SERAPH_TEST_DB_DSN and SERAPH_TEST_TOKEN (see tests/conftest.py); `docker compose up -d` alone is not enough
+SKIPPED [1] tests\test_c2_macro_ingestion.py:831: database unusable: ConnectionRefusedError: [WinError 1225] The remote computer refused the network connection. DB tests need a disposable seraph_test_* database with SERAPH_TEST_DB_DSN and SERAPH_TEST_TOKEN (see tests/conftest.py); `docker compose up -d` alone is not enough
+SKIPPED [1] tests\test_c2_macro_ingestion.py:873: database unusable: ConnectionRefusedError: [WinError 1225] The remote computer refused the network connection. DB tests need a disposable seraph_test_* database with SERAPH_TEST_DB_DSN and SERAPH_TEST_TOKEN (see tests/conftest.py); `docker compose up -d` alone is not enough
+SKIPPED [1] tests\test_c2_macro_ingestion.py:923: database unusable: ConnectionRefusedError: [WinError 1225] The remote computer refused the network connection. DB tests need a disposable seraph_test_* database with SERAPH_TEST_DB_DSN and SERAPH_TEST_TOKEN (see tests/conftest.py); `docker compose up -d` alone is not enough
+SKIPPED [1] tests\test_c2_macro_ingestion.py:952: database unusable: ConnectionRefusedError: [WinError 1225] The remote computer refused the network connection. DB tests need a disposable seraph_test_* database with SERAPH_TEST_DB_DSN and SERAPH_TEST_TOKEN (see tests/conftest.py); `docker compose up -d` alone is not enough
+SKIPPED [1] tests\test_c5_hawkes_writer.py:279: database unusable; DB tests need a disposable seraph_test_* database with SERAPH_TEST_DB_DSN and SERAPH_TEST_TOKEN (see tests/conftest.py); `docker compose up -d` alone is not enough
+SKIPPED [1] tests\test_c5_hawkes_writer.py:336: database unusable; DB tests need a disposable seraph_test_* database with SERAPH_TEST_DB_DSN and SERAPH_TEST_TOKEN (see tests/conftest.py); `docker compose up -d` alone is not enough
+SKIPPED [1] tests\test_fix06_evaluation_identity.py:182: needs a disposable seraph_test_* database; set SERAPH_TEST_DB_DSN and SERAPH_TEST_TOKEN
+SKIPPED [1] tests\test_fresh_data_acquisition.py:445: hits NSE. Set SERAPH_LIVE_NSE=1 to run. A suite that silently depends on an exchange being reachable fails for reasons unrelated to the code.
+SKIPPED [1] tests\test_t10_transfer_sensitivity_archive.py:596: needs a disposable seraph_test_* database; set SERAPH_TEST_DB_DSN and SERAPH_TEST_TOKEN
+SKIPPED [1] tests\test_t10_transfer_sensitivity_archive.py:605: needs a disposable seraph_test_* database; set SERAPH_TEST_DB_DSN and SERAPH_TEST_TOKEN
+SKIPPED [1] tests\test_t10_transfer_sensitivity_archive.py:619: needs a disposable seraph_test_* database; set SERAPH_TEST_DB_DSN and SERAPH_TEST_TOKEN
+SKIPPED [1] tests\test_t10_transfer_sensitivity_archive.py:633: needs a disposable seraph_test_* database; set SERAPH_TEST_DB_DSN and SERAPH_TEST_TOKEN
+SKIPPED [1] tests\test_t10_transfer_sensitivity_archive.py:644: needs a disposable seraph_test_* database; set SERAPH_TEST_DB_DSN and SERAPH_TEST_TOKEN
+SKIPPED [1] tests\test_t10_transfer_sensitivity_archive.py:658: needs a disposable seraph_test_* database; set SERAPH_TEST_DB_DSN and SERAPH_TEST_TOKEN
+SKIPPED [1] tests\test_t10_transfer_sensitivity_archive.py:670: needs a disposable seraph_test_* database; set SERAPH_TEST_DB_DSN and SERAPH_TEST_TOKEN
+2585 passed, 22 skipped, 3 warnings in 1250.56s (0:20:50)

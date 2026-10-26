@@ -501,7 +501,7 @@ class TestMigration002:
         `EvaluationRow` is gated on the owner."""
         source = Path("seraph/shared_types/validation.py").read_text(
             encoding="utf-8")
-        assert 'table: Literal["A", "B"]' in source
+        assert 'table: Literal["A", "B", "C"]' in source
 
 
 class TestTheRendererDoesNotInviteARanking:

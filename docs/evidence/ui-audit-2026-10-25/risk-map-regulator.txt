@@ -1,0 +1,873 @@
+Browser tab: 1, Title: "SERAPH", URL: "http://127.0.0.1:8520/".
+1 AXWebArea SERAPH, URL: 127.0.0.1:8520/
+	2 container
+		3 container
+			4 link Description: Skip to main content, Value: 127.0.0.1:8520/#stMain
+			5 container stMain
+				6 container app.seraph_redesigned_console
+					7 AXWebArea SERAPH — Systemic Risk Early-Warning · NSE, URL: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F
+						8 container shell
+							9 container
+								10 text SER APH
+								11 link Description: CURRENT, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								12 link Description: RISK MAP, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								13 link Description: HISTORICAL, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								14 link Description: CONSOLE, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								15 link Description: SIGNAL FEED, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								16 link Description: PILLARS, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								17 link Description: EXPOSURE, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								18 link Description: FORECASTS, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								19 link Description: EARLY WARNING, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								20 link Description: WORKSPACE, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								21 link Description: EVALUATION, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								22 link Description: HEALTH, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								23 link Description: TOOLS, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								24 link Description: METHOD, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								25 text HISTORICAL + TAGGED PREVIEWS
+								26 container roles
+									27 button REGULATOR
+									28 button INSTITUTIONAL
+									29 button RETAIL
+								30 text  LOCAL CLOCK — 
+								1355 text 05:13:03
+								32 text  IST
+								33 text 1,019 desks · FABRICATED
+								34 button VIEW BACKTEST
+							1419 text MAP
+							36 container preview-banner
+								1081 text NOT A CURRENT MARKET READING  — the newest observation is 2369.4 days old. Anything computed from it is a REPLAY of that period, not a statement about the market now, and must be labelled as such | observed 2020-04-30T15:30:00+05:30 · now 2026-10-26T00:07:40+05:30 · market pre_open · feed: none — not connected, unauthenticated
+								1082 text RUN 37bccf32974201f0 · 2020-04-30 · REGULATOR | STALE — newest item 10 min old; 4 of 22 sources past the freshness policy they declared. Nothing on screen reflects what has happened since. | NEWS current_news 2026-10-26T00:06:25+05:30 | 18/22 feeds fresh | CONNECTED: SIGNALS, SECTOR_STRESS, GEOGRAPHY, ASSETS | 12 evidenced map node(s) | MARKET 2020-04-30T15:30:00+05:30
+							39 container ticker
+								40 text FABRICATED PREVIEW NIFTY 50 24,812.30   0.34% BANK NIFTY 52,406.85   0.21% NIFTY METAL 9,140.20   1.86% NIFTY PHARMA 21,558.45   0.92% NIFTY AUTO 25,033.10   1.24% NIFTY IT 38,902.60   0.44% INDIA VIX 13.82   1.10% USD/INR 83.41   0.18%
+							1420 container
+								1421 heading LATEST SIGNALS 60 / 2328 EVENTS, Value: 3
+									1422 text LATEST SIGNALS
+									1423 text 60 / 2328 EVENTS
+								1424 container signals
+									1425 text current_news · 2026-10-26T00:06:25+05:30
+									1426 container Role-specific news intelligence
+										1427 heading REGULATOR NEWS INTELLIGENCE, Value: 4
+											1428 text REGULATOR NEWS INTELLIGENCE
+										1429 text every number here is a statement about COVERAGE, not about the market. An empty map with uncovered sources is missing data, not a quiet day
+										1430 text each event links to the document it came from; an inference links to the documented relationship it used
+										1431 heading INSTRUMENT LINK REVIEW, Value: 4
+											1432 text INSTRUMENT LINK REVIEW
+										1433 text While a link is missing, the earlier order is still reported as in force. A decision here changes later projections and changes no stored document. You are acting as a LOCAL DEMO ROLE, not an authenticated user, and the record says so.
+										1434 container
+											1435 text Reserve Bank of India (Small Finance Banks – Prudential Norms on Capital Adequacy) Sixth Amendment Directions, this document ends or amends a measure and cites no instrument identifier at all, so it cannot be linked to what it changes. Any earlier order on the same subject is still reported as in force, and linking the two on a similar title would be a guess No predecessor is identified. Enter one below only if you have established it from the documents; this system will not guess it from a similar title.
+											1436 text field (settable) Earlier event id
+											1437 text field (settable) Reason for this decision
+											1438 button Accept link
+											1439 button Reject link
+										1440 container
+											1441 text Reserve Bank of India (Payments Banks – Prudential Norms on Capital Adequacy) Third Amendment Directions, 2026 this document ends or amends a measure and cites no instrument identifier at all, so it cannot be linked to what it changes. Any earlier order on the same subject is still reported as in force, and linking the two on a similar title would be a guess No predecessor is identified. Enter one below only if you have established it from the documents; this system will not guess it from a similar title.
+											1442 text field (settable) Earlier event id
+											1443 text field (settable) Reason for this decision
+											1444 button Accept link
+											1445 button Reject link
+										1446 container
+											1447 text Reserve Bank of India (All India Financial Institutions (AIFIs) – Prudential Norms on Capital Adequacy) Fifth this document ends or amends a measure and cites no instrument identifier at all, so it cannot be linked to what it changes. Any earlier order on the same subject is still reported as in force, and linking the two on a similar title would be a guess No predecessor is identified. Enter one below only if you have established it from the documents; this system will not guess it from a similar title.
+											1448 text field (settable) Earlier event id
+											1449 text field (settable) Reason for this decision
+											1450 button Accept link
+											1451 button Reject link
+										1452 container
+											1453 text Reserve Bank of India (Commercial Banks – Prudential Norms on Capital Adequacy) Twelfth Amendment Directions, this document ends or amends a measure and cites no instrument identifier at all, so it cannot be linked to what it changes. Any earlier order on the same subject is still reported as in force, and linking the two on a similar title would be a guess No predecessor is identified. Enter one below only if you have established it from the documents; this system will not guess it from a similar title.
+											1454 text field (settable) Earlier event id
+											1455 text field (settable) Reason for this decision
+											1456 button Accept link
+											1457 button Reject link
+										1458 container
+											1459 text Reserve Bank of India (Commercial Banks – Forthcoming Instructions) Amendment Directions, 2026 this document ends or amends a measure and cites no instrument identifier at all, so it cannot be linked to what it changes. Any earlier order on the same subject is still reported as in force, and linking the two on a similar title would be a guess No predecessor is identified. Enter one below only if you have established it from the documents; this system will not guess it from a similar title.
+											1460 text field (settable) Earlier event id
+											1461 text field (settable) Reason for this decision
+											1462 button Accept link
+											1463 button Reject link
+										1464 container
+											1465 text Reserve Bank of India (Commercial Banks – Miscellaneous) Amendment Directions, 2026 this document ends or amends a measure and cites no instrument identifier at all, so it cannot be linked to what it changes. Any earlier order on the same subject is still reported as in force, and linking the two on a similar title would be a guess No predecessor is identified. Enter one below only if you have established it from the documents; this system will not guess it from a similar title.
+											1466 text field (settable) Earlier event id
+											1467 text field (settable) Reason for this decision
+											1468 button Accept link
+											1469 button Reject link
+										1470 container
+											1471 text Center For Scientific Review; Amended Notice of Meeting this document ends or amends a measure and cites no instrument identifier at all, so it cannot be linked to what it changes. Any earlier order on the same subject is still reported as in force, and linking the two on a similar title would be a guess No predecessor is identified. Enter one below only if you have established it from the documents; this system will not guess it from a similar title.
+											1472 text field (settable) Earlier event id
+											1473 text field (settable) Reason for this decision
+											1474 button Accept link
+											1475 button Reject link
+										1476 container
+											1477 text National Cancer Institute; Amended Notice of Meeting this document ends or amends a measure and cites no instrument identifier at all, so it cannot be linked to what it changes. Any earlier order on the same subject is still reported as in force, and linking the two on a similar title would be a guess No predecessor is identified. Enter one below only if you have established it from the documents; this system will not guess it from a similar title.
+											1478 text field (settable) Earlier event id
+											1479 text field (settable) Reason for this decision
+											1480 button Accept link
+											1481 button Reject link
+										1482 container
+											1483 text Presidential Declaration Amendment of a Major Disaster for Public Assistance Only for the State of Kansas this document ends or amends a measure and cites no instrument identifier at all, so it cannot be linked to what it changes. Any earlier order on the same subject is still reported as in force, and linking the two on a similar title would be a guess No predecessor is identified. Enter one below only if you have established it from the documents; this system will not guess it from a similar title.
+											1484 text field (settable) Earlier event id
+											1485 text field (settable) Reason for this decision
+											1486 button Accept link
+											1487 button Reject link
+										1488 container
+											1489 text Affirmative Decisions on Petitions for Modification Granted in Whole or in Part this document ends or amends a measure and cites no instrument identifier at all, so it cannot be linked to what it changes. Any earlier order on the same subject is still reported as in force, and linking the two on a similar title would be a guess No predecessor is identified. Enter one below only if you have established it from the documents; this system will not guess it from a similar title.
+											1490 text field (settable) Earlier event id
+											1491 text field (settable) Reason for this decision
+											1492 button Accept link
+											1493 button Reject link
+										1494 container
+											1495 text Release of attachment on immovable property under RC No. 3965 of 2021-Ram Kishore Taparia (PAN – ABJPT1453C) i this document ends or amends a measure, but nothing it cites identifies an instrument held here, so the measure it affects is NOT linked. Any earlier order on the same subject is still reported as in force; that is the record, not a finding that it survived No predecessor is identified. Enter one below only if you have established it from the documents; this system will not guess it from a similar title.
+											1496 text field (settable) Earlier event id
+											1497 text field (settable) Reason for this decision
+											1498 button Accept link
+											1499 button Reject link
+										1500 container
+											1501 text Completion of Recovery Certificate No. 3965 of 2021-Ram Kishore Taparia (PAN – ABJPT1453C) in the matter of Co this document ends or amends a measure and cites no instrument identifier at all, so it cannot be linked to what it changes. Any earlier order on the same subject is still reported as in force, and linking the two on a similar title would be a guess No predecessor is identified. Enter one below only if you have established it from the documents; this system will not guess it from a similar title.
+											1502 text field (settable) Earlier event id
+											1503 text field (settable) Reason for this decision
+											1504 button Accept link
+											1505 button Reject link
+										1506 container
+											1507 text Completion of RC No. 8924 of 2025 issued against Yuvika Tradewing LLP (PAN - AABFY4620R) in the matter of Cres this document ends or amends a measure, but nothing it cites identifies an instrument held here, so the measure it affects is NOT linked. Any earlier order on the same subject is still reported as in force; that is the record, not a finding that it survived No predecessor is identified. Enter one below only if you have established it from the documents; this system will not guess it from a similar title.
+											1508 text field (settable) Earlier event id
+											1509 text field (settable) Reason for this decision
+											1510 button Accept link
+											1511 button Reject link
+										1512 container
+											1513 text Common Alloy Aluminum Sheet From the People's Republic of China, Bahrain, Brazil, Croatia, Egypt, Germany, Ind this document ends or amends a measure and cites no instrument identifier at all, so it cannot be linked to what it changes. Any earlier order on the same subject is still reported as in force, and linking the two on a similar title would be a guess No predecessor is identified. Enter one below only if you have established it from the documents; this system will not guess it from a similar title.
+											1514 text field (settable) Earlier event id
+											1515 text field (settable) Reason for this decision
+											1516 button Accept link
+											1517 button Reject link
+										1518 container
+											1519 text Modification in RFQ T+0 Market Timings for Corporate Bonds this document ends or amends a measure and cites no instrument identifier at all, so it cannot be linked to what it changes. Any earlier order on the same subject is still reported as in force, and linking the two on a similar title would be a guess No predecessor is identified. Enter one below only if you have established it from the documents; this system will not guess it from a similar title.
+											1520 text field (settable) Earlier event id
+											1521 text field (settable) Reason for this decision
+											1522 button Accept link
+											1523 button Reject link
+										1524 container
+											1525 text Gazette Notification issued by SEBI titled “Securities and Exchange Board of India (Certification of Associate this document ends or amends a measure and cites no instrument identifier at all, so it cannot be linked to what it changes. Any earlier order on the same subject is still reported as in force, and linking the two on a similar title would be a guess No predecessor is identified. Enter one below only if you have established it from the documents; this system will not guess it from a similar title.
+											1526 text field (settable) Earlier event id
+											1527 text field (settable) Reason for this decision
+											1528 button Accept link
+											1529 button Reject link
+										1530 container
+											1531 text International Trade Commission (ITC) that revocation of the antidumping duty (AD) and countervailing duty (CVD this document ends or amends a measure and cites no instrument identifier at all, so it cannot be linked to what it changes. Any earlier order on the same subject is still reported as in force, and linking the two on a similar title would be a guess No predecessor is identified. Enter one below only if you have established it from the documents; this system will not guess it from a similar title.
+											1532 text field (settable) Earlier event id
+											1533 text field (settable) Reason for this decision
+											1534 button Accept link
+											1535 button Reject link
+										1536 container
+											1537 text When finalized, the federal bank regulatory agencies plan to rescind existing third-party risk management guid this document ends or amends a measure and cites no instrument identifier at all, so it cannot be linked to what it changes. Any earlier order on the same subject is still reported as in force, and linking the two on a similar title would be a guess No predecessor is identified. Enter one below only if you have established it from the documents; this system will not guess it from a similar title.
+											1538 text field (settable) Earlier event id
+											1539 text field (settable) Reason for this decision
+											1540 button Accept link
+											1541 button Reject link
+										1542 container
+											1543 text Hazardous Materials: Notice of Applications for Modification to Special Permits this document ends or amends a measure and cites no instrument identifier at all, so it cannot be linked to what it changes. Any earlier order on the same subject is still reported as in force, and linking the two on a similar title would be a guess No predecessor is identified. Enter one below only if you have established it from the documents; this system will not guess it from a similar title.
+											1544 text field (settable) Earlier event id
+											1545 text field (settable) Reason for this decision
+											1546 button Accept link
+											1547 button Reject link
+										1548 container
+											1549 text with section 782(i) of the Tariff Act of 1930, as amended (the Act). this document ends or amends a measure and cites no instrument identifier at all, so it cannot be linked to what it changes. Any earlier order on the same subject is still reported as in force, and linking the two on a similar title would be a guess No predecessor is identified. Enter one below only if you have established it from the documents; this system will not guess it from a similar title.
+											1550 text field (settable) Earlier event id
+											1551 text field (settable) Reason for this decision
+											1552 button Accept link
+											1553 button Reject link
+										1554 container
+											1555 text with section 782(i) of the Tariff Act of 1930, as amended (the Act). this document ends or amends a measure and cites no instrument identifier at all, so it cannot be linked to what it changes. Any earlier order on the same subject is still reported as in force, and linking the two on a similar title would be a guess No predecessor is identified. Enter one below only if you have established it from the documents; this system will not guess it from a similar title.
+											1556 text field (settable) Earlier event id
+											1557 text field (settable) Reason for this decision
+											1558 button Accept link
+											1559 button Reject link
+										1560 container
+											1561 text Suspended Investigation; Opportunity To Request Administrative this document ends or amends a measure and cites no instrument identifier at all, so it cannot be linked to what it changes. Any earlier order on the same subject is still reported as in force, and linking the two on a similar title would be a guess No predecessor is identified. Enter one below only if you have established it from the documents; this system will not guess it from a similar title.
+											1562 text field (settable) Earlier event id
+											1563 text field (settable) Reason for this decision
+											1564 button Accept link
+											1565 button Reject link
+										1566 container
+											1567 text with section 751(a)(1) of the Tariff Act of 1930, as amended (the Act), this document ends or amends a measure and cites no instrument identifier at all, so it cannot be linked to what it changes. Any earlier order on the same subject is still reported as in force, and linking the two on a similar title would be a guess No predecessor is identified. Enter one below only if you have established it from the documents; this system will not guess it from a similar title.
+											1568 text field (settable) Earlier event id
+											1569 text field (settable) Reason for this decision
+											1570 button Accept link
+											1571 button Reject link
+										1572 container
+											1573 text with section 751(a) of the Tariff Act of 1930, as amended (the Act). this document ends or amends a measure and cites no instrument identifier at all, so it cannot be linked to what it changes. Any earlier order on the same subject is still reported as in force, and linking the two on a similar title would be a guess No predecessor is identified. Enter one below only if you have established it from the documents; this system will not guess it from a similar title.
+											1574 text field (settable) Earlier event id
+											1575 text field (settable) Reason for this decision
+											1576 button Accept link
+											1577 button Reject link
+										1578 container
+											1579 text with 751(a)(1)(A) of the Tariff Act of 1930, as amended (the Act). this document ends or amends a measure and cites no instrument identifier at all, so it cannot be linked to what it changes. Any earlier order on the same subject is still reported as in force, and linking the two on a similar title would be a guess No predecessor is identified. Enter one below only if you have established it from the documents; this system will not guess it from a similar title.
+											1580 text field (settable) Earlier event id
+											1581 text field (settable) Reason for this decision
+											1582 button Accept link
+											1583 button Reject link
+										1584 container
+											1585 button (expanded) coverage, Secondary Actions: Collapse
+												1586 text coverage
+											1587 text {
+  "kind": "coverage",
+  "covered": 18,
+  "total": 22,
+  "uncovered": [
+    "federal_register: last acquisition failed: FeedFetchError: this does not look like a Federal Register documents response: no 'results' key",
+    "federal_register_india: last acquisition failed: FeedFetchError: this does not look like a Federal Register documents response: no 'results' key",
+    "gdacs_alerts: last acquisition failed: TimeoutError: The read operation timed out (deadline 7.0s exhausted after 1 attempt(s); not retrying)",
+    "mofcom_rare_earth_18_2025: last acquisition failed: TimeoutError: acquisition deadline exhausted while reading body (deadline 4.1s exhausted after 1 attempt(s); not retrying)"
+  ],
+  "gaps": [
+    "Pilot coverage only: no licensed independent journalism",
+    "No validated Hindi interpretation; received Hindi items abstain",
+    "Exchange filings, Indian trade instruments and broader sector routes are incomplete",
+    "Pilot exposure registry is qualitative; unmapped firms and unknown sizes are not zero risk"
+  ]
+}
+										1588 container
+											1589 button (expanded) acquisition, Secondary Actions: Collapse
+												1590 text acquisition
+											1591 text {
+  "kind": "acquisition",
+  "worker_state": "unknown",
+  "newest": "2026-10-25T23:56:47+05:30",
+  "stale": true
+}
+										1592 container
+											1593 button (expanded) scope, Secondary Actions: Collapse
+												1594 text scope
+											1595 text {
+  "kind": "scope",
+  "in_scope": 534,
+  "out_of_scope": 1794,
+  "unidentified": 193
+}
+										1596 container
+											1597 button (expanded) rights, Secondary Actions: Collapse
+												1598 text rights
+											1599 text {
+  "kind": "rights",
+  "reviewed": 0,
+  "total": 22,
+  "permitted_uses": {
+    "fetch": 22,
+    "process": 22,
+    "store": 7,
+    "display": 7,
+    "redistribute": 0
+  },
+  "unreviewed": [
+    "bse_notices",
+    "ec_news",
+    "et_energyworld",
+    "fed_press",
+    "federal_register",
+    "federal_register_india",
+    "federal_register_ita",
+    "federalreserve_speeches",
+    "gdacs_alerts",
+    "mercom_india",
+    "mofcom_rare_earth_18_2025",
+    "nse_circulars",
+    "nse_corporate_announcements",
+    "pib_releases",
+    "rbi_notifications",
+    "rbi_press_releases",
+    "rbi_speeches",
+    "sebi_press",
+    "tata_kalinganagar_expansion",
+    "usgs_earthquakes",
+    "ustr_press",
+    "wto_news"
+  ],
+  "note": "a source with no per-use review falls back to the coarse storage flag, which is never more permissive than the registration it came from"
+}
+										1600 container
+											1601 button (expanded) retention, Secondary Actions: Collapse
+												1602 text retention
+											1603 text {
+  "kind": "retention",
+  "redacted": 0,
+  "sample": [],
+  "note": "text removed under each source's declared retention window. The observation, its content hash and this record remain, so a retention policy cannot be used to rewrite what the system once held"
+}
+										1604 container
+											1605 button (expanded) unresolved, Secondary Actions: Collapse
+												1606 text unresolved
+											1607 text {
+  "kind": "unresolved",
+  "count": 72,
+  "sample": [
+    "quantity '100%' has no recognised subject; not recorded as a measured quantity",
+    "quantity '2 percent' has no recognised subject; not recorded as a measured quantity",
+    "quantity '4 percent' has no recognised subject; not recorded as a measured quantity",
+    "quantity '4 percent' has no recognised subject; not recorded as a measured quantity",
+    "quantity '2 percent' has no recognised subject; not recorded as a measured quantity",
+    "quantity '60 percent' has no recognised subject; not recorded as a measured quantity",
+    "quantity '3%' has no recognised subject; not recorded as a measured quantity",
+    "quantity '134%' has no recognised subject; not recorded as a measured quantity",
+    "quantity '44%' has no recognised subject; not recorded as a measured quantity",
+    "quantity '44%' has no recognised subject; not recorded as a measured quantity",
+    "quantity '30%' has no recognised subject; not recorded as a measured quantity",
+    "quantity '3.6 percent' has no recognised subject; not recorded as a measured quantity",
+    "effective date 'December 2026' is stated only to month precision (2026-12-01..2027-01-01); no exact start is recorded",
+    "'And' matches 3 records (ntpc_feroze_gandhi_unchahar, ntpc_rihand, ntpc_tanda); not linked",
+    "quantity '150 percent' has no recognised subject; not recorded as a measured quantity",
+    "quantity '4 percent' has no recognised subject; not recorded as a measured quantity",
+    "quantity '4 percent' has no recognised subject; not recorded as a measured quantity",
+    "quantity '7 percent' has no recognised subject; not recorded as a measured quantity",
+    "quantity '6 percent' has no recognised subject; not recorded as a measured quantity",
+    "quantity '2 percent' has no recognised subject; not recorded as a measured quantity",
+    "quantity '7 percent' has no recognised subject; not recorded as a measured quantity",
+    "quantity '66 percent' has no recognised subject; not recorded as a measured quantity",
+    "quantity '65 percent' has no recognised subject; not recorded as a measured quantity",
+    "quantity '58 percent' has no recognised subject; not recorded as a measured quantity",
+    "quantity '56 percent' has no recognised subject; not recorded as a measured quantity"
+  ]
+}
+										1608 container
+											1609 button (expanded) supersession_review, Secondary Actions: Collapse
+												1610 text supersession_review
+											1611 text {
+  "kind": "supersession_review",
+  "linked": 2,
+  "proposed": [],
+  "unresolved": [
+    {
+      "event_id": "evt_34474fd1b8efc39e5947",
+      "headline": "Reserve Bank of India (Small Finance Banks – Prudential Norms on Capital Adequacy) Sixth Amendment Directions, 2026",
+      "stage": "unknown",
+      "cited_instrument_ids": [],
+      "warning": "this document ends or amends a measure and cites no instrument identifier at all, so it cannot be linked to what it changes. Any earlier order on the same subject is still reported as in force, and linking the two on a similar title would be a guess",
+      "review": "confirm or reject a link between this document and the instrument it changes"
+    },
+    {
+      "event_id": "evt_50823b22693815fb2876",
+      "headline": "Reserve Bank of India (Payments Banks – Prudential Norms on Capital Adequacy) Third Amendment Directions, 2026",
+      "stage": "unknown",
+      "cited_instrument_ids": [],
+      "warning": "this document ends or amends a measure and cites no instrument identifier at all, so it cannot be linked to what it changes. Any earlier order on the same subject is still reported as in force, and linking the two on a similar title would be a guess",
+      "review": "confirm or reject a link between this document and the instrument it changes"
+    },
+    {
+      "event_id": "evt_5cdd7943fdf3585daddb",
+      "headline": "Reserve Bank of India (All India Financial Institutions (AIFIs) – Prudential Norms on Capital Adequacy) Fifth Amendment Directions, 2026",
+      "stage": "unknown",
+      "cited_instrument_ids": [],
+      "warning": "this document ends or amends a measure and cites no instrument identifier at all, so it cannot be linked to what it changes. Any earlier order on the same subject is still reported as in force, and linking the two on a similar title would be a guess",
+      "review": "confirm or reject a link between this document and the instrument it changes"
+    },
+    {
+      "event_id": "evt_a653c63ac3b615a75038",
+      "headline": "Reserve Bank of India (Commercial Banks – Prudential Norms on Capital Adequacy) Twelfth Amendment Directions, 2026",
+      "stage": "unknown",
+      "cited_instrument_ids": [],
+      "warning": "this document ends or amends a measure and cites no instrument identifier at all, so it cannot be linked to what it changes. Any earlier order on the same subject is still reported as in force, and linking the two on a similar title would be a guess",
+      "review": "confirm or reject a link between this document and the instrument it changes"
+    },
+    {
+      "event_id": "evt_bc018a03df862c8fa151",
+      "headline": "Reserve Bank of India (Commercial Banks – Forthcoming Instructions) Amendment Directions, 2026",
+      "stage": "unknown",
+      "cited_instrument_ids": [],
+      "warning": "this document ends or amends a measure and cites no instrument identifier at all, so it cannot be linked to what it changes. Any earlier order on the same subject is still reported as in force, and linking the two on a similar title would be a guess",
+      "review": "confirm or reject a link between this document and the instrument it changes"
+    },
+    {
+      "event_id": "evt_fa0bfd9a71bfa39fcb9e",
+      "headline": "Reserve Bank of India (Commercial Banks – Miscellaneous) Amendment Directions, 2026",
+      "stage": "unknown",
+      "cited_instrument_ids": [],
+      "warning": "this document ends or amends a measure and cites no instrument identifier at all, so it cannot be linked to what it changes. Any earlier order on the same subject is still reported as in force, and linking the two on a similar title would be a guess",
+      "review": "confirm or reject a link between this document and the instrument it changes"
+    },
+    {
+      "event_id": "evt_4f05066af73cee849bbb",
+      "headline": "Center For Scientific Review; Amended Notice of Meeting",
+      "stage": "unknown",
+      "cited_instrument_ids": [],
+      "warning": "this document ends or amends a measure and cites no instrument identifier at all, so it cannot be linked to what it changes. Any earlier order on the same subject is still reported as in force, and linking the two on a similar title would be a guess",
+      "review": "confirm or reject a link between this document and the instrument it changes"
+    },
+    {
+      "event_id": "evt_696b9a48a2497f9b95f6",
+      "headline": "National Cancer Institute; Amended Notice of Meeting",
+      "stage": "unknown",
+      "cited_instrument_ids": [],
+      "warning": "this document ends or amends a measure and cites no instrument identifier at all, so it cannot be linked to what it changes. Any earlier order on the same subject is still reported as in force, and linking the two on a similar title would be a guess",
+      "review": "confirm or reject a link between this document and the instrument it changes"
+    },
+    {
+      "event_id": "evt_70a103a70294d4ad0a78",
+      "headline": "Presidential Declaration Amendment of a Major Disaster for Public Assistance Only for the State of Kansas",
+      "stage": "unknown",
+      "cited_instrument_ids": [],
+      "warning": "this document ends or amends a measure and cites no instrument identifier at all, so it cannot be linked to what it changes. Any earlier order on the same subject is still reported as in force, and linking the two on a similar title would be a guess",
+      "review": "confirm or reject a link between this document and the instrument it changes"
+    },
+    {
+      "event_id": "evt_c14ea96703d51a9ed252",
+      "headline": "Affirmative Decisions on Petitions for Modification Granted in Whole or in Part",
+      "stage": "unknown",
+      "cited_instrument_ids": [],
+      "warning": "this document ends or amends a measure and cites no instrument identifier at all, so it cannot be linked to what it changes. Any earlier order on the same subject is still reported as in force, and linking the two on a similar title would be a guess",
+      "review": "confirm or reject a link between this document and the instrument it changes"
+    },
+    {
+      "event_id": "evt_08d9d2617a7226d947a8",
+      "headline": "Release of attachment on immovable property under RC No. 3965 of 2021-Ram Kishore Taparia (PAN – ABJPT1453C) in the matter of Cosboard Industries Ltd",
+      "stage": "repealed",
+      "cited_instrument_ids": [
+        "recovery_certificate:3965 OF 2021"
+      ],
+      "warning": "this document ends or amends a measure, but nothing it cites identifies an instrument held here, so the measure it affects is NOT linked. Any earlier order on the same subject is still reported as in force; that is the record, not a finding that it survived",
+      "review": "confirm or reject a link between this document and the instrument it changes"
+    },
+    {
+      "event_id": "evt_529b50f25b34a3e6e221",
+      "headline": "Completion of Recovery Certificate No. 3965 of 2021-Ram Kishore Taparia (PAN – ABJPT1453C) in the matter of Cosboard Industries Ltd",
+      "stage": "expired",
+      "cited_instrument_ids": [],
+      "warning": "this document ends or amends a measure and cites no instrument identifier at all, so it cannot be linked to what it changes. Any earlier order on the same subject is still reported as in force, and linking the two on a similar title would be a guess",
+      "review": "confirm or reject a link between this document and the instrument it changes"
+    },
+    {
+      "event_id": "evt_764e9a6ab1a90c83e158",
+      "headline": "Completion of RC No. 8924 of 2025 issued against Yuvika Tradewing LLP (PAN - AABFY4620R) in the matter of Cressanda Solutions Limited",
+      "stage": "expired",
+      "cited_instrument_ids": [
+        "recovery_certificate:8924 OF 2025"
+      ],
+      "warning": "this document ends or amends a measure, but nothing it cites identifies an instrument held here, so the measure it affects is NOT linked. Any earlier order on the same subject is still reported as in force; that is the record, not a finding that it survived",
+      "review": "confirm or reject a link between this document and the instrument it changes"
+    },
+    {
+      "event_id": "evt_8aa4a7149a804ad673d6",
+      "headline": "Common Alloy Aluminum Sheet From the People's Republic of China, Bahrain, Brazil, Croatia, Egypt, Germany, India, Indonesia, Italy, Oman, Romania, Serbia, Slovenia, South Africa, Spain, Taiwan, and the Republic of Türkiye: Final Results of Changed Circumstances Reviews and Revocation of the Antidumping and Countervailing Duty Orders, in Part",
+      "stage": "repealed",
+      "cited_instrument_ids": [],
+      "warning": "this document ends or amends a measure and cites no instrument identifier at all, so it cannot be linked to what it changes. Any earlier order on the same subject is still reported as in force, and linking the two on a similar title would be a guess",
+      "review": "confirm or reject a link between this document and the instrument it changes"
+    },
+    {
+      "event_id": "evt_73d74bc92abc80d40e6d",
+      "headline": "Modification in RFQ T+0 Market Timings for Corporate Bonds",
+      "stage": "unknown",
+      "cited_instrument_ids": [],
+      "warning": "this document ends or amends a measure and cites no instrument identifier at all, so it cannot be linked to what it changes. Any earlier order on the same subject is still reported as in force, and linking the two on a similar title would be a guess",
+      "review": "confirm or reject a link between this document and the instrument it changes"
+    },
+    {
+      "event_id": "evt_9c01f21ef29c54052b81",
+      "headline": "Gazette Notification issued by SEBI titled “Securities and Exchange Board of India (Certification of Associated Persons in the Securities Markets) (Amendment) Regulations, 2026”",
+      "stage": "unknown",
+      "cited_instrument_ids": [],
+      "warning": "this document ends or amends a measure and cites no instrument identifier at all, so it cannot be linked to what it changes. Any earlier order on the same subject is still reported as in force, and linking the two on a similar title would be a guess",
+      "review": "confirm or reject a link between this document and the instrument it changes"
+    },
+    {
+      "event_id": "evt_f34eb50578b8735c70b4",
+      "headline": "International Trade Commission (ITC) that revocation of the antidumping duty (AD) and countervailing duty (CVD) orders on boltless steel shelving units prepackaged for sale from (boltless steel shelving) the People's Republic of China (China) would likely lead to the continuation or recurrence of dumping, countervailable subsidies, and material injury to an industry in the United States, Commerce is publishing a notice of continuation of these AD and CVD orders.",
+      "stage": "repealed",
+      "cited_instrument_ids": [],
+      "warning": "this document ends or amends a measure and cites no instrument identifier at all, so it cannot be linked to what it changes. Any earlier order on the same subject is still reported as in force, and linking the two on a similar title would be a guess",
+      "review": "confirm or reject a link between this document and the instrument it changes"
+    },
+    {
+      "event_id": "evt_f1d77fc5e4df55c07726",
+      "headline": "When finalized, the federal bank regulatory agencies plan to rescind existing third-party risk management guidance and replace it with the finalized guidance to promote consistency and prudent innovation in the banking industry.",
+      "stage": "unknown",
+      "cited_instrument_ids": [],
+      "warning": "this document ends or amends a measure and cites no instrument identifier at all, so it cannot be linked to what it changes. Any earlier order on the same subject is still reported as in force, and linking the two on a similar title would be a guess",
+      "review": "confirm or reject a link between this document and the instrument it changes"
+    },
+    {
+      "event_id": "evt_7b4bbdefbeda614fddd9",
+      "headline": "Hazardous Materials: Notice of Applications for Modification to Special Permits",
+      "stage": "unknown",
+      "cited_instrument_ids": [],
+      "warning": "this document ends or amends a measure and cites no instrument identifier at all, so it cannot be linked to what it changes. Any earlier order on the same subject is still reported as in force, and linking the two on a similar title would be a guess",
+      "review": "confirm or reject a link between this document and the instrument it changes"
+    },
+    {
+      "event_id": "evt_753aee235b7004f2a0cf",
+      "headline": "with section 782(i) of the Tariff Act of 1930, as amended (the Act).",
+      "stage": "unknown",
+      "cited_instrument_ids": [],
+      "warning": "this document ends or amends a measure and cites no instrument identifier at all, so it cannot be linked to what it changes. Any earlier order on the same subject is still reported as in force, and linking the two on a similar title would be a guess",
+      "review": "confirm or reject a link between this document and the instrument it changes"
+    },
+    {
+      "event_id": "evt_71670f2ad54cfca21e6e",
+      "headline": "with section 782(i) of the Tariff Act of 1930, as amended (the Act).",
+      "stage": "unknown",
+      "cited_instrument_ids": [],
+      "warning": "this document ends or amends a measure and cites no instrument identifier at all, so it cannot be linked to what it changes. Any earlier order on the same subject is still reported as in force, and linking the two on a similar title would be a guess",
+      "review": "confirm or reject a link between this document and the instrument it changes"
+    },
+    {
+      "event_id": "evt_82887f92c380636d2ad6",
+      "headline": "Suspended Investigation; Opportunity To Request Administrative",
+      "stage": "suspended",
+      "cited_instrument_ids": [],
+      "warning": "this document ends or amends a measure and cites no instrument identifier at all, so it cannot be linked to what it changes. Any earlier order on the same subject is still reported as in force, and linking the two on a similar title would be a guess",
+      "review": "confirm or reject a link between this document and the instrument it changes"
+    },
+    {
+      "event_id": "evt_b675c6dfd9a322641031",
+      "headline": "with section 751(a)(1) of the Tariff Act of 1930, as amended (the Act),",
+      "stage": "unknown",
+      "cited_instrument_ids": [],
+      "warning": "this document ends or amends a measure and cites no instrument identifier at all, so it cannot be linked to what it changes. Any earlier order on the same subject is still reported as in force, and linking the two on a similar title would be a guess",
+      "review": "confirm or reject a link between this document and the instrument it changes"
+    },
+    {
+      "event_id": "evt_2b0f93efd498ce08356e",
+      "headline": "with section 751(a) of the Tariff Act of 1930, as amended (the Act).",
+      "stage": "unknown",
+      "cited_instrument_ids": [],
+      "warning": "this document ends or amends a measure and cites no instrument identifier at all, so it cannot be linked to what it changes. Any earlier order on the same subject is still reported as in force, and linking the two on a similar title would be a guess",
+      "review": "confirm or reject a link between this document and the instrument it changes"
+    },
+    {
+      "event_id": "evt_42857f92b088f7758382",
+      "headline": "with 751(a)(1)(A) of the Tariff Act of 1930, as amended (the Act).",
+      "stage": "unknown",
+      "cited_instrument_ids": [],
+      "warning": "this document ends or amends a measure and cites no instrument identifier at all, so it cannot be linked to what it changes. Any earlier order on the same subject is still reported as in force, and linking the two on a similar title would be a guess",
+      "review": "confirm or reject a link between this document and the instrument it changes"
+    }
+  ],
+  "reviews": [],
+  "note": "instruments are linked on the identifiers the documents cite, or on a recorded human review. They are never linked on a similar title: one product-and-country headline covers a proposal, a determination, an order and its revocation"
+}
+										1612 container
+											1613 button (expanded) collection_gaps, Secondary Actions: Collapse
+												1614 text collection_gaps
+											1615 text {
+  "kind": "collection_gaps",
+  "open": [
+    {
+      "gap_id": 95,
+      "source_id": "federal_register",
+      "since": "2026-10-25T03:44:17+05:30",
+      "until": "2026-10-25T18:04:17+05:30",
+      "observed_at": "2026-10-25T12:06:01+05:30",
+      "recoverable": true,
+      "next_page": null,
+      "covered_until": null,
+      "recovered_stories": 0,
+      "note": "4 scheduled polls missed; this source accepts a publication-date range, so the gap is recoverable exactly"
+    },
+    {
+      "gap_id": 96,
+      "source_id": "federal_register_india",
+      "since": "2026-10-25T03:44:17+05:30",
+      "until": "2026-10-25T18:04:17+05:30",
+      "observed_at": "2026-10-25T12:06:01+05:30",
+      "recoverable": true,
+      "next_page": null,
+      "covered_until": null,
+      "recovered_stories": 0,
+      "note": "4 scheduled polls missed; this source accepts a publication-date range, so the gap is recoverable exactly"
+    }
+  ],
+  "note": "gaps as they stood at the decision time: observed by then and not yet closed"
+}
+									1616 text 534 in scope · 1794 received but not about this system (carried and linked, never deleted) · 193 in scope and unidentified
+									1617 button (collapsed) SBI Mutual Fund - SBI Nifty50 Equal Weight ETF, Secondary Actions: Expand
+										1618 text SBI Mutual Fund - SBI Nifty50 Equal Weight ETF
+									1619 button (collapsed) Moschip Technologies Limited, Secondary Actions: Expand
+										1620 text Moschip Technologies Limited
+									1621 button (collapsed) M 4.6 - 153 km WNW of Adak, Alaska, Secondary Actions: Expand
+										1622 text M 4.6 - 153 km WNW of Adak, Alaska
+									1623 button (collapsed) M 5.2 - 59 km SW of Ashkāsham, Afghanistan, Secondary Actions: Expand
+										1624 text M 5.2 - 59 km SW of Ashkāsham, Afghanistan
+									1625 button (collapsed) M 4.7 - 19 km NE of Atico, Peru, Secondary Actions: Expand
+										1626 text M 4.7 - 19 km NE of Atico, Peru
+									1627 button (collapsed) प्रधानमंत्री ने वाराणसी यात्रा की झलकियाँ साझा कीं, Secondary Actions: Expand
+										1628 text प्रधानमंत्री ने वाराणसी यात्रा की झलकियाँ साझा कीं
+									1629 button (collapsed) Secondary Actions: Expand, &#2327;&#2357;&#2352;&#2381;&#2344;&#2352; &#2325;&#2366; &#2360;&#2381;&#2357;&#2366;&#2327;&#2340; &#2360;&#2306;&#2348;&#2379;&#2343;&#2344; - RBI &#2325;&#2375; &#2337;&#2375;&#2335;&#2366; &#2360;&#2375;&#2306;&#2335;&#2352; &#2324;&#2352; &#2360;&#2366;&#2311;&#2348;&#2352; &#2360;&#2369;&#2352;&#2325;&#2381;&#2359;&#2366; &#2346;&#2381;&#2352;&#2358;&#2367;&#2325;&#2381;&#2359;&#2339; &#2360;&#2306;&#2360;&#2381;&#2341;&#2366;&#2344; &#2325;&#2366; &#2313;&#2342;&#2381;&#2328;&#2366;&#2335;&#2344; -
+										1630 text &#2327;&#2357;&#2352;&#2381;&#2344;&#2352; &#2325;&#2366; &#2360;&#2381;&#2357;&#2366;&#2327;&#2340; &#2360;&#2306;&#2348;&#2379;&#2343;&#2344; - RBI &#2325;&#2375; &#2337;&#2375;&#2335;&#2366; &#2360;&#2375;&#2306;&#2335;&#2352; &#2324;&#2352; &#2360;&#2366;&#2311;&#2348;&#2352; &#2360;&#2369;&#2352;&#2325;&#2381;&#2359;&#2366; &#2346;&#2381;&#2352;&#2358;&#2367;&#2325;&#2381;&#2359;&#2339; &#2360;&#2306;&#2360;&#2381;&#2341;&#2366;&#2344; &#2325;&#2366; &#2313;&#2342;&#2381;&#2328;&#2366;&#2335;&#2344; -
+									1631 button (collapsed) Green forest fire notification in South Sudan, Secondary Actions: Expand
+										1632 text Green forest fire notification in South Sudan
+									1633 button (collapsed) Green forest fire notification in Zambia, Secondary Actions: Expand
+										1634 text Green forest fire notification in Zambia
+									1635 button (collapsed) Ravindra Energy Limited, Secondary Actions: Expand
+										1636 text Ravindra Energy Limited
+									1637 button (collapsed) Green forest fire notification in Zambia, Malawi, Secondary Actions: Expand
+										1638 text Green forest fire notification in Zambia, Malawi
+									1639 button (collapsed) Green forest fire notification in Senegal, Secondary Actions: Expand
+										1640 text Green forest fire notification in Senegal
+									1641 button (collapsed) सीसीपीए ने भ्रामक विज्ञापनों और वॉकी-टॉकी की गैर-अनुपालन बिक्री के खिलाफ कार्रवाई तेज की, Secondary Actions: Expand
+										1642 text सीसीपीए ने भ्रामक विज्ञापनों और वॉकी-टॉकी की गैर-अनुपालन बिक्री के खिलाफ कार्रवाई तेज की
+									1643 button (collapsed) Secondary Actions: Expand, Green notification for tropical cyclone VANCE-26. Population affected by Category 1 (120 km/h) wind speeds or higher is 0 (0 in Tropical Storm).
+										1644 text Green notification for tropical cyclone VANCE-26. Population affected by Category 1 (120 km/h) wind speeds or higher is 0 (0 in Tropical Storm).
+									1645 button (collapsed) SKP Bearing Industries Limited, Secondary Actions: Expand
+										1646 text SKP Bearing Industries Limited
+									1647 button (collapsed) एनआईएफटीईएम-के ने भारत के पहले ‘एआई × फूड टेक हैकाथॉन’, ‘हैक द फोर्क’ का आयोजन किया, Secondary Actions: Expand
+										1648 text एनआईएफटीईएम-के ने भारत के पहले ‘एआई × फूड टेक हैकाथॉन’, ‘हैक द फोर्क’ का आयोजन किया
+									1649 button (collapsed) Green forest fire notification in Mali, Secondary Actions: Expand
+										1650 text Green forest fire notification in Mali
+									1651 button (collapsed) ECL Finance Limited, Secondary Actions: Expand
+										1652 text ECL Finance Limited
+									1653 button (collapsed) Secondary Actions: Expand, ‘विकसित भारत 2047’ की दिशा में शहरी प्रशासन, योजना और सेवाओं की आपूर्ति को मजबूत करने संबंधी व्यावहारिक सुझावों के साथ ‘राष्ट्रीय शहरी सम्मेलन 2026’ संपन्न
+										1654 text ‘विकसित भारत 2047’ की दिशा में शहरी प्रशासन, योजना और सेवाओं की आपूर्ति को मजबूत करने संबंधी व्यावहारिक सुझावों के साथ ‘राष्ट्रीय शहरी सम्मेलन 2026’ संपन्न
+									1655 button (collapsed) 12वां ब्रिक्स संसदीय मंच कल संसद भवन परिसर में आयोजित होगा, Secondary Actions: Expand
+										1656 text 12वां ब्रिक्स संसदीय मंच कल संसद भवन परिसर में आयोजित होगा
+									1657 button (collapsed) Green forest fire notification in Mauritania, Mali, Secondary Actions: Expand
+										1658 text Green forest fire notification in Mauritania, Mali
+									1659 button (collapsed) GMR AIRPORTS LIMITED, Secondary Actions: Expand
+										1660 text GMR AIRPORTS LIMITED
+									1661 button (collapsed) Aditya Birla Sun Life Insurance Company Limited, Secondary Actions: Expand
+										1662 text Aditya Birla Sun Life Insurance Company Limited
+									1663 button (collapsed) Secondary Actions: Expand, Green notification for tropical cyclone IN-FA-26. Population affected by Category 1 (120 km/h) wind speeds or higher is 0 (0 in Tropical Storm).
+										1664 text Green notification for tropical cyclone IN-FA-26. Population affected by Category 1 (120 km/h) wind speeds or higher is 0 (0 in Tropical Storm).
+									1665 button (collapsed) उपराष्ट्रपति सी. पी. राधाकृष्णन 26-27 अक्टूबर को आंध्र प्रदेश के दौरे पर रहेंगे, Secondary Actions: Expand
+										1666 text उपराष्ट्रपति सी. पी. राधाकृष्णन 26-27 अक्टूबर को आंध्र प्रदेश के दौरे पर रहेंगे
+									1667 button (collapsed) Secondary Actions: Expand, Red notification for tropical cyclone CHAMPI-26. Population affected by Category 1 (120 km/h) wind speeds or higher is 0.291 million .
+										1668 text Red notification for tropical cyclone CHAMPI-26. Population affected by Category 1 (120 km/h) wind speeds or higher is 0.291 million .
+									1669 button (collapsed) Secondary Actions: Expand, Hon’ble Prime Minister of India inaugurates the Reserve Bank of India’s Data Centre and Cybersecurity Training Institute in Bhubaneswar, Odisha
+										1670 text Hon’ble Prime Minister of India inaugurates the Reserve Bank of India’s Data Centre and Cybersecurity Training Institute in Bhubaneswar, Odisha
+									1671 button (collapsed) भुवनेश्वर में आरबीआइ की प्रमुख सुविधाओं के उद्घाटन के दौरान प्रधानमंत्री के संबोधन का मूल पाठ, Secondary Actions: Expand
+										1672 text भुवनेश्वर में आरबीआइ की प्रमुख सुविधाओं के उद्घाटन के दौरान प्रधानमंत्री के संबोधन का मूल पाठ
+									1673 button (collapsed) प्रधानमंत्री श्री नरेन्द्र मोदी ने ओडिशा के भुवनेश्वर में आरबीआई के नवनिर्मित डेटा सेंटर और साइबर सुरक्षा प्रशिक्षण संस्थान का उद्घाटन किया, Secondary Actions: Expand
+										1674 text प्रधानमंत्री श्री नरेन्द्र मोदी ने ओडिशा के भुवनेश्वर में आरबीआई के नवनिर्मित डेटा सेंटर और साइबर सुरक्षा प्रशिक्षण संस्थान का उद्घाटन किया
+									1675 button (collapsed) Secondary Actions: Expand, Green notification for tropical cyclone THREE-C-26. Population affected by Category 1 (120 km/h) wind speeds or higher is 0 (0 in Tropical Storm).
+										1676 text Green notification for tropical cyclone THREE-C-26. Population affected by Category 1 (120 km/h) wind speeds or higher is 0 (0 in Tropical Storm).
+									1677 button (collapsed) केंद्रीय मंत्री पीयूष गोयल ने नीदरलैंड में व्यापार और निवेश वार्ता की, Secondary Actions: Expand
+										1678 text केंद्रीय मंत्री पीयूष गोयल ने नीदरलैंड में व्यापार और निवेश वार्ता की
+									1679 button (collapsed) Green forest fire notification in Indonesia, Secondary Actions: Expand
+										1680 text Green forest fire notification in Indonesia
+									1681 button (collapsed) Secondary Actions: Expand, Green earthquake (Magnitude 5.8M, Depth:12.486km) in Bouvet Island Region 24/10/2026 15:24 UTC, [unknown].
+										1682 text Green earthquake (Magnitude 5.8M, Depth:12.486km) in Bouvet Island Region 24/10/2026 15:24 UTC, [unknown].
+									1683 button (collapsed) Green forest fire notification in Russia, Secondary Actions: Expand
+										1684 text Green forest fire notification in Russia
+									1685 button (collapsed) Secondary Actions: Expand, Drought is on going in Austria, Bosnia & Herzegovina, Belgium, Belarus, Switzerland, Czech Republic, Germany, Denmark, Spain, France, Croatia, Hungary, Ireland, Italy, Liechtenstein, Luxembourg, Moldova, Montenegro, Netherlands, Poland, Romania, Serbia, Sweden, Slovenia, Slovakia, Ukraine,
+										1686 text Drought is on going in Austria, Bosnia & Herzegovina, Belgium, Belarus, Switzerland, Czech Republic, Germany, Denmark, Spain, France, Croatia, Hungary, Ireland, Italy, Liechtenstein, Luxembourg, Moldova, Montenegro, Netherlands, Poland, Romania, Serbia, Sweden, Slovenia, Slovakia, Ukraine,
+									1687 button (collapsed) Green forest fire notification in South Sudan, Sudan, Secondary Actions: Expand
+										1688 text Green forest fire notification in South Sudan, Sudan
+									1689 button (collapsed) Secondary Actions: Expand, Green earthquake (Magnitude 6.1M, Depth:116km) in Vanuatu 25/10/2026 02:24 UTC, 110 thousand in MMI IV.
+										1690 text Green earthquake (Magnitude 6.1M, Depth:116km) in Vanuatu 25/10/2026 02:24 UTC, 110 thousand in MMI IV.
+									1691 button (collapsed) Green forest fire notification in Australia, Secondary Actions: Expand
+										1692 text Green forest fire notification in Australia
+									1693 button (collapsed) Green forest fire notification in Namibia, Botswana, Secondary Actions: Expand
+										1694 text Green forest fire notification in Namibia, Botswana
+									1695 button (collapsed) Green forest fire notification in Nigeria, Secondary Actions: Expand
+										1696 text Green forest fire notification in Nigeria
+									1697 button (collapsed) Secondary Actions: Expand, REFERENCED Large Diameter Graphite Electrodes From China and India; Scheduling of the Final Phase of Countervailing Duty and Antidumping Duty Investigations.
+										1698 text REFERENCED
+										1699 text  Large Diameter Graphite Electrodes From China and India; Scheduling of the Final Phase of Countervailing Duty and Antidumping Duty Investigations.
+									1700 button (collapsed) Secondary Actions: Expand, REFERENCED Common Alloy Aluminum Sheet From Bahrain, Brazil, Croatia, Egypt, Germany, India, Indonesia, Italy, Oman, Romania, Serbia, Slovenia, South Africa, Spain, Taiwan, and Turkey; Scheduling of Full Five-Year Reviews.
+										1701 text REFERENCED
+										1702 text  Common Alloy Aluminum Sheet From Bahrain, Brazil, Croatia, Egypt, Germany, India, Indonesia, Italy, Oman, Romania, Serbia, Slovenia, South Africa, Spain, Taiwan, and Turkey; Scheduling of Full Five-Year Reviews.
+									1703 button (collapsed) Secondary Actions: Expand, REFERENCED Forged Steel Fittings From India and South Korea; Cancellation of Hearing for Antidumping and Countervailing Duty Reviews.
+										1704 text REFERENCED
+										1705 text  Forged Steel Fittings From India and South Korea; Cancellation of Hearing for Antidumping and Countervailing Duty Reviews.
+									1706 button (collapsed) REFERENCED Oleoresin Paprika From India: Antidumping Duty Order and Countervailing Duty Order., Secondary Actions: Expand
+										1707 text REFERENCED
+										1708 text  Oleoresin Paprika From India: Antidumping Duty Order and Countervailing Duty Order.
+									1709 button (collapsed) REFERENCED Oleoresin Paprika From India; Determinations., Secondary Actions: Expand
+										1710 text REFERENCED
+										1711 text  Oleoresin Paprika From India; Determinations.
+									1712 button (collapsed) Secondary Actions: Expand, REFERENCED Certain Oil Country Tubular Goods From India, the Republic of Korea, the Republic of Türkiye, the Socialist Republic of Vietnam, and Ukraine: Continuation of Antidumping Duty Orders and Countervailing Duty Orders.
+										1713 text REFERENCED
+										1714 text  Certain Oil Country Tubular Goods From India, the Republic of Korea, the Republic of Türkiye, the Socialist Republic of Vietnam, and Ukraine: Continuation of Antidumping Duty Orders and Countervailing Duty Orders.
+									1715 button (collapsed) Secondary Actions: Expand, REFERENCED Large Diameter Graphite Electrodes From India: Preliminary Affirmative Critical Circumstances Determination in Countervailing Duty Investigation.
+										1716 text REFERENCED
+										1717 text  Large Diameter Graphite Electrodes From India: Preliminary Affirmative Critical Circumstances Determination in Countervailing Duty Investigation.
+									1718 button (collapsed) Secondary Actions: Expand, REFERENCED Large Diameter Graphite Electrodes From India: Preliminary Affirmative Determination of Sales at Less-Than-Fair-Value, Preliminary Affirmative Determination of Critical Circumstances, Postponement of Final Determination, and Extension of Provisional Measures.
+										1719 text REFERENCED
+										1720 text  Large Diameter Graphite Electrodes From India: Preliminary Affirmative Determination of Sales at Less-Than-Fair-Value, Preliminary Affirmative Determination of Critical Circumstances, Postponement of Final Determination, and Extension of Provisional Measures.
+									1721 button (collapsed) REFERENCED POWERGRID Commissions Project to Evacuate Renewable Energy in Karnataka, Secondary Actions: Expand
+										1722 text REFERENCED
+										1723 text  POWERGRID Commissions Project to Evacuate Renewable Energy in Karnataka
+									1724 button (collapsed) Secondary Actions: Expand, REFERENCED Certain Freight Rail Couplers and Parts Thereof From India: Final Affirmative Countervailing Duty Determination.
+										1725 text REFERENCED
+										1726 text  Certain Freight Rail Couplers and Parts Thereof From India: Final Affirmative Countervailing Duty Determination.
+									1727 button (collapsed) Secondary Actions: Expand, REFERENCED Certain Frozen Warmwater Shrimp From India: Rescission of Antidumping Duty Administrative Review, In Part; 2025-2026.
+										1728 text REFERENCED
+										1729 text  Certain Frozen Warmwater Shrimp From India: Rescission of Antidumping Duty Administrative Review, In Part; 2025-2026.
+									1730 button (collapsed) Secondary Actions: Expand, REFERENCED Chromium Trioxide From India: Final Affirmative Determination of Sales at Less Than Fair Value.
+										1731 text REFERENCED
+										1732 text  Chromium Trioxide From India: Final Affirmative Determination of Sales at Less Than Fair Value.
+									1733 button (collapsed) REFERENCED Chromium Trioxide From India: Final Affirmative Countervailing Duty Determination., Secondary Actions: Expand
+										1734 text REFERENCED
+										1735 text  Chromium Trioxide From India: Final Affirmative Countervailing Duty Determination.
+									1736 button (collapsed) Secondary Actions: Expand, REFERENCED Perfluoroalkoxy Alkane From India: Postponement of Preliminary Determination in the Countervailing Duty Investigation
+										1737 text REFERENCED
+										1738 text  Perfluoroalkoxy Alkane From India: Postponement of Preliminary Determination in the Countervailing Duty Investigation
+									1739 button (collapsed) Secondary Actions: Expand, REFERENCED Polyethylene Terephthalate Film, Sheet, and Strip From India: Preliminary Results of Antidumping Duty Administrative Review, and Rescission of Review, in Part; 2024-2025
+										1740 text REFERENCED
+										1741 text  Polyethylene Terephthalate Film, Sheet, and Strip From India: Preliminary Results of Antidumping Duty Administrative Review, and Rescission of Review, in Part; 2024-2025
+									1742 button (collapsed) Secondary Actions: Expand, REFERENCED Fine Denier Polyester Staple Fiber From India: Preliminary Results and Rescission, in Part of Antidumping Duty Administrative Review; 2024-2025
+										1743 text REFERENCED
+										1744 text  Fine Denier Polyester Staple Fiber From India: Preliminary Results and Rescission, in Part of Antidumping Duty Administrative Review; 2024-2025
+									1745 button (collapsed) Secondary Actions: Expand, REFERENCED Announcement No.18 of 2025 of The Ministry of Commerce and The General Administration of Customs of The People’s Republic of China Announcing the decision to implement export control on some medium and heavy rare earth related items
+										1746 text REFERENCED
+										1747 text  Announcement No.18 of 2025 of The Ministry of Commerce and The General Administration of Customs of The People’s Republic of China Announcing the decision to implement export control on some medium and heavy rare earth related items
+									1748 button (collapsed) Secondary Actions: Expand, REFERENCED Oil Country Tubular Goods From India, South Korea, Turkey, Ukraine, and Vietnam; Determinations
+										1749 text REFERENCED
+										1750 text  Oil Country Tubular Goods From India, South Korea, Turkey, Ukraine, and Vietnam; Determinations
+									1751 button (collapsed) REFERENCED Perfluoroalkoxy Alkane From India; Determinations, Secondary Actions: Expand
+										1752 text REFERENCED
+										1753 text  Perfluoroalkoxy Alkane From India; Determinations
+									1754 button (collapsed) REFERENCED Tata Steel inaugurates Phase II expansion of Kalinganagar operations, Secondary Actions: Expand
+										1755 text REFERENCED
+										1756 text  Tata Steel inaugurates Phase II expansion of Kalinganagar operations
+									1757 text federal_register: last acquisition failed: FeedFetchError: this does not look like a Federal Register documents response: no 'results' key; federal_register_india: last acquisition failed: FeedFetchError: this does not look like a Federal Register documents response: no 'results' key; gdacs_alerts: last acquisition failed: TimeoutError: The read operation timed out (deadline 7.0s exhausted after 1 attempt(s); not retrying); mofcom_rare_earth_18_2025: last acquisition failed: TimeoutError: acquisition deadline exhausted while reading body (deadline 4.1s exhausted after 1 attempt(s); not retrying)
+									1758 text Pilot coverage only: no licensed independent journalism; No validated Hindi interpretation; received Hindi items abstain; Exchange filings, Indian trade instruments and broader sector routes are incomplete; Pilot exposure registry is qualitative; unmapped firms and unknown sizes are not zero risk
+									1759 button (collapsed) FABRICATED illustrative signals, Secondary Actions: Expand
+										1760 text FABRICATED illustrative signals
+								1761 container assetcard
+									1762 heading STRATEGIC ASSETS 28 SITES, Value: 3
+										1763 text STRATEGIC ASSETS
+										1764 text 28 SITES
+									1765 text ALL SECTORS
+									1766 container assets
+										1767 text Barauni
+										1768 text power_station · 500 MW
+										1769 text Barh
+										1770 text power_station · 3300 MW
+										1771 text Bongaigaon
+										1772 text power_station · 750 MW
+										1773 text Dadri
+										1774 text power_station · 1840 MW
+										1775 text Darlipali
+										1776 text power_station · 1600 MW
+										1777 text Farakka
+										1778 text power_station · 2100 MW
+										1779 text Feroze Gandhi,Unchahar
+										1780 text power_station · 1550 MW
+										1781 text Gadarwara
+										1782 text power_station · 1600 MW
+										1783 text Kahalgaon
+										1784 text power_station · 2340 MW
+										1785 text Kanti
+										1786 text power_station · 390 MW
+										1787 text Khargone
+										1788 text power_station · 1320 MW
+										1789 text Korba
+										1790 text power_station · 2600 MW
+										1791 text Kudgi
+										1792 text power_station · 2400 MW
+										1793 text Lara
+										1794 text power_station · 1600 MW
+										1795 text Mouda
+										1796 text power_station · 2320 MW
+										1797 text Nabinagar-NPGC
+										1798 text power_station · 1980 MW
+										1799 text North Karanpura
+										1800 text power_station · 1980 MW
+										1801 text Ramagundam
+										1802 text power_station · 2600 MW
+										1803 text Rihand
+										1804 text power_station · 3000 MW
+										1805 text Simhadri
+										1806 text power_station · 2000 MW
+										1807 text Singrauli
+										1808 text power_station · 2000 MW
+										1809 text Sipat
+										1810 text power_station · 2980 MW
+										1811 text Solapur
+										1812 text power_station · 1320 MW
+										1813 text Talcher Kaniha
+										1814 text power_station · 3000 MW
+										1815 text Tanda
+										1816 text power_station · 1320 MW
+										1817 text Telangana
+										1818 text power_station · 1600 MW
+										1819 text Vindhyachal
+										1820 text power_station · 4760 MW
+										1821 text Kalinganagar
+										1822 text plant
+									1823 text CRITICAL ELEVATED CLEAR
+								1824 container stage
+									1825 container modes
+										1826 button INDIA
+										1827 button GLOBAL
+										1828 button ASSETS
+									1829 container topright
+										1830 button PAUSE SPIN, ID: pause
+										1831 button CLOUDS, ID: clouds
+										1832 button RE-LOCK, ID: recentre
+									1833 text 641×794 · 56,533 land tris · 160 countries · 36 states · clouds procedural
+									1834 text drag to orbit · scroll to zoom · click a raised state
+									1835 container beaconKey
+										1836 text FABRICATED PREVIEW
+										1837 heading INFRASTRUCTURE, Value: 5
+											1838 text INFRASTRUCTURE
+										1839 text Solar Wind Hydro Nuclear Grid / Steel Battery / Auto Other
+										1840 heading STATUS, Value: 5
+											1841 text STATUS
+										1842 text Operational Under construction Planned Critical / maintenance Unknown
+									1843 text Gujarat · 0.87
+									1844 text Odisha · 0.81
+									1845 text Tamil Nadu · 0.79
+									1846 text Telangana · 0.74
+									1847 text 12 evidenced nodes · 1 documented path
+									1848 text China · country
+									1849 text M 5.2 - 59 km SW of Ashkāsham, Afghanistan · point
+									1850 text M 4.6 - 153 km WNW of Adak, Alaska · point
+									1851 text M 4.7 - 19 km NE of Atico, Peru · point
+									1852 text India · country
+									1853 text Mumbai · city
+									1854 text Odisha · region
+									1855 text Kalinganagar · region
+									1856 text Karnataka · region
+									1857 text Kalinganagar · region
+									1858 text United States · country
+									1859 text Washington D.C. · city
+								1860 heading SECTOR STRESS NEWS ESTIMATE · DOCUMENTED ROUTES, Value: 3
+									1861 text SECTOR STRESS NEWS ESTIMATE · DOCUMENTED ROUTES
+								1862 container stress
+									1863 text NEWS · inferred mechanisms
+									1864 text over all 2328 eligible events, not just the page shown
+									1865 text STALE — newest item 10 min old; 4 of 22 sources past the freshness policy they declared. Nothing on screen reflects what has happened since.
+									1866 container Show the events behind this inference
+										1867 text agriculture
+										1868 text export
+										1869 text adverse for this sector; direction unknown — opposing or unestablished mechanisms severity minor · evidence medium · size unknown · 3 unsized relationship(s) 3 event(s) — click for the documents
+									1870 container Show the events behind this inference
+										1871 text aluminium
+										1872 text export
+										1873 text direction unknown — opposing or unestablished mechanisms severity minor · evidence medium · size unknown · 1 unsized relationship(s) 1 event(s) — click for the documents
+									1874 container Show the events behind this inference
+										1875 text auto
+										1876 text input_dependency
+										1877 text direction unknown — opposing or unestablished mechanisms severity moderate · evidence medium · size unknown · 1 unsized relationship(s) 1 event(s) — click for the documents
+									1878 container Show the events behind this inference
+										1879 text chemicals
+										1880 text export
+										1881 text adverse for this sector; direction unknown — opposing or unestablished mechanisms severity minor · evidence medium · size unknown · 5 unsized relationship(s) 5 event(s) — click for the documents
+									1882 container Show the events behind this inference
+										1883 text energy
+										1884 text operation
+										1885 text direction unknown — opposing or unestablished mechanisms severity minor · evidence medium · size unknown · 1 unsized relationship(s) 1 event(s) — click for the documents
+									1886 container Show the events behind this inference
+										1887 text industrial_materials
+										1888 text export
+										1889 text direction unknown — opposing or unestablished mechanisms severity minor · evidence medium · size unknown · 3 unsized relationship(s) 3 event(s) — click for the documents
+									1890 container Show the events behind this inference
+										1891 text steel
+										1892 text export, operation
+										1893 text adverse for this sector; direction unknown — opposing or unestablished mechanisms severity minor · evidence medium · size unknown · 5 unsized relationship(s) 5 event(s) — click for the documents
+									1894 container Show the events behind this inference
+										1895 text textiles
+										1896 text export
+										1897 text direction unknown — opposing or unestablished mechanisms severity minor · evidence medium · size unknown · 1 unsized relationship(s) 1 event(s) — click for the documents
+									1898 button (collapsed) FABRICATED sector preview, Secondary Actions: Expand
+										1899 text FABRICATED sector preview
+								1900 heading PORTFOLIO EXPOSURE 29% AMBER FABRICATED PREVIEW, Value: 3
+									1901 text PORTFOLIO EXPOSURE 29% AMBER FABRICATED PREVIEW
+								1902 container exposure
+									1903 text Solar 12% Steel 8% Auto Components 9% Banking 22% IT Services 18% FMCG 14%
+									1904 text 29% of holdings sit in currently-amber sectors. This fabricated holdings/news example is separate from the actual CSRS shown in CONSOLE.
+							119 container
+								1905 text NEWS CHANNEL · LIVE · 2328 ELIGIBLE EVENTS
+								1906 text OTHER — SBI Mutual Fund - SBI Nifty50 Equal Weight ETF · OTHER — Moschip Technologies Limited · PHYSICAL_HAZARD — M 4.6 - 153 km WNW of Adak, Alaska · PHYSICAL_HAZARD — M 5.2 - 59 km SW of Ashkāsham, Afghanistan · PHYSICAL_HAZARD — M 4.7 - 19 km NE of Atico, Peru · OTHER — प्रधानमंत्री ने वाराणसी यात्रा की झलकियाँ साझा कीं · OTHER — &#2327;&#2357;&#2352;&#2381;&#2344;&#2352; &#2325;&#2366; &#2360;&#2381;&#2357;&#2366;&#2327;&#2340; &#2360;&#2306;&#2348;&#2379;&#2343;&#2344; - RBI &#2325;&#2375; &#2337;&#2375;&#2335;&#2366; &#2360;&#2375;&#2306;&#2335;&#2352; &#2324;&#2352; &#2360;&#2366;&#2311;&#2348;&#2352; &#2360;&#2369;&#2352;&#2325;&#2381;&#2359;&#2366; &#2346;&#2381;&#2352;&#2358;&#2367;&#2325;&#2381;&#2359;&#2339; &#2360;&#2306;&#2360;&#2381;&#2341;&#2366;&#2344; &#2325;&#2366; &#2313;&#2342;&#2381;&#2328;&#2366;&#2335;&#2344; - · FACILITY_INCIDENT — Green forest fire notification in South Sudan · FACILITY_INCIDENT — Green forest fire notification in Zambia · OTHER — Ravindra Energy Limited · FACILITY_INCIDENT — Green forest fire notification in Zambia, Malawi · FACILITY_INCIDENT — Green forest fire notification in Senegal · REGULATORY_ACTION — सीसीपीए ने भ्रामक विज्ञापनों और वॉकी-टॉकी की गैर-अनुपालन बिक्री के खिलाफ कार्रवाई तेज की · OTHER — Green notification for tropical cyclone VANCE-26. Population affected by Category 1 (120 km/h) wind speeds or higher is 0 (0 in Tropical Storm). · OTHER — SKP Bearing Industries Limited · OTHER — एनआईएफटीईएम-के ने भारत के पहले ‘एआई × फूड टेक हैकाथॉन’, ‘हैक द फोर्क’ का आयोजन किया · FACILITY_INCIDENT — Green forest fire notification in Mali · OTHER — ECL Finance Limited · OTHER — ‘विकसित भारत 2047’ की दिशा में शहरी प्रशासन, योजना और सेवाओं की आपूर्ति को मजबूत करने संबंधी व्यावहारिक सुझावों के साथ ‘राष्ट्रीय शहरी सम्मेलन 2026’ संपन्न · OTHER — 12वां ब्रिक्स संसदीय मंच कल संसद भवन परिसर में आयोजित होगा · FACILITY_INCIDENT — Green forest fire notification in Mauritania, Mali · OTHER — GMR AIRPORTS LIMITED · OTHER — Aditya Birla Sun Life Insurance Company Limited · OTHER — Green notification for tropical cyclone IN-FA-26. Population affected by Category 1 (120 km/h) wind speeds or higher is 0 (0 in Tropical Storm). · OTHER — उपराष्ट्रपति सी. पी. राधाकृष्णन 26-27 अक्टूबर को आंध्र प्रदेश के दौरे पर रहेंगे · OTHER — Red notification for tropical cyclone CHAMPI-26. Population affected by Category 1 (120 km/h) wind speeds or higher is 0.291 million . · OTHER — Hon’ble Prime Minister of India inaugurates the Reserve Bank of India’s Data Centre and Cybersecurity Training Institute in Bhubaneswar, Odisha · OTHER — भुवनेश्वर में आरबीआइ की प्रमुख सुविधाओं के उद्घाटन के दौरान प्रधानमंत्री के संबोधन का मूल पाठ · OTHER — प्रधानमंत्री श्री नरेन्द्र मोदी ने ओडिशा के भुवनेश्वर में आरबीआई के नवनिर्मित डेटा सेंटर और साइबर सुरक्षा प्रशिक्षण संस्थान का उद्घाटन किया · OTHER — Green notification for tropical cyclone THREE-C-26. Population affected by Category 1 (120 km/h) wind speeds or higher is 0 (0 in Tropical Storm).
+						1078 container req-status-global
+							1416 text ● NO RESPONSE  — no response in 15s. Retry sends the same request id, so a request that did arrive cannot be applied twice. 
+							1417 button Retry, ID: req-retry
+							1418 button Cancel, ID: req-cancel
+
+The focused UI element is 12 link Description: RISK MAP, URL: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#

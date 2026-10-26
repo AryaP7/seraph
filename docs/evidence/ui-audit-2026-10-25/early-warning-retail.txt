@@ -1,0 +1,259 @@
+Browser tab: 1, Title: "SERAPH", URL: "http://127.0.0.1:8520/".
+0 AXWebArea SERAPH, URL: 127.0.0.1:8520/
+	1 container
+		2 container
+			3 link Description: Skip to main content, Value: 127.0.0.1:8520/#stMain
+			4 container stMain
+				5 container app.seraph_redesigned_console
+					6 AXWebArea SERAPH — Systemic Risk Early-Warning · NSE, URL: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F
+						7 container shell
+							8 container
+								9 text SER APH
+								10 link Description: CURRENT, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								11 link Description: RISK MAP, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								12 link Description: HISTORICAL, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								13 link Description: CONSOLE, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								14 link Description: SIGNAL FEED, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								15 link Description: PILLARS, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								16 link Description: EXPOSURE, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								17 link Description: FORECASTS, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								18 link Description: EARLY WARNING, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								19 link Description: WORKSPACE, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								20 link Description: EVALUATION, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								21 link Description: HEALTH, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								22 link Description: TOOLS, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								23 link Description: METHOD, Value: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
+								24 text HISTORICAL + TAGGED PREVIEWS
+								25 container roles
+									26 button REGULATOR
+									27 button INSTITUTIONAL
+									28 button RETAIL
+								29 text  LOCAL CLOCK — 
+								128 text 00:02:52
+								31 text  IST
+								32 text 1,019 desks · FABRICATED
+								33 button VIEW BACKTEST
+							129 text WARNING
+							35 container preview-banner
+								36 text NOT A CURRENT MARKET READING  — the newest observation is 2369.4 days old. Anything computed from it is a REPLAY of that period, not a statement about the market now, and must be labelled as such | observed 2020-04-30T15:30:00+05:30 · now 2026-10-25T23:59:31+05:30 · market not_a_session · feed: none — not connected, unauthenticated
+								37 text RUN 37bccf32974201f0 · 2020-04-30 · RETAIL | STALE — newest item 2 min old; 4 of 22 sources past the freshness policy they declared. Nothing on screen reflects what has happened since. | NEWS current_news 2026-10-25T23:58:30+05:30 | 18/22 feeds fresh | CONNECTED: SIGNALS, SECTOR_STRESS, GEOGRAPHY, ASSETS | 12 evidenced map node(s) | MARKET 2020-04-30T15:30:00+05:30
+							38 container ticker
+								39 text FABRICATED PREVIEW NIFTY 50 24,812.30   0.34% BANK NIFTY 52,406.85   0.21% NIFTY METAL 9,140.20   1.86% NIFTY PHARMA 21,558.45   0.92% NIFTY AUTO 25,033.10   1.24% NIFTY IT 38,902.60   0.44% INDIA VIX 13.82   1.10% USD/INR 83.41   0.18%
+							126 container viewExtra
+								127 heading WARNING, Value: 4, ID: extra-title
+									130 text WARNING
+								131 container extra-content
+									132 text WARNING STATE
+									133 text a policy decision, not a measurement
+									134 text NO WARNING
+									135 text the forecast 0.0692 is below the calibrated threshold 0.1252
+									136 text THE FORECAST
+									137 text one probability, one model, point-in-time
+									138 text PREDICTED PROBABILITY
+									139 text 6.92%
+									140 text of the loss event
+									141 text WARNING THRESHOLD
+									142 text 12.52%
+									143 text calibrated
+									144 text HORIZON
+									145 text 15
+									146 text sessions
+									147 text decision date
+									148 text 2026-10-22
+									149 text model
+									150 text combined (EWMA volatility + one feature per pillar family)
+									151 text UNVALIDATED
+									152 text No advance-warning skill, calibration or economic effect size has been demonstrated. AMENDMENT-03 measured Pillar 1 at approximately no skill at every intraday horizon and reclassified it as a contagion diagnostic, and the research replay records empirical_acceptance as unvalidated. These are honest limitations of a working instrument, not grounds for treating its output as a validated forecast.
+									153 text MEASURED — THE THREE PILLARS AT THIS CLOSE
+									154 text observations and arithmetic, not a forecast
+									155 table
+										156 row
+											157 cell
+												158 text PILLAR
+											159 cell
+												160 text INDICATOR
+											161 cell
+												162 text VALUE
+										163 row
+											164 cell
+												165 text volatility baseline
+											166 cell
+												167 text ewma_volatility
+											168 cell
+												169 text 0.0107
+										170 row
+											171 cell
+												172 text hawkes
+											173 cell
+												174 text hawkes_daily_intensity
+											175 cell
+												176 text 0.0502
+										177 row
+											178 cell
+												179 text rmt
+											180 cell
+												181 text rmt_fast_leading_share
+											182 cell
+												183 text 0.8292
+										184 row
+											185 cell
+												186 text rmt
+											187 cell
+												188 text rmt_fast_minus_slow
+											189 cell
+												190 text -0.0318
+										191 row
+											192 cell
+												193 text hamilton
+											194 cell
+												195 text hamilton_daily_next_volatility
+											196 cell
+												197 text 0.0139
+									198 text feature values at the decision date, computed from data available at that close; parameters estimated through t-1
+									199 text REALISED HISTORY
+									200 text retrospective replay, not foresight
+									201 text BRIER
+									202 text 0.0634
+									203 text lower is better
+									204 text AUC
+									205 text 0.637
+									206 text 0.5 is chance
+									207 text BASE RATE
+									208 text 6.84%
+									209 text of matured labels
+									210 text FALSE EPISODES/YR
+									211 text 1.01
+									212 text against budget
+									213 text retrospective replay over the available history. It shows what the instrument would have produced, which is implementation behaviour rather than demonstrated foresight
+									214 text CALIBRATION — DID DAYS IT CALLED P TURN OUT P?
+									215 text the uncertainty this model supports; it yields no interval
+									216 table
+										217 row
+											218 cell
+												219 text PREDICTED RANGE
+											220 cell
+												221 text SESSIONS
+											222 cell
+												223 text MEAN PREDICTED
+											224 cell
+												225 text REALISED RATE
+										226 row
+											227 cell
+												228 text 2%–5%
+											229 cell
+												230 text 46
+											231 cell
+												232 text 0.0475
+											233 cell
+												234 text 0.0000
+										235 row
+											236 cell
+												237 text 5%–10%
+											238 cell
+												239 text 2876
+											240 cell
+												241 text 0.0754
+											242 cell
+												243 text 0.0518
+										244 row
+											245 cell
+												246 text 10%–20%
+											247 cell
+												248 text 1292
+											249 cell
+												250 text 0.1299
+											251 cell
+												252 text 0.0820
+										253 row
+											254 cell
+												255 text 20%–50%
+											256 cell
+												257 text 274
+											258 cell
+												259 text 0.2890
+											260 cell
+												261 text 0.1861
+										262 row
+											263 cell
+												264 text 50%–100%
+											265 cell
+												266 text 3
+											267 cell
+												268 text 0.5141
+											269 cell
+												270 text 0.3333
+									271 text ALARM EPISODES
+									272 text contiguous runs of sessions in alarm
+									273 table
+										274 row
+											275 cell
+												276 text START
+											277 cell
+												278 text END
+										279 row
+											280 cell
+												281 text 2020-02-28
+											282 cell
+												283 text 2020-03-03
+										284 row
+											285 cell
+												286 text 2020-03-06
+											287 cell
+												288 text 2020-05-21
+										289 row
+											290 cell
+												291 text 2020-08-31
+											292 cell
+												293 text 2020-09-02
+										294 row
+											295 cell
+												296 text 2020-09-21
+											297 cell
+												298 text 2020-09-23
+										299 row
+											300 cell
+												301 text 2020-12-21
+											302 cell
+												303 text 2020-12-22
+										304 row
+											305 cell
+												306 text 2020-12-23
+											307 cell
+												308 text 2020-12-30
+										309 row
+											310 cell
+												311 text 2021-04-12
+											312 cell
+												313 text 2021-04-15
+										314 row
+											315 cell
+												316 text 2022-02-24
+											317 cell
+												318 text 2022-03-04
+										319 row
+											320 cell
+												321 text 2024-03-14
+											322 cell
+												323 text 2024-03-15
+										324 row
+											325 cell
+												326 text 2024-06-04
+											327 cell
+												328 text 2024-06-12
+										329 row
+											330 cell
+												331 text 2026-04-01
+											332 cell
+												333 text 2026-04-06
+										334 row
+											335 cell
+												336 text 2026-04-08
+											337 cell
+												338 text 2026-04-13
+							118 container
+								339 text NEWS CHANNEL · LIVE · 2328 ELIGIBLE EVENTS
+								340 text OTHER — SBI Mutual Fund - SBI Nifty50 Equal Weight ETF · OTHER — Moschip Technologies Limited · PHYSICAL_HAZARD — M 4.6 - 153 km WNW of Adak, Alaska · PHYSICAL_HAZARD — M 5.2 - 59 km SW of Ashkāsham, Afghanistan · PHYSICAL_HAZARD — M 4.7 - 19 km NE of Atico, Peru · OTHER — प्रधानमंत्री ने वाराणसी यात्रा की झलकियाँ साझा कीं · OTHER — &#2327;&#2357;&#2352;&#2381;&#2344;&#2352; &#2325;&#2366; &#2360;&#2381;&#2357;&#2366;&#2327;&#2340; &#2360;&#2306;&#2348;&#2379;&#2343;&#2344; - RBI &#2325;&#2375; &#2337;&#2375;&#2335;&#2366; &#2360;&#2375;&#2306;&#2335;&#2352; &#2324;&#2352; &#2360;&#2366;&#2311;&#2348;&#2352; &#2360;&#2369;&#2352;&#2325;&#2381;&#2359;&#2366; &#2346;&#2381;&#2352;&#2358;&#2367;&#2325;&#2381;&#2359;&#2339; &#2360;&#2306;&#2360;&#2381;&#2341;&#2366;&#2344; &#2325;&#2366; &#2313;&#2342;&#2381;&#2328;&#2366;&#2335;&#2344; - · FACILITY_INCIDENT — Green forest fire notification in South Sudan · FACILITY_INCIDENT — Green forest fire notification in Zambia · OTHER — Ravindra Energy Limited · FACILITY_INCIDENT — Green forest fire notification in Zambia, Malawi · FACILITY_INCIDENT — Green forest fire notification in Senegal · REGULATORY_ACTION — सीसीपीए ने भ्रामक विज्ञापनों और वॉकी-टॉकी की गैर-अनुपालन बिक्री के खिलाफ कार्रवाई तेज की · OTHER — Green notification for tropical cyclone VANCE-26. Population affected by Category 1 (120 km/h) wind speeds or higher is 0 (0 in Tropical Storm). · OTHER — SKP Bearing Industries Limited · OTHER — एनआईएफटीईएम-के ने भारत के पहले ‘एआई × फूड टेक हैकाथॉन’, ‘हैक द फोर्क’ का आयोजन किया · FACILITY_INCIDENT — Green forest fire notification in Mali · OTHER — ECL Finance Limited · OTHER — ‘विकसित भारत 2047’ की दिशा में शहरी प्रशासन, योजना और सेवाओं की आपूर्ति को मजबूत करने संबंधी व्यावहारिक सुझावों के साथ ‘राष्ट्रीय शहरी सम्मेलन 2026’ संपन्न · OTHER — 12वां ब्रिक्स संसदीय मंच कल संसद भवन परिसर में आयोजित होगा · FACILITY_INCIDENT — Green forest fire notification in Mauritania, Mali · OTHER — GMR AIRPORTS LIMITED · OTHER — Aditya Birla Sun Life Insurance Company Limited · OTHER — Green notification for tropical cyclone IN-FA-26. Population affected by Category 1 (120 km/h) wind speeds or higher is 0 (0 in Tropical Storm). · OTHER — उपराष्ट्रपति सी. पी. राधाकृष्णन 26-27 अक्टूबर को आंध्र प्रदेश के दौरे पर रहेंगे · OTHER — Red notification for tropical cyclone CHAMPI-26. Population affected by Category 1 (120 km/h) wind speeds or higher is 0.291 million . · OTHER — Hon’ble Prime Minister of India inaugurates the Reserve Bank of India’s Data Centre and Cybersecurity Training Institute in Bhubaneswar, Odisha · OTHER — भुवनेश्वर में आरबीआइ की प्रमुख सुविधाओं के उद्घाटन के दौरान प्रधानमंत्री के संबोधन का मूल पाठ · OTHER — प्रधानमंत्री श्री नरेन्द्र मोदी ने ओडिशा के भुवनेश्वर में आरबीआई के नवनिर्मित डेटा सेंटर और साइबर सुरक्षा प्रशिक्षण संस्थान का उद्घाटन किया · OTHER — Green notification for tropical cyclone THREE-C-26. Population affected by Category 1 (120 km/h) wind speeds or higher is 0 (0 in Tropical Storm).
+						121 container req-status-global
+							123 text ● SENDING…  — a news_project request is already in flight; wait or retry it
+
+The focused UI element is 18 link Description: EARLY WARNING, URL: 127.0.0.1:8520/component/app.seraph_redesigned_console/index.html?streamlitUrl=http%3A%2F%2F127.0.0.1%3A8520%2F#
